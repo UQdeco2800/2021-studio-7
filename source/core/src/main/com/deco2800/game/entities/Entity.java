@@ -83,7 +83,7 @@ public class Entity {
    * @param y new y position
    */
   public void setPosition(float x, float y) {
-    this.position.x = x;
+    this.position.x = x+1;
     this.position.y = y;
     getEvents().trigger(EVT_NAME_POS, position.cpy());
   }
