@@ -62,7 +62,7 @@ public class NPCFactory {
 
     return ghost;
   }
-
+// Team 1 to create a new entity.
   /**
    * Creates a ghost king entity.
    *
