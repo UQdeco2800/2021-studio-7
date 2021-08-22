@@ -75,6 +75,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         walkDirection.sub(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
+      case Keys.SHIFT_LEFT:
+
       default:
         return false;
     }
