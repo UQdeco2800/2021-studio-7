@@ -16,6 +16,7 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
   private Label healthLabel;
+  private Label staminaLabel; //TODO
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -26,6 +27,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateStamina", this::updatePlayerStaminaUI);
   }
 
   /**
@@ -47,8 +49,15 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence healthText = String.format("Health: %d", health);
     healthLabel = new Label(healthText, skin, "large");
 
-    table.add(heartImage).size(heartSideLength).pad(5);
-    table.add(healthLabel);
+    // stamina text
+    int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
+    CharSequence staminaText = String.format("Stamina: %d", stamina);
+    staminaLabel = new Label(staminaText, skin, "large");
+
+    table.add(heartImage).size(heartSideLength).left();//pad(5);
+    table.add(healthLabel).left();
+    table.row();
+    table.add(staminaLabel).left(); //todo
     stage.addActor(table);
   }
 
@@ -66,10 +75,20 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
+  /**
+   * Updates the player's stamina on the ui.
+   * @param stamina player stamina
+   */
+  public void updatePlayerStaminaUI (int stamina) {
+    CharSequence text = String.format("Stamina: %d", stamina);
+    staminaLabel.setText(text);
+  }
+
   @Override
   public void dispose() {
     super.dispose();
     heartImage.remove();
     healthLabel.remove();
+    staminaLabel.remove(); //todo
   }
 }
