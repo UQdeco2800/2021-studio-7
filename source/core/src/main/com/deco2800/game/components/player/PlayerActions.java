@@ -17,6 +17,7 @@ public class PlayerActions extends Component {
   private PhysicsComponent physicsComponent;
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
+  private boolean running = false;
 
   @Override
   public void create() {
@@ -24,6 +25,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
+    entity.getEvents().addListener("run", this::run);
+    entity.getEvents().addListener("stopRun", this::stopRunning);
   }
 
   @Override
@@ -34,6 +37,11 @@ public class PlayerActions extends Component {
   }
 
   private void updateSpeed() {
+    if (running) {
+      MAX_SPEED.set(10f, 10f); //FIXME set to 5f
+    } else {
+      MAX_SPEED.set(3f, 3f);
+    }
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
     Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
@@ -67,5 +75,19 @@ public class PlayerActions extends Component {
   void attack() {
     Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
     attackSound.play();
+  }
+
+  /**
+   * Indicates player is running
+   */
+  void run() {
+    running = true;
+  }
+
+  /**
+   * Indicates player is running
+   */
+  void stopRunning() {
+    running = false;
   }
 }
