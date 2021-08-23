@@ -27,6 +27,7 @@ public class PlayerStatsDisplay extends UIComponent {
     addActors();
 
     entity.getEvents().addListener("updateHealth", this::updatePlayerHealthUI);
+    entity.getEvents().addListener("updateStamina", this::updatePlayerStaminaUI);
   }
 
   /**
@@ -74,7 +75,14 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel.setText(text);
   }
 
-  //todo: updatePlayerStaminaUI
+  /**
+   * Updates the player's stamina on the ui.
+   * @param stamina player stamina
+   */
+  public void updatePlayerStaminaUI (int stamina) {
+    CharSequence text = String.format("Stamina: %d", stamina);
+    staminaLabel.setText(text);
+  }
 
   @Override
   public void dispose() {

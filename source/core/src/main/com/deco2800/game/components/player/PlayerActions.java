@@ -34,9 +34,11 @@ public class PlayerActions extends Component {
     if (moving) {
       updateSpeed();
     }
+    updateStamina();
   }
 
   private void updateSpeed() {
+    // changes speed when running
     if (running) {
       MAX_SPEED.set(10f, 10f); //FIXME set to 5f
     } else {
@@ -48,6 +50,14 @@ public class PlayerActions extends Component {
     // impulse = (desiredVel - currentVel) * mass
     Vector2 impulse = desiredVelocity.sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+  }
+
+  private void updateStamina() {
+    if (running) {
+      entity.getEvents().trigger("changeStamina", -1);
+    } else {
+      entity.getEvents().trigger("changeStamina", 1);
+    }
   }
 
   /**
@@ -82,6 +92,7 @@ public class PlayerActions extends Component {
    */
   void run() {
     running = true;
+    updateStamina();
   }
 
   /**
@@ -89,5 +100,6 @@ public class PlayerActions extends Component {
    */
   void stopRunning() {
     running = false;
+    updateStamina();
   }
 }

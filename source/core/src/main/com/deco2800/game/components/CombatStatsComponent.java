@@ -1,5 +1,6 @@
 package com.deco2800.game.components;
 
+import com.deco2800.game.physics.components.PhysicsComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,11 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int baseAttack;
   private int stamina;
+
+  @Override
+  public void create() {
+    entity.getEvents().addListener("changeStamina", this::changeStamina);
+  }
 
   public CombatStatsComponent(int health, int baseAttack, int stamina) {
     setHealth(health);
@@ -112,23 +118,20 @@ public class CombatStatsComponent extends Component {
   }
 
   /**
-   * Adds to the player's stamina. The amount added can be negative.
+   * Changes the player's stamina. The amount added can be negative.
+   * Checks for upper and lower stamina bound before changing.
    *
    * @param stamina stamina to add
    */
-  public void addStamina(int stamina) {
-    setStamina(this.stamina + stamina);
+  public void changeStamina(int stamina) {
+    int newStamina = this.stamina + stamina;
+    if (newStamina >= 0 && newStamina <= 100) {
+      setStamina(this.stamina + stamina);
+    }
   }
 
   public void hit(CombatStatsComponent attacker) {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
   }
-
-  /**
-  public void run() {
-    int newStamina = getStamina() - attacker.getBaseAttack();
-    setHealth(newHealth);
-  }
-   */ //TODO decrease stamina
 }

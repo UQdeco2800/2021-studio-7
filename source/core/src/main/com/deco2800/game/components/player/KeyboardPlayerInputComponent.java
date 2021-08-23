@@ -7,12 +7,15 @@ import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
+import java.nio.file.FileAlreadyExistsException;
+
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
   private final Vector2 walkDirection = Vector2.Zero.cpy();
+  private boolean running = false;
 
   public KeyboardPlayerInputComponent() {
     super(5);
@@ -47,7 +50,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
       case Keys.SHIFT_LEFT:
-        entity.getEvents().trigger("run");
+        running = true;
+        triggerRunEvent();
+        return true;
       default:
         return false;
     }
@@ -79,7 +84,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         triggerWalkEvent();
         return true;
       case Keys.SHIFT_LEFT:
-        entity.getEvents().trigger("stopRun");
+        running = false;
+        triggerRunEvent();
+        return true;
       default:
         return false;
     }
@@ -94,7 +101,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
   }
 
   private void triggerRunEvent() {
-    //TODO maybe put event triggers in here. Also add check for remaining stamina before trigger running.
-
+    //TODO add check for remaining stamina before trigger running.
+    if(running) {
+      entity.getEvents().trigger("run");
+    } else {
+      entity.getEvents().trigger("stopRun");
+    }
   }
 }
