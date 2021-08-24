@@ -5,10 +5,16 @@ import com.badlogic.gdx.math.GridPoint2;
 import java.io.*;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+/**
+ * Utility class that handles the generation of MapRoom objects based on text
+ * file contents.
+ *
+ * TODO Need to add a method to convert '\' or '/' symbols in texture paths to
+ *      the system-based directory separator (File.separator)
+ */
 public class RoomLoader {
     /* drm file constants */
     // General
