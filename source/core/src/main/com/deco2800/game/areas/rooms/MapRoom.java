@@ -4,8 +4,13 @@ import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.HashMap;
 
+/**
+ * Represents a 'room' inside a 'house'. Is a discrete section of a game level's
+ * map. Stores information that can be used for map generation.
+ *
+ * TODO add getters/setters
+ */
 public class MapRoom {
-
     public MapRoom(
             GridPoint2 dimensions,
             GridPoint2 offset,
