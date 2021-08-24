@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 
 public class RoomLoader {
     /* drm file constants */
+    // General
     private static final int MIN_LINES = 8;
     private static final int BASE_WALL_INDEX = 0;
     private static final int BASE_FLOOR_INDEX = 1;
     private static final int DIMENSION_INDEX = 0;
     private static final int OFFSET_INDEX = 0;
-
 
     // Symbols
     private static final char SEP = ',';
@@ -42,6 +42,19 @@ public class RoomLoader {
     private static final String VAL_BASE_FLOOR = "BASE_FLOOR";
 
     /* Private methods */
+
+    /**
+     * Gets all files in a provided directory.
+     *
+     * @param path
+     * String of the path pointing to a directory.
+     *
+     * @return
+     * An array of the files contained within the provided directory.
+     *
+     * @throws InvalidPathException
+     * If the given directory is not a directory, or does not contain any files.
+     */
     private File[] getPathFiles(String path) throws InvalidPathException {
         File mapDirectory = new File(path);
 
@@ -55,14 +68,37 @@ public class RoomLoader {
         return roomFiles;
     }
 
-
+    /**
+     * Checks if a given path is a DRM file. That is, it checks for a '.drm'
+     * filetype extension.
+     * TODO Not currently implemented.
+     *
+     * @param path
+     * The path to a file to check.
+     *
+     * @return
+     * `true` if the path points to a DRM file, `false` otherwise.
+     */
     private static boolean checkForDRM(String path) {
         // Check if the files at the given path end in ".drm"
         // TODO
         return true;
     }
 
-
+    /**
+     * Preprocesses file lines. Preprocessing involves trimming lines of leading
+     * and trailing whitespace, and removes lines that are blank or comments.
+     *
+     * Currently, comments are only valid on lines with no other content. They
+     * cannot be used at the end of an existing line.
+     * TODO Add comments on content lines
+     *
+     * @param lines
+     * A list of all raw lines from a DRM file.
+     *
+     * @return
+     * A list of lines that are ready to be parsed for room creation.
+     */
     private static ArrayList<String> preprocessFileLines(
             ArrayList<String> lines) {
 
@@ -82,11 +118,29 @@ public class RoomLoader {
         return newLines;
     }
 
-
+    /**
+     * Checks if the given lines are in a valid DRM file format. Checks are NOT
+     * exhaustive, and serve as a rough guideline. Checks for:
+     *      - File length (has mandatory lines)
+     *      - Room dimensions and offset existence and format
+     *      - Existence of texture section with 'DEFINE' and 'PLACE' subsections
+     *      - Existence of mandatory 'BASE_...' texture definitions.
+     *
+     * The current implementation prioritises some form of readability over
+     * performance.
+     *
+     * TODO Remake method uses newer getX() functions.
+     * TODO Create helper methods to reduce method length.
+     *
+     * @param lines
+     * The preprocessed lines from a DRM file.
+     *
+     * @return
+     * Returns `true` if the list of lines is in a valid
+     * @throws FileNotFoundException
+     */
     private static boolean checkFileLines(ArrayList<String> lines)
             throws FileNotFoundException {
-        // TODO: Remake with the get... functions
-        // NOTE: Need to check the best way to format this function
 
         // Check file length
         if (lines.size() < MIN_LINES) {
@@ -163,7 +217,19 @@ public class RoomLoader {
         return true;
     }
 
-
+    /**
+     * Gets indexes associated with the beginning and end of a given section.
+     *
+     * @param lines
+     * The DRM file lines to find section indexes on.
+     * @param sectionTitle
+     * The name of the section to find indexes for. Section is specified with
+     * defined section constants.
+     *
+     * @return
+     * An array of two integers, corresponding to the lines that the section
+     * starts and finishes on. Index is 0-based. Of the form '[start, stop]'.
+     */
     private static int[] getSectionBounds(ArrayList<String> lines,
                                           String sectionTitle) {
 
@@ -191,7 +257,27 @@ public class RoomLoader {
         }
     }
 
-
+    /**
+     * Gets indexes associated with the beginning and end of a given subsection.
+     * A subsection is found solely inside a parent section.
+     *
+     * The stop condition for a 'DEFINE' subsection is the start of the 'PLACE'
+     * subsection. The stop condition for a 'PLACE' subsection is the end of the
+     * given section.
+     *
+     * @param lines
+     * The DRM file lines to find subsection indexes on.
+     * @param section
+     * The name of the section to find indexes for. Section is specified with
+     * defined section constants.
+     * @param subsec
+     * The name of the subsection to find indexes for. Subsection is specified
+     * with defined subsection constants.
+     *
+     * @return
+     * An array of two integers, corresponding to the lines that the subsection
+     * starts and finishes on. Index is 0-based. Of the form '[start, stop]'.
+     */
     private static int[] getSubsecBounds(ArrayList<String> lines,
                                          String section, String subsec) {
 
@@ -235,7 +321,22 @@ public class RoomLoader {
         }
     }
 
-
+    /**
+     * Loads a DRM file and returns all the lines inside it that are usable. The
+     * lines will be preprocessed and checked for some validity.
+     *
+     * @param drmFile
+     * The DRM file to get the information lines from.
+     *
+     * @return
+     * A list of all usable/informative lines in the given file.
+     *
+     * @throws IOException
+     * If the given file cannot be read from.
+     * @throws FileNotFoundException
+     * If the given file cannot be found. This should not be possible in normal
+     * use-case.
+     */
     private static ArrayList<String> loadRoomInfo(File drmFile)
             throws IOException, FileNotFoundException {
         ArrayList<String> fileLines = new ArrayList<>();
@@ -248,7 +349,7 @@ public class RoomLoader {
         }
         catch (FileNotFoundException e) {
             // This should not happen
-            System.out.println(e.toString());
+            throw new FileNotFoundException();
         }
         catch (IOException e) {
             throw new IOException("Given file is invalid");
@@ -263,7 +364,16 @@ public class RoomLoader {
         return fileLines;
     }
 
-
+    /**
+     * Takes the base texture information from a list of valid DRM file lines.
+     *
+     * @param roomLines
+     * List of informative lines from a DRM file.
+     *
+     * @return
+     * A String array with two values. Each value represents a relative path to
+     * either the base wall or floor texture.
+     */
     private static String[] extractBaseTextures(ArrayList<String> roomLines) {
         String[] textures = new String[2];
 
@@ -274,11 +384,11 @@ public class RoomLoader {
         // Find base wall and floor
         for (String line : roomLines.subList(defBound[0], defBound[1])) {
             if (line.contains(VAL_BASE_WALL)) {
-                // Pull the texture path. Don't need symbol
+                // Pull the texture path. Don't need symbol val
                 textures[BASE_WALL_INDEX] = line.split(":")[1];
             }
             else if (line.contains(VAL_BASE_FLOOR)) {
-                // Pull the texture path. Don't need symbol
+                // Pull the texture path. Don't need symbol val
                 textures[BASE_FLOOR_INDEX] = line.split(":")[1];
             }
         }
@@ -286,7 +396,18 @@ public class RoomLoader {
         return textures;
     }
 
-
+    /**
+     * Takes additional texture information (textures barring the base wall and
+     * floor) from a list of valid DRM file lines. Maintains the texture and
+     * symbol association.
+     *
+     * @param roomLines
+     * List of informative lines from a DRM file.
+     *
+     * @return
+     * A HashMap, mapping texture symbols to their relative texture paths. Here,
+     * symbol is the key and texture path is the value.
+     */
     private static HashMap<String, String> extractTextureSymbols(
             ArrayList<String> roomLines
     ) {
@@ -299,7 +420,8 @@ public class RoomLoader {
         // Find all textures bar base wall and floor
         for (String line : roomLines.subList(defBound[0] + 1, defBound[1])) {
             // FIXME This implementation stops any lines that contain the text,
-            // not just the default symbols.
+            //      not just the default symbols.
+            //      Could try to use .startsWith()? Maybe with `+ ":"`
             if (line.contains(VAL_BASE_WALL) || line.contains(VAL_BASE_FLOOR)) {
                 continue;
             }
@@ -315,7 +437,21 @@ public class RoomLoader {
         return textureSymbols;
     }
 
-
+    /**
+     * Takes the texture placement information from a list of valid DRM file
+     * lines. Textures are identified by the symbols defined inside the given
+     * DRM file lines.
+     *
+     * Does not handle missing symbol definitions or out-of-bounds textures.
+     *
+     * @param roomLines
+     * List of informative lines from a DRM file.
+     *
+     * @return
+     * HashMap of a 2d grid point representing the location inside the room that
+     * the texture belongs mapped with the symbol used to define the desired
+     * texture. The grid point is the key and the symbol the value.
+     */
     private static HashMap<GridPoint2, String> extractTextureLocations(
             ArrayList<String> roomLines
     ) {
@@ -342,7 +478,16 @@ public class RoomLoader {
         return texturePositions;
     }
 
-
+    /**
+     * Generates a MapRoom object, based on a list of DRM file lines.
+     *
+     * @param roomLines
+     * List of informative lines from a DRM file.
+     *
+     * @return
+     * A MapRoom object constructed with the details found in the associated DRM
+     * file.
+     */
     private static MapRoom parseRoomInfo(ArrayList<String> roomLines) {
 
         // Get room dimensions
@@ -384,6 +529,21 @@ public class RoomLoader {
 
 
     /* Public methods */
+
+    /**
+     * Generates a MapRoom object, based on the information from a valid DRM
+     * file.
+     * @param drmFile
+     * The file to load information from, for room generation.
+     *
+     * @return
+     * The generated MapRoom object.
+     *
+     * @throws IOException
+     * If the DRM file cannot be read.
+     * @throws FileNotFoundException
+     * If given a bad DRM file. Should not happen in normal use.
+     */
     public static MapRoom loadRoom(File drmFile)
             throws IOException, FileNotFoundException {
 
@@ -396,6 +556,9 @@ public class RoomLoader {
         return newRoom;
     }
 
+    /**
+     * Testing purposes.
+     */
     public static void main(String[] args) throws Exception {
         // Testing
         System.out.println("Well Howdy!");
