@@ -58,6 +58,8 @@ public class InteractableComponent extends Component {
                 this::onCollisionEnd);
         // TODO Collision start will currently trigger with both the player AND
         //  NPCs. We want it to trigger on just the player, NOT the NPCS.
+        entity.getEvents().addListener("interaction",
+                this::onInteraction);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
     }
 
