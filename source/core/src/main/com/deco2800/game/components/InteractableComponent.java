@@ -39,6 +39,6 @@ public class InteractableComponent extends Component {
     }
 
     private void onCollisionStart(Fixture me, Fixture other) {
-        
+
     }
 }
