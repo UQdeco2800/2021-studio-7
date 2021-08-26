@@ -19,7 +19,7 @@ public class LoseScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LoseScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] winMenuTexture = {"images/lose_screen_bg.png"};
+    private static final String[] loseScreenTexture = {"images/lose_screen_bg.png"};
 
     public LoseScreen(GdxGame game) {
         this.game = game;
