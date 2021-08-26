@@ -92,7 +92,7 @@ public class InteractableComponent extends Component {
         // TODO Sprite changes and trigger event
         System.out.println("touching interactable object");
 
-        // Doesn't do anything yet
+        // Doesn't do anything yet (For animations probably)
         entity.getEvents().trigger("interactionStart");
     }
 
@@ -100,7 +100,7 @@ public class InteractableComponent extends Component {
         this.isTouching = false;
         // TODO Undo sprite changes
 
-        // Doesn't do anything yet
+        // Doesn't do anything yet (For animations probably)
         entity.getEvents().trigger("interactionEnd");
     }
 
@@ -109,6 +109,7 @@ public class InteractableComponent extends Component {
             return;
         }
         // TODO stuff that happens when interacted with
+        System.out.println("Interacted with object!");
 
     }
 }
