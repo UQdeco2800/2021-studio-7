@@ -66,6 +66,7 @@ public class InteractableComponent extends Component {
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
             // Not triggered by hitbox, ignore
+
             return;
         }
 
@@ -95,5 +96,6 @@ public class InteractableComponent extends Component {
             return;
         }
         // TODO stuff that happens when interacted with
+
     }
 }
