@@ -6,29 +6,11 @@ import com.badlogic.gdx.math.Vector2;
  * Contains additional utility constants and functions for common Vector2 operations.
  */
 public class Vector2Utils {
-
-  public static final Vector2 ZERO = new Vector2(0f, 0f);
-
   public static final Vector2 LEFT = new Vector2(-1f, 0f);
   public static final Vector2 RIGHT = new Vector2(1f, 0f);
   public static final Vector2 UP = new Vector2(0f, 1f);
   public static final Vector2 DOWN = new Vector2(0f, -1f);
-  public static final Vector2 UPLEFT = new Vector2(-1f, 1f);
-  public static final Vector2 UPRIGHT = new Vector2(1f, 1f);
-  public static final Vector2 DOWNLEFT = new Vector2(-1f, -1f);
-  public static final Vector2 DOWNRIGHT = new Vector2(1f, -1f);
 
-  /**
-   * Increases the speed when holding shift
-   */
-  public static final Vector2 SPRINT_LEFT = new Vector2(-2f, 0f);
-  public static final Vector2 SPRINT_RIGHT = new Vector2(2f, 0f);
-  public static final Vector2 SPRINT_UP = new Vector2(0f, 2f);
-  public static final Vector2 SPRINT_DOWN = new Vector2(0f, -2f);
-  public static final Vector2 SPRINT_UPLEFT = new Vector2(-2f, 2f);
-  public static final Vector2 SPRINT_UPRIGHT = new Vector2(2f, 2f);
-  public static final Vector2 SPRINT_DOWNLEFT = new Vector2(-2f, -2f);
-  public static final Vector2 SPRINT_DOWNRIGHT = new Vector2(2f, -2f);
 
   public static final Vector2 ONE = new Vector2(1f, 1f);
   public static final Vector2 MAX = new Vector2(Float.MAX_VALUE, Float.MAX_VALUE);
