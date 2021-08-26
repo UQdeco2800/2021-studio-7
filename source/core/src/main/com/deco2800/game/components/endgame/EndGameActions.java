@@ -1,4 +1,4 @@
-package com.deco2800.game.components.losegame;
+package com.deco2800.game.components.endgame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.Component;
@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
  * This class listens to events relevant to the Main Game Screen and does something when one of the
  * events is triggered.
  */
-public class LoseGameActions extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(LoseGameActions.class);
+public class EndGameActions extends Component {
+  private static final Logger logger = LoggerFactory.getLogger(EndGameActions.class);
   private GdxGame game;
 
-  public LoseGameActions(GdxGame game) {
+  public EndGameActions(GdxGame game) {
     this.game = game;
   }
 

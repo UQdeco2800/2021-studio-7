@@ -1,4 +1,4 @@
-package com.deco2800.game.components.losegame;
+package com.deco2800.game.components.endgame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
-public class LoseGameExitDisplay extends UIComponent {
-  private static final Logger logger = LoggerFactory.getLogger(LoseGameExitDisplay.class);
+public class EndGameExitDisplay extends UIComponent {
+  private static final Logger logger = LoggerFactory.getLogger(EndGameExitDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
 
