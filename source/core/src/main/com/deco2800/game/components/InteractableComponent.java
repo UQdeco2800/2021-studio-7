@@ -2,8 +2,6 @@ package com.deco2800.game.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-import java.awt.*;
-
 /**
  * When this entity collides with the player's hitbox, triggers an event, and
  * triggers another event when interacted with by the player.
@@ -13,9 +11,6 @@ import java.awt.*;
  */
 public class InteractableComponent extends Component {
     private short targetLayer;
-    Rectangle playerHitBox;
-    Rectangle bedHitBox;
-    Rectangle doorHitBox;
 
     /**
      * Create a component which listens for collisions with the player on its
