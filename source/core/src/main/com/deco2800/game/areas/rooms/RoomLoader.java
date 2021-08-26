@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class RoomLoader {
     /* drm file constants */
     // General
+    public static final String DRM_FILE_EXT = ".drm";
     private static final int MIN_LINES = 8;
     private static final int BASE_WALL_INDEX = 0;
     private static final int BASE_FLOOR_INDEX = 1;
@@ -61,7 +62,9 @@ public class RoomLoader {
      * @throws InvalidPathException
      * If the given directory is not a directory, or does not contain any files.
      */
-    private File[] getPathFiles(String path) throws InvalidPathException {
+    private static File[] getPathFiles(String path)
+            throws InvalidPathException
+    {
         File mapDirectory = new File(path);
 
         File[] roomFiles = mapDirectory.listFiles();
@@ -77,7 +80,6 @@ public class RoomLoader {
     /**
      * Checks if a given path is a DRM file. That is, it checks for a '.drm'
      * filetype extension.
-     * TODO Not currently implemented.
      *
      * @param path
      * The path to a file to check.
@@ -87,8 +89,41 @@ public class RoomLoader {
      */
     private static boolean checkForDRM(String path) {
         // Check if the files at the given path end in ".drm"
-        // TODO
-        return true;
+        if (path.endsWith(DRM_FILE_EXT)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Gets all files in a directory that are DRM files.
+     *
+     * @param path
+     * The directory to check for DRM files.
+     *
+     * @return
+     * An array of files that end in ".drm". If none exist, it will return null.
+     */
+    private static File[] getDRMFiles(String path) throws InvalidPathException {
+        ArrayList<File> drmFiles = new ArrayList<File>();
+
+        // Get all files in path
+        File[] allFiles = getPathFiles(path);
+
+        // Check all files in path for .drm extension
+        for (File file : allFiles) {
+            if (checkForDRM(file.toString())) {
+                drmFiles.add(file);
+            }
+        }
+
+        // Check for empty list
+        if (drmFiles.isEmpty()) {
+            return null;
+        }
+
+        return (File[]) drmFiles.toArray(new File[drmFiles.size()]);
     }
 
     /**
@@ -97,7 +132,7 @@ public class RoomLoader {
      *
      * Currently, comments are only valid on lines with no other content. They
      * cannot be used at the end of an existing line.
-     * TODO Add comments on content lines
+     * TODO Allow comments on content lines
      *
      * @param lines
      * A list of all raw lines from a DRM file.
@@ -562,17 +597,43 @@ public class RoomLoader {
         return newRoom;
     }
 
+    public static MapRoom[] loadAllRooms(String directoryPath)
+            throws IOException, FileNotFoundException
+    {
+        ArrayList<MapRoom> rooms = new ArrayList<>();
+
+        // Load all room .drm files
+        File[] files = getDRMFiles(directoryPath);
+
+        // Finish if no rooms
+        if (files == null) {
+            return null;
+        }
+
+        // Convert each room file into a MapRoom
+        for (File file : files) {
+            rooms.add(loadRoom(file));
+        }
+
+        // Return null if there are no rooms
+        if (rooms.isEmpty()) {
+            return null;
+        }
+
+        return rooms.toArray(new MapRoom[rooms.size()]);
+    }
+
     /**
      * Testing purposes.
      */
     public static void main(String[] args) throws Exception {
         // Testing
         System.out.println("Well Howdy!");
-        File f = new File("C:\\Users\\Ethan\\Documents\\_Uni\\DECO2800\\Game\\2021-studio-7\\source\\maps\\m1\\r1.drm");
-        try {
-            MapRoom r = loadRoom(f);
-        } catch (Exception e) {
-            throw e;
+
+        MapRoom[] rooms = loadAllRooms("C:\\Users\\Ethan\\Documents\\_Uni\\DECO2800\\Game\\2021-studio-7\\source\\maps\\m1");
+
+        for (MapRoom room : rooms) {
+            System.out.println(room.toString());
         }
     }
 }
