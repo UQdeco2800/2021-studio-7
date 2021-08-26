@@ -1,6 +1,10 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.Input.Keys;
+
+import java.awt.*;
 
 /**
  * When this entity collides with the player's hitbox, triggers an event, and
@@ -11,6 +15,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  */
 public class InteractableComponent extends Component {
     private short targetLayer;
+    Rectangle playerHitBox;
+    Rectangle bedHitBox;
+    Rectangle doorHitBox;
 
     /**
      * Create a component which listens for collisions with the player on its
@@ -46,5 +53,20 @@ public class InteractableComponent extends Component {
 
     private void onCollisionStart(Fixture me, Fixture other) {
 
+    }
+
+    public void ifCollision(){
+        if (playerHitBox.intersects(doorHitBox)){
+            System.out.println("Near Door");
+            if (Gdx.input.isKeyPressed(Keys.E)){
+                System.out.println("Door Successfully Opened!");
+            }
+        }
+        if (playerHitBox.intersects(bedHitBox)){
+            System.out.println("Near Bed");
+            if (Gdx.input.isKeyPressed(Keys.E)){
+                System.out.println("Reached bed successfully!");
+            }
+        }
     }
 }
