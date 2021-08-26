@@ -6,7 +6,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
@@ -16,15 +15,13 @@ import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.Provider;
-
-public class WinScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(WinScreen.class);
+public class LoseScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(LoseScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] winMenuTexture = {"images/win_screen_bg.png"};
+    private static final String[] winMenuTexture = {"images/lose_screen_bg.png"};
 
-    public WinScreen(GdxGame game) {
+    public LoseScreen(GdxGame game) {
         this.game = game;
 
         logger.debug("Initialising win screen services");
@@ -53,7 +50,7 @@ public class WinScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing win screen");
+        logger.debug("Disposing lose screen");
         renderer.dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getEntityService().dispose();
