@@ -1,5 +1,8 @@
 package com.deco2800.game.components;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -8,6 +11,8 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.components.Component;
+import com.deco2800.game.ui.terminal.KeyboardTerminalInputComponent;
 
 /**
  * When this entity collides with the player's hitbox, triggers an event, and
@@ -21,6 +26,9 @@ public class InteractableComponent extends Component {
     private String collisionEvent;
     private String interactionEvent;
     private HitboxComponent hitboxComponent;
+    private Rectangle doorHitBox;
+    private Rectangle bedHitbox;
+    private Rectangle playerHitBox;
     private boolean isTouching = false;
 
     /**
@@ -93,5 +101,14 @@ public class InteractableComponent extends Component {
             return;
         }
         // TODO stuff that happens when interacted with
+    }
+
+    public void isCollision(){
+        if (playerHitBox.overlaps(doorHitBox) && Gdx.input.isKeyPressed(Input.Keys.E)){
+
+        }
+        else if (playerHitBox.overlaps(bedHitbox) && Gdx.input.isKeyPressed(Input.Keys.E)){
+
+        }
     }
 }
