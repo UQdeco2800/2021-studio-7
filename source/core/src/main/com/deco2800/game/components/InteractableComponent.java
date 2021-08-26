@@ -25,7 +25,19 @@ public class InteractableComponent extends Component {
 
     /**
      * Create a component which listens for collisions with the player on its
+     * target later.
+     * @param targetLayer
+     */
+    public InteractableComponent (short targetLayer){
+        this.targetLayer = targetLayer;
+    }
+
+    /**
+     * Create a component which listens for collisions with the player on its
      * target layer, and triggers an event on collision.
+     * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
+     * used to parse a texture string for demo purposes. - Treff
+     * //TODO Implement animation system for texture changes
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
@@ -77,6 +89,7 @@ public class InteractableComponent extends Component {
 
         this.isTouching = true;
         // TODO Sprite changes and trigger event
+        System.out.println("touching interactable object");
 
         // Doesn't do anything yet
         entity.getEvents().trigger("interactionStart");

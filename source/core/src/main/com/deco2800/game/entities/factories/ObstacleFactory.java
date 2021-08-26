@@ -1,10 +1,12 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.deco2800.game.components.InteractableComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.TextureRenderComponent;
 
@@ -47,7 +49,23 @@ public class ObstacleFactory {
     return wall;
   }
 
+  public static Entity createBed(){
+    Entity bed = new Entity()
+            .addComponent(new TextureRenderComponent(("images/bed_inactive" +
+                      ".png")))
+            .addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent((new InteractableComponent(PhysicsLayer.PLAYER)));
+    bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    bed.getComponent(TextureRenderComponent.class).scaleEntity();
+    bed.scaleHeight(1.0f);
+    PhysicsUtils.setScaledCollider(bed,0.5f, 0.5f);
+    return bed;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }
 }
+
