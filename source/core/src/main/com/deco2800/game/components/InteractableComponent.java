@@ -3,7 +3,10 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -17,18 +20,25 @@ import com.deco2800.game.physics.components.PhysicsComponent;
  * this entity.
  */
 public class InteractableComponent extends Component {
+    private Entity player;
     private short targetLayer;
     private String collisionEvent;
     private String interactionEvent;
     private HitboxComponent hitboxComponent;
+    private KeyboardPlayerInputComponent inputComponent;
     private boolean isTouching = false;
 
     /**
      * Create a component which listens for collisions with the player on its
-     * target later.
-     * @param targetLayer
+     * target layer, and triggers an event on collision.
+     * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
+     * used to parse a texture string for demo purposes. - Treff
+     * //TODO Implement animation system for texture changes
+     * @param player The player entity
+     * @param targetLayer The physics layer of the target's collider
      */
-    public InteractableComponent (short targetLayer){
+    public InteractableComponent (Entity player, short targetLayer) {
+        this.player = player;
         this.targetLayer = targetLayer;
     }
 
@@ -38,10 +48,12 @@ public class InteractableComponent extends Component {
      * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
      * used to parse a texture string for demo purposes. - Treff
      * //TODO Implement animation system for texture changes
+     * @param player The player entity
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
-    public InteractableComponent (short targetLayer, String collisionEvent) {
+    public InteractableComponent (Entity player, short targetLayer, String collisionEvent) {
+        this.player = player;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
     }
@@ -50,13 +62,15 @@ public class InteractableComponent extends Component {
      * Create a component which listens for collisions with the player on its
      * target layer, triggers an event on collision, and triggers an even once
      * interacted with by the player.
+     * @param player The player entity
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      * @param interactionEvent The event to trigger when the player interacts
      *                         with the object
      */
-    public InteractableComponent (short targetLayer, String collisionEvent,
+    public InteractableComponent (Entity player, short targetLayer, String collisionEvent,
                                   String interactionEvent) {
+        this.player = player;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
         this.interactionEvent = interactionEvent;
@@ -70,8 +84,14 @@ public class InteractableComponent extends Component {
                 this::onCollisionEnd);
         // TODO Collision start will currently trigger with both the player AND
         //  NPCs. We want it to trigger on just the player, NOT the NPCS.
-        entity.getEvents().addListener("interaction",
-                this::onInteraction);
+
+        // Should trigger when the player presses the E key
+        try {
+            player.getEvents().addListener("interaction", this::onInteraction);
+        } catch (Exception e) {
+            System.out.println("Exception: %e");
+        }
+
         hitboxComponent = entity.getComponent(HitboxComponent.class);
     }
 
@@ -104,7 +124,7 @@ public class InteractableComponent extends Component {
         entity.getEvents().trigger("interactionEnd");
     }
 
-    private void onInteraction(Fixture me, Fixture other) {
+    public void onInteraction(Fixture me, Fixture other) {
         if (!isTouching) {
             return;
         }

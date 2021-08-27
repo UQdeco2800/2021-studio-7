@@ -110,14 +110,6 @@ public class ForestGameArea extends GameArea {
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
   }
 
-  private void spawnBed(){
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity bed = ObstacleFactory.createBed();
-    spawnEntityAt(bed, randomPos, true, true);
-  }
-
   private void spawnTrees() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -153,6 +145,14 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnBed(){
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity bed = ObstacleFactory.createBed(player);
+    spawnEntityAt(bed, randomPos, true, true);
   }
 
   private void playMusic() {
