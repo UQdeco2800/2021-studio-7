@@ -25,6 +25,8 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
+    "images/bed_inactive.png",
+    "images/bed_highlight.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
@@ -63,12 +65,13 @@ public class ForestGameArea extends GameArea {
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
+    //spawnTrees();
+    spawnBed();
     player = spawnPlayer();
-    spawnGhosts();
-    spawnGhostKing();
+    //spawnGhosts();
+    //spawnGhostKing();
 
-    playMusic();
+    //playMusic();
   }
 
   private void displayUI() {
@@ -105,6 +108,14 @@ public class ForestGameArea extends GameArea {
     // Bottom
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+  }
+
+  private void spawnBed(){
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity bed = ObstacleFactory.createBed();
+    spawnEntityAt(bed, randomPos, true, true);
   }
 
   private void spawnTrees() {
