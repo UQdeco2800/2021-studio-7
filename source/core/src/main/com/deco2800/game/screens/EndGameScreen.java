@@ -27,9 +27,9 @@ public class EndGameScreen extends ScreenAdapter {
 
     private final GdxGame game;
     private final Renderer renderer;
-    private final Integer result;
+    private final GdxGame.ScreenType result;
 
-    public EndGameScreen(GdxGame game, Integer result) {
+    public EndGameScreen(GdxGame game, GdxGame.ScreenType result) {
         this.game = game;
         this.result = result;
 
@@ -83,7 +83,7 @@ public class EndGameScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (this.result == 0) {
+        if (this.result == GdxGame.ScreenType.WIN_DEFAULT) {
             resourceService.loadTextures(winScreenTextures);
         } else {
             resourceService.loadTextures(loseScreenTextures);
@@ -94,7 +94,7 @@ public class EndGameScreen extends ScreenAdapter {
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (this.result == 0) {
+        if (this.result == GdxGame.ScreenType.WIN_DEFAULT) {
             resourceService.unloadAssets(winScreenTextures);
         } else {
             resourceService.unloadAssets(loseScreenTextures);
