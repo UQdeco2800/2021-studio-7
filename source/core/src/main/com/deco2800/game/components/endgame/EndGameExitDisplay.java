@@ -1,10 +1,13 @@
 package com.deco2800.game.components.endgame;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +28,11 @@ public class EndGameExitDisplay extends UIComponent {
 
   private void addActors() {
     table = new Table();
-    table.top().right();
     table.setFillParent(true);
+    Image title =
+            new Image(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/thumbsup.png", Texture.class));
 
     TextButton mainMenuBtn = new TextButton("Exit", skin);
 
@@ -40,7 +46,9 @@ public class EndGameExitDisplay extends UIComponent {
         }
       });
 
-    table.add(mainMenuBtn).padTop(10f).padRight(10f);
+    table.add(title);
+    table.row();
+    table.add(mainMenuBtn).padTop(30f);
 
     stage.addActor(table);
   }

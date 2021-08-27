@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
  */
 public class EndGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
-    private static final String[] winScreenTextures = {"images/win_screen_bg.png"};
-    private static final String[] loseScreenTextures = {"images/lose_screen_bg.png"};
+    private static final String[] winScreenTextures = {"images/thumbsup.png"};
+    private static final String[] loseScreenTextures = {"images/thumbsdown.png"};
 
     private final GdxGame game;
     private final Renderer renderer;
-    private final GdxGame.ScreenType result;
+    private GdxGame.ScreenType result;
 
     public EndGameScreen(GdxGame game, GdxGame.ScreenType result) {
         this.game = game;
