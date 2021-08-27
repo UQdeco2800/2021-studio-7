@@ -1,16 +1,20 @@
 package com.deco2800.game.components;
 
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.events.listeners.EventListener;
 import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.physics.components.PhysicsComponent;
+
 
 /**
  * When this entity collides with the player's hitbox, triggers an event, and
@@ -27,6 +31,7 @@ public class InteractableComponent extends Component {
     private HitboxComponent hitboxComponent;
     private KeyboardPlayerInputComponent inputComponent;
     private boolean isTouching = false;
+
 
     /**
      * Create a component which listens for collisions with the player on its
@@ -56,6 +61,15 @@ public class InteractableComponent extends Component {
         this.player = player;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
+
+        // Creates Collider component for door, bed and player
+        this.colliderComponent = new ColliderComponent();
+
+        // sets if an object is a sensor to true
+        this.colliderComponent.setSensor(true);
+
+        // Sets a box around the
+        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     /**
@@ -71,9 +85,17 @@ public class InteractableComponent extends Component {
     public InteractableComponent (Entity player, short targetLayer, String collisionEvent,
                                   String interactionEvent) {
         this.player = player;
+        this.interactionEvent = interactionEvent;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
-        this.interactionEvent = interactionEvent;
+
+        // Creates Collider component for door, bed and player
+        this.colliderComponent = new ColliderComponent();
+
+        // sets if an object is a sensor to true
+        this.colliderComponent.setSensor(true);
+
+        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     @Override
@@ -130,5 +152,16 @@ public class InteractableComponent extends Component {
         }
         // TODO stuff that happens when interacted with
         System.out.println("Interacted with object!");
+    }
+
+
+    /**
+     * Updates the players hitbox position as the player moves around
+     */
+    private void updatePlayerHitbox(){
+
+        // Find a way to reference the player
+        this.colliderComponent.dispose();
+        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 }
