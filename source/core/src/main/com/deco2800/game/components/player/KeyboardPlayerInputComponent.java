@@ -45,6 +45,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
       case Keys.SPACE:
         entity.getEvents().trigger("attack");
         return true;
+      case Keys.E:
+        entity.getEvents().trigger("interaction");
+        System.out.println("E is being pressed!!!");
+        //checks that player entity is touching a interactable object hitbox
+        //triggers a function to modify that object
+        return true;
       default:
         return false;
     }
