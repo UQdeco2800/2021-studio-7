@@ -62,9 +62,11 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
               }
             });
 
-    table.add(simWinDefBtn).padTop(500f).padRight(10f);
-    table.add(simLoseTimedBtn).padTop(500f).padRight(0f);
-    table.add(simLoseCaughtBtn).padTop(500f).padRight(0f);
+    table.add(simWinDefBtn).padTop(100f);
+    table.row();
+    table.add(simLoseTimedBtn).padTop(15f);
+    table.row();
+    table.add(simLoseCaughtBtn).padTop(15f);
 
     stage.addActor(table);
   }

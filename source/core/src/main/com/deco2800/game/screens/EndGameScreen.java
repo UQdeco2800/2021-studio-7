@@ -1,10 +1,11 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.components.endgame.EndGameActions;
-import com.deco2800.game.components.endgame.EndGameExitDisplay;
+import com.deco2800.game.components.endgame.EndGameDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -24,14 +25,22 @@ public class EndGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
     private static final String[] winScreenTextures = {"images/thumbsup.png"};
     private static final String[] loseScreenTextures = {"images/thumbsdown.png"};
+    private String[] activeScreenTextures;
 
     private final GdxGame game;
     private final Renderer renderer;
-    private GdxGame.ScreenType result;
 
     public EndGameScreen(GdxGame game, GdxGame.ScreenType result) {
         this.game = game;
-        this.result = result;
+        switch (result) {
+            case WIN_DEFAULT:
+                this.activeScreenTextures = winScreenTextures;
+                break;
+            case LOSS_TIMED:
+            case LOSS_CAUGHT:
+            default:
+                this.activeScreenTextures = loseScreenTextures;
+        }
 
         logger.debug("Initialising end game screen services");
         ServiceLocator.registerInputService(new InputService());
@@ -83,22 +92,14 @@ public class EndGameScreen extends ScreenAdapter {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (this.result == GdxGame.ScreenType.WIN_DEFAULT) {
-            resourceService.loadTextures(winScreenTextures);
-        } else {
-            resourceService.loadTextures(loseScreenTextures);
-        }
+        resourceService.loadTextures(activeScreenTextures);
         ServiceLocator.getResourceService().loadAll();
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        if (this.result == GdxGame.ScreenType.WIN_DEFAULT) {
-            resourceService.unloadAssets(winScreenTextures);
-        } else {
-            resourceService.unloadAssets(loseScreenTextures);
-        }
+        resourceService.unloadAssets(activeScreenTextures);
     }
 
     /**
@@ -109,7 +110,7 @@ public class EndGameScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new EndGameExitDisplay())
+        ui.addComponent(new EndGameDisplay(this.activeScreenTextures))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new EndGameActions(game));
         ServiceLocator.getEntityService().register(ui);

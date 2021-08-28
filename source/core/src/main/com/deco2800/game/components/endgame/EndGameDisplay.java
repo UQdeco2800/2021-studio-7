@@ -15,10 +15,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
-public class EndGameExitDisplay extends UIComponent {
-  private static final Logger logger = LoggerFactory.getLogger(EndGameExitDisplay.class);
+public class EndGameDisplay extends UIComponent {
+  private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
+  private String[] activeDisplayTextures;
+
+  public EndGameDisplay(String[] activeDisplayTextures) {
+    super();
+    this.activeDisplayTextures = activeDisplayTextures;
+  }
 
   @Override
   public void create() {
@@ -29,10 +35,11 @@ public class EndGameExitDisplay extends UIComponent {
   private void addActors() {
     table = new Table();
     table.setFillParent(true);
+
     Image title =
             new Image(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/thumbsup.png", Texture.class));
+                            .getAsset(this.activeDisplayTextures[0], Texture.class));
 
     TextButton mainMenuBtn = new TextButton("Exit", skin);
 
