@@ -3,11 +3,15 @@ package com.deco2800.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.rendering.TextureRenderComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * When this entity collides with the player's hitbox, triggers an event, and
@@ -17,11 +21,14 @@ import com.deco2800.game.physics.components.PhysicsComponent;
  * this entity.
  */
 public class InteractableComponent extends Component {
+    private static final Logger logger = LoggerFactory.getLogger(PlayerObjectInteractions.class);
     private short targetLayer;
     private String collisionEvent;
     private String interactionEvent;
     private HitboxComponent hitboxComponent;
+    private TextureRenderComponent textureComponent;
     private boolean isTouching = false;
+    private boolean isActive = false;
 
     /**
      * Create a component which listens for collisions with the player on its
@@ -35,9 +42,6 @@ public class InteractableComponent extends Component {
     /**
      * Create a component which listens for collisions with the player on its
      * target layer, and triggers an event on collision.
-     * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
-     * used to parse a texture string for demo purposes. - Treff
-     * //TODO Implement animation system for texture changes
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
@@ -70,9 +74,10 @@ public class InteractableComponent extends Component {
                 this::onCollisionEnd);
         // TODO Collision start will currently trigger with both the player AND
         //  NPCs. We want it to trigger on just the player, NOT the NPCS.
-        entity.getEvents().addListener("interaction",
+        entity.getEvents().addListener("interact",
                 this::onInteraction);
         hitboxComponent = entity.getComponent(HitboxComponent.class);
+        textureComponent = entity.getComponent(TextureRenderComponent.class);
     }
 
     private void onCollisionStart(Fixture me, Fixture other) {
@@ -90,7 +95,7 @@ public class InteractableComponent extends Component {
 
         this.isTouching = true;
         // TODO Sprite changes and trigger event
-        System.out.println("touching interactable object");
+        //System.out.println("touching interactable object");
 
         // Doesn't do anything yet
         entity.getEvents().trigger("interactionStart");
@@ -105,9 +110,11 @@ public class InteractableComponent extends Component {
     }
 
     private void onInteraction(Fixture me, Fixture other) {
+        System.out.println("function is being called");
         if (!isTouching) {
+            System.out.print("You are not touching an interactable object");
             return;
-        }
+        } System.out.println("Imagine something cools it happening");
         // TODO stuff that happens when interacted with
 
     }

@@ -55,7 +55,7 @@ public class ObstacleFactory {
                       ".png")))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
             .addComponent((new InteractableComponent(PhysicsLayer.PLAYER)));
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.getComponent(TextureRenderComponent.class).scaleEntity();

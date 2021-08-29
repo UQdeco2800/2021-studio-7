@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.InteractableComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
@@ -46,9 +47,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         entity.getEvents().trigger("attack");
         return true;
       case Keys.E:
-        System.out.println("E is being pressed!!!");
-        //checks that player entity is touching a interactable object hitbox
-        //triggers a function to modify that object
+        System.out.println("You are pressing e!");
+        entity.getEvents().trigger("interact");
         return true;
       default:
         return false;

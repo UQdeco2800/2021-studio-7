@@ -25,6 +25,7 @@ public class PhysicsEngine implements Disposable {
 
   private final World world;
   private final GameTime timeSource;
+  private final PhysicsContactListener contactListener;
   private final SingleHitCallback singleHitCallback = new SingleHitCallback();
   private final AllHitCallback allHitCallback = new AllHitCallback();
   private float accumulator;
@@ -35,8 +36,15 @@ public class PhysicsEngine implements Disposable {
 
   public PhysicsEngine(World world, GameTime timeSource) {
     this.world = world;
-    world.setContactListener(new PhysicsContactListener());
+    this.contactListener = new PhysicsContactListener();
+    world.setContactListener(this.contactListener);
+    //world.setContactListener(new PhysicsContactListener());
     this.timeSource = timeSource;
+  }
+
+
+  public PhysicsContactListener getContactListener() {
+    return this.contactListener;
   }
 
   public void update() {

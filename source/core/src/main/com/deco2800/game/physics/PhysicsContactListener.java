@@ -1,6 +1,10 @@
 package com.deco2800.game.physics;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.deco2800.game.components.Component;
+import com.deco2800.game.components.player.PlayerObjectInteractions;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.physics.components.ColliderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +20,31 @@ import org.slf4j.LoggerFactory;
  */
 public class PhysicsContactListener implements ContactListener {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsContactListener.class);
+  private Fixture targetFixture;
+  private Entity targetEntity;
+
+  public void setTargetFixture(ColliderComponent component){
+    this.targetFixture = component.getFixture();
+    setTargetEntity(this.targetFixture);
+  }
+
+  private void setTargetEntity(Fixture fixture){
+    BodyUserData userData = (BodyUserData) fixture.getBody().getUserData();
+    if (userData != null && userData.entity != null){
+      this.targetEntity = userData.entity;
+    }
+  }
+
+  private void targetCollisionCommunication(Fixture fixture, boolean touching){
+    BodyUserData userData =
+            (BodyUserData) fixture.getBody().getUserData();
+    Entity objectTouching = userData.entity;
+    if (touching){
+      targetEntity.getComponent(PlayerObjectInteractions.class).addObject(objectTouching);
+    } else {
+      targetEntity.getComponent(PlayerObjectInteractions.class).removeObject(objectTouching);
+    } System.out.println("Target collision communication!");
+  }
 
   @Override
   public void beginContact(Contact contact) {
@@ -31,12 +60,20 @@ public class PhysicsContactListener implements ContactListener {
 
   @Override
   public void preSolve(Contact contact, Manifold oldManifold) {
-    // Nothing to do before resolving contact
+    if (contact.getFixtureA() == targetFixture){
+      targetCollisionCommunication(contact.getFixtureB(), true);
+    } else if (contact.getFixtureB() == targetFixture){
+      targetCollisionCommunication(contact.getFixtureA(), true);
+    }
   }
 
   @Override
   public void postSolve(Contact contact, ContactImpulse impulse) {
-    // Nothing to do after resolving contact
+    if (contact.getFixtureA() == targetFixture){
+      targetCollisionCommunication(contact.getFixtureB(), false);
+    } else if (contact.getFixtureB() == targetFixture){
+      targetCollisionCommunication(contact.getFixtureA(), false);
+    }
   }
 
   private void triggerEventOn(Fixture fixture, String evt, Fixture otherFixture) {
