@@ -2,6 +2,7 @@ package com.deco2800.game.areas.rooms;
 
 import com.badlogic.gdx.math.GridPoint2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -9,17 +10,19 @@ import java.util.HashMap;
  * map. Stores information that can be used for map generation.
  *
  * TODO add getters/setters
+ * TODO need to separate walls and floor textures maybe? Could have walls be
+ *  symbols specified on the perimeter
  */
 public class MapRoom {
     // Room size and position
-    GridPoint2 roomSize;
-    GridPoint2 roomPos;
+    private final GridPoint2 roomSize;
+    private final GridPoint2 roomPos;
 
     // Textures
-    String baseTexturePathWall;
-    String baseTexturePathFloor;
-    HashMap textureSymbols;
-    HashMap texturePositions;
+    private final String baseTexturePathWall;
+    private final String baseTexturePathFloor;
+    private HashMap textureSymbols;
+    private HashMap texturePositions;
 
     public MapRoom(
             GridPoint2 dimensions,
@@ -29,18 +32,66 @@ public class MapRoom {
             HashMap<GridPoint2, String> textureSymbolPositions
     ) {
         // Room size and position
-        roomSize = dimensions;
-        roomPos = offset;
+        this.roomSize = dimensions;
+        this.roomPos = offset;
 
         // Textures
-        baseTexturePathWall = baseTexturePaths[0];
-        baseTexturePathFloor = baseTexturePaths[1];
+        this.baseTexturePathWall = baseTexturePaths[0];
+        this.baseTexturePathFloor = baseTexturePaths[1];
 
-        textureSymbols = texturePathSymbols;
-        texturePositions = textureSymbolPositions;
+        this.textureSymbols = texturePathSymbols;
+        this.texturePositions = textureSymbolPositions;
     }
 
     // TODO: Getters/setters
+    public GridPoint2 getRoomSize() {
+        return roomSize;
+    }
+
+    public GridPoint2 getRoomPosition() {
+        return roomPos;
+    }
+
+    public String getBaseWallTexture() {
+        return baseTexturePathWall;
+    }
+
+    public String getBaseFloorTexture() {
+        return baseTexturePathFloor;
+    }
+
+    public HashMap<String, String> getTextureSymbols() {
+        return textureSymbols;
+    }
+
+    public GridPoint2[] getRoomBounds() {
+        /* Room position specifies the upper left corner of the room. This plus
+            the size of the room gives the lower right corner of the room.
+         */
+        GridPoint2 c1 = getRoomPosition();
+        GridPoint2 c2 = getRoomSize().add(c1);
+
+        return new GridPoint2[]{c1, c2};
+    }
+
+    public boolean isInBounds(int x, int y) {
+
+        GridPoint2[] bounds = getRoomBounds();
+
+        /* Check if the position is greater than the upper left corner of the
+            room, and less than the lower right corner.
+         */
+        if (bounds[0].x <= x && x <= bounds[1].x
+                && bounds[0].y <= y && y <= bounds[1].y) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isInBounds(GridPoint2 pos) {
+        return isInBounds(pos.x, pos.y);
+    }
 
     /**
      * Convert the map room object into a string for textual representation. The

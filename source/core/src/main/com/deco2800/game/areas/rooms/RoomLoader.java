@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -23,7 +24,7 @@ public class RoomLoader {
     private static final int BASE_WALL_INDEX = 0;
     private static final int BASE_FLOOR_INDEX = 1;
     private static final int DIMENSION_INDEX = 0;
-    private static final int OFFSET_INDEX = 0;
+    private static final int OFFSET_INDEX = 1;
 
     // Symbols
     private static final char SEP = ',';
@@ -424,13 +425,16 @@ public class RoomLoader {
 
         // Find base wall and floor
         for (String line : roomLines.subList(defBound[0], defBound[1])) {
+            // Pull the texture path. Don't need symbol val
+            String texturePath = line.split(":")[1];
+            // Strip " from line
+            texturePath = texturePath.replace("\"", "");
+
             if (line.contains(VAL_BASE_WALL)) {
-                // Pull the texture path. Don't need symbol val
-                textures[BASE_WALL_INDEX] = line.split(":")[1];
+                textures[BASE_WALL_INDEX] = texturePath;
             }
             else if (line.contains(VAL_BASE_FLOOR)) {
-                // Pull the texture path. Don't need symbol val
-                textures[BASE_FLOOR_INDEX] = line.split(":")[1];
+                textures[BASE_FLOOR_INDEX] = texturePath;
             }
         }
 
@@ -470,7 +474,8 @@ public class RoomLoader {
             String[] lineArgs = line.split(":");
 
             String symbol = lineArgs[0];
-            String relPath = lineArgs[1];
+            // Replace quotes in path
+            String relPath = lineArgs[1].replace("\"", "");
 
             textureSymbols.put(symbol, relPath);
         }
@@ -570,7 +575,6 @@ public class RoomLoader {
 
 
     /* Public methods */
-
     /**
      * Generates a MapRoom object, based on the information from a valid DRM
      * file.
@@ -597,7 +601,19 @@ public class RoomLoader {
         return newRoom;
     }
 
-    public static MapRoom[] loadAllRooms(String directoryPath)
+    /**
+     * Loads all of the rooms in a map directory.
+     *
+     * @param directoryPath
+     * Path to directory containing all of a map's rooms.
+     *
+     * @return
+     * A list of all of the MapRoom objects that were generated.
+     *
+     * @throws IOException
+     * @throws FileNotFoundException
+     */
+    public static ArrayList<MapRoom> loadAllRooms(String directoryPath)
             throws IOException, FileNotFoundException
     {
         ArrayList<MapRoom> rooms = new ArrayList<>();
@@ -620,7 +636,7 @@ public class RoomLoader {
             return null;
         }
 
-        return rooms.toArray(new MapRoom[rooms.size()]);
+        return rooms;
     }
 
     /**
@@ -630,7 +646,7 @@ public class RoomLoader {
         // Testing
         System.out.println("Well Howdy!");
 
-        MapRoom[] rooms = loadAllRooms("C:\\Users\\Ethan\\Documents\\_Uni\\DECO2800\\Game\\2021-studio-7\\source\\maps\\m1");
+        ArrayList<MapRoom> rooms = loadAllRooms("C:\\Users\\Ethan\\Documents\\_Uni\\DECO2800\\Game\\2021-studio-7\\source\\maps\\m1");
 
         for (MapRoom room : rooms) {
             System.out.println(room.toString());
