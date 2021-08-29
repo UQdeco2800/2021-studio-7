@@ -22,7 +22,7 @@ public class WinScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WinScreen.class);
     private final GdxGame game;
     private final Renderer renderer;
-    private static final String[] winScreenTexture = {"images/win_screen_bg.png"};
+    private static final String[] winScreenTexture = {"images/win_screen.png"};
 
     public WinScreen(GdxGame game) {
         this.game = game;
