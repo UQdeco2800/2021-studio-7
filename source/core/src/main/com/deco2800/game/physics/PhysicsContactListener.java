@@ -1,7 +1,6 @@
 package com.deco2800.game.physics;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.deco2800.game.components.Component;
 import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -41,10 +40,8 @@ public class PhysicsContactListener implements ContactListener {
     Entity objectTouching = userData.entity;
     if (touching){
       targetEntity.getComponent(PlayerObjectInteractions.class).addObject(objectTouching);
-      System.out.println("Target collision communication addObject!");
     } else {
       targetEntity.getComponent(PlayerObjectInteractions.class).removeObject(objectTouching);
-      System.out.println("Target collision communication removeObject!");
     }
   }
 

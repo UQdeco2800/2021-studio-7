@@ -69,8 +69,8 @@ public class MainGameScreen extends ScreenAdapter {
     TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
-    physicsEngine.getContactListener().setTargetFixture(forestGameArea
-     .getPlayer().getComponent(ColliderComponent.class));
+    physicsEngine.getContactListener().setTargetFixture(forestGameArea.
+            getPlayer().getComponent(ColliderComponent.class));
   }
 
   @Override

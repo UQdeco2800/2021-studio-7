@@ -17,33 +17,21 @@ public class PlayerObjectInteractions extends Component {
     }
 
     public void addObject(Entity object){
-        for (Entity e : interactableObjectList) {
-            System.out.print(e.getId());
-        }
-        if (isObjectInteractable(object)){
+        if (isObjectInteractive(object)){
             for (Entity e : interactableObjectList){
                 if (e == object){
                     return;
                 }
             } interactableObjectList.add(object);
-            System.out.println("Object Added!");
         }
 
     }
 
     public void removeObject(Entity object){
-        /*for (Entity e : interactableObjectList) {
-            System.out.print(e.getId());
-        }
-        for (Entity e : interactableObjectList) {
-            if (e == object) {
-                interactableObjectList.remove(e);
-                System.out.println("Object removed!");
-            }
-        }*/
+        interactableObjectList.remove(object);
     }
 
-    private boolean isObjectInteractable(Entity object){
+    private boolean isObjectInteractive(Entity object){
         if (object.getComponent(InteractableComponent.class) != null){
             return true;
         } return false;
