@@ -28,18 +28,22 @@ public class TouchPlayerInputComponent extends InputComponent {
     switch (keycode) {
       case Input.Keys.UP:
         walkDirection.add(Vector2Utils.UP);
+        entity.getEvents().trigger("runUP", walkDirection);
         triggerWalkEvent();
         return true;
       case Input.Keys.LEFT:
         walkDirection.add(Vector2Utils.LEFT);
+        entity.getEvents().trigger("runLeft", walkDirection);
         triggerWalkEvent();
         return true;
       case Input.Keys.DOWN:
         walkDirection.add(Vector2Utils.DOWN);
+        entity.getEvents().trigger("runDown", walkDirection);
         triggerWalkEvent();
         return true;
       case Input.Keys.RIGHT:
         walkDirection.add(Vector2Utils.RIGHT);
+        entity.getEvents().trigger("runRight", walkDirection);
         triggerWalkEvent();
         return true;
       default:
@@ -57,18 +61,23 @@ public class TouchPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Input.Keys.UP:
+        System.out.println("UP");
         walkDirection.sub(Vector2Utils.UP);
+        entity.getEvents().trigger("standUp", walkDirection);
         triggerWalkEvent();
         return true;
       case Input.Keys.LEFT:
+        entity.getEvents().trigger("standLeft", walkDirection);
         walkDirection.sub(Vector2Utils.LEFT);
         triggerWalkEvent();
         return true;
       case Input.Keys.DOWN:
+        entity.getEvents().trigger("standDown", walkDirection);
         walkDirection.sub(Vector2Utils.DOWN);
         triggerWalkEvent();
         return true;
       case Input.Keys.RIGHT:
+        entity.getEvents().trigger("standRight", walkDirection);
         walkDirection.sub(Vector2Utils.RIGHT);
         triggerWalkEvent();
         return true;
