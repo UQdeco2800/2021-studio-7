@@ -49,6 +49,10 @@ public class ObstacleFactory {
     return wall;
   }
 
+  /**
+   * //TODO
+   * @return bed entity
+   */
   public static Entity createBed(){
     Entity bed = new Entity()
             .addComponent(new TextureRenderComponent(("images/bed_inactive" +
