@@ -638,18 +638,4 @@ public class RoomLoader {
 
         return rooms;
     }
-
-    /**
-     * Testing purposes.
-     */
-    public static void main(String[] args) throws Exception {
-        // Testing
-        System.out.println("Well Howdy!");
-
-        ArrayList<MapRoom> rooms = loadAllRooms("C:\\Users\\Ethan\\Documents\\_Uni\\DECO2800\\Game\\2021-studio-7\\source\\maps\\m1");
-
-        for (MapRoom room : rooms) {
-            System.out.println(room.toString());
-        }
-    }
 }
