@@ -19,6 +19,7 @@ import com.deco2800.game.services.ServiceLocator;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Factory for creating game terrains.
@@ -134,8 +135,8 @@ public class LevelTerrainFactory {
             TiledMapTileLayer layer,
             MapRoom room
     ) {
-        ArrayList<TextureRegion> tRegions = new ArrayList<>();
-        ArrayList<TerrainTile> tTiles = new ArrayList<>();
+        HashMap<GridPoint2, TextureRegion> tRegions = new HashMap<>();
+        HashMap<GridPoint2, TerrainTile> tTiles = new HashMap<>();
 
         /* Create texture regions */
         // Base floor
@@ -143,32 +144,45 @@ public class LevelTerrainFactory {
                 resourceService.getAsset(room.getBaseFloorTexture(),
                         Texture.class
                 ));
-        tRegions.add(baseRegion);
 
         // Extra textures
-        for (String path : room.getTextureSymbols().values()) {
-            tRegions.add(new TextureRegion(
+        room.getSymbolsToPaths().forEach((pos, path) -> {
+            // Map a position to a texture region
+            tRegions.put(pos, new TextureRegion(
                     resourceService.getAsset(path, Texture.class)));
-        }
+        });
 
         /* Create terrain tiles */
         TerrainTile baseTile = new TerrainTile(baseRegion);
 
-        for (TextureRegion region : tRegions) {
-            tTiles.add(new TerrainTile(region));
-        }
+        tRegions.forEach((pos, region) -> {
+            // Map a position to a terrain tile
+            tTiles.put(pos, new TerrainTile(region));
+        });
 
         /* Fill base tiles */
         GridPoint2[] bounds = room.getRoomBounds();
         fillTileRegion(layer, bounds[0], bounds[1], baseTile);
 
         /* Insert extra tiles */
-        // TODO Need a way to map tile to position
+        tTiles.forEach((pos, tile) -> {
+            fillTile(layer, pos.add(room.getRoomPosition()), tile);
+        });
     }
 
 
     private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
                 return new IsometricTiledMapRenderer(tiledMap, tileScale);
+    }
+
+
+    private static void fillTile(
+            TiledMapTileLayer layer,
+            GridPoint2 pos,
+            TerrainTile tile
+    ) {
+        Cell cell = layer.getCell(pos.x, pos.y);
+        cell.setTile(tile);
     }
 
 

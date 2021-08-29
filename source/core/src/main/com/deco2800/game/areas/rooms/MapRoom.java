@@ -64,6 +64,10 @@ public class MapRoom {
         return textureSymbols;
     }
 
+    public HashMap<GridPoint2, String> getTexturePositions() {
+        return texturePositions;
+    }
+
     public GridPoint2[] getRoomBounds() {
         /* Room position specifies the upper left corner of the room. This plus
             the size of the room gives the lower right corner of the room.
@@ -91,6 +95,16 @@ public class MapRoom {
 
     public boolean isInBounds(GridPoint2 pos) {
         return isInBounds(pos.x, pos.y);
+    }
+
+    public HashMap<GridPoint2, String> getSymbolsToPaths() {
+        HashMap<GridPoint2, String> paths = new HashMap<>();
+
+        getTexturePositions().forEach((pos, symbol) -> {
+            paths.put(pos, getTextureSymbols().get(symbol));
+        });
+
+        return paths;
     }
 
     /**

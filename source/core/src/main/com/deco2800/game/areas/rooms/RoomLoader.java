@@ -425,16 +425,15 @@ public class RoomLoader {
 
         // Find base wall and floor
         for (String line : roomLines.subList(defBound[0], defBound[1])) {
-            // Pull the texture path. Don't need symbol val
-            String texturePath = line.split(":")[1];
-            // Strip " from line
-            texturePath = texturePath.replace("\"", "");
-
             if (line.contains(VAL_BASE_WALL)) {
-                textures[BASE_WALL_INDEX] = texturePath;
+                // Pull the texture path. Don't need symbol val
+                textures[BASE_WALL_INDEX] =
+                        line.split(":")[1].replace("\"", "");
             }
             else if (line.contains(VAL_BASE_FLOOR)) {
-                textures[BASE_FLOOR_INDEX] = texturePath;
+                // Pull the texture path. Don't need symbol val
+                textures[BASE_FLOOR_INDEX] =
+                        line.split(":")[1].replace("\"", "");
             }
         }
 
