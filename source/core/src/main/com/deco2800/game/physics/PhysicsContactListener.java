@@ -41,25 +41,18 @@ public class PhysicsContactListener implements ContactListener {
     Entity objectTouching = userData.entity;
     if (touching){
       targetEntity.getComponent(PlayerObjectInteractions.class).addObject(objectTouching);
+      System.out.println("Target collision communication addObject!");
     } else {
       targetEntity.getComponent(PlayerObjectInteractions.class).removeObject(objectTouching);
-    } System.out.println("Target collision communication!");
+      System.out.println("Target collision communication removeObject!");
+    }
   }
 
   @Override
   public void beginContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
     triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
-  }
 
-  @Override
-  public void endContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collisionEnd", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collisionEnd", contact.getFixtureA());
-  }
-
-  @Override
-  public void preSolve(Contact contact, Manifold oldManifold) {
     if (contact.getFixtureA() == targetFixture){
       targetCollisionCommunication(contact.getFixtureB(), true);
     } else if (contact.getFixtureB() == targetFixture){
@@ -68,12 +61,23 @@ public class PhysicsContactListener implements ContactListener {
   }
 
   @Override
-  public void postSolve(Contact contact, ContactImpulse impulse) {
+  public void endContact(Contact contact) {
+    triggerEventOn(contact.getFixtureA(), "collisionEnd", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "collisionEnd", contact.getFixtureA());
+
     if (contact.getFixtureA() == targetFixture){
       targetCollisionCommunication(contact.getFixtureB(), false);
     } else if (contact.getFixtureB() == targetFixture){
       targetCollisionCommunication(contact.getFixtureA(), false);
     }
+  }
+
+  @Override
+  public void preSolve(Contact contact, Manifold oldManifold) {
+  }
+
+  @Override
+  public void postSolve(Contact contact, ContactImpulse impulse) {
   }
 
   private void triggerEventOn(Fixture fixture, String evt, Fixture otherFixture) {
