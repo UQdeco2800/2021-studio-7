@@ -101,4 +101,14 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new MainMenuActions(game));
     ServiceLocator.getEntityService().register(ui);
   }
+
+  /**
+   *       _          _          _          _          _
+   *     >(')____,  >(')____,  >(')____,  >(')____,  >(') ___,
+   *       (` =~~/    (` =~~/    (` =~~/    (` =~~/    (` =~~/
+   *    ~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~
+   *
+   *
+   *
+   */
 }
