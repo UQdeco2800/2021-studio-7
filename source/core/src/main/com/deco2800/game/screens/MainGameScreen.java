@@ -7,6 +7,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.MainGameTimerTestingDisplay;
 import com.deco2800.game.components.maingame.MainGameWinLossTestingDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -131,12 +132,21 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
+    //By default, it would have a timer
+    MainGameTimerTestingDisplay mainGameTimer =
+            new MainGameTimerTestingDisplay();
+
+    //By default, this timer would have 120s;
+    mainGameTimer.setTimer(120);
+    mainGameTimer.countDown();
+
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
         .addComponent(new MainGameExitDisplay())
-            .addComponent(new MainGameWinLossTestingDisplay())
+        .addComponent(new MainGameWinLossTestingDisplay())
+        .addComponent(mainGameTimer)
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
