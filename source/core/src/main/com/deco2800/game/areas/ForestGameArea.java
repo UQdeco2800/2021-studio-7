@@ -67,9 +67,9 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     spawnTrees();
+    spawnBed();
     player = spawnPlayer();
     spawnGhosts();
-    spawnBed();
     //spawnGhostKing();
 
     //playMusic();
@@ -116,11 +116,8 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnBed(){
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity bed = ObstacleFactory.createBed(player);
-    spawnEntityAt(bed, randomPos, true, true);
+    Entity bed = ObstacleFactory.createBed();
+    spawnEntityAt(bed, BED_SPAWN, true, true);
   }
 
   private void spawnTrees() {
@@ -159,6 +156,7 @@ public class ForestGameArea extends GameArea {
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
+
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
