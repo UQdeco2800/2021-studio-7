@@ -138,7 +138,7 @@ public class EventHandler {
 
   private void registerListener(String eventName, EventListener listener) {
     logger.debug("Adding listener {} to event {}", listener, eventName);
-    Array<EventListener> eventListeners = listeners.getOrDefault(eventName, null);
+      Array<EventListener> eventListeners = listeners.getOrDefault(eventName, null);
     if (eventListeners == null) {
       eventListeners = new Array<>(1);
       listeners.put(eventName, eventListeners);

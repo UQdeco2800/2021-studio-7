@@ -4,6 +4,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.Entity;
+//import com.deco2800.game.physics.BodyUserData;
+import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
@@ -19,9 +21,9 @@ import org.slf4j.LoggerFactory;
  * this entity.
  */
 public class InteractableComponent extends Component {
-    private static final Logger logger = LoggerFactory.getLogger(PlayerObjectInteractions.class);
-    private Entity player;
-    private short targetLayer;
+    //private static final Logger logger = LoggerFactory.getLogger(PlayerObjectInteractions.class);
+    private final Entity player;
+    private final short targetLayer;
     private String collisionEvent;
     private String interactionEvent;
     private HitboxComponent hitboxComponent;
@@ -30,18 +32,11 @@ public class InteractableComponent extends Component {
     private ColliderComponent colliderComponent;
     private boolean isTouching = false;
 
-    public InteractableComponent(short targetLayer){
-        this.targetLayer = targetLayer;
-    }
-
     /**
      * Create a component which listens for collisions with the player on its
-     * target layer, and triggers an event on collision.
-     * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
-     * used to parse a texture string for demo purposes. - Treff
-     * //TODO Implement animation system for texture changes
+     * target later.
      * @param player The player entity
-     * @param targetLayer The physics layer of the target's collider
+     * @param targetLayer The physics layer of the player's collider
      */
     public InteractableComponent (Entity player, short targetLayer) {
         this.player = player;
@@ -51,14 +46,11 @@ public class InteractableComponent extends Component {
     /**
      * Create a component which listens for collisions with the player on its
      * target layer, and triggers an event on collision.
-<<<<<<< HEAD
-=======
      * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
      * used to parse a texture string for demo purposes. - Treff
      * //TODO Implement animation system for texture changes
      * @param player The player entity
->>>>>>> ca019eb0323f09454ccf082e2c3a657af920e06f
-     * @param targetLayer The physics layer of the target's collider
+     * @param targetLayer The physics layer of the player's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
     public InteractableComponent (Entity player, short targetLayer, String collisionEvent) {
@@ -80,7 +72,7 @@ public class InteractableComponent extends Component {
      * Create a component which listens for collisions with the player on its
      * target layer, triggers an event on collision, and triggers an even once
      * interacted with by the player.
-     * @param player The player entity
+     * @param player the player entity
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      * @param interactionEvent The event to trigger when the player interacts
@@ -108,14 +100,10 @@ public class InteractableComponent extends Component {
                 this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd",
                 this::onCollisionEnd);
-        // TODO Collision start will currently trigger with both the player AND
-        //  NPCs. We want it to trigger on just the player, NOT the NPCS.
-        // Should trigger when the player presses the E key
-        try {
-            player.getEvents().addListener("interaction", this::onInteraction);
-        } catch (Exception e) {
-            System.out.println("Exception: %e");
-        }
+
+        // Listen for when the E key is pressed
+        player.getEvents().addListener("interaction", this::Interaction);
+
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         textureComponent = entity.getComponent(TextureRenderComponent.class);
     }
@@ -123,7 +111,6 @@ public class InteractableComponent extends Component {
     private void onCollisionStart(Fixture me, Fixture other) {
         if (hitboxComponent.getFixture() != me) {
             // Not triggered by hitbox, ignore
-
             return;
         }
 
@@ -133,29 +120,46 @@ public class InteractableComponent extends Component {
             return;
         }
 
-        this.isTouching = true;
-        // TODO Sprite changes and trigger event
-        //System.out.println("touching interactable object");
+        if (((BodyUserData) other.getBody().getUserData()).entity != player) {
+            // Didn't collide with the player entity
+            // TODO I don't even think the NPCs CAN collide with this, but just in case...
+            System.out.println("Collision! But not with player");
+            return;
+        }
 
-        // Doesn't do anything yet (For animations probably)
+        this.isTouching = true;
+
+        // TODO Doesn't do anything yet - animations?
         entity.getEvents().trigger("interactionStart");
     }
 
     private void onCollisionEnd(Fixture me, Fixture other) {
         this.isTouching = false;
-        // TODO Undo sprite changes
 
-        // Doesn't do anything yet (For animations probably)
+        // TODO Doesn't do anything yet - animations?
         entity.getEvents().trigger("interactionEnd");
     }
 
-    public void onInteraction(Fixture me, Fixture other) {
+    /*
+    private void onInteraction(Fixture me, Fixture other) {
         if (!isTouching) {
             System.out.print("You are not touching an interactable object");
             return;
         } System.out.println("Imagine something cools it happening");
         // TODO stuff that happens when interacted with
         System.out.println("Interacted with object!");
+    }
+    */
+
+    /**
+     * Function that runs when the player presses the E key
+     */
+    public void Interaction() {
+        if (isTouching) {
+            // The player pressed the E key AND we're still touching the object
+            System.out.println("INTERACTION - For realsies");
+
+        }
     }
 
 
