@@ -13,10 +13,10 @@ public class MomAnimationController {
         public void create() {
             super.create();
             animator = this.entity.getComponent(AnimationRenderComponent.class);
-            entity.getEvents().addListener("runLeft", this::animateRunLeft);
-            entity.getEvents().addListener("runRight", this::animateRunRight);
-            entity.getEvents().addListener("runUp", this::animateRunUp);
-            entity.getEvents().addListener("runDown", this::animateRunDown);
+            entity.getEvents().addListener("walkLeft", this::animateRunLeft);
+            entity.getEvents().addListener("walkRight", this::animateRunRight);
+            entity.getEvents().addListener("walkUp", this::animateRunUp);
+            entity.getEvents().addListener("walkDown", this::animateRunDown);
             entity.getEvents().addListener("standLeft", this::animateStandLeft);
             entity.getEvents().addListener("standRight", this::animateStandRight);
             entity.getEvents().addListener("standUp", this::animateStandUp);

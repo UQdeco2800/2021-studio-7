@@ -89,6 +89,27 @@ public class NPCFactory {
     return ghostKing;
   }
 
+  public static Entity createMon(Entity target) {
+    Entity mom = createBaseNPC(target);
+    GhostKingConfig config = configs.ghostKing;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+
+    mom
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: stamina placeholder
+            .addComponent(animator)
+            .addComponent(new GhostAnimationController());
+
+    mom.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return mom;
+  }
+
+
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
    *

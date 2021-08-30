@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MovementTask extends DefaultTask {
   private static final Logger logger = LoggerFactory.getLogger(MovementTask.class);
-
   private final GameTime gameTime;
   private Vector2 target;
   private float stopDistance = 0.01f;
@@ -25,7 +24,7 @@ public class MovementTask extends DefaultTask {
   public MovementTask(Vector2 target) {
     this.target = target;
     this.gameTime = ServiceLocator.getTimeSource();
-    
+
   }
 
   public MovementTask(Vector2 target, float stopDistance) {
