@@ -7,6 +7,7 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
+import com.deco2800.game.components.npc.MomAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -87,6 +88,36 @@ public class NPCFactory {
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
+  }
+
+  /**
+   * Creates a mom entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createMom(Entity target) {
+    Entity mom = new Entity();
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));//TODO change it to female_character.atlas
+    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standDown", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standUp", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standLeft", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standRight", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkDown", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkUp", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkRight", 0.1f, Animation.PlayMode.LOOP);
+
+    mom
+            .addComponent(animator)
+            .addComponent(new MomAnimationController());
+
+    mom.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return mom;
   }
 
   /**

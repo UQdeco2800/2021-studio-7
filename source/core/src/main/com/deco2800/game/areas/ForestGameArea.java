@@ -40,7 +40,8 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/male_character.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/male_character.atlas",
+          //TODO add "images/female_character.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -67,6 +68,7 @@ public class ForestGameArea extends GameArea {
     player = spawnPlayer();
     spawnGhosts();
     spawnGhostKing();
+    spawnMom();
 
     playMusic();
   }
@@ -142,6 +144,15 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnMom() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity mom = NPCFactory.createMom(player);
+    spawnEntityAt(mom, randomPos, true, true);
   }
 
   private void playMusic() {
