@@ -25,6 +25,7 @@ public class MovementTask extends DefaultTask {
   public MovementTask(Vector2 target) {
     this.target = target;
     this.gameTime = ServiceLocator.getTimeSource();
+    
   }
 
   public MovementTask(Vector2 target, float stopDistance) {

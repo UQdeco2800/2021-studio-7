@@ -10,26 +10,27 @@ public class PlayerAnimationController extends Component {
     public void create() {
         super.create();
         animator = this.entity.getComponent(AnimationRenderComponent.class);
-        entity.getEvents().addListener("runLeft", this::animateRunLeft);
-        entity.getEvents().addListener("runRight", this::animateRunRight);
-        entity.getEvents().addListener("runUp", this::animateRunUp);
-        entity.getEvents().addListener("runDown", this::animateRunDown);
+        entity.getEvents().addListener("walkLeft", this::animateRunLeft);
+        entity.getEvents().addListener("walkRight", this::animateRunRight);
+        entity.getEvents().addListener("walkUp", this::animateRunUp);
+        entity.getEvents().addListener("walkDown", this::animateRunDown);
         entity.getEvents().addListener("standLeft", this::animateStandLeft);
         entity.getEvents().addListener("standRight", this::animateStandRight);
         entity.getEvents().addListener("standUp", this::animateStandUp);
         entity.getEvents().addListener("standDown", this::animateStandDown);
 
+        entity.getEvents().trigger("standUp");
     }
 
     void animateRunLeft() {
-        animator.startAnimation("runLeft");
+        animator.startAnimation("walkLeft");
     }
 
-    void animateRunRight(){animator.startAnimation("runRight");}
+    void animateRunRight(){animator.startAnimation("walkRight");}
 
-    void animateRunUp(){animator.startAnimation("runUp");}
+    void animateRunUp(){animator.startAnimation("walkUp");}
 
-    void animateRunDown(){animator.startAnimation("runDown");}
+    void animateRunDown(){animator.startAnimation("walkDown");}
 
     void animateStandLeft(){animator.startAnimation("standLeft");}
 

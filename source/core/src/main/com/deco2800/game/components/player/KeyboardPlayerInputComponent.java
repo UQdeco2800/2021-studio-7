@@ -68,18 +68,22 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         switch (keycode) {
             case Keys.W:
                 walkDirection.sub(Vector2Utils.UP);
+                entity.getEvents().trigger("standUp");
                 triggerWalkEvent();
                 return true;
             case Keys.A:
                 walkDirection.sub(Vector2Utils.LEFT);
+                entity.getEvents().trigger("standLeft");
                 triggerWalkEvent();
                 return true;
             case Keys.S:
                 walkDirection.sub(Vector2Utils.DOWN);
+                entity.getEvents().trigger("standDown");
                 triggerWalkEvent();
                 return true;
             case Keys.D:
                 walkDirection.sub(Vector2Utils.RIGHT);
+                entity.getEvents().trigger("standRight");
                 triggerWalkEvent();
                 return true;
             case Keys.SHIFT_LEFT:
@@ -96,6 +100,23 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             entity.getEvents().trigger("walkStop");
         } else {
             entity.getEvents().trigger("walk", walkDirection);
+            if (walkDirection.epsilonEquals(-1, 0)) {
+                entity.getEvents().trigger("walkLeft");
+            } else if (walkDirection.epsilonEquals(1, 0)) {
+                entity.getEvents().trigger("walkRight");
+            } else if (walkDirection.epsilonEquals(0, 1)) {
+                entity.getEvents().trigger("walkUp");
+            } else if (walkDirection.epsilonEquals(0, -1)) {
+                entity.getEvents().trigger("walkDown");
+            } else if (walkDirection.epsilonEquals(-1, 1)) {
+                entity.getEvents().trigger("walkUp");
+            } else if (walkDirection.epsilonEquals(1, 1)) {
+                entity.getEvents().trigger("walkUp");
+            } else if (walkDirection.epsilonEquals(-1, -1)) {
+                entity.getEvents().trigger("walkDown");
+            } else if (walkDirection.epsilonEquals(1, -1)) {
+                entity.getEvents().trigger("walkDown");
+            }
         }
     }
 
