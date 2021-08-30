@@ -38,6 +38,9 @@ public class MainMenuDisplay extends UIComponent {
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
+    TextButton changeCharacterBtn = new TextButton("Change Character", skin);
+
+
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -77,16 +80,27 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
+    changeCharacterBtn.addListener(
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                    logger.debug("Change Character button clicked. ");
+                    entity.getEvents().trigger("changecharacter");
+                }
+            });
+
     table.add(title);
     table.row();
-    table.add(startBtn).padTop(30f);
+    table.add(changeCharacterBtn).padTop(30f);
+    table.row();
+    table.add(startBtn).padTop(50f);
     table.row();
     table.add(loadBtn).padTop(15f);
     table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
-
     stage.addActor(table);
   }
 

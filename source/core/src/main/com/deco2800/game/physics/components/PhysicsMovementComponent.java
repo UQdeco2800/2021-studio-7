@@ -27,6 +27,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     if (movementEnabled && targetPosition != null) {
       Body body = physicsComponent.getBody();
       updateDirection(body);
+      movementEvents();
     }
   }
 
@@ -82,5 +83,41 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private Vector2 getDirection() {
     // Move towards targetPosition based on our current position
     return targetPosition.cpy().sub(entity.getPosition()).nor();
+  }
+  /*
+    Function used to update the entities animations based upon the direction of movement.
+    Character will display the animation that is within 45 degrees of the nearest compass direction.
+     For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
+   */
+  public void movementEvents(){
+    Vector2 entityDirection= getDirection();
+    float x = entityDirection.x;
+    float y = entityDirection.y;
+
+    if (x<0 && y==0) {
+      entity.getEvents().trigger("walkLeft");
+      System.out.println(" Left");
+    } else if (x>0 && y==0){
+      entity.getEvents().trigger("walkRight");
+      System.out.println("Right");
+    } else if (x==0 && y>0){
+      entity.getEvents().trigger("walkUp");
+      System.out.println("Up");
+    } else if (x == 0 && y<0){
+      entity.getEvents().trigger("walkDown");
+      System.out.println("Down");
+    } else if (x<0 && y>0){
+      entity.getEvents().trigger("walkUpLeft");
+      System.out.println("Up Left");
+    } else if (x>0 && y>0){
+      entity.getEvents().trigger("walkUpRight");
+      System.out.println("Up Right");
+    } else if (x<0 && y<0){
+      entity.getEvents().trigger("walkDownLeft");
+      System.out.println("Down Left");
+    } else if (x>0 && y<0){
+      entity.getEvents().trigger("walkDownRight");
+      System.out.println("Down Right");
+    }
   }
 }

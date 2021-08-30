@@ -38,7 +38,7 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
-      displayDirection(); //TODO call this function to update character sprite
+     // displayDirection();
     }
     // update the stamina value of player
     updateStamina();
@@ -46,30 +46,22 @@ public class PlayerActions extends Component {
   }
 
 
-
   private void displayDirection() {
     if (walkDirection.epsilonEquals(-1,0)) {
       System.out.println("Left");
     } else if (walkDirection.epsilonEquals(1,0)){
-
       System.out.println("Right");
     } else if (walkDirection.epsilonEquals(0,1)){
-
       System.out.println("Up");
     } else if (walkDirection.epsilonEquals(0,-1)){
-
       System.out.println("Down");
     } else if (walkDirection.epsilonEquals(-1,1)){
-
       System.out.println("Up Left");
     } else if (walkDirection.epsilonEquals(1,1)){
-
       System.out.println("Up Right");
     } else if (walkDirection.epsilonEquals(-1,-1)){
-
       System.out.println("Down Left");
     } else if (walkDirection.epsilonEquals(1,-1)){
-
       System.out.println("Down Right");
     }
   }
