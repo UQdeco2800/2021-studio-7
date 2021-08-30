@@ -6,7 +6,6 @@ import java.io.*;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -90,11 +89,7 @@ public class RoomLoader {
      */
     private static boolean checkForDRM(String path) {
         // Check if the files at the given path end in ".drm"
-        if (path.endsWith(DRM_FILE_EXT)) {
-            return true;
-        }
-
-        return false;
+        return path.endsWith(DRM_FILE_EXT);
     }
 
     /**
@@ -107,7 +102,7 @@ public class RoomLoader {
      * An array of files that end in ".drm". If none exist, it will return null.
      */
     private static File[] getDRMFiles(String path) throws InvalidPathException {
-        ArrayList<File> drmFiles = new ArrayList<File>();
+        ArrayList<File> drmFiles = new ArrayList<>();
 
         // Get all files in path
         File[] allFiles = getPathFiles(path);
@@ -124,7 +119,7 @@ public class RoomLoader {
             return null;
         }
 
-        return (File[]) drmFiles.toArray(new File[drmFiles.size()]);
+        return drmFiles.toArray(new File[drmFiles.size()]);
     }
 
     /**
@@ -145,7 +140,7 @@ public class RoomLoader {
             ArrayList<String> lines) {
 
         // Construct new arraylist for processed lines
-        ArrayList<String> newLines = new ArrayList<String>();
+        ArrayList<String> newLines = new ArrayList<>();
 
         for (String line : lines) {
             // Trim line
@@ -177,16 +172,15 @@ public class RoomLoader {
      * @param lines
      * The preprocessed lines from a DRM file.
      *
-     * @return
-     * Returns `true` if the list of lines is in a valid
      * @throws FileNotFoundException
+     * If the given file has invalid lines or formatting
      */
-    private static boolean checkFileLines(ArrayList<String> lines)
+    private static void checkFileLines(ArrayList<String> lines)
             throws FileNotFoundException {
 
         // Check file length
         if (lines.size() < MIN_LINES) {
-            return false;
+            return;
         }
 
         // Check for dimension and position lines
@@ -256,7 +250,6 @@ public class RoomLoader {
             throw new FileNotFoundException("Missing a TEXTURE element");
         }
 
-        return true;
     }
 
     /**
@@ -333,11 +326,11 @@ public class RoomLoader {
         }
 
         // Get the ending condition for the subsection
-        String stopSubsec = null;
-        if (subsec == SUBSEC_DEFINE) {
+        String stopSubsec;
+        if (subsec.equals(SUBSEC_DEFINE)) {
             stopSubsec = SUBSEC_PLACE;
         }
-        else if (subsec == SUBSEC_PLACE) {
+        else if (subsec.equals(SUBSEC_PLACE)) {
             stopSubsec = SEC_END + SECTION_TEXTURE;
         }
         else {
@@ -561,15 +554,14 @@ public class RoomLoader {
                 extractTextureLocations(roomLines);
 
         // Create new room
-        MapRoom newRoom = new MapRoom(
+
+        return new MapRoom(
                 dimensions,
                 offset,
                 baseTextures,
                 textureSymbols,
                 textureLocations
         );
-
-        return newRoom;
     }
 
 
@@ -595,9 +587,7 @@ public class RoomLoader {
         ArrayList<String> roomLines = loadRoomInfo(drmFile);
 
         // Parse lines and generate MapRoom object
-        MapRoom newRoom = parseRoomInfo(roomLines);
-
-        return newRoom;
+        return parseRoomInfo(roomLines);
     }
 
     /**
@@ -610,7 +600,9 @@ public class RoomLoader {
      * A list of all of the MapRoom objects that were generated.
      *
      * @throws IOException
+     * If the DRM file cannot be loaded.
      * @throws FileNotFoundException
+     * If given a bad DRM file.
      */
     public static ArrayList<MapRoom> loadAllRooms(String directoryPath)
             throws IOException, FileNotFoundException

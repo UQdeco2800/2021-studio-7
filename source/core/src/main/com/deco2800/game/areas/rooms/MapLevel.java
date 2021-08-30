@@ -2,19 +2,18 @@ package com.deco2800.game.areas.rooms;
 
 import com.badlogic.gdx.math.GridPoint2;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
+ * Represents a collection of rooms. Effectively a 'house'. Will contain all
+ * details for a single level's map.
  */
 public class MapLevel {
     ArrayList<MapRoom> rooms;
 
     public MapLevel(String mapDirectoryPath)
-            throws IOException, FileNotFoundException
+            throws IOException
     {
         this.rooms = RoomLoader.loadAllRooms(mapDirectoryPath);
     }
@@ -23,6 +22,13 @@ public class MapLevel {
         return this.rooms;
     }
 
+    /**
+     * Calculates and returns a maximum size for the map, based on the size and
+     * position of the rooms.
+     *
+     * @return
+     * The maximum width and height of the map.
+     */
     public GridPoint2 getMaxSize() {
         int maxWidth = 0;
         int maxHeight = 0;
@@ -41,6 +47,12 @@ public class MapLevel {
         return new GridPoint2(maxWidth, maxHeight);
     }
 
+    /**
+     * Gets all base wall textures from the map's rooms.
+     *
+     * @return
+     * A list of paths to each room's base wall texture.
+     */
     public ArrayList<String> getBaseWallTextures() {
         ArrayList<String> walls = new ArrayList<>();
 
@@ -51,6 +63,12 @@ public class MapLevel {
         return walls;
     }
 
+    /**
+     * Gets all base floor textures from the map's rooms.
+     *
+     * @return
+     * A list of paths to each room's base floor texture.
+     */
     public ArrayList<String> getBaseFloorTextures() {
         ArrayList<String> floors = new ArrayList<>();
 
@@ -61,6 +79,12 @@ public class MapLevel {
         return floors;
     }
 
+    /**
+     * Gets all textures from the map's rooms.
+     *
+     * @return
+     * A list of paths to each room's textures.
+     */
     public ArrayList<String> getAllTexturePaths() {
         ArrayList<String> texturePaths = new ArrayList<>();
 
@@ -68,28 +92,68 @@ public class MapLevel {
         texturePaths.addAll(getBaseWallTextures());
         texturePaths.addAll(getBaseFloorTextures());
 
-        // Add all other textures
+        // Add all the other textures
         for (MapRoom room : getRooms()) {
-            room.getTextureSymbols().forEach((sym, texture) -> {
-                texturePaths.add(texture);
-            });
+            room.getTextureSymbols().forEach((sym, texture) ->
+                    texturePaths.add(texture));
         }
 
         return texturePaths;
     }
 
+    /**
+     * Check if the given x and y coord are within the bounds of any rooms.
+     *
+     * @param x
+     * X coordinate of the position to check
+     * @param y
+     * X coordinate of the position to check
+     *
+     * @return
+     * True if the given coordinate can be found in a map's rooms. False
+     * otherwise.
+     */
     public boolean isInBounds(int x, int y) {
+        int relX, relY;
+
         for (MapRoom room : getRooms()) {
-            if (room.isInBounds(x, y)) return true;
+
+            // Convert the position into a relative X and Y
+            // TODO check if this is what I want
+            relX = x - room.getRoomPosition().x;
+            relY = y - room.getRoomPosition().y;
+
+            if (room.isInBounds(relX, relY)) return true;
         }
 
         return false;
     }
 
+    /**
+     * Check if a given position is within the bounds of any room.
+     *
+     * @param pos
+     * The position to check
+     *
+     * @return
+     * True if the given coordinate can be found in a map's rooms. False
+     * otherwise.
+     */
     public boolean isInBounds(GridPoint2 pos) {
         return isInBounds(pos.x, pos.y);
     }
 
+    /**
+     * Get a room based on a given x and y coordinate.
+     *
+     * @param x
+     * x position to search for a room with.
+     * @param y
+     * y position to search for a room with.
+     *
+     * @return
+     * The room object at the given coordinate, if one exists. Null otherwise.
+     */
     public MapRoom findRoom(int x, int y) {
         for (MapRoom room : getRooms()) {
             if (room.isInBounds(x, y)) return room;
@@ -98,6 +162,15 @@ public class MapLevel {
         return null;
     }
 
+    /**
+     * Get a room based on a given position.
+     *
+     * @param pos
+     * The position to check for the room at.
+     *
+     * @return
+     * The room object at the given position, if one exists. Null otherwise.
+     */
     public MapRoom findRoom(GridPoint2 pos) {
         return findRoom(pos.x, pos.y);
     }

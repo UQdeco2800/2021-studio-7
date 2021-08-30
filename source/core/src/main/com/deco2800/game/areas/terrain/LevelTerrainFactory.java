@@ -18,11 +18,11 @@ import com.deco2800.game.services.ServiceLocator;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Factory for creating game terrains.
+ * Factory for creating game terrains on a per level basis. Terrains are based
+ * on DRM file contents.
  */
 public class LevelTerrainFactory {
     private static GridPoint2 MAP_SIZE;
@@ -30,17 +30,20 @@ public class LevelTerrainFactory {
     private final OrthographicCamera camera;
     private final TerrainOrientation orientation;
 
-    private MapLevel mapLevel;
-    private ArrayList<String> texturePaths;
+    private final MapLevel mapLevel;
 
     private final float TILE_SCALE = 1f;
 
     /**
      * Create a terrain factory for a level with isometric orientation.
      *
-     * @param cameraComponent Camera to render terrains to. Must be orthographic.
+     * @param mapFilePath Path to a directory containing DRM files.
+     * @param cameraComponent Camera to render terrains to.
+     *
      * @throws IOException
+     * If a map room file cannot be interacted with.
      * @throws FileNotFoundException
+     * If a map folder contains an invalid room file.
      */
     public LevelTerrainFactory(
             String mapFilePath,
@@ -52,10 +55,13 @@ public class LevelTerrainFactory {
     /**
      * Create a terrain factory for a level.
      *
-     * @param cameraComponent Camera to render terrains to. Must be orthographic.
+     * @param mapFilePath     Path to a directory containing DRM files.
+     * @param cameraComponent Camera to render terrains to.
      * @param orientation     orientation to render terrain at
      * @throws IOException
+     * If a map room file cannot be interacted with.
      * @throws FileNotFoundException
+     * If a map folder contains an invalid room file.
      */
     public LevelTerrainFactory(
             String mapFilePath,
@@ -69,10 +75,7 @@ public class LevelTerrainFactory {
         this.mapLevel = new MapLevel(mapFilePath);
 
         // Set map size
-        this.MAP_SIZE = mapLevel.getMaxSize();
-
-        // Set textures for assets
-        this.texturePaths = mapLevel.getAllTexturePaths();
+        MAP_SIZE = mapLevel.getMaxSize();
     }
 
     /**
@@ -107,6 +110,17 @@ public class LevelTerrainFactory {
         );
     }
 
+    /**
+     * Create a tiled map object based on the factories known rooms.
+     *
+     * @param resourceService
+     * The resource service used to obtain assets.
+     * @param tileSize
+     * The pixel size of each tile.
+     *
+     * @return
+     * The tile map as an object. The map will have a single layer for tiles.
+     */
     private TiledMap createTiledMap(
             ResourceService resourceService,
             GridPoint2 tileSize
@@ -130,6 +144,17 @@ public class LevelTerrainFactory {
         return tiledMap;
     }
 
+    /**
+     * Creates the tile regions for the map, and adds them to the map's tile
+     * layer.
+     *
+     * @param resourceService
+     * The resource service used to obtain assets.
+     * @param layer
+     * The map layer that tiles are added to.
+     * @param room
+     * The room object to get tile information from.
+     */
     private void createRoomTiles(
             ResourceService resourceService,
             TiledMapTileLayer layer,
@@ -165,17 +190,35 @@ public class LevelTerrainFactory {
         fillTileRegion(layer, bounds[0], bounds[1], baseTile);
 
         /* Insert extra tiles */
-        tTiles.forEach((pos, tile) -> {
-            fillTile(layer, pos.add(room.getRoomPosition()), tile);
-        });
+        tTiles.forEach((pos, tile) ->
+                fillTile(layer, pos.add(room.getRoomPosition()), tile));
     }
 
-
+    /**
+     * Create a new renderer for the map.
+     *
+     * @param tiledMap
+     * The map to create the renderer for.
+     * @param tileScale
+     * The scaling factor for the tile size.
+     *
+     * @return
+     * The created renderer.
+     */
     private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
                 return new IsometricTiledMapRenderer(tiledMap, tileScale);
     }
 
-
+    /**
+     * Places a single tile at a specified position.
+     *
+     * @param layer
+     * The tilemap layer to place the tiles on.
+     * @param pos
+     * The position of the tile to place.
+     * @param tile
+     * The tile to place.
+     */
     private static void fillTile(
             TiledMapTileLayer layer,
             GridPoint2 pos,
@@ -185,7 +228,18 @@ public class LevelTerrainFactory {
         cell.setTile(tile);
     }
 
-
+    /**
+     * Fills a rectangular area with a given tile.
+     *
+     * @param layer
+     * The layer to add the tiles to.
+     * @param c1
+     * The origin corner position of the rectangle to set.
+     * @param c2
+     * The opposing corner position of the rectangle to set.
+     * @param tile
+     * The tile to fill the rectangle.
+     */
     private static void fillTileRegion(
             TiledMapTileLayer layer,
             GridPoint2 c1, GridPoint2 c2,
