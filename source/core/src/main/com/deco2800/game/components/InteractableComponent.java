@@ -62,15 +62,6 @@ public class InteractableComponent extends Component {
         this.player = player;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
-
-        // Creates Collider component for door, bed and player
-        this.colliderComponent = new ColliderComponent();
-
-        // sets if an object is a sensor to true
-        this.colliderComponent.setSensor(true);
-
-        // Sets a box around the
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     /**
@@ -89,14 +80,6 @@ public class InteractableComponent extends Component {
         this.interactionEvent = interactionEvent;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
-
-        // Creates Collider component for door, bed and player
-        this.colliderComponent = new ColliderComponent();
-
-        // sets if an object is a sensor to true
-        this.colliderComponent.setSensor(true);
-
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     @Override
@@ -152,17 +135,4 @@ public class InteractableComponent extends Component {
             System.out.println("Successful interaction");
         }
     }
-
-
-    /**
-     * Updates the players hitbox position as the player moves around
-     */
-    /*
-    private void updatePlayerHitbox(){
-
-        // Find a way to reference the player
-        this.colliderComponent.dispose();
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
-    }
-    */
 }
