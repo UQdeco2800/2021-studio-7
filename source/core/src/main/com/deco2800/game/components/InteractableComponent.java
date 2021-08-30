@@ -51,13 +51,10 @@ public class InteractableComponent extends Component {
     /**
      * Create a component which listens for collisions with the player on its
      * target layer, and triggers an event on collision.
-<<<<<<< HEAD
-=======
      * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
      * used to parse a texture string for demo purposes. - Treff
      * //TODO Implement animation system for texture changes
      * @param player The player entity
->>>>>>> ca019eb0323f09454ccf082e2c3a657af920e06f
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
@@ -65,15 +62,6 @@ public class InteractableComponent extends Component {
         this.player = player;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
-
-        // Creates Collider component for door, bed and player
-        this.colliderComponent = new ColliderComponent();
-
-        // sets if an object is a sensor to true
-        this.colliderComponent.setSensor(true);
-
-        // Sets a box around the
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     /**
@@ -92,14 +80,6 @@ public class InteractableComponent extends Component {
         this.interactionEvent = interactionEvent;
         this.targetLayer = targetLayer;
         this.collisionEvent = collisionEvent;
-
-        // Creates Collider component for door, bed and player
-        this.colliderComponent = new ColliderComponent();
-
-        // sets if an object is a sensor to true
-        this.colliderComponent.setSensor(true);
-
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 
     @Override
@@ -156,16 +136,5 @@ public class InteractableComponent extends Component {
         } System.out.println("Imagine something cools it happening");
         // TODO stuff that happens when interacted with
         System.out.println("Interacted with object!");
-    }
-
-
-    /**
-     * Updates the players hitbox position as the player moves around
-     */
-    private void updatePlayerHitbox(){
-
-        // Find a way to reference the player
-        this.colliderComponent.dispose();
-        this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
 }
