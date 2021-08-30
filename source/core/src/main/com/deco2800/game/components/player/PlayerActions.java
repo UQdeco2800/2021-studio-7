@@ -24,7 +24,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("walkStop", this::stopWalking);
     entity.getEvents().addListener("attack", this::attack);
-    entity.getEvents().addListener("interaction", this::interaction);
+    //entity.getEvents().addListener("interaction", this::interaction);
   }
 
   @Override
@@ -62,9 +62,12 @@ public class PlayerActions extends Component {
     moving = false;
   }
 
+  /*
   void interaction(){
     System.out.println("this is a interaction");
   }
+
+   */
 
   /**
    * Makes the player attack.

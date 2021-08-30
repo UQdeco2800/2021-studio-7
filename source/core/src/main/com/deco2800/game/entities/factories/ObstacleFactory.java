@@ -53,14 +53,14 @@ public class ObstacleFactory {
    * //TODO
    * @return bed entity
    */
-  public static Entity createBed(){
+  public static Entity createBed(Entity player){
     Entity bed = new Entity()
             .addComponent(new TextureRenderComponent(("images/bed_inactive" +
                       ".png")))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            .addComponent((new InteractableComponent(PhysicsLayer.PLAYER)));
+            .addComponent((new InteractableComponent(player, PhysicsLayer.PLAYER)));
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.getComponent(TextureRenderComponent.class).scaleEntity();
     bed.scaleHeight(1.0f);

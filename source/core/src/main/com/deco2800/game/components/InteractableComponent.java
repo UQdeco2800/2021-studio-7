@@ -51,13 +51,10 @@ public class InteractableComponent extends Component {
     /**
      * Create a component which listens for collisions with the player on its
      * target layer, and triggers an event on collision.
-<<<<<<< HEAD
-=======
      * UPDATE: 27/08/21 2:17AM collisionEvent string is temporarily going to be
      * used to parse a texture string for demo purposes. - Treff
      * //TODO Implement animation system for texture changes
      * @param player The player entity
->>>>>>> ca019eb0323f09454ccf082e2c3a657af920e06f
      * @param targetLayer The physics layer of the target's collider
      * @param collisionEvent The event to trigger once a collision occurs
      */
@@ -111,11 +108,8 @@ public class InteractableComponent extends Component {
         // TODO Collision start will currently trigger with both the player AND
         //  NPCs. We want it to trigger on just the player, NOT the NPCS.
         // Should trigger when the player presses the E key
-        try {
-            player.getEvents().addListener("interaction", this::onInteraction);
-        } catch (Exception e) {
-            System.out.println("Exception: %e");
-        }
+        player.getEvents().addListener("interaction", this::onInteraction);
+
         hitboxComponent = entity.getComponent(HitboxComponent.class);
         textureComponent = entity.getComponent(TextureRenderComponent.class);
     }
@@ -149,23 +143,26 @@ public class InteractableComponent extends Component {
         entity.getEvents().trigger("interactionEnd");
     }
 
-    public void onInteraction(Fixture me, Fixture other) {
-        if (!isTouching) {
-            System.out.print("You are not touching an interactable object");
-            return;
-        } System.out.println("Imagine something cools it happening");
-        // TODO stuff that happens when interacted with
-        System.out.println("Interacted with object!");
+    /**
+     * Function that is called when the player presses the interact key (currently E)
+     */
+    public void onInteraction() {
+        if(isTouching) {
+            // TODO Stuff that happens once interacted with
+            System.out.println("Successful interaction");
+        }
     }
 
 
     /**
      * Updates the players hitbox position as the player moves around
      */
+    /*
     private void updatePlayerHitbox(){
 
         // Find a way to reference the player
         this.colliderComponent.dispose();
         this.colliderComponent.setAsBox(entity.getScale(), entity.getCenterPosition());
     }
+    */
 }

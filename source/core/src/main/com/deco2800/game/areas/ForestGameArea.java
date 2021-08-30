@@ -67,10 +67,10 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     spawnTrees();
-    spawnBed();
     player = spawnPlayer();
     spawnGhosts();
     //spawnGhostKing();
+    spawnBed();
 
     //playMusic();
   }
@@ -116,7 +116,7 @@ public class ForestGameArea extends GameArea {
   }
 
   private void spawnBed(){
-    Entity bed = ObstacleFactory.createBed();
+    Entity bed = ObstacleFactory.createBed(player);
     spawnEntityAt(bed, BED_SPAWN, true, true);
   }
 
