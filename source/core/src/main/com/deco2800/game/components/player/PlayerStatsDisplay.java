@@ -50,8 +50,8 @@ public class PlayerStatsDisplay extends UIComponent {
     healthLabel = new Label(healthText, skin, "large");
 
     // stamina text
-    int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
-    CharSequence staminaText = String.format("Stamina: %d", stamina);
+    double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
+    CharSequence staminaText = String.format("Stamina: %.0f", stamina);
     staminaLabel = new Label(staminaText, skin, "large");
 
     table.add(heartImage).size(heartSideLength).left();//pad(5);

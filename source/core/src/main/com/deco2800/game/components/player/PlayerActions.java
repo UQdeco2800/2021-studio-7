@@ -33,11 +33,13 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("stopRun", this::stopRunning);
   }
 
+
+
   @Override
   public void update() {
     if (moving) {
       updateSpeed();
-      displayDirection(); //TODO call this function to update character sprite
+      //displayDirection();
     }
     // update the stamina value of player
     updateStamina();
