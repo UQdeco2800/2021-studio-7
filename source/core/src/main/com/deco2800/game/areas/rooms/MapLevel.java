@@ -18,6 +18,10 @@ public class MapLevel {
         this.rooms = RoomLoader.loadAllRooms(mapDirectoryPath);
     }
 
+    public MapLevel(ArrayList<MapRoom> rooms) {
+        this.rooms = rooms;
+    }
+
     public ArrayList<MapRoom> getRooms() {
         return this.rooms;
     }
@@ -77,28 +81,6 @@ public class MapLevel {
         }
 
         return floors;
-    }
-
-    /**
-     * Gets all textures from the map's rooms.
-     *
-     * @return
-     * A list of paths to each room's textures.
-     */
-    public ArrayList<String> getAllTexturePaths() {
-        ArrayList<String> texturePaths = new ArrayList<>();
-
-        // Add base textures
-        texturePaths.addAll(getBaseWallTextures());
-        texturePaths.addAll(getBaseFloorTextures());
-
-        // Add all the other textures
-        for (MapRoom room : getRooms()) {
-            room.getTextureSymbols().forEach((sym, texture) ->
-                    texturePaths.add(texture));
-        }
-
-        return texturePaths;
     }
 
     /**
