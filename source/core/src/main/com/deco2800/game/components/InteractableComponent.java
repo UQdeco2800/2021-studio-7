@@ -84,6 +84,9 @@ public class InteractableComponent extends Component {
 
     @Override
     public void create() {
+        // TODO currently for animation purposes
+        entity.getEvents().trigger("interactionEnd");
+
         entity.getEvents().addListener("collisionStart",
                 this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd",

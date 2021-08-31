@@ -64,25 +64,6 @@ public class NPCFactory {
     return ghost;
   }
 
-  public static Entity createBed(Entity target){
-    Entity bed = createBed(target);
-
-    // Added the animation component here but I realised it belonged in the obstacle factory.
-    // I accidentally mistook this for a method I wrote and added a few stuff. Commented it all and then realised this
-    // was treffs method. So I have just commented out what I added to treffs method. -Pranay hopefully this makes sense
-
-//    AnimationRenderComponent interactableObjectAnimation =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/bed.atlas", TextureAtlas.class));
-//    interactableObjectAnimation.addAnimation("bed_animation", 0.1f, Animation.PlayMode.LOOP);
-//    bed
-//            .addComponent(interactableObjectAnimation)
-//            .addComponent(new InteractableComponentController());
-
-    // bed.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return bed;
-  }
-
   /**
    * Creates a ghost king entity.
    *

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.components.InteractableComponent;
 // import com.deco2800.game.components.npc.InteractableComponentController;
+import com.deco2800.game.components.npc.InteractableComponentController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -60,28 +61,29 @@ public class ObstacleFactory {
    */
 
   public static Entity createBed(Entity player){
-    // New from here - Pranay
-//    AnimationRenderComponent bedAnimation =
-//            new AnimationRenderComponent(
-//                    ServiceLocator.getResourceService().getAsset("images/bed.atlas", TextureAtlas.class));
-//    bedAnimation.addAnimation("bed", 0.1f, Animation.PlayMode.LOOP);
-//    bedAnimation.addAnimation("bed_highlight", 0.1f, Animation.PlayMode.LOOP);
+    Entity bed = new Entity();
 
-    // to here
 
-    Entity bed = new Entity()
-            .addComponent(new TextureRenderComponent(("images/bed_inactive" +
-                      ".png")))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            .addComponent((new InteractableComponent(player, PhysicsLayer.PLAYER)));
-//            .addComponent(bedAnimation) // Added component for the animation of th bed
-//            .addComponent(new InteractableComponentController()); // Added to trigger animation
+    AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
+              ServiceLocator.getResourceService().getAsset("images/ghost.atlas",
+                      TextureAtlas.class));
+
+    bedAnimation.addAnimation("float", 1f);
+    bedAnimation.addAnimation("angry_float", 1f);
+
+    bed
+              //.addComponent(new TextureRenderComponent(("images/bed_inactive" + ".png")))
+              .addComponent(new PhysicsComponent())
+              .addComponent(new ColliderComponent())
+              .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+              .addComponent((new InteractableComponent(player, PhysicsLayer.PLAYER)))
+              .addComponent(bedAnimation) // Added component for the animation of the bed
+              .addComponent(new InteractableComponentController());
+
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    bed.getComponent(TextureRenderComponent.class).scaleEntity();
+    //bed.getComponent(TextureRenderComponent.class).scaleEntity();
     bed.scaleHeight(1.0f);
-    PhysicsUtils.setScaledCollider(bed,0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(bed, 0.5f, 0.5f);
 
     // bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
