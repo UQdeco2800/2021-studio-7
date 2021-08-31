@@ -1,15 +1,7 @@
 package com.deco2800.game.components;
 
-import com.badlogic.gdx.Gdx;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.entities.factories.RenderFactory;
+
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.physics.components.PhysicsComponent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,9 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(GameExtension.class)
 class CombatStatsComponentTest {
-
-  private PhysicsComponent physicsComponent;
-  private CombatStatsComponent combatStatsComponent;
 
   @Test
   void shouldSetGetHealth() {
