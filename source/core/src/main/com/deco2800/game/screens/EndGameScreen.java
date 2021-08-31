@@ -23,16 +23,18 @@ import org.slf4j.LoggerFactory;
  */
 public class EndGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
-    private static final String[] winScreenTextures = {"images/thumbsup.png"};
-    private static final String[] loseScreenTextures = {"images/thumbsdown.png"};
+    private static final String[] winScreenTextures = {"images/win_screen.png"};
+    private static final String[] loseScreenTextures = {"images/lose_screen.png"};
     private String[] activeScreenTextures;
+    private GdxGame.ScreenType result;
 
     private final GdxGame game;
     private final Renderer renderer;
 
     public EndGameScreen(GdxGame game, GdxGame.ScreenType result) {
         this.game = game;
-        switch (result) {
+        this.result = result;
+        switch (this.result) {
             case WIN_DEFAULT:
                 this.activeScreenTextures = winScreenTextures;
                 break;
@@ -89,6 +91,14 @@ public class EndGameScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
+    public GdxGame.ScreenType getResult() {
+        return this.result;
+    }
+
+    public String[] getActiveScreenTextures() {
+        return this.activeScreenTextures;
+    }
+
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -110,7 +120,7 @@ public class EndGameScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new EndGameDisplay(this.activeScreenTextures))
+        ui.addComponent(new EndGameDisplay(this))
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new EndGameActions(game));
         ServiceLocator.getEntityService().register(ui);

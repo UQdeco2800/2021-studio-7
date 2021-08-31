@@ -19,14 +19,24 @@ public class EndGameActions extends Component {
 
   @Override
   public void create() {
+    entity.getEvents().addListener("nextLevel", this::onNextLevel);
     entity.getEvents().addListener("exit", this::onExit);
+  }
+
+  /**
+   * Swaps to the next level on the Main Game Screen.
+   */
+  private void onNextLevel() {
+    logger.info("Exiting end game screen...");
+    logger.info("Swapping to next level on main game screen...");
+    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   /**
    * Swaps to the Main Menu screen.
    */
   private void onExit() {
-    logger.info("Exiting main game screen...");
+    logger.info("Exiting end game screen...");
     logger.info("Swapping to main menu screen...");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
