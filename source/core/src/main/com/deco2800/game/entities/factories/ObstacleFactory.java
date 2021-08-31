@@ -65,11 +65,11 @@ public class ObstacleFactory {
 
 
     AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
-              ServiceLocator.getResourceService().getAsset("images/ghost.atlas",
+              ServiceLocator.getResourceService().getAsset("images/bed.atlas",
                       TextureAtlas.class));
 
-    bedAnimation.addAnimation("float", 1f);
-    bedAnimation.addAnimation("angry_float", 1f);
+    bedAnimation.addAnimation("bed", 1f);
+    bedAnimation.addAnimation("bed_highlight", 1f);
 
     bed
               //.addComponent(new TextureRenderComponent(("images/bed_inactive" + ".png")))

@@ -16,10 +16,10 @@ public class InteractableComponentController extends Component {
     }
 
     void animateInteractionStart() {
-        animator.startAnimation("float");
+        animator.startAnimation("bed");
     }
 
     void animateInteractionEnd() {
-        animator.startAnimation("angry_float");
+        animator.startAnimation("bed_highlight");
     }
 }
