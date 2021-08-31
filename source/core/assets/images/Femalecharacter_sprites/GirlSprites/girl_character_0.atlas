@@ -1,0 +1,89 @@
+girl_character_0.png
+size: 672, 244
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+standDown
+  rotate: true
+  xy: 409, 137
+  size: 82, 130
+  orig: 256, 256
+  offset: 87, 55
+  index: 0
+standLeft
+  rotate: false
+  xy: 105, 1
+  size: 86, 138
+  orig: 256, 256
+  offset: 83, 63
+  index: 0
+standRight
+  rotate: false
+  xy: 193, 1
+  size: 86, 138
+  orig: 256, 256
+  offset: 91, 59
+  index: 0
+standUp
+  rotate: false
+  xy: 457, 1
+  size: 82, 130
+  orig: 256, 256
+  offset: 87, 55
+  index: 0
+walkDown
+  rotate: false
+  xy: 281, 1
+  size: 86, 134
+  orig: 256, 256
+  offset: 87, 51
+  index: 1
+walkDown
+  rotate: false
+  xy: 369, 1
+  size: 86, 134
+  orig: 256, 256
+  offset: 83, 51
+  index: 2
+walkLeft
+  rotate: true
+  xy: 1, 141
+  size: 102, 134
+  orig: 256, 256
+  offset: 67, 63
+  index: 1
+walkLeft
+  rotate: true
+  xy: 137, 141
+  size: 94, 134
+  orig: 256, 256
+  offset: 71, 63
+  index: 2
+walkRight
+  rotate: false
+  xy: 1, 1
+  size: 102, 138
+  orig: 256, 256
+  offset: 79, 51
+  index: 1
+walkRight
+  rotate: true
+  xy: 273, 141
+  size: 94, 134
+  orig: 256, 256
+  offset: 91, 51
+  index: 2
+walkUp
+  rotate: false
+  xy: 541, 1
+  size: 82, 130
+  orig: 256, 256
+  offset: 87, 55
+  index: 1
+walkUp
+  rotate: true
+  xy: 541, 133
+  size: 82, 130
+  orig: 256, 256
+  offset: 87, 55
+  index: 2
