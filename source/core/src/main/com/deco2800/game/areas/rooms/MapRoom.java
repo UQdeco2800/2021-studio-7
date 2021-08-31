@@ -152,6 +152,6 @@ public class MapRoom {
 
         return roomSize.toString() + sep +
                 roomPos.toString() + sep +
-                "Textures: " + (textureSymbols.size() + 1);
+                "Textures: " + (textureSymbols.size() + 2);
     }
 }
