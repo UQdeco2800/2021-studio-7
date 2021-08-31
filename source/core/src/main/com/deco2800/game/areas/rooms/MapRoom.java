@@ -150,6 +150,7 @@ public class MapRoom {
 
         String sep = "; ";
 
+        // Add two to texture count to account for the two base textures
         return roomSize.toString() + sep +
                 roomPos.toString() + sep +
                 "Textures: " + (textureSymbols.size() + 2);
