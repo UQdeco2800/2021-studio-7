@@ -26,7 +26,6 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-    "images/bed.png",
     "images/box_boy_leaf.png",
     "images/tree.png",
     "images/ghost_king.png",
@@ -68,10 +67,10 @@ public class ForestGameArea extends GameArea {
     spawnTrees();
     player = spawnPlayer();
     spawnGhosts();
-    //spawnGhostKing();
+    spawnGhostKing();
     spawnBed();
 
-    //playMusic();
+    playMusic();
   }
 
   public Entity getPlayer(){
@@ -114,11 +113,6 @@ public class ForestGameArea extends GameArea {
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
   }
 
-  private void spawnBed(){
-    Entity bed = ObstacleFactory.createBed(player);
-    spawnEntityAt(bed, BED_SPAWN, true, true);
-  }
-
   private void spawnTrees() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -156,6 +150,12 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(ghostKing, randomPos, true, true);
   }
 
+  private void spawnBed(){
+    // Note: interactable objects must be created AFTER the player, as it requires the player
+    // entity as an argument
+    Entity bed = ObstacleFactory.createBed(player);
+    spawnEntityAt(bed, BED_SPAWN, true, true);
+  }
 
   private void playMusic() {
     Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);

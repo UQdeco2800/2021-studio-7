@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.components.InteractableComponent;
-// import com.deco2800.game.components.npc.InteractableComponentController;
-import com.deco2800.game.components.npc.InteractableComponentController;
+import com.deco2800.game.components.ObjectAnimationController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -56,13 +55,12 @@ public class ObstacleFactory {
   }
 
   /**
-   * //TODO
-   * @return bed entity
+   * Creates a bed entity which can be interacted with by the player
+   * @param player The player entity (needed for interaction events)
+   * @return This bed entity
    */
-
   public static Entity createBed(Entity player){
     Entity bed = new Entity();
-
 
     AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
               ServiceLocator.getResourceService().getAsset("images/bed.atlas",
@@ -72,20 +70,19 @@ public class ObstacleFactory {
     bedAnimation.addAnimation("bed_highlight", 1f);
 
     bed
-              //.addComponent(new TextureRenderComponent(("images/bed_inactive" + ".png")))
               .addComponent(new PhysicsComponent())
               .addComponent(new ColliderComponent())
               .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-              .addComponent((new InteractableComponent(player, PhysicsLayer.PLAYER)))
+              .addComponent((new InteractableComponent(player)))
               .addComponent(bedAnimation) // Added component for the animation of the bed
-              .addComponent(new InteractableComponentController());
+              .addComponent(new ObjectAnimationController("bed",
+                      "bed_highlight"));
 
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    //bed.getComponent(TextureRenderComponent.class).scaleEntity();
     bed.scaleHeight(1.0f);
     PhysicsUtils.setScaledCollider(bed, 0.5f, 0.5f);
 
-    // bed.getComponent(AnimationRenderComponent.class).scaleEntity();
+    //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
   }
 
