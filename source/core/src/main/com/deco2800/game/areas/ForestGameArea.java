@@ -48,7 +48,7 @@ public class ForestGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
 
-  private Entity player;
+  public Entity player;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -68,7 +68,7 @@ public class ForestGameArea extends GameArea {
     spawnGhosts();
     spawnGhostKing();
 
-    playMusic();
+    //playMusic();
   }
 
   private void displayUI() {
@@ -79,7 +79,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
+    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO_ISO);
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls
