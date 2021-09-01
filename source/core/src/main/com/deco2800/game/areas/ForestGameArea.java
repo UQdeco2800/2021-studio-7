@@ -3,6 +3,7 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.terrain.LevelTerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory.TerrainType;
 import com.deco2800.game.entities.Entity;
@@ -37,7 +38,9 @@ public class ForestGameArea extends GameArea {
     "images/hex_grass_3.png",
     "images/iso_grass_1.png",
     "images/iso_grass_2.png",
-    "images/iso_grass_3.png"
+    "images/iso_grass_3.png",
+    "images/iso_floor_1.png",
+    "images/iso_floor_1_alt.png"
   };
   private static final String[] forestTextureAtlases = {
     "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
@@ -46,11 +49,11 @@ public class ForestGameArea extends GameArea {
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
-  private final TerrainFactory terrainFactory;
+  private final LevelTerrainFactory terrainFactory;
 
   private Entity player;
 
-  public ForestGameArea(TerrainFactory terrainFactory) {
+  public ForestGameArea(LevelTerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
   }
@@ -79,7 +82,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO);
+    terrain = terrainFactory.createTerrain();
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls

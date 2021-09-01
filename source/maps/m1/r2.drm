@@ -1,0 +1,24 @@
+12,12
+0,0
+
+TEXTURE<
+
+	# Define new textures
+	DEFINE
+		BASE_FLOOR:"source\core\assets\..."
+		BASE_WALL:"source\core\assets\..."
+		A:"source\core\assets\..."
+		B:"source\core\assets\..."
+
+	PLACE
+		1,2:A
+	
+>TEXTURE
+
+OBJECTS<
+
+>OBJECTS
+
+NPCS<
+
+>NPCS

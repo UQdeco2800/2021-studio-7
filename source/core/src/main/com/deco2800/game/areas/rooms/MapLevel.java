@@ -84,6 +84,28 @@ public class MapLevel {
     }
 
     /**
+     * Gets all textures from the map's rooms.
+     *
+     * @return
+     * A list of paths to each room's textures.
+     */
+    public ArrayList<String> getAllTexturePaths() {
+        ArrayList<String> texturePaths = new ArrayList<>();
+
+        // Add base textures
+        texturePaths.addAll(getBaseWallTextures());
+        texturePaths.addAll(getBaseFloorTextures());
+
+        // Add all the other textures
+        for (MapRoom room : getRooms()) {
+            room.getTextureSymbols().forEach((sym, texture) ->
+                    texturePaths.add(texture));
+        }
+
+        return texturePaths;
+    }
+
+    /**
      * Check if the given x and y coord are within the bounds of any rooms.
      *
      * @param x

@@ -128,6 +128,9 @@ public class LevelTerrainFactory {
         TiledMap tiledMap = new TiledMap();
 
         // Create layer for tiles
+        /* FIXME I've added an offset for a dirty fix, but it seems the size
+            of the map isn't being calculated properly. Will need to check.
+         */
         TiledMapTileLayer layer = new TiledMapTileLayer(
                 MAP_SIZE.x, MAP_SIZE.y,
                 tileSize.x, tileSize.y
