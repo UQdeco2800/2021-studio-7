@@ -63,20 +63,18 @@ public class ObstacleFactory {
     Entity bed = new Entity();
 
     AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
-              ServiceLocator.getResourceService().getAsset("images/bed.atlas",
-                      TextureAtlas.class));
-
+            ServiceLocator.getResourceService().getAsset("images/bed.atlas",
+                    TextureAtlas.class));
     bedAnimation.addAnimation("bed", 1f);
     bedAnimation.addAnimation("bed_highlight", 1f);
 
-    bed
-              .addComponent(new PhysicsComponent())
-              .addComponent(new ColliderComponent())
-              .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-              .addComponent((new InteractableComponent(player, "bed")))
-              .addComponent(bedAnimation) // Added component for the animation of the bed
-              .addComponent(new ObjectAnimationController("bed",
-                      "bed_highlight"));
+    bed.addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent((new InteractableComponent(player, "bed")))
+            .addComponent(bedAnimation) // Added component for the animation of the bed
+            .addComponent(new ObjectAnimationController("bed",
+                    "bed_highlight"));
 
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.scaleHeight(1.0f);

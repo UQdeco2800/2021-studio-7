@@ -17,6 +17,7 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
 
+
   @Override
   public void create() {
     super.create();

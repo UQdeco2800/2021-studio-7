@@ -60,15 +60,14 @@ public class ForestGameArea extends GameArea {
   @Override
   public void create() {
     loadAssets();
-
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
     player = spawnPlayer();
+    spawnBed();
+    spawnTrees();
     spawnGhosts();
     spawnGhostKing();
-    spawnBed();
 
     playMusic();
   }
