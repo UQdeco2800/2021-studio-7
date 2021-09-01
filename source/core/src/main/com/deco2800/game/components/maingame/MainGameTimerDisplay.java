@@ -11,11 +11,15 @@ import java.util.TimerTask;
 /**
  * A ui component for displaying player stats, e.g. health.
  */
-public class MainGameTimerTestingDisplay extends UIComponent {
+public class MainGameTimerDisplay extends UIComponent {
     Table table;
     private Label timerLabel;
     private static Timer timer;
-    private static int interval;
+    private static int timeLeft;
+
+    public MainGameTimerDisplay(int initialTime) {
+        timeLeft = initialTime;
+    }
 
     /**
      * Creates reusable ui styles and adds actors to the stage.
@@ -32,14 +36,12 @@ public class MainGameTimerTestingDisplay extends UIComponent {
      */
     private void addActors() {
         table = new Table();
-        table.bottom().left();
+        table.bottom().left().padBottom(10f).padLeft(5f);
         table.setFillParent(true);
-        table.padBottom(1f).padLeft(5f);
 
-
-        // Timer text
-        CharSequence Timer_text = String.format("Time left: %ds", interval);
-        timerLabel = new Label(Timer_text, skin, "large");
+        timerLabel = new Label(
+                String.format("Time left: %ds", timeLeft),
+                skin, "large");
 
         table.add(timerLabel);
         stage.addActor(table);
@@ -52,17 +54,25 @@ public class MainGameTimerTestingDisplay extends UIComponent {
 
     /**
      * Updates the player's time left on the ui.
-     * @param time player time left
      */
-    public void updatePlayerHealthUI(int time) {
-        CharSequence text = String.format("Time left: %ds", time);
+    public void updatePlayerHealthUI() {
+        CharSequence text = String.format("Time left: %ds", timeLeft);
         timerLabel.setText(text);
+        if (timeLeft < 0) {
+            // Should trigger lossTimed event in MainGameActions
+            // I think it causes a runtime error because this method is
+            // called on the TimerTask thread, and not the main thread.
+            // Perhaps @XUEHUANG521 should utilise the time source instead
+            // of a Timer object (@Jantoom)
+            //entity.getEvents().trigger("lossTimed");
+        }
     }
 
     @Override
     public void dispose() {
+        table.clear();
+        timer.cancel();
         super.dispose();
-        timerLabel.remove();
     }
 
     /**
@@ -75,17 +85,13 @@ public class MainGameTimerTestingDisplay extends UIComponent {
         int period = 1000;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                updatePlayerHealthUI(setInterval());
+                tick();
+                updatePlayerHealthUI();
             }
         }, delay, period);
     }
-    private static int setInterval() {
-        if (interval == 1)
-            timer.cancel();
-        return --interval;
-    }
 
-    public void setTimer(int time) {
-        interval = time;
+    private static void tick() {
+        timeLeft--;
     }
 }
