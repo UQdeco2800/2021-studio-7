@@ -19,6 +19,7 @@ public class InteractableComponent extends Component {
     private Entity player;
     private short targetLayer;
     private String interactionEvent;
+    private String objectType;
     private HitboxComponent hitboxComponent;
     private boolean isTouching = false;
 
@@ -38,10 +39,12 @@ public class InteractableComponent extends Component {
      * entity cannot (currently) be passed.
      *
      * @param player The player entity
-     * @param interactionEvent The event to trigger when the player interacts with the object
+     * @param objectType Identifies what sort of object the component is
+     *                   called on, and informs interactions.
      */
-    public InteractableComponent (Entity player, String interactionEvent) {
+    public InteractableComponent (Entity player, String objectType) {
         this.player = player;
+        this.objectType = objectType;
         this.interactionEvent = interactionEvent;
     }
 
@@ -94,6 +97,13 @@ public class InteractableComponent extends Component {
             }
 
             System.out.println("Successful interaction"); // TODO Here for testing purposes, remove
+        }
+    }
+
+    public void objectTypeEvent(){
+        switch(this.objectType){
+            case "bed":
+
         }
     }
 }
