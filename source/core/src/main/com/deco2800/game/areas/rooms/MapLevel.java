@@ -101,7 +101,6 @@ public class MapLevel {
         for (MapRoom room : getRooms()) {
 
             // Convert the position into a relative X and Y
-            // TODO check if this is what I want
             relX = x - room.getRoomPosition().x;
             relY = y - room.getRoomPosition().y;
 
@@ -137,8 +136,14 @@ public class MapLevel {
      * The room object at the given coordinate, if one exists. Null otherwise.
      */
     public MapRoom findRoom(int x, int y) {
+        int relX, relY;
         for (MapRoom room : getRooms()) {
-            if (room.isInBounds(x, y)) return room;
+
+            // Convert the position into a relative X and Y
+            relX = x - room.getRoomPosition().x;
+            relY = y - room.getRoomPosition().y;
+
+            if (room.isInBounds(relX, relY)) return room;
         }
 
         return null;
