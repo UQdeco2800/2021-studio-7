@@ -40,7 +40,7 @@ public class PlayerFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/male_character.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset("images/girl_character_0.atlas", TextureAtlas.class));
     animator.addAnimation("standDown", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standUp", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standLeft", 0.1f, Animation.PlayMode.LOOP);

@@ -13,6 +13,7 @@ import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.BaseEntityConfig;
 import com.deco2800.game.entities.configs.GhostKingConfig;
+import com.deco2800.game.entities.configs.MomConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -50,26 +51,20 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/mom_character_0.atlas", TextureAtlas.class));
-    animator.addAnimation("walkDown", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkUp", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkRight", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standUp", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standDown", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standLeft", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standRight", 0.1f, Animation.PlayMode.LOOP);
+            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
+    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: ghost stamina placeholder
         .addComponent(animator)
-        .addComponent(new MomAnimationController());
+        .addComponent(new GhostAnimationController());
 
     ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
 
     return ghost;
   }
-// Team 1 to create a new entity.
+
   /**
    * Creates a ghost king entity.
    *
@@ -88,32 +83,12 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: stamina placeholder
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
-  }
-
-  public static Entity createMon(Entity target) {
-    Entity mom = createBaseNPC(target);
-    GhostKingConfig config = configs.ghostKing;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/ghostKing.atlas", TextureAtlas.class));
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-
-    mom
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: stamina placeholder
-            .addComponent(animator)
-            .addComponent(new GhostAnimationController());
-
-    mom.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return mom;
   }
 
 
@@ -124,26 +99,29 @@ public class NPCFactory {
    * @return entity
    */
   public static Entity createMom(Entity target) {
-    Entity mom = new Entity();
+    Entity mom =  createBaseNPC(target);
+    MomConfig config = configs.mom;
+
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));//TODO change it to female_character.atlas
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standDown", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standUp", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standLeft", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standRight", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkDown", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkUp", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkRight", 0.1f, Animation.PlayMode.LOOP);
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/mom_character_0.atlas", TextureAtlas.class));
+    animator.addAnimation("standDown", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standUp", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standLeft", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standRight", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkDown", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkUp", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkLeft", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkRight", 0.25f, Animation.PlayMode.LOOP);
 
     mom
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(animator)
             .addComponent(new MomAnimationController());
 
-    mom.getComponent(AnimationRenderComponent.class).scaleEntity();
+
+    //mom.getComponent(AnimationRenderComponent.class).scaleEntity();
     return mom;
   }
 
