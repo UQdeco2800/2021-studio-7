@@ -40,7 +40,7 @@ public class ForestGameArea extends GameArea {
     "images/iso_grass_3.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/girl_character_0.atlas", "images/mom_character_0.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/male_character_1.atlas", "images/mom_character_0.atlas"
           //TODO add "images/female_character.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
