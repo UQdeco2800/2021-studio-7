@@ -19,7 +19,6 @@ public class PlayerActions extends Component {
   private CombatStatsComponent combatStatsComponent;
 
   private Vector2 walkDirection = Vector2.Zero.cpy();
-  private Vector2 lastDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean running = false;
 
@@ -38,32 +37,9 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
-     // displayDirection();
     }
     // update the stamina value of player
     updateStamina();
-
-  }
-
-
-  private void displayDirection() {
-    if (walkDirection.epsilonEquals(-1,0)) {
-      System.out.println("Left");
-    } else if (walkDirection.epsilonEquals(1,0)){
-      System.out.println("Right");
-    } else if (walkDirection.epsilonEquals(0,1)){
-      System.out.println("Up");
-    } else if (walkDirection.epsilonEquals(0,-1)){
-      System.out.println("Down");
-    } else if (walkDirection.epsilonEquals(-1,1)){
-      System.out.println("Up Left");
-    } else if (walkDirection.epsilonEquals(1,1)){
-      System.out.println("Up Right");
-    } else if (walkDirection.epsilonEquals(-1,-1)){
-      System.out.println("Down Left");
-    } else if (walkDirection.epsilonEquals(1,-1)){
-      System.out.println("Down Right");
-    }
   }
 
   private void updateSpeed() {

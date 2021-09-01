@@ -49,7 +49,7 @@ public class ForestGameArea extends GameArea {
 
   private final TerrainFactory terrainFactory;
 
-  private Entity player;
+  public Entity player;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(GameExtension.class)
 class CombatStatsComponentTest {
+
   @Test
   void shouldSetGetHealth() {
     CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
@@ -19,6 +20,31 @@ class CombatStatsComponentTest {
 
     combat.setHealth(-50);
     assertEquals(0, combat.getHealth());
+  }
+
+  @Test
+  void shouldSetGetStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
+    assertEquals(100, combat.getStamina());
+
+    combat.setStamina(150);
+    assertEquals(100, combat.getStamina());
+
+    combat.setStamina(-50);
+    assertEquals(0, combat.getStamina());
+  }
+
+  @Test
+  void shouldAddStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 0);
+    combat.changeStamina(1);
+    assertEquals(1, combat.getStamina());
+
+    combat.changeStamina(-1);
+    assertEquals(0, combat.getStamina());
+
+    combat.changeStamina(101);
+    assertEquals(100, combat.getStamina());
   }
 
   @Test

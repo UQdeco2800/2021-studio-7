@@ -109,6 +109,9 @@ public class CombatStatsComponent extends Component {
   public void setStamina(int stamina) {
     if (stamina >= 0) {
       this.stamina = stamina;
+      if (this.stamina > 100) {
+        this.stamina = 100;
+      }
     } else {
       this.stamina = 0;
     }
@@ -125,6 +128,12 @@ public class CombatStatsComponent extends Component {
    */
   public void changeStamina(int stamina) {
     int newStamina = this.stamina + stamina;
+    if (newStamina < 0) {
+      setStamina(0);
+    }
+    else if (newStamina > 100) {
+      setStamina(100);
+    }
     if (newStamina >= 0 && newStamina <= 100) {
       setStamina(this.stamina + stamina);
     }
