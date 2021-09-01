@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
+import com.deco2800.game.screens.EndGameScreen;
 import com.deco2800.game.screens.MainGameScreen;
 import com.deco2800.game.screens.MainMenuScreen;
 import com.deco2800.game.screens.SettingsScreen;
@@ -72,13 +73,19 @@ public class GdxGame extends Game {
         return new MainGameScreen(this);
       case SETTINGS:
         return new SettingsScreen(this);
+      case WIN_DEFAULT:
+        return new EndGameScreen(this, ScreenType.WIN_DEFAULT);
+      case LOSS_TIMED:
+        return new EndGameScreen(this, ScreenType.LOSS_TIMED);
+      case LOSS_CAUGHT:
+        return new EndGameScreen(this, ScreenType.LOSS_CAUGHT);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS
+    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT
   }
 
   /**
