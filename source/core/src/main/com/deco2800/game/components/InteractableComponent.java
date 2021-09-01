@@ -95,15 +95,20 @@ public class InteractableComponent extends Component {
                     logger.error("No interaction event passed to InteractableComponent");
                 }
             }
-
-            System.out.println("Successful interaction"); // TODO Here for testing purposes, remove
+            //objectTypeEvent();
         }
     }
 
+    /*
     public void objectTypeEvent(){
+        System.out.println("ObjectInteractionCalled");
         switch(this.objectType){
             case "bed":
-
+                System.out.println("For bed!");
+                entity.getEvents().trigger("winDefault");
+                break;
+            default:
+                return;
         }
-    }
+    }*/
 }
