@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -173,30 +173,44 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getcurrentDirectionCode()">getcurrentDirectionCode</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Will asign an integer value to the direction.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMoving()">getMoving</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTarget()">getTarget</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#movementEvents()">movementEvents</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Function used to update the entities animations based upon the direction of movement.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMoving(boolean)">setMoving</a></span>&#8203;(boolean&nbsp;movementEnabled)</code></th>
 <td class="colLast">
 <div class="block">Enable/disable movement for the controller.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTarget(com.badlogic.gdx.math.Vector2)">setTarget</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;target)</code></th>
 <td class="colLast">
 <div class="block">Set a target to move towards.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -321,6 +335,27 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>target</code> - target position</dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getcurrentDirectionCode()">getcurrentDirectionCode</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">getcurrentDirectionCode</span>()</div>
+<div class="block">Will asign an integer value to the direction. Directions are broken into compass quadrents.
+     Where:
+        0 = North
+        1 = East
+        2 = South
+        3 = West</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="movementEvents()">movementEvents</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">movementEvents</span>()</div>
+<div class="block">Function used to update the entities animations based upon the direction of movement.
+    Character will display the animation that is within 45 degrees of the nearest compass direction.
+     For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
 </section>
 </li>
 </ul>
