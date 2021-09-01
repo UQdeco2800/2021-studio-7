@@ -50,7 +50,7 @@ class MapRoomTest {
         }
 
         // Ensure correct bound count
-        assert (i == 2);
+        assert (i == bounds.length);
     }
 
     @Test
