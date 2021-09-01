@@ -1,0 +1,19 @@
+bed.png
+size: 1362, 648
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bed
+  rotate: false
+  xy: 0, 0
+  size: 647, 613
+  orig: 647, 613
+  offset: 0, 0
+  index: -1
+bed_highlight
+  rotate: false
+  xy: 681, 0
+  size: 681, 648
+  orig: 681, 648
+  offset: 0, 0
+  index: -1
