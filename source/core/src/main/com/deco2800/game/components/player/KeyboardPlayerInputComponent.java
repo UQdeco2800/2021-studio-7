@@ -49,7 +49,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("attack");
                 return true;
             case Keys.SHIFT_LEFT:
-                running = true;
+                enableRun();
                 triggerRunEvent();
                 return true;
             default:
@@ -83,7 +83,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerWalkEvent();
                 return true;
             case Keys.SHIFT_LEFT:
-                running = false;
+                disableRun();
                 triggerRunEvent();
                 return true;
             default:
@@ -106,5 +106,20 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         } else {
             entity.getEvents().trigger("stopRun");
         }
+    }
+
+    @Override
+    public void enableRun(){
+        running = true;
+    }
+
+    @Override
+    public void disableRun(){
+        running = false;
+    }
+
+    @Override
+    public boolean running(){
+        return running;
     }
 }
