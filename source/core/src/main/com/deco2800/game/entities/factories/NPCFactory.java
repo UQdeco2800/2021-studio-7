@@ -50,14 +50,20 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+            ServiceLocator.getResourceService().getAsset("images/mom_character_0.atlas", TextureAtlas.class));
+    animator.addAnimation("walkDown", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkUp", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkRight", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkLeft", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standUp", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standDown", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standLeft", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standRight", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
         .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: ghost stamina placeholder
         .addComponent(animator)
-        .addComponent(new GhostAnimationController());
+        .addComponent(new MomAnimationController());
 
     ghost.getComponent(AnimationRenderComponent.class).scaleEntity();
 
