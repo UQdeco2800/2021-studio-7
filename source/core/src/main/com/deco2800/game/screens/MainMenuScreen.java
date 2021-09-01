@@ -30,7 +30,8 @@ public class MainMenuScreen extends ScreenAdapter {
           "images/box_boy.png",
           "images/boy_0.png",
           "images/girl_0.png",
-          "images/simpleboy_0.png"};
+          "images/simpleboy_0.png"
+  };
 
   public MainMenuScreen(GdxGame game) {
     this.game = game;
@@ -107,4 +108,14 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new MainMenuActions(game));
     ServiceLocator.getEntityService().register(ui);
   }
+
+  /**
+   *       _          _          _          _          _
+   *     >(')____,  >(')____,  >(')____,  >(')____,  >(') ___,
+   *       (` =~~/    (` =~~/    (` =~~/    (` =~~/    (` =~~/
+   *    ~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~
+   *
+   *
+   *
+   */
 }
