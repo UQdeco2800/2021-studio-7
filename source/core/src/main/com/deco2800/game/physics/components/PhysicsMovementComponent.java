@@ -88,7 +88,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     return targetPosition.cpy().sub(entity.getPosition()).nor();
   }
 
-  /*
+  /**
     Will asign an integer value to the direction. Directions are broken into compass quadrents.
      Where:
         0 = North
@@ -114,7 +114,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     }
   }
 
-  /*
+  /**
     Function used to update the entities animations based upon the direction of movement.
     Character will display the animation that is within 45 degrees of the nearest compass direction.
      For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
