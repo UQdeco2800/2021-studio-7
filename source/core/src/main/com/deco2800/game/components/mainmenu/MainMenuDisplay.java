@@ -1,12 +1,16 @@
 package com.deco2800.game.components.mainmenu;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.deco2800.game.rendering.AnimationRenderComponent;
 import com.deco2800.game.services.ServiceLocator;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -19,6 +23,13 @@ public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
   private Table table;
+  private String playablecharcters[] = {
+          "images/boy_0.png",
+          "images/girl_0.png",
+          "images/simpleboy_0.png"
+
+  };
+  int characterIndex= 0 ;
 
   @Override
   public void create() {
@@ -40,7 +51,8 @@ public class MainMenuDisplay extends UIComponent {
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
 
-
+    Image character = new Image(ServiceLocator.getResourceService()
+            .getAsset(playablecharcters[characterIndex], Texture.class));
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -84,15 +96,14 @@ public class MainMenuDisplay extends UIComponent {
             new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-
+                    characterIndex++;
+                    changeCharacterDisplay();
                     logger.debug("Change Character button clicked. ");
-                    entity.getEvents().trigger("changecharacter");
+                    entity.getEvents().trigger("changeCharacter");
                 }
             });
 
     table.add(title);
-    table.row();
-    table.add(changeCharacterBtn).padTop(30f);
     table.row();
     table.add(startBtn).padTop(50f);
     table.row();
@@ -101,6 +112,10 @@ public class MainMenuDisplay extends UIComponent {
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
+    table.row();
+    table.add(character).padTop(50f);
+    table.row();
+    table.add(changeCharacterBtn).padTop(10f);
     stage.addActor(table);
   }
 
@@ -118,5 +133,19 @@ public class MainMenuDisplay extends UIComponent {
   public void dispose() {
     table.clear();
     super.dispose();
+  }
+
+    /**
+     * Changes the character displayed on the main menu page and cycles the index.
+     */
+  public void changeCharacterDisplay(){
+      if(characterIndex <= playablecharcters.length-1){
+          dispose();
+          create();
+      } else {
+          characterIndex =0;
+          dispose();
+          create();
+      }
   }
 }
