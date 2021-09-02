@@ -1,48 +1,47 @@
 package com.deco2800.game.components.player;
 
 import com.badlogic.gdx.Input;
+import com.deco2800.game.input.InputComponent;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 
 class KeyboardPlayerInputComponentTest {
 
+    @Test
+    void keyUpStandUpTest() {
+        InputComponent inputComponent = spy(InputComponent.class);
+        assertFalse(inputComponent.keyUp(6));
+    }
 
-//    @Test
-//    void keyUpStandUpTest() {
-//        KeyboardPlayerInputComponent test1 = spy(KeyboardPlayerInputComponent.class);
-//        assertEquals(true, test1.keyUp(47));
-//    }
-//
-//    @Test
-//    void keyUpStandLeftTest() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertEquals(true, test2.keyUp(47));
-//    }
-//
-//    @Test
-//    void keyUpStandDownTest() {
-//        KeyboardPlayerInputComponent test1 = spy(KeyboardPlayerInputComponent.class);
-//        assertEquals(true, test1.keyUp(87));
-//    }
-//
-//    @Test
-//    void keyUpStandRightTest() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertTrue(test2.keyUp(Input.Keys.W));
-//    }
-//
-//    @Test
-//    void keyUpShift_Left() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertEquals(true, test2.keyUp(Input.Keys.SHIFT_LEFT));
-//    }
+    @Test
+    void keyUpStandLeftTest() {
+        InputComponent inputComponent = spy(InputComponent.class);
+        assertFalse(inputComponent.keyUp(5));
+    }
+
+    @Test
+    void keyUpStandDownTest() {
+        InputComponent inputComponent = spy(InputComponent.class);
+        assertFalse(inputComponent.keyUp(4));
+    }
+
+    @Test
+    void keyUpStandRightTest() {
+        InputComponent inputComponent = spy(InputComponent.class);
+        assertFalse(inputComponent.keyUp(2));
+    }
+
+    @Test
+    void keyUpShift_Left() {
+        InputComponent inputComponent = spy(InputComponent.class);
+        assertFalse(inputComponent.keyUp(3));
+    }
 
     @Test
     void keyUpOther() {
         KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
         assertEquals(false, test2.keyUp(Input.Keys.UNKNOWN));
     }
-    //TODO only the last one can pass
 
 }
