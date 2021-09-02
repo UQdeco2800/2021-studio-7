@@ -58,13 +58,14 @@ public class MainGameTimerDisplay extends UIComponent {
     public void updatePlayerHealthUI() {
         CharSequence text = String.format("Time left: %ds", timeLeft);
         timerLabel.setText(text);
-        if (timeLeft < 0) {
+        if (timeLeft <= 0) {
             // Should trigger lossTimed event in MainGameActions
             // I think it causes a runtime error because this method is
             // called on the TimerTask thread, and not the main thread.
-            // Perhaps @XUEHUANG521 should utilise the time source instead
-            // of a Timer object (@Jantoom)
+            // Perhaps @XUEHUANG521 should utilise the time source in
+            // the engine instead of a Timer object (@Jantoom)
             //entity.getEvents().trigger("lossTimed");
+            timer.cancel();
         }
     }
 
