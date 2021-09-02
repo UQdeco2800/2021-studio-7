@@ -40,6 +40,15 @@ public class PhysicsContactListener implements ContactListener {
     this.targetEnemy = component.getFixture();
   }
 
+  /**
+   * targetCollisionCommunication lets the targetContact know that they have
+   * touched an object, or stopped touching an object by attempting to add
+   * or remove it from an array of an entities in the targetContacts
+   * component PlayerObjectInteractions
+   * @param fixture The fixture of the entity that collided with the
+   *                targetFixture
+   * @param touching Boolean of if fixtures are colliding or not
+   */
   public void targetCollisionCommunication(Fixture fixture, boolean touching){
     BodyUserData userData =
             (BodyUserData) fixture.getBody().getUserData();
@@ -51,6 +60,12 @@ public class PhysicsContactListener implements ContactListener {
     }
   }
 
+  /**
+   * Logs if a global collision happens and checks if that collision occurs on
+   * the targetFixture, and if it also occurs with a targetEnemy, and calls
+   * relevant functions to tell the targetEntity or end the game respectively.
+   * @param contact Describes the physics collision
+   */
   @Override
   public void beginContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
@@ -59,8 +74,7 @@ public class PhysicsContactListener implements ContactListener {
     Fixture B = contact.getFixtureB();
     if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
             == targetFixture)){
-      //Breaks Game
-      //targetEntity.getEvents().trigger("getCaught");
+      //ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
     }
 
     if (contact.getFixtureA() == targetFixture){
@@ -70,6 +84,12 @@ public class PhysicsContactListener implements ContactListener {
     }
   }
 
+  /**
+   * Logs if a global collision ends, and checks if that collision occurs on
+   * the targetFixture, and calls the relvant functions to tell the
+   * targetEntity ifs true.
+   * @param contact Describes the physics collision
+   */
   @Override
   public void endContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionEnd", contact.getFixtureB());
