@@ -34,7 +34,7 @@ public class PhysicsContactListener implements ContactListener {
     }
   }
 
-  private void targetCollisionCommunication(Fixture fixture, boolean touching){
+  public void targetCollisionCommunication(Fixture fixture, boolean touching){
     BodyUserData userData =
             (BodyUserData) fixture.getBody().getUserData();
     Entity objectTouching = userData.entity;
