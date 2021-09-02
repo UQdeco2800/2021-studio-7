@@ -53,12 +53,12 @@ public class ForestGameArea extends GameArea {
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
 
-  private final LevelTerrainFactory terrainFactory;
+  private final TerrainFactory terrainFactory;
 
   public Entity player;
   public Entity mom;
 
-  public ForestGameArea(LevelTerrainFactory terrainFactory) {
+  public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
   }
@@ -93,7 +93,7 @@ public class ForestGameArea extends GameArea {
 
   private void spawnTerrain() {
     // Background terrain
-    terrain = terrainFactory.createTerrain();
+    terrain = terrainFactory.createTerrain(TerrainType.FOREST_DEMO_ISO);
     spawnEntity(new Entity().addComponent(terrain));
 
     // Terrain walls

@@ -74,17 +74,19 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    LevelTerrainFactory terrainFactory;
-    try {
-        terrainFactory =
-                new LevelTerrainFactory("./maps/s1",
-                        renderer.getCamera());
-    } catch (IOException e) {
-        logger.error(e.toString());
-        logger.error("Check map files that were loaded");
-        return;
-    }
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+      ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+//    LevelTerrainFactory terrainFactory;
+//    try {
+//        terrainFactory =
+//                new LevelTerrainFactory("./maps/s1",
+//                        renderer.getCamera());
+//    } catch (IOException e) {
+//        logger.error(e.toString());
+//        logger.error("Check map files that were loaded");
+//        return;
+//    }
+//    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
     physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             getPlayer().getComponent(ColliderComponent.class));
