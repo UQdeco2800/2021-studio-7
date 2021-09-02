@@ -17,10 +17,10 @@ import org.slf4j.LoggerFactory;
  */
 public class InteractableComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(PlayerObjectInteractions.class);
-    private Entity player;
+    private final Entity player;
     private String interactionEvent;
     private short targetLayer;
-    private String objectType;
+    //private String objectType;
     private HitboxComponent hitboxComponent;
     private boolean isTouching = false;
 
@@ -40,13 +40,13 @@ public class InteractableComponent extends Component {
      * entity cannot (currently) be passed.
      *
      * @param player The player entity
-     * @param objectType Identifies what sort of object the component is
-     *                   called on, and informs interactions.
+     * @param interactionEvent The event string to run when the object is interacted with.
+     *                         The event must have a listener attached to this Entity.
      */
-    public InteractableComponent (Entity player, String objectType) {
+    public InteractableComponent (Entity player, String interactionEvent) {
         this.player = player;
-        this.objectType = objectType;
-        //this.interactionEvent = interactionEvent;
+        //this.objectType = objectType;
+        this.interactionEvent = interactionEvent;
     }
 
     @Override
