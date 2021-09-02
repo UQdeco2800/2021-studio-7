@@ -94,7 +94,7 @@ public class InteractableComponent extends Component {
         if(isTouching) {
             if(interactionEvent != null) {
                 try {
-                    entity.getEvents().trigger(interactionEvent);
+                    ServiceLocator.getMainGameScreenUI().getEvents().trigger(interactionEvent);
                 } catch (NullPointerException e) {
                     logger.error("No interaction event passed to InteractableComponent");
                 }
