@@ -103,17 +103,5 @@ public class InteractableComponent extends Component {
         }
     }
 
-    /*
-    public void objectTypeEvent(){
-        System.out.print("ObjectInteractionCalled");
-        switch(this.objectType){
-            case "bed":
-                System.out.println("For bed!");
-                entity.getEvents().trigger("lossTimed");
-                break;
-            default:
-                return;
-        }
-    }
-    */
+
 }

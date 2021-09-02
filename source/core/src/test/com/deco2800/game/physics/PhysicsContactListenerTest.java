@@ -53,7 +53,8 @@ class PhysicsContactListenerTest {
     verify(callback2).handle(fixture2, fixture1);
   }
 
-  /*@Test
+  /*
+  @Test
   void shouldNoticePlayerCollision(){
     Entity entity1 =
             createPhysicsEntity().addComponent(new PlayerObjectInteractions());
@@ -66,7 +67,6 @@ class PhysicsContactListenerTest {
     PhysicsEngine callback1 =
             mock(PhysicsEngine.class);
     callback1.getContactListener().setTargetFixture(entity1.getComponent(ColliderComponent.class));
-    callback1.update();
     verify(callback1).getContactListener().targetCollisionCommunication(fixture2, true);
   }*/
 

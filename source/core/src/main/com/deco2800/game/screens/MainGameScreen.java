@@ -62,6 +62,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
 
+
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
@@ -155,6 +156,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
 
+    ServiceLocator.registerMainGameScreen(ui);
     mainGameTimer.countDown();
     ServiceLocator.getEntityService().register(ui);
   }
