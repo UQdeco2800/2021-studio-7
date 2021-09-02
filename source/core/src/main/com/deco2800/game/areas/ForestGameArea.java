@@ -24,6 +24,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
     "images/box_boy_leaf.png",
@@ -43,7 +44,10 @@ public class ForestGameArea extends GameArea {
     "images/iso_floor_1_alt.png"
   };
   private static final String[] forestTextureAtlases = {
-    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas"
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/bed" +
+          ".atlas", "images/ghostKing.atlas",
+    "images/terrain_iso_grass.atlas", "images/ghost.atlas", "images/ghostKing.atlas", "images/male_character_1.atlas", "images/mom_character_0.atlas"
+          //TODO add "images/female_character.atlas"  `
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -51,7 +55,8 @@ public class ForestGameArea extends GameArea {
 
   private final LevelTerrainFactory terrainFactory;
 
-  private Entity player;
+  public Entity player;
+  public Entity mom;
 
   public ForestGameArea(LevelTerrainFactory terrainFactory) {
     super();
@@ -62,17 +67,23 @@ public class ForestGameArea extends GameArea {
   @Override
   public void create() {
     loadAssets();
-
     displayUI();
 
     spawnTerrain();
-    spawnTrees();
     player = spawnPlayer();
+    spawnBed();
+    spawnTrees();
     spawnGhosts();
     spawnGhostKing();
-
+    mom = spawnMom();
     playMusic();
   }
+
+  public Entity getPlayer(){
+    return player;
+  }
+
+  public Entity getMom() { return mom;}
 
   private void displayUI() {
     Entity ui = new Entity();
@@ -91,8 +102,9 @@ public class ForestGameArea extends GameArea {
     Vector2 worldBounds = new Vector2(tileBounds.x * tileSize, tileBounds.y * tileSize);
 
     // Left
-    spawnEntityAt(
-        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y), GridPoint2Utils.ZERO, false, false);
+    /*spawnEntityAt(
+        ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
+            GridPoint2Utils.ZERO, false, false);
     // Right
     spawnEntityAt(
         ObstacleFactory.createWall(WALL_WIDTH, worldBounds.y),
@@ -107,7 +119,8 @@ public class ForestGameArea extends GameArea {
         false);
     // Bottom
     spawnEntityAt(
-        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH), GridPoint2Utils.ZERO, false, false);
+        ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
+        GridPoint2Utils.ZERO, false, false);*/
   }
 
   private void spawnTrees() {
@@ -145,6 +158,25 @@ public class ForestGameArea extends GameArea {
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity ghostKing = NPCFactory.createGhostKing(player);
     spawnEntityAt(ghostKing, randomPos, true, true);
+  }
+
+  private void spawnBed() {
+    // Note: interactable objects must be created AFTER the player, as it requires the player
+    // entity as an argument
+    Entity bed = ObstacleFactory.createBed(player);
+    spawnEntityAt(bed, BED_SPAWN, true, true);
+  }
+
+
+  private Entity spawnMom() {
+    GridPoint2 minPos = new GridPoint2(0, 0);
+    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
+
+    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
+    Entity mom = NPCFactory.createMom(player);
+    spawnEntityAt(mom, randomPos, true, true);
+
+    return mom;
   }
 
   private void playMusic() {

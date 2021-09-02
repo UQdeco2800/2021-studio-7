@@ -8,6 +8,8 @@ import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.terrain.LevelTerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
+import com.deco2800.game.components.maingame.MainGameTimerDisplay;
+import com.deco2800.game.components.maingame.MainGameWinLossTestingDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -16,6 +18,7 @@ import com.deco2800.game.input.InputDecorator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.services.GameTime;
@@ -39,6 +42,8 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {"images/heart.png"};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  private Entity entityPlayer;
+  private Vector2 PLAYER_POSITION;
 
   private final GdxGame game;
   private final Renderer renderer;
@@ -60,6 +65,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
 
+
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
@@ -80,10 +86,19 @@ public class MainGameScreen extends ScreenAdapter {
     }
     ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
+    physicsEngine.getContactListener().setTargetFixture(forestGameArea.
+            getPlayer().getComponent(ColliderComponent.class));
+    physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
+            getMom().getComponent(ColliderComponent.class));
+    entityPlayer = forestGameArea.player;
+    PLAYER_POSITION = entityPlayer.getPosition();
+    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
   }
 
   @Override
   public void render(float delta) {
+    PLAYER_POSITION = entityPlayer.getPosition();
+    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
@@ -141,16 +156,22 @@ public class MainGameScreen extends ScreenAdapter {
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
+    MainGameTimerDisplay mainGameTimer =
+            new MainGameTimerDisplay(10);
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions(this.game))
         .addComponent(new MainGameExitDisplay())
+        .addComponent(new MainGameWinLossTestingDisplay())
+        .addComponent(mainGameTimer)
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
 
+    ServiceLocator.registerMainGameScreen(ui);
+    mainGameTimer.countDown();
     ServiceLocator.getEntityService().register(ui);
   }
 }

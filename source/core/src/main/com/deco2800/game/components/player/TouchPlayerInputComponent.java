@@ -57,6 +57,7 @@ public class TouchPlayerInputComponent extends InputComponent {
   public boolean keyUp(int keycode) {
     switch (keycode) {
       case Input.Keys.UP:
+        System.out.println("UP");
         walkDirection.sub(Vector2Utils.UP);
         triggerWalkEvent();
         return true;

@@ -1,8 +1,6 @@
 package com.deco2800.game.areas;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
+import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
@@ -12,8 +10,18 @@ import com.deco2800.game.services.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(GameExtension.class)
 class GameAreaTest {
+    private Entity player;
+    protected TerrainComponent terrain;
+    protected List<Entity> areaEntities;
+    private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
+
   @Test
   void shouldSpawnEntities() {
     TerrainFactory factory = mock(TerrainFactory.class);
@@ -33,4 +41,7 @@ class GameAreaTest {
     gameArea.dispose();
     verify(entity).dispose();
   }
+
 }
+
+
