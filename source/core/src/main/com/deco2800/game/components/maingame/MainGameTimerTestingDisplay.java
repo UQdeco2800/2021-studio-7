@@ -30,7 +30,7 @@ public class MainGameTimerTestingDisplay extends UIComponent {
      * Creates actors and positions them on the stage using a table.
      * @see Table for positioning options
      */
-    private void addActors() {
+    public void addActors() {
         table = new Table();
         table.bottom().left();
         table.setFillParent(true);
