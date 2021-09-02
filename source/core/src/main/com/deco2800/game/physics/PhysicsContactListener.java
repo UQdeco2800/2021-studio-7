@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.components.ColliderComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,7 @@ public class PhysicsContactListener implements ContactListener {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsContactListener.class);
   private Fixture targetFixture;
   private Entity targetEntity;
+  private Fixture targetEnemy;
 
   public void setTargetFixture(ColliderComponent component){
     this.targetFixture = component.getFixture();
@@ -32,6 +34,10 @@ public class PhysicsContactListener implements ContactListener {
     if (userData != null && userData.entity != null){
       this.targetEntity = userData.entity;
     }
+  }
+
+  public void setEnemyFixture(ColliderComponent component){
+    this.targetEnemy = component.getFixture();
   }
 
   public void targetCollisionCommunication(Fixture fixture, boolean touching){
@@ -49,6 +55,12 @@ public class PhysicsContactListener implements ContactListener {
   public void beginContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
     triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
+    Fixture A = contact.getFixtureA();
+    Fixture B = contact.getFixtureB();
+    if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
+            == targetFixture)){
+      targetEntity.getEvents().trigger("getCaught");
+    }
 
     if (contact.getFixtureA() == targetFixture){
       targetCollisionCommunication(contact.getFixtureB(), true);

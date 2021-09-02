@@ -53,6 +53,7 @@ public class ForestGameArea extends GameArea {
   private final TerrainFactory terrainFactory;
 
   public Entity player;
+  public Entity mom;
 
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
@@ -71,13 +72,15 @@ public class ForestGameArea extends GameArea {
     spawnTrees();
     spawnGhosts();
     spawnGhostKing();
-    spawnMom();
+    mom = spawnMom();
     playMusic();
   }
 
   public Entity getPlayer(){
     return player;
   }
+
+  public Entity getMom() { return mom;}
 
   private void displayUI() {
     Entity ui = new Entity();
@@ -162,13 +165,15 @@ public class ForestGameArea extends GameArea {
   }
 
 
-  private void spawnMom() {
+  private Entity spawnMom() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
 
     GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
     Entity mom = NPCFactory.createMom(player);
     spawnEntityAt(mom, randomPos, true, true);
+
+    return mom;
   }
 
   private void playMusic() {

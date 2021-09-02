@@ -76,6 +76,8 @@ public class MainGameScreen extends ScreenAdapter {
     forestGameArea.create();
     physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             getPlayer().getComponent(ColliderComponent.class));
+    physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
+            getMom().getComponent(ColliderComponent.class));
     entityPlayer = forestGameArea.player;
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);

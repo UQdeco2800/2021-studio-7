@@ -31,6 +31,7 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stopRun", this::stopRunning);
+    entity.getEvents().addListener("getCaught", this::getCaught);
   }
 
   @Override
@@ -106,5 +107,9 @@ public class PlayerActions extends Component {
    */
   void stopRunning() {
     running = false;
+  }
+
+  void getCaught() {
+    ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
   }
 }
