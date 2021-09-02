@@ -40,6 +40,7 @@ public class PlayerActions extends Component {
     }
     // update the stamina value of player
     updateStamina();
+
   }
 
   private void updateSpeed() {
@@ -84,6 +85,7 @@ public class PlayerActions extends Component {
     updateSpeed();
     moving = false;
   }
+
 
   /**
    * Makes the player attack.

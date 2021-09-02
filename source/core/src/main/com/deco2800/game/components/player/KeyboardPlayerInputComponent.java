@@ -3,6 +3,7 @@ package com.deco2800.game.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.components.InteractableComponent;
 import com.deco2800.game.input.InputComponent;
 import com.deco2800.game.utils.math.Vector2Utils;
 
@@ -51,6 +52,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case Keys.SHIFT_LEFT:
                 enableRun();
                 triggerRunEvent();
+                return true;
+            case Keys.E:
+                entity.getEvents().trigger("interaction");
                 return true;
             default:
                 return false;
@@ -128,6 +132,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             entity.getEvents().trigger("stopRun");
         }
     }
+
 
     @Override
     public void enableRun(){
