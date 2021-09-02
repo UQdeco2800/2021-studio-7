@@ -134,4 +134,19 @@ class InputComponentTest {
     InputComponent inputComponent = spy(InputComponent.class);
     assertFalse(inputComponent.zoom(5f, 6f));
   }
+
+  @Test
+  void shouldHandleNotRunning() {
+      KeyboardInputFactory keyboardInputFactory = new KeyboardInputFactory();
+      InputComponent component = keyboardInputFactory.createForPlayer();
+      assertFalse(component.running());
+  }
+
+    @Test
+    void shouldHandleRunning() {
+        KeyboardInputFactory keyboardInputFactory = new KeyboardInputFactory();
+        InputComponent component = keyboardInputFactory.createForPlayer();
+        component.enableRun();
+        assertTrue(component.running());
+    }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.ui.UIComponent;
 import org.slf4j.Logger;
@@ -25,49 +26,52 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
   }
 
   private void addActors() {
-    table = new Table();
-    table.top().right();
-    table.setFillParent(true);
+      table = new Table();
+      table.bottom().right().padBottom(10f).padRight(10f);
+      table.setFillParent(true);
 
-    TextButton simWinDefBtn = new TextButton("Simulate default win", skin);
-    TextButton simLoseTimedBtn = new TextButton("Simulate timed loss", skin);
-    TextButton simLoseCaughtBtn = new TextButton("Simulate caught loss", skin);
+      // Add button container to the table.
+      // Easily sorts buttons vertically and separates padding settings from table.
+      // It is assumed that more buttons will eventually be added.
+      VerticalGroup buttonContainer = new VerticalGroup();
+      buttonContainer.fill().bottom().right().space(10f);
+      table.add(buttonContainer);
 
     // Triggers an event when the button is pressed.
-    simWinDefBtn.addListener(
-      new ChangeListener() {
+      TextButton simWinDefBtn = new TextButton("Simulate default win", skin);
+      simWinDefBtn.addListener(
+              new ChangeListener() {
         @Override
         public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("Simulate default win button clicked");
-          entity.getEvents().trigger("winDefault");
+            logger.debug("Simulate default win button clicked");
+            entity.getEvents().trigger("winDefault");
         }
       });
+      buttonContainer.addActor(simWinDefBtn);
 
-    // Triggers an event when the button is pressed.
-    simLoseTimedBtn.addListener(
-            new ChangeListener() {
+      // Triggers an event when the button is pressed.
+      TextButton simLoseTimedBtn = new TextButton("Simulate timed loss", skin);
+      simLoseTimedBtn.addListener(
+              new ChangeListener() {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.debug("Simulate timed loss button clicked");
-                entity.getEvents().trigger("lossTimed");
+                  logger.debug("Simulate timed loss button clicked");
+                  entity.getEvents().trigger("lossTimed");
               }
             });
+      buttonContainer.addActor(simLoseTimedBtn);
 
-    // Triggers an event when the button is pressed.
-    simLoseCaughtBtn.addListener(
-            new ChangeListener() {
+      // Triggers an event when the button is pressed.
+      TextButton simLoseCaughtBtn = new TextButton("Simulate caught loss", skin);
+      simLoseCaughtBtn.addListener(
+              new ChangeListener() {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
-                logger.debug("Simulate caught loss button clicked");
-                entity.getEvents().trigger("lossCaught");
+                  logger.debug("Simulate caught loss button clicked");
+                  entity.getEvents().trigger("lossCaught");
               }
             });
-
-    table.add(simWinDefBtn).padTop(100f);
-    table.row();
-    table.add(simLoseTimedBtn).padTop(15f);
-    table.row();
-    table.add(simLoseCaughtBtn).padTop(15f);
+      buttonContainer.addActor(simLoseCaughtBtn);
 
     stage.addActor(table);
   }
