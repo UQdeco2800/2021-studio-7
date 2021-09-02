@@ -94,8 +94,6 @@ public class PlayerActions extends Component {
     attackSound.play();
   }
 
-<<<<<<< HEAD
-=======
   /**
    * Indicates player is running
    */
@@ -109,5 +107,4 @@ public class PlayerActions extends Component {
   void stopRunning() {
     running = false;
   }
->>>>>>> e25e622763951c19511e83d193e32452a26e3094
 }

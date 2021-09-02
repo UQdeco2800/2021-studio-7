@@ -53,6 +53,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 enableRun();
                 triggerRunEvent();
                 return true;
+            case Keys.E:
+                entity.getEvents().trigger("interaction");
+                return true;
             default:
                 return false;
         }
@@ -130,45 +133,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 
-<<<<<<< HEAD
-  /**
-   * Triggers player events on specific keycodes.
-   *
-   * @return whether the input was processed
-   * @see InputProcessor#keyDown(int)
-   */
-  @Override
-  public boolean keyDown(int keycode) {
-    switch (keycode) {
-      case Keys.W:
-        walkDirection.add(Vector2Utils.UP);
-        triggerWalkEvent();
-        return true;
-      case Keys.A:
-        walkDirection.add(Vector2Utils.LEFT);
-        triggerWalkEvent();
-        return true;
-      case Keys.S:
-        walkDirection.add(Vector2Utils.DOWN);
-        triggerWalkEvent();
-        return true;
-      case Keys.D:
-        walkDirection.add(Vector2Utils.RIGHT);
-        triggerWalkEvent();
-        return true;
-      case Keys.SPACE:
-        entity.getEvents().trigger("attack");
-        return true;
-      case Keys.E:
-        entity.getEvents().trigger("interaction");
-        return true;
-      default:
-        return false;
-=======
+
     @Override
     public void enableRun(){
         running = true;
->>>>>>> e25e622763951c19511e83d193e32452a26e3094
     }
 
     @Override

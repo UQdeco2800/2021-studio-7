@@ -5,11 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.player.InventoryComponent;
 import com.deco2800.game.components.player.PlayerActions;
-<<<<<<< HEAD
 import com.deco2800.game.components.player.PlayerObjectInteractions;
-=======
 import com.deco2800.game.components.player.PlayerAnimationController;
->>>>>>> e25e622763951c19511e83d193e32452a26e3094
 import com.deco2800.game.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
