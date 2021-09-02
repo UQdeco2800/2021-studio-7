@@ -23,6 +23,7 @@ public class PhysicsContactListener implements ContactListener {
   private Fixture targetFixture;
   private Entity targetEntity;
   private Fixture targetEnemy;
+  private int endGame = 0;
 
   public void setTargetFixture(ColliderComponent component){
     this.targetFixture = component.getFixture();
@@ -70,12 +71,8 @@ public class PhysicsContactListener implements ContactListener {
   public void beginContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
     triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
-    Fixture A = contact.getFixtureA();
-    Fixture B = contact.getFixtureB();
-    if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
-            == targetFixture)){
-      //Attempt to end game, but does not work
-      //ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
+    if ((contact.getFixtureA() == targetFixture && contact.getFixtureB() == targetEnemy)) {
+      //End game here
     }
 
     if (contact.getFixtureA() == targetFixture){
