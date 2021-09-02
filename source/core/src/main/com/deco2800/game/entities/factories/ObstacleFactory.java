@@ -1,10 +1,9 @@
 package com.deco2800.game.entities.factories;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.components.InteractableComponent;
-import com.deco2800.game.components.ObjectAnimationController;
+import com.deco2800.game.components.npc.InteractableComponentController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -73,8 +72,7 @@ public class ObstacleFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
             .addComponent((new InteractableComponent(player, "bed")))
             .addComponent(bedAnimation) // Added component for the animation of the bed
-            .addComponent(new ObjectAnimationController("bed",
-                    "bed_highlight"));
+            .addComponent(new InteractableComponentController());
 
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.scaleHeight(1.0f);

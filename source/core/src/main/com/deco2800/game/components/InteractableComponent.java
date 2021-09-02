@@ -95,20 +95,20 @@ public class InteractableComponent extends Component {
                     logger.error("No interaction event passed to InteractableComponent");
                 }
             }
-            objectTypeEvent();
+            //objectTypeEvent();
         }
     }
 
 
-    public void objectTypeEvent(){
-        System.out.println("ObjectInteractionCalled");
-        switch(this.objectType){
-            case "bed":
-                System.out.println("For bed!");
-                entity.getEvents().trigger("lossTimed");
-                break;
-            default:
-                return;
-        }
-    }
+//    public void objectTypeEvent(){
+//        System.out.println("ObjectInteractionCalled");
+//        switch(this.objectType){
+//            case "bed":
+//                System.out.println("For bed!");
+//                entity.getEvents().trigger("lossTimed");
+//                break;
+//            default:
+//                return;
+//        }
+//    }
 }
