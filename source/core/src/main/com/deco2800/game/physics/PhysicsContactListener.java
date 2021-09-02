@@ -59,7 +59,8 @@ public class PhysicsContactListener implements ContactListener {
     Fixture B = contact.getFixtureB();
     if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
             == targetFixture)){
-      targetEntity.getEvents().trigger("getCaught");
+      //Breaks Game
+      //targetEntity.getEvents().trigger("getCaught");
     }
 
     if (contact.getFixtureA() == targetFixture){
