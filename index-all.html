@@ -128,6 +128,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Add a listener to an event with three arguments</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html#addObject(com.deco2800.game.entities.Entity)">addObject(Entity)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player">PlayerObjectInteractions</a></dt>
+<dd>
+<div class="block">Adds a object only once to the interactableObject arraylist</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/AITaskComponent.html#addTask(com.deco2800.game.ai.tasks.PriorityTask)">addTask(PriorityTask)</a></span> - Method in class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/AITaskComponent.html" title="class in com.deco2800.game.ai.tasks">AITaskComponent</a></dt>
 <dd>
 <div class="block">Add a priority task to the list of tasks.</div>
@@ -189,7 +193,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#%3Cinit%3E()">BaseEntityConfig()</a></span> - Constructor for class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsContactListener.html#beginContact(com.badlogic.gdx.physics.box2d.Contact)">beginContact(Contact)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Logs if a global collision happens and checks if that collision occurs on
+ the targetFixture, and if it also occurs with a targetEnemy, and calls
+ relevant functions to tell the targetEntity or end the game respectively.</div>
+</dd>
 <dt><a href="com/deco2800/game/physics/BodyUserData.html" title="class in com.deco2800.game.physics"><span class="typeNameLink">BodyUserData</span></a> - Class in <a href="com/deco2800/game/physics/package-summary.html">com.deco2800.game.physics</a></dt>
 <dd>
 <div class="block">POJO which contains the custom data attached to each box2D entity.</div>
@@ -371,6 +379,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.components.gamearea.<a href="com/deco2800/game/components/gamearea/PerformanceDisplay.html" title="class in com.deco2800.game.components.gamearea">PerformanceDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/InteractableComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/InteractableComponent.html" title="class in com.deco2800.game.components">InteractableComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/MainGameActions.html#create()">create()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/MainGameActions.html" title="class in com.deco2800.game.components.maingame">MainGameActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.components.maingame.<a href="com/deco2800/game/components/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.components.maingame">MainGameExitDisplay</a></dt>
@@ -386,6 +396,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/mainmenu/MainMenuDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.components.mainmenu.<a href="com/deco2800/game/components/mainmenu/MainMenuDisplay.html" title="class in com.deco2800.game.components.mainmenu">MainMenuDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/GhostAnimationController.html#create()">create()</a></span> - Method in class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/GhostAnimationController.html" title="class in com.deco2800.game.components.npc">GhostAnimationController</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/InteractableComponentController.html#create()">create()</a></span> - Method in class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/InteractableComponentController.html" title="class in com.deco2800.game.components.npc">InteractableComponentController</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/MomAnimationController.html#create()">create()</a></span> - Method in class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/MomAnimationController.html" title="class in com.deco2800.game.components.npc">MomAnimationController</a></dt>
 <dd>&nbsp;</dd>
@@ -432,6 +444,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/Task.html#create(com.deco2800.game.ai.tasks.TaskRunner)">create(TaskRunner)</a></span> - Method in interface com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks">Task</a></dt>
 <dd>
 <div class="block">Create the task and attach it to the task runner.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBed(com.deco2800.game.entities.Entity)">createBed(Entity)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>
+<div class="block">Creates a bed entity which can be interacted with by the player</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#createBody(com.badlogic.gdx.physics.box2d.BodyDef)">createBody(BodyDef)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
@@ -683,7 +699,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/InputComponent.html#enableRun()">enableRun()</a></span> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputComponent.html" title="class in com.deco2800.game.input">InputComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsContactListener.html#endContact(com.badlogic.gdx.physics.box2d.Contact)">endContact(Contact)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Logs if a global collision ends, and checks if that collision occurs on
+ the targetFixture, and calls the relvant functions to tell the
+ targetEntity ifs true.</div>
+</dd>
 <dt><a href="com/deco2800/game/components/endgame/EndGameActions.html" title="class in com.deco2800.game.components.endgame"><span class="typeNameLink">EndGameActions</span></a> - Class in <a href="com/deco2800/game/components/endgame/package-summary.html">com.deco2800.game.components.endgame</a></dt>
 <dd>
 <div class="block">This class listens to events relevant to the Main Game Screen and does something when one of the
@@ -876,6 +896,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Get a component of type T on the entity.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#getContactListener()">getContactListener()</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#getCurrentAnimation()">getCurrentAnimation()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Get the name of the animation currently being played.</div>
@@ -932,6 +954,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#getInputService()">getInputService()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html#getInteractableObjects()">getInteractableObjects()</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player">PlayerObjectInteractions</a></dt>
+<dd>
+<div class="block">Returns ArrayList of InteractableObjects the player is touching</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getLayer()">getLayer()</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/ColliderComponent.html#getLayer()">getLayer()</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></dt>
@@ -944,9 +970,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/UIComponent.html#getLayer()">getLayer()</a></span> - Method in class com.deco2800.game.ui.<a href="com/deco2800/game/ui/UIComponent.html" title="class in com.deco2800.game.ui">UIComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#getMainGameScreenUI()">getMainGameScreenUI()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMap()">getMap()</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.html#getMapBounds(int)">getMapBounds(int)</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.html" title="class in com.deco2800.game.areas.terrain">TerrainComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getMom()">getMom()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/movement/MovementController.html#getMoving()">getMoving()</a></span> - Method in interface com.deco2800.game.ai.movement.<a href="com/deco2800/game/ai/movement/MovementController.html" title="interface in com.deco2800.game.ai.movement">MovementController</a></dt>
 <dd>&nbsp;</dd>
@@ -963,6 +993,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsService.html#getPhysics()">getPhysics()</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsService.html" title="class in com.deco2800.game.physics">PhysicsService</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#getPhysicsService()">getPhysicsService()</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#getPlayer()">getPlayer()</a></span> - Method in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getPosition()">getPosition()</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
@@ -1163,6 +1195,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/InputService.html#%3Cinit%3E(com.deco2800.game.input.InputFactory)">InputService(InputFactory)</a></span> - Constructor for class com.deco2800.game.input.<a href="com/deco2800/game/input/InputService.html" title="class in com.deco2800.game.input">InputService</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/components/InteractableComponent.html" title="class in com.deco2800.game.components"><span class="typeNameLink">InteractableComponent</span></a> - Class in <a href="com/deco2800/game/components/package-summary.html">com.deco2800.game.components</a></dt>
+<dd>
+<div class="block">When this entity collides with the player's hitbox, triggers an event, and triggers another
+ event when interacted with (with the E key) by the player.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/InteractableComponent.html#%3Cinit%3E(com.deco2800.game.entities.Entity)">InteractableComponent(Entity)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/InteractableComponent.html" title="class in com.deco2800.game.components">InteractableComponent</a></dt>
+<dd>
+<div class="block">Create a component which listens for collisions with the player on its target layer, and
+ triggers an event on collision.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/InteractableComponent.html#%3Cinit%3E(com.deco2800.game.entities.Entity,java.lang.String)">InteractableComponent(Entity, String)</a></span> - Constructor for class com.deco2800.game.components.<a href="com/deco2800/game/components/InteractableComponent.html" title="class in com.deco2800.game.components">InteractableComponent</a></dt>
+<dd>
+<div class="block">Create a component which listens for collisions with the player, and triggers a specified
+ event on collision.</div>
+</dd>
+<dt><a href="com/deco2800/game/components/npc/InteractableComponentController.html" title="class in com.deco2800.game.components.npc"><span class="typeNameLink">InteractableComponentController</span></a> - Class in <a href="com/deco2800/game/components/npc/package-summary.html">com.deco2800.game.components.npc</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/npc/InteractableComponentController.html#%3Cinit%3E()">InteractableComponentController()</a></span> - Constructor for class com.deco2800.game.components.npc.<a href="com/deco2800/game/components/npc/InteractableComponentController.html" title="class in com.deco2800.game.components.npc">InteractableComponentController</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#INTERNAL">INTERNAL</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/InventoryComponent.html" title="class in com.deco2800.game.components.player"><span class="typeNameLink">InventoryComponent</span></a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
@@ -1178,6 +1229,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#isFinished()">isFinished()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Has the playing animation finished? This will always be false for looping animations.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html#isObjectInteractive(com.deco2800.game.entities.Entity)">isObjectInteractive(Entity)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player">PlayerObjectInteractions</a></dt>
+<dd>
+<div class="block">Checks if a given entity possesses the InteractableComponent</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html#ISOMETRIC">ISOMETRIC</a></span> - com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainComponent.TerrainOrientation.html" title="enum in com.deco2800.game.areas.terrain">TerrainComponent.TerrainOrientation</a></dt>
 <dd>&nbsp;</dd>
@@ -1413,6 +1468,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/math/Vector2Utils.html#MIN">MIN</a></span> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/areas/ForestGameArea.html#mom">mom</a></span> - Variable in class com.deco2800.game.areas.<a href="com/deco2800/game/areas/ForestGameArea.html" title="class in com.deco2800.game.areas">ForestGameArea</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/configs/NPCConfigs.html#mom">mom</a></span> - Variable in class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/NPCConfigs.html" title="class in com.deco2800.game.entities.configs">NPCConfigs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/npc/MomAnimationController.html" title="class in com.deco2800.game.components.npc"><span class="typeNameLink">MomAnimationController</span></a> - Class in <a href="com/deco2800/game/components/npc/package-summary.html">com.deco2800.game.components.npc</a></dt>
@@ -1496,6 +1553,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/endgame/EndGameActions.html#onExit()">onExit()</a></span> - Method in class com.deco2800.game.components.endgame.<a href="com/deco2800/game/components/endgame/EndGameActions.html" title="class in com.deco2800.game.components.endgame">EndGameActions</a></dt>
 <dd>
 <div class="block">Swaps to the Main Menu screen.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/InteractableComponent.html#onInteraction()">onInteraction()</a></span> - Method in class com.deco2800.game.components.<a href="com/deco2800/game/components/InteractableComponent.html" title="class in com.deco2800.game.components">InteractableComponent</a></dt>
+<dd>
+<div class="block">Function that is called when the player presses the interact key (currently E)
+
+ NOTE: The interactionEvent String is the event to trigger when E is pressed.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/components/endgame/EndGameActions.html#onNextLevel()">onNextLevel()</a></span> - Method in class com.deco2800.game.components.endgame.<a href="com/deco2800/game/components/endgame/EndGameActions.html" title="class in com.deco2800.game.components.endgame">EndGameActions</a></dt>
 <dd>
@@ -1630,6 +1693,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Factory to create a player entity.</div>
 </dd>
+<dt><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player"><span class="typeNameLink">PlayerObjectInteractions</span></a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html#%3Cinit%3E()">PlayerObjectInteractions()</a></span> - Constructor for class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player">PlayerObjectInteractions</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.components.player"><span class="typeNameLink">PlayerStatsDisplay</span></a> - Class in <a href="com/deco2800/game/components/player/package-summary.html">com.deco2800.game.components.player</a></dt>
 <dd>
 <div class="block">A ui component for displaying player stats, e.g.</div>
@@ -1726,6 +1793,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#registerInputService(com.deco2800.game.input.InputService)">registerInputService(InputService)</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#registerMainGameScreen(com.deco2800.game.entities.Entity)">registerMainGameScreen(Entity)</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#registerPhysicsService(com.deco2800.game.physics.PhysicsService)">registerPhysicsService(PhysicsService)</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/ServiceLocator.html#registerRenderService(com.deco2800.game.rendering.RenderService)">registerRenderService(RenderService)</a></span> - Static method in class com.deco2800.game.services.<a href="com/deco2800/game/services/ServiceLocator.html" title="class in com.deco2800.game.services">ServiceLocator</a></dt>
@@ -1737,6 +1806,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/AnimationRenderComponent.html#removeAnimation(java.lang.String)">removeAnimation(String)</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering">AnimationRenderComponent</a></dt>
 <dd>
 <div class="block">Remove an animation from this animator.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/components/player/PlayerObjectInteractions.html#removeObject(com.deco2800.game.entities.Entity)">removeObject(Entity)</a></span> - Method in class com.deco2800.game.components.player.<a href="com/deco2800/game/components/player/PlayerObjectInteractions.html" title="class in com.deco2800.game.components.player">PlayerObjectInteractions</a></dt>
+<dd>
+<div class="block">Removes the object specified from the interactableObject arraylist</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/Renderer.html#render()">render()</a></span> - Method in class com.deco2800.game.rendering.<a href="com/deco2800/game/rendering/Renderer.html" title="class in com.deco2800.game.rendering">Renderer</a></dt>
 <dd>
@@ -1922,6 +1995,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsComponent.html#setEnabled(boolean)">setEnabled(boolean)</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsComponent.html" title="class in com.deco2800.game.physics.components">PhysicsComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsContactListener.html#setEnemyFixture(com.deco2800.game.physics.components.ColliderComponent)">setEnemyFixture(ColliderComponent)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#setEnteredMessage(java.lang.String)">setEnteredMessage(String)</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Sets the text shown on the terminal</div>
@@ -2016,6 +2091,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Set a target to move towards.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsContactListener.html#setTargetFixture(com.deco2800.game.physics.components.ColliderComponent)">setTargetFixture(ColliderComponent)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/areas/terrain/TerrainTile.html#setTextureRegion(com.badlogic.gdx.graphics.g2d.TextureRegion)">setTextureRegion(TextureRegion)</a></span> - Method in class com.deco2800.game.areas.terrain.<a href="com/deco2800/game/areas/terrain/TerrainTile.html" title="class in com.deco2800.game.areas.terrain">TerrainTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/services/GameTime.html#setTimeScale(float)">setTimeScale(float)</a></span> - Method in class com.deco2800.game.services.<a href="com/deco2800/game/services/GameTime.html" title="class in com.deco2800.game.services">GameTime</a></dt>
@@ -2130,6 +2207,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Iterates over registered input handlers in descending priority and stops as soon as the input is
  processed</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsContactListener.html#targetCollisionCommunication(com.badlogic.gdx.physics.box2d.Fixture,boolean)">targetCollisionCommunication(Fixture, boolean)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsContactListener.html" title="class in com.deco2800.game.physics">PhysicsContactListener</a></dt>
+<dd>
+<div class="block">targetCollisionCommunication lets the targetContact know that they have
+ touched an object, or stopped touching an object by attempting to add
+ or remove it from an array of an entities in the targetContacts
+ component PlayerObjectInteractions</div>
 </dd>
 <dt><a href="com/deco2800/game/ai/tasks/Task.html" title="interface in com.deco2800.game.ai.tasks"><span class="typeNameLink">Task</span></a> - Interface in <a href="com/deco2800/game/ai/tasks/package-summary.html">com.deco2800.game.ai.tasks</a></dt>
 <dd>
