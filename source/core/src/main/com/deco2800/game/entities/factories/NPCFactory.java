@@ -7,12 +7,13 @@ import com.deco2800.game.ai.tasks.AITaskComponent;
 import com.deco2800.game.components.CombatStatsComponent;
 import com.deco2800.game.components.npc.GhostAnimationController;
 import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.InteractableComponentController;
+import com.deco2800.game.components.npc.MomAnimationController;
 import com.deco2800.game.components.tasks.ChaseTask;
 import com.deco2800.game.components.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.BaseEntityConfig;
 import com.deco2800.game.entities.configs.GhostKingConfig;
+import com.deco2800.game.entities.configs.MomConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -51,11 +52,11 @@ public class NPCFactory {
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
-    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghost
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina)) //TODO: ghost stamina placeholder
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
@@ -82,12 +83,46 @@ public class NPCFactory {
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
     ghostKing
-        .addComponent(new CombatStatsComponent(config.health, config.baseAttack))
+        .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
         .addComponent(animator)
         .addComponent(new GhostAnimationController());
 
     ghostKing.getComponent(AnimationRenderComponent.class).scaleEntity();
     return ghostKing;
+  }
+
+
+  /**
+   * Creates a mom entity.
+   *
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createMom(Entity target) {
+    Entity mom =  createBaseNPC(target);
+    MomConfig config = configs.mom;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/mom_character_0.atlas", TextureAtlas.class));
+    animator.addAnimation("standDown", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standUp", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standLeft", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standRight", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkDown", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkUp", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkLeft", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walkRight", 0.25f, Animation.PlayMode.LOOP);
+
+    mom
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(animator)
+            .addComponent(new MomAnimationController());
+
+
+    //mom.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return mom;
   }
 
   /**

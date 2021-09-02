@@ -9,9 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(GameExtension.class)
 class CombatStatsComponentTest {
+
   @Test
   void shouldSetGetHealth() {
-    CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
     assertEquals(100, combat.getHealth());
 
     combat.setHealth(150);
@@ -22,8 +23,33 @@ class CombatStatsComponentTest {
   }
 
   @Test
+  void shouldSetGetStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
+    assertEquals(100, combat.getStamina());
+
+    combat.setStamina(150);
+    assertEquals(100, combat.getStamina());
+
+    combat.setStamina(-50);
+    assertEquals(0, combat.getStamina());
+  }
+
+  @Test
+  void shouldAddStamina() {
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 0);
+    combat.changeStamina(1);
+    assertEquals(1, combat.getStamina());
+
+    combat.changeStamina(-1);
+    assertEquals(0, combat.getStamina());
+
+    combat.changeStamina(101);
+    assertEquals(100, combat.getStamina());
+  }
+
+  @Test
   void shouldCheckIsDead() {
-    CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
     assertFalse(combat.isDead());
 
     combat.setHealth(0);
@@ -32,7 +58,7 @@ class CombatStatsComponentTest {
 
   @Test
   void shouldAddHealth() {
-    CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
     combat.addHealth(-500);
     assertEquals(0, combat.getHealth());
 
@@ -43,7 +69,7 @@ class CombatStatsComponentTest {
 
   @Test
   void shouldSetGetBaseAttack() {
-    CombatStatsComponent combat = new CombatStatsComponent(100, 20);
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
     assertEquals(20, combat.getBaseAttack());
 
     combat.setBaseAttack(150);

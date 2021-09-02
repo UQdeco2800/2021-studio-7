@@ -70,7 +70,7 @@ public class ObstacleFactory {
     bed.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            .addComponent((new InteractableComponent(player, "bed")))
+            .addComponent((new InteractableComponent(player)))
             .addComponent(bedAnimation) // Added component for the animation of the bed
             .addComponent(new InteractableComponentController());
 

@@ -16,6 +16,10 @@ public class PlayerObjectInteractions extends Component {
         this.interactableObjectList = new ArrayList<>();
     }
 
+    public ArrayList getInteractableObjects(){
+        return this.interactableObjectList;
+    }
+
     public void addObject(Entity object){
         if (isObjectInteractive(object)){
             for (Entity e : interactableObjectList){
@@ -31,7 +35,7 @@ public class PlayerObjectInteractions extends Component {
         interactableObjectList.remove(object);
     }
 
-    private boolean isObjectInteractive(Entity object){
+    public boolean isObjectInteractive(Entity object){
         if (object.getComponent(InteractableComponent.class) != null){
             return true;
         } return false;

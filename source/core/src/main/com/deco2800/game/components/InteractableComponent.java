@@ -5,6 +5,7 @@ import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +18,8 @@ import org.slf4j.LoggerFactory;
 public class InteractableComponent extends Component {
     private static final Logger logger = LoggerFactory.getLogger(PlayerObjectInteractions.class);
     private Entity player;
-    private short targetLayer;
     private String interactionEvent;
+    private short targetLayer;
     private String objectType;
     private HitboxComponent hitboxComponent;
     private boolean isTouching = false;
@@ -45,14 +46,14 @@ public class InteractableComponent extends Component {
     public InteractableComponent (Entity player, String objectType) {
         this.player = player;
         this.objectType = objectType;
-        this.interactionEvent = interactionEvent;
+        //this.interactionEvent = interactionEvent;
     }
 
     @Override
     public void create() {
         this.targetLayer = PhysicsLayer.PLAYER;
 
-        entity.getEvents().trigger("interactionEnd"); // Needed for animation purposes
+        entity.getEvents().trigger("interactionEnd"); // Set starting animation
 
         entity.getEvents().addListener("collisionStart", this::onCollisionStart);
         entity.getEvents().addListener("collisionEnd", this::onCollisionEnd);
@@ -68,6 +69,7 @@ public class InteractableComponent extends Component {
             // Not triggered by hitbox, ignore
             return;
         }
+
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
             // Doesn't match our target layer, ignore
@@ -85,6 +87,8 @@ public class InteractableComponent extends Component {
 
     /**
      * Function that is called when the player presses the interact key (currently E)
+     *
+     * NOTE: The interactionEvent String is the event to trigger when E is pressed.
      */
     public void onInteraction() {
         if(isTouching) {
@@ -95,20 +99,21 @@ public class InteractableComponent extends Component {
                     logger.error("No interaction event passed to InteractableComponent");
                 }
             }
-            //objectTypeEvent();
+            System.out.println("Interacted with object");
         }
     }
 
-
-//    public void objectTypeEvent(){
-//        System.out.println("ObjectInteractionCalled");
-//        switch(this.objectType){
-//            case "bed":
-//                System.out.println("For bed!");
-//                entity.getEvents().trigger("lossTimed");
-//                break;
-//            default:
-//                return;
-//        }
-//    }
+    /*
+    public void objectTypeEvent(){
+        System.out.print("ObjectInteractionCalled");
+        switch(this.objectType){
+            case "bed":
+                System.out.println("For bed!");
+                entity.getEvents().trigger("lossTimed");
+                break;
+            default:
+                return;
+        }
+    }
+    */
 }

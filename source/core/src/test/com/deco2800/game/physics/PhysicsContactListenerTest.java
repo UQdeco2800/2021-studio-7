@@ -5,10 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.*;
+import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener2;
 import com.deco2800.game.extensions.GameExtension;
@@ -54,6 +52,23 @@ class PhysicsContactListenerTest {
     verify(callback1).handle(fixture1, fixture2);
     verify(callback2).handle(fixture2, fixture1);
   }
+
+  /*@Test
+  void shouldNoticePlayerCollision(){
+    Entity entity1 =
+            createPhysicsEntity().addComponent(new PlayerObjectInteractions());
+    Entity entity2 = createPhysicsEntity();
+    Fixture fixture1 = entity1.getComponent(ColliderComponent.class).getFixture();
+    Fixture fixture2 = entity2.getComponent(ColliderComponent.class).getFixture();
+    entity1.setPosition(0f, 0f);
+    entity2.setPosition(0f, 0f);
+
+    PhysicsEngine callback1 =
+            mock(PhysicsEngine.class);
+    callback1.getContactListener().setTargetFixture(entity1.getComponent(ColliderComponent.class));
+    callback1.update();
+    verify(callback1).getContactListener().targetCollisionCommunication(fixture2, true);
+  }*/
 
   @Test
   void shouldTriggerCollisionEnd() {
