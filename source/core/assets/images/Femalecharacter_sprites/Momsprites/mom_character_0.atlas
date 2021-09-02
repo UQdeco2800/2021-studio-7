@@ -1,0 +1,117 @@
+mom_character_0.png
+size: 866, 108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+standDown
+  rotate: false
+  xy: 1, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 3, 147
+  index: 0
+standLeft
+  rotate: false
+  xy: 676, 1
+  size: 62, 102
+  orig: 239, 129
+  offset: 139, 20
+  index: 0
+standRight
+  rotate: false
+  xy: 740, 1
+  size: 62, 102
+  orig: 137, 253
+  offset: 9, 32
+  index: 0
+standUp
+  rotate: false
+  xy: 252, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 15, 27
+  index: 0
+walkDown
+  rotate: false
+  xy: 85, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 91, 147
+  index: 0
+walkDown
+  rotate: false
+  xy: 1, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 3, 147
+  index: 1
+walkDown
+  rotate: false
+  xy: 169, 1
+  size: 81, 106
+  orig: 256, 256
+  offset: 175, 147
+  index: 2
+walkLeft
+  rotate: false
+  xy: 480, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 7, 143
+  index: 0
+walkLeft
+  rotate: false
+  xy: 676, 1
+  size: 62, 102
+  orig: 239, 129
+  offset: 139, 20
+  index: 1
+walkLeft
+  rotate: false
+  xy: 540, 1
+  size: 66, 102
+  orig: 256, 256
+  offset: 71, 147
+  index: 2
+walkRight
+  rotate: false
+  xy: 804, 1
+  size: 61, 102
+  orig: 256, 256
+  offset: 0, 35
+  index: 0
+walkRight
+  rotate: false
+  xy: 740, 1
+  size: 62, 102
+  orig: 137, 253
+  offset: 9, 32
+  index: 1
+walkRight
+  rotate: false
+  xy: 608, 1
+  size: 66, 102
+  orig: 256, 256
+  offset: 63, 35
+  index: 2
+walkUp
+  rotate: false
+  xy: 328, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 95, 27
+  index: 0
+walkUp
+  rotate: false
+  xy: 252, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 15, 27
+  index: 1
+walkUp
+  rotate: false
+  xy: 404, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 175, 27
+  index: 2
