@@ -12,9 +12,9 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.rooms.MapLevel;
 import com.deco2800.game.areas.rooms.MapRoom;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.entities.components.player.CameraComponent;
+import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.generic.ServiceLocator;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

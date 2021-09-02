@@ -2,17 +2,17 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.components.InteractableComponent;
-import com.deco2800.game.components.npc.InteractableComponentController;
+import com.deco2800.game.entities.components.InteractableComponent;
+import com.deco2800.game.entities.components.npc.InteractableComponentController;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.rendering.components.AnimationRenderComponent;
+import com.deco2800.game.rendering.components.TextureRenderComponent;
+import com.deco2800.game.generic.ServiceLocator;
 
 /**
  * Factory to create obstacle entities.
@@ -28,7 +28,7 @@ public class ObstacleFactory {
   public static Entity createTree() {
     Entity tree =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/tree.png"))
+            .addComponent(new TextureRenderComponent("images/objects/tree/tree.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -62,7 +62,7 @@ public class ObstacleFactory {
     Entity bed = new Entity();
 
     AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/bed.atlas",
+            ServiceLocator.getResourceService().getAsset("images/objects/bed/bed.atlas",
                     TextureAtlas.class));
     bedAnimation.addAnimation("bed", 1f);
     bedAnimation.addAnimation("bed_highlight", 1f);
@@ -70,7 +70,7 @@ public class ObstacleFactory {
     bed.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            .addComponent((new InteractableComponent(player,"winDefault")))
+            .addComponent((new InteractableComponent(player,"win_default")))
             .addComponent(bedAnimation) // Added component for the animation of the bed
             .addComponent(new InteractableComponentController());
 

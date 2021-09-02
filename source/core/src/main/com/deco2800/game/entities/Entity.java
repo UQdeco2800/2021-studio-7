@@ -3,10 +3,10 @@ package com.deco2800.game.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.deco2800.game.components.Component;
-import com.deco2800.game.components.ComponentType;
+import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ComponentType;
 import com.deco2800.game.events.EventHandler;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
