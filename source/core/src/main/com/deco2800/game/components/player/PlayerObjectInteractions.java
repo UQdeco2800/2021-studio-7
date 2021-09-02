@@ -16,10 +16,18 @@ public class PlayerObjectInteractions extends Component {
         this.interactableObjectList = new ArrayList<>();
     }
 
+    /**
+     * Returns ArrayList of InteractableObjects the player is touching
+     * @return ArrayList
+     */
     public ArrayList getInteractableObjects(){
         return this.interactableObjectList;
     }
 
+    /**
+     * Adds a object only once to the interactableObject arraylist
+     * @param object entity
+     */
     public void addObject(Entity object){
         if (isObjectInteractive(object)){
             for (Entity e : interactableObjectList){
@@ -31,10 +39,19 @@ public class PlayerObjectInteractions extends Component {
 
     }
 
+    /**
+     * Removes the object specified from the interactableObject arraylist
+     * @param object entity
+     */
     public void removeObject(Entity object){
         interactableObjectList.remove(object);
     }
 
+    /**
+     * Checks if a given entity possesses the InteractableComponent
+     * @param object entity
+     * @return boolean true if object possesses component, false otherwise
+     */
     public boolean isObjectInteractive(Entity object){
         if (object.getComponent(InteractableComponent.class) != null){
             return true;

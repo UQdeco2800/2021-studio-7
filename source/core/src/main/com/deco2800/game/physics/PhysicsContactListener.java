@@ -74,6 +74,7 @@ public class PhysicsContactListener implements ContactListener {
     Fixture B = contact.getFixtureB();
     if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
             == targetFixture)){
+      //Attempt to end game, but does not work
       //ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
     }
 
