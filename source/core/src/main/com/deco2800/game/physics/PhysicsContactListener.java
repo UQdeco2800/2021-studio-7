@@ -71,8 +71,9 @@ public class PhysicsContactListener implements ContactListener {
   public void beginContact(Contact contact) {
     triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
     triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
-    if ((contact.getFixtureA() == targetFixture && contact.getFixtureB() == targetEnemy)) {
-      //End game here
+    if ((contact.getFixtureA() == targetFixture && contact.getFixtureB() == targetEnemy) ||
+            (contact.getFixtureA() == targetEnemy && contact.getFixtureB() == targetFixture )) {
+      ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
     }
 
     if (contact.getFixtureA() == targetFixture){
