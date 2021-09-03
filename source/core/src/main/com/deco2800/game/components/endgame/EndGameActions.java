@@ -26,7 +26,7 @@ public class EndGameActions extends Component {
   /**
    * Swaps to the next level on the Main Game Screen.
    */
-  private void onNextLevel() {
+  public void onNextLevel() {
     logger.info("Exiting end game screen...");
     logger.info("Swapping to next level on main game screen...");
     game.setScreen(GdxGame.ScreenType.MAIN_GAME);
@@ -35,7 +35,7 @@ public class EndGameActions extends Component {
   /**
    * Swaps to the Main Menu screen.
    */
-  private void onExit() {
+  public void onExit() {
     logger.info("Exiting end game screen...");
     logger.info("Swapping to main menu screen...");
     game.setScreen(GdxGame.ScreenType.MAIN_MENU);

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.areas.terrain.LevelTerrainFactory;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.components.maingame.MainGameActions;
 import com.deco2800.game.components.maingame.MainGameTimerDisplay;
@@ -29,6 +30,8 @@ import com.deco2800.game.components.maingame.MainGameExitDisplay;
 import com.deco2800.game.components.gamearea.PerformanceDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * The game screen containing the main game.
@@ -71,8 +74,19 @@ public class MainGameScreen extends ScreenAdapter {
     createUI();
 
     logger.debug("Initialising main game screen entities");
-    TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
+      ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+//    LevelTerrainFactory terrainFactory;
+//    try {
+//        terrainFactory =
+//                new LevelTerrainFactory("./maps/s1",
+//                        renderer.getCamera());
+//    } catch (IOException e) {
+//        logger.error(e.toString());
+//        logger.error("Check map files that were loaded");
+//        return;
+//    }
+//    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
     physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             getPlayer().getComponent(ColliderComponent.class));
