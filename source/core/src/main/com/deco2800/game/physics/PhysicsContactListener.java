@@ -3,6 +3,7 @@ package com.deco2800.game.physics;
 import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.components.ColliderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class PhysicsContactListener implements ContactListener {
   private Fixture targetFixture;
   private Entity targetEntity;
   private Fixture targetEnemy;
+  private int endGame = 0;
 
   public void setTargetFixture(ColliderComponent component){
     this.targetFixture = component.getFixture();
@@ -67,14 +69,11 @@ public class PhysicsContactListener implements ContactListener {
    */
   @Override
   public void beginContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collision_start", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collision_start", contact.getFixtureA());
-    Fixture A = contact.getFixtureA();
-    Fixture B = contact.getFixtureB();
-    if ((A == targetFixture && B == targetEnemy) || (A == targetEnemy || B
-            == targetFixture)){
-      //Attempt to end game, but does not work
-      //ServiceLocator.getMainGameScreenUI().getEvents().trigger("loss_caught");
+    triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
+    if ((contact.getFixtureA() == targetFixture && contact.getFixtureB() == targetEnemy) ||
+            (contact.getFixtureA() == targetEnemy && contact.getFixtureB() == targetFixture )) {
+      ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
     }
 
     if (contact.getFixtureA() == targetFixture){
@@ -86,7 +85,7 @@ public class PhysicsContactListener implements ContactListener {
 
   /**
    * Logs if a global collision ends, and checks if that collision occurs on
-   * the targetFixture, and calls the relvant functions to tell the
+   * the targetFixture, and calls the relevant functions to tell the
    * targetEntity ifs true.
    * @param contact Describes the physics collision
    */
