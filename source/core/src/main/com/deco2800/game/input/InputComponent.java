@@ -172,4 +172,11 @@ public abstract class InputComponent extends Component
     return false;
   }
 
+
+  public boolean running(){
+    return false;
+  }
+
+  public void enableRun(){ }
+  public void disableRun(){ }
 }
