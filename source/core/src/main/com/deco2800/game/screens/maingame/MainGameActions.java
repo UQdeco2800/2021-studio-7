@@ -20,9 +20,9 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
-    entity.getEvents().addListener("win_default", this::onwin_default);
-    entity.getEvents().addListener("loss_timed", this::onloss_timed);
-    entity.getEvents().addListener("loss_caught", this::onloss_caught);
+    entity.getEvents().addListener("win_default", this::onWinDefault);
+    entity.getEvents().addListener("loss_timed", this::onLossTimed);
+    entity.getEvents().addListener("loss_caught", this::onLossCaught);
   }
 
   /**
@@ -37,7 +37,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onwin_default() {
+  private void onWinDefault() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default win screen...");
     game.setScreen(GdxGame.ScreenType.WIN_DEFAULT);
@@ -46,7 +46,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onloss_timed() {
+  private void onLossTimed() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
     game.setScreen(GdxGame.ScreenType.LOSS_TIMED);
@@ -55,7 +55,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onloss_caught() {
+  private void onLossCaught() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
     game.setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
