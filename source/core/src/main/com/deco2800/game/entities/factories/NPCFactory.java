@@ -3,17 +3,17 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.ai.tasks.AITaskComponent;
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.npc.GhostAnimationController;
-import com.deco2800.game.components.TouchAttackComponent;
-import com.deco2800.game.components.npc.MomAnimationController;
-import com.deco2800.game.components.tasks.ChaseTask;
-import com.deco2800.game.components.tasks.WanderTask;
+import com.deco2800.game.ai.components.AITaskComponent;
+import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.npc.GhostAnimationController;
+import com.deco2800.game.entities.components.TouchAttackComponent;
+import com.deco2800.game.entities.components.npc.MumAnimationController;
+import com.deco2800.game.ai.tasks.ChaseTask;
+import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.BaseEntityConfig;
 import com.deco2800.game.entities.configs.GhostKingConfig;
-import com.deco2800.game.entities.configs.MomConfig;
+import com.deco2800.game.entities.configs.MumConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -22,8 +22,8 @@ import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
-import com.deco2800.game.rendering.AnimationRenderComponent;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.rendering.components.AnimationRenderComponent;
+import com.deco2800.game.generic.ServiceLocator;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -51,7 +51,7 @@ public class NPCFactory {
 
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/ghost.atlas", TextureAtlas.class));
+            ServiceLocator.getResourceService().getAsset("images/characters/ghost/ghost.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
@@ -78,7 +78,7 @@ public class NPCFactory {
     AnimationRenderComponent animator =
         new AnimationRenderComponent(
             ServiceLocator.getResourceService()
-                .getAsset("images/ghostKing.atlas", TextureAtlas.class));
+                .getAsset("images/characters/ghost/ghost_king.atlas", TextureAtlas.class));
     animator.addAnimation("float", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("angry_float", 0.1f, Animation.PlayMode.LOOP);
 
@@ -93,36 +93,36 @@ public class NPCFactory {
 
 
   /**
-   * Creates a mom entity.
+   * Creates a mum entity.
    *
    * @param target entity to chase
    * @return entity
    */
-  public static Entity createMom(Entity target) {
-    Entity mom =  createBaseNPC(target);
-    MomConfig config = configs.mom;
+  public static Entity createMum(Entity target) {
+    Entity mum =  createBaseNPC(target);
+    MumConfig config = configs.mum;
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService()
-                            .getAsset("images/mom_character_0.atlas", TextureAtlas.class));
-    animator.addAnimation("standDown", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standUp", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standLeft", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standRight", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkDown", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkUp", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkLeft", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walkRight", 0.25f, Animation.PlayMode.LOOP);
+                            .getAsset("images/characters/mum_01/mum_01.atlas", TextureAtlas.class));
+    animator.addAnimation("standing_north", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_south", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_north", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_south", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_west", 0.25f, Animation.PlayMode.LOOP);
 
-    mom
+    mum
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(animator)
-            .addComponent(new MomAnimationController());
+            .addComponent(new MumAnimationController());
 
 
-    //mom.getComponent(AnimationRenderComponent.class).scaleEntity();
-    return mom;
+    //mum.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return mum;
   }
 
   /**

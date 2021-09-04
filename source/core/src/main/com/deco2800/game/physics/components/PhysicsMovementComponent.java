@@ -3,7 +3,7 @@ package com.deco2800.game.physics.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.ai.movement.MovementController;
-import com.deco2800.game.components.Component;
+import com.deco2800.game.generic.Component;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,15 +102,15 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     float x = entityDirection.x;
     float y = entityDirection.y;
 
-    //Walking left
-    if (x<0 && y<0.5 && y>-0.5) {
-      currentDirection = 3;
-    } else if (x>0 && y<0.5 && y >-0.5){ // walking right
-      currentDirection = 1;
-    } else if (x<0.5 && x >-0.5 && y>0){ //Walking up
+
+    if (x < 0.5 && x > -0.5 && y > 0) {         // Walking north
       currentDirection = 0;
-    } else if (x<0.5 && x >-0.5 && y<0){ //Walking down
+    } else if (x > 0 && y < 0.5 && y > -0.5) {  // Walking east
+      currentDirection = 1;
+    } else if (x < 0.5 && x > -0.5 && y < 0) {  // Walking south
       currentDirection = 2;
+    } else if (x < 0 && y < 0.5 && y > -0.5) {  // Walking west
+      currentDirection = 3;
     }
   }
 
@@ -125,18 +125,18 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     float y = entityDirection.y;
 
     if (lastDirection != currentDirection) {
-      if (x < 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("walkLeft");
-        lastDirection = 3;
-      } else if (x > 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("walkRight");
-        lastDirection = 1;
-      } else if (x < 0.5 && x > -0.5 && y > 0) {
-        entity.getEvents().trigger("walkUp");
+      if (x < 0.5 && x > -0.5 && y > 0) {
+        entity.getEvents().trigger("walking_north");
         lastDirection = 0;
+      } else if (x > 0 && y < 0.5 && y > -0.5) {
+        entity.getEvents().trigger("walking_east");
+        lastDirection = 1;
       } else if (x < 0.5 && x > -0.5 && y < 0) {
+        entity.getEvents().trigger("walking_south");
         lastDirection = 2;
-        entity.getEvents().trigger("walkDown");
+      } else if (x < 0 && y < 0.5 && y > -0.5) {
+        entity.getEvents().trigger("walking_west");
+        lastDirection = 3;
       }
     }
   }

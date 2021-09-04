@@ -1,10 +1,10 @@
 package com.deco2800.game.physics;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.deco2800.game.components.player.PlayerObjectInteractions;
+import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.services.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
  * Box2D collision events fire globally on the physics world, not per-object. The contact listener
  * receives these events, finds the entities involved in the collision, and triggers events on them.
  *
- * <p>On contact start: evt = "collisionStart", params = ({@link Fixture} thisFixture, {@link
+ * <p>On contact start: evt = "collision_start", params = ({@link Fixture} thisFixture, {@link
  * Fixture} otherFixture)
  *
- * <p>On contact end: evt = "collisionEnd", params = ({@link Fixture} thisFixture, {@link Fixture}
+ * <p>On contact end: evt = "collision_end", params = ({@link Fixture} thisFixture, {@link Fixture}
  * otherFixture)
  */
 public class PhysicsContactListener implements ContactListener {
@@ -69,11 +69,11 @@ public class PhysicsContactListener implements ContactListener {
    */
   @Override
   public void beginContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collisionStart", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collisionStart", contact.getFixtureA());
+    triggerEventOn(contact.getFixtureA(), "collision_start", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "collision_start", contact.getFixtureA());
     if ((contact.getFixtureA() == targetFixture && contact.getFixtureB() == targetEnemy) ||
             (contact.getFixtureA() == targetEnemy && contact.getFixtureB() == targetFixture )) {
-      ServiceLocator.getMainGameScreenUI().getEvents().trigger("lossCaught");
+      ServiceLocator.getMainGameScreenUI().getEvents().trigger("loss_caught");
     }
 
     if (contact.getFixtureA() == targetFixture){
@@ -85,14 +85,14 @@ public class PhysicsContactListener implements ContactListener {
 
   /**
    * Logs if a global collision ends, and checks if that collision occurs on
-   * the targetFixture, and calls the relvant functions to tell the
+   * the targetFixture, and calls the relevant functions to tell the
    * targetEntity ifs true.
    * @param contact Describes the physics collision
    */
   @Override
   public void endContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collisionEnd", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collisionEnd", contact.getFixtureA());
+    triggerEventOn(contact.getFixtureA(), "collision_end", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "collision_end", contact.getFixtureA());
 
     if (contact.getFixtureA() == targetFixture){
       targetCollisionCommunication(contact.getFixtureB(), false);

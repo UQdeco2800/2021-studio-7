@@ -1,9 +1,9 @@
 package com.deco2800.game.entities.factories;
 
-import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ServiceLocator;
 
 public class RenderFactory {
 

@@ -1,6 +1,6 @@
 package com.deco2800.game.ui.terminal;
 
-import com.deco2800.game.components.Component;
+import com.deco2800.game.generic.Component;
 import com.deco2800.game.ui.terminal.commands.Command;
 import com.deco2800.game.ui.terminal.commands.DebugCommand;
 import org.slf4j.Logger;

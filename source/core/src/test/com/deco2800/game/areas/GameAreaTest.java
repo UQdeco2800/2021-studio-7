@@ -6,7 +6,7 @@ import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ServiceLocator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

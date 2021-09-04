@@ -2,7 +2,7 @@ package com.deco2800.game.ui.terminal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.deco2800.game.ui.UIComponent;
+import com.deco2800.game.ui.components.UIComponent;
 
 /**
  * A ui component for displaying the debug terminal. The terminal is positioned at the bottom of the
