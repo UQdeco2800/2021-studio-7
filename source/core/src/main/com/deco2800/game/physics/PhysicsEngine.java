@@ -6,8 +6,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.physics.raycast.AllHitCallback;
 import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.physics.raycast.SingleHitCallback;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.GameTime;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

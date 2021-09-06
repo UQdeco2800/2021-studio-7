@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;

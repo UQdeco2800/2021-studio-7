@@ -6,14 +6,13 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.deco2800.game.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener2;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.services.GameTime;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.GameTime;
+import com.deco2800.game.generic.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,8 +41,8 @@ class PhysicsContactListenerTest {
     // Register collision callbacks
     EventListener2<Fixture, Fixture> callback1 = mock(EventListener2.class);
     EventListener2<Fixture, Fixture> callback2 = mock(EventListener2.class);
-    entity1.getEvents().addListener("collisionStart", callback1);
-    entity2.getEvents().addListener("collisionStart", callback2);
+    entity1.getEvents().addListener("collision_start", callback1);
+    entity2.getEvents().addListener("collision_start", callback2);
 
     // Trigger collisions
     ServiceLocator.getPhysicsService().getPhysics().update();
@@ -52,23 +51,6 @@ class PhysicsContactListenerTest {
     verify(callback1).handle(fixture1, fixture2);
     verify(callback2).handle(fixture2, fixture1);
   }
-
-  /*
-  @Test
-  void shouldNoticePlayerCollision(){
-    Entity entity1 =
-            createPhysicsEntity().addComponent(new PlayerObjectInteractions());
-    Entity entity2 = createPhysicsEntity();
-    Fixture fixture1 = entity1.getComponent(ColliderComponent.class).getFixture();
-    Fixture fixture2 = entity2.getComponent(ColliderComponent.class).getFixture();
-    entity1.setPosition(0f, 0f);
-    entity2.setPosition(0f, 0f);
-
-    PhysicsEngine callback1 =
-            mock(PhysicsEngine.class);
-    callback1.getContactListener().setTargetFixture(entity1.getComponent(ColliderComponent.class));
-    verify(callback1).getContactListener().targetCollisionCommunication(fixture2, true);
-  }*/
 
   @Test
   void shouldTriggerCollisionEnd() {
@@ -83,8 +65,8 @@ class PhysicsContactListenerTest {
     // Register end collision callbacks
     EventListener2<Fixture, Fixture> endCallback1 = mock(EventListener2.class);
     EventListener2<Fixture, Fixture> endCallback2 = mock(EventListener2.class);
-    entity1.getEvents().addListener("collisionEnd", endCallback1);
-    entity2.getEvents().addListener("collisionEnd", endCallback2);
+    entity1.getEvents().addListener("collision_end", endCallback1);
+    entity2.getEvents().addListener("collision_end", endCallback2);
 
     ServiceLocator.getPhysicsService().getPhysics().update();
     verifyNoInteractions(endCallback1);

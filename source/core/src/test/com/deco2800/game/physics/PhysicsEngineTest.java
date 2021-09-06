@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.JointDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.services.GameTime;
+import com.deco2800.game.generic.GameTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

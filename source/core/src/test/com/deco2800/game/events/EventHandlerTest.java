@@ -58,7 +58,7 @@ class EventHandlerTest {
 
   @Test
   void shouldHandleNoListeners() {
-    handler.trigger("not-real-event");
+    handler.trigger("not_real_event");
   }
 
   @Test
@@ -87,9 +87,9 @@ class EventHandlerTest {
 
   @Test
   void shouldFailIncorrectArgs() {
-    handler.addListener("stringEvent", (String s) -> {});
+    handler.addListener("string_event", (String s) -> {});
     assertThrows(ClassCastException.class, () -> {
-      handler.trigger("stringEvent", true);
+      handler.trigger("string_event", true);
     });
   }
 }

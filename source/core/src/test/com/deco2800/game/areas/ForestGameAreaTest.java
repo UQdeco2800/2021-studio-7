@@ -1,12 +1,6 @@
 package com.deco2800.game.areas;
 
 
-import com.deco2800.game.areas.terrain.TerrainFactory;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.services.ServiceLocator;
-import org.junit.jupiter.api.Test;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

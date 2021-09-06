@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.rendering.RenderComponent;
+import com.deco2800.game.rendering.components.RenderComponent;
 
 /**
  * Render a tiled terrain for a given tiled map and orientation. A terrain is a map of tiles that

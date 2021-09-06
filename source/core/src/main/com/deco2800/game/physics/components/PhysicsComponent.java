@@ -4,17 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.components.Component;
+import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsContactListener;
 import com.deco2800.game.physics.PhysicsEngine;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ServiceLocator;
 
 /**
  * Lets an entity be controlled by physics. Do not directly modify the position of a physics-enabled
  * entity. Instead, use forces to move it.
  *
- * <p>Entities with a PhysicsComponent will fire "collisionStart" and "collisionEnd" events. See
+ * <p>Entities with a PhysicsComponent will fire "collision_start" and "collision_end" events. See
  * {@link PhysicsContactListener }
  */
 public class PhysicsComponent extends Component {
