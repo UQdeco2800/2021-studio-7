@@ -1,20 +1,24 @@
 package com.deco2800.game.entities.factories;
 
-import com.deco2800.game.components.CombatStatsComponent;
-import com.deco2800.game.components.player.InventoryComponent;
-import com.deco2800.game.components.player.PlayerActions;
-import com.deco2800.game.components.player.PlayerStatsDisplay;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.player.InventoryComponent;
+import com.deco2800.game.entities.components.player.PlayerActions;
+import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
+import com.deco2800.game.entities.components.player.PlayerAnimationController;
+import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.rendering.TextureRenderComponent;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.rendering.components.AnimationRenderComponent;
+import com.deco2800.game.generic.ServiceLocator;
 
 /**
  * Factory to create a player entity.
@@ -34,9 +38,21 @@ public class PlayerFactory {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService().getAsset("images/characters/boy_01/boy_01.atlas", TextureAtlas.class));
+    animator.addAnimation("standing_south", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_east", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_south", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_north", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_west", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_east", 0.1f, Animation.PlayMode.LOOP);
+
     Entity player =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/box_boy_leaf.png"))
+            .addComponent(animator).addComponent(new PlayerAnimationController())
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
@@ -44,11 +60,12 @@ public class PlayerFactory {
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
-            .addComponent(new PlayerStatsDisplay());
+            .addComponent(new PlayerStatsDisplay())
+            .addComponent(new PlayerObjectInteractions());
+
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    player.getComponent(TextureRenderComponent.class).scaleEntity();
     return player;
   }
 

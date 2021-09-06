@@ -2,7 +2,7 @@ package com.deco2800.game.ui.terminal;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.deco2800.game.input.InputComponent;
+import com.deco2800.game.input.components.InputComponent;
 
 /**
  * Input handler for the debug terminal for keyboard and touch (mouse) input.

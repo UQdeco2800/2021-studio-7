@@ -1,0 +1,89 @@
+boy_00.png
+size: 816, 108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+standing_south
+  rotate: false
+  xy: 1, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 87, 87
+  index: 0
+standing_west
+  rotate: false
+  xy: 457, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 99, 91
+  index: 0
+standing_east
+  rotate: false
+  xy: 517, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 99, 75
+  index: 0
+standing_north
+  rotate: false
+  xy: 77, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 91, 79
+  index: 0
+walking_south
+  rotate: false
+  xy: 153, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 87, 79
+  index: 0
+walking_south
+  rotate: false
+  xy: 229, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 87, 87
+  index: 1
+walking_west
+  rotate: false
+  xy: 577, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 99, 91
+  index: 0
+walking_west
+  rotate: false
+  xy: 637, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 95, 87
+  index: 1
+walking_east
+  rotate: false
+  xy: 697, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 95, 91
+  index: 0
+walking_east
+  rotate: false
+  xy: 757, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 95, 75
+  index: 1
+walking_north
+  rotate: false
+  xy: 305, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 91, 79
+  index: 0
+walking_north
+  rotate: false
+  xy: 381, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 87, 95
+  index: 1

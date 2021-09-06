@@ -12,10 +12,10 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
-import com.deco2800.game.components.CameraComponent;
+import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.utils.math.RandomUtils;
-import com.deco2800.game.services.ResourceService;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.generic.ServiceLocator;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {
@@ -58,27 +58,27 @@ public class TerrainFactory {
     switch (terrainType) {
       case FOREST_DEMO:
         TextureRegion orthoGrass =
-            new TextureRegion(resourceService.getAsset("images/grass_1.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/ortho/ortho_grass_1.png", Texture.class));
         TextureRegion orthoTuft =
-            new TextureRegion(resourceService.getAsset("images/grass_2.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/ortho/ortho_grass_2.png", Texture.class));
         TextureRegion orthoRocks =
-            new TextureRegion(resourceService.getAsset("images/grass_3.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/ortho/ortho_grass_3.png", Texture.class));
         return createForestDemoTerrain(0.5f, orthoGrass, orthoTuft, orthoRocks);
       case FOREST_DEMO_ISO:
         TextureRegion isoGrass =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_1.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/iso/iso_grass_1.png", Texture.class));
         TextureRegion isoTuft =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_2.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/iso/iso_grass_2.png", Texture.class));
         TextureRegion isoRocks =
-            new TextureRegion(resourceService.getAsset("images/iso_grass_3.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/iso/iso_grass_3.png", Texture.class));
         return createForestDemoTerrain(1f, isoGrass, isoTuft, isoRocks);
       case FOREST_DEMO_HEX:
         TextureRegion hexGrass =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_1.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/hex/hex_grass_1.png", Texture.class));
         TextureRegion hexTuft =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_2.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/hex/hex_grass_2.png", Texture.class));
         TextureRegion hexRocks =
-            new TextureRegion(resourceService.getAsset("images/hex_grass_3.png", Texture.class));
+            new TextureRegion(resourceService.getAsset("images/tiles/hex/hex_grass_3.png", Texture.class));
         return createForestDemoTerrain(1f, hexGrass, hexTuft, hexRocks);
       default:
         return null;

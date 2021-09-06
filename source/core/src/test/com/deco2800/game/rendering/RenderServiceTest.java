@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.rendering.components.RenderComponent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
