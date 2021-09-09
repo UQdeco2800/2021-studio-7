@@ -48,7 +48,9 @@ public class ForestGameArea extends GameArea {
           "images/characters/ghost/ghost_king.atlas",
           "images/tiles/iso/iso_terrain_grass.atlas",
           "images/characters/boy_01/boy_01.atlas",
-          "images/characters/mum_01/mum_01.atlas"
+          "images/characters/mum_01/mum_01.atlas",
+          "images/characters/girl_00/girl_00.atlas",
+          "images/characters/boy_00/boy_00.atlas"
           //TODO add "images/female_character.atlas"  `
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};

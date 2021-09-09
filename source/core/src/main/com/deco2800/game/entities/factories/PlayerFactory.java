@@ -19,6 +19,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import java.io.*;
 
 /**
  * Factory to create a player entity.
@@ -30,17 +31,19 @@ public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
+
   /**
    * Create a player entity.
    * @return entity
    */
   public static Entity createPlayer() {
+    //this.atlas = getAtlas();
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/characters/boy_01/boy_01.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset(getAtlas(), TextureAtlas.class));
     animator.addAnimation("standing_south", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
@@ -67,6 +70,20 @@ public class PlayerFactory {
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     return player;
+  }
+
+  public static String getAtlas() {
+    try {
+      File input = new File("configs/currentCharacterAtlas.txt");
+      BufferedReader br = new BufferedReader(new FileReader(input));
+      String line = br.readLine();
+      System.out.println(line);
+      return line;
+
+    } catch (Exception e) {
+      System.out.println("FUCKKKKKKKKKKKKKKKKKKKKKKKK");
+      throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
+    }
   }
 
   private PlayerFactory() {

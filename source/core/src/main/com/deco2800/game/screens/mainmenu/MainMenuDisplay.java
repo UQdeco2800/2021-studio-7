@@ -11,6 +11,10 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
 
 /**
  * A ui component for displaying the Main menu.
@@ -24,6 +28,11 @@ public class MainMenuDisplay extends UIComponent {
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
 
+  };
+  private  String playableAtlas[]={
+          "images/characters/boy_01/boy_01.atlas",
+          "images/characters/girl_00/girl_00.atlas",
+          "images/characters/boy_00/boy_00.atlas"
   };
   int characterIndex= 0 ;
 
@@ -40,12 +49,14 @@ public class MainMenuDisplay extends UIComponent {
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
+    writeAtlas(); //Stores copy of the first character
 
     TextButton startBtn = new TextButton("Start", skin);
     TextButton loadBtn = new TextButton("Load", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
+
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -94,7 +105,8 @@ public class MainMenuDisplay extends UIComponent {
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     characterIndex++;
                     changeCharacterDisplay();
-                    logger.debug("Change Character button clicked. ");
+                    writeAtlas();
+                    logger.info("Change Character button clicked. ");
                     entity.getEvents().trigger("change_character");
                 }
             });
@@ -144,4 +156,18 @@ public class MainMenuDisplay extends UIComponent {
           create();
       }
   }
+    /**
+     * Updates currentCharacterAtlas.txt
+     */
+    public void writeAtlas(){
+        try {
+            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+            writer.write(this.playableAtlas[this.characterIndex]);
+            writer.close();
+            logger.info("Writing new atlas to settings.");
+        } catch (Exception e){
+            System.out.println(e);
+            logger.debug("Could not load the atlas after character change was made.");
+        }
+    }
 }
