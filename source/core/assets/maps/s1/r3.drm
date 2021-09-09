@@ -1,0 +1,14 @@
+8,8
+11,0
+
+TEXTURE<
+
+	# Define new textures
+	DEFINE
+		BASE_FLOOR:"images/tiles/iso/iso_floor_1.png"
+		BASE_WALL:"images/tiles/iso/iso_wall_1_left.png"
+		A:"images/tiles/iso/iso_floor_1_alt.png"
+
+	PLACE
+	
+>TEXTURE

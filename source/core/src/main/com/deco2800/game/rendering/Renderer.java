@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.deco2800.game.components.CameraComponent;
-import com.deco2800.game.services.ServiceLocator;
+import com.deco2800.game.entities.components.player.CameraComponent;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

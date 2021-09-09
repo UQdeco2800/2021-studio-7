@@ -1,0 +1,118 @@
+
+mum_01.png
+size: 866, 108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+standing_south
+  rotate: false
+  xy: 1, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 3, 147
+  index: 0
+standing_west
+  rotate: false
+  xy: 676, 1
+  size: 62, 102
+  orig: 239, 129
+  offset: 139, 20
+  index: 0
+standing_east
+  rotate: false
+  xy: 740, 1
+  size: 62, 102
+  orig: 137, 253
+  offset: 9, 32
+  index: 0
+standing_north
+  rotate: false
+  xy: 252, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 15, 27
+  index: 0
+walking_south
+  rotate: false
+  xy: 85, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 91, 147
+  index: 0
+walking_south
+  rotate: false
+  xy: 1, 1
+  size: 82, 106
+  orig: 256, 256
+  offset: 3, 147
+  index: 1
+walking_south
+  rotate: false
+  xy: 169, 1
+  size: 81, 106
+  orig: 256, 256
+  offset: 175, 147
+  index: 2
+walking_west
+  rotate: false
+  xy: 480, 1
+  size: 58, 106
+  orig: 256, 256
+  offset: 7, 143
+  index: 0
+walking_west
+  rotate: false
+  xy: 676, 1
+  size: 62, 102
+  orig: 239, 129
+  offset: 139, 20
+  index: 1
+walking_west
+  rotate: false
+  xy: 540, 1
+  size: 66, 102
+  orig: 256, 256
+  offset: 71, 147
+  index: 2
+walking_east
+  rotate: false
+  xy: 804, 1
+  size: 61, 102
+  orig: 256, 256
+  offset: 0, 35
+  index: 0
+walking_east
+  rotate: false
+  xy: 740, 1
+  size: 62, 102
+  orig: 137, 253
+  offset: 9, 32
+  index: 1
+walking_east
+  rotate: false
+  xy: 608, 1
+  size: 66, 102
+  orig: 256, 256
+  offset: 63, 35
+  index: 2
+walking_north
+  rotate: false
+  xy: 328, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 95, 27
+  index: 0
+walking_north
+  rotate: false
+  xy: 252, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 15, 27
+  index: 1
+walking_north
+  rotate: false
+  xy: 404, 1
+  size: 74, 106
+  orig: 256, 256
+  offset: 175, 27
+  index: 2
