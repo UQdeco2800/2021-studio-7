@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -16,6 +17,7 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
+    private Entity surveyor = null;
 
     public KeyboardPlayerInputComponent() {
         super(5);
@@ -54,7 +56,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                ((MainGameScreen)
+                surveyor = ((MainGameScreen)
                         ServiceLocator.getGame().getScreen())
                         .getMainGameArea().spawnSurveyor();
                 return true;
@@ -91,6 +93,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 walkDirection.sub(Vector2Utils.RIGHT);
                 entity.getEvents().trigger("standing_east");
                 triggerWalkEvent();
+                return true;
+            case Keys.E:
+                if (surveyor != null) {
+                    surveyor.dispose();
+                }
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();

@@ -181,11 +181,11 @@ public class ForestGameArea extends GameArea {
     return mum;
   }
 
-  public void spawnSurveyor() {
+  public Entity spawnSurveyor() {
     Entity surveyor = PlayerFactory.createSurveyor(player);
     surveyor.setPosition(player.getPosition());
     spawnEntity(surveyor);
-    logger.info("Spawned surveyor");
+    return surveyor;
   }
 
   private void playMusic() {
