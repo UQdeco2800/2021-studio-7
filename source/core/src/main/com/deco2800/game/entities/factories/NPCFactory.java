@@ -7,8 +7,6 @@ import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.MumActions;
 import com.deco2800.game.entities.components.npc.GhostAnimationController;
-import com.deco2800.game.entities.components.TouchAttackComponent;
-import com.deco2800.game.entities.components.npc.MumAnimationController;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;

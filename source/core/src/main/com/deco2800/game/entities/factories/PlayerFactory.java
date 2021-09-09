@@ -6,11 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.SurveyorActions;
-import com.deco2800.game.entities.components.player.InventoryComponent;
-import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
-import com.deco2800.game.entities.components.player.PlayerAnimationController;
-import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
+import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -65,10 +61,12 @@ public class PlayerFactory {
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerObjectInteractions());
+            .addComponent(new PlayerObjectInteractions())
+            .addComponent(new SurveyorComponent());
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+    PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     return player;
   }

@@ -56,9 +56,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                surveyor = ((MainGameScreen)
-                        ServiceLocator.getGame().getScreen())
-                        .getMainGameArea().spawnSurveyor();
+                entity.getComponent(SurveyorComponent.class).setEnabled(true);
                 return true;
             default:
                 return false;
@@ -95,9 +93,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerWalkEvent();
                 return true;
             case Keys.E:
-                if (surveyor != null) {
-                    surveyor.dispose();
-                }
+                entity.getComponent(SurveyorComponent.class).setEnabled(false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();

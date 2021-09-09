@@ -3,7 +3,10 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.Interactable;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.generic.ServiceLocator;
@@ -107,5 +110,9 @@ public class PlayerActions extends Component {
    */
   void stopRunning() {
     running = false;
+  }
+
+  public void surveyInteractions() {
+
   }
 }

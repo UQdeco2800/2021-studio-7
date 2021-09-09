@@ -7,4 +7,5 @@ public interface Interactable {
     Entity preCollisionCheck(Fixture me, Fixture other);
     void onCollisionStart(Fixture me, Fixture other);
     void onCollisionEnd(Fixture me, Fixture other);
+    void onInteraction(Entity target);
 }
