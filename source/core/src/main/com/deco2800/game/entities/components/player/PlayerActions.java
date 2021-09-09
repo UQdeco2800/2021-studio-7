@@ -15,7 +15,7 @@ import com.deco2800.game.generic.ServiceLocator;
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
-public class PlayerActions extends Component {
+public class PlayerActions extends InteractionComponent {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
 
   private PhysicsComponent physicsComponent;
@@ -27,6 +27,7 @@ public class PlayerActions extends Component {
 
   @Override
   public void create() {
+    super.create();
     physicsComponent = entity.getComponent(PhysicsComponent.class);
     combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
@@ -34,6 +35,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stop_running", this::stopRunning);
+    entity.getEvents().addListener("update_animation", animator::startAnimation);
+    entity.getEvents().trigger("update_animation", "standing_south");
   }
 
   @Override
@@ -110,9 +113,5 @@ public class PlayerActions extends Component {
    */
   void stopRunning() {
     running = false;
-  }
-
-  public void surveyInteractions() {
-
   }
 }

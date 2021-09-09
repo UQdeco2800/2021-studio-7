@@ -19,6 +19,7 @@ public class ColliderComponent extends Component {
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
+  private Vector2 scale;
 
   public ColliderComponent() {
     fixtureDef = new FixtureDef();
@@ -54,6 +55,7 @@ public class ColliderComponent extends Component {
    * @return self
    */
   public ColliderComponent setAsBoxAligned(Vector2 size, AlignX alignX, AlignY alignY) {
+    scale = size;
     Vector2 position = new Vector2();
     switch (alignX) {
       case LEFT:
@@ -203,6 +205,13 @@ public class ColliderComponent extends Component {
       return fixtureDef.filter.categoryBits;
     }
     return fixture.getFilterData().categoryBits;
+  }
+
+  /**
+   * @return Size of collider component
+   */
+  public Vector2 getScale() {
+    return scale;
   }
 
   @Override

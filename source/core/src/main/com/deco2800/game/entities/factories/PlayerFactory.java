@@ -52,39 +52,21 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
-            .addComponent(animator).addComponent(new PlayerAnimationController())
+            .addComponent(animator)
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerObjectInteractions())
+            .addComponent(new PlayerActions())
             .addComponent(new SurveyorComponent());
 
-
+    player.getComponent(ColliderComponent.class).setDensity(1.5f);
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
-    player.getComponent(ColliderComponent.class).setDensity(1.5f);
     return player;
-  }
-
-  public static Entity createSurveyor(Entity player) {
-    Entity surveyor = new Entity();
-
-    surveyor.addComponent(new TextureRenderComponent("images/objects/tree/tree.png"))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new SurveyorActions());
-
-    surveyor.getComponent(TextureRenderComponent.class).scaleEntity();
-    surveyor.setScale(player.getScale());
-    surveyor.getComponent(HitboxComponent.class).setAsBoxAligned(
-                    surveyor.getScale().cpy().scl(player.getScale().x, player.getScale().y),
-                    PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
-    return surveyor;
   }
 
   private PlayerFactory() {

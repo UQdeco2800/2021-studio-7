@@ -32,13 +32,14 @@ public class SurveyorComponent extends Component {
     }
 
     public void interactClosest() {
-        // Derive coordinates and dimensions of entity
+        // Derive coordinates from entity
         Vector2 center = entity.getCenterPosition();
         float centerX = center.x;
         float centerY = center.y;
-        // Multipliers are the hitbox's scale to the player
-        float width = entity.getScale().x * 1.1f;
-        float height = entity.getScale().y * 1.1f;
+
+        // Scale multipliers are the hitbox's scale to the player
+        float width = entity.getComponent(HitboxComponent.class).getScale().x;
+        float height = entity.getComponent(HitboxComponent.class).getScale().y;
 
         // Solve for entity's hitbox boundaries
         Vector2[] hitboxBorders = new Vector2[8];
