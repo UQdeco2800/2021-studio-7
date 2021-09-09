@@ -165,7 +165,7 @@ public class ForestGameArea extends GameArea {
   private void spawnBed() {
     // Note: interactable objects must be created AFTER the player, as it requires the player
     // entity as an argument
-    Entity bed = ObstacleFactory.createBed(player);
+    Entity bed = ObstacleFactory.createBed();
     spawnEntityAt(bed, BED_SPAWN, true, true);
   }
 
@@ -179,6 +179,13 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(mum, randomPos, true, true);
 
     return mum;
+  }
+
+  public void spawnSurveyor() {
+    Entity surveyor = PlayerFactory.createSurveyor(player);
+    surveyor.setPosition(player.getPosition());
+    spawnEntity(surveyor);
+    logger.info("Spawned surveyor");
   }
 
   private void playMusic() {

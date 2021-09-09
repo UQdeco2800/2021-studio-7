@@ -3,7 +3,10 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -51,7 +54,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("interaction");
+                ((MainGameScreen)
+                        ServiceLocator.getGame().getScreen())
+                        .getMainGameArea().spawnSurveyor();
                 return true;
             default:
                 return false;

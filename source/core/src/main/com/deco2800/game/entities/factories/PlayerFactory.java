@@ -2,7 +2,9 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.SurveyorActions;
 import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
@@ -19,6 +21,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.TextureRenderComponent;
 
 /**
  * Factory to create a player entity.
@@ -67,6 +70,22 @@ public class PlayerFactory {
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     return player;
+  }
+
+  public static Entity createSurveyor(Entity player) {
+    Entity surveyor = new Entity();
+
+    surveyor.addComponent(new TextureRenderComponent("images/objects/tree/tree.png"))
+            .addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+            .addComponent(new SurveyorActions());
+
+    surveyor.getComponent(PhysicsComponent.class).setBodyType(BodyDef.BodyType.StaticBody);
+    surveyor.getComponent(TextureRenderComponent.class).scaleEntity();
+    surveyor.setScale(player.getScale());
+    PhysicsUtils.setScaledCollider(surveyor, player.getScale().x, player.getScale().y);
+    return surveyor;
   }
 
   private PlayerFactory() {
