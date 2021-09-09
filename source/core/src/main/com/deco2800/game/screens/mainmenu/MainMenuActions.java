@@ -30,8 +30,8 @@ public class MainMenuActions extends Component {
    * Swaps to the Main Game screen.
    */
   private void onStart() {
-    logger.info("Start game");
-    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+    logger.info("Read Context");
+    game.setScreen(GdxGame.ScreenType.CONTEXT);
   }
 
   /**
