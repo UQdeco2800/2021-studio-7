@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
@@ -56,7 +57,8 @@ public class MainMenuDisplay extends UIComponent {
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
-
+    TextField txtUsername = new TextField("", skin);
+    txtUsername.setMessageText("Username:");
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -113,7 +115,7 @@ public class MainMenuDisplay extends UIComponent {
 
     table.add(title);
     table.row();
-    table.add(startBtn).padTop(50f);
+    table.add(startBtn).padTop(15);
     table.row();
     table.add(loadBtn).padTop(15f);
     table.row();
@@ -121,10 +123,13 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(exitBtn).padTop(15f);
     table.row();
-    table.add(character).padTop(50f);
+    table.add(txtUsername).padTop(50f);
+    table.row();
+    table.add(character).padTop(20f);
     table.row();
     table.add(changeCharacterBtn).padTop(10f);
     stage.addActor(table);
+
   }
 
   @Override
