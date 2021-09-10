@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components;
+package com.deco2800.game.entities.components.interactions;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
@@ -7,8 +7,6 @@ import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * When this entity touches a valid hitbox, enact the unique interaction with them.

@@ -1,6 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
-import com.deco2800.game.entities.components.InteractionComponent;
+import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.Entity;
 import org.junit.jupiter.api.Test;
 
