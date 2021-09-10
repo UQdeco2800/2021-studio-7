@@ -98,10 +98,9 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
    */
   public void getcurrentDirectionCode(){
-    Vector2 entityDirection= getDirection();
+    Vector2 entityDirection = getDirection();
     float x = entityDirection.x;
     float y = entityDirection.y;
-
 
     if (x < 0.5 && x > -0.5 && y > 0) {         // Walking north
       currentDirection = 0;
@@ -126,16 +125,16 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     if (lastDirection != currentDirection) {
       if (x < 0.5 && x > -0.5 && y > 0) {
-        entity.getEvents().trigger("walking_north");
+        entity.getEvents().trigger("update_animation", "walking_north");
         lastDirection = 0;
       } else if (x > 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("walking_east");
+        entity.getEvents().trigger("update_animation", "walking_east");
         lastDirection = 1;
       } else if (x < 0.5 && x > -0.5 && y < 0) {
-        entity.getEvents().trigger("walking_south");
+        entity.getEvents().trigger("update_animation", "walking_south");
         lastDirection = 2;
       } else if (x < 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("walking_west");
+        entity.getEvents().trigger("update_animation", "walking_west");
         lastDirection = 3;
       }
     }

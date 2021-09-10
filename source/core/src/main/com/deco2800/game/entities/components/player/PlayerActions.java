@@ -3,7 +3,10 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.Interactable;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.generic.ServiceLocator;
@@ -12,7 +15,7 @@ import com.deco2800.game.generic.ServiceLocator;
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
-public class PlayerActions extends Component {
+public class PlayerActions extends InteractionComponent {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
 
   private PhysicsComponent physicsComponent;
@@ -24,6 +27,7 @@ public class PlayerActions extends Component {
 
   @Override
   public void create() {
+    super.create();
     physicsComponent = entity.getComponent(PhysicsComponent.class);
     combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
@@ -31,6 +35,8 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stop_running", this::stopRunning);
+    entity.getEvents().addListener("update_animation", animator::startAnimation);
+    entity.getEvents().trigger("update_animation", "standing_south");
   }
 
   @Override

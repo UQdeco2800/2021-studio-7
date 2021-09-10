@@ -2,12 +2,11 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.deco2800.game.entities.components.CombatStatsComponent;
-import com.deco2800.game.entities.components.player.InventoryComponent;
-import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
-import com.deco2800.game.entities.components.player.PlayerAnimationController;
-import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
+import com.deco2800.game.entities.components.SurveyorActions;
+import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -19,6 +18,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.TextureRenderComponent;
 
 /**
  * Factory to create a player entity.
@@ -52,20 +52,20 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
-            .addComponent(animator).addComponent(new PlayerAnimationController())
+            .addComponent(animator)
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerObjectInteractions());
+            .addComponent(new PlayerActions())
+            .addComponent(new SurveyorComponent());
 
-
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
+    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+    PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
     return player;
   }
 

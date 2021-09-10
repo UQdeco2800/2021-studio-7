@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.endgame.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
@@ -30,6 +31,7 @@ public class GdxGame extends Game {
     Gdx.gl.glClearColor(0/255f, 0/255f, 0/255f, 1);
 
     setScreen(ScreenType.MAIN_MENU);
+    ServiceLocator.registerGame(this);
   }
 
   /**
@@ -68,17 +70,17 @@ public class GdxGame extends Game {
   private Screen newScreen(ScreenType screenType) {
     switch (screenType) {
       case MAIN_MENU:
-        return new MainMenuScreen(this);
+        return new MainMenuScreen();
       case MAIN_GAME:
-        return new MainGameScreen(this);
+        return new MainGameScreen();
       case SETTINGS:
-        return new SettingsScreen(this);
+        return new SettingsScreen();
       case WIN_DEFAULT:
-        return new EndGameScreen(this, ScreenType.WIN_DEFAULT);
+        return new EndGameScreen(ScreenType.WIN_DEFAULT);
       case LOSS_TIMED:
-        return new EndGameScreen(this, ScreenType.LOSS_TIMED);
+        return new EndGameScreen(ScreenType.LOSS_TIMED);
       case LOSS_CAUGHT:
-        return new EndGameScreen(this, ScreenType.LOSS_CAUGHT);
+        return new EndGameScreen(ScreenType.LOSS_CAUGHT);
       default:
         return null;
     }

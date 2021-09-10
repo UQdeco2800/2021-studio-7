@@ -1,6 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
-import com.deco2800.game.entities.components.InteractableComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.Entity;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ class PlayerObjectInteractionsTest {
         Entity player =
                 new Entity().addComponent(new PlayerObjectInteractions());
         Entity entity1 =
-                new Entity().addComponent(new InteractableComponent(player));
+                new Entity().addComponent(new InteractionComponent());
         player.getComponent(PlayerObjectInteractions.class)
                 .addObject(entity1);
         assertEquals(1, player.getComponent(PlayerObjectInteractions.class).getInteractableObjects().size());
@@ -32,7 +32,7 @@ class PlayerObjectInteractionsTest {
                 player.getComponent(PlayerObjectInteractions.class).getInteractableObjects().toArray();
         assertArrayEquals(new Object[]{entity1}, arrayListContents);
         Entity entity3 =
-                new Entity().addComponent(new InteractableComponent(player));
+                new Entity().addComponent(new InteractionComponent());
         player.getComponent(PlayerObjectInteractions.class)
                 .addObject(entity3);
         assertEquals(2,
@@ -45,9 +45,9 @@ class PlayerObjectInteractionsTest {
         Entity player =
                 new Entity().addComponent(new PlayerObjectInteractions());
         Entity entity1 =
-                new Entity().addComponent(new InteractableComponent(player));
+                new Entity().addComponent(new InteractionComponent());
         Entity entity2 =
-                new Entity().addComponent(new InteractableComponent(player));
+                new Entity().addComponent(new InteractionComponent());
         player.getComponent(PlayerObjectInteractions.class)
                 .addObject(entity1);
         player.getComponent(PlayerObjectInteractions.class)
@@ -79,7 +79,7 @@ class PlayerObjectInteractionsTest {
         Entity player =
                 new Entity().addComponent(new PlayerObjectInteractions());
         Entity entity1 =
-                new Entity().addComponent(new InteractableComponent(player));
+                new Entity().addComponent(new InteractionComponent());
         Entity entity2 = new Entity();
         assertEquals(true,
                 player.getComponent(PlayerObjectInteractions.class).isObjectInteractive(entity1));

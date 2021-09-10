@@ -1,6 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
-import com.deco2800.game.entities.components.InteractableComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
@@ -53,7 +53,7 @@ public class PlayerObjectInteractions extends Component {
      * @return boolean true if object possesses component, false otherwise
      */
     public boolean isObjectInteractive(Entity object){
-        if (object.getComponent(InteractableComponent.class) != null){
+        if (object.getComponent(InteractionComponent.class) != null){
             return true;
         } return false;
     }

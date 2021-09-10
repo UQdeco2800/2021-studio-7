@@ -2,8 +2,7 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.entities.components.InteractableComponent;
-import com.deco2800.game.entities.components.npc.InteractableComponentController;
+import com.deco2800.game.entities.components.BedActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -55,28 +54,27 @@ public class ObstacleFactory {
 
   /**
    * Creates a bed entity which can be interacted with by the player
-   * @param player The player entity (needed for interaction events)
    * @return This bed entity
    */
-  public static Entity createBed(Entity player){
+  public static Entity createBed() {
     Entity bed = new Entity();
 
-    AnimationRenderComponent bedAnimation = new AnimationRenderComponent(
+    AnimationRenderComponent bedAnimations = new AnimationRenderComponent(
             ServiceLocator.getResourceService().getAsset("images/objects/bed/bed.atlas",
                     TextureAtlas.class));
-    bedAnimation.addAnimation("bed", 1f);
-    bedAnimation.addAnimation("bed_highlight", 1f);
+    bedAnimations.addAnimation("bed", 1f);
+    bedAnimations.addAnimation("bed_highlight", 1f);
 
     bed.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            .addComponent((new InteractableComponent(player,"win_default")))
-            .addComponent(bedAnimation) // Added component for the animation of the bed
-            .addComponent(new InteractableComponentController());
+            .addComponent(bedAnimations)
+            .addComponent(new BedActions());
 
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.scaleHeight(1.0f);
     PhysicsUtils.setScaledCollider(bed, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(bed, 1f, 1f);
 
     //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
