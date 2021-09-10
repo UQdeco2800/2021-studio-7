@@ -3,13 +3,8 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.deco2800.game.concurrency.JobSystem;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
-
-import java.util.Timer;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A ui component for displaying player stats, e.g. health.
@@ -19,7 +14,6 @@ public class MainGameTimerDisplay extends UIComponent {
     private Label timerLabel;
     private static int timeLeft;
     private long lastTime = 0L;
-    private CompletableFuture<Timer> timer;
 
     public MainGameTimerDisplay(int initialTime) {
         timeLeft = initialTime;
@@ -58,17 +52,8 @@ public class MainGameTimerDisplay extends UIComponent {
      * Updates the player's time left on the ui.
      */
     public void updatePlayerHealthUI() {
-        if (timeLeft >= 0) {
-//            // Should trigger loss_timed event in MainGameActions
-//            // I think it causes a runtime error because this method is
-//            // called on the TimerTask thread, and not the main thread.
-//            // Perhaps @XUEHUANG521 should utilise the time source in
-//            // the engine instead of a Timer object (@Jantoom)
-//            //entity.getEvents().trigger("loss_timed");
-//            timer.cancel();
             CharSequence text = String.format("Time left: %ds", timeLeft);
             timerLabel.setText(text);
-        }
     }
 
     @Override
@@ -77,27 +62,25 @@ public class MainGameTimerDisplay extends UIComponent {
         super.dispose();
     }
 
+    public static void tick() {
+        timeLeft = timeLeft - 1;
+    }
+
     /**
      * Main function for timer, it would update time left
-     * and stop when time left equals to zero
+     * and stop when time left equals to zero and trigger time loss event
      */
-    public static void tick() {
-        if(timeLeft > 0) {
-            timeLeft = timeLeft - 1;
-        }
-    }
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (currentTime - lastTime >= 1000L) {
-                tick();
-                updatePlayerHealthUI();
-                lastTime = currentTime;
-                if (timeLeft == 0) {
-                    tick();
-                    updatePlayerHealthUI();
-                    entity.getEvents().trigger("loss_timed");
-                }
+            lastTime = currentTime;
+            tick();
+            updatePlayerHealthUI();
+            System.out.println(timeLeft);
+            if (timeLeft < 0) {
+                entity.getEvents().trigger("loss_timed");
+            }
             }
         }
 }
