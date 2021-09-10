@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components;
+package com.deco2800.game.entities.components.interactions;
 
 import com.deco2800.game.physics.PhysicsLayer;
 
