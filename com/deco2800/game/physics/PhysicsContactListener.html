@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -106,9 +106,9 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <div class="block">Box2D collision events fire globally on the physics world, not per-object. The contact listener
  receives these events, finds the entities involved in the collision, and triggers events on them.
 
- <p>On contact start: evt = "collision_start", params = (<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> thisFixture, <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> otherFixture)
+ <p>On contact start: evt = "collisionStart", params = (<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> thisFixture, <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> otherFixture)
 
- <p>On contact end: evt = "collision_end", params = (<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> thisFixture, <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a>
+ <p>On contact end: evt = "collisionEnd", params = (<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a> thisFixture, <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink"><code>Fixture</code></a>
  otherFixture)</div>
 </section>
 <section class="summary">
@@ -159,20 +159,12 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#beginContact(com.badlogic.gdx.physics.box2d.Contact)">beginContact</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Contact.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Contact</a>&nbsp;contact)</code></th>
-<td class="colLast">
-<div class="block">Logs if a global collision happens and checks if that collision occurs on
- the targetFixture, and if it also occurs with a targetEnemy, and calls
- relevant functions to tell the targetEntity or end the game respectively.</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endContact(com.badlogic.gdx.physics.box2d.Contact)">endContact</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Contact.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Contact</a>&nbsp;contact)</code></th>
-<td class="colLast">
-<div class="block">Logs if a global collision ends, and checks if that collision occurs on
- the targetFixture, and calls the relevant functions to tell the
- targetEntity ifs true.</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
@@ -185,27 +177,6 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preSolve(com.badlogic.gdx.physics.box2d.Contact,com.badlogic.gdx.physics.box2d.Manifold)">preSolve</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Contact.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Contact</a>&nbsp;contact,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Manifold.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Manifold</a>&nbsp;oldManifold)</code></th>
 <td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnemyFixture(com.deco2800.game.physics.components.ColliderComponent)">setEnemyFixture</a></span>&#8203;(<a href="components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a>&nbsp;component)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTargetFixture(com.deco2800.game.physics.components.ColliderComponent)">setTargetFixture</a></span>&#8203;(<a href="components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a>&nbsp;component)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i6">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#targetCollisionCommunication(com.badlogic.gdx.physics.box2d.Fixture,boolean)">targetCollisionCommunication</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;fixture,
-boolean&nbsp;touching)</code></th>
-<td class="colLast">
-<div class="block">targetCollisionCommunication lets the targetContact know that they have
- touched an object, or stopped touching an object by attempting to add
- or remove it from an array of an entities in the targetContacts
- component PlayerObjectInteractions</div>
-</td>
 </tr>
 </tbody>
 </table>
@@ -247,45 +218,11 @@ boolean&nbsp;touching)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="setTargetFixture(com.deco2800.game.physics.components.ColliderComponent)">setTargetFixture</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTargetFixture</span>&#8203;(<span class="arguments"><a href="components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a>&nbsp;component)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setEnemyFixture(com.deco2800.game.physics.components.ColliderComponent)">setEnemyFixture</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setEnemyFixture</span>&#8203;(<span class="arguments"><a href="components/ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a>&nbsp;component)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="targetCollisionCommunication(com.badlogic.gdx.physics.box2d.Fixture,boolean)">targetCollisionCommunication</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">targetCollisionCommunication</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;fixture,
-boolean&nbsp;touching)</span></div>
-<div class="block">targetCollisionCommunication lets the targetContact know that they have
- touched an object, or stopped touching an object by attempting to add
- or remove it from an array of an entities in the targetContacts
- component PlayerObjectInteractions</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fixture</code> - The fixture of the entity that collided with the
-                targetFixture</dd>
-<dd><code>touching</code> - Boolean of if fixtures are colliding or not</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="beginContact(com.badlogic.gdx.physics.box2d.Contact)">beginContact</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">beginContact</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Contact.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Contact</a>&nbsp;contact)</span></div>
-<div class="block">Logs if a global collision happens and checks if that collision occurs on
- the targetFixture, and if it also occurs with a targetEnemy, and calls
- relevant functions to tell the targetEntity or end the game respectively.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/ContactListener.html?is-external=true#beginContact(com.badlogic.gdx.physics.box2d.Contact)" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">beginContact</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/ContactListener.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">ContactListener</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>contact</code> - Describes the physics collision</dd>
 </dl>
 </section>
 </li>
@@ -293,14 +230,9 @@ boolean&nbsp;touching)</span></div>
 <section class="detail">
 <h3><a id="endContact(com.badlogic.gdx.physics.box2d.Contact)">endContact</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">endContact</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Contact.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Contact</a>&nbsp;contact)</span></div>
-<div class="block">Logs if a global collision ends, and checks if that collision occurs on
- the targetFixture, and calls the relevant functions to tell the
- targetEntity ifs true.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/ContactListener.html?is-external=true#endContact(com.badlogic.gdx.physics.box2d.Contact)" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">endContact</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/ContactListener.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">ContactListener</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>contact</code> - Describes the physics collision</dd>
 </dl>
 </section>
 </li>

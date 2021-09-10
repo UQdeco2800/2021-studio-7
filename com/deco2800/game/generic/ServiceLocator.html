@@ -135,13 +135,13 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
-<td class="colFirst"><code>static <a href="../input/InputService.html" title="class in com.deco2800.game.input">InputService</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInputService()">getInputService</a></span>()</code></th>
+<td class="colFirst"><code>static <a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGame()">getGame</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i3">
-<td class="colFirst"><code>static <a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMainGameScreenUI()">getMainGameScreenUI</a></span>()</code></th>
+<td class="colFirst"><code>static <a href="../input/InputService.html" title="class in com.deco2800.game.input">InputService</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInputService()">getInputService</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i4">
@@ -171,12 +171,12 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerInputService(com.deco2800.game.input.InputService)">registerInputService</a></span>&#8203;(<a href="../input/InputService.html" title="class in com.deco2800.game.input">InputService</a>&nbsp;source)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerGame(com.deco2800.game.GdxGame)">registerGame</a></span>&#8203;(<a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;source)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i10">
 <td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerMainGameScreen(com.deco2800.game.entities.Entity)">registerMainGameScreen</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;source)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerInputService(com.deco2800.game.input.InputService)">registerInputService</a></span>&#8203;(<a href="../input/InputService.html" title="class in com.deco2800.game.input">InputService</a>&nbsp;source)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i11">
@@ -223,6 +223,12 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
+<h3><a id="getGame()">getGame</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a></span>&nbsp;<span class="memberName">getGame</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="getEntityService()">getEntityService</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../entities/EntityService.html" title="class in com.deco2800.game.entities">EntityService</a></span>&nbsp;<span class="memberName">getEntityService</span>()</div>
 </section>
@@ -259,8 +265,8 @@ extends java.lang.Object</pre>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getMainGameScreenUI()">getMainGameScreenUI</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getMainGameScreenUI</span>()</div>
+<h3><a id="registerGame(com.deco2800.game.GdxGame)">registerGame</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">registerGame</span>&#8203;(<span class="arguments"><a href="../GdxGame.html" title="class in com.deco2800.game">GdxGame</a>&nbsp;source)</span></div>
 </section>
 </li>
 <li class="blockList">
@@ -297,12 +303,6 @@ extends java.lang.Object</pre>
 <section class="detail">
 <h3><a id="registerResourceService(com.deco2800.game.generic.ResourceService)">registerResourceService</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">registerResourceService</span>&#8203;(<span class="arguments"><a href="ResourceService.html" title="class in com.deco2800.game.generic">ResourceService</a>&nbsp;source)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="registerMainGameScreen(com.deco2800.game.entities.Entity)">registerMainGameScreen</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">registerMainGameScreen</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;source)</span></div>
 </section>
 </li>
 <li class="blockList">
