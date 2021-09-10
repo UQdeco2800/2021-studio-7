@@ -2,6 +2,7 @@ package com.deco2800.game.screens.mainmenu;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MainMenuActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
-  private GdxGame game;
-
-  public MainMenuActions(GdxGame game) {
-    this.game = game;
-  }
 
   @Override
   public void create() {
@@ -31,7 +27,7 @@ public class MainMenuActions extends Component {
    */
   private void onStart() {
     logger.info("Start game");
-    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   /**
@@ -47,7 +43,7 @@ public class MainMenuActions extends Component {
    */
   private void onExit() {
     logger.info("Exit game");
-    game.exit();
+    ServiceLocator.getGame().exit();
   }
 
   /**
@@ -55,7 +51,7 @@ public class MainMenuActions extends Component {
    */
   private void onSettings() {
     logger.info("Launching settings screen");
-    game.setScreen(GdxGame.ScreenType.SETTINGS);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
   }
 
 
