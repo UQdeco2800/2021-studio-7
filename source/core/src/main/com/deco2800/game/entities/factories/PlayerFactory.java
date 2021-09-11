@@ -3,7 +3,6 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.entities.components.CombatStatsComponent;
-import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
 import com.deco2800.game.entities.components.player.PlayerAnimationController;
@@ -58,7 +57,6 @@ public class PlayerFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-            .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerObjectInteractions());
