@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  private static final int NUM_TREES = 7;
+  private static final int NUM_TREES = 1;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
@@ -74,7 +74,7 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     player = spawnPlayer();
     spawnBed();
-//    spawnTrees();
+    spawnTrees();
 //    spawnGhosts();
 //    spawnGhostKing();
     mum = spawnMum();
@@ -85,7 +85,7 @@ public class ForestGameArea extends GameArea {
     return player;
   }
 
-  public Entity getMom() { return mum;}
+  public Entity getMum() { return mum;}
 
   private void displayUI() {
     Entity ui = new Entity();

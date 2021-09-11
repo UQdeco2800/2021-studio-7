@@ -77,7 +77,6 @@ public class MainGameTimerDisplay extends UIComponent {
             lastTime = currentTime;
             tick();
             updatePlayerHealthUI();
-            System.out.println(timeLeft);
             if (timeLeft < 0) {
                 entity.getEvents().trigger("loss_timed");
             }

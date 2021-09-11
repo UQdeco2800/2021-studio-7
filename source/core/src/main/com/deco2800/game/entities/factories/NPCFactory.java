@@ -143,6 +143,7 @@ public class NPCFactory {
             .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
     return npc;
   }
 
