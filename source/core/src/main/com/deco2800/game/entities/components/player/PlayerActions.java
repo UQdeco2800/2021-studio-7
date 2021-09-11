@@ -46,7 +46,7 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     // increase speed when running, only when there is stamina left
     if (running && combatStatsComponent.getStamina() > 0) {
-      MAX_SPEED.set(10f, 10f); //TODO adjust running speed
+      MAX_SPEED.set(6f, 6f); //TODO adjust running speed
     } else {
       MAX_SPEED.set(3f, 3f);
     }
