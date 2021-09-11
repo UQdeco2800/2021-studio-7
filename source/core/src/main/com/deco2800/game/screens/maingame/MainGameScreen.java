@@ -164,8 +164,6 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-
-    mainGameTimer.countDown();
   }
 
   public ForestGameArea getMainGameArea() {
