@@ -56,7 +56,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
-    CharSequence staminaText = String.format("Stamina: %.0f", stamina);
+    CharSequence staminaText = String.format("Stamina: %.0f", stamina/5);
     staminaLabel = new Label(staminaText, skin, "large");
 
     // stamina bar
@@ -91,7 +91,7 @@ public class PlayerStatsDisplay extends UIComponent {
    * @param stamina player stamina
    */
   public void updatePlayerStaminaUI (int stamina) {
-    CharSequence text = String.format("Stamina: %d", stamina);
+    CharSequence text = String.format("Stamina: %d", stamina/5);
     staminaLabel.setText(text);
 
     // update stamina bar

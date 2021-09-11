@@ -15,7 +15,7 @@ public class PlayerStaminaBar extends ProgressBar {
 
     public PlayerStaminaBar(int width, int height) {
         // sets range of stamina bar value and the step size
-        super(0f, 100f, 1f, false, new ProgressBarStyle());
+        super(0f, 500f, 1f, false, new ProgressBarStyle());
         // set background of stamina bar
         getStyle().background = getDrawable(width, height, Color.RED);
         getStyle().knob = getDrawable(0, height, Color.GREEN);
