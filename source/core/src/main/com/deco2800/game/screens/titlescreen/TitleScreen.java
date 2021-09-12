@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.contextscreen;
+package com.deco2800.game.screens.titlescreen;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,27 +13,33 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ContextScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
+public class TitleScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
 
     private final GdxGame game;
     private final Renderer renderer;
+    private static final String[] TitleTextures = {
+            "images/ui/title/RETROACTIVE-large.png",
+    };
 
-    public ContextScreen(GdxGame game) {
+    public TitleScreen(GdxGame game) {
         this.game = game;
 
-        logger.debug("Initialising Context screen services");
+        logger.debug("Initialising main menu screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-        ServiceLocator.registerTimeSource(new GameTime());
 
         renderer = RenderFactory.createRenderer();
 
+        System.out.println();
+
+        loadAssets();
         createUI();
     }
 
@@ -61,7 +67,7 @@ public class ContextScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing context screen");
+        logger.debug("Disposing title screen");
 
         renderer.dispose();
         ServiceLocator.getEntityService().dispose();
@@ -69,6 +75,19 @@ public class ContextScreen extends ScreenAdapter {
         ServiceLocator.getResourceService().dispose();
 
         ServiceLocator.clear();
+    }
+
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(TitleTextures);
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(TitleTextures);
     }
 
     /**
@@ -79,9 +98,9 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new ContextScreenDisplay())
+        ui.addComponent(new TitleScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new ContextScreenActions(game));
+                .addComponent(new TitleScreenActions(game));
         ServiceLocator.getEntityService().register(ui);
     }
 }
