@@ -22,7 +22,9 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
-  private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
+  private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 20);
+  private static final GridPoint2 DOOR_SPAWN = new GridPoint2(5, 10);
+  private static final GridPoint2 TV_SPAWN = new GridPoint2(5, 15);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
           "images/characters/box_boy/box_boy_leaf.png",
@@ -39,7 +41,9 @@ public class ForestGameArea extends GameArea {
           "images/tiles/iso/iso_grass_2.png",
           "images/tiles/iso/iso_grass_3.png",
           "images/tiles/iso/iso_floor_1.png",
-          "images/tiles/iso/iso_floor_1_alt.png"
+          "images/tiles/iso/iso_floor_1_alt.png",
+          "images/objects/door/door_animationL.png",
+          "images/objects/tv/TV_animationL.png"
   };
   private static final String[] forestTextureAtlases = {
           "images/tiles/iso/iso_terrain_grass.atlas",
@@ -48,8 +52,10 @@ public class ForestGameArea extends GameArea {
           "images/characters/ghost/ghost_king.atlas",
           "images/tiles/iso/iso_terrain_grass.atlas",
           "images/characters/boy_01/boy_01.atlas",
-          "images/characters/mum_01/mum_01.atlas"
-          //TODO add "images/female_character.atlas"  `
+          "images/characters/mum_01/mum_01.atlas",
+          "images/objects/door/door_animationL.atlas",
+          "images/objects/tv/TV_animationL.atlas"
+          //TODO add "images/female_character.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -74,6 +80,8 @@ public class ForestGameArea extends GameArea {
     spawnTerrain();
     player = spawnPlayer();
     spawnBed();
+    spawnDoor();
+    spawnTV();
 //    spawnTrees();
 //    spawnGhosts();
 //    spawnGhostKing();
@@ -167,6 +175,16 @@ public class ForestGameArea extends GameArea {
     // entity as an argument
     Entity bed = ObstacleFactory.createBed();
     spawnEntityAt(bed, BED_SPAWN, true, true);
+  }
+
+  private void spawnDoor(){
+    Entity door = ObstacleFactory.createDoor();
+    spawnEntityAt(door, DOOR_SPAWN, true, true);
+  }
+
+  private void spawnTV(){
+    Entity tv = ObstacleFactory.createTV();
+    spawnEntityAt(tv, TV_SPAWN, true, true);
   }
 
 
