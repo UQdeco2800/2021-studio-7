@@ -27,12 +27,13 @@ public class MumActions extends InteractionComponent {
         if (target == null) {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("MUM started collision with PLAYER, triggering lose condition");
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("loss_caught");
+            triggerLoseCondition();
         }
     }
 
-    @Override
-    public void onCollisionEnd(Fixture me, Fixture other) {}
+    public void triggerLoseCondition() {
+        logger.info("MUM started collision with PLAYER, triggering lose condition");
+        ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                .getMainGameEntity().getEvents().trigger("loss_caught");
+    }
 }
