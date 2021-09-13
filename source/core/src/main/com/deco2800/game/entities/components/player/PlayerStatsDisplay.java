@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  private Image heartImage;
-  private Label healthLabel;
   private Label staminaLabel;
   private PlayerStaminaBar playerStaminaBar;
 
@@ -31,7 +29,6 @@ public class PlayerStatsDisplay extends UIComponent {
     super.create();
     addActors();
 
-    entity.getEvents().addListener("update_health", this::updatePlayerHealthUI);
     entity.getEvents().addListener("update_stamina", this::updatePlayerStaminaUI);
   }
 
@@ -43,16 +40,7 @@ public class PlayerStatsDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(45f).padLeft(5f);
-
-    // Heart image
-    float heartSideLength = 30f;
-    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/ui/box_boy/heart.png", Texture.class));
-
-    // Health text
-    int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
+    table.padTop(45f).padLeft(10f);
 
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
@@ -60,30 +48,19 @@ public class PlayerStatsDisplay extends UIComponent {
     staminaLabel = new Label(staminaText, skin, "large");
 
     // stamina bar
-    playerStaminaBar = new PlayerStaminaBar(100, 10);
+    playerStaminaBar = new PlayerStaminaBar(100, 100);
     playerStaminaBar.setValue((float) stamina);
 
-    table.add(heartImage).size(heartSideLength).left();//pad(5);
-    table.add(healthLabel).left();
     table.row();
     table.add(staminaLabel).left();
     table.row();
-    table.add(playerStaminaBar).size(190,20).left();
+    table.add(playerStaminaBar).size(170,80).left();
     stage.addActor(table);
   }
 
   @Override
   public void draw(SpriteBatch batch)  {
     // draw is handled by the stage
-  }
-
-  /**
-   * Updates the player's health on the ui.
-   * @param health player health
-   */
-  public void updatePlayerHealthUI(int health) {
-    CharSequence text = String.format("Health: %d", health);
-    healthLabel.setText(text);
   }
 
   /**
@@ -102,8 +79,6 @@ public class PlayerStatsDisplay extends UIComponent {
   @Override
   public void dispose() {
     super.dispose();
-    heartImage.remove();
-    healthLabel.remove();
     staminaLabel.remove();
     playerStaminaBar.remove();
 
