@@ -9,6 +9,7 @@ import com.deco2800.game.screens.endgame.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
+import com.deco2800.game.screens.titlescreen.TitleScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class GdxGame extends Game {
     // Sets background to black
     Gdx.gl.glClearColor(0/255f, 0/255f, 0/255f, 1);
 
-    setScreen(ScreenType.MAIN_MENU);
+    setScreen(ScreenType.TITLE_SCREEN);
   }
 
   /**
@@ -68,6 +69,8 @@ public class GdxGame extends Game {
    */
   private Screen newScreen(ScreenType screenType) {
     switch (screenType) {
+      case TITLE_SCREEN:
+        return new TitleScreen(this);
       case MAIN_MENU:
         return new MainMenuScreen(this);
       case MAIN_GAME:
@@ -88,7 +91,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT,
+    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT,TITLE_SCREEN
   }
 
   /**
