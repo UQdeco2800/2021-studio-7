@@ -61,7 +61,7 @@ public class PlayerActions extends Component {
   private void updateStamina() {
     // when player is moving and is running, decrease stamina
     if (running && moving) {
-      entity.getEvents().trigger("change_stamina", -1);
+      entity.getEvents().trigger("change_stamina", -2);
     } else { // player is not running (released SHIFT or not moving), regenerate stamina
       entity.getEvents().trigger("change_stamina", 1);
     }

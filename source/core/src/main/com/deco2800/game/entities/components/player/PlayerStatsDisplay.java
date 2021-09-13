@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-   //private Label healthLabel;
+
   private Label staminaLabel;
   private PlayerStaminaBar playerStaminaBar;
 
@@ -30,7 +30,6 @@ public class PlayerStatsDisplay extends UIComponent {
     super.create();
     addActors();
 
-    //entity.getEvents().addListener("update_health", this::updatePlayerHealthUI);
     entity.getEvents().addListener("update_stamina", this::updatePlayerStaminaUI);
   }
 
@@ -42,21 +41,24 @@ public class PlayerStatsDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(45f).padLeft(5f);
+    table.padTop(45f).padLeft(10f);
+
 
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
-    CharSequence staminaText = String.format("Stamina: %.0f", stamina);
+    CharSequence staminaText = String.format("Stamina: %.0f", stamina/5);
     staminaLabel = new Label(staminaText, skin, "large");
 
     // stamina bar
-    playerStaminaBar = new PlayerStaminaBar(150, 10);
+    playerStaminaBar = new PlayerStaminaBar(100, 100);
+
     playerStaminaBar.setValue((float) stamina);
 
     table.row();
     table.add(staminaLabel).left();
     table.row();
     table.add(playerStaminaBar).size(190,50).left();
+
     stage.addActor(table);
   }
 
@@ -70,7 +72,7 @@ public class PlayerStatsDisplay extends UIComponent {
    * @param stamina player stamina
    */
   public void updatePlayerStaminaUI (int stamina) {
-    CharSequence text = String.format("Stamina: %d", stamina);
+    CharSequence text = String.format("Stamina: %d", stamina/5);
     staminaLabel.setText(text);
 
     // update stamina bar
