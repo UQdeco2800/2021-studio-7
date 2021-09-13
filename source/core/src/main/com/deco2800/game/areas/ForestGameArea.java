@@ -93,7 +93,7 @@ public class ForestGameArea extends GameArea {
     return player;
   }
 
-  public Entity getMom() { return mum;}
+  public Entity getMum() { return mum;}
 
   private void displayUI() {
     Entity ui = new Entity();

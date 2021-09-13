@@ -246,9 +246,12 @@ public class Entity {
     if (!enabled) {
       return;
     }
-    for (int i = 0; i < createdComponents.size; i++){
-      createdComponents.get(i).triggerUpdate();
+    for (int i = 0; i < createdComponents.size; i++) {
+        createdComponents.get(i).triggerUpdate();
     }
+//    for (Component component : createdComponents) {
+//      component.triggerUpdate();
+//    }
   }
 
   /**

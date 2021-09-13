@@ -10,7 +10,6 @@ import com.deco2800.game.physics.raycast.RaycastHit;
 
 public class SurveyorComponent extends Component {
 
-    private static final int NUM_CASTS = 8;
     private long lastTime = 0L;
 
     @Override
@@ -26,8 +25,6 @@ public class SurveyorComponent extends Component {
         if (currentTime - lastTime >= 1000L) {
             lastTime = currentTime;
             interactClosest();
-        } else {
-            return;
         }
     }
 
@@ -37,7 +34,7 @@ public class SurveyorComponent extends Component {
         float centerX = center.x;
         float centerY = center.y;
 
-        // Scale multipliers are the hitbox's scale to the player
+        // Hitbox's scale (width and height)
         float width = entity.getComponent(HitboxComponent.class).getScale().x;
         float height = entity.getComponent(HitboxComponent.class).getScale().y;
 
@@ -55,8 +52,7 @@ public class SurveyorComponent extends Component {
         // Find the closest raycast hit from the center to the boundaries
         RaycastHit closest = null;
         RaycastHit[] hits = new RaycastHit[8];
-        for (int i = 0; i < NUM_CASTS; i++) {
-            System.out.println(hitboxBorders[i]);
+        for (int i = 0; i < 8; i++) {
             hits[i] = new RaycastHit();
             if (ServiceLocator.getPhysicsService().getPhysics()
                     .raycast(center, hitboxBorders[i], PhysicsLayer.OBSTACLE, hits[i]) &&
@@ -70,10 +66,5 @@ public class SurveyorComponent extends Component {
             ((BodyUserData) closest.fixture.getBody().getUserData())
                     .entity.getEvents().trigger("interaction", entity);
         }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
     }
 }
