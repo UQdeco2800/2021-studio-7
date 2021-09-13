@@ -13,7 +13,7 @@ import com.deco2800.game.ui.components.UIComponent;
 public class MainGameTimerDisplay extends UIComponent {
     Table table;
     Table timeTable;
-    private final Label timerLabel;
+//    private final Label timerLabel;
     private final Label currentTimeLabel;
     private static int timeLeft;
     private long lastTime = 0L;
@@ -24,9 +24,9 @@ public class MainGameTimerDisplay extends UIComponent {
         timeLeft = initialTime;
         hour = 20;
         minute = 0;
-        CharSequence text = String.format("Time left: %ds", timeLeft);
+//        CharSequence text = String.format("Time left: %ds", timeLeft);
         CharSequence timeText = String.format("%d : 0%d",hour, minute);
-        timerLabel = new Label(text, skin, "large");
+//        timerLabel = new Label(text, skin, "large");
         currentTimeLabel = new Label(timeText, skin, "large");
 
     }
@@ -45,14 +45,13 @@ public class MainGameTimerDisplay extends UIComponent {
      * @see Table for positioning options
      */
     public void addActors() {
-        table = new Table();
-        table.bottom().left().padBottom(10f).padLeft(5f);
+//        table = new Table();
+//        table.bottom().left().padBottom(10f).padLeft(5f);
         timeTable = new Table();
         timeTable.top().right().padTop(10f).padRight(120f);
         table.setFillParent(true);
-        timeTable.setFillParent(true);
-
-        table.add(timerLabel);
+//        timeTable.setFillParent(true);
+//        table.add(timerLabel);
         timeTable.add(currentTimeLabel);
         stage.addActor(table);
         stage.addActor(timeTable);
@@ -66,11 +65,14 @@ public class MainGameTimerDisplay extends UIComponent {
     /**
      * Updates the player's time left on the ui.
      */
-    public void updatePlayerTimerUI() {
-            CharSequence text = String.format("Time left: %ds", timeLeft);
-            timerLabel.setText(text);
-    }
+//    public void updatePlayerTimerUI() {
+//            CharSequence text = String.format("Time left: %ds", timeLeft);
+//            timerLabel.setText(text);
+//    }
 
+    /**
+     * Updates the main game screen clock
+     */
     public void updateTimeUI() {
         if (minute < 59) {
             minute += 1;
@@ -98,9 +100,7 @@ public class MainGameTimerDisplay extends UIComponent {
                 timeText = String.format("%d : %d",hour, minute);
             }
         }
-
         currentTimeLabel.setText(timeText);
-        System.out.println(timeText);
     }
 
     @Override
@@ -110,21 +110,19 @@ public class MainGameTimerDisplay extends UIComponent {
         super.dispose();
     }
 
-    public static void tick() {
-        timeLeft = timeLeft - 1;
-    }
+//    public static void tick() {
+//        timeLeft = timeLeft - 1;
+//    }
 
     /**
      * Main function for timer, it would update time left
-     * and stop when time left equals to zero and trigger time loss event
+     * and stop when time reach 2 pm and trigger time loss event
      */
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (currentTime - lastTime >= 600L) {
             lastTime = currentTime;
-//            tick();
-//            updatePlayerTimerUI();
             updateTimeUI();
             if (hour == 2 && minute > 0) {
                 entity.getEvents().trigger("loss_timed");
