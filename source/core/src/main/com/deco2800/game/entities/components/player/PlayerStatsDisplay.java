@@ -44,26 +44,19 @@ public class PlayerStatsDisplay extends UIComponent {
     table.setFillParent(true);
     table.padTop(45f).padLeft(5f);
 
-    // Health text
-    /*int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");*/
-
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
     CharSequence staminaText = String.format("Stamina: %.0f", stamina);
     staminaLabel = new Label(staminaText, skin, "large");
 
     // stamina bar
-    playerStaminaBar = new PlayerStaminaBar(100, 10);
+    playerStaminaBar = new PlayerStaminaBar(150, 10);
     playerStaminaBar.setValue((float) stamina);
 
-    //table.add(heartImage).size(heartSideLength).left();//pad(5);
-    //table.add(healthLabel).left();
     table.row();
     table.add(staminaLabel).left();
     table.row();
-    table.add(playerStaminaBar).size(190,20).left();
+    table.add(playerStaminaBar).size(190,50).left();
     stage.addActor(table);
   }
 
@@ -71,15 +64,6 @@ public class PlayerStatsDisplay extends UIComponent {
   public void draw(SpriteBatch batch)  {
     // draw is handled by the stage
   }
-
-  /**
-   * Updates the player's health on the ui.
-   * @param health player health
-   */
-  /*public void updatePlayerHealthUI(int health) {
-    CharSequence text = String.format("Health: %d", health);
-    healthLabel.setText(text);
-  }*/
 
   /**
    * Updates the player's stamina on the ui.
@@ -97,7 +81,6 @@ public class PlayerStatsDisplay extends UIComponent {
   @Override
   public void dispose() {
     super.dispose();
-    //healthLabel.remove();
     staminaLabel.remove();
     playerStaminaBar.remove();
   }

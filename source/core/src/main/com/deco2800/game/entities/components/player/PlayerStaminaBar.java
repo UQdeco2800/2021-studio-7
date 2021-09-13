@@ -16,18 +16,18 @@ public class PlayerStaminaBar extends ProgressBar {
     public PlayerStaminaBar(int width, int height) {
         // sets range of stamina bar value and the step size
         super(0f, 100f, 1f, false, new ProgressBarStyle());
+
         // set background of stamina bar
-        getStyle().background = getDrawable(width, height, Color.RED);
-        getStyle().knob = getDrawable(0, height, Color.GREEN);
-        getStyle().knobBefore = getDrawable(width, height, Color.GREEN);
+        getStyle().background = new TextureRegionDrawable(new TextureRegion(new Texture("images/ui/elements/progress-frame.png")));
+        getStyle().knob = new TextureRegionDrawable(new TextureRegion(new Texture("images/ui/elements/progress-knob-blue.png")));
+        getStyle().knobBefore = getStyle().knob;
 
         setWidth(width);
         setHeight(height);
 
-        setAnimateDuration(0f);
         setValue(1f);
 
-        setAnimateDuration(0.01f);
+        setAnimateDuration(0);
     }
 
     /**
