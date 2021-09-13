@@ -17,7 +17,6 @@ import com.deco2800.game.utils.math.Vector2Utils;
 public class KeyboardPlayerInputComponent extends InputComponent {
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
-    private Entity surveyor = null;
 
     public KeyboardPlayerInputComponent() {
         super(5);
