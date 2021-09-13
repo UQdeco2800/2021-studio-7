@@ -53,7 +53,7 @@ public class MainMenuDisplay extends UIComponent {
     writeAtlas(); //Stores copy of the first character
 
     TextButton startBtn = new TextButton("Start", skin);
-    TextButton loadBtn = new TextButton("Load", skin);
+    TextButton leaderboardBtn = new TextButton("LeaderBoard", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
@@ -73,12 +73,12 @@ public class MainMenuDisplay extends UIComponent {
           }
         });
 
-    loadBtn.addListener(
+    leaderboardBtn.addListener(
         new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Load button clicked");
-            entity.getEvents().trigger("load");
+            logger.debug("LearderBoard button clicked");
+            entity.getEvents().trigger("leaderboard");
           }
         });
 
@@ -117,7 +117,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(startBtn).padTop(15);
     table.row();
-    table.add(loadBtn).padTop(15f);
+    table.add(leaderboardBtn).padTop(15f);
     table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();

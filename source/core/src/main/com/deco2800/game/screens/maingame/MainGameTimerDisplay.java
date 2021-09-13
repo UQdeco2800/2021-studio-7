@@ -16,6 +16,7 @@ public class MainGameTimerDisplay extends UIComponent {
     private Label timerLabel;
     private static Timer timer;
     private static int timeLeft;
+    private static int timeSinceStart;
 
     public MainGameTimerDisplay(int initialTime) {
         timeLeft = initialTime;
@@ -45,6 +46,7 @@ public class MainGameTimerDisplay extends UIComponent {
 
         table.add(timerLabel);
         stage.addActor(table);
+
     }
 
     @Override
@@ -94,5 +96,6 @@ public class MainGameTimerDisplay extends UIComponent {
 
     private static void tick() {
         timeLeft--;
+        timeSinceStart++;
     }
 }

@@ -8,6 +8,7 @@ import com.deco2800.game.screens.endgame.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
+import com.deco2800.game.screens.leaderboardscreen.LeaderBoardScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +74,8 @@ public class GdxGame extends Game {
         return new MainGameScreen(this);
       case SETTINGS:
         return new SettingsScreen(this);
+      case LEADERBOARD:
+        return new LeaderBoardScreen(this);
       case WIN_DEFAULT:
         return new EndGameScreen(this, ScreenType.WIN_DEFAULT);
       case LOSS_TIMED:
@@ -85,7 +88,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT
+    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, LEADERBOARD
   }
 
   /**
