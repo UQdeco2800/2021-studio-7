@@ -24,6 +24,7 @@ public class TitleScreen extends ScreenAdapter {
     private final Renderer renderer;
     private static final String[] TitleTextures = {
             "images/ui/screens/inactiveStart.png",
+            "images/ui/title/RETROACTIVE-large.png"
     };
 
     public TitleScreen(GdxGame game) {

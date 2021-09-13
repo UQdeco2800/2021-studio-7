@@ -4,8 +4,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -24,6 +26,7 @@ public class TitleScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
+    private Label startText;
 
     public TitleScreenDisplay() {
         super();
@@ -39,12 +42,26 @@ public class TitleScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
+        startText = new Label("PRESS ANY KEY TO START",skin, "title");
+        startText.addAction(Actions.alpha(0));
+        startText.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
+
         Image title =
+                new Image(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
+
+        Image bed =
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset("images/ui/screens/inactiveStart.png", Texture.class));
 
         table.add(title);
+        table.row();
+        table.add(startText).padTop(50f);
+        table.row();
+        table.add(bed).padTop(50f).padBottom(20f);
+        stage.addActor(table);
         // Add button container to the table.
         // Easily sorts buttons vertically and separates padding settings from table.
         // It is assumed that more buttons will eventually be added.
