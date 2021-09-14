@@ -23,7 +23,7 @@ class InteractionComponentTest {
     Entity object;
     Fixture playerFixture;
     Fixture objectFixture;
-    InteractionListener listener;
+    CollisionListener listener;
 
     @BeforeEach
     void beforeEach() {
@@ -32,7 +32,7 @@ class InteractionComponentTest {
         object = createObject();
         playerFixture = player.getComponent(HitboxComponent.class).getFixture();
         objectFixture = object.getComponent(HitboxComponent.class).getFixture();
-        listener = mock(InteractionListener.class);
+        listener = mock(CollisionListener.class);
     }
 
     @Test
@@ -73,4 +73,4 @@ class InteractionComponentTest {
     }
 }
 
-interface InteractionListener extends EventListener2<Fixture, Fixture> {}
+interface CollisionListener extends EventListener2<Fixture, Fixture> {}
