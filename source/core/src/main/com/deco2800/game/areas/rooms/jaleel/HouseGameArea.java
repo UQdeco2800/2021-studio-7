@@ -1,20 +1,32 @@
 package com.deco2800.game.areas.rooms.jaleel;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.areas.GameArea;
+import com.deco2800.game.areas.components.GameAreaDisplay;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.events.EventHandler;
-import com.deco2800.game.utils.math.RandomUtils;
+import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.generic.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HouseGameArea extends GameArea {
 
+    private static final Logger logger = LoggerFactory.getLogger(HouseGameArea.class);
     private final TerrainFactory terrainFactory;
     private EventHandler eventHandler;
     public Entity player;
+
+    private String[] drmLocations = {"maps/s2/r1_jaleel.drm"};
+    private Array<Room> rooms;
 
     public HouseGameArea(TerrainFactory terrainFactory) {
         super();
@@ -24,12 +36,53 @@ public class HouseGameArea extends GameArea {
 
     @Override
     public void create() {
+        extractRooms();
+        loadAssets();
+        displayUI();
 
+        createRooms();
     }
 
-    private void spawnPlayer(GridPoint2 gridPosition) {
+    public void extractRooms() {
+        for (String drmLocation : drmLocations) {
+            extractRoom(drmLocation);
+        }
+    }
+
+    public void extractRoom(String location) {
+        RoomReader reader = new RoomReader(location, FileLoader.Location.INTERNAL);
+        // Get room scale
+        Vector2 roomScale = reader.extractRoomScale();
+        // Get tile information in room
+        reader.checkDrmHeader(reader.getTileKey());
+        Array<DrmObject> tileDefinitions = reader.extractDefinitions();
+        Array<Array<String>> tileGrid = reader.extractGrid();
+        // Get entity information in room
+        reader.checkDrmHeader(reader.getEntityKey());
+        Array<DrmObject> entityDefinitions = reader.extractDefinitions();
+        Array<Array<String>> entityGrid = reader.extractGrid();
+
+        rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
+    }
+
+    public void createRooms() {
+        for (Room room : rooms) {
+            createRoom(room);
+        }
+    }
+
+    public void createRoom(Room room) {
+        for (int j = 0; j < room.getTileGrid().size; j++) {
+            for (int i = 0; i < room.getTileGrid().get(j).size; i++) {
+
+            }
+        }
+    }
+
+    private Entity spawnPlayer(GridPoint2 gridPosition) {
         Entity newPlayer = PlayerFactory.createPlayer();
         spawnEntityAt(newPlayer, gridPosition, true, true);
+        return newPlayer;
     }
 
     private void spawnBed(GridPoint2 gridPosition) {
@@ -42,5 +95,41 @@ public class HouseGameArea extends GameArea {
     private void spawnMum(GridPoint2 gridPosition) {
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
+    }
+
+    private void displayUI() {
+        Entity ui = new Entity();
+        ui.addComponent(new GameAreaDisplay("Box Forest"));
+        spawnEntity(ui);
+    }
+
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+
+        for (Room room : rooms) {
+            resourceService.loadTextures(room.getTileTextures());
+            resourceService.loadTextures(room.getEntityTextures());
+        }
+
+        while (!resourceService.loadForMillis(10)) {
+            // This could be upgraded to a loading screen
+            logger.info("Loading... {}%", resourceService.getProgress());
+        }
+    }
+
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        for (Room room : rooms) {
+            resourceService.unloadAssets(room.getTileTextures());
+            resourceService.unloadAssets(room.getEntityTextures());
+        }
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        this.unloadAssets();
     }
 }
