@@ -1,11 +1,14 @@
 package com.deco2800.game.areas.rooms.jaleel;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.files.FileLoader;
 import net.dermetfan.gdx.physics.box2d.PositionController;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -62,6 +65,12 @@ public class Room {
                 temp.add(objectDefinitions.get(i).getTexture());
             }
         }
-        return temp.toArray();
+        String[] temp1 = new String[temp.size];
+        for (int i = 0; i < temp.size; i++) {
+            temp1[i] = temp.get(i);
+        }
+        System.out.println(temp);
+        System.out.flush();
+        return temp1;
     }
 }

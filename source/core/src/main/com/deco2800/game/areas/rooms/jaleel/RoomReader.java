@@ -23,11 +23,11 @@ public class RoomReader {
     private static final String GRID_DELIM = " ";
 
     // DRM keywords
-    private static final String SCALE_KEY = "SCALE " + OPEN_BRACKET;
-    private static final String TILE_KEY = "TILE " + OPEN_BRACKET;
-    private static final String ENTITY_KEY = "ENTITY " + OPEN_BRACKET;
-    private static final String DEFINE_KEY = "DEFINE";
-    private static final String GRID_KEY = "GRID";
+    private static final String SCALE_KEY = "SCALE";
+    private static final String TILE_KEY = "TILES" + OPEN_BRACKET;
+    private static final String ENTITY_KEY = "ENTITIES" + OPEN_BRACKET;
+    private static final String DEFINE_KEY = "DEFINE" + OPEN_BRACKET;
+    private static final String GRID_KEY = "GRID" + OPEN_BRACKET;
     private static final String ANCHOR_KEY = "ANCHOR";
 
     private final FileReader reader;
@@ -42,7 +42,7 @@ public class RoomReader {
         if (file == null) {
             logger.error("Failed to create file handle for {}", filename);
             return null;
-        } else if (file.extension().equals("drm")) {
+        } else if (file.extension().equals(".drm")) {
             logger.error("{} is not a .drm file", filename);
             return null;
         }
@@ -59,18 +59,24 @@ public class RoomReader {
     public String nextLine() {
         StringBuilder buffer = new StringBuilder();
         try {
-            while (buffer.length() == 0) {
+            do {
+                boolean ignoreLine = false;
                 int data = reader.read();
                 while (data != -1 && (char) data != '\n') {
                     if ((char) data == LINE_IGNORE) {
-                        break;
+                        ignoreLine = true;
                     }
                     if ((char) data != ' ' && (char) data != '\t') {
                         buffer.append((char) data);
                     }
                     data = reader.read();
                 }
-            }
+                System.out.println(buffer);
+                System.out.flush();
+                if (ignoreLine) {
+                    buffer = new StringBuilder();
+                }
+            } while (buffer.length() < 1);
         } catch (IOException e) {
             return null;
         }
@@ -97,17 +103,19 @@ public class RoomReader {
             throw new IllegalArgumentException("Scale keyword missing in .drm file");
         } else {
             scale = extractTokens(currentLine, DEF_DELIM);
-            if (scale.length != 2) {
+            if (scale.length != 3) {
                 throw new IllegalArgumentException("Scale is missing height or width in .drm file");
             }
         }
-        return new Vector2(scale[0].charAt(0), scale[1].charAt(0));
+        return new Vector2(scale[1].charAt(0), scale[2].charAt(0));
     }
 
     public void checkDrmHeader(String key) {
         // Line should be at "{OBJECT} {"
         currentLine = nextLine();
         if (!currentLine.startsWith(key)) {
+            System.out.println("Header is: " + currentLine);
+            System.out.flush();
             throw new IllegalArgumentException("Missing object keyword in .drm file");
         }
     }
@@ -121,8 +129,8 @@ public class RoomReader {
 
         // Extract object definitions from .drm file
         Array<DrmObject> objectDefinitions = new Array<>();
+        currentLine = nextLine();
         while (currentLine.charAt(0) != CLOSE_BRACKET) {
-            currentLine = nextLine();
             String[] tokens = extractTokens(currentLine, DEF_DELIM);
             if (tokens.length == 2) {
                 objectDefinitions.add(new DrmObject(tokens[0], tokens[1]));
@@ -131,6 +139,7 @@ public class RoomReader {
             } else {
                 throw new IllegalArgumentException("Too many object parameters mentioned in .drm file");
             }
+            currentLine = nextLine();
         }
 
         // Done extracting definitions

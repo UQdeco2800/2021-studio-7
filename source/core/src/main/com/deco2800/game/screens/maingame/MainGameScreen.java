@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.components.PerformanceDisplay;
+import com.deco2800.game.areas.rooms.jaleel.HouseGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
@@ -41,7 +42,8 @@ public class MainGameScreen extends ScreenAdapter {
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final ForestGameArea mainGameArea;
+  //private final ForestGameArea mainGameArea;
+  private final HouseGameArea houseGameArea;
   private final Entity mainGameEntity = new Entity();
 
   public MainGameScreen() {
@@ -67,7 +69,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
-      mainGameArea = new ForestGameArea(terrainFactory);
+      //mainGameArea = new ForestGameArea(terrainFactory);
+    houseGameArea = new HouseGameArea(terrainFactory);
 //    LevelTerrainFactory terrainFactory;
 //    try {
 //        terrainFactory =
@@ -79,12 +82,14 @@ public class MainGameScreen extends ScreenAdapter {
 //        return;
 //    }
 //    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    mainGameArea.create();
+    //mainGameArea.create();
+    houseGameArea.create();
     //physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             //getPlayer().getComponent(ColliderComponent.class));
     //physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
             //getMom().getComponent(ColliderComponent.class));
-    entityPlayer = mainGameArea.player;
+    //entityPlayer = mainGameArea.player;
+    entityPlayer = houseGameArea.player;
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
 
@@ -166,9 +171,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new TerminalDisplay());
   }
 
-  public ForestGameArea getMainGameArea() {
-    return mainGameArea;
-  }
+  //public ForestGameArea getMainGameArea() {
+    //return mainGameArea;
+  //}
 
   public Entity getMainGameEntity() {
     return mainGameEntity;
