@@ -15,6 +15,7 @@ public class CombatStatsComponent extends Component {
   private int health;
   private int baseAttack;
   private int stamina;
+  private int score;
 
   @Override
   public void create() {
@@ -143,4 +144,5 @@ public class CombatStatsComponent extends Component {
     int newHealth = getHealth() - attacker.getBaseAttack();
     setHealth(newHealth);
   }
+
 }
