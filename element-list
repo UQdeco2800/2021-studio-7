@@ -11,7 +11,6 @@ com.deco2800.game.entities
 com.deco2800.game.entities.components
 com.deco2800.game.entities.components.interactions
 com.deco2800.game.entities.components.interactions.Actions
-com.deco2800.game.entities.components.npc
 com.deco2800.game.entities.components.player
 com.deco2800.game.entities.configs
 com.deco2800.game.entities.factories
@@ -26,10 +25,12 @@ com.deco2800.game.physics.components
 com.deco2800.game.physics.raycast
 com.deco2800.game.rendering
 com.deco2800.game.rendering.components
+com.deco2800.game.screens.contextscreen
 com.deco2800.game.screens.endgame
 com.deco2800.game.screens.maingame
 com.deco2800.game.screens.mainmenu
 com.deco2800.game.screens.settingsmenu
+com.deco2800.game.screens.titlescreen
 com.deco2800.game.ui.components
 com.deco2800.game.ui.terminal
 com.deco2800.game.ui.terminal.commands

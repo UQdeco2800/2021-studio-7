@@ -19,13 +19,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
-var pathtoroot = "../../../../../../";
+<script type="text/javascript">var pathtoroot = "../../../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -64,7 +58,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <div class="navListSearch"><label for="search">SEARCH:</label>
@@ -137,7 +131,7 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 </thead>
 <tbody>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">InventoryComponent</a></span>&#8203;(int&nbsp;gold)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">InventoryComponent</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -151,50 +145,6 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 <!--   -->
 </a>
 <h2>Method Summary</h2>
-<div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
-<div id="memberSummary_tabpanel" role="tabpanel">
-<table aria-labelledby="t0">
-<thead>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Method</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="altColor" id="i0">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addGold(int)">addGold</a></span>&#8203;(int&nbsp;gold)</code></th>
-<td class="colLast">
-<div class="block">Adds to the player's gold.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i1">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGold()">getGold</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Returns the player's gold.</div>
-</td>
-</tr>
-<tr class="altColor" id="i2">
-<td class="colFirst"><code>java.lang.Boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hasGold(int)">hasGold</a></span>&#8203;(int&nbsp;gold)</code></th>
-<td class="colLast">
-<div class="block">Returns if the player has a certain amount of gold.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i3">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setGold(int)">setGold</a></span>&#8203;(int&nbsp;gold)</code></th>
-<td class="colLast">
-<div class="block">Sets the player's gold.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.generic.<a href="../../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.generic.Component">
@@ -220,64 +170,8 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
-<h3><a id="&lt;init&gt;(int)">InventoryComponent</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">InventoryComponent</span>&#8203;(<span class="arguments">int&nbsp;gold)</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ============ METHOD DETAIL ========== -->
-<li class="blockList">
-<section class="methodDetails"><a id="method.detail">
-<!--   -->
-</a>
-<h2>Method Details</h2>
-<ul class="blockList">
-<li class="blockList">
-<section class="detail">
-<h3><a id="getGold()">getGold</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getGold</span>()</div>
-<div class="block">Returns the player's gold.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>entity's health</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="hasGold(int)">hasGold</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.Boolean</span>&nbsp;<span class="memberName">hasGold</span>&#8203;(<span class="arguments">int&nbsp;gold)</span></div>
-<div class="block">Returns if the player has a certain amount of gold.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>gold</code> - required amount of gold</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>player has greater than or equal to the required amount of gold</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setGold(int)">setGold</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setGold</span>&#8203;(<span class="arguments">int&nbsp;gold)</span></div>
-<div class="block">Sets the player's gold. Gold has a minimum bound of 0.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>gold</code> - gold</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="addGold(int)">addGold</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addGold</span>&#8203;(<span class="arguments">int&nbsp;gold)</span></div>
-<div class="block">Adds to the player's gold. The amount added can be negative.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>gold</code> - gold to add</dd>
-</dl>
+<h3><a id="&lt;init&gt;()">InventoryComponent</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">InventoryComponent</span>()</div>
 </section>
 </li>
 </ul>
@@ -321,7 +215,7 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 </div>
