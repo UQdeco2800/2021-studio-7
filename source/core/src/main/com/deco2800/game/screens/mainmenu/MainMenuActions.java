@@ -14,10 +14,6 @@ public class MainMenuActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
   private GdxGame game;
 
-  public MainMenuActions(GdxGame game) {
-    this.game = game;
-  }
-
   @Override
   public void create() {
     entity.getEvents().addListener("start", this::onStart);

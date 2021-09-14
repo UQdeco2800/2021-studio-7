@@ -2,16 +2,13 @@ package com.deco2800.game.screens.contextscreen;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ContextScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreenActions.class);
     private GdxGame game;
-
-    public ContextScreenActions(GdxGame game) {
-        this.game = game;
-    }
 
     @Override
     public void create() {
@@ -24,7 +21,7 @@ public class ContextScreenActions extends Component {
     public void playGame() {
         logger.info("Exiting context screen...");
         logger.info("Swapping to main game screen...");
-        game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
 }
