@@ -19,8 +19,8 @@ import org.slf4j.LoggerFactory;
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
-  private static final int NUM_TREES = 1;
-  private static final int NUM_GHOSTS = 2;
+  private static final int NUM_TREES = 7;
+  private static final int NUM_GHOSTS = 1;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
   private static final float WALL_WIDTH = 0.1f;
@@ -70,11 +70,10 @@ public class ForestGameArea extends GameArea {
   public void create() {
     loadAssets();
     displayUI();
-
     spawnTerrain();
     player = spawnPlayer();
     spawnBed();
-//    spawnTrees();
+    spawnTrees();
 //    spawnGhosts();
 //    spawnGhostKing();
     mum = spawnMum();
@@ -140,26 +139,6 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
-  }
-
-  private void spawnGhosts() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_GHOSTS; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity ghost = NPCFactory.createGhost(player);
-      spawnEntityAt(ghost, randomPos, true, true);
-    }
-  }
-
-  private void spawnGhostKing() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity ghostKing = NPCFactory.createGhostKing(player);
-    spawnEntityAt(ghostKing, randomPos, true, true);
   }
 
   private void spawnBed() {
