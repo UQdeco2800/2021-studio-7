@@ -45,37 +45,30 @@ public class HouseGameArea extends GameArea {
 
     public void extractRooms() {
         for (String drmLocation : drmLocations) {
-            extractRoom(drmLocation);
+            RoomReader reader = new RoomReader(drmLocation, FileLoader.Location.INTERNAL);
+            // Get room scale
+            Vector2 roomScale = reader.extractRoomScale();
+            // Get tile information in room
+            reader.checkDrmHeader(reader.getTileKey());
+            Array<DrmObject> tileDefinitions = reader.extractDefinitions();
+            Array<Array<String>> tileGrid = reader.extractGrid();
+            // Get entity information in room
+            reader.checkDrmHeader(reader.getEntityKey());
+            Array<DrmObject> entityDefinitions = reader.extractDefinitions();
+            Array<Array<String>> entityGrid = reader.extractGrid();
+
+            rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
         }
-    }
-
-    public void extractRoom(String location) {
-        RoomReader reader = new RoomReader(location, FileLoader.Location.INTERNAL);
-        // Get room scale
-        Vector2 roomScale = reader.extractRoomScale();
-        // Get tile information in room
-        reader.checkDrmHeader(reader.getTileKey());
-        Array<DrmObject> tileDefinitions = reader.extractDefinitions();
-        Array<Array<String>> tileGrid = reader.extractGrid();
-        // Get entity information in room
-        reader.checkDrmHeader(reader.getEntityKey());
-        Array<DrmObject> entityDefinitions = reader.extractDefinitions();
-        Array<Array<String>> entityGrid = reader.extractGrid();
-
-        rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
     }
 
     public void createRooms() {
         for (Room room : rooms) {
-            createRoom(room);
-        }
-    }
+            // Tile generation
+            terrain = terrainFactory.createRoomTerrain(room);
+            spawnEntity(new Entity().addComponent(terrain));
 
-    public void createRoom(Room room) {
-        for (int j = 0; j < room.getTileGrid().size; j++) {
-            for (int i = 0; i < room.getTileGrid().get(j).size; i++) {
-
-            }
+            // Entity generation
+            
         }
     }
 

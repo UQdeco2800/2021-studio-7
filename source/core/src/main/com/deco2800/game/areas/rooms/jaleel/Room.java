@@ -2,8 +2,13 @@ package com.deco2800.game.areas.rooms.jaleel;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.files.FileLoader;
 import net.dermetfan.gdx.physics.box2d.PositionController;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 public class Room {
 
@@ -12,8 +17,6 @@ public class Room {
     private final Array<DrmObject> entityDefinitions;
     private final Array<Array<String>> tileGrid;
     private final Array<Array<String>> entityGrid;
-    private final String[] tileTextures;
-    private final String[] entityTextures;
 
     public Room(Vector2 roomScale, Array<DrmObject> tileDefinitions, Array<DrmObject> entityDefinitions,
                 Array<Array<String>> tileGrid, Array<Array<String>> entityGrid) {
@@ -22,22 +25,6 @@ public class Room {
         this.entityDefinitions = entityDefinitions;
         this.tileGrid = tileGrid;
         this.entityGrid = entityGrid;
-
-        Array<String> temp = new Array<>();
-        for (int i = 0; i < tileDefinitions.size; i++) {
-            if (tileDefinitions.get(i).getTexture() != null) {
-                temp.add(tileDefinitions.get(i).getTexture());
-            }
-        }
-        this.tileTextures = temp.toArray();
-
-        temp = new Array<>();
-        for (int i = 0; i < entityDefinitions.size; i++) {
-            if (entityDefinitions.get(i).getTexture() != null) {
-                temp.add(entityDefinitions.get(i).getTexture());
-            }
-        }
-        this.entityTextures = temp.toArray();
     }
 
     public Vector2 getRoomScale() {
@@ -61,10 +48,20 @@ public class Room {
     }
 
     public String[] getTileTextures() {
-        return tileTextures;
+        return getTextures(tileDefinitions);
     }
 
     public String[] getEntityTextures() {
-        return entityTextures;
+        return getTextures(entityDefinitions);
+    }
+
+    private String[] getTextures(Array<DrmObject> objectDefinitions) {
+        Array<String> temp = new Array<>();
+        for (int i = 0; i < objectDefinitions.size; i++) {
+            if (objectDefinitions.get(i).getTexture() != null) {
+                temp.add(objectDefinitions.get(i).getTexture());
+            }
+        }
+        return temp.toArray();
     }
 }
