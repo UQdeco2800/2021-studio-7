@@ -20,12 +20,9 @@ import org.slf4j.LoggerFactory;
 public class SettingsScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(SettingsScreen.class);
 
-  private final GdxGame game;
   private final Renderer renderer;
 
-  public SettingsScreen(GdxGame game) {
-    this.game = game;
-
+  public SettingsScreen() {
     logger.debug("Initialising settings screen services");
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
@@ -67,7 +64,8 @@ public class SettingsScreen extends ScreenAdapter {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     Entity ui = new Entity();
-    ui.addComponent(new SettingsMenuDisplay(game)).addComponent(new InputDecorator(stage, 10));
+    ui.addComponent(new SettingsMenuDisplay())
+            .addComponent(new InputDecorator(stage, 10));
     ServiceLocator.getEntityService().register(ui);
   }
 }

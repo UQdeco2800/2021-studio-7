@@ -14,6 +14,7 @@ public class HouseGameArea extends GameArea {
 
     private final TerrainFactory terrainFactory;
     private EventHandler eventHandler;
+    public Entity player;
 
     public HouseGameArea(TerrainFactory terrainFactory) {
         super();
@@ -39,7 +40,7 @@ public class HouseGameArea extends GameArea {
     }
 
     private void spawnMum(GridPoint2 gridPosition) {
-        Entity mum = NPCFactory.createMum();
+        Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
     }
 }

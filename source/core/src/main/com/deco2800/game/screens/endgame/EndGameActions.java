@@ -2,6 +2,7 @@ package com.deco2800.game.screens.endgame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class EndGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(EndGameActions.class);
-  private GdxGame game;
-
-  public EndGameActions(GdxGame game) {
-    this.game = game;
-  }
 
   @Override
   public void create() {
@@ -29,7 +25,7 @@ public class EndGameActions extends Component {
   public void onNextLevel() {
     logger.info("Exiting end game screen...");
     logger.info("Swapping to next level on main game screen...");
-    game.setScreen(GdxGame.ScreenType.MAIN_GAME);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   /**
@@ -38,6 +34,6 @@ public class EndGameActions extends Component {
   public void onExit() {
     logger.info("Exiting end game screen...");
     logger.info("Swapping to main menu screen...");
-    game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 }
