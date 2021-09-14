@@ -1,6 +1,7 @@
 package com.deco2800.game.input;
 import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.titlescreen.KeyboardTitleInputComponent;
 import com.deco2800.game.ui.terminal.KeyboardTerminalInputComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,11 @@ public class KeyboardInputFactory extends InputFactory {
         return new KeyboardPlayerInputComponent();
     }
 
+    @Override
+    public InputComponent createForTitle() {
+        logger.debug("Creating title input handler");
+        return new KeyboardTitleInputComponent();
+    }
     /**
      * Creates an input handler for the terminal.
      *
