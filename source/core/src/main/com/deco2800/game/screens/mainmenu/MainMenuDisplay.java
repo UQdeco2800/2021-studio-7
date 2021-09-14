@@ -111,7 +111,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(character).padTop(50f);
     table.row();
-    table.add(changeCharacterBtn).padTop(10f);
+    table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
   }
 

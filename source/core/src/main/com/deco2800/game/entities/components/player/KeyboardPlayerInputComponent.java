@@ -125,7 +125,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private void triggerRunEvent() {
-        //TODO add check for remaining stamina before trigger running.
         if(running) {
             entity.getEvents().trigger("run");
         } else {

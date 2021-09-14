@@ -12,6 +12,11 @@ import org.slf4j.LoggerFactory;
  */
 public class MainMenuActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
+  private GdxGame game;
+
+  public MainMenuActions(GdxGame game) {
+    this.game = game;
+  }
 
   @Override
   public void create() {
@@ -26,8 +31,8 @@ public class MainMenuActions extends Component {
    * Swaps to the Main Game screen.
    */
   private void onStart() {
-    logger.info("Start game");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+    logger.info("Read Context");
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.CONTEXT);
   }
 
   /**
