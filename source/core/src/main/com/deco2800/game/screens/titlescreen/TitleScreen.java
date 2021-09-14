@@ -6,10 +6,10 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
@@ -23,7 +23,8 @@ public class TitleScreen extends ScreenAdapter {
     private final GdxGame game;
     private final Renderer renderer;
     private static final String[] TitleTextures = {
-            "images/ui/title/RETROACTIVE-large.png",
+            "images/ui/screens/inactiveStart.png",
+            "images/ui/title/RETROACTIVE-large.png"
     };
 
     public TitleScreen(GdxGame game) {
@@ -96,10 +97,14 @@ public class TitleScreen extends ScreenAdapter {
      */
     private void createUI() {
         logger.debug("Creating ui");
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForTitle();
+
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new TitleScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
+                .addComponent(inputComponent)
                 .addComponent(new TitleScreenActions(game));
         ServiceLocator.getEntityService().register(ui);
     }

@@ -3,10 +3,8 @@ package com.deco2800.game.screens.contextscreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
@@ -20,6 +18,7 @@ public class ContextScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
+    private Label storyText;
 
     public ContextScreenDisplay() {
         super();
@@ -41,8 +40,17 @@ public class ContextScreenDisplay extends UIComponent {
         buttonContainer.fill();
         buttonContainer.bottom().right();
         buttonContainer.space(10f);
-        table.bottom().right();
-        table.padBottom(10f).padRight(10f);
+
+        stage.addActor(table);
+
+        table = new Table();
+        table.setFillParent(true);
+
+        storyText = new Label("This is where the story goes\n" +
+                "\n",skin, "title");
+
+        table.add(storyText).padTop(50f);
+        table.row();
         table.add(buttonContainer);
 
         // Add button to container. Transitions to the next level (main game screen).
