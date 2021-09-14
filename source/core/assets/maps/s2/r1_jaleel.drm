@@ -1,0 +1,39 @@
+SCALE:10:10
+
+TILES {
+    DEFINE {
+        .:spawnTile:images/tiles/iso/iso_floor_1.png
+        A:spawnTile:images/tiles/iso/iso_floor_1_alt.png
+    }
+    GRID {
+        . . . . . . . . . .
+        . . . . A . . . . .
+        . A . . . . . . . .
+        . . . . . . A . . .
+        . . . . . . . . . .
+        . . . . A . .
+        . . A . . . .
+        . . . . . A .
+        . . . . . . .
+    }
+}
+
+ENTITIES {
+    DEFINE {
+        -:ANCHOR
+        W:spawnWall:Gridpoint2:images/tiles/iso/iso_wall_1_left.png
+        B:spawnBed:Gridpoint2
+        D:spawnDoor:Gridpoint2
+    }
+    GRID {
+        W W W W W W W W W W
+        W . B . . . . . . W
+        W . . . . . . . . D-
+        W . . . . . . . . W
+        W . . . . . W D-W W
+        W . . . . . W
+        W . . . . . W
+        W . . . . . W
+        W W W D-W W W
+    }
+}
