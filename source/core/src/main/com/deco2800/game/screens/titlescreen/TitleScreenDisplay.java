@@ -62,29 +62,6 @@ public class TitleScreenDisplay extends UIComponent {
         table.row();
         table.add(bed).padTop(50f).padBottom(20f);
         stage.addActor(table);
-        // Add button container to the table.
-        // Easily sorts buttons vertically and separates padding settings from table.
-        // It is assumed that more buttons will eventually be added.
-//        VerticalGroup buttonContainer = new VerticalGroup();
-//        buttonContainer.fill();
-//        buttonContainer.bottom().right();
-//        buttonContainer.space(10f);
-//        table.bottom();
-//        table.padBottom(100f);
-//        table.add(buttonContainer);
-//
-//        // Add button to container. Transitions to the next level (main game screen).
-//        TextButton StartBtn = new TextButton("INSERT COIN", skin);
-//        StartBtn.addListener(
-//                new ChangeListener() {
-//                    @Override
-//                    public void changed(ChangeEvent changeEvent, Actor actor) {
-//                        logger.debug("Start button clicked");
-//                        entity.getEvents().trigger("go_menu");
-//                    }
-//                });
-//        buttonContainer.addActor(StartBtn);
-        stage.addActor(table);
     }
 
     @Override
