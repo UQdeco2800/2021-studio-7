@@ -1,3 +1,4 @@
+# Room scale (largest width and height)
 SCALE:10:10
 
 TILES {
@@ -20,10 +21,11 @@ TILES {
 
 ENTITIES {
     DEFINE {
+        # Anchors are used to connect rooms to each other
         -:ANCHOR
-        W:spawnWall:Gridpoint2:images/tiles/iso/iso_wall_1_left.png
-        B:spawnBed:Gridpoint2
-        D:spawnDoor:Gridpoint2
+        W:spawnWall:images/tiles/iso/iso_wall_1_left.png
+        B:spawnBed
+        D:spawnDoor
     }
     GRID {
         W W W W W W W W W W
