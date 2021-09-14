@@ -27,8 +27,7 @@ public class BedActions extends InteractionComponent {
         if (target == null) {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("BED started collision with PLAYER, highlighting bed");
-            animator.startAnimation("bed_highlight");
+            highlightBed();
         }
     }
 
@@ -38,8 +37,7 @@ public class BedActions extends InteractionComponent {
         if (target == null) {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("BED ended collision with PLAYER, un-highlighting bed");
-            animator.startAnimation("bed");
+            unhighlightBed();
         }
     }
 
@@ -48,9 +46,23 @@ public class BedActions extends InteractionComponent {
         if (target == null) {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("BED started collision with SURVEYOR, triggering win condition");
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("win_default");
+            triggerWinCondition();
         }
+    }
+
+    public void highlightBed() {
+        logger.info("BED started collision with PLAYER, highlighting bed");
+        animator.startAnimation("bed_highlight");
+    }
+
+    public void unhighlightBed() {
+        logger.info("BED ended collision with PLAYER, un-highlighting bed");
+        animator.startAnimation("bed");
+    }
+
+    public void triggerWinCondition() {
+        logger.info("BED started collision with SURVEYOR, triggering win condition");
+        ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                .getMainGameEntity().getEvents().trigger("win_default");
     }
 }
