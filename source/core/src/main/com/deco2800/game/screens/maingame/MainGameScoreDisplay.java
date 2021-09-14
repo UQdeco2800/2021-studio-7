@@ -4,23 +4,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.ui.components.UIComponent;
+import java.lang.Math;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * A ui component for displaying player stats, e.g. health.
+ * A ui component for displaying player score.
  */
-public class MainGameTimerDisplay extends UIComponent {
+public class MainGameScoreDisplay extends UIComponent {
     Table table;
     private Label timerLabel;
+    private Label scoreLabel;
     private static Timer timer;
     private static int timeLeft;
+    private static int score;
     private static int timeSinceStart;
 
-    public MainGameTimerDisplay(int initialTime) {
-
+    public MainGameScoreDisplay(int initialTime, int initialscore) {
         timeLeft = initialTime;
+        score = initialscore;
     }
 
     /**
@@ -38,15 +41,14 @@ public class MainGameTimerDisplay extends UIComponent {
      */
     public void addActors() {
         table = new Table();
-        table.bottom().left().padBottom(10f).padLeft(5f);
+        table.bottom().left().padBottom(60f).padLeft(5f);
         table.setFillParent(true);
 
-        timerLabel = new Label(
-                String.format("Time left: %ds", timeLeft),
+        scoreLabel = new Label(
+                String.format("Score: %ds", score),
                 skin, "large");
 
-
-        table.add(timerLabel);
+        table.add(scoreLabel);
         stage.addActor(table);
 
     }
@@ -57,20 +59,20 @@ public class MainGameTimerDisplay extends UIComponent {
     }
 
     /**
-     * Updates the player's time left on the ui.
+     * Updates the player's core on the ui.
      */
     public void updatePlayerHealthUI() {
-        CharSequence text = String.format("Time left: %ds", timeLeft);
-        timerLabel.setText(text);
-        if (timeLeft <= 0) {
-            // Should trigger loss_timed event in MainGameActions
-            // I think it causes a runtime error because this method is
-            // called on the TimerTask thread, and not the main thread.
-            // Perhaps @XUEHUANG521 should utilise the time source in
-            // the engine instead of a Timer object (@Jantoom)
-            //entity.getEvents().trigger("loss_timed");
-            timer.cancel();
-        }
+        CharSequence text = String.format("Score: %d", getscore());
+        scoreLabel.setText(text);
+    }
+
+    /**
+     *
+     * @return score as an int
+     */
+    public int getscore(){
+        score += 100;
+        return score;
     }
 
     @Override
@@ -100,4 +102,5 @@ public class MainGameTimerDisplay extends UIComponent {
         timeLeft--;
         timeSinceStart++;
     }
+
 }

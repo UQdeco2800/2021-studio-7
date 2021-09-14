@@ -28,6 +28,7 @@ public class PlayerStatsDisplay extends UIComponent {
 
     entity.getEvents().addListener("update_health", this::updatePlayerHealthUI);
     entity.getEvents().addListener("update_stamina", this::updatePlayerStaminaUI);
+    entity.getEvents().addListener("update_score", this::updatePlayerScoreUI);
   }
 
   /**
@@ -59,6 +60,7 @@ public class PlayerStatsDisplay extends UIComponent {
     table.row();
     table.add(staminaLabel).left(); //todo
     stage.addActor(table);
+
   }
 
   @Override
@@ -83,6 +85,16 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence text = String.format("Stamina: %d", stamina);
     staminaLabel.setText(text);
   }
+
+  public void updatePlayerScoreUI(int score){
+    CharSequence text = String.format("Score: %d", getscore());
+    staminaLabel.setText(text);
+  }
+
+  public int getscore(){
+    return 0;
+  }
+
 
   @Override
   public void dispose() {
