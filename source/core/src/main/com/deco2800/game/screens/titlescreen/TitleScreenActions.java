@@ -2,16 +2,13 @@ package com.deco2800.game.screens.titlescreen;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TitleScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(TitleScreenActions.class);
     private GdxGame game;
-
-    public TitleScreenActions(GdxGame game) {
-        this.game = game;
-    }
 
     @Override
     public void create() {
@@ -24,7 +21,7 @@ public class TitleScreenActions extends Component {
     public void goMenu() {
         logger.info("Exiting title screen...");
         logger.info("Swapping to main menu screen...");
-        game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
 }

@@ -3,10 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.entities.components.CombatStatsComponent;
-import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
-import com.deco2800.game.entities.components.player.PlayerAnimationController;
-import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
+import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
@@ -51,19 +48,19 @@ public class PlayerFactory {
 
     Entity player =
         new Entity()
-            .addComponent(animator).addComponent(new PlayerAnimationController())
+            .addComponent(animator)
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
-            .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerObjectInteractions());
+            .addComponent(new PlayerActions())
+            .addComponent(new SurveyorComponent());
 
-
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
+    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
+    PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
     return player;
   }
 

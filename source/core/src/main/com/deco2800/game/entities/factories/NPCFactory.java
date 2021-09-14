@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
-import com.deco2800.game.entities.components.TouchAttackComponent;
-import com.deco2800.game.entities.components.npc.MumAnimationController;
+import com.deco2800.game.entities.components.interactions.Actions.MumActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -62,7 +61,7 @@ public class NPCFactory {
     mum
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(animator)
-            .addComponent(new MumAnimationController());
+            .addComponent(new MumActions());
 
 
     //mum.getComponent(AnimationRenderComponent.class).scaleEntity();
@@ -88,6 +87,7 @@ public class NPCFactory {
             .addComponent(aiComponent);
 
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
     return npc;
   }
 

@@ -20,15 +20,13 @@ import org.slf4j.LoggerFactory;
 public class TitleScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
 
-    private final GdxGame game;
     private final Renderer renderer;
     private static final String[] TitleTextures = {
             "images/ui/screens/inactiveStart.png",
             "images/ui/title/RETROACTIVE-large.png"
     };
 
-    public TitleScreen(GdxGame game) {
-        this.game = game;
+    public TitleScreen() {
 
         logger.debug("Initialising main menu screen services");
         ServiceLocator.registerInputService(new InputService());
@@ -105,7 +103,7 @@ public class TitleScreen extends ScreenAdapter {
         ui.addComponent(new TitleScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(inputComponent)
-                .addComponent(new TitleScreenActions(game));
+                .addComponent(new TitleScreenActions());
         ServiceLocator.getEntityService().register(ui);
     }
 }

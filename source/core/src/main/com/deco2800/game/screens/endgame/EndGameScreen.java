@@ -25,11 +25,9 @@ public class EndGameScreen extends ScreenAdapter {
     private String[] activeScreenTextures;
     private GdxGame.ScreenType result;
 
-    private final GdxGame game;
     private final Renderer renderer;
 
-    public EndGameScreen(GdxGame game, GdxGame.ScreenType result) {
-        this.game = game;
+    public EndGameScreen(GdxGame.ScreenType result) {
         this.result = result;
         switch (this.result) {
             case WIN_DEFAULT:
@@ -119,7 +117,7 @@ public class EndGameScreen extends ScreenAdapter {
         Entity ui = new Entity();
         ui.addComponent(new EndGameDisplay(this))
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new EndGameActions(game));
+                .addComponent(new EndGameActions());
         ServiceLocator.getEntityService().register(ui);
     }
 }

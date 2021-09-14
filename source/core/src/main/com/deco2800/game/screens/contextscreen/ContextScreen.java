@@ -19,11 +19,9 @@ import org.slf4j.LoggerFactory;
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
 
-    private final GdxGame game;
     private final Renderer renderer;
 
-    public ContextScreen(GdxGame game) {
-        this.game = game;
+    public ContextScreen() {
 
         logger.debug("Initialising Context screen services");
         ServiceLocator.registerInputService(new InputService());
@@ -81,7 +79,7 @@ public class ContextScreen extends ScreenAdapter {
         Entity ui = new Entity();
         ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new ContextScreenActions(game));
+                .addComponent(new ContextScreenActions());
         ServiceLocator.getEntityService().register(ui);
     }
 }

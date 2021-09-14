@@ -135,7 +135,7 @@ public class MainMenuDisplay extends UIComponent {
      * Changes the character displayed on the main menu page and cycles the index.
      */
   public void changeCharacterDisplay(){
-      if(characterIndex <= playablecharcters.length-1){
+      if (characterIndex <= playablecharcters.length-1){
           dispose();
           create();
       } else {

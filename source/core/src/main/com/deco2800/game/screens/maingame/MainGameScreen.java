@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.components.PerformanceDisplay;
+import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -38,13 +39,12 @@ public class MainGameScreen extends ScreenAdapter {
   private Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
 
-  private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private final ForestGameArea mainGameArea;
+  private final Entity mainGameEntity = new Entity();
 
-  public MainGameScreen(GdxGame game) {
-    this.game = game;
-
+  public MainGameScreen() {
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
 
@@ -54,10 +54,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
-
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
-
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -65,10 +63,11 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-      ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
+      mainGameArea = new ForestGameArea(terrainFactory);
 //    LevelTerrainFactory terrainFactory;
 //    try {
 //        terrainFactory =
@@ -80,14 +79,16 @@ public class MainGameScreen extends ScreenAdapter {
 //        return;
 //    }
 //    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    forestGameArea.create();
-    physicsEngine.getContactListener().setTargetFixture(forestGameArea.
-            getPlayer().getComponent(ColliderComponent.class));
-    physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
-            getMom().getComponent(ColliderComponent.class));
-    entityPlayer = forestGameArea.player;
+    mainGameArea.create();
+    //physicsEngine.getContactListener().setTargetFixture(forestGameArea.
+            //getPlayer().getComponent(ColliderComponent.class));
+    //physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
+            //getMom().getComponent(ColliderComponent.class));
+    entityPlayer = mainGameArea.player;
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+
+
   }
 
   @Override
@@ -154,19 +155,22 @@ public class MainGameScreen extends ScreenAdapter {
     MainGameTimerDisplay mainGameTimer =
             new MainGameTimerDisplay(10);
 
-    Entity ui = new Entity();
-    ui.addComponent(new InputDecorator(stage, 10))
+    mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
+        .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameWinLossTestingDisplay())
         .addComponent(mainGameTimer)
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
+  }
 
-    ServiceLocator.registerMainGameScreen(ui);
-    mainGameTimer.countDown();
-    ServiceLocator.getEntityService().register(ui);
+  public ForestGameArea getMainGameArea() {
+    return mainGameArea;
+  }
+
+  public Entity getMainGameEntity() {
+    return mainGameEntity;
   }
 }

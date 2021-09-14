@@ -3,7 +3,11 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.ForestGameArea;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -51,7 +55,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("interaction");
+                entity.getComponent(SurveyorComponent.class).setEnabled(true);
                 return true;
             default:
                 return false;
@@ -69,23 +73,26 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         switch (keycode) {
             case Keys.W:
                 walkDirection.sub(Vector2Utils.UP);
-                entity.getEvents().trigger("standing_north");
+                entity.getEvents().trigger("update_animation", "standing_north");
                 triggerWalkEvent();
                 return true;
             case Keys.A:
                 walkDirection.sub(Vector2Utils.LEFT);
-                entity.getEvents().trigger("standing_west");
+                entity.getEvents().trigger("update_animation", "standing_west");
                 triggerWalkEvent();
                 return true;
             case Keys.S:
                 walkDirection.sub(Vector2Utils.DOWN);
-                entity.getEvents().trigger("standing_south");
+                entity.getEvents().trigger("update_animation", "standing_south");
                 triggerWalkEvent();
                 return true;
             case Keys.D:
                 walkDirection.sub(Vector2Utils.RIGHT);
-                entity.getEvents().trigger("standing_east");
+                entity.getEvents().trigger("update_animation", "standing_east");
                 triggerWalkEvent();
+                return true;
+            case Keys.E:
+                entity.getComponent(SurveyorComponent.class).setEnabled(false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
@@ -104,15 +111,15 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             if (walkDirection.epsilonEquals(-1, 1) ||
                     walkDirection.epsilonEquals(0, 1) ||
                     walkDirection.epsilonEquals(1, 1)) {
-                entity.getEvents().trigger("walking_north");
+                entity.getEvents().trigger("update_animation", "walking_north");
             } else if (walkDirection.epsilonEquals(1, 0)) {
-                entity.getEvents().trigger("walking_east");
+                entity.getEvents().trigger("update_animation", "walking_east");
             } else if (walkDirection.epsilonEquals(-1, -1) ||
                     walkDirection.epsilonEquals(0, -1) ||
                     walkDirection.epsilonEquals(1, -1)) {
-                entity.getEvents().trigger("walking_south");
+                entity.getEvents().trigger("update_animation", "walking_south");
             } else if (walkDirection.epsilonEquals(-1, 0)) {
-                entity.getEvents().trigger("walking_west");
+                entity.getEvents().trigger("update_animation", "walking_west");
             }
         }
     }
