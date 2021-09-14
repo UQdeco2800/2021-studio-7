@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -9,14 +10,17 @@ import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 
+import java.util.concurrent.TimeUnit;
+
+
 /**
  * A ui component for displaying player stats, e.g. health.
  */
 public class PlayerStatsDisplay extends UIComponent {
   Table table;
-  private Image heartImage;
-  private Label healthLabel;
-  private Label staminaLabel; //TODO
+
+  private Label staminaLabel;
+  private PlayerStaminaBar playerStaminaBar;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -26,7 +30,6 @@ public class PlayerStatsDisplay extends UIComponent {
     super.create();
     addActors();
 
-    entity.getEvents().addListener("update_health", this::updatePlayerHealthUI);
     entity.getEvents().addListener("update_stamina", this::updatePlayerStaminaUI);
   }
 
@@ -38,26 +41,24 @@ public class PlayerStatsDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(45f).padLeft(5f);
+    table.padTop(45f).padLeft(10f);
 
-    // Heart image
-    float heartSideLength = 30f;
-    heartImage = new Image(ServiceLocator.getResourceService().getAsset("images/ui/box_boy/heart.png", Texture.class));
-
-    // Health text
-    int health = entity.getComponent(CombatStatsComponent.class).getHealth();
-    CharSequence healthText = String.format("Health: %d", health);
-    healthLabel = new Label(healthText, skin, "large");
 
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
-    CharSequence staminaText = String.format("Stamina: %.0f", stamina);
+    CharSequence staminaText = String.format("Stamina: %.0f", stamina/5);
     staminaLabel = new Label(staminaText, skin, "large");
 
-    table.add(heartImage).size(heartSideLength).left();//pad(5);
-    table.add(healthLabel).left();
+    // stamina bar
+    playerStaminaBar = new PlayerStaminaBar(100, 100);
+
+    playerStaminaBar.setValue((float) stamina);
+
     table.row();
-    table.add(staminaLabel).left(); //todo
+    table.add(staminaLabel).left();
+    table.row();
+    table.add(playerStaminaBar).size(190,50).left();
+
     stage.addActor(table);
   }
 
@@ -67,28 +68,22 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   /**
-   * Updates the player's health on the ui.
-   * @param health player health
-   */
-  public void updatePlayerHealthUI(int health) {
-    CharSequence text = String.format("Health: %d", health);
-    healthLabel.setText(text);
-  }
-
-  /**
    * Updates the player's stamina on the ui.
    * @param stamina player stamina
    */
   public void updatePlayerStaminaUI (int stamina) {
-    CharSequence text = String.format("Stamina: %d", stamina);
+    CharSequence text = String.format("Stamina: %d", stamina/5);
     staminaLabel.setText(text);
+
+    // update stamina bar
+    playerStaminaBar.setValue(stamina);
+
   }
 
   @Override
   public void dispose() {
     super.dispose();
-    heartImage.remove();
-    healthLabel.remove();
-    staminaLabel.remove(); //todo
+    staminaLabel.remove();
+    playerStaminaBar.remove();
   }
 }
