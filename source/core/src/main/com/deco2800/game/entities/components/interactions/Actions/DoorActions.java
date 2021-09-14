@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 public class DoorActions extends InteractionComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
+    // Checks if the player has interacted with the object
+    private boolean interactedWith = false;
 
     @Override
     public void create() {
@@ -26,7 +28,11 @@ public class DoorActions extends InteractionComponent {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("DOOR started collision with PLAYER, highlighting door");
-            animator.startAnimation("Door_left_highlighted");
+            if (interactedWith) {
+                animator.startAnimation("Door_open_left");
+            } else {
+                animator.startAnimation("Door_left_highlighted");
+            }
         }
     }
 
@@ -37,7 +43,11 @@ public class DoorActions extends InteractionComponent {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("DOOR ended collision with PLAYER, un-highlighting door");
-            animator.startAnimation("door_close_left");
+            if (interactedWith) {
+                animator.startAnimation("Door_open_left");
+            } else {
+                animator.startAnimation("door_close_left");
+            }
         }
     }
 
@@ -49,6 +59,7 @@ public class DoorActions extends InteractionComponent {
             logger.info("DOOR started collision with SURVEYOR, triggering door animation");
             animator.startAnimation("Door_left_highlihted_d");
             animator.startAnimation("Door_open_left");
+            interactedWith = true;
         }
     }
 }
