@@ -1,11 +1,9 @@
 package com.deco2800.game.entities.components;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
-import com.deco2800.game.events.EventHandler;
+import com.deco2800.game.events.listeners.EventListener2;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
@@ -13,47 +11,47 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 class InteractionComponentTest {
-    EventHandler handler;
+
+    Entity player;
+    Entity object;
+    Fixture playerFixture;
+    Fixture objectFixture;
+    InteractionListener listener;
 
     @BeforeEach
     void beforeEach() {
-        //handler = new EventHandler();
         ServiceLocator.registerPhysicsService(new PhysicsService());
+        player = createPlayer();
+        object = createObject();
+        playerFixture = player.getComponent(HitboxComponent.class).getFixture();
+        objectFixture = object.getComponent(HitboxComponent.class).getFixture();
+        listener = mock(InteractionListener.class);
     }
 
-    /*@Test
-    void shouldTriggerCollisionEvent() {
-        Entity player = createPlayer();
-        Entity object = createObject();
-
-        EventListener0 listener = mock(EventListener0.class);
-        object.getEvents().addListener("interaction_start", listener);
-
-        Fixture playerFixture = player.getComponent(HitboxComponent.class).getFixture();
-        Fixture objectFixture = object.getComponent(HitboxComponent.class).getFixture();
+    @Test
+    void shouldTriggerOnCollisionStart() {
+        object.getEvents().addListener("collision_start", listener);
         object.getEvents().trigger("collision_start", objectFixture, playerFixture);
 
-        verify(listener).handle(); // Check that listener ran when the object was collided with
+        // Check that listener ran when the collision started
+        verify(listener).handle(objectFixture, playerFixture);
     }
 
     @Test
     void shouldEndCollisionEvent() {
-        Entity player = createPlayer();
-        Entity object = createObject();
-
-        EventListener0 listener = mock(EventListener0.class);
-        object.getEvents().addListener("interaction_end", listener);
-
-        Fixture playerFixture = player.getComponent(HitboxComponent.class).getFixture();
-        Fixture objectFixture = object.getComponent(HitboxComponent.class).getFixture();
+        object.getEvents().addListener("collision_end", listener);
         object.getEvents().trigger("collision_end", objectFixture, playerFixture);
 
-        verify(listener).handle(); // Check that listener ran when the object was not collided
-    }*/
+        // Check that listener ran when the collision ended
+        verify(listener).handle(objectFixture, playerFixture);
+    }
 
     Entity createPlayer() {
         Entity player =
@@ -67,10 +65,12 @@ class InteractionComponentTest {
     Entity createObject() {
         Entity object =
                 new Entity()
-                        .addComponent(new InteractionComponent())
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                        .addComponent(new InteractionComponent());
         object.create();
         return object;
     }
 }
+
+interface InteractionListener extends EventListener2<Fixture, Fixture> {}

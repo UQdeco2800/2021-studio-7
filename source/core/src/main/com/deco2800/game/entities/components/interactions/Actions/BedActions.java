@@ -18,7 +18,9 @@ public class BedActions extends InteractionComponent {
     public void create() {
         super.create();
         targetLayer = PhysicsLayer.PLAYER;
-        animator.startAnimation("bed");
+        if (animator != null) {
+            animator.startAnimation("bed");
+        }
     }
 
     @Override
@@ -52,12 +54,16 @@ public class BedActions extends InteractionComponent {
 
     public void highlightBed() {
         logger.info("BED started collision with PLAYER, highlighting bed");
-        animator.startAnimation("bed_highlight");
+        if (animator != null) {
+            animator.startAnimation("bed_highlight");
+        }
     }
 
     public void unhighlightBed() {
         logger.info("BED ended collision with PLAYER, un-highlighting bed");
-        animator.startAnimation("bed");
+        if (animator != null) {
+            animator.startAnimation("bed");
+        }
     }
 
     public void triggerWinCondition() {
