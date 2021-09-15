@@ -17,7 +17,7 @@ public class MainMenuActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("start", this::onStart);
-    entity.getEvents().addListener("load", this::onLoad);
+    entity.getEvents().addListener("leaderboard", this::onLeaderboard);
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("change_character", this::onChangeCharacter);
@@ -32,11 +32,12 @@ public class MainMenuActions extends Component {
   }
 
   /**
-   * Intended for loading a saved game state.
-   * Load functionality is not actually implemented.
+   * Swaps to the leaderboard screen.
+   *
    */
-  private void onLoad() {
-    logger.info("Load game");
+  private void onLeaderboard() {
+    logger.info("Launching leaderboard screen");
+    game.setScreen(GdxGame.ScreenType.LEADERBOARD);
   }
 
   /**
@@ -58,6 +59,5 @@ public class MainMenuActions extends Component {
 
   private void onChangeCharacter(){
     logger.info("Changing character");
-    //TODO
   }
 }
