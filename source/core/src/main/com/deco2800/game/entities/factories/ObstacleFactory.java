@@ -81,29 +81,22 @@ public class ObstacleFactory {
     //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
   }
-
-  public static Entity createDoor(Entity player){
-    Entity door = new Entity();
-
-    AnimationRenderComponent doorAnimation = new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/objects/bed/bed.atlas",
-                    TextureAtlas.class));
-    doorAnimation.addAnimation("door", 1f);
-    doorAnimation.addAnimation("door_open", 1f);
-
-    door.addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-            //.addComponent((new InteractableComponent(player,"win_default")))
-            .addComponent(doorAnimation) // Added component for the animation of the bed
-            .addComponent(new InteractableComponentController());
-
+  /**
+   * Creates a door entity.
+   * @return this door entity
+   */
+  public static Entity createDoor(){
+    Entity door =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/objects/door/door_close_right.png"))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    door.scaleHeight(1.0f);
-    PhysicsUtils.setScaledCollider(door, 0.5f, 0.5f);
-
-    //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
+    door.getComponent(TextureRenderComponent.class).scaleEntity();
+    door.scaleHeight(2f);
+    PhysicsUtils.setScaledCollider(door, 0.5f, 0.2f);
     return door;
+
   }
 
   private ObstacleFactory() {

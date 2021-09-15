@@ -23,11 +23,11 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
-  private static final GridPoint2 DOOR_SPAWN = new GridPoint2(5, 5);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
           "images/characters/box_boy/box_boy_leaf.png",
           "images/objects/tree/tree.png",
+          "images/objects/door/door_close_right.png",
           "images/characters/ghost/ghost_king.png",
           "images/characters/ghost/ghost_0.png",
           "images/tiles/ortho/ortho_grass_1.png",
@@ -143,11 +143,11 @@ public class ForestGameArea extends GameArea {
       // Bottom Left testing with a door (using a bed as the door)
       GridPoint2 botLeftPoints = new GridPoint2(i, minLen);
       Entity botLeftWall = ObstacleFactory.createTree();
-      if ((i == midPoint || i == midPoint-1 || i == midPoint+1) && (botLeftPoints.y == 0)) {
+      if ((i == midPoint || i == midPoint || i == midPoint+1) && (botLeftPoints.y == 0)) {
         //spawn door entity here
         if(i==midPoint){
-          Entity door = ObstacleFactory.createBed(player);
-          spawnEntityAt(door, botLeftPoints, true, true);
+          Entity door = ObstacleFactory.createDoor();
+          spawnEntityAt(door, botLeftPoints, true, false);
         }
       } else{
         botLeftWall.scaleWidth(1f);
@@ -178,6 +178,7 @@ public class ForestGameArea extends GameArea {
       spawnEntityAt(tree, randomPos, true, false);
     }
   }
+
 
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();

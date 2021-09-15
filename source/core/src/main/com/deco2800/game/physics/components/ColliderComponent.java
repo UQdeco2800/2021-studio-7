@@ -91,7 +91,7 @@ public class ColliderComponent extends Component {
    */
   public ColliderComponent setAsBox(Vector2 size, Vector2 position) {
     PolygonShape bbox = new PolygonShape();
-    bbox.setAsBox(size.x / 2, size.y / 2, position, 0.45f);
+    bbox.setAsBox(size.x / 2, size.y / 2, position, 0); //angle: 0.45f
     setShape(bbox);
     return this;
   }
