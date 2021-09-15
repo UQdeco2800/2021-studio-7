@@ -3,10 +3,8 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.components.PerformanceDisplay;
-import com.deco2800.game.areas.rooms.jaleel.HouseGameArea;
+import com.deco2800.game.areas.rooms.HouseGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
@@ -17,7 +15,6 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
-import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
@@ -68,26 +65,9 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
-      //mainGameArea = new ForestGameArea(terrainFactory);
     mainGameArea = new HouseGameArea(terrainFactory);
-//    LevelTerrainFactory terrainFactory;
-//    try {
-//        terrainFactory =
-//                new LevelTerrainFactory("./maps/s1",
-//                        renderer.getCamera());
-//    } catch (IOException e) {
-//        logger.error(e.toString());
-//        logger.error("Check map files that were loaded");
-//        return;
-//    }
-//    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    //mainGameArea.create();
+
     mainGameArea.create();
-    //physicsEngine.getContactListener().setTargetFixture(forestGameArea.
-            //getPlayer().getComponent(ColliderComponent.class));
-    //physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
-            //getMom().getComponent(ColliderComponent.class));
-    //entityPlayer = mainGameArea.player;
     entityPlayer = mainGameArea.player;
 
     PLAYER_POSITION = entityPlayer.getPosition();

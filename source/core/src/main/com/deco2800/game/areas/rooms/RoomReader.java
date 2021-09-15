@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.rooms.jaleel;
+package com.deco2800.game.areas.rooms;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
