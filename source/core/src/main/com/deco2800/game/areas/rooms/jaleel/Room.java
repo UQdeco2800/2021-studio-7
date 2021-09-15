@@ -28,6 +28,9 @@ public class Room {
         this.entityDefinitions = entityDefinitions;
         this.tileGrid = tileGrid;
         this.entityGrid = entityGrid;
+
+        System.out.println("tileGrid width is " + tileGrid.get(0).size);
+        System.out.println("tileGrid height is " + tileGrid.size);
     }
 
     public Vector2 getRoomScale() {

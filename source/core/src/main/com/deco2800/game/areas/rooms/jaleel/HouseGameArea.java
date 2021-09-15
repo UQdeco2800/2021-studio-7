@@ -97,8 +97,6 @@ public class HouseGameArea extends GameArea {
                             params = new Object[]{new GridPoint2(i, j), drmObject.getTexture()};
                         }
                         drmObject.getMethod().invoke(this, params);
-                        System.out.println("Invoked method ".concat(drmObject.getMethod().getName()));
-                        System.out.flush();
                     } catch (InvocationTargetException e) {
                         logger.error("Couldn't invoke object spawn method");
                     } catch (IllegalAccessException e) {
@@ -110,29 +108,22 @@ public class HouseGameArea extends GameArea {
     }
 
     public void spawnWall(GridPoint2 gridPosition, String texture) {
-        System.out.println("Spawning wall");
         Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
         spawnEntityAt(newWall, gridPosition, true, true);
     }
 
     public void spawnPlayer(GridPoint2 gridPosition) {
-        System.out.println("Spawning player");
-
         Entity newPlayer = PlayerFactory.createPlayer();
         spawnEntityAt(newPlayer, gridPosition, true, true);
         player = newPlayer;
     }
 
     public void spawnBed(GridPoint2 gridPosition) {
-        System.out.println("Spawning bed");
-
         Entity bed = ObstacleFactory.createBed();
         spawnEntityAt(bed, gridPosition, true, true);
     }
 
     public void spawnMum(GridPoint2 gridPosition) {
-        System.out.println("Spawning mum");
-
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
     }
@@ -174,6 +165,7 @@ public class HouseGameArea extends GameArea {
             resourceService.unloadAssets(room.getTileTextures());
             resourceService.unloadAssets(room.getEntityTextures());
         }
+        resourceService.unloadAssets(houseTextureAtlases);
     }
 
     @Override

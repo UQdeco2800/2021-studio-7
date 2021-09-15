@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.utils.math.ArrayMatrixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,12 +126,16 @@ public class RoomReader {
                 objectGrid.get(lineCount).add(token);
             }
             currentLine = nextLine();
+            lineCount++;
         } while (!currentLine.contains(CLOSE_BRACKET));
 
         // Done extracting grid positions
         if (objectGrid.size == 0 || objectGrid.get(0).size == 0) {
             throw new IllegalArgumentException("Missing grid positions in .drm file");
         }
+
+        // Rotate grid to match orientation in file
+        objectGrid = ArrayMatrixUtils.rotateClockwise(objectGrid);
 
         // Done extracting entire object type
         currentLine = nextLine();
