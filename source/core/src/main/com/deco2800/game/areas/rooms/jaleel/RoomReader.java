@@ -167,7 +167,7 @@ public class RoomReader {
         }
 
         // Rotate grid to match orientation in file
-        objectGrid = ArrayMatrixUtils.rotateClockwise(objectGrid);
+        //objectGrid = ArrayMatrixUtils.rotateClockwise(objectGrid);
 
         return objectGrid;
     }
