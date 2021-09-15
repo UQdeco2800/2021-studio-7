@@ -65,7 +65,7 @@ public class PlayerFactory {
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerObjectInteractions())
-            .addComponent(new ScoreComponent(100));
+            .addComponent(new ScoreComponent(1000));
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

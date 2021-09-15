@@ -95,14 +95,12 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   public void updatePlayerScoreUI(int score){
-    CharSequence text = String.format("Score: %d", score);
-    staminaLabel.setText(text);
+    StringBuilder sb = new StringBuilder();
+    sb.append(score);
+    String s = sb.toString();
+    CharSequence text = String.format("Score: "+ s);
+    scoreLabel.setText(text);
   }
-
-  public int getscore(){
-    return 0;
-  }
-
 
   @Override
   public void dispose() {
