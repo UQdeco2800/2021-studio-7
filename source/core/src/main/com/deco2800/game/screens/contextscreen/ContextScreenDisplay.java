@@ -57,19 +57,12 @@ public class ContextScreenDisplay extends UIComponent {
 
         table.add(storyText).padBottom(30f).padRight(10f);
         table.row();
-//        Image mum =
-//                new Image(
-//                        ServiceLocator.getResourceService()
-//                                .getAsset("images/characters/mum_01/mum_01_standing_south.png", Texture.class));
-//
-//        Image bed =
-//                new Image(
-//                        ServiceLocator.getResourceService()
-//                                .getAsset("images/ui/screens/inactiveStart.png", Texture.class));
+        Image mumAndBed =
+                new Image(
+                        ServiceLocator.getResourceService()
+                                .getAsset("images/ui/context/mum_and_bed.PNG", Texture.class));
 
-
-
-        //table.add(bed);
+        table.add(mumAndBed);
         table.row();
         table.add(buttonContainer);
 
