@@ -129,6 +129,10 @@ public class ResourceService implements Disposable {
     }
   }
 
+  public void loadTexture(String textureName) {
+    loadAsset(textureName, Texture.class);
+  }
+
   /**
    * Loads a list of texture assets into the asset manager.
    *

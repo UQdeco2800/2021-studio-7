@@ -1,6 +1,7 @@
 package com.deco2800.game.areas.rooms.jaleel;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
@@ -19,8 +20,10 @@ import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class HouseGameArea extends GameArea {
@@ -30,6 +33,8 @@ public class HouseGameArea extends GameArea {
     private EventHandler eventHandler;
     public Entity player;
 
+    private final String dummyResource = "images/objects/tree/tree.png";
+    private final String nonExistentResource = "images/obj.png";
     private String[] drmLocations = {"maps/s2/r1_jaleel.drm"};
     private Array<Room> rooms;
 
@@ -55,12 +60,10 @@ public class HouseGameArea extends GameArea {
             // Get room scale
             Vector2 roomScale = reader.extractRoomScale();
             // Get tile information in room
-            reader.checkDrmHeader(reader.getTileKey());
-            Array<DrmObject> tileDefinitions = reader.extractDefinitions();
+            Array<DrmObject> tileDefinitions = reader.extractDefinitions(reader.getTileKey());
             Array<Array<String>> tileGrid = reader.extractGrid();
             // Get entity information in room
-            reader.checkDrmHeader(reader.getEntityKey());
-            Array<DrmObject> entityDefinitions = reader.extractDefinitions();
+            Array<DrmObject> entityDefinitions = reader.extractDefinitions(reader.getEntityKey());
             Array<Array<String>> entityGrid = reader.extractGrid();
 
             rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
@@ -77,7 +80,7 @@ public class HouseGameArea extends GameArea {
             // Go through grid and set tile cells
             Map<String, DrmObject> stringDrmObjectMap = createStringEntityMap(room);
             for (int i = 0; i < room.getTileGrid().size; i++) {
-                for (int j = 0; i < room.getTileGrid().get(i).size; j++) {
+                for (int j = 0; j < room.getTileGrid().get(i).size; j++) {
                     String current = room.getTileGrid().get(i).get(j);
                     DrmObject drmObject = stringDrmObjectMap.get(current);
                     try {
@@ -86,28 +89,39 @@ public class HouseGameArea extends GameArea {
                         } else {
                             drmObject.getMethod().invoke(new GridPoint2(i, j), drmObject.getTexture());
                         }
-                    } catch (Exception e) {
-                        logger.error("Error with spawning drm object");
+                    } catch (InvocationTargetException e) {
+                        logger.error("Couldn't invoke object spawn method");
+                    } catch (IllegalAccessException e) {
+                        logger.error("No access to invoked spawn method");
                     }
                 }
             }
         }
     }
 
-    private Entity spawnPlayer(GridPoint2 gridPosition) {
-        Entity newPlayer = PlayerFactory.createPlayer();
-        spawnEntityAt(newPlayer, gridPosition, true, true);
-        return newPlayer;
+    public void spawnWall(GridPoint2 gridPosition, String texture) {
+        System.out.println("Spawning wall");
+        Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
+        spawnEntityAt(newWall, gridPosition, true, true);
     }
 
-    private void spawnBed(GridPoint2 gridPosition) {
+    public void spawnPlayer(GridPoint2 gridPosition) {
+        System.out.println("Spawning player");
+        Entity newPlayer = PlayerFactory.createPlayer();
+        spawnEntityAt(newPlayer, gridPosition, true, true);
+        player = newPlayer;
+    }
+
+    public void spawnBed(GridPoint2 gridPosition) {
+        System.out.println("Spawning bed");
         // Note: interactable objects must be created AFTER the player, as it requires the player
         // entity as an argument
         Entity bed = ObstacleFactory.createBed();
         spawnEntityAt(bed, gridPosition, true, true);
     }
 
-    private void spawnMum(GridPoint2 gridPosition) {
+    public void spawnMum(GridPoint2 gridPosition) {
+        System.out.println("Spawning mum");
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
     }
@@ -123,12 +137,24 @@ public class HouseGameArea extends GameArea {
         ResourceService resourceService = ServiceLocator.getResourceService();
 
         for (Room room : rooms) {
-            resourceService.loadTextures(room.getTileTextures());
-            resourceService.loadTextures(room.getEntityTextures());
+            for (DrmObject current : room.getTileDefinitions()) {
+                if (current.getTexture() != null) {
+                    System.out.println("Loading texture " + current.getTexture());
+                    resourceService.loadTexture(current.getTexture());
+                }
+            }
+            for (DrmObject current : room.getEntityDefinitions()) {
+                if (current.getTexture() != null) {
+                    System.out.println("Loading texture " + current.getTexture());
+                    resourceService.loadTexture(current.getTexture());
+                }
+            }
         }
 
+        // Wait for assets to load
+        //resourceService.loadAll();
         while (!resourceService.loadForMillis(10)) {
-            // This could be upgraded to a loading screen
+        // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());
         }
     }

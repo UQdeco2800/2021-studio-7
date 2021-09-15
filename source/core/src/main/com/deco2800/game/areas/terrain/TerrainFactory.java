@@ -173,11 +173,11 @@ public class TerrainFactory {
   private TiledMap createRoomDemoTiles(GridPoint2 tileSize, Room room) {
     TiledMap tiledMap = new TiledMap();
     Map<String, TerrainTile> stringTerrainTileMap = createStringTerrainTileMap(room);
-    TiledMapTileLayer layer = new TiledMapTileLayer(MAP_SIZE.x, MAP_SIZE.y, tileSize.x, tileSize.y);
+    TiledMapTileLayer layer = new TiledMapTileLayer((int) room.getRoomScale().x, (int)room.getRoomScale().y, tileSize.x, tileSize.y);
 
     // Go through grid and set tile cells
     for (int i = 0; i < room.getTileGrid().size; i++) {
-      for (int j = 0; i < room.getTileGrid().get(i).size; j++) {
+      for (int j = 0; j < room.getTileGrid().get(i).size; j++) {
         String current = room.getTileGrid().get(i).get(j);
         Cell cell = new Cell();
         cell.setTile(stringTerrainTileMap.get(current));

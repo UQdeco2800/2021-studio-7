@@ -1,5 +1,6 @@
 # Room scale (largest width and height)
 SCALE:10:10
+
 TILES {
     DEFINE {
         D:spawnTile:images/tiles/iso/iso_floor_1.png
@@ -17,9 +18,10 @@ TILES {
         D D D D D D D
     }
 }
+
 ENTITIES {
     DEFINE {
-        W:spawnWall:images/tiles/iso/iso_wall_1_left.png
+        W:spawnWall:images/objects/tree/tree.png
         B:spawnBed
         D:spawnDoor
         P:spawnPlayer

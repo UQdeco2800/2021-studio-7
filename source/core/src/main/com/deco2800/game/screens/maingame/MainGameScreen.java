@@ -90,6 +90,7 @@ public class MainGameScreen extends ScreenAdapter {
             //getMom().getComponent(ColliderComponent.class));
     //entityPlayer = mainGameArea.player;
     entityPlayer = houseGameArea.player;
+    System.out.println(entityPlayer);
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
 

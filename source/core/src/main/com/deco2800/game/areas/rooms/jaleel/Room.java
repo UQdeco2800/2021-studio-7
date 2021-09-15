@@ -69,8 +69,6 @@ public class Room {
         for (int i = 0; i < temp.size; i++) {
             temp1[i] = temp.get(i);
         }
-        System.out.println(temp);
-        System.out.flush();
         return temp1;
     }
 }

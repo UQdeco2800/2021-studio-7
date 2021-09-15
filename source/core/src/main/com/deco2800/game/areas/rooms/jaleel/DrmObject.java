@@ -19,6 +19,7 @@ public class DrmObject {
         } catch (Exception e) {
             this.method = null;
         }
+        assert this.method != null;
     }
 
     public DrmObject(String symbol, String methodName, String texture)  {
@@ -31,6 +32,7 @@ public class DrmObject {
         } catch (Exception e) {
             this.method = null;
         }
+        assert this.method != null;
     }
     
     public String getSymbol() {
