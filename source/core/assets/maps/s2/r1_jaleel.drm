@@ -1,5 +1,5 @@
 # Room scale (largest width and height)
-SCALE:10:10
+SCALE:20:16
 
 TILES {
     DEFINE {
@@ -7,15 +7,22 @@ TILES {
         A:images/tiles/iso/iso_floor_1_alt.png
     }
     GRID {
-        D D D D D D D D D D
-        D A D D D D D D D D
-        D D D D D D D A D D
-        D D D A D D D D D D
-        D D D D D D D D D D
-        D D D D D D D
-        D D A D D D D
-        D D D D D A D
-        D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D A D D D D D D D D D D D D D D D D D D
+        D D D D D D D A D D D D D D D D D D D D
+        D D D A D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
     }
 }
 
@@ -27,17 +34,24 @@ ENTITIES {
         M:spawnMum
     }
     GRID {
-        W W W W W W W W W W
-        W . B . . . . . . W
-        W . . . . . . . . .
-        W P . . . . . . . W
-        W . . . . . W . W W
-        W . . . . . W
-        W . . . . . W
-        W . . . . . W
-        W W W . W W W
+        W W W W W W W W W W W W W W W W W W W W
+        W . . . . . . . . . . . . . . . . . . W
+        W . . . . . . . . . . . . . . . . . . W
+        W . . P . . . . . . . . . . . . . . . W
+        W . . . . . . . . . . . . . . . . . . W
+        W . . . . . . . . . . . . . . . . . . W
+        W . . . . . . . . . . . . . . . B . . W
+        W . . . . . . . . . . . . . . . . . . W
+        W . . . . . . . . . W W W W W W W W W W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W W W W W W W W W W W
     }
 }
 
-        # Anchors are used to connect rooms to each other
-        -:ANCHOR
+# Anchors are used to connect rooms to each other
+#-:ANCHOR

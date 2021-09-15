@@ -13,7 +13,7 @@ public class ArrayMatrixUtils {
         for (int i = 0; i < matrix.size; i++) {
             transposed.add(new Array<>(matrix.get(i).size));
             for (int j = 0; j < matrix.get(i).size; j++) {
-                transposed.get(i).add(matrix.get(i).get(j));
+                transposed.get(i).add(matrix.get(j).get(i));
             }
         }
         return transposed;

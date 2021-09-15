@@ -71,7 +71,8 @@ public class RoomReader {
                 throw new IllegalArgumentException("Scale is missing height or width in .drm file");
             }
         }
-        return new Vector2(scale[1].charAt(0), scale[2].charAt(0));
+
+        return new Vector2(strToInt(scale[1]), strToInt(scale[2]));
     }
 
     public Array<DrmObject> extractDefinitions(String key) {
@@ -109,39 +110,65 @@ public class RoomReader {
         return objectDefinitions;
     }
 
-    public Array<Array<String>> extractGrid() {
+    public Array<Array<String>> extractGrid(Vector2 mapScale) {
+        System.out.println(mapScale);
         // Line should be at "GRID {"
         currentLine = nextLine();
         if (!currentLine.startsWith(GRID_KEY)) {
             throw new IllegalArgumentException("Grid keyword missing in .drm file");
         }
 
+        int maxLength;
+        if (mapScale.x < mapScale.y) {
+            maxLength = (int) mapScale.y;
+        } else {
+            maxLength = (int) mapScale.x;
+        }
+
         Array<Array<String>> objectGrid = new Array<>();
-        int lineCount = 0;
-        currentLine = nextLine();
-        do {
+        for (int i = 0; i < maxLength; i++) {
+            currentLine = nextLine();
+            System.out.println(currentLine);
+            if (currentLine.contains(CLOSE_BRACKET)) {
+                if (mapScale.y == maxLength) {
+                    throw new IllegalArgumentException("Grid dimensions do not match scale in .drm file");
+                } else {
+                    for (int j = (int) mapScale.y; j < maxLength; j++) {
+                        objectGrid.add(new Array<>());
+                        for (int k = 0; k < maxLength; k++) {
+                            objectGrid.get(j).add("");
+                        }
+                    }
+                    break;
+                }
+            }
             String[] tokens = currentLine.split(GRID_DELIM);
             objectGrid.add(new Array<>());
-            for (String token : tokens) {
-                objectGrid.get(lineCount).add(token);
+            for (int j = 0; j < maxLength; j++) {
+                if (j < tokens.length) {
+                    objectGrid.get(i).add(tokens[j]);
+                } else {
+                    objectGrid.get(i).add("");
+                }
             }
-            currentLine = nextLine();
-            lineCount++;
-        } while (!currentLine.contains(CLOSE_BRACKET));
+        }
 
-        // Done extracting grid positions
-        if (objectGrid.size == 0 || objectGrid.get(0).size == 0) {
-            throw new IllegalArgumentException("Missing grid positions in .drm file");
+        if (mapScale.y == maxLength) {
+            currentLine = nextLine();
+        }
+        if (!currentLine.contains(CLOSE_BRACKET)) {
+            throw new IllegalArgumentException("Missing grid close bracket in .drm file");
+        }
+
+        // Done extracting entire object type
+        currentLine = nextLine();
+        if (!currentLine.contains(CLOSE_BRACKET)) {
+            throw new IllegalArgumentException("Missing object type close bracket in .drm file");
         }
 
         // Rotate grid to match orientation in file
         objectGrid = ArrayMatrixUtils.rotateClockwise(objectGrid);
 
-        // Done extracting entire object type
-        currentLine = nextLine();
-        if (!currentLine.contains(CLOSE_BRACKET)) {
-            throw new IllegalArgumentException("Missing close bracket in .drm file");
-        }
         return objectGrid;
     }
 
@@ -158,6 +185,18 @@ public class RoomReader {
             return "";
         }
         return line;
+    }
+
+    public int strToInt(String digits) {
+        int num = 0;
+        System.out.println(digits);
+        for (int i = 0; i < digits.length(); i++) {
+            if (digits.charAt(i) < 48 || digits.charAt(i) > 57) {
+                return -1;
+            }
+            num = num * 10 + (digits.charAt(i) - 48);
+        }
+        return num;
     }
 
     public String getTileKey() {

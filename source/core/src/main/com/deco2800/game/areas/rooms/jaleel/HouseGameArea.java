@@ -64,10 +64,10 @@ public class HouseGameArea extends GameArea {
             Vector2 roomScale = reader.extractRoomScale();
             // Get tile information in room
             Array<DrmObject> tileDefinitions = reader.extractDefinitions(reader.getTileKey());
-            Array<Array<String>> tileGrid = reader.extractGrid();
+            Array<Array<String>> tileGrid = reader.extractGrid(roomScale);
             // Get entity information in room
             Array<DrmObject> entityDefinitions = reader.extractDefinitions(reader.getEntityKey());
-            Array<Array<String>> entityGrid = reader.extractGrid();
+            Array<Array<String>> entityGrid = reader.extractGrid(roomScale);
 
             rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
         }
