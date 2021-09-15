@@ -42,10 +42,15 @@ public class MainMenuDisplay extends UIComponent {
                 .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
 
     TextButton startBtn = new TextButton("Start", skin);
+    startBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton loadBtn = new TextButton("Load", skin);
+    loadBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton settingsBtn = new TextButton("Settings", skin);
+    settingsBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton exitBtn = new TextButton("Exit", skin);
+    exitBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
+    changeCharacterBtn.getLabel().setColor(0, 0,0, 1f);
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
