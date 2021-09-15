@@ -1,31 +1,33 @@
 package com.deco2800.game.entities.components;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.interactions.Actions.BedActions;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.events.EventHandler;
+import com.deco2800.game.events.listeners.EventListener0;
 import com.deco2800.game.extensions.GameExtension;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.generic.ServiceLocator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 
 @ExtendWith(GameExtension.class)
 class InteractionComponentTest {
-    EventHandler handler;
 
     @BeforeEach
     void beforeEach() {
-        //handler = new EventHandler();
         ServiceLocator.registerPhysicsService(new PhysicsService());
     }
 
-    /*@Test
+    /*
+    @Test
     void shouldTriggerCollisionEvent() {
         Entity player = createPlayer();
         Entity object = createObject();
@@ -53,7 +55,8 @@ class InteractionComponentTest {
         object.getEvents().trigger("collision_end", objectFixture, playerFixture);
 
         verify(listener).handle(); // Check that listener ran when the object was not collided
-    }*/
+    }
+    */
 
     Entity createPlayer() {
         Entity player =
@@ -69,7 +72,7 @@ class InteractionComponentTest {
                 new Entity()
                         .addComponent(new InteractionComponent())
                         .addComponent(new PhysicsComponent())
-                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+                        .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
         object.create();
         return object;
     }

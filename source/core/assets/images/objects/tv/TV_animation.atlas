@@ -1,0 +1,40 @@
+TV_animation.png
+size: 650, 122
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+TV_off1
+  rotate: false
+  xy: 1, 1
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+TV_off2
+  rotate: false
+  xy: 131, 1
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+TV_on1
+  rotate: false
+  xy: 261, 1
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+TV_on2
+  rotate: false
+  xy: 391, 1
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1
+TV_on3
+  rotate: false
+  xy: 521, 1
+  size: 128, 120
+  orig: 128, 120
+  offset: 0, 0
+  index: -1

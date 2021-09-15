@@ -43,7 +43,8 @@ public class ForestGameArea extends GameArea {
           "images/tiles/iso/iso_floor_1.png",
           "images/tiles/iso/iso_floor_1_alt.png",
           "images/objects/door/door_animationL.png",
-          "images/objects/tv/TV_animationL.png"
+          "images/objects/tv/TV_animationL.png",
+          "images/objects/bubble/bubble_animation.png"
   };
   private static final String[] forestTextureAtlases = {
           "images/tiles/iso/iso_terrain_grass.atlas",
@@ -54,7 +55,8 @@ public class ForestGameArea extends GameArea {
           "images/characters/boy_01/boy_01.atlas",
           "images/characters/mum_01/mum_01.atlas",
           "images/objects/door/door_animationL.atlas",
-          "images/objects/tv/TV_animationL.atlas"
+          "images/objects/tv/TV_animationL.atlas",
+          "images/objects/bubble/bubble_animation.atlas"
           //TODO add "images/female_character.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
