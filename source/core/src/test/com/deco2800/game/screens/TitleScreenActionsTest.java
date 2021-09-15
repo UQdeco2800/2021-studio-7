@@ -13,6 +13,10 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 public class TitleScreenActionsTest {
+
+    /**
+     * This tests whether the goMenu function is working by changing the game screen
+     */
     @Test
     void goMenuTest() {
         GdxGame game = mock(GdxGame.class);

@@ -2,11 +2,9 @@ package com.deco2800.game.screens.contextscreen;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
@@ -16,6 +14,9 @@ import com.deco2800.game.rendering.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The game screen containing the context.
+ */
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
     private static final String[] ContextTextures = {
@@ -90,7 +91,7 @@ public class ContextScreen extends ScreenAdapter {
     }
 
     /**
-     * Creates the end game's ui including components for rendering ui elements to the screen and
+     * Creates the context screens ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {

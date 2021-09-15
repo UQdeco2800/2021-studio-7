@@ -13,12 +13,13 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * A ui component for displaying the Tittle screen.
+ */
 public class TitleScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Label startText;
 
     public TitleScreenDisplay() {
         super();
@@ -34,7 +35,7 @@ public class TitleScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        startText = new Label("PRESS ANY KEY TO START",skin, "title");
+        Label startText = new Label("PRESS ANY KEY TO START", skin, "title");
         startText.addAction(Actions.alpha(0));
         startText.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
 

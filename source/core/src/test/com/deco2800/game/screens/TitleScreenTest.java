@@ -17,6 +17,10 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(GameExtension.class)
 public class TitleScreenTest {
+
+    /**
+     * Tests whether the title screen is working in creation
+     */
     @Test
     void titleScreenTest() {
         GdxGame game = mock(GdxGame.class);
@@ -25,6 +29,9 @@ public class TitleScreenTest {
         verify(game).setScreen(GdxGame.ScreenType.TITLE_SCREEN);
     }
 
+    /**
+     * Tests whether the goMenu function is working
+     */
     @Test
     void moveToMainMenuTest() {
         GdxGame game = mock(GdxGame.class);
@@ -35,6 +42,9 @@ public class TitleScreenTest {
         verify(game).setScreen(GdxGame.ScreenType.MAIN_MENU);
     }
 
+    /**
+     * Tests whether the key down function is working by reading a keyboard input
+     */
     @Test
     void keyDownTest() {
         InputService inputService = new InputService();
