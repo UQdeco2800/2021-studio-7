@@ -28,7 +28,7 @@ public class HouseGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
     public Entity player;
 
-    private final String[] drmLocations = {"maps/s2/r1_jaleel.drm"};
+    private final String[] drmLocations = {"maps/s2/r2_jaleel.drm"};
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
@@ -110,8 +110,8 @@ public class HouseGameArea extends GameArea {
      * @param texture wall texture from file
      */
     public void spawnWall(GridPoint2 gridPosition, String texture) {
-        Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
-        spawnEntityAt(newWall, gridPosition, true, true);
+//        Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
+//        spawnEntityAt(newWall, gridPosition, true, true);
     }
 
     /**

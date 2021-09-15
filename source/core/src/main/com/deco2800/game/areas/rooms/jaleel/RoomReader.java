@@ -4,7 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.utils.math.ArrayMatrixUtils;
+import com.deco2800.game.utils.math.MatrixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -173,8 +173,8 @@ public class RoomReader {
             throw new IllegalArgumentException("Missing object type close bracket in .drm file");
         }
 
-        // Reverse grid to match orientation in file
-        xyGrid = ArrayMatrixUtils.reverse(xyGrid);
+        // Flip vertically grid to match orientation in file
+        MatrixUtils.flipVertically(xyGrid);
 
         return xyGrid;
     }
