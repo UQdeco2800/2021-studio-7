@@ -3,8 +3,8 @@ SCALE:10:10
 
 TILES {
     DEFINE {
-        D:spawnTile:images/tiles/iso/iso_floor_1.png
-        A:spawnTile:images/tiles/iso/iso_floor_1_alt.png
+        D:images/tiles/iso/iso_floor_1.png
+        A:images/tiles/iso/iso_floor_1_alt.png
     }
     GRID {
         D D D D D D D D D D
@@ -23,20 +23,19 @@ ENTITIES {
     DEFINE {
         W:spawnWall:images/objects/tree/tree.png
         B:spawnBed
-        D:spawnDoor
         P:spawnPlayer
         M:spawnMum
     }
     GRID {
         W W W W W W W W W W
         W . B . . . . . . W
-        W . . . . . . . . D
+        W . . . . . . . . .
         W P . . . . . . . W
-        W . . . . . W D W W
+        W . . . . . W . W W
         W . . . . . W
         W . . . . . W
         W . . . M . W
-        W W W D W W W
+        W W W . W W W
     }
 }
 

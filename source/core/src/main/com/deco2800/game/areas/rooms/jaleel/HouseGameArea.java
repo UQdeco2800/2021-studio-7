@@ -33,9 +33,12 @@ public class HouseGameArea extends GameArea {
     private EventHandler eventHandler;
     public Entity player;
 
-    private final String dummyResource = "images/objects/tree/tree.png";
-    private final String nonExistentResource = "images/obj.png";
-    private String[] drmLocations = {"maps/s2/r1_jaleel.drm"};
+    private final String[] drmLocations = {"maps/s2/r1_jaleel.drm"};
+    private final String[] houseTextureAtlases = {
+            "images/characters/boy_01/boy_01.atlas",
+            "images/characters/mum_01/mum_01.atlas",
+            "images/objects/bed/bed.atlas"
+    };
     private Array<Room> rooms;
 
     public HouseGameArea(TerrainFactory terrainFactory) {
@@ -80,15 +83,22 @@ public class HouseGameArea extends GameArea {
             // Go through grid and set tile cells
             Map<String, DrmObject> stringDrmObjectMap = createStringEntityMap(room);
             for (int i = 0; i < room.getTileGrid().size; i++) {
-                for (int j = 0; j < room.getTileGrid().get(i).size; j++) {
-                    String current = room.getTileGrid().get(i).get(j);
+                for (int j = 0; j < room.getEntityGrid().get(i).size; j++) {
+                    String current = room.getEntityGrid().get(i).get(j);
                     DrmObject drmObject = stringDrmObjectMap.get(current);
                     try {
-                        if (drmObject.getTexture() == null) {
-                            drmObject.getMethod().invoke(new GridPoint2(i, j));
-                        } else {
-                            drmObject.getMethod().invoke(new GridPoint2(i, j), drmObject.getTexture());
+                        if (drmObject == null) {
+                            continue;
                         }
+                        Object[] params;
+                        if (drmObject.getTexture().equals("")) {
+                            params = new Object[]{new GridPoint2(i, j)};
+                        } else {
+                            params = new Object[]{new GridPoint2(i, j), drmObject.getTexture()};
+                        }
+                        drmObject.getMethod().invoke(this, params);
+                        System.out.println("Invoked method ".concat(drmObject.getMethod().getName()));
+                        System.out.flush();
                     } catch (InvocationTargetException e) {
                         logger.error("Couldn't invoke object spawn method");
                     } catch (IllegalAccessException e) {
@@ -107,6 +117,7 @@ public class HouseGameArea extends GameArea {
 
     public void spawnPlayer(GridPoint2 gridPosition) {
         System.out.println("Spawning player");
+
         Entity newPlayer = PlayerFactory.createPlayer();
         spawnEntityAt(newPlayer, gridPosition, true, true);
         player = newPlayer;
@@ -114,14 +125,14 @@ public class HouseGameArea extends GameArea {
 
     public void spawnBed(GridPoint2 gridPosition) {
         System.out.println("Spawning bed");
-        // Note: interactable objects must be created AFTER the player, as it requires the player
-        // entity as an argument
+
         Entity bed = ObstacleFactory.createBed();
         spawnEntityAt(bed, gridPosition, true, true);
     }
 
     public void spawnMum(GridPoint2 gridPosition) {
         System.out.println("Spawning mum");
+
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
     }
@@ -139,20 +150,17 @@ public class HouseGameArea extends GameArea {
         for (Room room : rooms) {
             for (DrmObject current : room.getTileDefinitions()) {
                 if (current.getTexture() != null) {
-                    System.out.println("Loading texture " + current.getTexture());
                     resourceService.loadTexture(current.getTexture());
                 }
             }
             for (DrmObject current : room.getEntityDefinitions()) {
                 if (current.getTexture() != null) {
-                    System.out.println("Loading texture " + current.getTexture());
                     resourceService.loadTexture(current.getTexture());
                 }
             }
         }
+        resourceService.loadTextureAtlases(houseTextureAtlases);
 
-        // Wait for assets to load
-        //resourceService.loadAll();
         while (!resourceService.loadForMillis(10)) {
         // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());

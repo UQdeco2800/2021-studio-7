@@ -22,6 +22,7 @@ public class RoomReader {
     private static final String LINE_IGNORE = "#";
     private static final String DEF_DELIM = ":";
     private static final String GRID_DELIM = " ";
+    private static final String NO_ENTITY = ".";
 
     // DRM keywords
     private static final String SCALE_KEY = "SCALE";

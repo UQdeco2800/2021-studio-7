@@ -9,30 +9,36 @@ public class DrmObject {
     private Method method;
     private String texture;
 
-    public DrmObject(String symbol, String methodName)  {
+    public DrmObject(String symbol, String parameter)  {
         this.symbol = symbol;
-        this.texture = null;
-
-        try {
-            Class[] parameterTypes = {GridPoint2.class};
-            this.method = HouseGameArea.class.getDeclaredMethod(methodName, parameterTypes);
-        } catch (Exception e) {
+        if (parameter.contains("/")) {
+            // Must be a file reference -> parameter is a texture path
+            this.texture = parameter;
             this.method = null;
+        } else {
+            // Not a file reference -> must be a method name
+            this.texture = "";
+            try {
+                Class[] parameterTypes = {GridPoint2.class};
+                this.method = (HouseGameArea.class).getDeclaredMethod(parameter, parameterTypes);
+            } catch (Exception e) {
+                this.method = null;
+                System.out.println("Null method on symbol ".concat(symbol));
+            }
         }
-        assert this.method != null;
     }
 
     public DrmObject(String symbol, String methodName, String texture)  {
         this.symbol = symbol;
         this.texture = texture;
-        
+
         try {
             Class[] parameterTypes = {GridPoint2.class, String.class};
-            this.method = HouseGameArea.class.getDeclaredMethod(methodName, parameterTypes);
+            this.method = (HouseGameArea.class).getDeclaredMethod(methodName, parameterTypes);
         } catch (Exception e) {
             this.method = null;
+            System.out.println("Null method on symbol ".concat(symbol));
         }
-        assert this.method != null;
     }
     
     public String getSymbol() {
