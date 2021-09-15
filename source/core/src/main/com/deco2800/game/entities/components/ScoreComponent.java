@@ -12,6 +12,9 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,6 +33,7 @@ public class ScoreComponent extends Component {
   public void create() {
     super.create();
     entity.getEvents().addListener("change_score", this::changeScore);
+    entity.getEvents().addListener("write_score", this::writeScoreToLeaderBoard);
   }
 
   public int getScore(){
@@ -48,5 +52,22 @@ public class ScoreComponent extends Component {
   public static void tickScore() {
        score--;
   }
+
+  public void writeScoreToLeaderBoard(){
+  try{
+        logger.info("Trying to write to leaderboard...");
+        FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+        StringBuilder sb = new StringBuilder();
+        sb.append(score);
+        sb.append(",");
+        String s = sb.toString();
+        writer.write(s);
+        writer.close();
+        logger.info("Sucessfully wrote to leaderboard...");
+  }catch(IOException e){
+        logger.info("IOException in writing to leaderboad.");
+  }
+
+ }
 
 }

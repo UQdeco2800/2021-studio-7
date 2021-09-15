@@ -110,7 +110,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-
+    entityPlayer.getEvents().trigger("write_score");
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();

@@ -73,6 +73,10 @@ public class PlayerFactory {
     return player;
   }
 
+  /**
+   *
+   * @return
+   */
   public static String getAtlas() {
     try {
       File input = new File("configs/currentCharacterAtlas.txt");

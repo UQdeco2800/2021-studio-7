@@ -23,6 +23,7 @@ import java.io.FileWriter;
 public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
+  private static TextField txtUsername;
   private Table table;
   private String playablecharcters[] = {
           "images/characters/boy_01/boy_01_menu_preview.png",
@@ -57,7 +58,7 @@ public class MainMenuDisplay extends UIComponent {
     TextButton settingsBtn = new TextButton("Settings", skin);
     TextButton exitBtn = new TextButton("Exit", skin);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
-    TextField txtUsername = new TextField("", skin);
+    this.txtUsername = new TextField("", skin);
     txtUsername.setMessageText("Username:");
 
     Image character = new Image(ServiceLocator.getResourceService()
@@ -69,6 +70,7 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Start button clicked");
+            writeUsername();
             entity.getEvents().trigger("start");
           }
         });
@@ -173,6 +175,22 @@ public class MainMenuDisplay extends UIComponent {
         } catch (Exception e){
             System.out.println(e);
             logger.debug("Could not load the atlas after character change was made.");
+        }
+    }
+
+    public void writeUsername(){
+        try {
+            FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n");
+            sb.append(this.txtUsername.getText());
+            sb.append(":");
+            String s = sb.toString();
+            writer.write(s);
+            writer.close();
+            logger.info("Wrote username to leaderboard.");
+        } catch (Exception e){
+            logger.debug("Could not write username to leaderboard.");
         }
     }
 }
