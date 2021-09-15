@@ -75,7 +75,7 @@ public class ObstacleFactory {
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.scaleHeight(1.0f);
     PhysicsUtils.setScaledCollider(bed, 0.5f, 0.5f);
-    PhysicsUtils.setScaledHitbox(bed, 1f, 1f);
+    PhysicsUtils.setScaledHitbox(bed, 1.1f, 1.1f);
 
     //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;

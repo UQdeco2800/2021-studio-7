@@ -4,24 +4,27 @@ import com.badlogic.gdx.utils.Array;
 
 public class ArrayMatrixUtils {
 
-    public static Array<Array<String>> rotateClockwise(Array<Array<String>> matrix) {
-        return reverse(transpose(matrix));
+    public static String[][] rotateClockwise(String[][] matrix) {
+        return reverse((matrix));
     }
 
-    public static Array<Array<String>> transpose(Array<Array<String>> matrix) {
-        Array<Array<String>> transposed = new Array<>(matrix.size);
-        for (int i = 0; i < matrix.size; i++) {
-            transposed.add(new Array<>(matrix.get(i).size));
-            for (int j = 0; j < matrix.get(i).size; j++) {
-                transposed.get(i).add(matrix.get(j).get(i));
+    public static String[][] transpose(String[][] matrix) {
+        String[][] transposed = new String[matrix.length][matrix.length];
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix.length; y++) {
+                transposed[x][y] = matrix[y][x];
             }
         }
         return transposed;
     }
 
-    public static Array<Array<String>> reverse(Array<Array<String>> matrix) {
-        for (Array<String> column : matrix) {
-            column.reverse();
+    public static String[][] reverse(String[][] matrix) {
+        for (int x = 0; x < matrix.length; x++) {
+            for (int y = 0; y < matrix.length / 2; y++) {
+                String temp = matrix[x][y];
+                matrix[x][y] = matrix[x][matrix.length - y - 1];
+                matrix[x][matrix.length - y - 1] = temp;
+            }
         }
         return matrix;
     }

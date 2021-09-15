@@ -46,7 +46,7 @@ public class TerrainComponent extends RenderComponent {
         float yOffset = (x % 2 == 0) ? 0.5f * tileSize : 0f;
         return new Vector2(x * (tileSize + hexLength) / 2, y + yOffset);
       case ISOMETRIC:
-        return new Vector2((x + y) * tileSize / 2, (y - x) * tileSize / 2);
+        return new Vector2((x + y) * tileSize / 2, (y - x) * tileSize / 3.724f);
       case ORTHOGONAL:
         return new Vector2(x * tileSize, y * tileSize);
       default:

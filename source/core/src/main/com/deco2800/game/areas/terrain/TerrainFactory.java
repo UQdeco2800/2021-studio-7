@@ -165,163 +165,32 @@ public class TerrainFactory {
     TextureRegion textureRegion = new TextureRegion(resourceService.getAsset(room.getTileTextures()[0], Texture.class));
 
     GridPoint2 tilePixelSize = new GridPoint2(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
-    TiledMap tiledMap = createRoomDemoTiles(tilePixelSize, room);
+    TiledMap tiledMap = setRoomTiles(tilePixelSize, room);
     TiledMapRenderer renderer = createRenderer(tiledMap, 1f / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, 1f);
   }
 
-  private TiledMap createRoomDemoTiles(GridPoint2 tileSize, Room room) {
+  private TiledMap setRoomTiles(GridPoint2 tileSize, Room room) {
     TiledMap tiledMap = new TiledMap();
-    Map<String, TerrainTile> stringTerrainTileMap = createStringTerrainTileMap(room);
-    TiledMapTileLayer layer = new TiledMapTileLayer((int) room.getRoomScale().x, (int)room.getRoomScale().y, tileSize.x, tileSize.y);
+    Map<String, TerrainTile> stringTerrainTileMap = room.getSymbolTerrainTileMap();
+    TiledMapTileLayer layer = new TiledMapTileLayer(
+            room.getMaxScale(), room.getMaxScale(), tileSize.x, tileSize.y);
 
     // Go through grid and set tile cells
-    for (int i = 0; i < room.getTileGrid().size; i++) {
-      for (int j = 0; j < room.getTileGrid().get(i).size; j++) {
-        String current = room.getTileGrid().get(i).get(j);
-        Cell cell = new Cell();
-        cell.setTile(stringTerrainTileMap.get(current));
-        layer.setCell(i, j, cell);
+    for (int x = 0; x < room.getMaxScale(); x++) {
+      for (int y = 0; y < room.getMaxScale(); y++) {
+        String current = room.getTileGrid()[x][y];
+        TerrainTile tile = stringTerrainTileMap.get(current);
+        if (tile != null) {
+          Cell cell = new Cell();
+          cell.setTile(tile);
+          layer.setCell(x, y, cell);
+        }
       }
     }
 
     tiledMap.getLayers().add(layer);
     return tiledMap;
-  }
-
-  private Map<String, TerrainTile> createStringTerrainTileMap(Room room) {
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    Map<String, TerrainTile> stringTerrainTileMap = new Map<String, TerrainTile>() {
-      private StringToTileEntry head = null;
-      private int size = 0;
-
-      @Override
-      public int size() {
-        return size;
-      }
-
-      @Override
-      public boolean isEmpty() {
-        return head == null;
-      }
-
-      @Override
-      public boolean containsKey(Object key) {
-        return false;
-      }
-
-      @Override
-      public boolean containsValue(Object value) {
-        return false;
-      }
-
-      @Override
-      public TerrainTile get(Object key) {
-        if (head == null) {
-          return null;
-        }
-        StringToTileEntry current = head;
-        do {
-          if (current.getKey().equals(key)) {
-            return current.getValue();
-          }
-          current = current.getNext();
-        } while (current != null);
-        return null;
-      }
-
-      @Override
-      public TerrainTile put(String key, TerrainTile value) {
-        if (head == null) {
-          head = new StringToTileEntry(key, value);
-          size++;
-          return value;
-        }
-        StringToTileEntry current = head;
-        StringToTileEntry previous;
-        do {
-          if (current.getKey().equals(key)) {
-            TerrainTile temp = current.getValue();
-            current.setValue(value);
-            return temp;
-          }
-          previous = current;
-          current = current.getNext();
-        } while (current != null);
-        previous.setNext(new StringToTileEntry(key, value));
-        size++;
-        return null;
-      }
-
-      @Override
-      public TerrainTile remove(Object key) {
-        return null;
-      }
-
-      @Override
-      public void putAll(Map<? extends String, ? extends TerrainTile> m) {
-
-      }
-
-      @Override
-      public void clear() {
-        head = null;
-        size = 0;
-      }
-
-      @Override
-      public Set<String> keySet() {
-        return null;
-      }
-
-      @Override
-      public Collection<TerrainTile> values() {
-        return null;
-      }
-
-      @Override
-      public Set<Entry<String, TerrainTile>> entrySet() {
-        return null;
-      }
-
-      class StringToTileEntry {
-        private String symbol;
-        private TerrainTile tile;
-        private StringToTileEntry next;
-
-        StringToTileEntry(String symbol, TerrainTile tile) {
-          this.symbol = symbol;
-          this.tile = tile;
-          this.next = null;
-        }
-
-        String getKey() {
-          return symbol;
-        }
-
-        TerrainTile getValue() {
-          return tile;
-        }
-
-        void setValue(TerrainTile tile) {
-          this.tile = tile;
-        }
-
-        StringToTileEntry getNext() {
-          return next;
-        }
-
-        void setNext(StringToTileEntry next) {
-          this.next = next;
-        }
-      }
-    };
-    for (int i = 0; i < room.getTileDefinitions().size; i++) {
-      DrmObject current = room.getTileDefinitions().get(i);
-      stringTerrainTileMap.put(current.getSymbol(), new TerrainTile(new TextureRegion(
-              resourceService.getAsset(current.getTexture(), Texture.class))));
-    }
-    return stringTerrainTileMap;
   }
 
   /**

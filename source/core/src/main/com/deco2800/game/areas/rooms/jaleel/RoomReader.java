@@ -110,50 +110,57 @@ public class RoomReader {
         return objectDefinitions;
     }
 
-    public Array<Array<String>> extractGrid(Vector2 mapScale) {
-        System.out.println(mapScale);
+    public String[][] extractGrid(Vector2 mapScale) {
         // Line should be at "GRID {"
         currentLine = nextLine();
         if (!currentLine.startsWith(GRID_KEY)) {
             throw new IllegalArgumentException("Grid keyword missing in .drm file");
         }
 
-        int maxLength;
+        // Take max length to make perfect square matrix
+        int max;
         if (mapScale.x < mapScale.y) {
-            maxLength = (int) mapScale.y;
+            max = (int) mapScale.y;
         } else {
-            maxLength = (int) mapScale.x;
+            max = (int) mapScale.x;
         }
 
-        Array<Array<String>> objectGrid = new Array<>();
-        for (int i = 0; i < maxLength; i++) {
+        String[][] xyGrid = new String[max][max];
+        // Extracts grid by row, stores in form [x][y]
+        for (int y = 0; y < max; y++) {
             currentLine = nextLine();
-            System.out.println(currentLine);
-            if (currentLine.contains(CLOSE_BRACKET)) {
-                if (mapScale.y == maxLength) {
-                    throw new IllegalArgumentException("Grid dimensions do not match scale in .drm file");
-                } else {
-                    for (int j = (int) mapScale.y; j < maxLength; j++) {
-                        objectGrid.add(new Array<>());
-                        for (int k = 0; k < maxLength; k++) {
-                            objectGrid.get(j).add("");
-                        }
-                    }
-                    break;
-                }
-            }
             String[] tokens = currentLine.split(GRID_DELIM);
-            objectGrid.add(new Array<>());
-            for (int j = 0; j < maxLength; j++) {
-                if (j < tokens.length) {
-                    objectGrid.get(i).add(tokens[j]);
-                } else {
-                    objectGrid.get(i).add("");
+
+            if (currentLine.contains(CLOSE_BRACKET)) {
+                if (mapScale.y == max) {
+                    // We have reached close bracket before our guaranteed rows were finished
+                    throw new IllegalArgumentException("Grid dimensions do not match scale in .drm file");
+                }
+
+                // Fill missing rows to complete max by max matrix
+                for (int ySup = y; ySup < max; ySup++) {
+                    // Fill row cells with empty symbols
+                    for (int x = 0; x < max; x++) {
+                        xyGrid[x][ySup] = "";
+                    }
+                }
+                break;
+            } else {
+                // Fill number of row cells equal to the maximum of x and y
+                for (int x = 0; x < max; x++) {
+                    if (x < tokens.length) {
+                        // Fill with extracted cell symbol
+                        xyGrid[x][y] = tokens[x];
+                    } else {
+                        // Fill missing cells with empty symbol
+                        xyGrid[x][y] = "";
+                    }
                 }
             }
         }
 
-        if (mapScale.y == maxLength) {
+        if (mapScale.y == max) {
+            // We haven't read close bracket yet because we had maximum guaranteed rows
             currentLine = nextLine();
         }
         if (!currentLine.contains(CLOSE_BRACKET)) {
@@ -166,14 +173,14 @@ public class RoomReader {
             throw new IllegalArgumentException("Missing object type close bracket in .drm file");
         }
 
-        // Rotate grid to match orientation in file
-        //objectGrid = ArrayMatrixUtils.rotateClockwise(objectGrid);
+        // Reverse grid to match orientation in file
+        xyGrid = ArrayMatrixUtils.reverse(xyGrid);
 
-        return objectGrid;
+        return xyGrid;
     }
 
     public String nextLine() {
-        String line = "";
+        String line;
         try {
             do {
                 line = reader.readLine().strip();
@@ -189,7 +196,6 @@ public class RoomReader {
 
     public int strToInt(String digits) {
         int num = 0;
-        System.out.println(digits);
         for (int i = 0; i < digits.length(); i++) {
             if (digits.charAt(i) < 48 || digits.charAt(i) > 57) {
                 return -1;

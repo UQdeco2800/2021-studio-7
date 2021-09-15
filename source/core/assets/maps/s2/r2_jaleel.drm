@@ -1,12 +1,17 @@
 # Room scale (largest width and height)
-SCALE:11:16
+SCALE:11:21
 
 TILES {
     DEFINE {
         D:images/tiles/iso/iso_floor_1.png
-        A:images/tiles/iso/iso_grass_3.png
+        A:images/tiles/iso/iso_floor_1_alt.png
     }
     GRID {
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
         D D D D D D D D D D D
         D A D D D D D D D D D
         D D D D D D D A D D D
@@ -35,6 +40,11 @@ ENTITIES {
     }
     GRID {
         W W W W W W W W W W W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
         W . . P . . . . . . W
