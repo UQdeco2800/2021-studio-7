@@ -69,6 +69,7 @@ public class TitleScreen extends ScreenAdapter {
         logger.debug("Disposing title screen");
 
         renderer.dispose();
+        unloadAssets();
         ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getResourceService().dispose();

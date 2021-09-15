@@ -1,22 +1,14 @@
 package com.deco2800.game.screens.titlescreen;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
+import com.deco2800.game.screens.EndGameDisplay;
 import com.deco2800.game.ui.components.UIComponent;
-
-import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
