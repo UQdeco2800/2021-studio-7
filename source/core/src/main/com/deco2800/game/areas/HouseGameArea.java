@@ -1,10 +1,12 @@
-package com.deco2800.game.areas.rooms;
+package com.deco2800.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.areas.GameArea;
 import com.deco2800.game.areas.components.GameAreaDisplay;
+import com.deco2800.game.areas.rooms.DrmObject;
+import com.deco2800.game.areas.rooms.Room;
+import com.deco2800.game.areas.rooms.RoomReader;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;

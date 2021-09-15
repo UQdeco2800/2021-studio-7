@@ -1,6 +1,7 @@
 package com.deco2800.game.areas.rooms;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.deco2800.game.areas.HouseGameArea;
 
 import java.lang.reflect.Method;
 
