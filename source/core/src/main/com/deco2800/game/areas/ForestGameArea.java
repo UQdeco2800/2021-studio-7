@@ -9,12 +9,15 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.areas.components.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -62,9 +65,12 @@ public class ForestGameArea extends GameArea {
   public Entity player;
   public Entity mum;
 
+  private EventHandler eventHandler;
+
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+    this.eventHandler = new EventHandler();
   }
 
   /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
@@ -72,6 +78,7 @@ public class ForestGameArea extends GameArea {
   public void create() {
     loadAssets();
     displayUI();
+
     spawnTerrain();
     player = spawnPlayer();
     spawnBed();
@@ -81,6 +88,10 @@ public class ForestGameArea extends GameArea {
 //    spawnGhostKing();
     mum = spawnMum();
     //playMusic();
+  }
+
+  public EventHandler getEvents() {
+      return this.eventHandler;
   }
 
   public Entity getPlayer(){

@@ -1,0 +1,28 @@
+8,8
+0,0
+
+TEXTURE<
+
+	% Define new textures
+	DEFINE
+		BASE_FLOOR="images/tiles/iso/iso_floor_1.png"
+		BASE_WALL="images/tiles/iso/iso_wall_1_left.png"
+		A="images/tiles/iso/iso_floor_1_alt.png"
+
+	PLACE
+		1,2=A % Inline comment
+	
+>TEXTURE
+
+MAP<
+
+	ENTITIES
+        D="spawnBed"={"closed":"true"}
+
+GRID
+......
+.D....
+...
+......
+
+>MAP

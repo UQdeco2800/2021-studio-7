@@ -44,10 +44,11 @@ public class ObstacleFactory {
    * @param height Wall height in world units
    * @return Wall entity of given width and height
    */
-  public static Entity createWall(float width, float height) {
+  public static Entity createWall(float width, float height, String texture) {
     Entity wall = new Entity()
-        .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
-        .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+            .addComponent(new TextureRenderComponent(texture))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     wall.setScale(width, height);
     return wall;
   }
@@ -74,7 +75,7 @@ public class ObstacleFactory {
     bed.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     bed.scaleHeight(1.0f);
     PhysicsUtils.setScaledCollider(bed, 0.5f, 0.5f);
-    PhysicsUtils.setScaledHitbox(bed, 1f, 1f);
+    PhysicsUtils.setScaledHitbox(bed, 1.1f, 1.1f);
 
     //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
