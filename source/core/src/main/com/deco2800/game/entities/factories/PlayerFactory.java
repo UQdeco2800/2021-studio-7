@@ -6,8 +6,6 @@ import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
-import com.deco2800.game.entities.components.player.PlayerAnimationController;
 import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
@@ -60,12 +58,10 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-                .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerActions())
-            .addComponent(new SurveyorComponent());
-            .addComponent(new PlayerObjectInteractions())
+            .addComponent(new SurveyorComponent())
             .addComponent(new ScoreComponent(1000));
 
     player.getComponent(ColliderComponent.class).setDensity(1.5f);

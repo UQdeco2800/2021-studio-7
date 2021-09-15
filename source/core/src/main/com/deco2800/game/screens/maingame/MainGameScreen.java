@@ -39,7 +39,6 @@ public class MainGameScreen extends ScreenAdapter {
   private Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
 
-  private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   private final ForestGameArea mainGameArea;

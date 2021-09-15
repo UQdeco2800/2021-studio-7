@@ -24,7 +24,6 @@ public class PlayerStatsDisplay extends UIComponent {
   private PlayerStaminaBar playerStaminaBar;
   private Image heartImage;
   private Label healthLabel;
-  private Label staminaLabel;
   private Label scoreLabel;
 
   /**
