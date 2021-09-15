@@ -1,22 +1,28 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	button: {
-		file: fonts/pixel_18.fnt
+		file: fonts/vcr_18.fnt
 	}
 	font: {
-		file: fonts/pixel_18.fnt
+		file: fonts/vcr_18.fnt
 	}
 	title: {
-		file: fonts/pixel_32.fnt
+		file: fonts/vcr_32.fnt
 	}
 	font_small: {
-		file: fonts/pixel_16.fnt
+		file: fonts/vcr_16.fnt
 	}
 	font_large: {
-		file: fonts/pixel_26.fnt
+		file: fonts/vcr_26.fnt
 	}
 }
 com.badlogic.gdx.graphics.Color: {
+	purple: {
+		r: 0.8
+		g: 0
+		b: 0.95
+		a: 1
+	}
 	black: {
 		r: 0
 		g: 0
@@ -65,7 +71,9 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
-}
+
+},
+
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	button-c: {
 		name: button
@@ -290,9 +298,9 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
 		font: button
-		fontColor: white
+		fontColor: black
 		downFontColor: white
-		overFontColor: gray
+		overFontColor: white
 		up: button-c
 		down: button-p
 		over: button-h
@@ -327,11 +335,11 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	button: {
 		font: button
-		fontColor: color
+		fontColor: white
 	}
 	title: {
 		font: title
-		fontColor: color
+		fontColor: purple
 	}
 	small: {
 		font: font_small,
@@ -346,7 +354,7 @@ com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
 		font: font
 		fontColorSelected: white
-		fontColorUnselected: white
+		fontColorUnselected: black
 		selection: selection
 		background: list-c
 	}
@@ -378,7 +386,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
 		font: font
-		fontColor: white
+		fontColor: black
 		background: select-box-c
 		scrollStyle: default
 		listStyle: default
@@ -420,9 +428,9 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
 		font: button
-		fontColor: white
+		fontColor: black
 		downFontColor: white
-		overFontColor: gray
+		overFontColor: white
 		up: button-c
 		down: button-p
 		over: button-h

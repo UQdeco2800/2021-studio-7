@@ -5,7 +5,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.events.listeners.EventListener2;
 import com.deco2800.game.extensions.GameExtension;
@@ -81,7 +84,7 @@ class PhysicsContactListenerTest {
 
   Entity createPhysicsEntity() {
     Entity entity =
-        new Entity().addComponent(new PhysicsComponent()).addComponent(new ColliderComponent());
+            new Entity().addComponent(new PhysicsComponent()).addComponent(new ColliderComponent());
     entity.create();
     return entity;
   }

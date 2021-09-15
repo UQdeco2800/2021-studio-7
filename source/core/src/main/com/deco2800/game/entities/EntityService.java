@@ -40,9 +40,9 @@ public class EntityService {
    * Update all registered entities. Should only be called from the main game loop.
    */
   public void update() {
-    for (Entity entity : entities) {
-      entity.earlyUpdate();
-      entity.update();
+    for (int i = 0; i < entities.size; i++) {
+      entities.get(i).earlyUpdate();
+      entities.get(i).update();
     }
   }
 
@@ -50,8 +50,8 @@ public class EntityService {
    * Dispose all entities.
    */
   public void dispose() {
-    for (Entity entity : entities) {
-      entity.dispose();
+    for (int i = 0; i < entities.size; i++) {
+      entities.get(i).dispose();
     }
   }
 }
