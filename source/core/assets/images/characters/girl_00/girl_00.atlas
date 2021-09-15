@@ -1,89 +1,173 @@
 girl_00.png
-size: 364, 412
+size: 872, 1096
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-standing_south
+girl_00_standing_east
   rotate: false
-  xy: 193, 277
-  size: 82, 130
-  orig: 256, 256
-  offset: 87, 55
+  xy: 0, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_north
+  rotate: false
+  xy: 144, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_northeast
+  rotate: false
+  xy: 288, 0
+  size: 144, 280
+  orig: 144, 280
+  offset: 0, 0
+  index: -1
+girl_00_standing_northwest
+  rotate: false
+  xy: 432, 0
+  size: 152, 272
+  orig: 152, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_south
+  rotate: false
+  xy: 584, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_southeast
+  rotate: false
+  xy: 728, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_southwest
+  rotate: false
+  xy: 0, 280
+  size: 152, 272
+  orig: 152, 272
+  offset: 0, 0
+  index: -1
+girl_00_standing_west
+  rotate: false
+  xy: 152, 280
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+girl_00_walking_east
+  rotate: false
+  xy: 296, 280
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
-standing_west
+girl_00_walking_east
   rotate: false
-  xy: 105, 1
-  size: 86, 138
-  orig: 256, 256
-  offset: 83, 63
+  xy: 440, 280
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+girl_00_walking_north
+  rotate: false
+  xy: 584, 280
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
-standing_east
+girl_00_walking_north
   rotate: false
-  xy: 193, 1
-  size: 86, 138
-  orig: 256, 256
-  offset: 91, 59
+  xy: 728, 280
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+girl_00_walking_northeast
+  rotate: false
+  xy: 0, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
-standing_north
+girl_00_walking_northeast
   rotate: false
-  xy: 277, 277
-  size: 82, 130
-  orig: 256, 256
-  offset: 87, 55
+  xy: 144, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+girl_00_walking_northwest
+  rotate: false
+  xy: 288, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
-walking_south
+girl_00_walking_northwest
   rotate: false
-  xy: 105, 141
-  size: 86, 134
-  orig: 256, 256
-  offset: 87, 51
+  xy: 432, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
-walking_south
+girl_00_walking_south
   rotate: false
-  xy: 193, 141
-  size: 86, 134
-  orig: 256, 256
-  offset: 83, 51
-  index: 2
-walking_west
+  xy: 576, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+girl_00_walking_south
   rotate: false
-  xy: 1, 141
-  size: 102, 134
-  orig: 256, 256
-  offset: 67, 63
+  xy: 720, 552
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
-walking_west
+girl_00_walking_southeast
   rotate: false
-  xy: 1, 277
-  size: 94, 134
-  orig: 256, 256
-  offset: 71, 63
-  index: 2
-walking_east
+  xy: 0, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+girl_00_walking_southeast
   rotate: false
-  xy: 1, 1
-  size: 102, 138
-  orig: 256, 256
-  offset: 79, 51
+  xy: 144, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
-walking_east
+girl_00_walking_southwest
   rotate: false
-  xy: 97, 277
-  size: 94, 134
-  orig: 256, 256
-  offset: 91, 51
-  index: 2
-walking_north
+  xy: 288, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+girl_00_walking_southwest
   rotate: false
-  xy: 281, 1
-  size: 82, 130
-  orig: 256, 256
-  offset: 87, 55
+  xy: 432, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
-walking_north
+girl_00_walking_west
   rotate: false
-  xy: 281, 133
-  size: 82, 130
-  orig: 256, 256
-  offset: 87, 55
-  index: 2
+  xy: 576, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+girl_00_walking_west
+  rotate: false
+  xy: 720, 824
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
