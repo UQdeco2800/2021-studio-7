@@ -143,7 +143,7 @@ public class MainGameScreen extends ScreenAdapter {
     MainGameTimerDisplay mainGameTimer =
             new MainGameTimerDisplay(10);
 
-    MainGameScoreDisplay mainGameScore = new MainGameScoreDisplay(10,1000);
+    //MainGameScoreDisplay mainGameScore = new MainGameScoreDisplay(10,1000);
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))
@@ -154,12 +154,12 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(mainGameTimer)
         .addComponent(new Terminal())
         .addComponent(inputComponent)
-        .addComponent(new TerminalDisplay())
-        .addComponent(mainGameScore);
+        .addComponent(new TerminalDisplay());
+        //.addComponent(mainGameScore);
 
     ServiceLocator.registerMainGameScreen(ui);
     mainGameTimer.countDown();
-    mainGameScore.countDown();
+    //mainGameScore.countDown();
     ServiceLocator.getEntityService().register(ui);
   }
 }
