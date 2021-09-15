@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.lang.Math;
 
 /**
  * A ui component for displaying the Main menu.
@@ -181,9 +182,18 @@ public class MainMenuDisplay extends UIComponent {
     public void writeUsername(){
         try {
             FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+            String username;
+            System.out.println("textbox:");
+            System.out.println(this.txtUsername.getText().length()<2);
+            if (this.txtUsername.getText().length()<2){
+                username = "DirtyDefault"+ getRandomNum();
+            }else{
+                username = this.txtUsername.getText();
+            }
+
             StringBuilder sb = new StringBuilder();
             sb.append("\n");
-            sb.append(this.txtUsername.getText());
+            sb.append(username);
             sb.append(":");
             String s = sb.toString();
             writer.write(s);
@@ -192,5 +202,9 @@ public class MainMenuDisplay extends UIComponent {
         } catch (Exception e){
             logger.debug("Could not write username to leaderboard.");
         }
+    }
+
+    public int getRandomNum(){
+        return (int)(Math.random()*100000);
     }
 }
