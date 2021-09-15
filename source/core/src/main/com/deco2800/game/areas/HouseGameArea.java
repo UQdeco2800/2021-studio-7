@@ -27,7 +27,7 @@ public class HouseGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
     public Entity player;
 
-    private final String[] drmLocations = {"maps/s2/r2_jaleel.drm"};
+    private final String[] drmLocations = {"maps/s2/r3_jaleel.drm"};
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
@@ -47,6 +47,7 @@ public class HouseGameArea extends GameArea {
         loadAssets();
         displayUI();
         createRooms();
+        spawnWalls();
     }
 
     public void extractRooms() {
@@ -113,6 +114,47 @@ public class HouseGameArea extends GameArea {
 //        spawnEntityAt(newWall, gridPosition, true, true);
     }
 
+    public void spawnWalls() {
+        int x = (int)rooms.get(0).getRoomScale().x;
+        int y = (int)rooms.get(0).getRoomScale().y-1;
+        int midX = x/2;
+        for (int i = 0; i <= y; i++) {
+            // Top Left
+            GridPoint2 topLeftPoints = new GridPoint2(0, i);
+            Entity topLeftWall = ObstacleFactory.createWall();
+            topLeftWall.scaleWidth(1f);
+            spawnEntityAt(topLeftWall, topLeftPoints, false, false);
+
+            // Bottom Right
+            GridPoint2 botRightPoints = new GridPoint2(x, i);
+            Entity botRightWall = ObstacleFactory.createWall();
+            botRightWall.scaleWidth(1f);
+            spawnEntityAt(botRightWall, botRightPoints, true, true);
+        }
+        for (int i = 0; i < x; i++) {
+            // Bottom Left testing with a door (using a bed as the door)
+            GridPoint2 botLeftPoints = new GridPoint2(i, 0);
+            Entity botLeftWall = ObstacleFactory.createWall();
+            if((i==midX || i == midX+1) && botLeftPoints.y==0){
+                if(i==midX){
+                    Entity door = ObstacleFactory.createDoor();
+                    spawnEntityAt(door, botLeftPoints, true, false);
+                }
+            } else{
+                botLeftWall.scaleWidth(1f);
+                spawnEntityAt(botLeftWall, botLeftPoints, true, false);
+            }
+
+            // Top Right
+            GridPoint2 topRightPoints = new GridPoint2(i, y);
+            Entity topRightWall = ObstacleFactory.createWall();
+            topRightWall.scaleWidth(1f);
+            spawnEntityAt(topRightWall, topRightPoints, true, false);
+        }
+    }
+
+
+
     /**
      * Invoked from drmObject in spawnEntities(), spawns Player entity
      *
@@ -153,7 +195,7 @@ public class HouseGameArea extends GameArea {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-
+        resourceService.loadTexture("images/objects/door/door_close_right.png");
         for (Room room : rooms) {
             for (DrmObject current : room.getTileDefinitions()) {
                 if (current.getTexture() != null) {

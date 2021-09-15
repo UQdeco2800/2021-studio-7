@@ -39,16 +39,17 @@ TILES {
 
 ENTITIES {
     DEFINE {
-        W:spawnWall:images/objects/tree/tree.png
+        W:spawnWall:images/objects/walls/wall.png
         B:spawnBed
         P:spawnPlayer
         M:spawnMum
+        d:spawnDoor
     }
     GRID {
         W W W W W W W W W W W
         W . . . . . . . . . W
         W . . . . . . . . . W
-        W . . . . . . . . . W
+        W . . . . M . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
