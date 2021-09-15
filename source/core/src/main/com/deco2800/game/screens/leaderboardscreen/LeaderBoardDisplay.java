@@ -40,12 +40,15 @@ public class LeaderBoardDisplay extends UIComponent {
     public LeaderBoardDisplay(GdxGame game) {
         super();
         this.game = game;
+        logger.info("Trying to build leader board...");
     }
 
     @Override
     public void create() {
         super.create();
+        logger.info("Trying to sort leader board...");
         sortLeaderBoard();
+        logger.info("Sorted leaderboard.");
         addActors();
     }
 
@@ -59,6 +62,7 @@ public class LeaderBoardDisplay extends UIComponent {
         Table menuBtns = makeMenuBtns();
         rootTable.add(title).expandX().top().padTop(20f);
         rootTable.row().padTop(30f);
+        logger.info("Trying to create leader board...");
         rootTable.add(leaderboardtable).expandX().expandY();
         rootTable.row();
         rootTable.add(menuBtns).fillX();
@@ -69,7 +73,9 @@ public class LeaderBoardDisplay extends UIComponent {
 
     private Table makeLeaderBoardTable() {
         leaderTable = new Table();
+        logger.info("Trying to get leader board...");
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
+        logger.info("Got leader board.");
         Set set = leaderboard.entrySet();
         Iterator i = set.iterator();
         String insert;
@@ -79,7 +85,7 @@ public class LeaderBoardDisplay extends UIComponent {
             Map.Entry mp = (Map.Entry) i.next();
             insert = mp.getKey() + ":" + String.valueOf(mp.getValue());
             Label label = new Label(insert, skin);
-            leaderTable.add(label);
+            leaderTable.add(label).padTop(15f);
         }
         return leaderTable;
     }
@@ -187,6 +193,8 @@ public class LeaderBoardDisplay extends UIComponent {
                     continue;
                 }
                 String[] arrOfLine = currentLine.split(":");
+                int length = arrOfLine.length;
+                if(length != 2){continue;}
                 String username = arrOfLine[0];
                 String[] arrOfScores = arrOfLine[1].split(",");
 

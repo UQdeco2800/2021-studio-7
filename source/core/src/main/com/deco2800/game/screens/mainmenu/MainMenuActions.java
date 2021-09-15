@@ -37,7 +37,7 @@ public class MainMenuActions extends Component {
    */
   private void onLeaderboard() {
     logger.info("Launching leaderboard screen");
-    game.setScreen(GdxGame.ScreenType.LEADERBOARD);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LEADERBOARD);
   }
 
   /**
