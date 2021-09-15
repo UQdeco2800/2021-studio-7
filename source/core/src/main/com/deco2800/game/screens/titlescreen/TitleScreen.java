@@ -28,7 +28,7 @@ public class TitleScreen extends ScreenAdapter {
 
     public TitleScreen() {
 
-        logger.debug("Initialising main menu screen services");
+        logger.debug("Initialising title screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());

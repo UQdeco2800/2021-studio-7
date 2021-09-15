@@ -18,6 +18,10 @@ import org.slf4j.LoggerFactory;
 
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
+    private static final String[] ContextTextures = {
+            "images/characters/mum_01/mum_01_standing_south.png",
+            "images/ui/screens/inactiveStart.png"
+    };
 
     private final Renderer renderer;
 
@@ -28,10 +32,12 @@ public class ContextScreen extends ScreenAdapter {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-        ServiceLocator.registerTimeSource(new GameTime());
 
         renderer = RenderFactory.createRenderer();
 
+        System.out.println();
+
+        loadAssets();
         createUI();
     }
 
@@ -62,11 +68,25 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Disposing context screen");
 
         renderer.dispose();
+        unloadAssets();
         ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getResourceService().dispose();
 
         ServiceLocator.clear();
+    }
+
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(ContextTextures);
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(ContextTextures);
     }
 
     /**
