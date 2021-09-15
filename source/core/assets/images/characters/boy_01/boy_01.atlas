@@ -3,168 +3,168 @@ size: 1728, 544
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-boy_01_standing_east
+standing_east
   rotate: false
   xy: 0, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_north
+  index: 0
+standing_north
   rotate: false
   xy: 144, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_northeast
+  index: 0
+standing_northeast
   rotate: false
   xy: 288, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_northwest
+  index: 0
+standing_northwest
   rotate: false
   xy: 432, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_south
+  index: 0
+standing_south
   rotate: false
   xy: 576, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_southeast
+  index: 0
+standing_southeast
   rotate: false
   xy: 720, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_southwest
+  index: 0
+standing_southwest
   rotate: false
   xy: 864, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_standing_west
+  index: 0
+standing_west
   rotate: false
   xy: 1008, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-boy_01_walking_east
+  index: 0
+walking_east
   rotate: false
   xy: 1152, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_east
+walking_east
   rotate: false
   xy: 1296, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_north
+walking_north
   rotate: false
   xy: 1440, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_north
+walking_north
   rotate: false
   xy: 1584, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_northeast
+walking_northeast
   rotate: false
   xy: 0, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_northeast
+walking_northeast
   rotate: false
   xy: 144, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_northwest
+walking_northwest
   rotate: false
   xy: 288, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_northwest
+walking_northwest
   rotate: false
   xy: 432, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_south
+walking_south
   rotate: false
   xy: 576, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_south
+walking_south
   rotate: false
   xy: 720, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_southeast
+walking_southeast
   rotate: false
   xy: 864, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_southeast
+walking_southeast
   rotate: false
   xy: 1008, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_southwest
+walking_southwest
   rotate: false
   xy: 1152, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_southwest
+walking_southwest
   rotate: false
   xy: 1296, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-boy_01_walking_west
+walking_west
   rotate: false
   xy: 1440, 272
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-boy_01_walking_west
+walking_west
   rotate: false
   xy: 1584, 272
   size: 144, 272

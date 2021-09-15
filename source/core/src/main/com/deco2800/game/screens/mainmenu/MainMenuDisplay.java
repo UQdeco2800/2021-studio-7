@@ -174,7 +174,7 @@ public class MainMenuDisplay extends UIComponent {
             writer.close();
             logger.info("Writing new atlas to settings.");
         } catch (Exception e){
-            System.out.println(e);
+
             logger.debug("Could not load the atlas after character change was made.");
         }
     }
@@ -183,8 +183,7 @@ public class MainMenuDisplay extends UIComponent {
         try {
             FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
             String username;
-            System.out.println("textbox:");
-            System.out.println(this.txtUsername.getText().length()<2);
+
             if (this.txtUsername.getText().length()<2){
                 username = "DirtyDefault"+ getRandomNum();
             }else{

@@ -59,6 +59,5 @@ public class MainMenuActions extends Component {
 
   private void onChangeCharacter(){
     logger.info("Changing character");
-    //TODO
   }
 }

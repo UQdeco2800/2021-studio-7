@@ -42,7 +42,6 @@ public class ScoreComponent extends Component {
 
   public void changeScore(int change){
     this.score += change;
-    System.out.println(score);
     entity.getEvents().trigger("update_score",score);
   }
 

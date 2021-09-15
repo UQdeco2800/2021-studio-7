@@ -36,7 +36,6 @@ public class TitleScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
-        System.out.println();
 
         loadAssets();
         createUI();

@@ -3,6 +3,6 @@
   "baseAttack": 10,
   "gold": 50,
   "favouriteColour": "peach",
-  "stamina": 100,
-  "stamina": 500
+  "stamina": 100
+
 }

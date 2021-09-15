@@ -25,10 +25,7 @@ public class ForestGameArea extends GameArea {
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-          "images/characters/box_boy/box_boy_leaf.png",
           "images/objects/tree/tree.png",
-          "images/characters/ghost/ghost_king.png",
-          "images/characters/ghost/ghost_0.png",
           "images/tiles/ortho/ortho_grass_1.png",
           "images/tiles/ortho/ortho_grass_2.png",
           "images/tiles/ortho/ortho_grass_3.png",
@@ -43,9 +40,7 @@ public class ForestGameArea extends GameArea {
   };
   private static final String[] forestTextureAtlases = {
           "images/tiles/iso/iso_terrain_grass.atlas",
-          "images/characters/ghost/ghost.atlas",
           "images/objects/bed/bed.atlas",
-          "images/characters/ghost/ghost_king.atlas",
           "images/tiles/iso/iso_terrain_grass.atlas",
           "images/characters/boy_01/boy_01.atlas",
           "images/characters/mum_01/mum_01.atlas",

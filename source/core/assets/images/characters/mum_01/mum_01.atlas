@@ -1,170 +1,170 @@
-mom.png
+mum_01.png
 size: 872, 1096
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Mom_standing_east
+standing_east
   rotate: false
   xy: 0, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_standing_north
+  index: 0
+standing_north
   rotate: false
   xy: 144, 0
   size: 152, 272
   orig: 152, 272
   offset: 0, 0
-  index: -1
-Mom_standing_northeast
+  index: 0
+standing_northeast
   rotate: false
   xy: 296, 0
   size: 144, 280
   orig: 144, 280
   offset: 0, 0
-  index: -1
-Mom_standing_northwest
+  index: 0
+standing_northwest
   rotate: false
   xy: 440, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_standing_south
+  index: 0
+standing_south
   rotate: false
   xy: 584, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_standing_southeast
+  index: 0
+standing_southeast
   rotate: false
   xy: 728, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_standing_southwest
+  index: 0
+standing_southwest
   rotate: false
   xy: 0, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_standing_west
+  index: 0
+standing_west
   rotate: false
   xy: 144, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
-  index: -1
-Mom_walking_east
+  index: 0
+walking_east
   rotate: false
   xy: 288, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_east
+walking_east
   rotate: false
   xy: 432, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_north
+walking_north
   rotate: false
   xy: 576, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_north
+walking_north
   rotate: false
   xy: 720, 280
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_northeast
+walking_northeast
   rotate: false
   xy: 0, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_northeast
+walking_northeast
   rotate: false
   xy: 144, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_northwest
+walking_northwest
   rotate: false
   xy: 288, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_northwest
+walking_northwest
   rotate: false
   xy: 432, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_south
+walking_south
   rotate: false
   xy: 576, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_south
+walking_south
   rotate: false
   xy: 720, 552
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_southeast
+walking_southeast
   rotate: false
   xy: 0, 824
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_southeast
+walking_southeast
   rotate: false
   xy: 144, 824
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_southwest
+walking_southwest
   rotate: false
   xy: 288, 824
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_southwest
+walking_southwest
   rotate: false
   xy: 432, 824
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 1
-Mom_walking_west
+walking_west
   rotate: false
   xy: 576, 824
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: 0
-Mom_walking_west
+walking_west
   rotate: false
   xy: 720, 824
   size: 144, 272
