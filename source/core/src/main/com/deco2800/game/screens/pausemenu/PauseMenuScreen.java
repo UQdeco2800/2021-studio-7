@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.pausemenu;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
