@@ -65,10 +65,9 @@ public class PlayerStatsDisplay extends UIComponent {
 
     table.add(staminaLabel).left();
     table.row();
-    table.add(scoreLabel).left();
-    table.row();
     table.add(playerStaminaBar).size(190,50).left();
-
+    table.row();
+    table.add(scoreLabel).left();
     stage.addActor(table);
   }
 
