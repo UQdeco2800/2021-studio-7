@@ -88,15 +88,14 @@ public class ObstacleFactory {
   public static Entity createDoor(){
     Entity door =
             new Entity()
-                    .addComponent(new TextureRenderComponent("images/objects/door/door_close_right.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-    door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+                    .addComponent(new TextureRenderComponent("images/objects/door/door_close_right.png"));
+                    //.addComponent(new PhysicsComponent())
+                    //.addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    //door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     door.getComponent(TextureRenderComponent.class).scaleEntity();
-    door.scaleHeight(2f);
-    PhysicsUtils.setScaledCollider(door, 0.5f, 0.2f);
+    door.scaleHeight(2.2f);
+    //PhysicsUtils.setScaledCollider(door, 0.5f, 0.2f);
     return door;
-
   }
 
   private ObstacleFactory() {
