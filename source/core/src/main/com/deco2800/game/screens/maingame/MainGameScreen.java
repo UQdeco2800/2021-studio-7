@@ -69,17 +69,6 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
       ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-//    LevelTerrainFactory terrainFactory;
-//    try {
-//        terrainFactory =
-//                new LevelTerrainFactory("./maps/s1",
-//                        renderer.getCamera());
-//    } catch (IOException e) {
-//        logger.error(e.toString());
-//        logger.error("Check map files that were loaded");
-//        return;
-//    }
-//    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     forestGameArea.create();
     physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             getPlayer().getComponent(ColliderComponent.class));
@@ -154,7 +143,7 @@ public class MainGameScreen extends ScreenAdapter {
     MainGameTimerDisplay mainGameTimer =
             new MainGameTimerDisplay(10);
 
-    MainGameScoreDisplay mainGameScore = new MainGameScoreDisplay(10,0);
+    MainGameScoreDisplay mainGameScore = new MainGameScoreDisplay(10,1000);
 
     Entity ui = new Entity();
     ui.addComponent(new InputDecorator(stage, 10))

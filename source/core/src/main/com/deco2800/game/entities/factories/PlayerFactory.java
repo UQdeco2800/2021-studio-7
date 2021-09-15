@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.entities.components.player.PlayerObjectInteractions;
@@ -37,7 +38,6 @@ public class PlayerFactory {
    * @return entity
    */
   public static Entity createPlayer() {
-    //this.atlas = getAtlas();
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForPlayer();
 
@@ -61,10 +61,11 @@ public class PlayerFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new PlayerActions())
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-            .addComponent(new InventoryComponent(stats.gold))
+                .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
-            .addComponent(new PlayerObjectInteractions());
+            .addComponent(new PlayerObjectInteractions())
+            .addComponent(new ScoreComponent(100));
 
 
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
@@ -77,14 +78,14 @@ public class PlayerFactory {
       File input = new File("configs/currentCharacterAtlas.txt");
       BufferedReader br = new BufferedReader(new FileReader(input));
       String line = br.readLine();
-      System.out.println(line);
       return line;
 
     } catch (Exception e) {
-      System.out.println("FUCKKKKKKKKKKKKKKKKKKKKKKKK");
       throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
     }
   }
+
+
 
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");

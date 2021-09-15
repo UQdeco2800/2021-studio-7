@@ -45,7 +45,7 @@ public class MainGameScoreDisplay extends UIComponent {
         table.setFillParent(true);
 
         scoreLabel = new Label(
-                String.format("Score: %ds", score),
+                String.format("Score: %d", score),
                 skin, "large");
 
         table.add(scoreLabel);
@@ -71,7 +71,7 @@ public class MainGameScoreDisplay extends UIComponent {
      * @return score as an int
      */
     public int getscore(){
-        score += 100;
+        score -= 1;
         return score;
     }
 
@@ -88,8 +88,8 @@ public class MainGameScoreDisplay extends UIComponent {
      */
     public void countDown() {
         timer = new Timer();
-        int delay = 1000;
-        int period = 1000;
+        int delay = 100;
+        int period = 30;
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 tick();

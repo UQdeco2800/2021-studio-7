@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 
@@ -16,7 +17,8 @@ public class PlayerStatsDisplay extends UIComponent {
   Table table;
   private Image heartImage;
   private Label healthLabel;
-  private Label staminaLabel; //TODO
+  private Label staminaLabel;
+  private Label scoreLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -55,10 +57,16 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence staminaText = String.format("Stamina: %.0f", stamina);
     staminaLabel = new Label(staminaText, skin, "large");
 
+    int score = entity.getComponent(ScoreComponent.class).getScore();
+    CharSequence scoreText = String.format("Score: %d", score);
+    scoreLabel = new Label(scoreText, skin, "large");
+
     table.add(heartImage).size(heartSideLength).left();//pad(5);
     table.add(healthLabel).left();
     table.row();
     table.add(staminaLabel).left(); //todo
+    table.row();
+    table.add(scoreLabel).left();
     stage.addActor(table);
 
   }
@@ -87,7 +95,7 @@ public class PlayerStatsDisplay extends UIComponent {
   }
 
   public void updatePlayerScoreUI(int score){
-    CharSequence text = String.format("Score: %d", getscore());
+    CharSequence text = String.format("Score: %d", score);
     staminaLabel.setText(text);
   }
 
