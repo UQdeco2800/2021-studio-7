@@ -82,6 +82,30 @@ public class ObstacleFactory {
     return bed;
   }
 
+  public static Entity createDoor(Entity player){
+    Entity door = new Entity();
+
+    AnimationRenderComponent doorAnimation = new AnimationRenderComponent(
+            ServiceLocator.getResourceService().getAsset("images/objects/bed/bed.atlas",
+                    TextureAtlas.class));
+    doorAnimation.addAnimation("door", 1f);
+    doorAnimation.addAnimation("door_open", 1f);
+
+    door.addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+            //.addComponent((new InteractableComponent(player,"win_default")))
+            .addComponent(doorAnimation) // Added component for the animation of the bed
+            .addComponent(new InteractableComponentController());
+
+    door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    door.scaleHeight(1.0f);
+    PhysicsUtils.setScaledCollider(door, 0.5f, 0.5f);
+
+    //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
+    return door;
+  }
+
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
   }

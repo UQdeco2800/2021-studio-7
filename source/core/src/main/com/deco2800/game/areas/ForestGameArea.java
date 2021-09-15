@@ -23,6 +23,7 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
+  private static final GridPoint2 DOOR_SPAWN = new GridPoint2(5, 5);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
           "images/characters/box_boy/box_boy_leaf.png",
@@ -130,30 +131,43 @@ public class ForestGameArea extends GameArea {
     GridPoint2 map = TerrainFactory.MAP_SIZE;
     // integer for x or y component of MAP_SIZE is the number of wall entities needed for each corner
     int maxLen = map.x-1; // 30 - 1 = 29
-    int minLen = map.x - map.x; // 30 - 30 = 0
-
+    int minLen = map.x - map.y; // 30 - 30 = 0
+    int midPoint = maxLen/2;
     for (int i = 0; i <= maxLen; i++){
       // Top Left
       GridPoint2 topLeftPoints = new GridPoint2(minLen, i);
       Entity topLeftWall = ObstacleFactory.createTree();
+      topLeftWall.scaleWidth(1f);
       spawnEntityAt(topLeftWall, topLeftPoints, true, false);
 
-      // Bottom Left
+      // Bottom Left testing with a door (using a bed as the door)
       GridPoint2 botLeftPoints = new GridPoint2(i, minLen);
       Entity botLeftWall = ObstacleFactory.createTree();
-      spawnEntityAt(botLeftWall, botLeftPoints, true, false);
+      if ((i == midPoint || i == midPoint-1 || i == midPoint+1) && (botLeftPoints.y == 0)) {
+        //spawn door entity here
+        if(i==midPoint){
+          Entity door = ObstacleFactory.createBed(player);
+          spawnEntityAt(door, botLeftPoints, true, true);
+        }
+      } else{
+        botLeftWall.scaleWidth(1f);
+        spawnEntityAt(botLeftWall, botLeftPoints, true, false);
+      }
 
       // Top Right
       GridPoint2 topRightPoints = new GridPoint2(i, maxLen);
       Entity topRightWall = ObstacleFactory.createTree();
+      topRightWall.scaleWidth(1f);
       spawnEntityAt(topRightWall, topRightPoints, true, false);
 
       // Bottom Right
       GridPoint2 botRightPoints = new GridPoint2(maxLen, i);
       Entity botRightWall = ObstacleFactory.createTree();
+      botRightWall.scaleWidth(1f);
       spawnEntityAt(botRightWall, botRightPoints, true, false);
     }
   }
+
   private void spawnTrees() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
