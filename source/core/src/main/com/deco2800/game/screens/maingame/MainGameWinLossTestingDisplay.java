@@ -39,6 +39,8 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
     // Triggers an event when the button is pressed.
       TextButton simWinDefBtn = new TextButton("Simulate default win", skin);
+
+      simWinDefBtn.getLabel().setColor(0, 0,0, 1f);
       simWinDefBtn.addListener(
               new ChangeListener() {
         @Override
@@ -51,6 +53,8 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
       // Triggers an event when the button is pressed.
       TextButton simLoseTimedBtn = new TextButton("Simulate timed loss", skin);
+
+      simLoseTimedBtn.getLabel().setColor(0, 0,0, 1f);
       simLoseTimedBtn.addListener(
               new ChangeListener() {
               @Override
@@ -63,6 +67,8 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
       // Triggers an event when the button is pressed.
       TextButton simLoseCaughtBtn = new TextButton("Simulate caught loss", skin);
+
+      simLoseCaughtBtn.getLabel().setColor(0, 0,0, 1f);
       simLoseCaughtBtn.addListener(
               new ChangeListener() {
               @Override
