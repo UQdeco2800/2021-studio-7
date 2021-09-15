@@ -42,8 +42,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  //private final ForestGameArea mainGameArea;
-  private final HouseGameArea houseGameArea;
+  private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
   public MainGameScreen() {
@@ -70,7 +69,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
       //mainGameArea = new ForestGameArea(terrainFactory);
-    houseGameArea = new HouseGameArea(terrainFactory);
+    mainGameArea = new HouseGameArea(terrainFactory);
 //    LevelTerrainFactory terrainFactory;
 //    try {
 //        terrainFactory =
@@ -83,14 +82,14 @@ public class MainGameScreen extends ScreenAdapter {
 //    }
 //    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
     //mainGameArea.create();
-    houseGameArea.create();
+    mainGameArea.create();
     //physicsEngine.getContactListener().setTargetFixture(forestGameArea.
             //getPlayer().getComponent(ColliderComponent.class));
     //physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
             //getMom().getComponent(ColliderComponent.class));
     //entityPlayer = mainGameArea.player;
-    entityPlayer = houseGameArea.player;
-    System.out.println(entityPlayer);
+    entityPlayer = mainGameArea.player;
+
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
 
@@ -158,23 +157,20 @@ public class MainGameScreen extends ScreenAdapter {
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
-    MainGameTimerDisplay mainGameTimer =
-            new MainGameTimerDisplay(100);
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
-        //.addComponent(new MainGameWinLossTestingDisplay())
-        .addComponent(mainGameTimer)
+        .addComponent(new MainGameTimerDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
   }
 
-  //public ForestGameArea getMainGameArea() {
-    //return mainGameArea;
-  //}
+  public HouseGameArea getMainGameArea() {
+    return mainGameArea;
+  }
 
   public Entity getMainGameEntity() {
     return mainGameEntity;
