@@ -130,7 +130,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(character).padTop(20f);
     table.row();
-    table.add(changeCharacterBtn).padTop(10f);
+    table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
 
   }
@@ -155,7 +155,7 @@ public class MainMenuDisplay extends UIComponent {
      * Changes the character displayed on the main menu page and cycles the index.
      */
   public void changeCharacterDisplay(){
-      if(characterIndex <= playablecharcters.length-1){
+      if (characterIndex <= playablecharcters.length-1){
           dispose();
           create();
       } else {

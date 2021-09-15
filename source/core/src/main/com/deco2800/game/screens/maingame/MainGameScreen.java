@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.areas.ForestGameArea;
 import com.deco2800.game.areas.components.PerformanceDisplay;
+import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -33,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/ui/box_boy/heart.png"};
+  private static final String[] mainGameTextures = {""};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
@@ -41,10 +42,10 @@ public class MainGameScreen extends ScreenAdapter {
   private final GdxGame game;
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
+  private final ForestGameArea mainGameArea;
+  private final Entity mainGameEntity = new Entity();
 
-  public MainGameScreen(GdxGame game) {
-    this.game = game;
-
+  public MainGameScreen() {
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
 
@@ -65,18 +66,32 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera());
-      ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
-    forestGameArea.create();
-    physicsEngine.getContactListener().setTargetFixture(forestGameArea.
-            getPlayer().getComponent(ColliderComponent.class));
-    physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
-            getMom().getComponent(ColliderComponent.class));
-    entityPlayer = forestGameArea.player;
+      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
+      mainGameArea = new ForestGameArea(terrainFactory);
+//    LevelTerrainFactory terrainFactory;
+//    try {
+//        terrainFactory =
+//                new LevelTerrainFactory("./maps/s1",
+//                        renderer.getCamera());
+//    } catch (IOException e) {
+//        logger.error(e.toString());
+//        logger.error("Check map files that were loaded");
+//        return;
+//    }
+//    ForestGameArea forestGameArea = new ForestGameArea(terrainFactory);
+    mainGameArea.create();
+    //physicsEngine.getContactListener().setTargetFixture(forestGameArea.
+            //getPlayer().getComponent(ColliderComponent.class));
+    //physicsEngine.getContactListener().setEnemyFixture(forestGameArea.
+            //getMom().getComponent(ColliderComponent.class));
+    entityPlayer = mainGameArea.player;
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+
+
   }
 
   @Override
@@ -141,25 +156,24 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
     MainGameTimerDisplay mainGameTimer =
-            new MainGameTimerDisplay(10);
+            new MainGameTimerDisplay();
 
-    //MainGameScoreDisplay mainGameScore = new MainGameScoreDisplay(10,1000);
-
-    Entity ui = new Entity();
-    ui.addComponent(new InputDecorator(stage, 10))
+    mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
-        .addComponent(new MainGameActions(this.game))
+        .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameWinLossTestingDisplay())
         .addComponent(mainGameTimer)
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-        //.addComponent(mainGameScore);
+  }
 
-    ServiceLocator.registerMainGameScreen(ui);
-    mainGameTimer.countDown();
-    //mainGameScore.countDown();
-    ServiceLocator.getEntityService().register(ui);
+  public ForestGameArea getMainGameArea() {
+    return mainGameArea;
+  }
+
+  public Entity getMainGameEntity() {
+    return mainGameEntity;
   }
 }

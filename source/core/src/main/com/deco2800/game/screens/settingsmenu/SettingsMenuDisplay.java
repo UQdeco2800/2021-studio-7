@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
  */
 public class SettingsMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(SettingsMenuDisplay.class);
-  private final GdxGame game;
 
   private Table rootTable;
   private TextField fpsText;
@@ -33,11 +32,6 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
-
-  public SettingsMenuDisplay(GdxGame game) {
-    super();
-    this.game = game;
-  }
 
   @Override
   public void create() {
@@ -201,7 +195,7 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   private void exitMenu() {
-    game.setScreen(ScreenType.MAIN_MENU);
+    ServiceLocator.getGame().setScreen(ScreenType.MAIN_MENU);
   }
 
   private Integer parseOrNull(String num) {

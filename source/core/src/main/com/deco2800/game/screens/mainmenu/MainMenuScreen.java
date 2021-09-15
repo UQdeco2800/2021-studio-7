@@ -20,20 +20,15 @@ import org.slf4j.LoggerFactory;
  */
 public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
-  private final GdxGame game;
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {
           "images/ui/title/RETROACTIVE-large.png",
-          "images/ui/box_boy/box_boy_title.png",
-          //"images/characters/box_boy/box_boy.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
   };
 
-  public MainMenuScreen(GdxGame game) {
-    this.game = game;
-
+  public MainMenuScreen() {
     logger.debug("Initialising main menu screen services");
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
@@ -105,7 +100,7 @@ public class MainMenuScreen extends ScreenAdapter {
     Entity ui = new Entity();
     ui.addComponent(new MainMenuDisplay())
         .addComponent(new InputDecorator(stage, 10))
-        .addComponent(new MainMenuActions(game));
+        .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
   }
 

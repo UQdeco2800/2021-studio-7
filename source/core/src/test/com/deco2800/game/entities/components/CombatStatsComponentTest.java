@@ -25,11 +25,11 @@ class CombatStatsComponentTest {
 
   @Test
   void shouldSetGetStamina() {
-    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 100);
-    assertEquals(100, combat.getStamina());
+    CombatStatsComponent combat = new CombatStatsComponent(100, 20, 500);
+    assertEquals(500, combat.getStamina());
 
     combat.setStamina(150);
-    assertEquals(100, combat.getStamina());
+    assertEquals(150, combat.getStamina());
 
     combat.setStamina(-50);
     assertEquals(0, combat.getStamina());
@@ -44,8 +44,8 @@ class CombatStatsComponentTest {
     combat.changeStamina(-1);
     assertEquals(0, combat.getStamina());
 
-    combat.changeStamina(101);
-    assertEquals(100, combat.getStamina());
+    combat.changeStamina(501);
+    assertEquals(500, combat.getStamina());
   }
 
   @Test

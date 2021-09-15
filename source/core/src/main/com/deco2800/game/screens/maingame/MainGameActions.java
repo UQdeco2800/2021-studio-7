@@ -2,6 +2,7 @@ package com.deco2800.game.screens.maingame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainGameActions.class);
-  private GdxGame game;
-
-  public MainGameActions(GdxGame game) {
-    this.game = game;
-  }
 
   @Override
   public void create() {
@@ -31,7 +27,7 @@ public class MainGameActions extends Component {
   private void onExit() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to main menu screen...");
-    game.setScreen(GdxGame.ScreenType.MAIN_MENU);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
   /**
@@ -40,7 +36,7 @@ public class MainGameActions extends Component {
   private void onWinDefault() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default win screen...");
-    game.setScreen(GdxGame.ScreenType.WIN_DEFAULT);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.WIN_DEFAULT);
   }
 
   /**
@@ -49,7 +45,7 @@ public class MainGameActions extends Component {
   private void onLossTimed() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
-    game.setScreen(GdxGame.ScreenType.LOSS_TIMED);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_TIMED);
   }
 
   /**
@@ -58,6 +54,6 @@ public class MainGameActions extends Component {
   private void onLossCaught() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
-    game.setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
   }
 }

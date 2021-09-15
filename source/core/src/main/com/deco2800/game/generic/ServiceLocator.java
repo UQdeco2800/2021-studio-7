@@ -1,5 +1,7 @@
 package com.deco2800.game.generic;
 
+import com.badlogic.gdx.ScreenAdapter;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
@@ -17,14 +19,17 @@ import org.slf4j.LoggerFactory;
  */
 public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
+  private static GdxGame game;
   private static EntityService entityService;
   private static RenderService renderService;
   private static PhysicsService physicsService;
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
-  private static Entity mainGameScreenUI;
 
+  public static GdxGame getGame() {
+    return game;
+  }
 
   public static EntityService getEntityService() {
     return entityService;
@@ -50,7 +55,10 @@ public class ServiceLocator {
     return resourceService;
   }
 
-  public static Entity getMainGameScreenUI() {return mainGameScreenUI;};
+  public static void registerGame(GdxGame source) {
+    logger.debug("Registering GdxGame {}", source);
+    game = source;
+  }
 
   public static void registerEntityService(EntityService service) {
     logger.debug("Registering entity service {}", service);
@@ -80,11 +88,6 @@ public class ServiceLocator {
   public static void registerResourceService(ResourceService source) {
     logger.debug("Registering resource service {}", source);
     resourceService = source;
-  }
-
-  public static void registerMainGameScreen(Entity source){
-    logger.debug("Registering MainGameScreen service {}", source);
-    mainGameScreenUI = source;
   }
 
   public static void clear() {
