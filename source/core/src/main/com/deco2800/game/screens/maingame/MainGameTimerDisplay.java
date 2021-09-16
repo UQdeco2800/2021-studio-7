@@ -31,6 +31,7 @@ public class MainGameTimerDisplay extends UIComponent {
 
     }
 
+
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */
