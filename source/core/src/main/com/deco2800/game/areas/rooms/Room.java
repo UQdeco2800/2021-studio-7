@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.rooms.jaleel;
+package com.deco2800.game.areas.rooms;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

@@ -24,18 +24,18 @@ public class ObstacleFactory {
    * Creates a tree entity.
    * @return entity
    */
-  public static Entity createTree() {
-    Entity tree =
+  public static Entity createWall() {
+    Entity wall =
         new Entity()
-            .addComponent(new TextureRenderComponent("images/objects/tree/tree.png"))
+            .addComponent(new TextureRenderComponent("images/objects/walls/wall.png"))
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
-    tree.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    tree.getComponent(TextureRenderComponent.class).scaleEntity();
-    tree.scaleHeight(2.5f);
-    PhysicsUtils.setScaledCollider(tree, 0.5f, 0.2f);
-    return tree;
+    wall.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    wall.getComponent(TextureRenderComponent.class).scaleEntity();
+    wall.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(wall, 0.5f, 0.2f);
+    return wall;
   }
 
   /**
@@ -44,7 +44,7 @@ public class ObstacleFactory {
    * @param height Wall height in world units
    * @return Wall entity of given width and height
    */
-  public static Entity createWall(float width, float height, String texture) {
+  public static Entity createWalls(float width, float height, String texture) {
     Entity wall = new Entity()
             .addComponent(new TextureRenderComponent(texture))
             .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
@@ -79,6 +79,22 @@ public class ObstacleFactory {
 
     //bed.getComponent(AnimationRenderComponent.class).scaleEntity();
     return bed;
+  }
+  /**
+   * Creates a door entity.
+   * @return this door entity
+   */
+  public static Entity createDoor(){
+    Entity door =
+            new Entity()
+                    .addComponent(new TextureRenderComponent("images/objects/door/door_close_right.png"));
+                    //.addComponent(new PhysicsComponent())
+                    //.addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+    //door.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    door.getComponent(TextureRenderComponent.class).scaleEntity();
+    door.scaleHeight(2.2f);
+    //PhysicsUtils.setScaledCollider(door, 0.5f, 0.2f);
+    return door;
   }
 
   private ObstacleFactory() {
