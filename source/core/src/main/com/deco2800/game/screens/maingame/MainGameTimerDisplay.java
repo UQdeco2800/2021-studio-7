@@ -21,6 +21,10 @@ public class MainGameTimerDisplay extends UIComponent {
         timerLabel = new Label(text, skin, "large");
     }
 
+    public int getTime(){
+        return timeLeft;
+    }
+
     /**
      * Creates reusable ui styles and adds actors to the stage.
      */

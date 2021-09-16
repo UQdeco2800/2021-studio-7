@@ -45,6 +45,7 @@ public class ForestGameArea extends GameArea {
           "images/objects/door/door_animationL.png",
           "images/objects/tv/TV_animationL.png"
   };
+
   private static final String[] forestTextureAtlases = {
           "images/tiles/iso/iso_terrain_grass.atlas",
           "images/characters/ghost/ghost.atlas",
@@ -54,8 +55,9 @@ public class ForestGameArea extends GameArea {
           "images/characters/boy_01/boy_01.atlas",
           "images/characters/mum_01/mum_01.atlas",
           "images/objects/door/door_animationL.atlas",
-          "images/objects/tv/TV_animationL.atlas"
-          //TODO add "images/female_character.atlas"
+          "images/objects/tv/TV_animationL.atlas",
+          "images/objects/energy_drink/energy.atlas"
+          //TODO add images/female_character.atlas
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -79,6 +81,7 @@ public class ForestGameArea extends GameArea {
 
     spawnTerrain();
     player = spawnPlayer();
+    spawnEnergyDrink(new GridPoint2(10,10));
     spawnBed();
     spawnDoor();
     spawnTV();
@@ -92,8 +95,6 @@ public class ForestGameArea extends GameArea {
   public Entity getPlayer(){
     return player;
   }
-
-  public Entity getMum() { return mum;}
 
   private void displayUI() {
     Entity ui = new Entity();
@@ -131,6 +132,11 @@ public class ForestGameArea extends GameArea {
     spawnEntityAt(
         ObstacleFactory.createWall(worldBounds.x, WALL_WIDTH),
         GridPoint2Utils.ZERO, false, false);*/
+  }
+
+  private void spawnEnergyDrink(GridPoint2 location) {
+    Entity drink = ObstacleFactory.createEnergyDrink();
+    spawnEntityAt(drink, location, true, true);
   }
 
   private void spawnTrees() {

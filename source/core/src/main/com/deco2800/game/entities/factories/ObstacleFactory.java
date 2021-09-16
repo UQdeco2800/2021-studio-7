@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.entities.components.interactions.Actions.BedActions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.Actions.DoorActions;
+import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
 import com.deco2800.game.entities.components.interactions.Actions.tvActions;
+import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -131,6 +133,34 @@ public class ObstacleFactory {
 
     return tv;
   }
+
+  public static Entity createEnergyDrink(){
+    Entity energyDrink = new Entity();
+
+    AnimationRenderComponent drinkAnimations = new AnimationRenderComponent(
+            ServiceLocator.getResourceService().getAsset("images/objects/energy_drink/energy.atlas",
+                    TextureAtlas.class));
+            drinkAnimations.addAnimation("energy_highlight", 1f);
+            drinkAnimations.addAnimation("energy", 1f);
+
+    energyDrink.addComponent(drinkAnimations)
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new DrinkActions())
+            .addComponent(new SingleUse());
+
+    energyDrink.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(energyDrink, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(energyDrink, 1f, 1f);
+
+    return energyDrink;
+
+  }
+
+  /*public static Entity createBananaPeel(){
+    Entity = new Entity();
+  }*/
 
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");
