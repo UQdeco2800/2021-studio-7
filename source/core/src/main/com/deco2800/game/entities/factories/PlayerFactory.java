@@ -3,6 +3,10 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.ScoreComponent;
+import com.deco2800.game.entities.components.player.InventoryComponent;
+import com.deco2800.game.entities.components.player.PlayerActions;
+import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
@@ -15,6 +19,7 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import java.io.*;
 
 /**
  * Factory to create a player entity.
@@ -36,7 +41,7 @@ public class PlayerFactory {
 
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset("images/characters/boy_01/boy_01.atlas", TextureAtlas.class));
+                    ServiceLocator.getResourceService().getAsset(getAtlas(), TextureAtlas.class));
     animator.addAnimation("standing_south", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
@@ -53,17 +58,35 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-            .addComponent(new InventoryComponent(stats.gold))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerActions())
-            .addComponent(new SurveyorComponent());
+            .addComponent(new SurveyorComponent())
+            .addComponent(new ScoreComponent(1000));
 
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
     return player;
   }
+
+  /**
+   *
+   * @return
+   */
+  public static String getAtlas() {
+    try {
+      File input = new File("configs/currentCharacterAtlas.txt");
+      BufferedReader br = new BufferedReader(new FileReader(input));
+      String line = br.readLine();
+      return line;
+
+    } catch (Exception e) {
+      throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
+    }
+  }
+
+
 
   private PlayerFactory() {
     throw new IllegalStateException("Instantiating static util class");

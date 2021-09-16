@@ -5,11 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.endgame.EndGameScreen;
+import com.deco2800.game.screens.contextscreen.ContextScreen;
+import com.deco2800.game.screens.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
 import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
+import com.deco2800.game.screens.leaderboardscreen.LeaderBoardScreen;
+import com.deco2800.game.screens.titlescreen.TitleScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +34,7 @@ public class GdxGame extends Game {
     // Sets background to black
     Gdx.gl.glClearColor(0/255f, 0/255f, 0/255f, 1);
 
-    setScreen(ScreenType.MAIN_MENU);
+    setScreen(ScreenType.TITLE_SCREEN);
     ServiceLocator.registerGame(this);
   }
 
@@ -70,6 +73,8 @@ public class GdxGame extends Game {
    */
   public Screen newScreen(ScreenType screenType) {
     switch (screenType) {
+      case TITLE_SCREEN:
+        return new TitleScreen();
       case MAIN_MENU:
         return new MainMenuScreen();
       case PAUSE_MENU:
@@ -78,6 +83,10 @@ public class GdxGame extends Game {
         return new MainGameScreen();
       case SETTINGS:
         return new SettingsScreen();
+      case CONTEXT:
+        return new ContextScreen();
+      case LEADERBOARD:
+        return new LeaderBoardScreen(this);
       case WIN_DEFAULT:
         return new EndGameScreen(ScreenType.WIN_DEFAULT);
       case LOSS_TIMED:
@@ -90,7 +99,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, PAUSE_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT
+    MAIN_MENU, PAUSE_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT, TITLE_SCREEN, LEADERBOARD
   }
 
   /**

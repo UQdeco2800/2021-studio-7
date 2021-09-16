@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {"images/ui/box_boy/heart.png"};
+  private static final String[] mainGameTextures = {""};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
@@ -54,8 +54,10 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
+
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
+
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -122,7 +124,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-
+    entityPlayer.getEvents().trigger("write_score");
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
@@ -153,7 +155,7 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
     MainGameTimerDisplay mainGameTimer =
-            new MainGameTimerDisplay(10);
+            new MainGameTimerDisplay();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
