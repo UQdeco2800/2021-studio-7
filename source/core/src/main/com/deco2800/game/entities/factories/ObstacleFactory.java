@@ -47,9 +47,9 @@ public class ObstacleFactory {
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
     furniture.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    furniture.getComponent(TextureRenderComponent.class).scaleEntity();
-    furniture.scaleHeight(2.5f);
-    PhysicsUtils.setScaledCollider(furniture, 0.5f, 0.2f);
+    furniture.scaleHeight(0.5f);
+    PhysicsUtils.setScaledCollider(furniture, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(furniture, 1f, 1f);
     return furniture;
   }
 
