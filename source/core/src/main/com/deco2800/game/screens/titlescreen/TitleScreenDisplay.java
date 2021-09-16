@@ -1,32 +1,25 @@
 package com.deco2800.game.screens.titlescreen;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
+import com.deco2800.game.screens.EndGameDisplay;
 import com.deco2800.game.ui.components.UIComponent;
-
-import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * A ui component for displaying the Tittle screen.
+ */
 public class TitleScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
-    private Label startText;
 
     public TitleScreenDisplay() {
         super();
@@ -42,7 +35,7 @@ public class TitleScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        startText = new Label("PRESS ANY KEY TO START",skin, "title");
+        Label startText = new Label("PRESS ANY KEY TO START", skin, "title");
         startText.addAction(Actions.alpha(0));
         startText.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
 

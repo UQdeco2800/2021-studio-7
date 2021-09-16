@@ -1,89 +1,173 @@
 boy_00.png
-size: 816, 108
+size: 1728, 544
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-standing_south
-  rotate: false
-  xy: 1, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 87, 87
-  index: 0
-standing_west
-  rotate: false
-  xy: 457, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 99, 91
-  index: 0
 standing_east
   rotate: false
-  xy: 517, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 99, 75
-  index: 0
+  xy: 0, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
 standing_north
   rotate: false
-  xy: 77, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 91, 79
-  index: 0
-walking_south
+  xy: 144, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+standing_northeast
   rotate: false
-  xy: 153, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 87, 79
-  index: 0
-walking_south
+  xy: 288, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+boy_00_standing_northwest
   rotate: false
-  xy: 229, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 87, 87
-  index: 1
-walking_west
+  xy: 432, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+boy_00_standing_south
   rotate: false
-  xy: 577, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 99, 91
-  index: 0
-walking_west
+  xy: 576, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+standing_southeast
   rotate: false
-  xy: 637, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 95, 87
-  index: 1
+  xy: 720, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+standing_southwest
+  rotate: false
+  xy: 864, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
+standing_west
+  rotate: false
+  xy: 1008, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: -1
 walking_east
   rotate: false
-  xy: 697, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 95, 91
+  xy: 1152, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
 walking_east
   rotate: false
-  xy: 757, 1
-  size: 58, 106
-  orig: 256, 256
-  offset: 95, 75
+  xy: 1296, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
 walking_north
   rotate: false
-  xy: 305, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 91, 79
+  xy: 1440, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 0
 walking_north
   rotate: false
-  xy: 381, 1
-  size: 74, 106
-  orig: 256, 256
-  offset: 87, 95
+  xy: 1584, 0
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_northeast
+  rotate: false
+  xy: 0, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_northeast
+  rotate: false
+  xy: 144, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_northwest
+  rotate: false
+  xy: 288, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_northwest
+  rotate: false
+  xy: 432, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_south
+  rotate: false
+  xy: 576, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_south
+  rotate: false
+  xy: 720, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_southeast
+  rotate: false
+  xy: 864, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_southeast
+  rotate: false
+  xy: 1008, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_southwest
+  rotate: false
+  xy: 1152, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_southwest
+  rotate: false
+  xy: 1296, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 1
+walking_west
+  rotate: false
+  xy: 1440, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
+  index: 0
+walking_west
+  rotate: false
+  xy: 1584, 272
+  size: 144, 272
+  orig: 144, 272
+  offset: 0, 0
   index: 1
