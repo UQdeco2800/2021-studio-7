@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final int NUM_TREES = 7;
-  private static final int NUM_GHOSTS = 2;
   private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 20);
   private static final GridPoint2 DOOR_SPAWN = new GridPoint2(5, 10);
@@ -57,6 +56,7 @@ public class ForestGameArea extends GameArea {
           "images/characters/boy_00/boy_00.atlas",
           "images/objects/banana_peel/banana.atlas"
   };
+
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -83,6 +83,7 @@ public class ForestGameArea extends GameArea {
     spawnBed();
     spawnDoor();
     spawnTV();
+    spawnFurniture();
 //    spawnTrees();
 //    spawnGhosts();
 //    spawnGhostKing();
