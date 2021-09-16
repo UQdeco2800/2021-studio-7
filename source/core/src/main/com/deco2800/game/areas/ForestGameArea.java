@@ -88,10 +88,6 @@ public class ForestGameArea extends GameArea {
     spawnBed();
     spawnDoor();
     spawnTV();
-    spawnFurniture();
-//    spawnTrees();
-//    spawnGhosts();
-//    spawnGhostKing();
     mum = spawnMum();
     //playMusic();
   }
@@ -154,12 +150,6 @@ public class ForestGameArea extends GameArea {
     }
   }
 
-  private void spawnFurniture(){
-    Entity furniture = ObstacleFactory.createFurniture("images/objects/furniture/coffee_table_left.png");
-    GridPoint2 place = new GridPoint2(8,9);
-    spawnEntityAt(furniture, place, true, true);
-
-  }
 
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();

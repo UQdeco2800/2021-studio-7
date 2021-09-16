@@ -39,10 +39,11 @@ public class ObstacleFactory {
     return tree;
   }
 
-  public static Entity createFurniture(String filepath) {
+  /*
+  public static Entity createTable() {
     Entity furniture =
             new Entity()
-                    .addComponent(new TextureRenderComponent(filepath))
+                    .addComponent(new TextureRenderComponent("images/objects/furniture/coffee_table_left.png"))
                     .addComponent(new PhysicsComponent())
                     .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
 
@@ -51,7 +52,7 @@ public class ObstacleFactory {
     PhysicsUtils.setScaledCollider(furniture, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(furniture, 1f, 1f);
     return furniture;
-  }
+  }*/
 
   /**
    * Creates an invisible physics wall.
