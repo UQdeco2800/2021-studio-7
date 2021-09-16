@@ -22,6 +22,14 @@ public class PlayerStaminaBar extends ProgressBar {
         getStyle().knob = new TextureRegionDrawable(new TextureRegion(new Texture("images/ui/elements/progress-knob-pink.png")));
         getStyle().knobBefore = getStyle().knob;
 
+        // set width of pink knob
+        getStyle().knob.setMinWidth(0);
+        getStyle().knob.setLeftWidth(0);
+        getStyle().knob.setRightWidth(0);
+
+        // set background to not overlap progress bar knob
+        getStyle().background.setLeftWidth(6);
+        getStyle().background.setRightWidth(12);
 
         setWidth(width);
         setHeight(height);

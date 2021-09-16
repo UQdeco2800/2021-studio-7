@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,8 +22,8 @@ public class EndGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
     private static final String[] winScreenTextures = {"images/ui/screens/win_screen.png"};
     private static final String[] loseScreenTextures = {"images/ui/screens/lose_screen.png"};
-    private String[] activeScreenTextures;
-    private GdxGame.ScreenType result;
+    private final String[] activeScreenTextures;
+    private final GdxGame.ScreenType result;
 
     private final Renderer renderer;
 

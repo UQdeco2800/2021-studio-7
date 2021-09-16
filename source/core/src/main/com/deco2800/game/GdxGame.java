@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.contextscreen.ContextScreen;
-import com.deco2800.game.screens.endgame.EndGameScreen;
+import com.deco2800.game.screens.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
