@@ -74,15 +74,14 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
       buttonContainer.addActor(simLoseCaughtBtn);
 
       // Button for testing the textboxUI
-      // TODO This is just for testing, remove before end of sprint
       TextButton textboxBtn = new TextButton("Create textbox", skin);
       String testString = "This is a lengthy test string to slap on the screen and it just keeps" +
-              " going on and on \n and on and on and on";
+              " going on and on and on and on and on";
       textboxBtn.addListener(
               new ChangeListener() {
                   @Override
                   public void changed(ChangeEvent changeEvent, Actor actor) {
-                      //logger.debug("Toggle textbox button clicked");
+                      logger.debug("Toggle textbox button clicked");
                       entity.getEvents().trigger("create_textbox", testString);
                   }
               });
