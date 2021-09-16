@@ -40,6 +40,7 @@ public class PlayerActions extends InteractionComponent {
   public void update() {
     if (moving) {
       updateSpeed();
+      entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
     updateStamina();

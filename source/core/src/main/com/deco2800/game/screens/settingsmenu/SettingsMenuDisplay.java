@@ -156,7 +156,7 @@ public class SettingsMenuDisplay extends UIComponent {
     TextButton applyBtn = new TextButton("Apply", skin);
 
     exitBtn.addListener(
-        new ChangeListener() {
+                new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Exit button clicked");
