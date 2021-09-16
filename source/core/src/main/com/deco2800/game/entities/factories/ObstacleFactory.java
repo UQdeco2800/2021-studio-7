@@ -39,6 +39,20 @@ public class ObstacleFactory {
     return tree;
   }
 
+  public static Entity createFurniture(String filepath) {
+    Entity furniture =
+            new Entity()
+                    .addComponent(new TextureRenderComponent(filepath))
+                    .addComponent(new PhysicsComponent())
+                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
+
+    furniture.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
+    furniture.getComponent(TextureRenderComponent.class).scaleEntity();
+    furniture.scaleHeight(2.5f);
+    PhysicsUtils.setScaledCollider(furniture, 0.5f, 0.2f);
+    return furniture;
+  }
+
   /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
@@ -141,7 +155,7 @@ public class ObstacleFactory {
             drinkAnimations.addAnimation("energy", 1f);
 
     energyDrink.addComponent(drinkAnimations)
-            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
             .addComponent(new DrinkActions())
@@ -158,8 +172,12 @@ public class ObstacleFactory {
   public static Entity createBananaPeel(){
     Entity bananaPeel = new Entity();
 
-    bananaPeel.addComponent(new TextureRenderComponent("images/objects/banana_peel/banana_peel.png"))
-            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+    AnimationRenderComponent peel = new AnimationRenderComponent(ServiceLocator.getResourceService().getAsset("images/objects" +
+            "/banana_peel/banana.atlas",TextureAtlas.class));
+    peel.addAnimation("banana_peel", 1f);
+
+    bananaPeel.addComponent(peel)
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.DynamicBody))
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
             .addComponent(new BananaPeelActions());

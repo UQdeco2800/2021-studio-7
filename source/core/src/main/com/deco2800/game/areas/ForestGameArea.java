@@ -41,7 +41,7 @@ public class ForestGameArea extends GameArea {
           "images/tiles/iso/iso_floor_1_alt.png",
           "images/objects/door/door_animationL.png",
           "images/objects/tv/TV_animationL.png",
-          "images/objects/banana_peel/banana_peel.png"
+          "images/objects/furniture/coffee_table_left.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -54,7 +54,8 @@ public class ForestGameArea extends GameArea {
           "images/objects/tv/TV_animationL.atlas",
           "images/objects/energy_drink/energy.atlas",
           "images/characters/girl_00/girl_00.atlas",
-          "images/characters/boy_00/boy_00.atlas"
+          "images/characters/boy_00/boy_00.atlas",
+          "images/objects/banana_peel/banana.atlas"
   };
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
@@ -145,6 +146,11 @@ public class ForestGameArea extends GameArea {
       Entity tree = ObstacleFactory.createTree();
       spawnEntityAt(tree, randomPos, true, false);
     }
+  }
+
+  private void spawnFurniture(){
+    Entity furniture = ObstacleFactory.createFurniture("images/objects/furniture/coffee_table_left.png");
+
   }
 
   private Entity spawnPlayer() {

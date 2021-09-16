@@ -52,7 +52,8 @@ public class PlayerActions extends InteractionComponent {
   }
 
   private void drinkEnergyDrink(){
-    //
+    int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
+    entity.getComponent(CombatStatsComponent.class).setStamina(stamina + 100);
   }
 
 
