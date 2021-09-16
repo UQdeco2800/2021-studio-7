@@ -214,15 +214,6 @@ public class ColliderComponent extends Component {
     return scale;
   }
 
-  @Override
-  public void dispose() {
-    super.dispose();
-    Body physBody = entity.getComponent(PhysicsComponent.class).getBody();
-    if (physBody.getFixtureList().contains(fixture, true)) {
-      physBody.destroyFixture(fixture);
-    }
-  }
-
   private Shape makeBoundingBox() {
     PolygonShape bbox = new PolygonShape();
     Vector2 center = entity.getScale().scl(0.5f);

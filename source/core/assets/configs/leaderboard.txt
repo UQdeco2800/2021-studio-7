@@ -1,0 +1,17 @@
+LUCY:123
+DirtyDefault72889:333
+Tim:341
+DirtyDefault62692:402
+DirtyDefault80071:684
+DirtyDefault71596:750
+DirtyDefault4579:795
+DirtyDefault11575:802
+DirtyDefault96878:803
+DirtyDefault92622:807
+Ken:854
+DirtyDefault6491:919
+Jim:1034
+BEN:1234
+DirtyDefault:1743
+
+DirtyDefault94544:747,
