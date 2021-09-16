@@ -1,0 +1,33 @@
+door_animationL.png
+size: 616, 244
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+door_close_left
+  rotate: false
+  xy: 489, 1
+  size: 126, 242
+  orig: 256, 256
+  offset: 3, 7
+  index: -1
+Door_left_highlighted
+  rotate: false
+  xy: 233, 1
+  size: 126, 242
+  orig: 256, 256
+  offset: 3, 7
+  index: -1
+Door_left_highlihted_d
+  rotate: false
+  xy: 361, 1
+  size: 126, 242
+  orig: 256, 256
+  offset: 3, 7
+  index: -1
+Door_open_left
+  rotate: false
+  xy: 1, 1
+  size: 230, 242
+  orig: 256, 256
+  offset: 3, 3
+  index: -1

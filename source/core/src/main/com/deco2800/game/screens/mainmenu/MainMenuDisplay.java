@@ -5,12 +5,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.lang.Math;
 
 /**
  * A ui component for displaying the Main menu.
@@ -18,12 +24,18 @@ import org.slf4j.LoggerFactory;
 public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
+  private static TextField txtUsername;
   private Table table;
   private String playablecharcters[] = {
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
 
+  };
+  private  String playableAtlas[]={
+          "images/characters/boy_01/boy_01.atlas",
+          "images/characters/girl_00/girl_00.atlas",
+          "images/characters/boy_00/boy_00.atlas"
   };
   int characterIndex= 0 ;
 
@@ -40,17 +52,15 @@ public class MainMenuDisplay extends UIComponent {
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
+    writeAtlas(); //Stores copy of the first character
 
     TextButton startBtn = new TextButton("Start", skin);
-    startBtn.getLabel().setColor(0, 0,0, 1f);
-    TextButton loadBtn = new TextButton("Load", skin);
-    loadBtn.getLabel().setColor(0, 0,0, 1f);
+    TextButton leaderboardBtn = new TextButton("LeaderBoard", skin);
     TextButton settingsBtn = new TextButton("Settings", skin);
-    settingsBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton exitBtn = new TextButton("Exit", skin);
-    exitBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
-    changeCharacterBtn.getLabel().setColor(0, 0,0, 1f);
+    this.txtUsername = new TextField("", skin);
+    txtUsername.setMessageText("Username:");
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -61,16 +71,17 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Start button clicked");
+            writeUsername();
             entity.getEvents().trigger("start");
           }
         });
 
-    loadBtn.addListener(
+    leaderboardBtn.addListener(
         new ChangeListener() {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Load button clicked");
-            entity.getEvents().trigger("load");
+            logger.debug("LearderBoard button clicked");
+            entity.getEvents().trigger("leaderboard");
           }
         });
 
@@ -99,25 +110,29 @@ public class MainMenuDisplay extends UIComponent {
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     characterIndex++;
                     changeCharacterDisplay();
-                    logger.debug("Change Character button clicked. ");
+                    writeAtlas();
+                    logger.info("Change Character button clicked. ");
                     entity.getEvents().trigger("change_character");
                 }
             });
 
     table.add(title);
     table.row();
-    table.add(startBtn).padTop(50f);
+    table.add(startBtn).padTop(15);
     table.row();
-    table.add(loadBtn).padTop(15f);
+    table.add(leaderboardBtn).padTop(15f);
     table.row();
     table.add(settingsBtn).padTop(15f);
     table.row();
     table.add(exitBtn).padTop(15f);
     table.row();
-    table.add(character).padTop(50f);
+    table.add(txtUsername).padTop(50f);
+    table.row();
+    table.add(character).padTop(20f);
     table.row();
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
+
   }
 
   @Override
@@ -149,4 +164,46 @@ public class MainMenuDisplay extends UIComponent {
           create();
       }
   }
+    /**
+     * Updates currentCharacterAtlas.txt
+     */
+    public void writeAtlas(){
+        try {
+            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+            writer.write(this.playableAtlas[this.characterIndex]);
+            writer.close();
+            logger.info("Writing new atlas to settings.");
+        } catch (Exception e){
+
+            logger.debug("Could not load the atlas after character change was made.");
+        }
+    }
+
+    public void writeUsername(){
+        try {
+            FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+            String username;
+
+            if (this.txtUsername.getText().length()<2){
+                username = "DirtyDefault"+ getRandomNum();
+            }else{
+                username = this.txtUsername.getText();
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n");
+            sb.append(username);
+            sb.append(":");
+            String s = sb.toString();
+            writer.write(s);
+            writer.close();
+            logger.info("Wrote username to leaderboard.");
+        } catch (Exception e){
+            logger.debug("Could not write username to leaderboard.");
+        }
+    }
+
+    public int getRandomNum(){
+        return (int)(Math.random()*100000);
+    }
 }

@@ -37,7 +37,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
 
-    System.out.println();
 
     loadAssets();
     createUI();
