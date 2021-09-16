@@ -79,7 +79,20 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
             });
       buttonContainer.addActor(simLoseCaughtBtn);
 
-    stage.addActor(table);
+      // Button for testing the textboxUI
+      TextButton textboxBtn = new TextButton("Create textbox", skin);
+      String testString = "You drank a can of Dountain Mew! You've gained some extra stamina.";
+      textboxBtn.addListener(
+              new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent changeEvent, Actor actor) {
+                      logger.debug("Toggle textbox button clicked");
+                      entity.getEvents().trigger("create_textbox", testString);
+                  }
+              });
+      buttonContainer.addActor(textboxBtn);
+
+      stage.addActor(table);
   }
 
   @Override

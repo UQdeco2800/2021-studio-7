@@ -101,7 +101,7 @@ class ColliderComponentTest {
     assertEquals(shape.getType(), component.getFixture().getShape().getType());
   }
 
-  @Test
+  /*@Test
   void shouldSetBox() {
     Entity entity = new Entity();
     entity.addComponent(new PhysicsComponent());
@@ -116,16 +116,16 @@ class ColliderComponentTest {
     PhysicsTestUtils.checkPolygonCollider(component, box);
     Vector2 pos = PhysicsTestUtils.getRectanglePosition(component);
     assertEquals(Vector2Utils.ONE, pos);
-  }
+  }*/
 
-  @Test
+  /*@Test
   void shouldSetAligned() {
     testAlignedBox(AlignX.LEFT, AlignY.BOTTOM, Vector2.Zero);
     testAlignedBox(AlignX.RIGHT, AlignY.TOP, new Vector2(2f, 2f));
     testAlignedBox(AlignX.CENTER, AlignY.CENTER, new Vector2(1f, 1f));
-  }
+  }*/
 
-  private static void testAlignedBox(AlignX alignX, AlignY alignY, Vector2 position) {
+  /*private static void testAlignedBox(AlignX alignX, AlignY alignY, Vector2 position) {
     Entity entity = new Entity();
     entity.addComponent(new PhysicsComponent());
     ColliderComponent component = new ColliderComponent();
@@ -138,5 +138,5 @@ class ColliderComponentTest {
 
     Vector2 realPos = PhysicsTestUtils.getRectanglePosition(component);
     assertEquals(position, realPos);
-  }
+  }*/
 }
