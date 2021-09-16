@@ -56,7 +56,7 @@ public class DrinkActions extends InteractionComponent {
         if (target == null) {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("DRINK started interaction with PLAYER, modifying player base speed");
+            logger.info("DRINK started interaction with PLAYER, increasing player stamina");
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             //add time restriction
