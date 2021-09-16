@@ -75,8 +75,7 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
       // Button for testing the textboxUI
       TextButton textboxBtn = new TextButton("Create textbox", skin);
-      String testString = "This is a lengthy test string to slap on the screen and it just keeps" +
-              " going on and on and on and on and on";
+      String testString = "You drank a can of Dountain Mew! You've gained some extra stamina.";
       textboxBtn.addListener(
               new ChangeListener() {
                   @Override
