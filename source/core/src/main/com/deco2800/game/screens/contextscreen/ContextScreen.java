@@ -2,11 +2,9 @@ package com.deco2800.game.screens.contextscreen;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
@@ -16,8 +14,15 @@ import com.deco2800.game.rendering.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The game screen containing the context.
+ */
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
+    private static final String[] ContextTextures = {
+            "images/ui/context/mum_and_bed.PNG",
+            "images/ui/screens/inactiveStart.png"
+    };
 
     private final Renderer renderer;
 
@@ -28,10 +33,12 @@ public class ContextScreen extends ScreenAdapter {
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
-        ServiceLocator.registerTimeSource(new GameTime());
 
         renderer = RenderFactory.createRenderer();
 
+        System.out.println();
+
+        loadAssets();
         createUI();
     }
 
@@ -62,6 +69,7 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Disposing context screen");
 
         renderer.dispose();
+        unloadAssets();
         ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getResourceService().dispose();
@@ -69,8 +77,21 @@ public class ContextScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
+    private void loadAssets() {
+        logger.debug("Loading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(ContextTextures);
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    private void unloadAssets() {
+        logger.debug("Unloading assets");
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.unloadAssets(ContextTextures);
+    }
+
     /**
-     * Creates the end game's ui including components for rendering ui elements to the screen and
+     * Creates the context screens ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {

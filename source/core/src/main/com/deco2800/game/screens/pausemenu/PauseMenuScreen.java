@@ -1,51 +1,40 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens.pausemenu;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.input.components.InputDecorator;
-import com.deco2800.game.input.InputService;
-import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.input.InputService;
+import com.deco2800.game.input.components.InputDecorator;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.rendering.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The win/lose screen at the end of the game.
+ * The game screen containg the pause menu.
+ *
  */
-public class EndGameScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
-    private static final String[] winScreenTextures = {"images/ui/screens/win_screen.png"};
-    private static final String[] loseScreenTextures = {"images/ui/screens/lose_screen.png"};
-    private String[] activeScreenTextures;
-    private GdxGame.ScreenType result;
-
+public class PauseMenuScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(PauseMenuScreen.class);
     private final Renderer renderer;
+    private static final String[] mainMenuTextures = {
+            "images/ui/screens/paused_screen.png"
+    };
 
-    public EndGameScreen(GdxGame.ScreenType result) {
-        this.result = result;
-        switch (this.result) {
-            case WIN_DEFAULT:
-                this.activeScreenTextures = winScreenTextures;
-                break;
-            case LOSS_TIMED:
-            case LOSS_CAUGHT:
-            default:
-                this.activeScreenTextures = loseScreenTextures;
-        }
-
-        logger.debug("Initialising end game screen services");
+    public PauseMenuScreen() {
+        logger.debug("Initialising pause menu screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
         ServiceLocator.registerRenderService(new RenderService());
 
         renderer = RenderFactory.createRenderer();
+        renderer.getCamera().getEntity().setPosition(5f, 5f);
 
         loadAssets();
         createUI();
@@ -75,49 +64,39 @@ public class EndGameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing end game screen");
+        logger.debug("Disposing main menu screen");
 
         renderer.dispose();
         unloadAssets();
-        ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
-        ServiceLocator.getResourceService().dispose();
+        ServiceLocator.getEntityService().dispose();
 
         ServiceLocator.clear();
-    }
-
-    public GdxGame.ScreenType getResult() {
-        return this.result;
-    }
-
-    public String[] getActiveScreenTextures() {
-        return this.activeScreenTextures;
     }
 
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(activeScreenTextures);
+        resourceService.loadTextures(mainMenuTextures);
         ServiceLocator.getResourceService().loadAll();
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(activeScreenTextures);
+        resourceService.unloadAssets(mainMenuTextures);
     }
 
     /**
-     * Creates the end game's ui including components for rendering ui elements to the screen and
-     * capturing and handling ui input.
+     * Creates the pause menu's UI, including components for rendering UI and handling inputs.
      */
     private void createUI() {
-        logger.debug("Creating ui");
+        logger.debug("Creating UI");
         Stage stage = ServiceLocator.getRenderService().getStage();
-        Entity ui = new Entity();
-        ui.addComponent(new EndGameDisplay(this))
+        Entity UI = new Entity();
+        UI.addComponent(new PauseMenuDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new EndGameActions());
-        ServiceLocator.getEntityService().register(ui);
+                .addComponent(new PauseMenuActions());
+        ServiceLocator.getEntityService().register(UI);
     }
 }

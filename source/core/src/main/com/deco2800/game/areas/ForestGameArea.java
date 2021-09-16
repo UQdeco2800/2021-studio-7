@@ -20,15 +20,18 @@ import org.slf4j.LoggerFactory;
 public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final int NUM_TREES = 7;
+  private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 20);
+  private static final GridPoint2 DOOR_SPAWN = new GridPoint2(5, 10);
+  private static final GridPoint2 TV_SPAWN = new GridPoint2(5, 15);
   private static final int NUM_GHOSTS = 1;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
-  private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
+  private static int isoX;
+  private static int isoY;
+  private static final GridPoint2 PLAYER_SPAWN_CART = new GridPoint2(10,0);
+  private GridPoint2 isoCoord = coordTransform(PLAYER_SPAWN_CART);
+  private final GridPoint2 PLAYER_SPAWN = isoCoord;
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
-          "images/characters/box_boy/box_boy_leaf.png",
           "images/objects/tree/tree.png",
-          "images/characters/ghost/ghost_king.png",
-          "images/characters/ghost/ghost_0.png",
           "images/tiles/ortho/ortho_grass_1.png",
           "images/tiles/ortho/ortho_grass_2.png",
           "images/tiles/ortho/ortho_grass_3.png",
@@ -39,18 +42,26 @@ public class ForestGameArea extends GameArea {
           "images/tiles/iso/iso_grass_2.png",
           "images/tiles/iso/iso_grass_3.png",
           "images/tiles/iso/iso_floor_1.png",
-          "images/tiles/iso/iso_floor_1_alt.png"
+          "images/tiles/iso/iso_floor_1_alt.png",
+          "images/objects/door/door_animationL.png",
+          "images/objects/tv/TV_animationL.png",
+          "images/objects/furniture/coffee_table_left.png"
   };
+
   private static final String[] forestTextureAtlases = {
           "images/tiles/iso/iso_terrain_grass.atlas",
-          "images/characters/ghost/ghost.atlas",
           "images/objects/bed/bed.atlas",
-          "images/characters/ghost/ghost_king.atlas",
           "images/tiles/iso/iso_terrain_grass.atlas",
           "images/characters/boy_01/boy_01.atlas",
-          "images/characters/mum_01/mum_01.atlas"
-          //TODO add "images/female_character.atlas"  `
+          "images/characters/mum_01/mum_01.atlas",
+          "images/objects/door/door_animationL.atlas",
+          "images/objects/tv/TV_animationL.atlas",
+          "images/objects/energy_drink/energy.atlas",
+          "images/characters/girl_00/girl_00.atlas",
+          "images/characters/boy_00/boy_00.atlas",
+          "images/objects/banana_peel/banana.atlas"
   };
+
   private static final String[] forestSounds = {"sounds/Impact4.ogg"};
   private static final String backgroundMusic = "sounds/BGM_03_mp3.mp3";
   private static final String[] forestMusic = {backgroundMusic};
@@ -72,10 +83,11 @@ public class ForestGameArea extends GameArea {
     displayUI();
     spawnTerrain();
     player = spawnPlayer();
+    spawnEnergyDrink();
+    spawnBananaPeel();
     spawnBed();
-    spawnTrees();
-//    spawnGhosts();
-//    spawnGhostKing();
+    spawnDoor();
+    spawnTV();
     mum = spawnMum();
     //playMusic();
   }
@@ -83,8 +95,6 @@ public class ForestGameArea extends GameArea {
   public Entity getPlayer(){
     return player;
   }
-
-  public Entity getMum() { return mum;}
 
   private void displayUI() {
     Entity ui = new Entity();
@@ -124,6 +134,11 @@ public class ForestGameArea extends GameArea {
         GridPoint2Utils.ZERO, false, false);*/
   }
 
+  private void spawnEnergyDrink() {
+    Entity drink = ObstacleFactory.createEnergyDrink();
+    spawnEntityAt(drink, new GridPoint2(10,10), true, true);
+  }
+
   private void spawnTrees() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
@@ -135,10 +150,16 @@ public class ForestGameArea extends GameArea {
     }
   }
 
+
   private Entity spawnPlayer() {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  private void spawnBananaPeel(){
+    Entity peel = ObstacleFactory.createBananaPeel();
+    spawnEntityAt(peel, new GridPoint2(15,15), true, true);
   }
 
   private void spawnBed() {
@@ -146,6 +167,16 @@ public class ForestGameArea extends GameArea {
     // entity as an argument
     Entity bed = ObstacleFactory.createBed();
     spawnEntityAt(bed, BED_SPAWN, true, true);
+  }
+
+  private void spawnDoor(){
+    Entity door = ObstacleFactory.createDoor();
+    spawnEntityAt(door, DOOR_SPAWN, true, true);
+  }
+
+  private void spawnTV(){
+    Entity tv = ObstacleFactory.createTV();
+    spawnEntityAt(tv, TV_SPAWN, true, true);
   }
 
 
@@ -195,5 +226,13 @@ public class ForestGameArea extends GameArea {
     super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
+  }
+
+  public GridPoint2 coordTransform(GridPoint2 coords){
+    isoX = (int) (coords.x - coords.y);
+    isoY = (int) ((coords.x + coords.y) * 0.5);
+
+    isoCoord = new GridPoint2(isoX, isoY);
+    return isoCoord;
   }
 }

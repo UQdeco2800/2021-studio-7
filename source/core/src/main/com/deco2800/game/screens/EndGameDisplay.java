@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

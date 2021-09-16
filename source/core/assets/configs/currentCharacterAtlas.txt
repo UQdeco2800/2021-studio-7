@@ -1,0 +1,1 @@
+images/characters/boy_00/boy_00.atlas

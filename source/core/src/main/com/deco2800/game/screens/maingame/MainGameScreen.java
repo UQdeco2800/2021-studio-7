@@ -54,8 +54,10 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
+
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
+
 
     renderer = RenderFactory.createRenderer();
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
@@ -122,7 +124,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-
+    entityPlayer.getEvents().trigger("write_score");
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
@@ -153,13 +155,12 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
     MainGameTimerDisplay mainGameTimer =
-            new MainGameTimerDisplay(10);
+            new MainGameTimerDisplay();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
-        .addComponent(new MainGameWinLossTestingDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(mainGameTimer)
         .addComponent(new Terminal())
