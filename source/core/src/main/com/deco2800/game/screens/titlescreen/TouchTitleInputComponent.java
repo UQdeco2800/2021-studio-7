@@ -1,17 +1,15 @@
 package com.deco2800.game.screens.titlescreen;
 
 import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.ui.terminal.Terminal;
 
+/**
+ * A class made with KeyboardTitleInputComponent to incorporate the "press any key" function for the
+ * title. This is being kept in the game as it allows development in touch screen (e.g. mobile).
+ * As this game does not require mouse inputs, its controls are simple and keeping this class
+ * can leave opportunities open for easier development.
+ */
 public class TouchTitleInputComponent extends InputComponent {
-    private Terminal terminal;
-
     public TouchTitleInputComponent() {
         super(10);
-    }
-
-    public TouchTitleInputComponent(Terminal terminal) {
-        this();
-        this.terminal = terminal;
     }
 }
