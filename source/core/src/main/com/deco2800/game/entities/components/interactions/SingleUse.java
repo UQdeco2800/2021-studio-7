@@ -15,9 +15,7 @@ import java.util.Timer;
 public class SingleUse extends Component implements Disposable {
     private static final Logger logger = LoggerFactory.getLogger(SingleUse.class);
 
-    public SingleUse(){
-
-    }
+    public SingleUse(){}
 
     /*
     @Override
