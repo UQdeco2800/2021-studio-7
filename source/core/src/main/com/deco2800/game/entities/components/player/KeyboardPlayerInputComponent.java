@@ -102,29 +102,29 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-//                triggerPauseResumeEvent();
-                ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-                ServiceLocator.getGame().pause();
+                triggerPauseResumeEvent();
+//                ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
+//                ServiceLocator.getGame().pause();
                 return true;
             default:
                 return false;
         }
     }
 
-//    private void triggerPauseResumeEvent() {
-//        // If the screen is the main game it pauses the game, but if the screen is the pause screen
-//        // it resumes the game.
-//        System.out.println(ServiceLocator.getGame().getScreen().toString());
-//        if (ServiceLocator.getGame().getScreen() ==
-//                ServiceLocator.getGame().newScreen(GdxGame.ScreenType.MAIN_GAME)) {
-//            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-////            ServiceLocator.getGame().pause();
-//        } else if (ServiceLocator.getGame().getScreen() ==
-//                ServiceLocator.getGame().newScreen(GdxGame.ScreenType.PAUSE_MENU)) {
-//            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-////            ServiceLocator.getGame().resume();
-//        }
-//    }
+    private void triggerPauseResumeEvent() {
+        // If the screen is the main game it pauses the game, but if the screen is the pause screen
+        // it resumes the game.
+        System.out.println(ServiceLocator.getGame().getScreen().toString());
+        if (ServiceLocator.getGame().getScreen().getClass() ==
+                MainGameScreen.class) {
+            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
+            ServiceLocator.getGame().pause();
+        } else if (ServiceLocator.getGame().getScreen().getClass() ==
+                PauseMenuScreen.class) {
+            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+            ServiceLocator.getGame().resume();
+        }
+    }
 
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
