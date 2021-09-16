@@ -15,6 +15,7 @@ BEN:1234
 DirtyDefault:1743
 
 DirtyDefault94544:747,
+<<<<<<< Updated upstream
 DirtyDefault82918:648,
 DirtyDefault74161:959,
 DirtyDefault18175:755,
@@ -43,3 +44,14 @@ DirtyDefault6901:968,
 DirtyDefault29671:940,
 DirtyDefault34024:1000,
 DirtyDefault75678:1000,
+=======
+DirtyDefault1113:500,
+DirtyDefault87669:-384,
+DirtyDefault72946:711,
+DirtyDefault15962:905,
+DirtyDefault4851:928,
+DirtyDefault22308:348,
+
+
+DirtyDefault34156:957,
+>>>>>>> Stashed changes
