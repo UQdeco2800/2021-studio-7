@@ -153,7 +153,7 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
     MainGameTimerDisplay mainGameTimer =
-            new MainGameTimerDisplay(10);
+            new MainGameTimerDisplay();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
