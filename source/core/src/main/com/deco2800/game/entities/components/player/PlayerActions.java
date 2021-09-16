@@ -35,7 +35,6 @@ public class PlayerActions extends InteractionComponent {
     entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stop_running", this::stopRunning);
-    entity.getEvents().addListener("update_animation", animator::startAnimation);
     entity.getEvents().trigger("update_animation", "standing_south");
     entity.getEvents().addListener("drink_energy_drink", this::drinkEnergyDrink);
   }
