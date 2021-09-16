@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
  * Box2D collision events fire globally on the physics world, not per-object. The contact listener
  * receives these events, finds the entities involved in the collision, and triggers events on them.
  *
- * <p>On contact start: evt = "collisionStart", params = ({@link Fixture} thisFixture, {@link
+ * <p>On contact start: evt = "collision_start", params = ({@link Fixture} thisFixture, {@link
  * Fixture} otherFixture)
  *
- * <p>On contact end: evt = "collisionEnd", params = ({@link Fixture} thisFixture, {@link Fixture}
+ * <p>On contact end: evt = "collision_end", params = ({@link Fixture} thisFixture, {@link Fixture}
  * otherFixture)
  */
 public class PhysicsContactListener implements ContactListener {

@@ -44,6 +44,7 @@ public class PlayerActions extends InteractionComponent {
   public void update() {
     if (moving) {
       updateSpeed();
+      entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
     updateStamina();
@@ -58,7 +59,7 @@ public class PlayerActions extends InteractionComponent {
   private void updateSpeed() {
     // increase speed when running, only when there is stamina left
     if (running && combatStatsComponent.getStamina() > 0) {
-      MAX_SPEED.set(10f, 10f); //TODO adjust running speed
+      MAX_SPEED.set(6f, 6f); //TODO adjust running speed
     } else {
       MAX_SPEED.set(3f, 3f);
     } Body body = physicsComponent.getBody();
@@ -72,7 +73,7 @@ public class PlayerActions extends InteractionComponent {
   private void updateStamina() {
     // when player is moving and is running, decrease stamina
     if (running && moving) {
-      entity.getEvents().trigger("change_stamina", -1);
+      entity.getEvents().trigger("change_stamina", -2);
     } else { // player is not running (released SHIFT or not moving), regenerate stamina
       entity.getEvents().trigger("change_stamina", 1);
     }

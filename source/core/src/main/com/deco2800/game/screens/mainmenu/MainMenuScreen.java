@@ -23,8 +23,6 @@ public class MainMenuScreen extends ScreenAdapter {
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {
           "images/ui/title/RETROACTIVE-large.png",
-          "images/ui/box_boy/box_boy_title.png",
-          //"images/characters/box_boy/box_boy.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
@@ -39,7 +37,6 @@ public class MainMenuScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
 
-    System.out.println();
 
     loadAssets();
     createUI();
