@@ -15,12 +15,12 @@ import java.util.Set;
 public class Room {
 
     private final Vector2 roomScale;
-    private final Array<DrmObject> tileDefinitions;
-    private final Array<DrmObject> entityDefinitions;
+    private final RoomObject[] tileDefinitions;
+    private final RoomObject[] entityDefinitions;
     private final String[][] tileGrid;
     private final String[][] entityGrid;
 
-    public Room(Vector2 roomScale, Array<DrmObject> tileDefinitions, Array<DrmObject> entityDefinitions,
+    public Room(Vector2 roomScale, RoomObject[] tileDefinitions, RoomObject[] entityDefinitions,
                 String[][] tileGrid, String[][] entityGrid) {
         this.roomScale = roomScale;
         this.tileDefinitions = tileDefinitions;
@@ -33,11 +33,11 @@ public class Room {
         return roomScale;
     }
 
-    public Array<DrmObject> getTileDefinitions() {
+    public RoomObject[] getTileDefinitions() {
         return tileDefinitions;
     }
 
-    public Array<DrmObject> getEntityDefinitions() {
+    public RoomObject[] getEntityDefinitions() {
         return entityDefinitions;
     }
 
@@ -57,18 +57,19 @@ public class Room {
         return getTextures(entityDefinitions);
     }
 
-    private String[] getTextures(Array<DrmObject> objectDefinitions) {
+    private String[] getTextures(RoomObject[] objectDefinitions) {
         Array<String> temp = new Array<>();
-        for (int i = 0; i < objectDefinitions.size; i++) {
-            if (objectDefinitions.get(i).getTexture() != null) {
-                temp.add(objectDefinitions.get(i).getTexture());
+        for (RoomObject objectDefinition : objectDefinitions) {
+            if (objectDefinition.getTexture() != null) {
+                temp.add(objectDefinition.getTexture());
             }
         }
-        String[] temp1 = new String[temp.size];
+
+        String[] textures = new String[temp.size];
         for (int i = 0; i < temp.size; i++) {
-            temp1[i] = temp.get(i);
+            textures[i] = temp.get(i);
         }
-        return temp1;
+        return textures;
     }
 
     public Map<String, TerrainTile> getSymbolTerrainTileMap() {
@@ -198,16 +199,15 @@ public class Room {
                 }
             }
         };
-        for (int i = 0; i < getTileDefinitions().size; i++) {
-            DrmObject current = getTileDefinitions().get(i);
+        for (RoomObject current : tileDefinitions) {
             stringTerrainTileMap.put(current.getSymbol(), new TerrainTile(new TextureRegion(
                     resourceService.getAsset(current.getTexture(), Texture.class))));
         }
         return stringTerrainTileMap;
     }
 
-    public Map<String, DrmObject> getSymbolObjectMap() {
-        Map<String, DrmObject> stringDrmObjectMap = new Map<String, DrmObject>() {
+    public Map<String, RoomObject> getSymbolObjectMap() {
+        Map<String, RoomObject> stringRoomObjectMap = new Map<>() {
             private StringDrmObjectEntry head = null;
             private int size = 0;
 
@@ -232,7 +232,7 @@ public class Room {
             }
 
             @Override
-            public DrmObject get(Object key) {
+            public RoomObject get(Object key) {
                 if (head == null) {
                     return null;
                 }
@@ -247,7 +247,7 @@ public class Room {
             }
 
             @Override
-            public DrmObject put(String key, DrmObject value) {
+            public RoomObject put(String key, RoomObject value) {
                 if (head == null) {
                     head = new StringDrmObjectEntry(key, value);
                     size++;
@@ -257,7 +257,7 @@ public class Room {
                 StringDrmObjectEntry previous;
                 do {
                     if (current.getKey().equals(key)) {
-                        DrmObject temp = current.getValue();
+                        RoomObject temp = current.getValue();
                         current.setValue(value);
                         return temp;
                     }
@@ -270,12 +270,12 @@ public class Room {
             }
 
             @Override
-            public DrmObject remove(Object key) {
+            public RoomObject remove(Object key) {
                 return null;
             }
 
             @Override
-            public void putAll(Map<? extends String, ? extends DrmObject> m) {
+            public void putAll(Map<? extends String, ? extends RoomObject> m) {
 
             }
 
@@ -291,20 +291,20 @@ public class Room {
             }
 
             @Override
-            public Collection<DrmObject> values() {
+            public Collection<RoomObject> values() {
                 return null;
             }
 
             @Override
-            public Set<Entry<String, DrmObject>> entrySet() {
+            public Set<Entry<String, RoomObject>> entrySet() {
                 return null;
             }
             class StringDrmObjectEntry {
                 private String symbol;
-                private DrmObject drmObject;
+                private RoomObject drmObject;
                 private StringDrmObjectEntry next;
 
-                StringDrmObjectEntry(String symbol, DrmObject drmObject) {
+                StringDrmObjectEntry(String symbol, RoomObject drmObject) {
                     this.symbol = symbol;
                     this.drmObject = drmObject;
                     this.next = null;
@@ -314,11 +314,11 @@ public class Room {
                     return symbol;
                 }
 
-                DrmObject getValue() {
+                RoomObject getValue() {
                     return drmObject;
                 }
 
-                void setValue(DrmObject drmObject) {
+                void setValue(RoomObject drmObject) {
                     this.drmObject = drmObject;
                 }
 
@@ -331,19 +331,16 @@ public class Room {
                 }
             }
         };
-        for (int i = 0; i < getEntityDefinitions().size; i++) {
-            DrmObject current = getEntityDefinitions().get(i);
-            stringDrmObjectMap.put(current.getSymbol(), current);
+        for (RoomObject current : entityDefinitions) {
+            stringRoomObjectMap.put(current.getSymbol(), current);
         }
-        return stringDrmObjectMap;
+        return stringRoomObjectMap;
     }
 
     public int getMaxScale() {
-        int max;
+        int max = (int) roomScale.x;
         if (roomScale.x < roomScale.y) {
             max = (int) roomScale.y;
-        } else {
-            max = (int) roomScale.x;
         }
         return max;
     }

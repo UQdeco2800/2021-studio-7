@@ -39,7 +39,7 @@ TILES {
 
 ENTITIES {
     DEFINE {
-        W:spawnWall:images/objects/tree/tree.png
+#       W:spawnWall:images/objects/tree/tree.png
         B:spawnBed
         P:spawnPlayer
         M:spawnMum

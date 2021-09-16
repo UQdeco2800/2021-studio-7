@@ -1,10 +1,9 @@
 package com.deco2800.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.areas.components.GameAreaDisplay;
-import com.deco2800.game.areas.rooms.DrmObject;
+import com.deco2800.game.areas.rooms.RoomObject;
 import com.deco2800.game.areas.rooms.Room;
 import com.deco2800.game.areas.rooms.RoomReader;
 import com.deco2800.game.areas.terrain.TerrainFactory;
@@ -28,12 +27,14 @@ public class HouseGameArea extends GameArea {
     public Entity player;
 
     private final String[] drmLocations = {"maps/s2/r3_jaleel.drm"};
+    private final String[] houseTextures = {"images/objects/walls/wall.png"};
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
             "images/objects/bed/bed.atlas"
     };
     private Array<Room> rooms;
+    private RoomReader reader;
 
     public HouseGameArea(TerrainFactory terrainFactory) {
         super();
@@ -51,49 +52,46 @@ public class HouseGameArea extends GameArea {
     }
 
     public void extractRooms() {
+        logger.info("Extracting rooms");
+        reader = new RoomReader();
         for (String drmLocation : drmLocations) {
-            RoomReader reader = new RoomReader(drmLocation, FileLoader.Location.INTERNAL);
-            // Get room scale
-            Vector2 roomScale = reader.extractRoomScale();
-            // Get tile information in room
-            Array<DrmObject> tileDefinitions = reader.extractDefinitions(reader.getTileKey());
-            String[][] tileGrid = reader.extractGrid(roomScale);
-            // Get entity information in room
-            Array<DrmObject> entityDefinitions = reader.extractDefinitions(reader.getEntityKey());
-            String[][] entityGrid = reader.extractGrid(roomScale);
-
-            rooms.add(new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid));
+            reader.setBufferedReader(drmLocation, FileLoader.Location.INTERNAL);
+            rooms.add(reader.extractRoom());
         }
     }
 
     public void createRooms() {
         for (Room room : rooms) {
             // Tile generation
+            logger.info("Generating tiles...");
             terrain = terrainFactory.createRoomTerrain(room);
             spawnEntity(new Entity().addComponent(terrain));
 
             // Entity generation
+            logger.info("Generating entities...");
             spawnEntities(room);
         }
     }
 
     public void spawnEntities(Room room) {
-        Map<String, DrmObject> symbolDrmObjectMap = room.getSymbolObjectMap();
+        Map<String, RoomObject> symbolObjectMap = room.getSymbolObjectMap();
         for (int x = 0; x < room.getMaxScale(); x++) {
             for (int y = 0; y < room.getMaxScale(); y++) {
                 String current = room.getEntityGrid()[x][y];
-                DrmObject drmObject = symbolDrmObjectMap.get(current);
-                if (drmObject == null) {
+                RoomObject roomObject = symbolObjectMap.get(current);
+                if (roomObject == null) {
                     continue;
                 }
                 Object[] params;
-                if (drmObject.getTexture().equals("")) {
+                if (roomObject.getTexture().equals("")) {
                     params = new Object[]{new GridPoint2(x, y)};
                 } else {
-                    params = new Object[]{new GridPoint2(x, y), drmObject.getTexture()};
+                    params = new Object[]{new GridPoint2(x, y), roomObject.getTexture()};
                 }
                 try {
-                    drmObject.getMethod().invoke(this, params);
+                    roomObject.getMethod().invoke(this, params);
+                } catch (NullPointerException e) {
+                    logger.error("No method to invoke from object");
                 } catch (InvocationTargetException e) {
                     logger.error("Couldn't invoke object spawn method");
                 } catch (IllegalAccessException e) {
@@ -177,6 +175,14 @@ public class HouseGameArea extends GameArea {
     }
 
     /**
+     * Invoked from drmObject in spawnEntities(), spawns Door entity
+     *
+     * @param gridPosition position on the world from file
+     */
+    public void spawnDoor(GridPoint2 gridPosition) {
+    }
+
+    /**
      * Invoked from drmObject in spawnEntities(), spawns Mum entity
      *
      * @param gridPosition position on the world from file
@@ -197,20 +203,21 @@ public class HouseGameArea extends GameArea {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTexture("images/objects/door/door_close_right.png");
         for (Room room : rooms) {
-            for (DrmObject current : room.getTileDefinitions()) {
+            for (RoomObject current : room.getTileDefinitions()) {
                 if (current.getTexture() != null) {
                     resourceService.loadTexture(current.getTexture());
                 }
             }
-            for (DrmObject current : room.getEntityDefinitions()) {
+            for (RoomObject current : room.getEntityDefinitions()) {
                 if (current.getTexture() != null) {
                     resourceService.loadTexture(current.getTexture());
                 }
             }
         }
+        resourceService.loadTextures(houseTextures);
         resourceService.loadTextureAtlases(houseTextureAtlases);
 
-        while (!resourceService.loadForMillis(10)) {
+        while (!resourceService.loadForMillis(20)) {
         // This could be upgraded to a loading screen
             logger.info("Loading... {}%", resourceService.getProgress());
         }
@@ -223,6 +230,7 @@ public class HouseGameArea extends GameArea {
             resourceService.unloadAssets(room.getTileTextures());
             resourceService.unloadAssets(room.getEntityTextures());
         }
+        resourceService.unloadAssets(houseTextures);
         resourceService.unloadAssets(houseTextureAtlases);
     }
 
