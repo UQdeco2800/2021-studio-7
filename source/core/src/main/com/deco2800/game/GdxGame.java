@@ -9,6 +9,7 @@ import com.deco2800.game.screens.contextscreen.ContextScreen;
 import com.deco2800.game.screens.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
+import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
 import com.deco2800.game.screens.leaderboardscreen.LeaderBoardScreen;
 import com.deco2800.game.screens.titlescreen.TitleScreen;
@@ -70,12 +71,14 @@ public class GdxGame extends Game {
    * @param screenType screen type
    * @return new screen
    */
-  private Screen newScreen(ScreenType screenType) {
+  public Screen newScreen(ScreenType screenType) {
     switch (screenType) {
       case TITLE_SCREEN:
         return new TitleScreen();
       case MAIN_MENU:
         return new MainMenuScreen();
+      case PAUSE_MENU:
+        return new PauseMenuScreen();
       case MAIN_GAME:
         return new MainGameScreen();
       case SETTINGS:
@@ -96,7 +99,7 @@ public class GdxGame extends Game {
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT,TITLE_SCREEN,LEADERBOARD
+    MAIN_MENU, PAUSE_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT, TITLE_SCREEN, LEADERBOARD
   }
 
   /**

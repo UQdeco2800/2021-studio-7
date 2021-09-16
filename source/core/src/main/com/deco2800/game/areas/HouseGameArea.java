@@ -27,14 +27,25 @@ public class HouseGameArea extends GameArea {
     public Entity player;
 
     private final String[] drmLocations = {"maps/s2/r3_jaleel.drm"};
-    private final String[] houseTextures = {"images/objects/walls/wall.png"};
+    private final String[] houseTextures = {
+            "images/objects/walls/wall.png",
+            "images/objects/door/door_close_right.png",
+            "images/objects/door/door_animationL.png",
+            "images/objects/tv/TV_animationL.png",
+            "images/objects/furniture/coffee_table_left.png"
+    };
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
-            "images/objects/bed/bed.atlas"
+            "images/objects/bed/bed.atlas",
+            "images/objects/tv/TV_animationL.atlas",
+            "images/objects/door/door_animationL.atlas",
+            "images/objects/energy_drink/energy.atlas",
+            "images/characters/girl_00/girl_00.atlas",
+            "images/characters/boy_00/boy_00.atlas",
+            "images/objects/banana_peel/banana.atlas"
     };
     private Array<Room> rooms;
-    private RoomReader reader;
 
     public HouseGameArea(TerrainFactory terrainFactory) {
         super();
@@ -53,7 +64,7 @@ public class HouseGameArea extends GameArea {
 
     public void extractRooms() {
         logger.info("Extracting rooms");
-        reader = new RoomReader();
+        RoomReader reader = new RoomReader();
         for (String drmLocation : drmLocations) {
             reader.setBufferedReader(drmLocation, FileLoader.Location.INTERNAL);
             rooms.add(reader.extractRoom());
@@ -180,6 +191,8 @@ public class HouseGameArea extends GameArea {
      * @param gridPosition position on the world from file
      */
     public void spawnDoor(GridPoint2 gridPosition) {
+        Entity door = ObstacleFactory.createDoor();
+        spawnEntityAt(door, gridPosition, true, true);
     }
 
     /**
@@ -190,6 +203,16 @@ public class HouseGameArea extends GameArea {
     public void spawnMum(GridPoint2 gridPosition) {
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
+    }
+
+    public void spawnBananaPeel(GridPoint2 gridPosition){
+        Entity peel = ObstacleFactory.createBananaPeel();
+        spawnEntityAt(peel, gridPosition, true, true);
+    }
+
+    public void spawnTV(GridPoint2 gridPosition){
+        Entity tv = ObstacleFactory.createTV();
+        spawnEntityAt(tv, gridPosition, true, true);
     }
 
     private void displayUI() {

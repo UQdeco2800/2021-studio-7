@@ -44,12 +44,14 @@ ENTITIES {
         P:spawnPlayer
         M:spawnMum
         d:spawnDoor
+        T:spawnTV
+        b:spawnBananaPeel
     }
     GRID {
         W W W W W W W W W W W
         W . . . . . . . . . W
-        W . . . . . . . . . W
         W . . . . M . . . . W
+        W . . . . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
@@ -57,13 +59,13 @@ ENTITIES {
         W . . P . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
-        W . . . . . B . . . W
+        W . . . . . . . b . W
         W . . . . . . . . . W
         W . . . . . . . . . W
         W . . . . . . . . . W
+        W . T . . . . . . . W
         W . . . . . . . . . W
-        W . . . . . . . . . W
-        W . . . . . . . . . W
+        W . . . . . . . B . W
         W . . . . . . . . . W
         W . . . . . . . . . W
         W W W W W W W W W W W
