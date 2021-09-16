@@ -7,6 +7,9 @@ import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.maingame.MainGameTimerDisplay;
+
+import java.util.Timer;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -33,17 +36,25 @@ public class PlayerActions extends InteractionComponent {
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stop_running", this::stopRunning);
     entity.getEvents().trigger("update_animation", "standing_south");
+    entity.getEvents().addListener("drink_energy_drink", this::drinkEnergyDrink);
   }
 
   @Override
   public void update() {
     if (moving) {
       updateSpeed();
+      entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
     updateStamina();
 
   }
+
+  private void drinkEnergyDrink(){
+    int stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
+    entity.getComponent(CombatStatsComponent.class).setStamina(stamina + 100);
+  }
+
 
   private void updateSpeed() {
     // increase speed when running, only when there is stamina left
@@ -51,8 +62,7 @@ public class PlayerActions extends InteractionComponent {
       MAX_SPEED.set(6f, 6f); //TODO adjust running speed
     } else {
       MAX_SPEED.set(3f, 3f);
-    }
-    Body body = physicsComponent.getBody();
+    } Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
     Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
     // impulse = (desiredVel - currentVel) * mass

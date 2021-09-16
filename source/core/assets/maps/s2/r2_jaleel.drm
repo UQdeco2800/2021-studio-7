@@ -1,0 +1,73 @@
+# Room scale (largest width and height)
+SCALE:11:21
+# Anchoring points for connecting rooms
+# Anchors are defined as X:Y
+#ANCHOR:5:2
+
+#[5][2] ->T [2][5]
+#[5][2] ->R [5][21 - 2]
+
+TILES {
+    DEFINE {
+        D:images/tiles/iso/iso_floor_1.png
+        A:images/tiles/iso/iso_floor_1_alt.png
+    }
+    GRID {
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D A D D D D D D D D D
+        D D D D D D D A D D D
+        D D D A D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D A D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+        D D D D D D D D A D D
+        D D D D D D D D D D D
+        D D D D D D D D D D D
+    }
+}
+
+ENTITIES {
+    DEFINE {
+#       W:spawnWall:images/objects/tree/tree.png
+        B:spawnBed
+        P:spawnPlayer
+        M:spawnMum
+    }
+    GRID {
+        W W W W W W W W W W W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . P . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . B . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W . . . . . . . . . W
+        W W W W W W W W W W W
+    }
+}
+
+# Anchors are used to connect rooms to each other
+#-:ANCHOR
