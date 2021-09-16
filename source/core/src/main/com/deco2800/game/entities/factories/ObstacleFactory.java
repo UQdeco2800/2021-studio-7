@@ -2,11 +2,8 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.deco2800.game.entities.components.interactions.Actions.BedActions;
+import com.deco2800.game.entities.components.interactions.Actions.*;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.Actions.DoorActions;
-import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
-import com.deco2800.game.entities.components.interactions.Actions.tvActions;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
@@ -158,9 +155,20 @@ public class ObstacleFactory {
 
   }
 
-  /*public static Entity createBananaPeel(){
-    Entity = new Entity();
-  }*/
+  public static Entity createBananaPeel(){
+    Entity bananaPeel = new Entity();
+
+    bananaPeel.addComponent(new TextureRenderComponent("images/objects/banana_peel/banana_peel.png"))
+            .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
+            .addComponent(new ColliderComponent())
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+            .addComponent(new BananaPeelActions());
+    bananaPeel.scaleHeight(1f);
+    PhysicsUtils.setScaledCollider(bananaPeel, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(bananaPeel, 1f, 1f);
+
+    return bananaPeel;
+  }
 
   private ObstacleFactory() {
     throw new IllegalStateException("Instantiating static util class");

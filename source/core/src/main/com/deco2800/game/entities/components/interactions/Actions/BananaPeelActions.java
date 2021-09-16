@@ -12,7 +12,6 @@ public class BananaPeelActions extends CollisionInteractionComponent {
     @Override
     public void create(){
         super.create();
-        animator.startAnimation("banana");
     }
 
     public void onInteraction (Entity target){

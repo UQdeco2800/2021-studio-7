@@ -37,8 +37,6 @@ public class SingleUse extends Component implements Disposable {
 
     @Override
     public void dispose() {
-        logger.info("Removing SingleUse item from game");
-        entity.dispose();
         super.dispose();
     }
 }

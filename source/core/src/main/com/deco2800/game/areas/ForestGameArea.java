@@ -40,7 +40,8 @@ public class ForestGameArea extends GameArea {
           "images/tiles/iso/iso_floor_1.png",
           "images/tiles/iso/iso_floor_1_alt.png",
           "images/objects/door/door_animationL.png",
-          "images/objects/tv/TV_animationL.png"
+          "images/objects/tv/TV_animationL.png",
+          "images/objects/banana_peel/banana_peel.png"
   };
 
   private static final String[] forestTextureAtlases = {
@@ -76,7 +77,8 @@ public class ForestGameArea extends GameArea {
     displayUI();
     spawnTerrain();
     player = spawnPlayer();
-    spawnEnergyDrink(new GridPoint2(10,10));
+    spawnEnergyDrink();
+    spawnBananaPeel();
     spawnBed();
     spawnDoor();
     spawnTV();
@@ -129,9 +131,9 @@ public class ForestGameArea extends GameArea {
         GridPoint2Utils.ZERO, false, false);*/
   }
 
-  private void spawnEnergyDrink(GridPoint2 location) {
+  private void spawnEnergyDrink() {
     Entity drink = ObstacleFactory.createEnergyDrink();
-    spawnEntityAt(drink, location, true, true);
+    spawnEntityAt(drink, new GridPoint2(10,10), true, true);
   }
 
   private void spawnTrees() {
@@ -149,6 +151,11 @@ public class ForestGameArea extends GameArea {
     Entity newPlayer = PlayerFactory.createPlayer();
     spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
     return newPlayer;
+  }
+
+  private void spawnBananaPeel(){
+    Entity peel = ObstacleFactory.createBananaPeel();
+    spawnEntityAt(peel, new GridPoint2(15,15), true, true);
   }
 
   private void spawnBed() {
