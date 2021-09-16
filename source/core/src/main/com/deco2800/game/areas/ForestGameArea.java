@@ -21,7 +21,11 @@ public class ForestGameArea extends GameArea {
   private static final Logger logger = LoggerFactory.getLogger(ForestGameArea.class);
   private static final int NUM_TREES = 7;
   private static final int NUM_GHOSTS = 1;
-  private static final GridPoint2 PLAYER_SPAWN = new GridPoint2(10, 10);
+  private static int isoX;
+  private static int isoY;
+  private static final GridPoint2 PLAYER_SPAWN_CART = new GridPoint2(10,0);
+  private GridPoint2 isoCoord = coordTransform(PLAYER_SPAWN_CART);
+  private final GridPoint2 PLAYER_SPAWN = isoCoord;
   private static final GridPoint2 BED_SPAWN = new GridPoint2(5, 10);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
@@ -192,5 +196,13 @@ public class ForestGameArea extends GameArea {
     super.dispose();
     ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
     this.unloadAssets();
+  }
+
+  public GridPoint2 coordTransform(GridPoint2 coords){
+    isoX = (int) (coords.x - coords.y);
+    isoY = (int) ((coords.x + coords.y) * 0.5);
+
+    isoCoord = new GridPoint2(isoX, isoY);
+    return isoCoord;
   }
 }
