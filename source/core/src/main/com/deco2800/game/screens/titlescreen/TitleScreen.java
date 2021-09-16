@@ -2,7 +2,6 @@ package com.deco2800.game.screens.titlescreen;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -13,10 +12,12 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The game screen containing the title.
+ */
 public class TitleScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
 
@@ -28,7 +29,7 @@ public class TitleScreen extends ScreenAdapter {
 
     public TitleScreen() {
 
-        logger.debug("Initialising main menu screen services");
+        logger.debug("Initialising title screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -68,6 +69,7 @@ public class TitleScreen extends ScreenAdapter {
         logger.debug("Disposing title screen");
 
         renderer.dispose();
+        unloadAssets();
         ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getResourceService().dispose();
@@ -89,7 +91,7 @@ public class TitleScreen extends ScreenAdapter {
     }
 
     /**
-     * Creates the end game's ui including components for rendering ui elements to the screen and
+     * Creates the title ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {

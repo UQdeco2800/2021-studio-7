@@ -153,7 +153,9 @@ public class SettingsMenuDisplay extends UIComponent {
 
   private Table makeMenuBtns() {
     TextButton exitBtn = new TextButton("Exit", skin);
+    exitBtn.getLabel().setColor(0, 0,0, 1f);
     TextButton applyBtn = new TextButton("Apply", skin);
+    applyBtn.getLabel().setColor(0, 0,0, 1f);
 
     exitBtn.addListener(
                 new ChangeListener() {
