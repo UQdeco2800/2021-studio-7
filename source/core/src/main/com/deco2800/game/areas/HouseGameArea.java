@@ -26,7 +26,7 @@ public class HouseGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
     public Entity player;
 
-    private final String[] drmLocations = {"maps/s2/r3_jaleel.drm"};
+    private final String[] drmLocations = {"maps/house_test_0.drm"};
     private final String[] houseTextures = {
             "images/objects/walls/wall.png",
             "images/objects/door/door_close_right.png",
@@ -59,7 +59,6 @@ public class HouseGameArea extends GameArea {
         loadAssets();
         displayUI();
         createRooms();
-        spawnWalls();
     }
 
     public void extractRooms() {
@@ -119,50 +118,9 @@ public class HouseGameArea extends GameArea {
      * @param texture wall texture from file
      */
     public void spawnWall(GridPoint2 gridPosition, String texture) {
-//        Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
-//        spawnEntityAt(newWall, gridPosition, true, true);
+        Entity newWall = ObstacleFactory.createWall(1f, 1f, texture);
+        spawnEntityAt(newWall, gridPosition, true, true);
     }
-
-    public void spawnWalls() {
-        int x = (int)rooms.get(0).getRoomScale().x;
-        int y = (int)rooms.get(0).getRoomScale().y-1;
-        int midX = x/2;
-        for (int i = 0; i <= y; i++) {
-            // Top Left
-            GridPoint2 topLeftPoints = new GridPoint2(0, i);
-            Entity topLeftWall = ObstacleFactory.createWall();
-            topLeftWall.scaleWidth(1f);
-            spawnEntityAt(topLeftWall, topLeftPoints, false, false);
-
-            // Bottom Right
-            GridPoint2 botRightPoints = new GridPoint2(x, i);
-            Entity botRightWall = ObstacleFactory.createWall();
-            botRightWall.scaleWidth(1f);
-            spawnEntityAt(botRightWall, botRightPoints, true, true);
-        }
-        for (int i = 0; i < x; i++) {
-            // Bottom Left testing with a door (using a bed as the door)
-            GridPoint2 botLeftPoints = new GridPoint2(i, 0);
-            Entity botLeftWall = ObstacleFactory.createWall();
-            if((i==midX || i == midX+1) && botLeftPoints.y==0){
-                if(i==midX){
-                    Entity door = ObstacleFactory.createDoor();
-                    spawnEntityAt(door, botLeftPoints, true, false);
-                }
-            } else{
-                botLeftWall.scaleWidth(1f);
-                spawnEntityAt(botLeftWall, botLeftPoints, true, false);
-            }
-
-            // Top Right
-            GridPoint2 topRightPoints = new GridPoint2(i, y);
-            Entity topRightWall = ObstacleFactory.createWall();
-            topRightWall.scaleWidth(1f);
-            spawnEntityAt(topRightWall, topRightPoints, true, false);
-        }
-    }
-
-
 
     /**
      * Invoked from drmObject in spawnEntities(), spawns Player entity
