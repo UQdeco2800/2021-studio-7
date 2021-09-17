@@ -135,23 +135,12 @@ public class RoomReader {
 
         String[][] xyGrid = new String[max][max];
         // Extracts grid by row, stores in form [x][y]
-        for (int y = 0; y < max; y++) {
+        for (int y = 0; y < mapScale.y; y++) {
             currentLine = nextLine();
             String[] tokens = currentLine.split(GRID_DELIM);
             if (currentLine.contains(CLOSE_BRACKET)) {
-                if (mapScale.y == max) {
-                    // We have reached the close bracket before our guaranteed rows were finished
-                    logger.error("Grid dimensions do not match scale in .drm file");
-                }
-                // Fill missing rows to complete max by max matrix
-                for (int ySup = y; ySup < max; ySup++) {
-                    // Fill row cells with empty symbols
-                    for (int x = 0; x < max; x++) {
-                        xyGrid[x][ySup] = "";
-                    }
-                }
-                currentLine = nextLine();
-                break;
+                // We have reached the close bracket before our guaranteed rows were finished
+                logger.error("Grid dimensions do not match scale in .drm file");
             }
             // Fill number of row cells equal to the maximum of x and y
             for (int x = 0; x < max; x++) {
@@ -159,9 +148,16 @@ public class RoomReader {
                     // Fill with extracted cell symbol
                     xyGrid[x][y] = tokens[x];
                 } else {
-                    // Fill missing cells with empty symbol
+                    // Fill any missing cells with the empty symbol
                     xyGrid[x][y] = "";
                 }
+            }
+        }
+        // Fill any missing rows to complete max by max matrix
+        for (int ySup = (int) mapScale.y; ySup < max; ySup++) {
+            // Fill row cells with empty symbols
+            for (int x = 0; x < max; x++) {
+                xyGrid[x][ySup] = "";
             }
         }
 

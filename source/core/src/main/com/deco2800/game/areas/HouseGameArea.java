@@ -26,7 +26,7 @@ public class HouseGameArea extends GameArea {
     private final TerrainFactory terrainFactory;
     public Entity player;
 
-    private final String[] drmLocations = {"maps/s2/r3_jaleel.drm"};
+    private final String[] drmLocations = {"maps/house_test_0.drm"};
     private final String[] houseTextures = {
             "images/objects/walls/wall.png",
             "images/objects/door/door_close_right.png",

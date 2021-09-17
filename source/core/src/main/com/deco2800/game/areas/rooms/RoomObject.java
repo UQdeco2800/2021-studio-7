@@ -58,7 +58,7 @@ public class RoomObject {
         if (textureName == null) {
             paramTypes = new Class[]{GridPoint2.class};
         } else {
-            paramTypes = new Class[]{GridPoint2.class, Texture.class};
+            paramTypes = new Class[]{GridPoint2.class, String.class};
         }
 
         try {
