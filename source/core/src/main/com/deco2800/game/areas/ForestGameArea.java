@@ -9,12 +9,15 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.areas.components.GameAreaDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
 
 /** Forest area for the demo game with trees, a player, and some enemies. */
 public class ForestGameArea extends GameArea {
@@ -26,12 +29,13 @@ public class ForestGameArea extends GameArea {
   private static final int NUM_GHOSTS = 1;
   private static int isoX;
   private static int isoY;
-  private static final GridPoint2 PLAYER_SPAWN_CART = new GridPoint2(10,0);
-  private GridPoint2 isoCoord = coordTransform(PLAYER_SPAWN_CART);
-  private final GridPoint2 PLAYER_SPAWN = isoCoord;
+  private static final GridPoint2 PLAYER_SPAWN_CART = new GridPoint2(10, 0);
   private static final float WALL_WIDTH = 0.1f;
   private static final String[] forestTextures = {
           "images/objects/tree/tree.png",
+          "images/objects/door/door_close_right.png",
+          "images/characters/ghost/ghost_king.png",
+          "images/characters/ghost/ghost_0.png",
           "images/tiles/ortho/ortho_grass_1.png",
           "images/tiles/ortho/ortho_grass_2.png",
           "images/tiles/ortho/ortho_grass_3.png",
@@ -71,28 +75,31 @@ public class ForestGameArea extends GameArea {
   public Entity player;
   public Entity mum;
 
+  private EventHandler eventHandler;
+
   public ForestGameArea(TerrainFactory terrainFactory) {
     super();
     this.terrainFactory = terrainFactory;
+    this.eventHandler = new EventHandler();
   }
 
-  /** Create the game area, including terrain, static entities (trees), dynamic entities (player) */
+  /**
+   * Create the game area, including terrain, static entities (trees), dynamic entities (player)
+   */
   @Override
   public void create() {
-    loadAssets();
     displayUI();
+
     spawnTerrain();
-    player = spawnPlayer();
     spawnEnergyDrink();
-    spawnBananaPeel();
-    spawnBed();
-    spawnDoor();
-    spawnTV();
-    mum = spawnMum();
     //playMusic();
   }
 
-  public Entity getPlayer(){
+  public EventHandler getEvents() {
+    return this.eventHandler;
+  }
+
+  public Entity getPlayer() {
     return player;
   }
 
@@ -136,103 +143,11 @@ public class ForestGameArea extends GameArea {
 
   private void spawnEnergyDrink() {
     Entity drink = ObstacleFactory.createEnergyDrink();
-    spawnEntityAt(drink, new GridPoint2(10,10), true, true);
+    spawnEntityAt(drink, new GridPoint2(10, 10), true, true);
   }
 
   private void spawnTrees() {
     GridPoint2 minPos = new GridPoint2(0, 0);
     GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    for (int i = 0; i < NUM_TREES; i++) {
-      GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-      Entity tree = ObstacleFactory.createTree();
-      spawnEntityAt(tree, randomPos, true, false);
-    }
-  }
-
-
-  private Entity spawnPlayer() {
-    Entity newPlayer = PlayerFactory.createPlayer();
-    spawnEntityAt(newPlayer, PLAYER_SPAWN, true, true);
-    return newPlayer;
-  }
-
-  private void spawnBananaPeel(){
-    Entity peel = ObstacleFactory.createBananaPeel();
-    spawnEntityAt(peel, new GridPoint2(15,15), true, true);
-  }
-
-  private void spawnBed() {
-    // Note: interactable objects must be created AFTER the player, as it requires the player
-    // entity as an argument
-    Entity bed = ObstacleFactory.createBed();
-    spawnEntityAt(bed, BED_SPAWN, true, true);
-  }
-
-  private void spawnDoor(){
-    Entity door = ObstacleFactory.createDoor();
-    spawnEntityAt(door, DOOR_SPAWN, true, true);
-  }
-
-  private void spawnTV(){
-    Entity tv = ObstacleFactory.createTV();
-    spawnEntityAt(tv, TV_SPAWN, true, true);
-  }
-
-
-  private Entity spawnMum() {
-    GridPoint2 minPos = new GridPoint2(0, 0);
-    GridPoint2 maxPos = terrain.getMapBounds(0).sub(2, 2);
-
-    GridPoint2 randomPos = RandomUtils.random(minPos, maxPos);
-    Entity mum = NPCFactory.createMum(player);
-    spawnEntityAt(mum, randomPos, true, true);
-
-    return mum;
-  }
-
-  private void playMusic() {
-    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
-  }
-
-  private void loadAssets() {
-    logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(forestTextures);
-    resourceService.loadTextureAtlases(forestTextureAtlases);
-    resourceService.loadSounds(forestSounds);
-    resourceService.loadMusic(forestMusic);
-
-    while (!resourceService.loadForMillis(10)) {
-      // This could be upgraded to a loading screen
-      logger.info("Loading... {}%", resourceService.getProgress());
-    }
-  }
-
-  private void unloadAssets() {
-    logger.debug("Unloading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(forestTextures);
-    resourceService.unloadAssets(forestTextureAtlases);
-    resourceService.unloadAssets(forestSounds);
-    resourceService.unloadAssets(forestMusic);
-  }
-
-  @Override
-  public void dispose() {
-    super.dispose();
-    ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class).stop();
-    this.unloadAssets();
-  }
-
-  public GridPoint2 coordTransform(GridPoint2 coords){
-    isoX = (int) (coords.x - coords.y);
-    isoY = (int) ((coords.x + coords.y) * 0.5);
-
-    isoCoord = new GridPoint2(isoX, isoY);
-    return isoCoord;
   }
 }
