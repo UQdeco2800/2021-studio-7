@@ -79,8 +79,10 @@ public class LeaderBoardDisplay extends UIComponent {
         Set set = leaderboard.entrySet();
         Iterator i = set.iterator();
         String insert;
-
+        int t = 0;
         while (i.hasNext()) {
+            t++;
+            if (t == 11){break;}
             leaderTable.row();
             Map.Entry mp = (Map.Entry) i.next();
             insert = mp.getKey() + ":" + String.valueOf(mp.getValue());
