@@ -113,9 +113,8 @@ public class MainGameTextDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        table.clear();
-        displayText.setText("");
-        displayText.clear();
+
+        //displayText.clear();
         super.dispose();
     }
 }

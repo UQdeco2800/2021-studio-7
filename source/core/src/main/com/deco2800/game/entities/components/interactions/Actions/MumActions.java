@@ -24,9 +24,7 @@ public class MumActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
         Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
             triggerLoseCondition();
         }
     }

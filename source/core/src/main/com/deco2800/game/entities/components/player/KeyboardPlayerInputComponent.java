@@ -55,7 +55,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(true);
+                //entity.getComponent(SurveyorComponent.class).setEnabled(true);
+                entity.getEvents().trigger("interaction", entity);
                 return true;
             default:
                 return false;

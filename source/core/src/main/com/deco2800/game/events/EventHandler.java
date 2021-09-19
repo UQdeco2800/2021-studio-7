@@ -76,6 +76,15 @@ public class EventHandler {
   }
 
   /**
+   * Removes the specified event listener
+   *
+   * @param eventName name of the event to be removed
+   */
+  public removeListener(String eventName) {
+
+  }
+
+  /**
    * Trigger an event with no arguments
    *
    * @param eventName name of the event
