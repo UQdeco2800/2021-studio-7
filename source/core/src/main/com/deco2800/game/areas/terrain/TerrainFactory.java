@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.HexagonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.rooms.Room;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.entities.components.player.CameraComponent;
@@ -168,7 +169,7 @@ public class TerrainFactory {
 
   private TiledMap setRoomTiles(GridPoint2 tileSize, Room room) {
     TiledMap tiledMap = new TiledMap();
-    Map<String, TerrainTile> stringTerrainTileMap = room.getSymbolTerrainTileMap();
+    ObjectMap<String, TerrainTile> stringTerrainTileMap = room.getSymbolTerrainTileMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(
             room.getMaxScale(), room.getMaxScale(), tileSize.x, tileSize.y);
 

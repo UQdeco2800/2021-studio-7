@@ -2,6 +2,7 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.components.GameAreaDisplay;
 import com.deco2800.game.areas.rooms.RoomObject;
 import com.deco2800.game.areas.rooms.Room;
@@ -84,7 +85,7 @@ public class HouseGameArea extends GameArea {
     }
 
     public void spawnEntities(Room room) {
-        Map<String, RoomObject> symbolObjectMap = room.getSymbolObjectMap();
+        ObjectMap<String, RoomObject> symbolObjectMap = room.getSymbolObjectMap();
         for (int x = 0; x < room.getMaxScale(); x++) {
             for (int y = 0; y < room.getMaxScale(); y++) {
                 String current = room.getEntityGrid()[x][y];

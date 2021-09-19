@@ -1,0 +1,26 @@
+{
+  com.deco2800.game.areas.rooms.Bathroom$BathroomStyle: {
+    five_by_five: {
+      maximumEntries: 1
+      entryRestrictions: [
+      (Corridor, SINGLE_DOOR)
+      ]
+    }
+  }
+  com.deco2800.game.areas.rooms.Bedroom$BedroomStyle: {
+    five_by_five: {
+      maximumEntries: 1
+      entryRestrictions: [
+      (Corridor, SINGLE_DOOR),
+      (Living, SINGLE_DOOR)
+      ]
+    }
+    five_by_ten: {
+      maximumEntries: 1
+      entryRestrictions: [
+      (Corridor, SINGLE_DOOR),
+      (Living, SINGLE_DOOR)
+      ]
+    }
+  }
+}
