@@ -1,8 +1,7 @@
 package com.deco2800.game.areas.rooms;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.deco2800.game.areas.HouseGameArea;
+import com.deco2800.game.areas.HomeGameArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,28 +44,4 @@ public class RoomObject {
         return texture;
     }
 
-    /**
-     * Attempts to find the method name in the codebase. If found, a method
-     * will be invoked later for object generation.
-     * @param methodName method to be found
-     * @param textureName optional texture to be loaded (for walls)
-     * @return found method signature
-     */
-    private Method getDeclaredMethod(String methodName, String textureName) {
-        Method method = null;
-        Class[] paramTypes;
-        if (textureName == null) {
-            paramTypes = new Class[]{GridPoint2.class};
-        } else {
-            paramTypes = new Class[]{GridPoint2.class, String.class};
-        }
-
-        try {
-            method = (HouseGameArea.class).getDeclaredMethod(methodName, paramTypes);
-        } catch (Exception e) {
-            logger.error("No method retrieved for symbol {}", symbol);
-        }
-
-        return method;
-    }
 }

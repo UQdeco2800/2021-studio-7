@@ -3,7 +3,6 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.components.GameAreaDisplay;
 import com.deco2800.game.areas.rooms.RoomObject;
 import com.deco2800.game.areas.rooms.Room;
 import com.deco2800.game.areas.rooms.RoomReader;
@@ -19,11 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
-public class HouseGameArea extends GameArea {
+public class HomeGameArea extends GameArea {
 
-    private static final Logger logger = LoggerFactory.getLogger(HouseGameArea.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeGameArea.class);
     private final TerrainFactory terrainFactory;
     public Entity player;
 
@@ -48,7 +46,7 @@ public class HouseGameArea extends GameArea {
     };
     private Array<Room> rooms;
 
-    public HouseGameArea(TerrainFactory terrainFactory) {
+    public HomeGameArea(TerrainFactory terrainFactory) {
         super();
         this.terrainFactory = terrainFactory;
         this.rooms = new Array<>();

@@ -6,43 +6,56 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.areas.HomeGameArea;
 import com.deco2800.game.areas.terrain.TerrainTile;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Method;
 
-public class Room extends Component {
+public class Room {
+
+    protected static final Logger logger = LoggerFactory.getLogger(Room.class);
+    private final String roomFilepath;
 
     // Room interior
-    public String[] rawTileGrid;
-    public String[] rawEntityGrid;
-    public ObjectMap<String, RoomObject> tileDefinitions;
-    public ObjectMap<String, RoomObject> entityDefinitions;
-    public GridPoint2[] entries;
+    private String roomStyleResource;
+    private final ObjectMap<String, String> tileMappings;
+    private final ObjectMap<String, RoomObject> entityMappings;
+    private final String[] rawTileGrid;
+    private final String[] rawEntityGrid;
 
-    public Room(Vector2 roomScale, RoomObject[] tileDefinitions, RoomObject[] entityDefinitions,
-                String[][] tileGrid, String[][] entityGrid) {
-        this.roomScale = roomScale;
-        this.tileDefinitions = tileDefinitions;
-        this.entityDefinitions = entityDefinitions;
-        this.tileGrid = tileGrid;
-        this.entityGrid = entityGrid;
+    // Room placement
+    private RoomStyle roomStyle;
+    private GridPoint2[] extraDoorwayTiles;
+
+    public Room(String roomFilepath, RoomSkin roomSkin) {
+        this(roomFilepath, null);
+    }
+
+    public Room(String roomFilepath, RoomStyle roomStyle) {
+        this.roomFilepath = roomFilepath;
+        RoomReader reader = new RoomReader(roomFilepath);
+        this.tileEntries = reader.extractEntries(RoomReader.TILE_HEADER);
+        this.tileGrid = reader.extractGrid();
+        this.entityEntries = reader.extractEntries(RoomReader.ENTITY_HEADER);
+        this.entityGrid = reader.extractGrid();
+        this.roomStyle = roomStyle;
     }
 
     public Vector2 getRoomScale() {
-        return roomScale;
+        return new Vector2(tileGrid.length, tileGrid[0].length);
     }
 
-    public RoomObject[] getTileDefinitions() {
-        return tileDefinitions;
+    public ObjectMap<String, RoomObject> getTileEntries() {
+        return tileEntries;
     }
 
-    public RoomObject[] getEntityDefinitions() {
-        return entityDefinitions;
+    public ObjectMap<String, RoomObject> getEntityEntries() {
+        return entityEntries;
     }
 
     public String[][] getTileGrid() {
@@ -54,61 +67,106 @@ public class Room extends Component {
     }
 
     public String[] getTileTextures() {
-        return getTextures(tileDefinitions);
+        return getAssetsWithExtension(tileEntries, ".png");
     }
 
     public String[] getEntityTextures() {
-        return getTextures(entityDefinitions);
+        return getAssetsWithExtension(entityEntries, ".png");
     }
 
-    private String[] getTextures(RoomObject[] objectDefinitions) {
+    public String[] getTileAtlases() {
+        return getAssetsWithExtension(tileEntries, ".atlas");
+    }
+
+    public String[] getEntityAtlases() {
+        return getAssetsWithExtension(entityEntries, ".atlas");
+    }
+
+    private String[] getAssetsWithExtension(ObjectMap<String, RoomObject> entries, String extension) {
         Array<String> temp = new Array<>();
-        for (RoomObject objectDefinition : objectDefinitions) {
-            if (objectDefinition.getTexture() != null) {
-                temp.add(objectDefinition.getTexture());
+        for (ObjectMap.Entry<String, RoomObject> entry : entries) {
+            String asset = entry.value.getAsset();
+            if (asset != null && asset.endsWith(extension)) {
+                temp.add(asset);
             }
         }
 
-        String[] textures = new String[temp.size];
+        String[] assets = new String[temp.size];
         for (int i = 0; i < temp.size; i++) {
-            textures[i] = temp.get(i);
+            assets[i] = temp.get(i);
         }
-        return textures;
+        return assets;
     }
 
     public ObjectMap<String, TerrainTile> getSymbolTerrainTileMap() {
         ResourceService resourceService = ServiceLocator.getResourceService();
-        ObjectMap<String, TerrainTile> stringTerrainTileMap = new ObjectMap(tileDefinitions.length);
-        for (RoomObject current : tileDefinitions) {
-            stringTerrainTileMap.put(current.getSymbol(), new TerrainTile(new TextureRegion(
-                    resourceService.getAsset(current.getTexture(), Texture.class))));
+        ObjectMap<String, TerrainTile> symbolTerrainTileMap = new ObjectMap(tileEntries.size);
+        for (ObjectMap.Entry<String, RoomObject> entry : tileEntries) {
+            symbolTerrainTileMap.put(entry.key, new TerrainTile(new TextureRegion(
+                    resourceService.getAsset(entry.value.getAsset(), Texture.class))));
         }
-        return stringTerrainTileMap;
+        return symbolTerrainTileMap;
     }
 
-    public ObjectMap<String, RoomObject> getSymbolObjectMap() {
-        ObjectMap<String, RoomObject> stringRoomObjectMap = new ObjectMap(entityDefinitions.length);
-        for (RoomObject current : entityDefinitions) {
-            stringRoomObjectMap.put(current.getSymbol(), current);
-        }
-        return stringRoomObjectMap;
-    }
+    static public class RoomObject {
+        // Spawning data
+        private final Method method;
+        private final String asset;
 
-    public int getMaxScale() {
-        int max = (int) roomScale.x;
-        if (roomScale.x < roomScale.y) {
-            max = (int) roomScale.y;
+        public RoomObject(String methodName, String assetName) {
+            this.method = getDeclaredMethod(methodName, assetName);
+            this.asset = assetName;
         }
-        return max;
+
+        public Method getMethod() {
+            return method;
+        }
+
+        public String getAsset() {
+            return asset;
+        }
+
+        /**
+         * Attempts to find the method name in the codebase. If found, a method
+         * will be invoked later for object generation.
+         * @param methodName method to be found
+         * @param assetName optional asset to be loaded
+         * @return found method signature
+         */
+        private Method getDeclaredMethod(String methodName, String assetName) {
+            Method method = null;
+            Class[] paramTypes;
+            if (assetName == null) {
+                paramTypes = new Class[]{GridPoint2.class};
+            } else {
+                paramTypes = new Class[]{GridPoint2.class, String.class};
+            }
+
+            try {
+                method = (HomeGameArea.class).getDeclaredMethod(methodName, paramTypes);
+            } catch (Exception e) {
+                logger.error("Method {} could not be found", methodName);
+            }
+
+            return method;
+        }
     }
 
     static public class RoomStyle {
         // Room placement
-        public int maximumEntries;
-        public ObjectMap<Class<Room>, EntryType[]> entryRestrictions;
+        private int maximumEntries;
+        private ObjectMap<Class<Room>, DoorwayType[]> doorwayRestrictions;
+
+        public int getMaximumEntries() {
+            return maximumEntries;
+        }
+
+        public ObjectMap<Class<Room>, DoorwayType[]> getDoorwayRestrictions() {
+            return doorwayRestrictions;
+        }
     }
 
-    enum EntryType {
+    enum DoorwayType {
         SINGLE_DOOR, DOUBLE_DOOR, SINGLE_NO_DOOR, OPEN_SPACE
     }
 }

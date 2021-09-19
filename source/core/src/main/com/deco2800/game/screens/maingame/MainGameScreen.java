@@ -4,7 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.components.PerformanceDisplay;
-import com.deco2800.game.areas.HouseGameArea;
+import com.deco2800.game.areas.HomeGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
@@ -39,7 +39,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final HouseGameArea mainGameArea;
+  private final HomeGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
   public MainGameScreen() {
@@ -67,7 +67,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
-    mainGameArea = new HouseGameArea(terrainFactory);
+    mainGameArea = new HomeGameArea(terrainFactory);
 
     mainGameArea.create();
     entityPlayer = mainGameArea.player;
@@ -152,7 +152,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new TerminalDisplay());
   }
 
-  public HouseGameArea getMainGameArea() {
+  public HomeGameArea getMainGameArea() {
     return mainGameArea;
   }
 

@@ -3,6 +3,7 @@ package com.deco2800.game.areas.rooms;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.utils.math.IntUtils;
 import com.deco2800.game.utils.math.MatrixUtils;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class RoomReader {
 
     private static final Logger logger = LoggerFactory.getLogger(RoomReader.class);
-    private BufferedReader reader = null;
+    private BufferedReader reader;
     private String currentLine = "";
 
     // DRM symbols
@@ -30,16 +31,36 @@ public class RoomReader {
     // DRM keywords
     private static final String SCALE_HEADER = "SCALE";
 //  private static final String ANCHOR_HEADER = "ANCHOR";
-    private static final String TILE_HEADER = "TILES ".concat(OPEN_BRACKET);
-    private static final String ENTITY_HEADER = "ENTITIES ".concat(OPEN_BRACKET);
+    public static final String TILE_HEADER = "TILES ".concat(OPEN_BRACKET);
+    public static final String ENTITY_HEADER = "ENTITIES ".concat(OPEN_BRACKET);
     private static final String DEFINE_HEADER = "DEFINE ".concat(OPEN_BRACKET);
     private static final String GRID_HEADER = "GRID ".concat(OPEN_BRACKET);
 
+    public RoomReader(String filename) {
+        setBufferedReader(filename, FileLoader.Location.INTERNAL);
+    }
+
+    /**
+     * @return room with all data extracted from .drm file
+     */
+    public Room extractRoom(String filename) {
+        setBufferedReader(filename, FileLoader.Location.INTERNAL);
+        Vector2 roomScale = extractRoomScale();
+        // Extracting tile information
+        ObjectMap<String, Room.RoomObject> tileEntries = extractEntries(TILE_HEADER);
+        String[][] tileGrid = extractGrid(roomScale);
+        // Extracting entity information
+        ObjectMap<String, Room.RoomObject> entityEntries = extractEntries(ENTITY_HEADER);
+        String[][] entityGrid = extractGrid(roomScale);
+
+        return new Room(filename, tileEntries, entityEntries, tileGrid, entityGrid);
+    }
+    
     /**
      * @param filename name of the file
      * @param location relative location of the file, usually passed as INTERNAL
      */
-    public void setBufferedReader(String filename, FileLoader.Location location) {
+    private void setBufferedReader(String filename, FileLoader.Location location) {
         FileHandle file = FileLoader.getFileHandle(filename, location);
         // Check file state
         if (file == null) {
@@ -57,26 +78,11 @@ public class RoomReader {
             logger.error("The file {} was not found", filename);
         }
     }
-
-    /**
-     * @return room with all data extracted from .drm file
-     */
-    public Room extractRoom() {
-        Vector2 roomScale = extractRoomScale();
-        // Extracting tile information
-        RoomObject[] tileDefinitions = extractDefinitions(TILE_HEADER);
-        String[][] tileGrid = extractGrid(roomScale);
-        // Extracting entity information
-        RoomObject[] entityDefinitions = extractDefinitions(ENTITY_HEADER);
-        String[][] entityGrid = extractGrid(roomScale);
-
-        return new Room(roomScale, tileDefinitions, entityDefinitions, tileGrid, entityGrid);
-    }
-
+    
     /**
      * @return room scale extracted from .drm file
      */
-    private Vector2 extractRoomScale() {
+    public Vector2 extractRoomScale() {
         assertHeader(SCALE_HEADER, "Missing scale header in .drm file");
         String[] scale = currentLine.split(DEF_DELIM);
         if (scale.length != 3) {
@@ -87,45 +93,39 @@ public class RoomReader {
     }
 
     /**
-     * @return object type definitions extracted from .drm file
+     * @return object type entries extracted from .drm file
      */
-    private RoomObject[] extractDefinitions(String objectHeader) {
+    public ObjectMap<String, Room.RoomObject> extractEntries(String objectHeader) {
         assertHeader(objectHeader, "Missing object header in .drm file");
         assertHeader(DEFINE_HEADER, "Missing define header in .drm file");
 
-        // Extract object definitions from .drm file
-        Array<RoomObject> temp = new Array<>();
+        // Extract object entries from .drm file
+        ObjectMap<String, Room.RoomObject> entries = new ObjectMap<>();
         currentLine = nextLine();
         do {
             String[] tokens = currentLine.split(DEF_DELIM);
             if (tokens.length == 2) {
-                temp.add(new RoomObject(tokens[0], tokens[1]));
+                entries.put(tokens[0], new Room.RoomObject(tokens[1], null));
             } else if (tokens.length == 3) {
-                temp.add(new RoomObject(tokens[0], tokens[1], tokens[2]));
+                entries.put(tokens[0], new Room.RoomObject(tokens[1], tokens[2]));
             } else {
-                logger.error("Too many object parameters mentioned in .drm file");
+                logger.error("Entry did not have satisfactory parameters in .drm file");
             }
             currentLine = nextLine();
         } while (!currentLine.equals(CLOSE_BRACKET));
 
-        // Convert type
-        RoomObject[] definitions = new RoomObject[temp.size];
-        for (int i = 0; i < temp.size; i++) {
-            definitions[i] = temp.get(i);
+        // Done extracting entries
+        if (entries.size == 0) {
+            logger.error("No entries found in .drm file");
         }
-
-        // Done extracting definitions
-        if (definitions.length == 0) {
-            logger.error("No object definitions in .drm file");
-        }
-        return definitions;
+        return entries;
     }
 
     /**
      * @param mapScale dimensions of the room
      * @return square matrix defining object grid positions using symbols
      */
-    private String[][] extractGrid(Vector2 mapScale) {
+    public String[][] extractGrid(Vector2 mapScale) {
         assertHeader(GRID_HEADER, "Missing grid header in .drm file");
         // Take max length to make perfect square matrix
         int max = (int) mapScale.x;

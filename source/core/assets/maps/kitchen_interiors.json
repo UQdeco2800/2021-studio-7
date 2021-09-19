@@ -1,0 +1,30 @@
+{
+  com.deco2800.game.areas.rooms.Kitchen: {
+    default: {
+      roomStyleResource: five_by_five
+      interiorTiles: {
+        "A": images/tiles/iso/iso_floor_1_alt.png
+      }
+      interiorEntities: {
+        "b": {
+          method: spawnBananaPeel
+          asset: null
+        }
+      }
+      rawTileGrid: [
+        ". . . . .",
+        ". A . . .",
+        ". . . . .",
+        ". . . . .",
+        ". . . A ."
+      ]
+      rawEntityGrid: [
+        ". . . . .",
+        ". . . . .",
+        ". . . . .",
+        ". . . . .",
+        ". . . . ."
+      ]
+    }
+  }
+}
