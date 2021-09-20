@@ -1,5 +1,5 @@
 {
-  com.deco2800.game.areas.home.rooms.Kitchen: {
+  com.deco2800.game.areas.home.rooms.Dining: {
     default: {
       roomStyleResource: five_by_five
       interiorTiles: {

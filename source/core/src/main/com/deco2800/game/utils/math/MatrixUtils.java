@@ -1,5 +1,7 @@
 package com.deco2800.game.utils.math;
 
+import java.lang.reflect.Array;
+
 public class MatrixUtils {
 
     public static <T> T[][] rotateClockwise(T[][] matrix) {
@@ -33,14 +35,13 @@ public class MatrixUtils {
     }
 
     public static <T> T[][] transpose(T[][] matrix) {
-        for (int x = 0; x < matrix.length; x++) {
+        T[][] transposed = (T[][]) Array.newInstance(matrix.getClass(), matrix[0].length, matrix.length);
+        for (int x = 0; x < matrix[0].length; x++) {
             for (int y = 0; y < matrix.length; y++) {
-                T temp = matrix[x][y];
-                matrix[x][y] = matrix[y][x];
-                matrix[y][x] = temp;
+                transposed[x][y] = matrix[y][x];
             }
         }
-        return matrix;
+        return transposed;
     }
 
     private MatrixUtils() {

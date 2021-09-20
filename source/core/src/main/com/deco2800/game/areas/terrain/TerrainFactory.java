@@ -12,14 +12,12 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.rooms.Room;
+import com.deco2800.game.areas.home.rooms.Room;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-
-import java.util.Map;
 
 /** Factory for creating game terrains. */
 public class TerrainFactory {

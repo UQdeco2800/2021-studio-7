@@ -3,15 +3,13 @@ package com.deco2800.game.areas;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.rooms.RoomObject;
-import com.deco2800.game.areas.rooms.Room;
-import com.deco2800.game.areas.rooms.RoomReader;
+import com.deco2800.game.areas.home.RoomObject;
+import com.deco2800.game.areas.home.rooms.Room;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
-import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
@@ -62,11 +60,6 @@ public class HomeGameArea extends GameArea {
 
     public void extractRooms() {
         logger.info("Extracting rooms");
-        RoomReader reader = new RoomReader();
-        for (String drmLocation : drmLocations) {
-            reader.setBufferedReader(drmLocation, FileLoader.Location.INTERNAL);
-            rooms.add(reader.extractRoom());
-        }
     }
 
     public void createRooms() {
@@ -83,19 +76,19 @@ public class HomeGameArea extends GameArea {
     }
 
     public void spawnEntities(Room room) {
-        ObjectMap<String, RoomObject> symbolObjectMap = room.getSymbolObjectMap();
-        for (int x = 0; x < room.getMaxScale(); x++) {
-            for (int y = 0; y < room.getMaxScale(); y++) {
-                String current = room.getEntityGrid()[x][y];
-                RoomObject roomObject = symbolObjectMap.get(current);
+        ObjectMap<Character, RoomObject> entityMappings = room.getEntityMappings();
+        for (int x = 0; x < room.getEntityGrid().length; x++) {
+            for (int y = 0; y < room.getEntityGrid().length; y++) {
+                Character symbol = room.getEntityGrid()[x][y];
+                RoomObject roomObject = entityMappings.get(symbol);
                 if (roomObject == null) {
                     continue;
                 }
                 Object[] params;
-                if (roomObject.getTexture().equals("")) {
+                if (roomObject.getAsset().equals("")) {
                     params = new Object[]{new GridPoint2(x, y)};
                 } else {
-                    params = new Object[]{new GridPoint2(x, y), roomObject.getTexture()};
+                    params = new Object[]{new GridPoint2(x, y), roomObject.getAsset()};
                 }
                 try {
                     roomObject.getMethod().invoke(this, params);
@@ -183,16 +176,10 @@ public class HomeGameArea extends GameArea {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTexture("images/objects/door/door_close_right.png");
         for (Room room : rooms) {
-            for (RoomObject current : room.getTileDefinitions()) {
-                if (current.getTexture() != null) {
-                    resourceService.loadTexture(current.getTexture());
-                }
-            }
-            for (RoomObject current : room.getEntityDefinitions()) {
-                if (current.getTexture() != null) {
-                    resourceService.loadTexture(current.getTexture());
-                }
-            }
+            resourceService.loadTextures(room.getTileTextures());
+            resourceService.loadTextures(room.getEntityTextures());
+            resourceService.loadTextureAtlases(room.getTileAtlases());
+            resourceService.loadTextureAtlases(room.getEntityAtlases());
         }
         resourceService.loadTextures(houseTextures);
         resourceService.loadTextureAtlases(houseTextureAtlases);
