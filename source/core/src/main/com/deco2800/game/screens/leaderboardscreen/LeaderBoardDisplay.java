@@ -163,8 +163,8 @@ public class LeaderBoardDisplay extends UIComponent {
             // return comparison results of values of
             // two keys
             public int compare(K k1, K k2) {
-                int comp = map.get(k1).compareTo(
-                        map.get(k2));
+                int comp = map.get(k2).compareTo(
+                        map.get(k1));
                 if (comp == 0)
                     return 1;
                 else
