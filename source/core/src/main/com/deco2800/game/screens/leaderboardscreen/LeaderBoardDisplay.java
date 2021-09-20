@@ -36,6 +36,7 @@ public class LeaderBoardDisplay extends UIComponent {
     private final GdxGame game;
     private Table rootTable;
     private Table leaderTable;
+    private Map sortedLeaderboard;
 
     public LeaderBoardDisplay(GdxGame game) {
         super();
@@ -61,7 +62,7 @@ public class LeaderBoardDisplay extends UIComponent {
         Table leaderboardtable = makeLeaderBoardTable();
         Table menuBtns = makeMenuBtns();
         rootTable.add(title).expandX().top().padTop(20f);
-        rootTable.row().padTop(30f);
+        rootTable.row().padTop(1f);
         logger.info("Trying to create leader board...");
         rootTable.add(leaderboardtable).expandX().expandY();
         rootTable.row();
@@ -74,9 +75,8 @@ public class LeaderBoardDisplay extends UIComponent {
     private Table makeLeaderBoardTable() {
         leaderTable = new Table();
         logger.info("Trying to get leader board...");
-        TreeMap<String, Integer> leaderboard = getLeaderBoard();
         logger.info("Got leader board.");
-        Set set = leaderboard.entrySet();
+        Set set = sortedLeaderboard.entrySet();
         Iterator i = set.iterator();
         String insert;
         int t = 0;
@@ -85,7 +85,7 @@ public class LeaderBoardDisplay extends UIComponent {
             if (t == 11){break;}
             leaderTable.row();
             Map.Entry mp = (Map.Entry) i.next();
-            insert = mp.getKey() + ":" + String.valueOf(mp.getValue());
+            insert = String.valueOf(t)+": "+mp.getKey() + ":" + String.valueOf(mp.getValue());
             Label label = new Label(insert, skin);
             leaderTable.add(label).padTop(15f);
         }
@@ -136,7 +136,7 @@ public class LeaderBoardDisplay extends UIComponent {
         try {
             TreeMap<String, Integer> leaderboard = getLeaderBoard();
 
-            Map sortedLeaderboard = valueSort(leaderboard);
+            sortedLeaderboard = valueSort(leaderboard);
             FileWriter clearer = new FileWriter("configs/leaderboard.txt");
             clearer.write("");
             FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
