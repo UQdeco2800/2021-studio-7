@@ -87,7 +87,7 @@ public class FileLoader {
     file.writeString(json.prettyPrint(object), false);
   }
 
-  private static FileHandle getFileHandle(String filename, Location location) {
+  public static FileHandle getFileHandle(String filename, Location location) {
     switch (location) {
       case CLASSPATH:
         return Gdx.files.classpath(filename);
