@@ -80,7 +80,7 @@ public class EventHandler {
    *
    * @param eventName name of the event to be removed
    */
-  public removeListener(String eventName) {
+  public void removeListener(String eventName) {
 
   }
 
