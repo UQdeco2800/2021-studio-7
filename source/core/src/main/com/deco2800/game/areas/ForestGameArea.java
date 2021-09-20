@@ -89,7 +89,6 @@ public class ForestGameArea extends GameArea {
   @Override
   public void create() {
     displayUI();
-
     spawnTerrain();
     spawnEnergyDrink();
     //playMusic();

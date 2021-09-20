@@ -90,7 +90,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.D:
                 walkDirection.sub(Vector2Utils.RIGHT);
-                entity.getEvents().trigger("update_animation", "standing_east");
+                entity.getEvents().trigger("update_danimation", "standing_east");
                 triggerWalkEvent();
                 return true;
             case Keys.E:
