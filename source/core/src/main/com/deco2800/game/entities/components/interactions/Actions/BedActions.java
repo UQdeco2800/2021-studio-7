@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 public class BedActions extends InteractionComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
-    private Entity target;
 
     @Override
     public void create() {
@@ -24,24 +23,29 @@ public class BedActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
-        target = preCollisionCheck(me, other);
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
+        Entity target = preCollisionCheck(me, other);
+        if (target == null) {
+            return;
+        } else if (target.getComponent(PlayerActions.class) != null) {
             highlightBed();
-            target.getEvents().addListener("interaction", this::onInteraction);
         }
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        target = preCollisionCheck(me, other);
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
+        Entity target = preCollisionCheck(me, other);
+        if (target == null) {
+            return;
+        } else if (target.getComponent(PlayerActions.class) != null) {
             unhighlightBed();
         }
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
+        if (target == null) {
+            return;
+        } else if (target.getComponent(PlayerActions.class) != null) {
             triggerWinCondition();
         }
     }
