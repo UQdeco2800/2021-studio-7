@@ -14,6 +14,7 @@ public class BedActions extends InteractionComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
     private Entity target;
+    private boolean isTouching = false;
 
     @Override
     public void create() {
@@ -26,19 +27,35 @@ public class BedActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
+
         target = preCollisionCheck(me, other);
         if (target != null && target.getComponent(PlayerActions.class) != null) {
             highlightBed();
-            target.getEvents().addListener("interaction", this::onInteraction);
+            // If there is already an "interaction" event, don't add a new event listener
+            if (!target.getEvents().getListener("interaction")) {
+                System.out.println("We got there");
+                target.getEvents().addListener("interaction", this::onInteraction);
+            }
         }
+
+//        super.onCollisionStart(me, other);
+//        highlightBed();
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
+
         target = preCollisionCheck(me, other);
         if (target != null && target.getComponent(PlayerActions.class) != null) {
             unhighlightBed();
+            // If there is an "interaction" event, remove it
+            if (target.getEvents().getListener("interaction")) {
+                target.getEvents().removeListener("interaction");
+            }
         }
+
+//        super.onCollisionEnd(me, other);
+//        unhighlightBed();
     }
 
     @Override

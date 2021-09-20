@@ -81,7 +81,19 @@ public class EventHandler {
    * @param eventName name of the event to be removed
    */
   public void removeListener(String eventName) {
+    logger.debug("Removing event {}", eventName);
+    listeners.remove(eventName);
+  }
 
+  /**
+   * Checks if there is already a listener using the given string
+   *
+   * @param eventName The name of the event to check for
+   * @return True if there already exists an event under that name, false otherwise
+   */
+  public boolean getListener(String eventName) {
+    //return listeners.getOrDefault(eventName, null) != null;
+    return listeners.containsKey(eventName);
   }
 
   /**
