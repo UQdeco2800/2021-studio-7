@@ -13,32 +13,47 @@ import org.slf4j.LoggerFactory;
 public class BedActions extends InteractionComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
+    private Entity target;
+    private boolean isTouching = false;
 
     @Override
     public void create() {
         super.create();
         targetLayer = PhysicsLayer.PLAYER;
-        animator.startAnimation("bed");
+        if (animator != null) {
+            animator.startAnimation("bed");
+        }
     }
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
+        target = preCollisionCheck(me, other);
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
             highlightBed();
+            // If there is already an "interaction" event, don't add a new event listener
+            if (!target.getEvents().getListener("interaction")) {
+                System.out.println("We got there");
+                target.getEvents().addListener("interaction", this::onInteraction);
+            }
         }
+
+//        super.onCollisionStart(me, other);
+//        highlightBed();
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
+        target = preCollisionCheck(me, other);
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
             unhighlightBed();
+            // If there is an "interaction" event, remove it
+            if (target.getEvents().getListener("interaction")) {
+                target.getEvents().removeListener("interaction");
+            }
         }
+
+//        super.onCollisionEnd(me, other);
+//        unhighlightBed();
     }
 
     @Override
@@ -52,12 +67,16 @@ public class BedActions extends InteractionComponent {
 
     public void highlightBed() {
         logger.info("BED started collision with PLAYER, highlighting bed");
-        animator.startAnimation("bed_highlight");
+        if (animator != null) {
+            animator.startAnimation("bed_highlight");
+        }
     }
 
     public void unhighlightBed() {
         logger.info("BED ended collision with PLAYER, un-highlighting bed");
-        animator.startAnimation("bed");
+        if (animator != null) {
+            animator.startAnimation("bed");
+        }
     }
 
     public void triggerWinCondition() {

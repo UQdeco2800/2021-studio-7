@@ -30,6 +30,7 @@ public class MainGameExitDisplay extends UIComponent {
 
     TextButton mainMenuBtn = new TextButton("Exit", skin);
 
+    mainMenuBtn.getLabel().setColor(0, 0,0, 1f);
     // Triggers an event when the button is pressed.
     mainMenuBtn.addListener(
       new ChangeListener() {

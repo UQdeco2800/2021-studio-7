@@ -57,6 +57,7 @@ public abstract class GameArea implements Disposable {
     Vector2 worldPos = terrain.tileToWorldPosition(tilePos);
     float tileSize = terrain.getTileSize();
 
+
     if (centerX) {
       worldPos.x += (tileSize / 2) - entity.getCenterPosition().x;
     }

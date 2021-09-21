@@ -2,6 +2,7 @@ package com.deco2800.game.entities.components.interactions;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -26,6 +27,8 @@ public class InteractionComponent extends Component implements Interactable {
         entity.getEvents().addListener("collision_start", this::onCollisionStart);
         entity.getEvents().addListener("collision_end", this::onCollisionEnd);
         entity.getEvents().addListener("interaction", this::onInteraction);
+
+        targetLayer = PhysicsLayer.PLAYER;
 
         animator = entity.getComponent(AnimationRenderComponent.class);
         if (animator != null) {

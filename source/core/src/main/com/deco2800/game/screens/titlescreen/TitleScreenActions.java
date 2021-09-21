@@ -6,9 +6,12 @@ import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class listens to events relevant to the Title Screen and does something when one of the
+ * events is triggered.
+ */
 public class TitleScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(TitleScreenActions.class);
-    private GdxGame game;
 
     @Override
     public void create() {
