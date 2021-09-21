@@ -1,5 +1,4 @@
 {
-  roomStyleResource: five_by_five
   interiorTiles: {
     a: {
       method: null
@@ -9,7 +8,7 @@
   interiorEntities: {
     b: {
       method: spawnBananaPeel
-      assets: [images/objects/banana_peel/banana.atlas]
+      assets: null
     }
   }
   rawTileGrid: [

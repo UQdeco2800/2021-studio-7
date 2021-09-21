@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.roomtypes.RoomType;
 
 public class HomeFloorPlan {
+    private final String directory = "maps/_floorplans";
+
     private final ObjectMap<Character, RoomFloorPlan> roomMappings;
     private final ObjectMap<Character, String> miscMappings;
     private final Character[][] floorGrid;
@@ -17,6 +19,8 @@ public class HomeFloorPlan {
         this.miscMappings = miscMappings;
         this.floorGrid = floorGrid;
     }
+
+    public void load
 
     public ObjectMap<Character, RoomFloorPlan> getRoomMappings() {
         return roomMappings;
