@@ -1,58 +1,99 @@
-package com.deco2800.game.areas.home.roomtypes;
+package com.deco2800.game.areas.home;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.home.RoomObject;
 import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RoomType {
+public class Room {
 
-    protected static final Logger logger = LoggerFactory.getLogger(RoomType.class);
+    protected static final Logger logger = LoggerFactory.getLogger(Room.class);
+    protected final Integer maxDoorways;
+    protected final ObjectMap<Class<Room>, String[]> doorwayRestrictions;
+    protected Doorway[] extraDoorways;
+    private RoomInterior interior;
 
-    // Room type
-    protected Integer maxDoorways;
-    protected ObjectMap<Class<RoomType>, DoorwayType[]> doorwayRestrictions;
-    protected GridPoint2[] extraDoorwayTiles;
-    protected RoomInterior interior;
-
-    public RoomType(Integer maxDoorways,
-                    ObjectMap<Class<RoomType>, DoorwayType[]> doorwayRestrictions) {
+    public Room(Integer maxDoorways,
+                ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         this.maxDoorways = maxDoorways;
         this.doorwayRestrictions = doorwayRestrictions;
+    }
+
+    public static <T extends RoomInterior> T loadRandomInterior(Class<T> type, Vector2 dimensions, String directory) {
+        T interior = null;
+        Array<FileHandle> jsons = FileLoader.getJsonFiles(directory);
+        do {
+            FileHandle chosenFile = jsons.get(RandomUtils.getSeed().nextInt() % jsons.size);
+            try {
+                interior = FileLoader.readClass(type, chosenFile.path());
+            } catch (ClassCastException e) {
+                logger.error("File {} did not contain an instance of {}", chosenFile.path(), type);
+            }
+            if (interior == null || interior.getRoomScale().equals(dimensions)) {
+                jsons.removeValue(chosenFile, true);
+                interior = null;
+                if (jsons.size == 0) {
+                    break;
+                }
+            }
+        } while (interior == null);
+
+        return interior;
     }
 
     public int getMaximumDoorways() {
         return maxDoorways;
     }
 
-    public ObjectMap<Class<RoomType>, DoorwayType[]> getDoorwayRestrictions() {
+    public ObjectMap<Class<Room>, String[]> getDoorwayRestrictions() {
         return doorwayRestrictions;
     }
 
-    public GridPoint2[] getExtraDoorwayTiles() {
-        return extraDoorwayTiles;
+    public Doorway[] getExtraDoorways() {
+        return extraDoorways;
+    }
+
+    public void setExtraDoorways(Doorway[] extraDoorways) {
+        this.extraDoorways = extraDoorways;
     }
 
     public RoomInterior getInterior() {
         return interior;
     }
 
+    public void setInterior(RoomInterior interior) {
+        this.interior = interior;
+    }
+
     static public class RoomInterior {
-        protected ObjectMap<Character, RoomObject> tileMappings;
-        protected ObjectMap<Character, RoomObject> entityMappings;
-        protected Character[][] tileGrid;
-        protected Character[][] entityGrid;
+
+        private final ObjectMap<Character, RoomObject> tileMappings;
+        private final ObjectMap<Character, RoomObject> entityMappings;
+        private final Character[][] tileGrid;
+        private final Character[][] entityGrid;
+        private final Vector2 roomScale;
+
+        public RoomInterior(ObjectMap<Character, RoomObject> tileMappings,
+                            ObjectMap<Character, RoomObject> entityMappings,
+                            Character[][] tileGrid, Character[][] entityGrid) {
+            this.tileMappings = tileMappings;
+            this.entityMappings = entityMappings;
+            this.tileGrid = tileGrid;
+            this.entityGrid = entityGrid;
+            this.roomScale = new Vector2(tileGrid.length, tileGrid[0].length);
+        }
 
         public Vector2 getRoomScale() {
-            return new Vector2(tileGrid.length, tileGrid[0].length);
+            return roomScale;
         }
 
         public ObjectMap<Character, RoomObject> getTileMappings() {
@@ -115,9 +156,5 @@ public class RoomType {
             }
             return characterTerrainTileMap;
         }
-    }
-
-    enum DoorwayType {
-        SINGLE_DOOR, DOUBLE_DOOR, SINGLE_NO_DOOR, OPEN_SPACE
     }
 }

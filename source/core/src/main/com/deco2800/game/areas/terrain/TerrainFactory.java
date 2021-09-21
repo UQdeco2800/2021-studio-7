@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.home.roomtypes.RoomType;
+import com.deco2800.game.areas.home.Room;
 import com.deco2800.game.areas.terrain.TerrainComponent.TerrainOrientation;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.generic.ResourceService;
@@ -66,26 +66,26 @@ public class TerrainFactory {
    *
    * @return Terrain component which renders the terrain
    */
-  public TerrainComponent createRoomTerrain(RoomType roomType) {
+  public TerrainComponent createRoomTerrain(Room room) {
     ResourceService resourceService = ServiceLocator.getResourceService();
-    TextureRegion textureRegion = new TextureRegion(resourceService.getAsset(roomType.getTileTextures()[0], Texture.class));
+    TextureRegion textureRegion = new TextureRegion(resourceService.getAsset(room.getTileTextures()[0], Texture.class));
 
     GridPoint2 tilePixelSize = new GridPoint2(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
-    TiledMap tiledMap = setRoomTiles(tilePixelSize, roomType);
+    TiledMap tiledMap = setRoomTiles(tilePixelSize, room);
     TiledMapRenderer renderer = createRenderer(tiledMap, 1f / tilePixelSize.x);
     return new TerrainComponent(camera, tiledMap, renderer, orientation, 1f);
   }
 
-  private TiledMap setRoomTiles(GridPoint2 tileSize, RoomType roomType) {
+  private TiledMap setRoomTiles(GridPoint2 tileSize, Room room) {
     TiledMap tiledMap = new TiledMap();
-    ObjectMap<String, TerrainTile> stringTerrainTileMap = roomType.getSymbolTerrainTileMap();
+    ObjectMap<String, TerrainTile> stringTerrainTileMap = room.getSymbolTerrainTileMap();
     TiledMapTileLayer layer = new TiledMapTileLayer(
-            roomType.getMaxScale(), roomType.getMaxScale(), tileSize.x, tileSize.y);
+            room.getMaxScale(), room.getMaxScale(), tileSize.x, tileSize.y);
 
     // Go through grid and set tile cells
-    for (int x = 0; x < roomType.getMaxScale(); x++) {
-      for (int y = 0; y < roomType.getMaxScale(); y++) {
-        String current = roomType.getTileGrid()[x][y];
+    for (int x = 0; x < room.getMaxScale(); x++) {
+      for (int y = 0; y < room.getMaxScale(); y++) {
+        String current = room.getTileGrid()[x][y];
         TerrainTile tile = stringTerrainTileMap.get(current);
         if (tile != null) {
           Cell cell = new Cell();

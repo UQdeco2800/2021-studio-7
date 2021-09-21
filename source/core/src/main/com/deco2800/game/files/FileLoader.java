@@ -2,6 +2,7 @@ package com.deco2800.game.files;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +86,29 @@ public class FileLoader {
     FileHandle file = getFileHandle(filename, location);
     assert file != null;
     file.writeString(json.prettyPrint(object), false);
+  }
+
+  public static Array<FileHandle> getJsonFiles(String directory) {
+    return getJsonFiles(new FileHandle(directory), ".json");
+  }
+
+  public static Array<FileHandle> getJsonFiles(String directory, String suffix) {
+    return getJsonFiles(new FileHandle(directory), suffix);
+  }
+
+  public static Array<FileHandle> getJsonFiles(FileHandle directory) {
+    return getJsonFiles(directory, ".json");
+  }
+
+  public static Array<FileHandle> getJsonFiles(FileHandle directory, String suffix) {
+    FileHandle[] files = directory.list(suffix);
+    Array<FileHandle> jsons = new Array<>();
+    for (FileHandle file : files) {
+      if (!file.isDirectory()) {
+        jsons.add(file);
+      }
+    }
+    return jsons;
   }
 
   public static FileHandle getFileHandle(String filename, Location location) {
