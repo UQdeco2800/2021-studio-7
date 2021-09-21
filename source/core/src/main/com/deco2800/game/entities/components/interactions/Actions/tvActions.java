@@ -21,36 +21,26 @@ public class tvActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("TV started collision with PLAYER, tv animation");
-            animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
-        }
+        super.onCollisionStart(me, other);
+        logger.info("TV started collision with PLAYER, tv animation");
+        animator.startAnimation("TV_ONA");
+        animator.startAnimation("TV_ONB");
+        animator.startAnimation("TV_ONC");
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("TV ended collision with PLAYER, tv animation");
-            animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
-        }
+        super.onCollisionEnd(me, other);
+        logger.info("TV ended collision with PLAYER, tv animation");
+        animator.startAnimation("TV_ONA");
+        animator.startAnimation("TV_ONB");
+        animator.startAnimation("TV_ONC");
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("TV started collision with SURVEYOR, triggering TV animation");
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
+            logger.info("PLAYER interacted with TV, triggering TV animation");
             animator.startAnimation("TV_offL");
             animator.startAnimation("TV_offL2");
         }

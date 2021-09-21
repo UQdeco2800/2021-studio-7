@@ -19,7 +19,6 @@ public class BedActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        targetLayer = PhysicsLayer.PLAYER;
         if (animator != null) {
             animator.startAnimation("bed");
         }
@@ -27,40 +26,19 @@ public class BedActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
-        target = preCollisionCheck(me, other);
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
-            highlightBed();
-            // If there is already an "interaction" event, don't add a new event listener
-            if (!target.getEvents().getListener("interaction")) {
-                System.out.println("We got there");
-                target.getEvents().addListener("interaction", this::onInteraction);
-            }
-        }
-
-//        super.onCollisionStart(me, other);
-//        highlightBed();
+        super.onCollisionStart(me, other);
+        highlightBed();
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        target = preCollisionCheck(me, other);
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
-            unhighlightBed();
-            // If there is an "interaction" event, remove it
-            if (target.getEvents().getListener("interaction")) {
-                target.getEvents().removeListener("interaction");
-            }
-        }
-
-//        super.onCollisionEnd(me, other);
-//        unhighlightBed();
+        super.onCollisionEnd(me, other);
+        unhighlightBed();
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
             triggerWinCondition();
         }
     }
@@ -80,7 +58,7 @@ public class BedActions extends InteractionComponent {
     }
 
     public void triggerWinCondition() {
-        logger.info("BED started collision with SURVEYOR, triggering win condition");
+        logger.info("PLAYER interacted with BED, triggering win");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
                 .getMainGameEntity().getEvents().trigger("win_default");
     }

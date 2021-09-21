@@ -120,7 +120,7 @@ public class MainGameTextDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        displayText.clear();
+        //displayText.clear();
         super.dispose();
     }
 }

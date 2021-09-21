@@ -30,33 +30,22 @@ public class DrinkActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("DRINK started collision with PLAYER, highlighting " +
-                    "drink");
-            animator.startAnimation("energy_highlight");
-        }
+        super.onCollisionStart(me, other);
+        logger.info("DRINK started collision with PLAYER");
+        animator.startAnimation("energy_highlight");
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("DRINK ended collision with PLAYER, un-highlighting drink");
-            animator.startAnimation("energy");
-        }
+        super.onCollisionEnd(me, other);
+        logger.info("DRINK ended collision with PLAYER");
+        animator.startAnimation("energy");
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("DRINK started interaction with PLAYER, increasing player stamina");
+        if (target != null && target.getComponent(PlayerActions.class) != null) {
+            logger.info("PLAYER interacted with DRINK, increasing player stamina");
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             //add time restriction

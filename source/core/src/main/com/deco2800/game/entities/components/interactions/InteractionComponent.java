@@ -54,11 +54,31 @@ public class InteractionComponent extends Component implements Interactable {
     }
 
     @Override
-    public void onCollisionStart(Fixture me, Fixture other) {}
+    public void onCollisionStart(Fixture me, Fixture other) {
+        Entity target = preCollisionCheck(me, other);
+        if (target == null || target.getComponent(PlayerActions.class) == null) {
+            return;
+        }
+        // If there is already a listener for "interaction", remove it and create a new one
+        if (target.getEvents().getListener("interaction")) {
+            target.getEvents().removeListener("interaction");
+        }
+        target.getEvents().addListener("interaction", this::onInteraction);
+    }
 
     @Override
-    public void onCollisionEnd(Fixture me, Fixture other) {}
+    public void onCollisionEnd(Fixture me, Fixture other) {
+        Entity target = preCollisionCheck(me, other);
+        if (target == null || target.getComponent(PlayerActions.class) == null) {
+            return;
+        }
+        // If there is a listener for "interaction", remove it
+        if (target.getEvents().getListener("interaction")) {
+            target.getEvents().removeListener("interaction");
+        }
+    }
 
     @Override
     public void onInteraction(Entity target) {}
+
 }

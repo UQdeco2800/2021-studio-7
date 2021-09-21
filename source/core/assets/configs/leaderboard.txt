@@ -51,3 +51,16 @@ DirtyDefault35455:4727
 
 DirtyDefault2438:837,
 DirtyDefault65189:813,
+DirtyDefault5861:911,969,964,925,215,838,
+DirtyDefault30377:727,951,
+DirtyDefault53638:928,
+DirtyDefault13174:975,847,
+DirtyDefault34968:937,925,861,945,1000,
+DirtyDefault43735:
+DirtyDefault11030:983,966,955,769,975,966,956,962,
+DirtyDefault4803:977,965,
+DirtyDefault91733:972,973,970,957,880,
+DirtyDefault89364:-188,
+DirtyDefault88750:859,
+DirtyDefault45365:974,952,914,
+DirtyDefault52286:920,337,865,872,862,796,852,725,

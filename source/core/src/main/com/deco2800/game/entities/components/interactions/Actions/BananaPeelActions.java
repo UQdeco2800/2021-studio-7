@@ -23,23 +23,16 @@ public class BananaPeelActions extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Fixture me, Fixture other) {
+        super.onCollisionStart(me, other);
         Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("PEEL started collision with PLAYER, executing task and removing object");
-            onInteraction(target);
-        }
+        logger.info("PEEL started collision with PLAYER, executing task and removing object");
+        onInteraction(target);
     }
 
     @Override
     public void onCollisionEnd(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target == null) {
-            return;
-        } else if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("PEEL ended collision with PLAYER");
-        }
+        super.onCollisionEnd(me, other);
+        logger.info("PEEL ended collision with PLAYER");
     }
 
 
