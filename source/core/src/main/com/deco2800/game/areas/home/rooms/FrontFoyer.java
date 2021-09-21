@@ -1,11 +1,14 @@
 package com.deco2800.game.areas.home.rooms;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.Room;
 import com.deco2800.game.areas.home.RoomObject;
+import com.deco2800.game.files.FileLoader;
 
 public class FrontFoyer extends Room {
 
+    private static final String directory = "maps/frontfoyer";
     private FrontFoyerInterior interior;
 
     public FrontFoyer(Integer maxDoorways, ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
@@ -18,6 +21,10 @@ public class FrontFoyer extends Room {
 
     public void setInterior(FrontFoyerInterior interior) {
         this.interior = interior;
+    }
+
+    public void setInterior(Vector2 dimensions) {
+        this.interior = FileLoader.loadRandomRoomInterior(FrontFoyerInterior.class, dimensions, directory);
     }
 
     static public class FrontFoyerInterior extends RoomInterior {

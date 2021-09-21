@@ -2,8 +2,12 @@ package com.deco2800.game.files;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.deco2800.game.areas.home.Home;
+import com.deco2800.game.areas.home.Room;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,6 +113,48 @@ public class FileLoader {
       }
     }
     return jsons;
+  }
+
+  public static Home.HomeFloorPlan loadRandomHomeFloorPlan(String directory) {
+    Home.HomeFloorPlan homeFloorPlan = null;
+    Array<FileHandle> jsons = FileLoader.getJsonFiles(directory);
+    do {
+      FileHandle chosenFile = jsons.get(RandomUtils.getSeed().nextInt() % jsons.size);
+      try {
+        homeFloorPlan = FileLoader.readClass(Home.HomeFloorPlan.class, chosenFile.path());
+      } catch (ClassCastException e) {
+        logger.error("File {} did not contain an instance of HomeFloorPlan", chosenFile.path());
+      }
+      if (homeFloorPlan == null) {
+        jsons.removeValue(chosenFile, true);
+        if (jsons.size == 0) {
+          break;
+        }
+      }
+    } while (homeFloorPlan == null);
+    return homeFloorPlan;
+  }
+
+  public static <T extends Room.RoomInterior> T loadRandomRoomInterior(Class<T> type, Vector2 dimensions, String directory) {
+    T interior = null;
+    Array<FileHandle> jsons = FileLoader.getJsonFiles(directory);
+    do {
+      FileHandle chosenFile = jsons.get(RandomUtils.getSeed().nextInt() % jsons.size);
+      try {
+        interior = FileLoader.readClass(type, chosenFile.path());
+      } catch (ClassCastException e) {
+        logger.error("File {} did not contain an instance of {}", chosenFile.path(), type);
+      }
+      if (interior == null || !interior.getRoomScale().equals(dimensions)) {
+        jsons.removeValue(chosenFile, true);
+        interior = null;
+        if (jsons.size == 0) {
+          break;
+        }
+      }
+    } while (interior == null);
+
+    return interior;
   }
 
   public static FileHandle getFileHandle(String filename, Location location) {

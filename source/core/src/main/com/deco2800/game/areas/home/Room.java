@@ -1,16 +1,13 @@
 package com.deco2800.game.areas.home;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.terrain.TerrainTile;
-import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,28 +23,6 @@ public class Room {
                 ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         this.maxDoorways = maxDoorways;
         this.doorwayRestrictions = doorwayRestrictions;
-    }
-
-    public static <T extends RoomInterior> T loadRandomInterior(Class<T> type, Vector2 dimensions, String directory) {
-        T interior = null;
-        Array<FileHandle> jsons = FileLoader.getJsonFiles(directory);
-        do {
-            FileHandle chosenFile = jsons.get(RandomUtils.getSeed().nextInt() % jsons.size);
-            try {
-                interior = FileLoader.readClass(type, chosenFile.path());
-            } catch (ClassCastException e) {
-                logger.error("File {} did not contain an instance of {}", chosenFile.path(), type);
-            }
-            if (interior == null || interior.getRoomScale().equals(dimensions)) {
-                jsons.removeValue(chosenFile, true);
-                interior = null;
-                if (jsons.size == 0) {
-                    break;
-                }
-            }
-        } while (interior == null);
-
-        return interior;
     }
 
     public int getMaximumDoorways() {

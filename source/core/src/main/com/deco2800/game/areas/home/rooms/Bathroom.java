@@ -1,15 +1,15 @@
 package com.deco2800.game.areas.home.rooms;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.Room;
 import com.deco2800.game.areas.home.RoomObject;
+import com.deco2800.game.files.FileLoader;
 
 public class Bathroom extends Room {
 
     private static final String directory = "maps/bathroom";
-    private BathroomInterior interior;
+    private BathroomInterior interior = null;
 
     public Bathroom(Integer maxDoorways, ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         super(maxDoorways, doorwayRestrictions);
@@ -24,7 +24,7 @@ public class Bathroom extends Room {
     }
 
     public void setInterior(Vector2 dimensions) {
-        this.interior = loadRandomInterior(BathroomInterior.class, dimensions, directory);
+        this.interior = FileLoader.loadRandomRoomInterior(BathroomInterior.class, dimensions, directory);
     }
 
     static public class BathroomInterior extends RoomInterior {
