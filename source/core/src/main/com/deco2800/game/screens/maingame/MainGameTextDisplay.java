@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.events.listeners.EventListener1;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
@@ -22,10 +23,7 @@ public class MainGameTextDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameTextDisplay.class);
 
     private Table table;
-    // load the background texture for the text box
-    private Texture texture = new Texture(Gdx.files.internal(
-            "images/ui/elements/Textbox_1024.png"));
-    private Image background = new Image(texture);
+    private Texture texture;
     private Label displayText;
     private boolean visible;
     private long startTime;
@@ -42,6 +40,9 @@ public class MainGameTextDisplay extends UIComponent {
         addActors();
         entity.getEvents().addListener("create_textbox",
                 (EventListener1<String>) this::display);
+        // Load background texture
+        texture = new Texture(Gdx.files.internal(
+                "images/ui/elements/Textbox_1024.png"));
     }
 
     /**
@@ -60,19 +61,25 @@ public class MainGameTextDisplay extends UIComponent {
      * @param text The text to display
      */
     private void display(String text) {
-        // Background texture
+        // Check to see if we're already displaying anything, and do nothing if we are
+        // TODO Probably should overwrite rather than do nothing
+        if (visible) {
+            return;
+        }
+
+        // Display background texture
+        Image background = new Image(texture);
+        background.setScaleX((col_width*8)/background.getWidth());
+        background.setOrigin(Align.center);
         table.add(background);
 
-        // Text
+        // Display Text
         displayText = new Label(text, skin, "large");
         displayText.setSize(col_width*6, row_height*3);
         displayText.setPosition(col_width*2, row_height);
-        //displayText.setPosition(background.getImageX() + 30f, background.getImageY() + 10f);
         displayText.setWrap(true);
 
         stage.addActor(displayText);
-
-        //table.stack(background, displayText);
 
         visible = true;
         startTime = ServiceLocator.getTimeSource().getTime();
@@ -113,8 +120,6 @@ public class MainGameTextDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        table.clear();
-        displayText.setText("");
         displayText.clear();
         super.dispose();
     }
