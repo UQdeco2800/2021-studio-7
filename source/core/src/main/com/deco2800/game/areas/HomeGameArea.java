@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.RoomObject;
-import com.deco2800.game.areas.home.rooms.Room;
+import com.deco2800.game.areas.home.roomtypes.RoomType;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.NPCFactory;
@@ -42,7 +42,7 @@ public class HomeGameArea extends GameArea {
             "images/characters/boy_00/boy_00.atlas",
             "images/objects/banana_peel/banana.atlas"
     };
-    private Array<Room> rooms;
+    private Array<RoomType> rooms;
 
     public HomeGameArea(TerrainFactory terrainFactory) {
         super();
@@ -63,23 +63,23 @@ public class HomeGameArea extends GameArea {
     }
 
     public void createRooms() {
-        for (Room room : rooms) {
+        for (RoomType roomType : rooms) {
             // Tile generation
             logger.info("Generating tiles...");
-            terrain = terrainFactory.createRoomTerrain(room);
+            terrain = terrainFactory.createRoomTerrain(roomType);
             spawnEntity(new Entity().addComponent(terrain));
 
             // Entity generation
             logger.info("Generating entities...");
-            spawnEntities(room);
+            spawnEntities(roomType);
         }
     }
 
-    public void spawnEntities(Room room) {
-        ObjectMap<Character, RoomObject> entityMappings = room.getEntityMappings();
-        for (int x = 0; x < room.getEntityGrid().length; x++) {
-            for (int y = 0; y < room.getEntityGrid().length; y++) {
-                Character symbol = room.getEntityGrid()[x][y];
+    public void spawnEntities(RoomType roomType) {
+        ObjectMap<Character, RoomObject> entityMappings = roomType.getEntityMappings();
+        for (int x = 0; x < roomType.getEntityGrid().length; x++) {
+            for (int y = 0; y < roomType.getEntityGrid().length; y++) {
+                Character symbol = roomType.getEntityGrid()[x][y];
                 RoomObject roomObject = entityMappings.get(symbol);
                 if (roomObject == null) {
                     continue;
@@ -175,11 +175,11 @@ public class HomeGameArea extends GameArea {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTexture("images/objects/door/door_close_right.png");
-        for (Room room : rooms) {
-            resourceService.loadTextures(room.getTileTextures());
-            resourceService.loadTextures(room.getEntityTextures());
-            resourceService.loadTextureAtlases(room.getTileAtlases());
-            resourceService.loadTextureAtlases(room.getEntityAtlases());
+        for (RoomType roomType : rooms) {
+            resourceService.loadTextures(roomType.getTileTextures());
+            resourceService.loadTextures(roomType.getEntityTextures());
+            resourceService.loadTextureAtlases(roomType.getTileAtlases());
+            resourceService.loadTextureAtlases(roomType.getEntityAtlases());
         }
         resourceService.loadTextures(houseTextures);
         resourceService.loadTextureAtlases(houseTextureAtlases);
@@ -193,9 +193,9 @@ public class HomeGameArea extends GameArea {
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        for (Room room : rooms) {
-            resourceService.unloadAssets(room.getTileTextures());
-            resourceService.unloadAssets(room.getEntityTextures());
+        for (RoomType roomType : rooms) {
+            resourceService.unloadAssets(roomType.getTileTextures());
+            resourceService.unloadAssets(roomType.getEntityTextures());
         }
         resourceService.unloadAssets(houseTextures);
         resourceService.unloadAssets(houseTextureAtlases);

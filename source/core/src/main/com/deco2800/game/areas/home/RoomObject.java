@@ -11,19 +11,19 @@ public class RoomObject {
     private static final Logger logger = LoggerFactory.getLogger(RoomObject.class);
 
     private final Method method;
-    private final String asset;
+    private final String[] assets;
 
-    public RoomObject(String methodName, String assetName) {
-        this.method = getDeclaredMethod(methodName, assetName);
-        this.asset = assetName;
+    public RoomObject(String methodName, String[] assetNames) {
+        this.method = getDeclaredMethod(methodName, assetNames);
+        this.assets = assetNames;
     }
 
     public Method getMethod() {
         return method;
     }
 
-    public String getAsset() {
-        return asset;
+    public String[] getAssets() {
+        return assets;
     }
 
     /**
@@ -34,13 +34,13 @@ public class RoomObject {
      * @param assetName  optional asset to be loaded
      * @return found method signature
      */
-    private Method getDeclaredMethod(String methodName, String assetName) {
+    private Method getDeclaredMethod(String methodName, String[] assetNames) {
         Method method = null;
         Class[] paramTypes;
-        if (assetName == null) {
+        if (assetNames == null) {
             paramTypes = new Class[]{GridPoint2.class};
         } else {
-            paramTypes = new Class[]{GridPoint2.class, String.class};
+            paramTypes = new Class[]{GridPoint2.class, String[].class};
         }
 
         try {

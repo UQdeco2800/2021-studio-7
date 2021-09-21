@@ -1,0 +1,29 @@
+{
+  roomStyleResource: five_by_five
+  interiorTiles: {
+    a: {
+      method: null
+      assets: [images/tiles/iso/iso_floor_1_alt.png]
+    }
+  }
+  interiorEntities: {
+    b: {
+      method: spawnBananaPeel
+      assets: null
+    }
+  }
+  rawTileGrid: [
+    [., ., ., ., .],
+    [., a, ., ., .],
+    [., ., ., ., .],
+    [., a, ., ., a],
+    [., ., ., ., .]
+  ]
+  rawEntityGrid: [
+    [., ., ., ., .],
+    [b, ., ., ., .],
+    [., ., ., b, .],
+    [., ., ., ., .],
+    [., b, ., ., .]
+  ]
+}

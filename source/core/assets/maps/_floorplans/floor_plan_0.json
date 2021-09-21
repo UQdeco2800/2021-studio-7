@@ -1,0 +1,47 @@
+{
+  roomMappings: {
+    A: {
+      offset: [1,13]
+      dimensions: [5,5]
+      numEntries: 1
+    }
+    B: {
+      offset: [1,7]
+      dimensions: [5,5]
+      numEntries: 2
+    }
+    C: {
+      offset: [1,1]
+      dimensions: [5,5]
+      numEntries: 1
+    }
+  }
+  miscMappings: {
+    .: spawnWall
+    -: horizontalDoorway
+    |: verticalDoorway
+    +: hallway
+  }
+  floorGrid: [
+    //     0  1  2  3  4  5  6
+    [., ., ., ., ., ., .],
+    [., A, A, A, A, A, .],
+    [., A, A, A, A, A, .],
+    [., A, A, A, A, A, .],
+    [., A, A, A, A, A, .],
+    [., A, A, A, A, A, .],
+    [., ., |, |, |, ., .],
+    [., B, B, B, B, B, .],
+    [., B, B, B, B, B, .],
+    [., B, B, B, B, B, -],
+    [., B, B, B, B, B, .],
+    [., B, B, B, B, B, .],
+    [., ., ., |, ., ., .],
+    [., C, C, C, C, C, .],
+    [., C, C, C, C, C, -],
+    [., C, C, C, C, C, -],
+    [., C, C, C, C, C, -],
+    [., C, C, C, C, C, .],
+    [., ., ., ., ., ., .]
+  ]
+}
