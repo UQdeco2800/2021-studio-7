@@ -1,4 +1,8 @@
 {
+  defaultTileObject: {
+    method: spawnTile
+    assets: ["images/tiles/iso/iso_floor_1.png"]
+  }
   roomMappings: {
     A: {
       offset: [1,13]
@@ -30,17 +34,17 @@
     [., A, A, A, A, A, .],
     [., A, A, A, A, A, .],
     [., A, A, A, A, A, .],
-    [., ., |, |, |, ., .],
+    [., ., ., ., ., ., .],
     [., B, B, B, B, B, .],
     [., B, B, B, B, B, .],
-    [., B, B, B, B, B, -],
     [., B, B, B, B, B, .],
     [., B, B, B, B, B, .],
-    [., ., ., |, ., ., .],
+    [., B, B, B, B, B, .],
+    [., ., ., ., ., ., .],
     [., C, C, C, C, C, .],
-    [., C, C, C, C, C, -],
-    [., C, C, C, C, C, -],
-    [., C, C, C, C, C, -],
+    [., C, C, C, C, C, .],
+    [., C, C, C, C, C, .],
+    [., C, C, C, C, C, .],
     [., C, C, C, C, C, .],
     [., ., ., ., ., ., .]
   ]

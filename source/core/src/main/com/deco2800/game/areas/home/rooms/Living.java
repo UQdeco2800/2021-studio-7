@@ -1,18 +1,25 @@
 package com.deco2800.game.areas.home.rooms;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.Room;
 import com.deco2800.game.areas.home.RoomObject;
-import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.areas.home.RoomProperties;
 
 public class Living extends Room {
 
-    private static final String directory = "maps/living";
     private LivingInterior interior;
 
     public Living(Integer maxDoorways, ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         super(maxDoorways, doorwayRestrictions);
+    }
+
+    @Override
+    public void create(GridPoint2 offset, Vector2 dimensions) {
+        super.create(offset, dimensions);
+        interior = designateInterior(LivingInterior.class, dimensions,
+                RoomProperties.ROOM_CLASS_TO_PATH.get(this.getClass()));
     }
 
     public LivingInterior getInterior() {
@@ -21,10 +28,6 @@ public class Living extends Room {
 
     public void setInterior(LivingInterior interior) {
         this.interior = interior;
-    }
-
-    public void setInterior(Vector2 dimensions) {
-        this.interior = FileLoader.loadRandomRoomInterior(LivingInterior.class, dimensions, directory);
     }
 
     static public class LivingInterior extends RoomInterior {

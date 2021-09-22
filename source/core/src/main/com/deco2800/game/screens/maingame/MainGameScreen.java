@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.areas.components.PerformanceDisplay;
 import com.deco2800.game.areas.HomeGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -66,8 +65,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
-    mainGameArea = new HomeGameArea(terrainFactory);
+    mainGameArea = new HomeGameArea(renderer.getCamera());
 
     mainGameArea.create();
     entityPlayer = mainGameArea.player;

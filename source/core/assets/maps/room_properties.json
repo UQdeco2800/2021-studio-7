@@ -4,174 +4,174 @@
       tileMappings: {
         .: {
           method: null
-          asset: images/tiles/iso/iso_floor_1.png
+          assets: [images/tiles/iso/iso_floor_1.png]
         }
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Bathroom$BathroomStyle: {
+  com.deco2800.game.areas.home.rooms.Bathroom: {
     five_by_five: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_DOOR]
+        Hallway: [single_door]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Bedroom$BedroomStyle: {
+  com.deco2800.game.areas.home.rooms.Bedroom: {
     five_by_five: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_DOOR]
-        Living: [SINGLE_DOOR]
+        Hallway: [single_door]
+        Living: [single_door]
       }
     }
     five_by_ten: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_DOOR]
-        Living: [SINGLE_DOOR]
+        Hallway: [single_door]
+        Living: [single_door]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Dining$DiningStyle: {
+  com.deco2800.game.areas.home.rooms.Dining: {
     five_by_ten: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Living: [SINGLE_NO_DOOR, OPEN_SPACE]
-        Kitchen: [SINGLE_NO_DOOR, OPEN_SPACE]
+        Hallway: [single_no_door]
+        Living: [single_no_door, open_space]
+        Kitchen: [single_no_door, open_space]
       }
     }
     ten_by_ten: {
-      maximumDoorways: 3
+      maxDoorways: 3
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Living: [SINGLE_NO_DOOR, OPEN_SPACE]
-        Kitchen: [SINGLE_NO_DOOR, OPEN_SPACE]
+        Hallway: [single_no_door]
+        Living: [single_no_door, open_space]
+        Kitchen: [single_no_door, open_space]
       }
     }
     ten_by_fifteen: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Living: [SINGLE_NO_DOOR, OPEN_SPACE]
-        Kitchen: [SINGLE_NO_DOOR, OPEN_SPACE]
+        Hallway: [single_no_door]
+        Living: [single_no_door, open_space]
+        Kitchen: [single_no_door, open_space]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.FrontFoyer$FrontFoyerStyle: {
+  com.deco2800.game.areas.home.rooms.FrontFoyer: {
     five_by_five: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Garage: [SINGLE_DOOR]
-        Living: [SINGLE_NO_DOOR, OPEN_SPACE]
+        Hallway: [single_no_door]
+        Garage: [single_door]
+        Living: [single_no_door, open_space]
       }
     }
     five_by_ten: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Garage: [SINGLE_NO_DOOR, OPEN_SPACE]
-        Living: [SINGLE_NO_DOOR, OPEN_SPACE]
+        Hallway: [single_no_door]
+        Garage: [single_no_door, open_space]
+        Living: [single_no_door, open_space]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Garage$GarageStyle: {
+  com.deco2800.game.areas.home.rooms.Garage: {
     ten_by_ten: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
     ten_by_fifteen: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
     fifteen_by_fifteen: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Kitchen$KitchenStyle: {
+  com.deco2800.game.areas.home.rooms.Kitchen: {
     five_by_ten: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Dining: [SINGLE_NO_DOOR, OPEN_SPACE]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        Dining: [single_no_door, open_space]
+        FrontFoyer: [single_door]
 
       }
     }
     ten_by_ten: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
     ten_by_fifteen: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Laundry$LaundryStyle: {
+  com.deco2800.game.areas.home.rooms.Laundry: {
     five_by_ten: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Dining: [SINGLE_NO_DOOR, OPEN_SPACE]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        Dining: [single_no_door, open_space]
+        FrontFoyer: [single_door]
 
       }
     }
     ten_by_ten: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
     ten_by_fifteen: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
   }
-  com.deco2800.game.areas.home.rooms.Living$LivingStyle: {
+  com.deco2800.game.areas.home.rooms.Living: {
     five_by_ten: {
-      maximumDoorways: 2
+      maxDoorways: 2
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        Dining: [SINGLE_NO_DOOR, OPEN_SPACE]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        Dining: [single_no_door, open_space]
+        FrontFoyer: [single_door]
 
       }
     }
     ten_by_ten: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
     ten_by_fifteen: {
-      maximumDoorways: 1
+      maxDoorways: 1
       doorwayRestrictions: {
-        Hallway: [SINGLE_NO_DOOR]
-        FrontFoyer: [SINGLE_DOOR]
+        Hallway: [single_no_door]
+        FrontFoyer: [single_door]
       }
     }
   }

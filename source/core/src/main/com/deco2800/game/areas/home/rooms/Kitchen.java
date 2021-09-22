@@ -1,18 +1,25 @@
 package com.deco2800.game.areas.home.rooms;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.home.Room;
 import com.deco2800.game.areas.home.RoomObject;
-import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.areas.home.RoomProperties;
 
 public class Kitchen extends Room {
 
-    private static final String directory = "maps/kitchen";
     private KitchenInterior interior;
 
     public Kitchen(Integer maxDoorways, ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         super(maxDoorways, doorwayRestrictions);
+    }
+
+    @Override
+    public void initialise(GridPoint2 offset, Vector2 dimensions) {
+        super.initialise(offset, dimensions);
+        interior = designateInterior(KitchenInterior.class, dimensions,
+                RoomProperties.ROOM_CLASS_TO_PATH.get(this.getClass()));
     }
 
     public KitchenInterior getInterior() {
@@ -21,10 +28,6 @@ public class Kitchen extends Room {
 
     public void setInterior(KitchenInterior interior) {
         this.interior = interior;
-    }
-
-    public void setInterior(Vector2 dimensions) {
-        this.interior = FileLoader.loadRandomRoomInterior(KitchenInterior.class, dimensions, directory);
     }
 
     static public class KitchenInterior extends RoomInterior {

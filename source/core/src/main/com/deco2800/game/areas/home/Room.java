@@ -1,31 +1,59 @@
 package com.deco2800.game.areas.home;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Room {
 
     protected static final Logger logger = LoggerFactory.getLogger(Room.class);
-    protected final Integer maxDoorways;
-    protected final ObjectMap<Class<Room>, String[]> doorwayRestrictions;
-    protected Doorway[] extraDoorways;
+    private final Integer maxDoorways;
+    private final ObjectMap<Class<Room>, String[]> doorwayRestrictions;
+    private Array<Doorway> extraDoorways;
     private RoomInterior interior;
 
     public Room(Integer maxDoorways,
                 ObjectMap<Class<Room>, String[]> doorwayRestrictions) {
         this.maxDoorways = maxDoorways;
         this.doorwayRestrictions = doorwayRestrictions;
+        this.extraDoorways = new Array<>();
     }
 
-    public int getMaximumDoorways() {
+    public void initialise(GridPoint2 offset, Vector2 dimensions) {
+    }
+
+    public <T extends RoomInterior> T designateInterior(Class<T> type, Vector2 dimensions, String directory) {
+        Array<FileHandle> fileHandles = FileLoader.getJsonFiles(directory);
+
+        T randomInterior;
+        do {
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt() % fileHandles.size);
+            randomInterior = FileLoader.readClass(type, fileHandle.path());
+            fileHandles.removeValue(fileHandle, true);
+
+            if (!dimensions.equals(randomInterior.getRoomScale())) {
+                randomInterior = null;
+            }
+        } while (randomInterior == null && fileHandles.size < 0);
+
+        if (randomInterior != null) {
+            randomInterior.initialise();
+        }
+        return randomInterior;
+    }
+
+    public int getMaxDoorways() {
         return maxDoorways;
     }
 
@@ -33,12 +61,12 @@ public class Room {
         return doorwayRestrictions;
     }
 
-    public Doorway[] getExtraDoorways() {
+    public Array<Doorway> getExtraDoorways() {
         return extraDoorways;
     }
 
-    public void setExtraDoorways(Doorway[] extraDoorways) {
-        this.extraDoorways = extraDoorways;
+    public void addExtraDoorways(Array<Doorway> extraDoorways) {
+        this.extraDoorways.addAll(extraDoorways);
     }
 
     public RoomInterior getInterior() {
@@ -67,6 +95,9 @@ public class Room {
             this.roomScale = new Vector2(tileGrid.length, tileGrid[0].length);
         }
 
+        public void initialise() {
+        }
+
         public Vector2 getRoomScale() {
             return roomScale;
         }
@@ -87,26 +118,15 @@ public class Room {
             return entityGrid;
         }
 
-        public String[] getTextures() {
-            Array<String> temp = getAssetsWithExtension(tileMappings, ".png");
-            temp.addAll(getAssetsWithExtension(entityMappings, ".png"));
+        public String[] getRoomAssets(String extension) {
+            Array<String> temp = getAssetsWithExtension(tileMappings, extension);
+            temp.addAll(getAssetsWithExtension(entityMappings, extension));
 
-            String[] textures = new String[temp.size];
+            String[] assets = new String[temp.size];
             for (int i = 0; i < temp.size; i++) {
-                textures[i] = temp.get(i);
+                assets[i] = temp.get(i);
             }
-            return textures;
-        }
-
-        public String[] getAtlases() {
-            Array<String> temp = getAssetsWithExtension(tileMappings, ".atlas");
-            temp.addAll(getAssetsWithExtension(entityMappings, ".atlas"));
-
-            String[] atlases = new String[temp.size];
-            for (int i = 0; i < temp.size; i++) {
-                atlases[i] = temp.get(i);
-            }
-            return atlases;
+            return assets;
         }
 
         private Array<String> getAssetsWithExtension(ObjectMap<Character, RoomObject> mappings, String extension) {
