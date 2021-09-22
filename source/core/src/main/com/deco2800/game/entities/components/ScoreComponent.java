@@ -45,27 +45,30 @@ public class ScoreComponent extends Component {
     entity.getEvents().trigger("update_score",score);
   }
 
-
-
   public static void tickScore() {
        score--;
   }
 
   public void writeScoreToLeaderBoard(){
-  try{
-        logger.info("Trying to write to leaderboard...");
-        FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
-        StringBuilder sb = new StringBuilder();
-        sb.append(score);
-        sb.append(",");
-        String s = sb.toString();
-        writer.write(s);
-        writer.close();
-        logger.info("Sucessfully wrote to leaderboard...");
-  }catch(IOException e){
-        logger.info("IOException in writing to leaderboad.");
+      StringBuilder sb = new StringBuilder();
+      sb.append(score);
+      sb.append(",");
+      String s = sb.toString();
+      logger.info("Trying to write to leaderboard...");
+      FileWriter writer = null;
+      try {
+          writer = new FileWriter("configs/leaderboard.txt", true);
+          writer.write(s);
+          logger.info("Sucessfully wrote to leaderboard...");
+      } catch (IOException e) {
+          logger.info("IOException in writing to leaderboad.");
+      } finally {
+          try {
+              writer.close();
+          } catch (IOException e) {
+              logger.info("IOException in closing writer to leaderboard.");
+          }
+      }
   }
-
- }
 
 }
