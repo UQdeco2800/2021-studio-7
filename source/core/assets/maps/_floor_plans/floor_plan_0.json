@@ -1,23 +1,27 @@
 {
   defaultTileObject: {
-    method: spawnTile
-    assets: ["images/tiles/iso/iso_floor_1.png"]
+    className: com.deco2800.game.maps.terrain.TerrainFactory
+    methodName: spawnTile
+    assets: [images/tiles/iso/iso_floor_1.png]
   }
   roomMappings: {
     A: {
-      offset: [1,13]
-      dimensions: [5,5]
-      numEntries: 1
+      offset: {x: 1, y: 13}
+      dimensions: {x: 5, y: 5}
+      numDoorways: 1
+      room: null
     }
     B: {
-      offset: [1,7]
-      dimensions: [5,5]
-      numEntries: 2
+      offset: {x: 1, y: 7}
+      dimensions: {x: 5, y: 5}
+      numDoorways: 2
+      room: null
     }
     C: {
-      offset: [1,1]
-      dimensions: [5,5]
-      numEntries: 1
+      offset: {x: 1, y: 1}
+      dimensions: {x: 5, y: 5}
+      numDoorways: 1
+      room: null
     }
   }
   miscMappings: {
@@ -27,7 +31,7 @@
     +: hallway
   }
   floorGrid: [
-    //     0  1  2  3  4  5  6
+//   0  1  2  3  4  5  6
     [., ., ., ., ., ., .],
     [., A, A, A, A, A, .],
     [., A, A, A, A, A, .],

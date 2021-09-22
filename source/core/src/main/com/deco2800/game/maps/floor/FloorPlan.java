@@ -12,22 +12,11 @@ import com.deco2800.game.utils.math.RandomUtils;
 
 public class FloorPlan {
 
-    private final RoomObject defaultTileObject;
-    private final ObjectMap<Character, RoomPlan> roomMappings;
-    private final ObjectMap<Character, String> miscMappings;
-    private final Character[][] floorGrid;
-    private final Vector2 homeDimensions;
-
-    public FloorPlan(RoomObject defaultTileObject,
-                     ObjectMap<Character, RoomPlan> roomMappings,
-                     ObjectMap<Character, String> miscMappings,
-                     Character[][] floorGrid) {
-        this.defaultTileObject = defaultTileObject;
-        this.roomMappings = roomMappings;
-        this.miscMappings = miscMappings;
-        this.floorGrid = floorGrid;
-        this.homeDimensions = new Vector2(floorGrid.length, floorGrid[0].length);
-    }
+    private RoomObject defaultTileObject;
+    private ObjectMap<Character, RoomPlan> roomMappings;
+    private ObjectMap<Character, String> miscMappings;
+    private Character[][] floorGrid;
+    private Vector2 homeDimensions;
 
     public void create() {
         designateRooms();
@@ -61,16 +50,10 @@ public class FloorPlan {
 
     static public class RoomPlan {
 
-        private final GridPoint2 offset;
-        private final Vector2 dimensions;
-        private final Integer numDoorways;
+        private GridPoint2 offset;
+        private Vector2 dimensions;
+        private Integer numDoorways;
         private Room room;
-
-        public RoomPlan(GridPoint2 offset, Vector2 dimensions, Integer numDoorways) {
-            this.offset = offset;
-            this.dimensions = dimensions;
-            this.numDoorways = numDoorways;
-        }
 
         public void create() {
             room = designateRoom();
@@ -83,7 +66,7 @@ public class FloorPlan {
 
             Room randomRoom;
             do {
-                Class<? extends Room> randomRoomClass = classes.get(RandomUtils.getSeed().nextInt() % classes.size);
+                Class<? extends Room> randomRoomClass = classes.get(RandomUtils.getSeed().nextInt(classes.size));
                 randomRoom = RoomProperties.get(randomRoomClass, size);
                 classes.removeValue(randomRoomClass, true);
 

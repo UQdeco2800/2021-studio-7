@@ -13,12 +13,12 @@ import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.maps.floor.rooms.Room;
 import com.deco2800.game.maps.floor.rooms.RoomObject;
 import com.deco2800.game.maps.floor.rooms.RoomProperties;
-import com.deco2800.game.maps.components.TerrainComponent;
+import com.deco2800.game.maps.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.maps.terrain.TerrainTile;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +29,14 @@ public class Floor extends GameArea {
     private final OrthographicCamera camera;
     private FloorPlan floorPlan;
 
-    public Floor(CameraComponent cameraComponent) {
-        super();
-        this.camera = (OrthographicCamera) cameraComponent.getCamera();
+    public Floor(OrthographicCamera camera) {
+        this.camera = camera;
     }
-    
+
     @Override
     public void create() {
         RoomProperties.loadProperties();
-        floorPlan = designateHomeFloorPlan();
+        floorPlan = designateHomeFloorPlan(camera);
         loadAssets();
         displayUI();
         generate();
@@ -45,14 +44,15 @@ public class Floor extends GameArea {
 
     public void generate() {
         spawnHomeTiles();
+        spawnHomeEntities();
     }
 
-    public FloorPlan designateHomeFloorPlan() {
+    public FloorPlan designateHomeFloorPlan(OrthographicCamera cameraComponent) {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(FLOOR_PLAN_DIRECTORY);
 
         FloorPlan randomFloorPlan;
         do {
-            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt() % fileHandles.size);
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
             randomFloorPlan = FileLoader.readClass(FloorPlan.class, fileHandle.path());
             fileHandles.removeValue(fileHandle, true);
         } while (randomFloorPlan == null && fileHandles.size > 0);
@@ -91,12 +91,29 @@ public class Floor extends GameArea {
         terrain = new TerrainComponent(camera, tiledMap, renderer, 1f);
     }
 
+    public void spawnHomeEntities() {
+        for (FloorPlan.RoomPlan roomFloorPlan : floorPlan.getRoomMappings().values()) {
+            Room.RoomInterior roomInterior = roomFloorPlan.getRoom().getInterior();
+            for (int x = 0; x < (int) roomInterior.getRoomScale().x; x++) {
+                for (int y = 0; y < (int) roomInterior.getRoomScale().y; y++) {
+                    RoomObject roomEntity = roomInterior.getEntityMappings().get(roomInterior.getEntityGrid()[x][y]);
+                    GridPoint2 homePosition = new GridPoint2(
+                            x + roomFloorPlan.getOffset().x, y + roomFloorPlan.getOffset().y);
+                    invokeEntityMethod(roomEntity, homePosition);
+                }
+            }
+        }
+    }
+
     public void invokeTileMethod(RoomObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
         if (tileObject == null) {
             tileObject = floorPlan.getDefaultTileObject();
         }
         try {
-            tileObject.getMethod().invoke(null, position, tileObject.getAssets(), layer);
+            TerrainTile tile = (TerrainTile) tileObject.getMethod().invoke(null, (Object) tileObject.getAssets());
+            TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+            cell.setTile(tile);
+            layer.setCell(position.x, position.y, cell);
         } catch (Exception e) {
             logger.error("Error invoking method {}", tileObject.getMethod().getName());
         }
@@ -107,14 +124,11 @@ public class Floor extends GameArea {
             return;
         }
         try {
-            entityObject.getMethod().invoke(null, position, entityObject.getAssets());
+            Entity entity = (Entity) entityObject.getMethod().invoke(null, (Object) entityObject.getAssets());
+            spawnEntityAt(entity, position, true, true);
         } catch (Exception e) {
             logger.error("Error invoking method {}", entityObject.getMethod().getName());
         }
-    }
-
-    public FloorPlan getHomeFloorPlan() {
-        return floorPlan;
     }
 
     public String[] getAllRoomAssets(String extension) {

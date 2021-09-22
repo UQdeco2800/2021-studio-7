@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.maps.floor.Doorway;
-import com.deco2800.game.maps.TerrainTile;
+import com.deco2800.game.maps.terrain.TerrainTile;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -39,7 +39,7 @@ public class Room {
 
         T randomInterior;
         do {
-            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt() % fileHandles.size);
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
             randomInterior = FileLoader.readClass(type, fileHandle.path());
             fileHandles.removeValue(fileHandle, true);
 

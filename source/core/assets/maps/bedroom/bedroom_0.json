@@ -1,8 +1,8 @@
 {
   interiorTiles: {
     a: {
-      clazz: null
-      method: null
+      clazz: com.deco2800.game.maps.terrain.TerrainFactory
+      method: spawnTile
       assets: [images/tiles/iso/iso_floor_1_alt.png]
     }
   }

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class RoomProperties {
     private static final Logger logger = LoggerFactory.getLogger(RoomProperties.class);
-    private static ObjectMap<Class<Room>, ObjectMap<String, Room>> resources;
+    private static ObjectMap<Class<? extends Room>, ObjectMap<String, Room>> resources;
 
     @SuppressWarnings("unchecked")
     public static void loadProperties() {
@@ -16,7 +16,6 @@ public class RoomProperties {
         } catch (ClassCastException e) {
             logger.error("File {} is malformed", ROOM_PROPERTIES_PATH);
         }
-
     }
 
     public static <T extends Room> T get(Class<T> type) {
@@ -24,24 +23,20 @@ public class RoomProperties {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Room> T get(Class<T> type, String resourceName) {
+    public static <T extends Room> T get(Class<? extends Room> type, String resourceName) {
         T room = null;
         try {
-            room = (T) resources.get(Room.class).get(resourceName);
+            room = (T) resources.get(type).get(resourceName);
         } catch (ClassCastException e) {
             logger.error("Couldn't find resource {} in map {}", resourceName, type);
         }
         return room;
     }
 
-    public static ObjectMap<Class<Room>, ObjectMap<String, Room>> getAll() {
-        return resources;
-    }
-
     public static final String DIRECTORY = "maps/";
     public static final String ROOM_PROPERTIES_PATH = DIRECTORY.concat("room_properties.json");
     public static final ObjectMap<Class<? extends Room>, String> ROOM_CLASS_TO_PATH = new ObjectMap<>();
-    {
+    static {
         ROOM_CLASS_TO_PATH.put(Bathroom.class, DIRECTORY.concat("bathroom"));
         ROOM_CLASS_TO_PATH.put(Bedroom.class, DIRECTORY.concat("bedroom"));
         ROOM_CLASS_TO_PATH.put(Dining.class, DIRECTORY.concat("dining"));

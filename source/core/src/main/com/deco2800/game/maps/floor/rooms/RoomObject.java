@@ -8,18 +8,12 @@ import java.lang.reflect.Method;
 public class RoomObject {
     private static final Logger logger = LoggerFactory.getLogger(RoomObject.class);
 
-    private final Class<?> clazz;
-    private final Method method;
-    private final String[] assets;
-
-    public RoomObject(String className, String methodName, String[] assetNames) {
-        this.clazz = findClass(className);
-        this.method = findMethod(methodName);
-        this.assets = assetNames;
-    }
+    private String className;
+    private String methodName;
+    private String[] assets;
 
     public Method getMethod() {
-        return method;
+        return findMethod(methodName);
     }
 
     public String[] getAssets() {
@@ -41,13 +35,12 @@ public class RoomObject {
      * will be invoked later for object generation.
      *
      * @param methodName method to be found
-     * @param assetName  optional asset to be loaded
      * @return found method signature
      */
     private Method findMethod(String methodName) {
         Method method = null;
         try {
-            method = clazz.getMethod(methodName);
+            method = findClass(className).getMethod(methodName);
         } catch (NoSuchMethodException e) {
             logger.error("Method {} could not be found", methodName);
         }

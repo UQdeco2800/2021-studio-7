@@ -1,22 +1,21 @@
 package com.deco2800.game.maps;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.maps.floor.Floor;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.player.CameraComponent;
 
 public class Home {
-    private Array<Floor> floors;
-    private CameraComponent cameraComponent;
-    public Entity player;
+    private final Array<Floor> floors = new Array<>();
+    private Floor activeFloor;
 
-    public Home(CameraComponent cameraComponent) {
-        this.floors = new Array<>();
-        this.cameraComponent = cameraComponent;
+    public void create(CameraComponent cameraComponent) {
+        floors.add(new Floor((OrthographicCamera) cameraComponent.getCamera()));
+        activeFloor = floors.get(0);
+        floors.get(0).create();
     }
 
-    public void create() {
-        floors.add(new Floor(cameraComponent));
-        floors.get(0).create();
+    public Floor getActiveFloor() {
+        return activeFloor;
     }
 }

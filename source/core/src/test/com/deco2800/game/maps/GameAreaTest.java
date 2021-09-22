@@ -1,7 +1,7 @@
 package com.deco2800.game.maps;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.deco2800.game.maps.components.TerrainComponent;
+import com.deco2800.game.maps.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.extension.ExtendWith;

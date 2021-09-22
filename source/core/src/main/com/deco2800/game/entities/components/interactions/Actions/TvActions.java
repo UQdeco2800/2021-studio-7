@@ -8,9 +8,9 @@ import com.deco2800.game.physics.PhysicsLayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class tvActions extends InteractionComponent {
+public class TvActions extends InteractionComponent {
 
-    private static final Logger logger = LoggerFactory.getLogger(tvActions.class);
+    private static final Logger logger = LoggerFactory.getLogger(TvActions.class);
 
     @Override
     public void create() {
