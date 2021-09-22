@@ -1,8 +1,6 @@
-package com.deco2800.game.areas.home.rooms;
+package com.deco2800.game.maps.floor.rooms;
 
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.home.Room;
-import com.deco2800.game.areas.home.RoomObject;
 
 public class Bedroom extends Room {
 

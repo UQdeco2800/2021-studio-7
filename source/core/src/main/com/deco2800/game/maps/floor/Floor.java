@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.home;
+package com.deco2800.game.maps.floor;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,8 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.areas.GameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.maps.floor.rooms.Room;
+import com.deco2800.game.maps.floor.rooms.RoomObject;
+import com.deco2800.game.maps.floor.rooms.RoomProperties;
+import com.deco2800.game.maps.components.TerrainComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
@@ -34,15 +36,11 @@ public class Floor extends GameArea {
     
     @Override
     public void create() {
-        initialise();
+        RoomProperties.loadProperties();
+        floorPlan = designateHomeFloorPlan();
         loadAssets();
         displayUI();
         generate();
-    }
-    
-    public void initialise() {
-        RoomProperties.loadProperties();
-        floorPlan = designateHomeFloorPlan();
     }
 
     public void generate() {
@@ -60,7 +58,7 @@ public class Floor extends GameArea {
         } while (randomFloorPlan == null && fileHandles.size > 0);
 
         if (randomFloorPlan != null) {
-            randomFloorPlan.initialise();
+            randomFloorPlan.create();
         }
         return randomFloorPlan;
     }

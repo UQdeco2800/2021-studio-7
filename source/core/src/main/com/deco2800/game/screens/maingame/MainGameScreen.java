@@ -3,9 +3,8 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.areas.components.PerformanceDisplay;
-import com.deco2800.game.areas.HomeGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.maps.Home;
+import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -38,7 +37,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final HomeGameArea mainGameArea;
+  private final Home mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
   public MainGameScreen() {
@@ -65,7 +64,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-    mainGameArea = new HomeGameArea(renderer.getCamera());
+    mainGameArea = new Home(renderer.getCamera());
 
     mainGameArea.create();
     entityPlayer = mainGameArea.player;
@@ -148,10 +147,6 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-  }
-
-  public HomeGameArea getMainGameArea() {
-    return mainGameArea;
   }
 
   public Entity getMainGameEntity() {

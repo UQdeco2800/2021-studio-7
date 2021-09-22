@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.home;
+package com.deco2800.game.maps.floor.rooms;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,7 +7,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.terrain.TerrainTile;
+import com.deco2800.game.maps.floor.Doorway;
+import com.deco2800.game.maps.TerrainTile;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -30,7 +31,7 @@ public class Room {
         this.extraDoorways = new Array<>();
     }
 
-    public void initialise(GridPoint2 offset, Vector2 dimensions) {
+    public void create(GridPoint2 offset, Vector2 dimensions) {
     }
 
     public <T extends RoomInterior> T designateInterior(Class<T> type, Vector2 dimensions, String directory) {
@@ -48,7 +49,7 @@ public class Room {
         } while (randomInterior == null && fileHandles.size < 0);
 
         if (randomInterior != null) {
-            randomInterior.initialise();
+            randomInterior.create();
         }
         return randomInterior;
     }
@@ -95,7 +96,7 @@ public class Room {
             this.roomScale = new Vector2(tileGrid.length, tileGrid[0].length);
         }
 
-        public void initialise() {
+        public void create() {
         }
 
         public Vector2 getRoomScale() {

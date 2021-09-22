@@ -1,10 +1,12 @@
-package com.deco2800.game.areas;
+package com.deco2800.game.maps;
 
+
+import com.deco2800.game.maps.floor.GameArea;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class ForestGameAreaTest extends GameArea{
+public class ForestGameAreaTest extends GameArea {
 
 
     /**

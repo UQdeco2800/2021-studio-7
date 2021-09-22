@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.terrain;
+package com.deco2800.game.maps.components;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -42,7 +42,7 @@ public class TerrainComponent extends RenderComponent {
   }
 
   public GridPoint2 getMapBounds(int layer) {
-    TiledMapTileLayer terrainLayer = (TiledMapTileLayer)tiledMap.getLayers().get(layer);
+    TiledMapTileLayer terrainLayer = (TiledMapTileLayer) tiledMap.getLayers().get(layer);
     return new GridPoint2(terrainLayer.getWidth(), terrainLayer.getHeight());
   }
 

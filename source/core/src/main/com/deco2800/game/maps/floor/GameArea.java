@@ -1,9 +1,9 @@
-package com.deco2800.game.areas;
+package com.deco2800.game.maps.floor;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
-import com.deco2800.game.areas.terrain.TerrainComponent;
+import com.deco2800.game.maps.components.TerrainComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.ServiceLocator;
 

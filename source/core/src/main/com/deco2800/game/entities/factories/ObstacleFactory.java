@@ -22,39 +22,6 @@ import com.deco2800.game.generic.ServiceLocator;
 public class ObstacleFactory {
 
   /**
-   * Creates a tree entity.
-   * @return entity
-   */
-  public static Entity createWall() {
-    Entity wall =
-        new Entity()
-            .addComponent(new TextureRenderComponent("images/objects/walls/wall.png"))
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    wall.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    wall.getComponent(TextureRenderComponent.class).scaleEntity();
-    wall.scaleHeight(2.5f);
-    PhysicsUtils.setScaledCollider(wall, 0.5f, 0.2f);
-    return wall;
-  }
-
-  /*
-  public static Entity createTable() {
-    Entity furniture =
-            new Entity()
-                    .addComponent(new TextureRenderComponent("images/objects/furniture/coffee_table_left.png"))
-                    .addComponent(new PhysicsComponent())
-                    .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
-
-    furniture.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
-    furniture.scaleHeight(0.5f);
-    PhysicsUtils.setScaledCollider(furniture, 0.5f, 0.5f);
-    PhysicsUtils.setScaledHitbox(furniture, 1f, 1f);
-    return furniture;
-  }*/
-
-  /**
    * Creates an invisible physics wall.
    * @param width Wall width in world units
    * @param height Wall height in world units

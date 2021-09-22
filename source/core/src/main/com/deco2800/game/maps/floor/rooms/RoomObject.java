@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.home;
+package com.deco2800.game.maps.floor.rooms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.terrain;
+package com.deco2800.game.maps;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObjects;

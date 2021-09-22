@@ -34,6 +34,7 @@ public class MatrixUtils {
         return matrix;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[][] transpose(T[][] matrix) {
         T[][] transposed = (T[][]) Array.newInstance(matrix.getClass(), matrix[0].length, matrix.length);
         for (int x = 0; x < matrix[0].length; x++) {

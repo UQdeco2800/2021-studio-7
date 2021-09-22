@@ -1,9 +1,12 @@
-package com.deco2800.game.areas.home;
+package com.deco2800.game.maps.floor;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.maps.floor.rooms.RoomProperties;
+import com.deco2800.game.maps.floor.rooms.Room;
+import com.deco2800.game.maps.floor.rooms.RoomObject;
 import com.deco2800.game.utils.math.IntUtils;
 import com.deco2800.game.utils.math.RandomUtils;
 
@@ -26,13 +29,13 @@ public class FloorPlan {
         this.homeDimensions = new Vector2(floorGrid.length, floorGrid[0].length);
     }
 
-    public void initialise() {
+    public void create() {
         designateRooms();
     }
 
     public void designateRooms() {
         for (RoomPlan roomFloorPlan : roomMappings.values()) {
-            roomFloorPlan.initialise();
+            roomFloorPlan.create();
         }
     }
 
@@ -69,7 +72,7 @@ public class FloorPlan {
             this.numDoorways = numDoorways;
         }
 
-        public void initialise() {
+        public void create() {
             room = designateRoom();
         }
 
@@ -88,7 +91,7 @@ public class FloorPlan {
                     randomRoom = null;
                     continue;
                 }
-                randomRoom.initialise(offset, dimensions);
+                randomRoom.create(offset, dimensions);
                 if (randomRoom.getInterior() == null) {
                     randomRoom = null;
                 }

@@ -1,11 +1,8 @@
-package com.deco2800.game.areas.home.rooms;
+package com.deco2800.game.maps.floor.rooms;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.home.Room;
-import com.deco2800.game.areas.home.RoomObject;
-import com.deco2800.game.areas.home.RoomProperties;
 
 public class Garage extends Room {
 
@@ -16,8 +13,8 @@ public class Garage extends Room {
     }
 
     @Override
-    public void initialise(GridPoint2 offset, Vector2 dimensions) {
-        super.initialise(offset, dimensions);
+    public void create(GridPoint2 offset, Vector2 dimensions) {
+        super.create(offset, dimensions);
         interior = designateInterior(GarageInterior.class, dimensions,
                 RoomProperties.ROOM_CLASS_TO_PATH.get(this.getClass()));
     }

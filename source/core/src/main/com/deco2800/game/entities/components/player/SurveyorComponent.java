@@ -40,8 +40,6 @@ public class SurveyorComponent extends Component {
         float width = entity.getComponent(HitboxComponent.class).getScale().x;
         float height = entity.getComponent(HitboxComponent.class).getScale().y;
 
-        entity.getComponent(ColliderComponent.class).
-
         // Solve for entity's hitbox boundaries
         Vector2[] hitboxBorders = new Vector2[8];
         hitboxBorders[0] = new Vector2(centerX - width / 2, centerY + height / 2);   // Top left

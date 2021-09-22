@@ -1,7 +1,6 @@
-package com.deco2800.game.areas.home;
+package com.deco2800.game.maps.floor.rooms;
 
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.areas.home.rooms.*;
 import com.deco2800.game.files.FileLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

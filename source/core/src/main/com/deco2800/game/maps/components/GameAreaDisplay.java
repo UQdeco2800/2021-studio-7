@@ -1,4 +1,4 @@
-package com.deco2800.game.areas.components;
+package com.deco2800.game.maps.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
