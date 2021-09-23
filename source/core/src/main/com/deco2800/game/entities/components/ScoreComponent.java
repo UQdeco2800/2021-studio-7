@@ -41,7 +41,11 @@ public class ScoreComponent extends Component {
 
 
   public void changeScore(int change){
-    this.score += change;
+    int t = this.score + change;
+    if (t>=0){
+       this.score += change;
+       // no negative scores allowed check.
+    }
     entity.getEvents().trigger("update_score",score);
   }
 
