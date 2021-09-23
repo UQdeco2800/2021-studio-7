@@ -132,14 +132,37 @@ public class LeaderBoardDisplay extends UIComponent {
         game.setScreen(ScreenType.MAIN_MENU);
     }
 
+//    private void sortLeaderBoard() {
+//        try {
+//            TreeMap<String, Integer> leaderboard = getLeaderBoard();
+//
+//            sortedLeaderboard = valueSort(leaderboard);
+//            FileWriter clearer = new FileWriter("configs/leaderboard.txt");
+//            clearer.write("");
+//            FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+//            Set set = sortedLeaderboard.entrySet();
+//            Iterator i = set.iterator();
+//            while (i.hasNext()) {
+//                Map.Entry mp = (Map.Entry) i.next();
+//                writer.write(mp.getKey() + ":" + String.valueOf(mp.getValue()) + "\n");
+//                logger.info("Sorted the leaderboard");
+//            }
+//            writer.close();
+//        } catch (IOException e) {
+//            logger.debug("IOException when reading leaderboard");
+//        }
+//    }
+
     private void sortLeaderBoard() {
+        FileWriter clearer = null;
+        FileWriter writer = null;
         try {
             TreeMap<String, Integer> leaderboard = getLeaderBoard();
 
             sortedLeaderboard = valueSort(leaderboard);
-            FileWriter clearer = new FileWriter("configs/leaderboard.txt");
+            clearer = new FileWriter("configs/leaderboard.txt");
             clearer.write("");
-            FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+            writer = new FileWriter("configs/leaderboard.txt", true);
             Set set = sortedLeaderboard.entrySet();
             Iterator i = set.iterator();
             while (i.hasNext()) {
@@ -150,6 +173,21 @@ public class LeaderBoardDisplay extends UIComponent {
             writer.close();
         } catch (IOException e) {
             logger.debug("IOException when reading leaderboard");
+        }finally {
+            if (clearer != null) {
+                try {
+                    clearer.close();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if (writer != null) {
+                try {
+                    writer.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -183,10 +221,42 @@ public class LeaderBoardDisplay extends UIComponent {
     /**
      * Reads the leaderbaord text file and returns the result in a treeMap as it is.
      */
+//    public TreeMap<String, Integer> getLeaderBoard() {
+//        try {
+//            File input = new File("configs/leaderboard.txt");
+//            BufferedReader br = new BufferedReader(new FileReader(input));
+//            TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
+//
+//            String currentLine;
+//            while ((currentLine = br.readLine()) != null) {
+//                if ("".equals(currentLine)) {
+//                    continue;
+//                }
+//                String[] arrOfLine = currentLine.split(":");
+//                int length = arrOfLine.length;
+//                if(length != 2){continue;}
+//                String username = arrOfLine[0];
+//                String[] arrOfScores = arrOfLine[1].split(",");
+//
+//                int totalscore = 0;
+//                for (String score : arrOfScores) {
+//                    int levelscore = Integer.parseInt(score);
+//                    totalscore += levelscore;
+//                }
+//                leaderboard.put(username, totalscore);
+//            }
+//            return leaderboard;
+//        } catch (IOException e) {
+//            logger.debug("IOException in getting leaderboard");
+//        }
+//        return new TreeMap<String, Integer>();
+//    }
+
     public TreeMap<String, Integer> getLeaderBoard() {
+        BufferedReader br = null;
         try {
             File input = new File("configs/leaderboard.txt");
-            BufferedReader br = new BufferedReader(new FileReader(input));
+            br = new BufferedReader(new FileReader(input));
             TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
 
             String currentLine;
@@ -210,6 +280,14 @@ public class LeaderBoardDisplay extends UIComponent {
             return leaderboard;
         } catch (IOException e) {
             logger.debug("IOException in getting leaderboard");
+        }finally {
+            if(br != null) {
+                try{
+                    br.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return new TreeMap<String, Integer>();
     }
