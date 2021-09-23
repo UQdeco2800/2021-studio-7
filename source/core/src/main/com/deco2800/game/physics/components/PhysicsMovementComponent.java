@@ -17,7 +17,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private Vector2 targetPosition;
   private boolean movementEnabled = true;
   private int lastDirection = 0;
-  private int currentDirection =0;
+  private int currentDirection = 0;
 
   @Override
   public void create() {
@@ -53,7 +53,9 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     return movementEnabled;
   }
 
-  /** @return Target position in the world */
+  /**
+   * @return Target position in the world
+   */
   @Override
   public Vector2 getTarget() {
     return targetPosition;
@@ -89,15 +91,18 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   }
 
   /**
-    Will asign an integer value to the direction. Directions are broken into compass quadrents.
-     Where:
-        0 = North
-        1 = East
-        2 = South
-        3 = West
-
+   * Will asign an integer value to the direction. Directions are broken into compass quadrents.
+   * Where:
+   * 0 = North
+   * 1 = East
+   * 2 = South
+   * 3 = West
+   * 4 = NorthEast
+   * 5 = NorthWest
+   * 6 = SouthEast
+   * 7 = SouthWest
    */
-  public void getcurrentDirectionCode(){
+  public void getcurrentDirectionCode() {
     Vector2 entityDirection = getDirection();
     float x = entityDirection.x;
     float y = entityDirection.y;
@@ -110,13 +115,22 @@ public class PhysicsMovementComponent extends Component implements MovementContr
       currentDirection = 2;
     } else if (x < 0 && y < 0.5 && y > -0.5) {  // Walking west
       currentDirection = 3;
+    } else if (x > 0.5 && y >0.5) {
+      currentDirection = 4;
+    } else if (x < -0.5 && y >0.5) {
+      currentDirection = 5;
+    } else if (x > 0.5 && y < -0.5) {
+      currentDirection = 6;
+    } else if (x < -0.5 && y < -0.5) {
+      currentDirection = 7;
     }
+
   }
 
   /**
-    Function used to update the entities animations based upon the direction of movement.
-    Character will display the animation that is within 45 degrees of the nearest compass direction.
-     For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
+   * Function used to update the entities animations based upon the direction of movement.
+   * Character will display the animation that tis within 45 degrees of the nearest compass direction.
+   * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
    */
   public void movementEvents() {
     Vector2 entityDirection = getDirection();
@@ -136,6 +150,18 @@ public class PhysicsMovementComponent extends Component implements MovementContr
       } else if (x < 0 && y < 0.5 && y > -0.5) {
         entity.getEvents().trigger("update_animation", "walking_west");
         lastDirection = 3;
+      } else if (x > 0.5 && y >0.5) {
+        entity.getEvents().trigger("update_animation", "walking_northeast");
+        lastDirection = 4;
+      } else if (x < -0.5 && y >0.5) {
+        entity.getEvents().trigger("update_animation", "walking_northwest");
+        lastDirection = 5;
+      } else if (x > 0.5 && y < -0.5) {
+        entity.getEvents().trigger("update_animation", "walking_southeast");
+        lastDirection = 6;
+      } else if (x < -0.5 && y < -0.5) {
+        entity.getEvents().trigger("update_animation", "walking_southwest");
+        lastDirection = 7;
       }
     }
   }

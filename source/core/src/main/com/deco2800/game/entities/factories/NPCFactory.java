@@ -53,10 +53,20 @@ public class NPCFactory {
     animator.addAnimation("standing_east", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_south", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northeast", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northwest", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southeast", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southwest", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_north", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_east", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_south", 0.25f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northeast", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northwest", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southeast", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southwest", 0.25f, Animation.PlayMode.LOOP);
+
+
 
     mum
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
