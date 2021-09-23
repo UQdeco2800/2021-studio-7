@@ -61,7 +61,7 @@ public class ObstacleFactory {
    * @param height Wall height in world units
    * @return Wall entity of given width and height
    */
-  public static Entity createWalls(float width, float height, String texture) {
+  public static Entity createWall(float width, float height, String texture) {
     Entity wall = new Entity()
             .addComponent(new TextureRenderComponent(texture))
             .addComponent(new PhysicsComponent().setBodyType(BodyType.StaticBody))
