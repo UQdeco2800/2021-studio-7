@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class tvActions extends InteractionComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(tvActions.class);
+    private boolean hasInteracted = false;
 
     @Override
     public void create() {
@@ -26,9 +27,13 @@ public class tvActions extends InteractionComponent {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("TV started collision with PLAYER, tv animation");
+            if (hasInteracted) {
+                animator.startAnimation("TV_offL2");
+            } else {
             animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
+            }
+//            animator.startAnimation("TV_ONB");
+//            animator.startAnimation("TV_ONC");
         }
     }
 
@@ -39,9 +44,13 @@ public class tvActions extends InteractionComponent {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("TV ended collision with PLAYER, tv animation");
-            animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
+            if (hasInteracted) {
+                animator.startAnimation("TV_offL2");
+            } else {
+                animator.startAnimation("TV_ONA");
+            }
+//            animator.startAnimation("TV_ONB");
+//            animator.startAnimation("TV_ONC");
         }
     }
 
@@ -53,6 +62,7 @@ public class tvActions extends InteractionComponent {
             logger.info("TV started collision with SURVEYOR, triggering TV animation");
             animator.startAnimation("TV_offL");
             animator.startAnimation("TV_offL2");
+            hasInteracted = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.entities.components.interactions.Actions.*;
@@ -132,9 +133,9 @@ public class ObstacleFactory {
                     TextureAtlas.class));
     tvAnimations.addAnimation("TV_offL", 1f);
     tvAnimations.addAnimation("TV_offL2", 1f);
-    tvAnimations.addAnimation("TV_ONA", 1f);
-    tvAnimations.addAnimation("TV_ONB", 1f);
-    tvAnimations.addAnimation("TV_ONC", 1f);
+    tvAnimations.addAnimation("TV_ONA", 0.1f, Animation.PlayMode.LOOP);
+//    tvAnimations.addAnimation("TV_ONB", 1f);
+//    tvAnimations.addAnimation("TV_ONC", 1f);
 
     tv.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
