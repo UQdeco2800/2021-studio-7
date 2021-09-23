@@ -49,6 +49,22 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 walkDirection.add(Vector2Utils.RIGHT);
                 triggerWalkEvent();
                 return true;
+            case Keys.R:
+                walkDirection.add(Vector2Utils.NORTHEAST);
+                triggerWalkEvent();
+                return true;
+            case Keys.Q:
+                walkDirection.add(Vector2Utils.NORTHWEST);
+                triggerWalkEvent();
+                return true;
+            case Keys.Z:
+                walkDirection.add(Vector2Utils.SOUTHWEST);
+                triggerWalkEvent();
+                return true;
+            case Keys.C:
+                walkDirection.add(Vector2Utils.SOUTHEAST);
+                triggerWalkEvent();
+                return true;
             case Keys.SPACE:
                 entity.getEvents().trigger("attack");
                 return true;
@@ -143,6 +159,14 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("update_animation", "walking_south");
             } else if (walkDirection.epsilonEquals(-1, 0)) {
                 entity.getEvents().trigger("update_animation", "walking_west");
+            } else if (walkDirection.epsilonEquals(1,1)) {
+                entity.getEvents().trigger("update_animation", "walking_northeast");
+            } else if (walkDirection.epsilonEquals(-1,1)) {
+                entity.getEvents().trigger("update_animation", "walking_northwest");
+            } else if (walkDirection.epsilonEquals(1,-1)) {
+                entity.getEvents().trigger("update_animation", "walking_southeast");
+            } else if (walkDirection.epsilonEquals(-1,-1)) {
+                entity.getEvents().trigger("update_animation", "walking_southwest");
             }
         }
     }

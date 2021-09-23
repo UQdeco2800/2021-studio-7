@@ -46,10 +46,18 @@ public class PlayerFactory {
     animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("standing_east", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northeast", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northwest", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southeast", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southwest", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_south", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_north", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_west", 0.1f, Animation.PlayMode.LOOP);
     animator.addAnimation("walking_east", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northeast", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northwest", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southeast", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southwest", 0.1f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()
