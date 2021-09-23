@@ -51,10 +51,27 @@ public class ScoreComponent extends Component {
        score--;
   }
 
-  public void writeScoreToLeaderBoard(){
-  try{
+//  public void writeScoreToLeaderBoard(){
+//  try{
+//        logger.info("Trying to write to leaderboard...");
+//        FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(score);
+//        sb.append(",");
+//        String s = sb.toString();
+//        writer.write(s);
+//        writer.close();
+//        logger.info("Sucessfully wrote to leaderboard...");
+//  }catch(IOException e){
+//        logger.info("IOException in writing to leaderboad.");
+//  }
+//
+// }
+public void writeScoreToLeaderBoard(){
+      FileWriter writer = null;
+    try{
         logger.info("Trying to write to leaderboard...");
-        FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+        writer = new FileWriter("configs/leaderboard.txt", true);
         StringBuilder sb = new StringBuilder();
         sb.append(score);
         sb.append(",");
@@ -62,10 +79,18 @@ public class ScoreComponent extends Component {
         writer.write(s);
         writer.close();
         logger.info("Sucessfully wrote to leaderboard...");
-  }catch(IOException e){
+    }catch(IOException e){
         logger.info("IOException in writing to leaderboad.");
-  }
+    }finally {
+        if (writer != null) {
+            try {
+                writer.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
- }
+}
 
 }
