@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.lang.Math;
@@ -167,21 +168,66 @@ public class MainMenuDisplay extends UIComponent {
     /**
      * Updates currentCharacterAtlas.txt
      */
+//    public void writeAtlas(){
+//        try {
+//            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+//            writer.write(this.playableAtlas[this.characterIndex]);
+//            writer.close();
+//            logger.info("Writing new atlas to settings.");
+//        } catch (Exception e){
+//
+//            logger.debug("Could not load the atlas after character change was made.");
+//        }
+//    }
+
     public void writeAtlas(){
+        FileWriter writer = null;
         try {
-            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+            writer = new FileWriter("configs/currentCharacterAtlas.txt");
             writer.write(this.playableAtlas[this.characterIndex]);
             writer.close();
             logger.info("Writing new atlas to settings.");
         } catch (Exception e){
-
             logger.debug("Could not load the atlas after character change was made.");
+        }finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
+//    public void writeUsername(){
+//        try {
+//            FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+//            String username;
+//
+//            if (this.txtUsername.getText().length()<2){
+//                username = "DirtyDefault"+ getRandomNum();
+//            }else{
+//                username = this.txtUsername.getText();
+//            }
+//
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("\n");
+//            sb.append(username);
+//            sb.append(":");
+//            String s = sb.toString();
+//            writer.write(s);
+//            writer.close();
+//            logger.info("Wrote username to leaderboard.");
+//        } catch (Exception e){
+//            logger.debug("Could not write username to leaderboard.");
+//        }
+//    }
+
     public void writeUsername(){
+        FileWriter writer = null;
         try {
-            FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+            writer = new FileWriter("configs/leaderboard.txt",true);
             String username;
 
             if (this.txtUsername.getText().length()<2){
@@ -200,6 +246,14 @@ public class MainMenuDisplay extends UIComponent {
             logger.info("Wrote username to leaderboard.");
         } catch (Exception e){
             logger.debug("Could not write username to leaderboard.");
+        } finally {
+            if (writer != null) {
+                try{
+                    writer.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
