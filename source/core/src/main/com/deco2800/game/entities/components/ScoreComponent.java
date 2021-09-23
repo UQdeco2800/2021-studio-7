@@ -61,12 +61,12 @@ public class ScoreComponent extends Component {
           writer.write(s);
           logger.info("Sucessfully wrote to leaderboard...");
       } catch (IOException e) {
-          logger.info("IOException in writing to leaderboad.");
+          logger.error("IOException in writing to leaderboad.");
       } finally {
           try {
               writer.close();
           } catch (IOException e) {
-              logger.info("IOException in closing writer to leaderboard.");
+              logger.error("IOException in closing writer to leaderboard.");
           }
       }
   }
