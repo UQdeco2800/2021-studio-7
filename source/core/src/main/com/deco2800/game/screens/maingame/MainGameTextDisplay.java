@@ -50,7 +50,7 @@ public class MainGameTextDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.bottom();
-        table.setSize(Gdx.graphics.getWidth(), row_height*4);
+        table.setSize(Gdx.graphics.getWidth(), row_height*4f);
         stage.addActor(table);
     }
 
@@ -65,8 +65,8 @@ public class MainGameTextDisplay extends UIComponent {
 
         // Text
         displayText = new Label(text, skin, "large");
-        displayText.setSize(col_width*6, row_height*3);
-        displayText.setPosition(col_width*2, row_height);
+        displayText.setSize(col_width*6f, row_height*3f);
+        displayText.setPosition(col_width*2f, row_height);
         //displayText.setPosition(background.getImageX() + 30f, background.getImageY() + 10f);
         displayText.setWrap(true);
 

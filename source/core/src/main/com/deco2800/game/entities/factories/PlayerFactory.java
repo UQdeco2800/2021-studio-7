@@ -74,15 +74,35 @@ public class PlayerFactory {
    *
    * @return
    */
+//  public static String getAtlas() {
+//    try {
+//      File input = new File("configs/currentCharacterAtlas.txt");
+//      BufferedReader br = new BufferedReader(new FileReader(input));
+//      String line = br.readLine();
+//      return line;
+//
+//    } catch (Exception e) {
+//      throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
+//    }
+//  }
   public static String getAtlas() {
+    BufferedReader br = null;
     try {
       File input = new File("configs/currentCharacterAtlas.txt");
-      BufferedReader br = new BufferedReader(new FileReader(input));
+      br = new BufferedReader(new FileReader(input));
       String line = br.readLine();
       return line;
 
     } catch (Exception e) {
       throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
+    }finally {
+      if (br != null) {
+        try {
+          br.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
 
