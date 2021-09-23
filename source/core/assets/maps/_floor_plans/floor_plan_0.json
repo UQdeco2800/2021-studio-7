@@ -6,22 +6,19 @@
   }
   roomMappings: {
     A: {
-      offset: {x: 1, y: 13}
-      dimensions: {x: 5, y: 5}
+      offset: [1, 13]
+      dimensions: [5, 5]
       numDoorways: 1
-      room: null
     }
     B: {
-      offset: {x: 1, y: 7}
-      dimensions: {x: 5, y: 5}
+      offset: [1, 7]
+      dimensions: [5, 5]
       numDoorways: 2
-      room: null
     }
     C: {
-      offset: {x: 1, y: 1}
-      dimensions: {x: 5, y: 5}
+      offset: [1, 1]
+      dimensions: [5, 5]
       numDoorways: 1
-      room: null
     }
   }
   miscMappings: {

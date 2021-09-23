@@ -5,6 +5,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static GdxGame game;
+  private static RoomProperties roomProperties;
   private static EntityService entityService;
   private static RenderService renderService;
   private static PhysicsService physicsService;
@@ -29,6 +31,10 @@ public class ServiceLocator {
 
   public static GdxGame getGame() {
     return game;
+  }
+
+  public static RoomProperties getRoomProperties() {
+    return roomProperties;
   }
 
   public static EntityService getEntityService() {
@@ -58,6 +64,11 @@ public class ServiceLocator {
   public static void registerGame(GdxGame source) {
     logger.debug("Registering GdxGame {}", source);
     game = source;
+  }
+
+  public static void registerRoomProperties(RoomProperties source) {
+    logger.debug("Registering room properties {}", source);
+    roomProperties = source;
   }
 
   public static void registerEntityService(EntityService service) {
@@ -91,6 +102,8 @@ public class ServiceLocator {
   }
 
   public static void clear() {
+    game = null;
+    roomProperties = null;
     entityService = null;
     renderService = null;
     physicsService = null;

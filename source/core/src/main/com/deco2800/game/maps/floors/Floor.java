@@ -1,4 +1,4 @@
-package com.deco2800.game.maps.floor;
+package com.deco2800.game.maps.floors;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,9 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.maps.floor.rooms.Room;
-import com.deco2800.game.maps.floor.rooms.RoomObject;
-import com.deco2800.game.maps.floor.rooms.RoomProperties;
+import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.maps.rooms.Room;
+import com.deco2800.game.maps.rooms.RoomObject;
+import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.maps.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.files.FileLoader;
@@ -28,6 +29,7 @@ public class Floor extends GameArea {
     private static final String FLOOR_PLAN_DIRECTORY = RoomProperties.DIRECTORY.concat("_floor_plans");
     private final OrthographicCamera camera;
     private FloorPlan floorPlan;
+    private boolean created = false;
 
     public Floor(OrthographicCamera camera) {
         this.camera = camera;
@@ -35,19 +37,17 @@ public class Floor extends GameArea {
 
     @Override
     public void create() {
-        RoomProperties.loadProperties();
-        floorPlan = designateHomeFloorPlan(camera);
-        loadAssets();
-        displayUI();
-        generate();
+        if (!created) {
+            floorPlan = designateHomeFloorPlan();
+            loadAssets();
+            displayUI();
+            spawnHomeTiles();
+            spawnHomeEntities();
+        }
+        created = true;
     }
 
-    public void generate() {
-        spawnHomeTiles();
-        spawnHomeEntities();
-    }
-
-    public FloorPlan designateHomeFloorPlan(OrthographicCamera cameraComponent) {
+    public FloorPlan designateHomeFloorPlan() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(FLOOR_PLAN_DIRECTORY);
 
         FloorPlan randomFloorPlan;
@@ -73,7 +73,7 @@ public class Floor extends GameArea {
                 (int) floorPlan.getHomeDimensions().y,
                 textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 
-        for (FloorPlan.RoomPlan roomFloorPlan : floorPlan.getRoomMappings().values()) {
+        for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getRoomMappings())) {
             Room.RoomInterior roomInterior = roomFloorPlan.getRoom().getInterior();
             for (int x = 0; x < (int) roomInterior.getRoomScale().x; x++) {
                 for (int y = 0; y < (int) roomInterior.getRoomScale().y; y++) {
@@ -92,7 +92,7 @@ public class Floor extends GameArea {
     }
 
     public void spawnHomeEntities() {
-        for (FloorPlan.RoomPlan roomFloorPlan : floorPlan.getRoomMappings().values()) {
+        for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getRoomMappings())) {
             Room.RoomInterior roomInterior = roomFloorPlan.getRoom().getInterior();
             for (int x = 0; x < (int) roomInterior.getRoomScale().x; x++) {
                 for (int y = 0; y < (int) roomInterior.getRoomScale().y; y++) {
@@ -134,7 +134,7 @@ public class Floor extends GameArea {
     public String[] getAllRoomAssets(String extension) {
         Array<String> temp = new Array<>();
         temp.addAll(floorPlan.getDefaultTileObject().getAssets());
-        for (FloorPlan.RoomPlan roomFloorPlan : floorPlan.getRoomMappings().values()) {
+        for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getRoomMappings())) {
             for (String asset : roomFloorPlan.getRoom().getInterior().getRoomAssets(extension)) {
                 if (!temp.contains(asset, true)) {
                     temp.add(asset);
