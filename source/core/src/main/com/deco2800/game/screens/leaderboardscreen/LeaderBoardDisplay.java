@@ -149,7 +149,7 @@ public class LeaderBoardDisplay extends UIComponent {
                 logger.info("Sorted the leaderboard");
             }
         } catch (IOException e) {
-            logger.debug("IOException when reading leaderboard");
+            logger.error("IOException when reading leaderboard");
         } finally {
             if (clearer != null){
                 try {
@@ -198,12 +198,12 @@ public class LeaderBoardDisplay extends UIComponent {
      * Reads the leaderbaord text file and returns the result in a treeMap as it is.
      */
     public TreeMap<String, Integer> getLeaderBoard() {
+        File input = new File("configs/leaderboard.txt");
+        BufferedReader br = null;
+        TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
+        String currentLine;
         try {
-            File input = new File("configs/leaderboard.txt");
-            BufferedReader br = new BufferedReader(new FileReader(input));
-            TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
-
-            String currentLine;
+             br = new BufferedReader(new FileReader(input));
             while ((currentLine = br.readLine()) != null) {
                 if ("".equals(currentLine)) {
                     continue;
@@ -221,11 +221,18 @@ public class LeaderBoardDisplay extends UIComponent {
                 }
                 leaderboard.put(username, totalscore);
             }
-            return leaderboard;
         } catch (IOException e) {
-            logger.debug("IOException in getting leaderboard");
+            logger.error("IOException in reading configs/leaderboard.txt");
+        } finally {
+            if (br != null){
+                try {
+                    br.close();
+                } catch (IOException e){
+                    logger.error("IOException in closing reader for configs/leaderboard.txt");
+                }
+            }
         }
-        return new TreeMap<String, Integer>();
+        return leaderboard;
     }
 
 }
