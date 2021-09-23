@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class tvActions extends InteractionComponent {
-
     private static final Logger logger = LoggerFactory.getLogger(tvActions.class);
 
     @Override

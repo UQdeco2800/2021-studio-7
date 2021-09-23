@@ -10,13 +10,13 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 
 /**
- * When this entity touches a valid hitbox, enact the unique interaction with them.
+ * A parent class for all interactable objects that handles collision checking and interaction
+ * event handling from the player Entity.
  *
  * <p>Requires HitboxComponent on this entity.
  *
  */
 public class InteractionComponent extends Component implements Interactable {
-
     protected short targetLayer;
     protected AnimationRenderComponent animator;
     protected HitboxComponent hitbox;
@@ -26,7 +26,6 @@ public class InteractionComponent extends Component implements Interactable {
         super.create();
         entity.getEvents().addListener("collision_start", this::onCollisionStart);
         entity.getEvents().addListener("collision_end", this::onCollisionEnd);
-        entity.getEvents().addListener("interaction", this::onInteraction);
 
         targetLayer = PhysicsLayer.PLAYER;
 
@@ -44,7 +43,6 @@ public class InteractionComponent extends Component implements Interactable {
             // Not triggered by hitbox, ignore
             return null;
         }
-
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
          // Doesn't match our target layer, ignore
          return null;
@@ -57,10 +55,11 @@ public class InteractionComponent extends Component implements Interactable {
     public void onCollisionStart(Fixture me, Fixture other) {
         Entity target = preCollisionCheck(me, other);
         if (target == null || target.getComponent(PlayerActions.class) == null) {
+            // We're not interacting with the player, return
             return;
         }
-        // If there is already a listener for "interaction", remove it and create a new one
         if (target.getEvents().getListener("interaction")) {
+            // There is already a listener for "interaction", remove it and create a new one
             target.getEvents().removeListener("interaction");
         }
         target.getEvents().addListener("interaction", this::onInteraction);
@@ -70,15 +69,15 @@ public class InteractionComponent extends Component implements Interactable {
     public void onCollisionEnd(Fixture me, Fixture other) {
         Entity target = preCollisionCheck(me, other);
         if (target == null || target.getComponent(PlayerActions.class) == null) {
+            // We're not interacting with the player, return
             return;
         }
-        // If there is a listener for "interaction", remove it
         if (target.getEvents().getListener("interaction")) {
+            // There is a listener for "interaction", remove it
             target.getEvents().removeListener("interaction");
         }
     }
 
     @Override
     public void onInteraction(Entity target) {}
-
 }

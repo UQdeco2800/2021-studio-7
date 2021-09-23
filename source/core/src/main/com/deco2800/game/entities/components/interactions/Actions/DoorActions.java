@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DoorActions extends InteractionComponent {
-
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
 
     @Override

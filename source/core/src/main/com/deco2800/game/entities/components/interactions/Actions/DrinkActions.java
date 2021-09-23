@@ -15,7 +15,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class DrinkActions extends InteractionComponent {
-
     // Note this class requires the addition of the SingleUse component be added to obstacle entity
     private static final Logger logger = LoggerFactory.getLogger(DrinkActions.class);
 
