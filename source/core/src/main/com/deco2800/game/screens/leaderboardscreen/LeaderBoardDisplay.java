@@ -133,13 +133,14 @@ public class LeaderBoardDisplay extends UIComponent {
     }
 
     private void sortLeaderBoard() {
+        TreeMap<String, Integer> leaderboard = getLeaderBoard();
+        Map sortedLeaderboard = valueSort(leaderboard);
+        FileWriter clearer = null;
+        FileWriter writer = null;
         try {
-            TreeMap<String, Integer> leaderboard = getLeaderBoard();
-
-            Map sortedLeaderboard = valueSort(leaderboard);
-            FileWriter clearer = new FileWriter("configs/leaderboard.txt");
+            clearer = new FileWriter("configs/leaderboard.txt");
             clearer.write("");
-            FileWriter writer = new FileWriter("configs/leaderboard.txt", true);
+            writer = new FileWriter("configs/leaderboard.txt", true);
             Set set = sortedLeaderboard.entrySet();
             Iterator i = set.iterator();
             while (i.hasNext()) {
@@ -147,9 +148,22 @@ public class LeaderBoardDisplay extends UIComponent {
                 writer.write(mp.getKey() + ":" + String.valueOf(mp.getValue()) + "\n");
                 logger.info("Sorted the leaderboard");
             }
-            writer.close();
         } catch (IOException e) {
             logger.debug("IOException when reading leaderboard");
+        } finally {
+            if (clearer != null){
+                try {
+                    clearer.close();
+                } catch (IOException e) {
+                    logger.error("IOException attempting to close clearer for configs/leaderboard.txt");
+                }
+            } if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error("IOException attempting to close writer for configs/leaderboard.txt");
+                }
+            }
         }
     }
 
