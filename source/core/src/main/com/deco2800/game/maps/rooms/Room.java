@@ -80,45 +80,50 @@ public class Room implements Json.Serializable {
     @Override
     @SuppressWarnings("unchecked")
     public void read(Json json, JsonValue jsonData) {
+        JsonValue iterator = jsonData.child();
         try {
-            jsonData = jsonData.child();
-            maxDoorways = jsonData.asInt();
+            assert iterator.name().equals("maxDoorways");
+            maxDoorways = iterator.asInt();
 
-            jsonData = jsonData.next();
-            JsonValue iterator = jsonData.child();
+            iterator = iterator.next();
+            assert iterator.name().equals("doorwayRestrictions");
             doorwayRestrictions = new ObjectMap<>();
+            JsonValue restrictionsIterator = iterator.child();
             do {
-                doorwayRestrictions.put((Class<? extends Room>) Class.forName(iterator.name()),
-                        iterator.asStringArray());
-                iterator = iterator.next();
-            } while (!iterator.isNull());
+                doorwayRestrictions.put(
+                        (Class<? extends Room>) Class.forName(restrictionsIterator.name()),
+                        restrictionsIterator.asStringArray());
+                restrictionsIterator = restrictionsIterator.next();
+            } while (restrictionsIterator != null);
 
-            jsonData = jsonData.next();
-            if (!jsonData.isNull() && jsonData.name().equals("extraDoorways")) {
-                iterator = jsonData.child();
+            iterator = iterator.next();
+            if (iterator != null) {
+                assert iterator.name().equals("extraDoorways");
                 extraDoorways = new Array<>();
+                JsonValue extrasIterator = iterator.child();
                 do {
                     Doorway doorway = new Doorway();
-                    doorway.read(json, iterator);
+                    doorway.read(json, extrasIterator);
                     extraDoorways.add(doorway);
-                    iterator = iterator.next();
-                } while (!iterator.isNull());
-                jsonData = jsonData.next();
+                    extrasIterator = extrasIterator.next();
+                } while (extrasIterator != null);
+                iterator = iterator.next();
             } else {
                 extraDoorways = null;
             }
 
-            if (!jsonData.isNull() && jsonData.name().equals("interior")) {
+            if (iterator != null) {
+                assert iterator.name().equals("interior");
                 interior = new RoomInterior();
-                interior.read(json, jsonData);
-                jsonData = jsonData.next();
+                interior.read(json, iterator);
+                iterator = iterator.next();
             } else {
                 interior = null;
             }
 
-            assert jsonData.isNull();
+            assert iterator == null;
         } catch (NullPointerException | ClassNotFoundException e) {
-            throw new IllegalArgumentException("Error reading room at value " + jsonData.name());
+            throw new IllegalArgumentException("Error reading room at value " + iterator.name());
         }
     }
 
@@ -202,57 +207,60 @@ public class Room implements Json.Serializable {
 
         @Override
         public void read(Json json, JsonValue jsonData) {
+            JsonValue iterator = jsonData.child();
             try {
-                jsonData = jsonData.child();
+                assert iterator.name().equals("tileMappings");
                 tileMappings = new ObjectMap<>();
-                jsonData = iterateRoomObjectMappings(tileMappings, json, jsonData);
+                iterateRoomObjectMappings(tileMappings, json, iterator);
 
-                jsonData = jsonData.next();
+                iterator = iterator.next();
+                assert iterator.name().equals("entityMappings");
                 entityMappings = new ObjectMap<>();
-                jsonData = iterateRoomObjectMappings(entityMappings, json, jsonData);
+                iterateRoomObjectMappings(entityMappings, json, iterator);
 
-                jsonData = jsonData.next();
-                tileGrid = new Character[jsonData.size][jsonData.child().size];
-                jsonData = iterateRoomObjectGrid(tileGrid, jsonData);
+                iterator = iterator.next();
+                assert iterator.name().equals("tileGrid");
+                tileGrid = new Character[iterator.size][iterator.child().size];
+                iterateRoomObjectGrid(tileGrid, iterator);
 
-                jsonData = jsonData.next();
-                entityGrid = new Character[jsonData.size][jsonData.child().size];
-                jsonData = iterateRoomObjectGrid(entityGrid, jsonData);
+                iterator = iterator.next();
+                assert iterator.name().equals("entityGrid");
+                entityGrid = new Character[iterator.size][iterator.child().size];
+                iterateRoomObjectGrid(entityGrid, jsonData);
 
-                jsonData = jsonData.next();
                 roomScale = new Vector2(tileGrid[0].length, tileGrid.length);
-                assert jsonData.isNull();
+
+                assert iterator.next() == null;
             } catch (NullPointerException e) {
-                throw new IllegalArgumentException("Error reading room interior at value " + jsonData.name());
+                throw new IllegalArgumentException("Error reading room interior at value " + iterator.name());
             }
         }
 
-        public JsonValue iterateRoomObjectMappings(ObjectMap<Character, RoomObject> mappings,
-                                                   Json json, JsonValue jsonData)
-                throws NullPointerException {
+        public void iterateRoomObjectMappings(ObjectMap<Character, RoomObject> mappings,
+                                              Json json, JsonValue jsonData) {
             JsonValue iterator = jsonData.child();
             do {
-                RoomObject entityObject = new RoomObject();
-                entityObject.read(json, iterator);
-                mappings.put(iterator.name().charAt(0), entityObject);
+                assert iterator.name().length() == 1;
+                RoomObject roomObject = new RoomObject();
+                roomObject.read(json, iterator);
+                mappings.put(iterator.name().charAt(0), roomObject);
                 iterator = iterator.next();
-            } while (!iterator.isNull());
-            return jsonData;
+            } while (iterator != null);
         }
 
-        public JsonValue iterateRoomObjectGrid(Character[][] grid, JsonValue jsonData)
-                throws NullPointerException {
+        public void iterateRoomObjectGrid(Character[][] grid, JsonValue jsonData) {
             JsonValue iterator = jsonData.child();
             for (int y = 0; y < grid.length; y++) {
                 JsonValue cellIterator = iterator.child();
                 for (int x = 0; x < grid[0].length; x++) {
+                    assert cellIterator.name().length() == 1;
                     grid[x][y] = cellIterator.name().charAt(0);
-                    cellIterator = cellIterator.next;
+                    cellIterator = cellIterator.next();
                 }
-                iterator = iterator.next;
+                iterator = iterator.next();
+                assert cellIterator == null;
             }
-            assert iterator.isNull();
-            return jsonData;
+            assert iterator == null;
         }
     }
 }

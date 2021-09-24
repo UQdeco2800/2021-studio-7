@@ -1,7 +1,7 @@
 {
   defaultTileObject: {
-    className: com.deco2800.game.maps.terrain.TerrainFactory
-    methodName: spawnTile
+    class: com.deco2800.game.maps.terrain.TerrainFactory
+    method: spawnTile
     assets: [images/tiles/iso/iso_floor_1.png]
   }
   roomMappings: {

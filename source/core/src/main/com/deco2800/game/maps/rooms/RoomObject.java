@@ -29,20 +29,22 @@ public class RoomObject implements Json.Serializable {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
+        JsonValue iterator = jsonData.child();
         try {
-            jsonData = jsonData.child();
-            Class<?> clazz = Class.forName(jsonData.asString());
+            assert iterator.name().equals("class");
+            Class<?> clazz = Class.forName(iterator.asString());
 
-            jsonData = jsonData.next();
-            method = clazz.getMethod(jsonData.asString());
+            iterator = iterator.next();
+            assert iterator.name().equals("method");
+            method = clazz.getMethod(iterator.asString());
 
-            jsonData = jsonData.next();
-            assets = jsonData.asStringArray();
+            iterator = iterator.next();
+            assert iterator.name().equals("assets");
+            assets = iterator.asStringArray();
 
-            jsonData = jsonData.next();
-            assert jsonData.isNull();
+            assert iterator.next().isNull();
         } catch (ClassNotFoundException | NoSuchMethodException e) {
-            throw new IllegalArgumentException("Error reading room object at value " + jsonData.name());
+            throw new IllegalArgumentException("Error reading room object at value " + iterator.name());
         }
     }
 }

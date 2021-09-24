@@ -27,21 +27,17 @@ public class RoomPropertiesTest {
         home.loadProperties();
 
         assertNotNull(ServiceLocator.getRoomProperties().getResources());
-        System.out.println(ServiceLocator.getRoomProperties().getResources());
-        System.out.flush();
     }
 
     @Test
     void shouldReturnRoomInstances() {
-        /*ObjectMap.Keys<Class<? extends Room>> keys = new ObjectMap.Keys<>(RoomProperties.getResources());
-        while (keys.hasNext()) {
-            Class<? extends Room> key = keys.next();
-            System.out.println(key.toString());
-        }
-        System.out.flush();
-        */
-
-
         assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Bathroom.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Bedroom.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Dining.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(FrontFoyer.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Garage.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Kitchen.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Laundry.class));
+        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Living.class));
     }
 }

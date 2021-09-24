@@ -6,6 +6,9 @@ import com.badlogic.gdx.utils.ObjectMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
+
+@SuppressWarnings("unchecked")
 public class RoomProperties implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(RoomProperties.class);
     private ObjectMap<Class<? extends Room>, ObjectMap<String, ? extends Room>> resources;
@@ -14,7 +17,6 @@ public class RoomProperties implements Json.Serializable {
         return get(type, "five_by_five");
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends Room> T get(Class<T> type, String resourceName) {
         T roomInstance = null;
         ObjectMap<String, ? extends Room> retrievedRoom;
@@ -31,10 +33,49 @@ public class RoomProperties implements Json.Serializable {
         return resources;
     }
 
+    @Override
+    public void write(Json json) {
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        JsonValue iterator = jsonData.child();
+        try {
+            resources = new ObjectMap<>();
+            do {
+                iterateInstanceMappings((Class<? extends Room>) Class.forName(iterator.name()),
+                        json, iterator);
+                iterator = iterator.next();
+            } while (iterator != null);
+        } catch (ClassNotFoundException | ClassCastException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new IllegalArgumentException("Error reading room properties");
+        }
+    }
+
+    public <T extends Room> void iterateInstanceMappings(Class<T> type, Json json, JsonValue jsonData)
+            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Room instance = null;
+        for (Class<? extends Room> roomClass : new ObjectMap.Keys<>(ROOM_CLASS_TO_PATH)) {
+            if (type.equals(roomClass)) {
+                instance = roomClass.getConstructor().newInstance();
+            }
+        }
+        assert instance != null;
+
+        JsonValue iterator = jsonData.child();
+        ObjectMap<String, T> instances = new ObjectMap<>();
+        do {
+            ((T) instance).read(json, iterator);
+            instances.put(iterator.name(), (T) instance);
+            iterator = iterator.next();
+        } while (iterator != null);
+        resources.put(type, instances);
+    }
+
     public static final String DIRECTORY = "maps/";
     public static final String ROOM_PROPERTIES_PATH = DIRECTORY.concat("room_properties.json");
     public static final ObjectMap<Class<? extends Room>, String> ROOM_CLASS_TO_PATH = new ObjectMap<>();
-    {
+    static {
         ROOM_CLASS_TO_PATH.put(Bathroom.class, DIRECTORY.concat("bathroom"));
         ROOM_CLASS_TO_PATH.put(Bedroom.class, DIRECTORY.concat("bedroom"));
         ROOM_CLASS_TO_PATH.put(Dining.class, DIRECTORY.concat("dining"));
@@ -43,38 +84,5 @@ public class RoomProperties implements Json.Serializable {
         ROOM_CLASS_TO_PATH.put(Kitchen.class, DIRECTORY.concat("kitchen"));
         ROOM_CLASS_TO_PATH.put(Laundry.class, DIRECTORY.concat("laundry"));
         ROOM_CLASS_TO_PATH.put(Living.class, DIRECTORY.concat("living"));
-    }
-
-    @Override
-    public void write(Json json) {
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public void read(Json json, JsonValue jsonData) {
-        try {
-            jsonData = jsonData.child();
-            JsonValue iterator = jsonData.child();
-            do {
-                iterator = iterateInstanceMappings((Class<? extends Room>) Class.forName(iterator.name()),
-                        json, iterator);
-            } while (!iterator.isNull());
-        } catch (ClassNotFoundException | ClassCastException e) {
-            throw new IllegalArgumentException("Error reading room properties");
-        }
-    }
-
-    public <T extends Room> JsonValue iterateInstanceMappings(Class<T> type, Json json, JsonValue jsonData) {
-        JsonValue iterator = jsonData.child();
-        ObjectMap<String, T> instances = new ObjectMap<>();
-        resources.put(type, instances);
-        do {
-            if (type == Bathroom.class) {
-                Bathroom instance = new Bathroom();
-                instance.read(json, iterator);
-                instances.put(iterator.name(), (T) instance);
-            }
-        } while (!iterator.isNull());
-        return jsonData;
     }
 }
