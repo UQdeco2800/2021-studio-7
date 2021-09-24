@@ -61,7 +61,7 @@ public class MainGameTextDisplay extends UIComponent {
         }
 
         // Divide screen into a more manageable grid
-        int rowHeight = Gdx.graphics.getHeight() / 12;
+        int rowHeight = Gdx.graphics.getHeight() / 16;
         int colWidth = Gdx.graphics.getWidth() / 10;
 
         // Display background texture
