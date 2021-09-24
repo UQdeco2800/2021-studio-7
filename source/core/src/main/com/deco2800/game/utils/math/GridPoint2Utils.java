@@ -10,15 +10,8 @@ public class GridPoint2Utils {
   public static final GridPoint2 ZERO = new GridPoint2(0, 0);
 
   public static GridPoint2 read(JsonValue jsonData) {
-    jsonData = jsonData.child();
-    assert jsonData.child() == null;
-    GridPoint2 gridPoint2 = new GridPoint2();
-    gridPoint2.x = IntUtils.strDigitsToInt(jsonData.name());
-    jsonData = jsonData.next();
-    assert jsonData.child() == null;
-    gridPoint2.y = IntUtils.strDigitsToInt(jsonData.name());
-    assert jsonData.next() == null;
-    return gridPoint2;
+    int[] points = jsonData.asIntArray();
+    return new GridPoint2(points[0], points[1]);
   }
 
   private GridPoint2Utils() {

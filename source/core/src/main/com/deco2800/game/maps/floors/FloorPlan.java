@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.maps.rooms.Room;
@@ -14,9 +15,14 @@ import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.IntUtils;
 import com.deco2800.game.utils.math.RandomUtils;
 import com.deco2800.game.utils.math.Vector2Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 
 public class FloorPlan implements Json.Serializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(FloorPlan.class);
     private RoomObject defaultTileObject;
     private ObjectMap<Character, RoomPlan> roomMappings;
     private ObjectMap<Character, String> miscMappings;
@@ -24,7 +30,7 @@ public class FloorPlan implements Json.Serializable {
     private boolean created = false;
 
     public void create() {
-        if (created) {
+        if (!created) {
             designateRooms();
         }
         created = true;
@@ -77,14 +83,7 @@ public class FloorPlan implements Json.Serializable {
             iterator = iterator.next();
             assert iterator.name().equals("roomMappings");
             roomMappings = new ObjectMap<>();
-            JsonValue roomIterator = jsonData.child();
-            do {
-                assert roomIterator.name().length() == 1;
-                RoomPlan roomPlan = new RoomPlan();
-                roomPlan.read(json, roomIterator);
-                roomMappings.put(roomIterator.name().charAt(0), roomPlan);
-                roomIterator = roomIterator.next();
-            } while (roomIterator != null);
+            FileLoader.readCharacterObjectMap(RoomPlan.class, roomMappings, json, iterator);
 
             iterator = iterator.next();
             assert iterator.name().equals("miscMappings");
@@ -99,22 +98,11 @@ public class FloorPlan implements Json.Serializable {
             iterator = iterator.next();
             assert iterator.name().equals("floorGrid");
             floorGrid = new Character[iterator.size][iterator.child().size];
-            JsonValue rowIterator = jsonData.child();
-            for (int x = 0; x < floorGrid[0].length; x++) {
-                JsonValue cellIterator = rowIterator.child();
-                for (int y = 0; y < floorGrid.length; y++) {
-                    assert cellIterator.name().length() == 1;
-                    floorGrid[x][y] = cellIterator.name().charAt(0);
-                    cellIterator = cellIterator.next();
-                }
-                rowIterator = rowIterator.next();
-                assert cellIterator == null;
-            }
-            assert rowIterator == null;
+            FileLoader.readCharacterGrid(floorGrid, iterator);
 
             assert iterator.next() == null;
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException("Error reading floor plan at value " + iterator.name());
+        } catch (Exception e) {
+            logger.error("Error reading floor plan at {}: {}", iterator.name(), iterator.asString());
         }
     }
 
@@ -127,7 +115,7 @@ public class FloorPlan implements Json.Serializable {
         private boolean created = false;
 
         public void create() {
-            if (created) {
+            if (!created) {
                 room = designateRoom();
             }
             created = true;
@@ -180,17 +168,16 @@ public class FloorPlan implements Json.Serializable {
             JsonValue iterator = jsonData.child();
             try {
                 assert iterator.name().equals("offset");
-                offset = new GridPoint2();
                 offset = GridPoint2Utils.read(iterator);
 
                 iterator = iterator.next();
                 assert iterator.name().equals("dimensions");
-                dimensions = new Vector2();
                 dimensions = Vector2Utils.read(iterator);
 
                 iterator = iterator.next();
                 assert iterator.name().equals("numDoorways");
-                numDoorways = IntUtils.strDigitsToInt(iterator.name());
+                //numDoorways = IntUtils.strDigitsToInt(iterator.name());
+                numDoorways = iterator.asInt();
 
                 iterator = iterator.next();
                 if (iterator != null) {
@@ -203,8 +190,8 @@ public class FloorPlan implements Json.Serializable {
                 }
 
                 assert iterator == null;
-            } catch (NullPointerException e) {
-                throw new IllegalArgumentException("Error reading room plan from value " + iterator.name());
+            } catch (Exception e) {
+                logger.error("Error reading room plan at {}: {}", iterator.name(), iterator.asString());
             }
         }
     }

@@ -1,7 +1,7 @@
 {
   defaultTileObject: {
     class: com.deco2800.game.maps.terrain.TerrainFactory
-    method: spawnTile
+    method: createTile
     assets: [images/tiles/iso/iso_floor_1.png]
   }
   roomMappings: {
@@ -22,7 +22,7 @@
     }
   }
   miscMappings: {
-    .: spawnWall
+    .: createWall
     -: horizontalDoorway
     |: verticalDoorway
     +: hallway

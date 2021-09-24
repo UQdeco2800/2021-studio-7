@@ -28,7 +28,6 @@ public class MainMenuActions extends Component {
    */
   private void onStart() {
     logger.info("Read Context");
-    System.out.println(ServiceLocator.getGame());
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.CONTEXT);
   }
 

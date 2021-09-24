@@ -49,14 +49,14 @@ public class ObstacleFactory {
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseObstacle(assets, BodyType.DynamicBody)
+    Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
     return energyDrink;
   }
 
   public static Entity createBananaPeel(String[] assets) {
-    Entity bananaPeel = createBaseObstacle(assets, BodyType.DynamicBody)
+    Entity bananaPeel = createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new BananaPeelActions());
     return bananaPeel;
   }

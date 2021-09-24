@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.maps.rooms.Room;
 import com.deco2800.game.maps.rooms.RoomObject;
 import com.deco2800.game.maps.rooms.RoomProperties;
@@ -20,6 +21,7 @@ import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.terrain.TerrainTile;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,7 @@ public class Floor extends GameArea {
     private static final String FLOOR_PLAN_DIRECTORY = RoomProperties.DIRECTORY.concat("_floor_plans");
     private final OrthographicCamera camera;
     private FloorPlan floorPlan;
+    private Entity player;
     private boolean created = false;
 
     public Floor(OrthographicCamera camera) {
@@ -103,6 +106,11 @@ public class Floor extends GameArea {
                 }
             }
         }
+
+        ServiceLocator.getResourceService().loadTextureAtlas("images/characters/boy_00/boy_00.atlas");
+        ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
+        spawnEntityAt(player, new GridPoint2(4,4), true, true);
     }
 
     public void invokeTileMethod(RoomObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
@@ -129,6 +137,10 @@ public class Floor extends GameArea {
         } catch (Exception e) {
             logger.error("Error invoking method {}", entityObject.getMethod().getName());
         }
+    }
+
+    public Entity getPlayer() {
+        return player;
     }
 
     public String[] getAllRoomAssets(String extension) {

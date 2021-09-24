@@ -2,11 +2,15 @@ package com.deco2800.game.maps.rooms;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.deco2800.game.maps.floors.FloorPlan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
 public class RoomObject implements Json.Serializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(RoomObject.class);
     private Method method;
     private String[] assets;
 
@@ -36,15 +40,15 @@ public class RoomObject implements Json.Serializable {
 
             iterator = iterator.next();
             assert iterator.name().equals("method");
-            method = clazz.getMethod(iterator.asString());
+            method = clazz.getMethod(iterator.asString(), String[].class);
 
             iterator = iterator.next();
             assert iterator.name().equals("assets");
             assets = iterator.asStringArray();
 
             assert iterator.next().isNull();
-        } catch (ClassNotFoundException | NoSuchMethodException e) {
-            throw new IllegalArgumentException("Error reading room object at value " + iterator.name());
+        } catch (Exception e) {
+            logger.error("Error reading room object at {}: {}", iterator.name(), iterator.asString());
         }
     }
 }

@@ -2,14 +2,14 @@
   interiorTiles: {
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: spawnTile
+      method: createTile
       assets: [images/tiles/iso/iso_floor_1_alt.png]
     }
   }
   interiorEntities: {
     b: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
-      method: spawnBananaPeel
+      method: createBananaPeel
       assets: [images/objects/banana_peel/banana.atlas]
     }
   }

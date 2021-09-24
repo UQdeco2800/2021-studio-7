@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
@@ -36,7 +37,7 @@ public class PlayerFactory {
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
-  public static Entity spawnPlayer(GridPoint2 position, String[] assets) {
+  public static Entity createPlayer(String[] assets) {
     Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new PlayerStatsDisplay())
@@ -66,7 +67,7 @@ public class PlayerFactory {
       TextureAtlas textureAtlas = resourceService.getAsset(assets[0], TextureAtlas.class);
       AnimationRenderComponent animator = new AnimationRenderComponent(textureAtlas);
       // Add all atlas regions as animations to the component
-      for (TextureAtlas.AtlasRegion region : textureAtlas.getRegions()) {
+      for (TextureAtlas.AtlasRegion region : new Array.ArrayIterable<>(textureAtlas.getRegions())) {
         animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
       }
       player.addComponent(animator);

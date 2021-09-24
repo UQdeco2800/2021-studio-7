@@ -9,9 +9,12 @@ public class Living extends Room {
 
     @Override
     public void create(GridPoint2 offset, Vector2 dimensions) {
-        super.create(offset, dimensions);
-        interior = designateInterior(LivingInterior.class, dimensions,
-                RoomProperties.ROOM_CLASS_TO_PATH.get(this.getClass()));
+        if (!created) {
+            super.create(offset, dimensions);
+            interior = designateInterior(LivingInterior.class, dimensions,
+                    RoomProperties.ROOM_CLASS_TO_PATH.get(this.getClass()));
+        }
+        created = true;
     }
 
     public LivingInterior getInterior() {

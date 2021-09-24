@@ -43,30 +43,23 @@ public class RoomProperties implements Json.Serializable {
         try {
             resources = new ObjectMap<>();
             do {
-                iterateInstanceMappings((Class<? extends Room>) Class.forName(iterator.name()),
+                readRoomInstanceMappings((Class<? extends Room>) Class.forName(iterator.name()),
                         json, iterator);
                 iterator = iterator.next();
             } while (iterator != null);
-        } catch (ClassNotFoundException | ClassCastException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new IllegalArgumentException("Error reading room properties");
+        } catch (Exception e) {
+            logger.error("Error creating room instance at {}: {}", iterator.name(), iterator.asString());
         }
     }
 
-    public <T extends Room> void iterateInstanceMappings(Class<T> type, Json json, JsonValue jsonData)
+    public <T extends Room> void readRoomInstanceMappings(Class<T> type, Json json, JsonValue jsonData)
             throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Room instance = null;
-        for (Class<? extends Room> roomClass : new ObjectMap.Keys<>(ROOM_CLASS_TO_PATH)) {
-            if (type.equals(roomClass)) {
-                instance = roomClass.getConstructor().newInstance();
-            }
-        }
-        assert instance != null;
-
         JsonValue iterator = jsonData.child();
         ObjectMap<String, T> instances = new ObjectMap<>();
         do {
-            ((T) instance).read(json, iterator);
-            instances.put(iterator.name(), (T) instance);
+            T instance = type.getConstructor().newInstance();
+            instance.read(json, iterator);
+            instances.put(iterator.name(), instance);
             iterator = iterator.next();
         } while (iterator != null);
         resources.put(type, instances);

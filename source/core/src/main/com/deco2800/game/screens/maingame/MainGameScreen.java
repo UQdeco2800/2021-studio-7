@@ -58,6 +58,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     home = new Home();
     home.create(renderer.getCamera());
+    player = home.getActiveFloor().getPlayer();
   }
 
   @Override

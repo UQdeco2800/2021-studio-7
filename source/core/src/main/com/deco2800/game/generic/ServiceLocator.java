@@ -102,7 +102,6 @@ public class ServiceLocator {
   }
 
   public static void clear() {
-    game = null;
     roomProperties = null;
     entityService = null;
     renderService = null;

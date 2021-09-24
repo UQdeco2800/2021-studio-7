@@ -1,6 +1,5 @@
 package com.deco2800.game.utils.math;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -40,15 +39,8 @@ public class Vector2Utils {
   }
 
   public static Vector2 read(JsonValue jsonData) {
-    jsonData = jsonData.child();
-    assert jsonData.child() == null;
-    Vector2 vector2 = new Vector2();
-    vector2.x = IntUtils.strDigitsToInt(jsonData.name());
-    jsonData = jsonData.next();
-    assert jsonData.child() == null;
-    vector2.y = IntUtils.strDigitsToInt(jsonData.name());
-    assert jsonData.next() == null;
-    return vector2;
+    int[] points = jsonData.asIntArray();
+    return new Vector2(points[0], points[1]);
   }
 
   private Vector2Utils() {
