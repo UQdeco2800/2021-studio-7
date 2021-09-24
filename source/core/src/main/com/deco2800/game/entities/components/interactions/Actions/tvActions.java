@@ -17,7 +17,7 @@ public class tvActions extends InteractionComponent {
     public void create() {
         super.create();
         targetLayer = PhysicsLayer.PLAYER;
-        animator.startAnimation("TV_ONA");
+        animator.startAnimation("TV_on1");
     }
 
     @Override
@@ -28,12 +28,10 @@ public class tvActions extends InteractionComponent {
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("TV started collision with PLAYER, tv animation");
             if (hasInteracted) {
-                animator.startAnimation("TV_offL2");
+                animator.startAnimation("TV_off2");
             } else {
-            animator.startAnimation("TV_ONA");
+                animator.startAnimation("TV_onh1");
             }
-//            animator.startAnimation("TV_ONB");
-//            animator.startAnimation("TV_ONC");
         }
     }
 
@@ -45,12 +43,10 @@ public class tvActions extends InteractionComponent {
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("TV ended collision with PLAYER, tv animation");
             if (hasInteracted) {
-                animator.startAnimation("TV_offL2");
+                animator.startAnimation("TV_off2");
             } else {
-                animator.startAnimation("TV_ONA");
+                animator.startAnimation("TV_on1");
             }
-//            animator.startAnimation("TV_ONB");
-//            animator.startAnimation("TV_ONC");
         }
     }
 
@@ -60,9 +56,14 @@ public class tvActions extends InteractionComponent {
             return;
         } else if (target.getComponent(PlayerActions.class) != null) {
             logger.info("TV started collision with SURVEYOR, triggering TV animation");
-            animator.startAnimation("TV_offL");
-            animator.startAnimation("TV_offL2");
-            hasInteracted = true;
+            if (hasInteracted) {
+                hasInteracted = false;
+                animator.startAnimation("TV_on1");
+            } else {
+                hasInteracted = true;
+                animator.startAnimation("TV_off1");
+                animator.startAnimation("TV_off2");
+            }
         }
     }
 }

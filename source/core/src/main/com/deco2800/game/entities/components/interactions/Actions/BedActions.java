@@ -55,7 +55,7 @@ public class BedActions extends InteractionComponent {
     public void highlightBed() {
         logger.info("BED started collision with PLAYER, highlighting bed");
         if (animator != null) {
-            animator.startAnimation("bed_highlight");
+            animator.startAnimation("bedhighlight1");
         }
     }
 
