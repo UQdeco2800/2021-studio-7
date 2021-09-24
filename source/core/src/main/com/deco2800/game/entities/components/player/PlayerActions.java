@@ -32,7 +32,6 @@ public class PlayerActions extends InteractionComponent {
     combatStatsComponent = entity.getComponent(CombatStatsComponent.class);
     entity.getEvents().addListener("walk", this::walk);
     entity.getEvents().addListener("stop_walking", this::stopWalking);
-    entity.getEvents().addListener("attack", this::attack);
     entity.getEvents().addListener("run", this::run);
     entity.getEvents().addListener("stop_running", this::stopRunning);
     entity.getEvents().trigger("update_animation", "standing_south");
@@ -96,15 +95,6 @@ public class PlayerActions extends InteractionComponent {
     this.walkDirection = Vector2.Zero.cpy();
     updateSpeed();
     moving = false;
-  }
-
-
-  /**
-   * Makes the player attack.
-   */
-  void attack() {
-    Sound attackSound = ServiceLocator.getResourceService().getAsset("sounds/Impact4.ogg", Sound.class);
-    attackSound.play();
   }
 
   /**

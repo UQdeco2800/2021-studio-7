@@ -49,9 +49,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 walkDirection.add(Vector2Utils.RIGHT);
                 triggerWalkEvent();
                 return true;
-            case Keys.SPACE:
-                entity.getEvents().trigger("attack");
-                return true;
             case Keys.SHIFT_LEFT:
                 enableRun();
                 triggerRunEvent();
