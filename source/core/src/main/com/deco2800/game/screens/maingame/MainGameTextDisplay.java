@@ -27,6 +27,9 @@ public class MainGameTextDisplay extends UIComponent {
     private Label displayText;
     private boolean visible;
     private long startTime;
+    private String text;
+    private String currentText = "";
+    private int charCount = 0;
 
     @Override
     public void create() {
@@ -59,6 +62,7 @@ public class MainGameTextDisplay extends UIComponent {
         if (visible) {
             return;
         }
+        this.text = text;
 
         // Divide screen into a more manageable grid
         int rowHeight = Gdx.graphics.getHeight() / 16;
@@ -72,9 +76,9 @@ public class MainGameTextDisplay extends UIComponent {
         table.add(background);
 
         // Display Text
-        displayText = new Label(text, skin, "large");
+        displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition(colWidth*2, rowHeight);
+        displayText.setPosition(colWidth*2, (float) rowHeight/2);
         displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
         displayText.setWrap(true);
 
@@ -90,6 +94,9 @@ public class MainGameTextDisplay extends UIComponent {
     private void hide() {
         table.clear();
         displayText.setText("");
+        text = "";
+        currentText = "";
+        charCount = 0;
         visible = false;
     }
 
@@ -99,6 +106,13 @@ public class MainGameTextDisplay extends UIComponent {
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
+        //(currentTime - startTime)%10 == 0 &&
+        if (visible && charCount < text.length()) {
+            currentText += text.charAt(charCount);
+            displayText.setText(currentText);
+            charCount += 1;
+        }
+
         if (visible && currentTime - startTime >= 3000L) {
             // (3000ms) has passed, hide textbox
             hide();
