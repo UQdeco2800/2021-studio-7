@@ -81,6 +81,10 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private void setToVelocity(Body body, Vector2 desiredVelocity) {
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
+    //System.out.println(velocity);
+    if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1){
+        standingEvents();
+    }
     Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
   }
@@ -137,6 +141,8 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     float x = entityDirection.x;
     float y = entityDirection.y;
 
+    System.out.println(entityDirection);
+
     if (lastDirection != currentDirection) {
       if (x < 0.5 && x > -0.5 && y > 0) {
         entity.getEvents().trigger("update_animation", "walking_north");
@@ -164,5 +170,40 @@ public class PhysicsMovementComponent extends Component implements MovementContr
         lastDirection = 7;
       }
     }
+  }
+
+  /**
+   * If the mom is standing still this function triggers a standing event in the last direction.
+   */
+  public void standingEvents() {
+    Vector2 entityDirection = getDirection();
+    float x = entityDirection.x;
+    float y = entityDirection.y;
+
+      if (lastDirection == 0) {
+        entity.getEvents().trigger("update_animation", "standing_north");
+
+      } else if (lastDirection == 1) {
+        entity.getEvents().trigger("update_animation", "standing_east");
+
+      } else if (lastDirection == 2) {
+        entity.getEvents().trigger("update_animation", "standing_south");
+
+      } else if (lastDirection == 3) {
+        entity.getEvents().trigger("update_animation", "standing_west");
+
+      } else if (lastDirection ==4 ) {
+        entity.getEvents().trigger("update_animation", "standing_northeast");
+
+      } else if (lastDirection == 5) {
+        entity.getEvents().trigger("update_animation", "standing_northwest");
+
+      } else if (lastDirection == 6) {
+        entity.getEvents().trigger("update_animation", "standing_southeast");
+
+      } else if (lastDirection == 7) {
+        entity.getEvents().trigger("update_animation", "standing_southwest");
+
+      }
   }
 }
