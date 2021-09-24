@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.deco2800.game.events.listeners.EventListener1;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
+import com.deco2800.game.events.listeners.EventListener1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +28,6 @@ public class MainGameTextDisplay extends UIComponent {
     private boolean visible;
     private long startTime;
 
-    // Divide screen into a more manageable grid
-    int row_height = Gdx.graphics.getHeight() / 12;
-    int col_width = Gdx.graphics.getWidth() / 10;
-
-    private final long DURATION = 3000L; // The duration for which the textbox stays visible (ms)
-
     @Override
     public void create() {
         super.create();
@@ -51,7 +45,6 @@ public class MainGameTextDisplay extends UIComponent {
     private void addActors() {
         table = new Table();
         table.bottom();
-        table.setSize(Gdx.graphics.getWidth(), row_height*4);
         stage.addActor(table);
     }
 
@@ -67,16 +60,22 @@ public class MainGameTextDisplay extends UIComponent {
             return;
         }
 
+        // Divide screen into a more manageable grid
+        int rowHeight = Gdx.graphics.getHeight() / 12;
+        int colWidth = Gdx.graphics.getWidth() / 10;
+
         // Display background texture
+        table.setSize(Gdx.graphics.getWidth(), rowHeight*4);
         Image background = new Image(texture);
-        background.setScaleX((col_width*8)/background.getWidth());
+        background.setScaleX((colWidth*8)/background.getWidth());
         background.setOrigin(Align.center);
         table.add(background);
 
         // Display Text
         displayText = new Label(text, skin, "large");
-        displayText.setSize(col_width*6, row_height*3);
-        displayText.setPosition(col_width*2, row_height);
+        displayText.setSize(colWidth*6, rowHeight*3);
+        displayText.setPosition(colWidth*2, rowHeight);
+        displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
         displayText.setWrap(true);
 
         stage.addActor(displayText);
@@ -84,14 +83,6 @@ public class MainGameTextDisplay extends UIComponent {
         visible = true;
         startTime = ServiceLocator.getTimeSource().getTime();
     }
-
-    /**
-     * TODO Displays the text box at the bottom of the screen containing the given text and image.
-     *
-     * @param text The text to display
-     * @param imagePath The path to the image to display
-     */
-    private void display(String text, String imagePath) {}
 
     /**
      * Removes all current visual components from the screen (but doesn't do a full cleanup)
@@ -108,7 +99,8 @@ public class MainGameTextDisplay extends UIComponent {
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (visible && currentTime - startTime >= DURATION) {
+        if (visible && currentTime - startTime >= 3000L) {
+            // (3000ms) has passed, hide textbox
             hide();
         }
     }
@@ -120,7 +112,6 @@ public class MainGameTextDisplay extends UIComponent {
 
     @Override
     public void dispose() {
-        //displayText.clear();
         super.dispose();
     }
 }
