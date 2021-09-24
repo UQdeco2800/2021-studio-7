@@ -75,6 +75,7 @@ public class NPCFactory {
 
 
     //mum.getComponent(AnimationRenderComponent.class).scaleEntity();
+    mum.scaleHeight(0.8f);
     return mum;
   }
 

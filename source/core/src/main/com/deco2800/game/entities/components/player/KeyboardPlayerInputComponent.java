@@ -161,7 +161,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             entity.getEvents().trigger("update_animation", "standing_north");
 
         } else {
-            if (lastDirection != currentDirection) {
+            if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
                     entity.getEvents().trigger("update_animation", "walking_north");
@@ -194,7 +194,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
                     entity.getEvents().trigger("update_animation", "walking_southwest");
                     lastDirection = 7;
-
                 }
             }
         }
