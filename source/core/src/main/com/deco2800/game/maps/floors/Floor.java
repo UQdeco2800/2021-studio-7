@@ -159,7 +159,11 @@ public class Floor extends GameArea {
 
     public String[] getAllRoomAssets(String extension) {
         Array<String> temp = new Array<>();
-        temp.addAll(floorPlan.getDefaultTileObject().getAssets());
+        for (String asset : floorPlan.getDefaultTileObject().getAssets()) {
+            if (asset.endsWith(extension)) {
+                temp.add(asset);
+            }
+        }
         for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getRoomMappings())) {
             for (String asset : roomFloorPlan.getRoom().getInterior().getRoomAssets(extension)) {
                 if (!temp.contains(asset, true)) {
