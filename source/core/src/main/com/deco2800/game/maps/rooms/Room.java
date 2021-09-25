@@ -28,7 +28,7 @@ public class Room implements Json.Serializable {
     private Integer maxDoorways;
     private ObjectMap<Class<? extends Room>, String[]> doorwayRestrictions;
     private Array<Doorway> extraDoorways;
-    private RoomInterior interior;
+    protected RoomInterior interior;
     protected boolean created = false;
 
     public void create(GridPoint2 offset, Vector2 dimensions) {
@@ -96,30 +96,32 @@ public class Room implements Json.Serializable {
             FileLoader.assertJsonValueName(iterator, "doorwayRestrictions");
             doorwayRestrictions = new ObjectMap<>();
             JsonValue restrictionsIterator = iterator.child();
-            do {
+            while (restrictionsIterator != null) {
                 doorwayRestrictions.put(
                         (Class<? extends Room>) Class.forName(restrictionsIterator.name()),
                         restrictionsIterator.asStringArray());
                 restrictionsIterator = restrictionsIterator.next();
-            } while (restrictionsIterator != null);
-
-            iterator = iterator.next();
-            if (iterator != null) {
-                FileLoader.assertJsonValueName(iterator, "extraDoorways");
-                extraDoorways = new Array<>();
-                FileLoader.readObjectArray(Doorway.class, extraDoorways, json, jsonData);
-                iterator = iterator.next();
-            } else {
-                extraDoorways = null;
             }
 
+            iterator = iterator.next();
+            extraDoorways = null;
             if (iterator != null) {
-                FileLoader.assertJsonValueName(iterator, "interior");
-                interior = new RoomInterior();
-                interior.read(json, iterator);
+                if (!iterator.isNull()) {
+                    FileLoader.assertJsonValueName(iterator, "extraDoorways");
+                    extraDoorways = new Array<>();
+                    FileLoader.readObjectArray(Doorway.class, extraDoorways, json, jsonData);
+                }
                 iterator = iterator.next();
-            } else {
-                interior = null;
+            }
+
+            interior = null;
+            if (iterator != null) {
+                if (!iterator.isNull()) {
+                    Class<? extends RoomInterior> clazz = (Class<? extends RoomInterior>) Class.forName(iterator.name());
+                    interior = clazz.getConstructor().newInstance();
+                    interior.read(json, iterator);
+                }
+                iterator = iterator.next();
             }
 
             FileLoader.assertJsonValueNull(iterator);

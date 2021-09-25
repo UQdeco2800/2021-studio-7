@@ -35,18 +35,18 @@ import com.deco2800.game.generic.ServiceLocator;
  */
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
 public class NPCFactory {
+
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Creates a mum entity.
    *
-   * @param target entity to chase
    * @return entity
    */
-  public static Entity createMum(Entity target, String[] assets) {
+  public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-    Entity mum =  createBaseNPC(target, assets)
+    Entity mum =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
     return mum;
@@ -67,7 +67,7 @@ public class NPCFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
     PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
     PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
-    // Set npc to have base ai component
+    // Set npc to have base AI component
     npc.addComponent(new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ChaseTask(target, 10, 3f, 4f)));

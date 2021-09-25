@@ -101,14 +101,6 @@ public class FileLoader {
     return getJsonFiles(new FileHandle(directory), ".json");
   }
 
-  public static Array<FileHandle> getJsonFiles(String directory, String suffix) {
-    return getJsonFiles(new FileHandle(directory), suffix);
-  }
-
-  public static Array<FileHandle> getJsonFiles(FileHandle directory) {
-    return getJsonFiles(directory, ".json");
-  }
-
   public static Array<FileHandle> getJsonFiles(FileHandle directory, String suffix) {
     FileHandle[] files = directory.list(suffix);
     Array<FileHandle> jsons = new Array<>();
@@ -139,12 +131,12 @@ public class FileLoader {
       throw new IllegalAccessException("Class should implement Json.Serializable");
     }
     JsonValue iterator = jsonData.child();
-    do {
+    while (iterator != null) {
       E object = elementClass.getConstructor().newInstance();
       ((Json.Serializable) object).read(json, iterator);
       array.add(object);
       iterator = iterator.next();
-    } while (iterator != null);
+    }
   }
 
   public static void readCharacterGrid(Character[][] grid, JsonValue jsonData) {
@@ -166,12 +158,12 @@ public class FileLoader {
       throw new IllegalAccessException("Class does not implement Json.Serializable");
     }
     JsonValue iterator = jsonData.child();
-    do {
+    while (iterator != null) {
       V object = valueClass.getConstructor().newInstance();
       ((Json.Serializable) object).read(json, iterator);
       mappings.put(iterator.name().charAt(0), object);
       iterator = iterator.next();
-    } while (iterator != null);
+    }
   }
 
   public static FileHandle getFileHandle(String filename, Location location) {

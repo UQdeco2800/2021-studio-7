@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
+  private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
+  private static final boolean useTestingFloorPlan = true;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -56,7 +58,12 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
     createUI();
 
-    home = new Home();
+    if (useTestingFloorPlan) {
+      home = new Home(testingFloorPlan);
+    } else {
+      home = new Home();
+    }
+    ServiceLocator.registerHome(home);
     home.create(renderer.getCamera());
     player = home.getActiveFloor().getPlayer();
   }

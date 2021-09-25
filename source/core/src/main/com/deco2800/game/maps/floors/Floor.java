@@ -30,19 +30,19 @@ import org.slf4j.LoggerFactory;
 public class Floor extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
     private static final String FLOOR_PLAN_DIRECTORY = RoomProperties.DIRECTORY.concat("_floor_plans");
-    private final OrthographicCamera camera;
+    private OrthographicCamera camera;
     private FloorPlan floorPlan;
     private Entity player;
     private boolean created = false;
 
-    public Floor(OrthographicCamera camera) {
-        this.camera = camera;
-    }
-
     @Override
     public void create() {
         if (!created) {
-            floorPlan = designateHomeFloorPlan();
+            if (floorPlan == null) {
+                floorPlan = designateHomeFloorPlan();
+            } else {
+                floorPlan.create();
+            }
             loadAssets();
             displayUI();
             spawnHomeTiles();
@@ -105,6 +105,8 @@ public class Floor extends GameArea {
         ServiceLocator.getResourceService().loadTexture("images/objects/walls/wall.png");
         ServiceLocator.getResourceService().loadTextureAtlas("images/characters/boy_00/boy_00.atlas");
         ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
+        spawnEntityAt(player, new GridPoint2(1,1), true, true);
 
         for (int y = 0; y < floorPlan.getFloorGrid().length; y++) {
             for (int x = 0; x < floorPlan.getFloorGrid()[y].length; x++) {
@@ -123,9 +125,6 @@ public class Floor extends GameArea {
                 }
             }
         }
-
-        player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
-        spawnEntityAt(player, new GridPoint2(4,4), true, true);
     }
 
     public void invokeTileMethod(RoomObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
@@ -173,6 +172,14 @@ public class Floor extends GameArea {
             assets[i] = temp.get(i);
         }
         return assets;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
+
+    public void setFloorPlan(FloorPlan floorPlan) {
+        this.floorPlan = floorPlan;
     }
 
     private void displayUI() {

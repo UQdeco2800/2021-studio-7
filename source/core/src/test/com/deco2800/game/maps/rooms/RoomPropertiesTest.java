@@ -24,20 +24,22 @@ public class RoomPropertiesTest {
         app = new HeadlessApplication(game, config);
 
         Home home = new Home();
+        ServiceLocator.registerHome(home);
         home.loadProperties();
 
-        assertNotNull(ServiceLocator.getRoomProperties().getResources());
+        assertNotNull(ServiceLocator.getHome().getRoomProperties().getResources());
     }
 
     @Test
     void shouldReturnRoomInstances() {
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Bathroom.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Bedroom.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Dining.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(FrontFoyer.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Garage.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Kitchen.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Laundry.class));
-        assertTrue(ServiceLocator.getRoomProperties().getResources().containsKey(Living.class));
+        RoomProperties roomProperties = ServiceLocator.getHome().getRoomProperties();
+        assertTrue(roomProperties.getResources().containsKey(Bathroom.class));
+        assertTrue(roomProperties.getResources().containsKey(Bedroom.class));
+        assertTrue(roomProperties.getResources().containsKey(Dining.class));
+        assertTrue(roomProperties.getResources().containsKey(FrontFoyer.class));
+        assertTrue(roomProperties.getResources().containsKey(Garage.class));
+        assertTrue(roomProperties.getResources().containsKey(Kitchen.class));
+        assertTrue(roomProperties.getResources().containsKey(Laundry.class));
+        assertTrue(roomProperties.getResources().containsKey(Living.class));
     }
 }

@@ -71,8 +71,8 @@ public class FloorPlan implements Json.Serializable {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        JsonValue iterator = jsonData.child();
         try {
+            JsonValue iterator = jsonData.child();
             FileLoader.assertJsonValueName(iterator, "defaultTileObject");
             defaultTileObject = new RoomObject();
             defaultTileObject.read(json, iterator);
@@ -86,13 +86,13 @@ public class FloorPlan implements Json.Serializable {
             FileLoader.assertJsonValueName(iterator, "miscMappings");
             miscMappings = new ObjectMap<>();
             JsonValue miscIterator = iterator.child();
-            do {
+            while (miscIterator != null) {
                 if (miscIterator.name().length() != 1) {
                     throw new IllegalArgumentException("Misc mapping key should be one character");
                 }
                 miscMappings.put(miscIterator.name().charAt(0), miscIterator.asString());
                 miscIterator = miscIterator.next();
-            } while (miscIterator != null);
+            }
 
             iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "floorGrid");
@@ -116,7 +116,11 @@ public class FloorPlan implements Json.Serializable {
 
         public void create() {
             if (!created) {
-                room = designateRoom();
+                if (room == null) {
+                    room = designateRoom();
+                } else {
+                    room.create(offset, dimensions);
+                }
             }
             created = true;
         }
@@ -129,7 +133,7 @@ public class FloorPlan implements Json.Serializable {
             Room randomRoom;
             do {
                 Class<? extends Room> randomRoomClass = classes.get(RandomUtils.getSeed().nextInt(classes.size));
-                randomRoom = ServiceLocator.getRoomProperties().get(randomRoomClass, size);
+                randomRoom = ServiceLocator.getHome().getRoomProperties().get(randomRoomClass, size);
                 classes.removeValue(randomRoomClass, true);
 
                 if (randomRoom == null || numDoorways > randomRoom.getMaxDoorways()) {
@@ -159,14 +163,15 @@ public class FloorPlan implements Json.Serializable {
             json.writeValue("offset", offset);
             json.writeValue("dimensions", dimensions);
             json.writeValue("numDoorways", numDoorways);
-            json.writeValue("room", room);
+            json.writeValue(room.getClass().getName(), room);
             json.writeObjectEnd();
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void read(Json json, JsonValue jsonData) {
-            JsonValue iterator = jsonData.child();
             try {
+                JsonValue iterator = jsonData.child();
                 FileLoader.assertJsonValueName(iterator, "offset");
                 offset = GridPoint2Utils.read(iterator);
 
@@ -179,13 +184,14 @@ public class FloorPlan implements Json.Serializable {
                 numDoorways = iterator.asInt();
 
                 iterator = iterator.next();
+                room = null;
                 if (iterator != null) {
-                    FileLoader.assertJsonValueName(iterator, "room");
-                    room = new Room();
-                    room.read(json, iterator);
+                    if (!iterator.isNull()) {
+                        Class<? extends Room> clazz = (Class<? extends Room>) Class.forName(iterator.name());
+                        room = clazz.getConstructor().newInstance();
+                        room.read(json, iterator);
+                    }
                     iterator = iterator.next();
-                } else {
-                    room = null;
                 }
 
                 FileLoader.assertJsonValueNull(iterator);

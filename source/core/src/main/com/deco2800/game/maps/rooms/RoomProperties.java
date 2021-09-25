@@ -39,14 +39,14 @@ public class RoomProperties implements Json.Serializable {
 
     @Override
     public void read(Json json, JsonValue jsonData) {
-        JsonValue iterator = jsonData.child();
         try {
             resources = new ObjectMap<>();
-            do {
+            JsonValue iterator = jsonData.child();
+            while (iterator != null) {
                 readRoomInstanceMappings((Class<? extends Room>) Class.forName(iterator.name()),
                         json, iterator);
                 iterator = iterator.next();
-            } while (iterator != null);
+            }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -54,14 +54,14 @@ public class RoomProperties implements Json.Serializable {
 
     public <T extends Room> void readRoomInstanceMappings(Class<T> type, Json json, JsonValue jsonData)
             throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        JsonValue iterator = jsonData.child();
         ObjectMap<String, T> instances = new ObjectMap<>();
-        do {
+        JsonValue iterator = jsonData.child();
+        while (iterator != null) {
             T instance = type.getConstructor().newInstance();
             instance.read(json, iterator);
             instances.put(iterator.name(), instance);
             iterator = iterator.next();
-        } while (iterator != null);
+        }
         resources.put(type, instances);
     }
 
