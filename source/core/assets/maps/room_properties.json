@@ -1,6 +1,6 @@
 {
   com.deco2800.game.maps.rooms.Bathroom: {
-    five_by_five: {
+    eight_by_eight: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_door]
@@ -8,14 +8,14 @@
     }
   }
   com.deco2800.game.maps.rooms.Bedroom: {
-    five_by_five: {
+    eight_by_eight: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_door]
         com.deco2800.game.maps.rooms.Living: [single_door]
       }
     }
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_door]
@@ -24,7 +24,7 @@
     }
   }
   com.deco2800.game.maps.rooms.Dining: {
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -32,7 +32,7 @@
         com.deco2800.game.maps.rooms.Kitchen: [single_no_door, open_space]
       }
     }
-    ten_by_ten: {
+    sixteen_by_sixteen: {
       maxDoorways: 3
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -40,7 +40,7 @@
         com.deco2800.game.maps.rooms.Kitchen: [single_no_door, open_space]
       }
     }
-    ten_by_fifteen: {
+    sixteen_by_twenty-four: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -50,7 +50,7 @@
     }
   }
   com.deco2800.game.maps.rooms.FrontFoyer: {
-    five_by_five: {
+    eight_by_eight: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -58,7 +58,7 @@
         com.deco2800.game.maps.rooms.Living: [single_no_door, open_space]
       }
     }
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -68,14 +68,14 @@
     }
   }
   com.deco2800.game.maps.rooms.Garage: {
-    ten_by_ten: {
+    sixteen_by_sixteen: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_fifteen: {
+    sixteen_by_twenty-four: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -91,7 +91,7 @@
     }
   }
   com.deco2800.game.maps.rooms.Kitchen: {
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -99,14 +99,14 @@
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_ten: {
+    sixteen_by_sixteen: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_fifteen: {
+    sixteen_by_twenty-four: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -115,7 +115,7 @@
     }
   }
   com.deco2800.game.maps.rooms.Laundry: {
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -123,14 +123,14 @@
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_ten: {
+    sixteen_by_sixteen: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_fifteen: {
+    sixteen_by_twenty-four: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -139,7 +139,7 @@
     }
   }
   com.deco2800.game.maps.rooms.Living: {
-    five_by_ten: {
+    eight_by_sixteen: {
       maxDoorways: 2
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
@@ -147,14 +147,14 @@
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_ten: {
+    sixteen_by_sixteen: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]
         com.deco2800.game.maps.rooms.FrontFoyer: [single_door]
       }
     }
-    ten_by_fifteen: {
+    sixteen_by_twenty-four: {
       maxDoorways: 1
       doorwayRestrictions: {
         com.deco2800.game.maps.rooms.Hallway: [single_no_door]

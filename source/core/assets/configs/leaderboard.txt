@@ -96,3 +96,15 @@ DirtyDefault79325:
 DirtyDefault49687:
 DirtyDefault63381:
 DirtyDefault74345:-543,
+DirtyDefault59846:894,
+DirtyDefault79217:955,
+DirtyDefault57068:198,
+DirtyDefault84096:310,
+DirtyDefault45614:
+DirtyDefault45389:
+DirtyDefault83506:
+DirtyDefault96572:918,
+DirtyDefault8336:922,
+DirtyDefault55554:938,
+DirtyDefault52524:928,
+DirtyDefault41924:480,

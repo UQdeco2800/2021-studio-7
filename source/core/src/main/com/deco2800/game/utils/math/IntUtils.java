@@ -7,7 +7,7 @@ public class IntUtils {
             "five", "six", "seven", "eight", "nine",
             "ten", "eleven", "twelve", "thirteen", "fourteen",
             "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
-            "twenty"
+            "twenty", "twenty-one", "twenty-two", "twenty-three", "twenty-four"
     };
 
     public static int strDigitsToInt(String digits) {
