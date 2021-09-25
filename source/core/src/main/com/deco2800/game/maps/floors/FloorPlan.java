@@ -11,10 +11,7 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.maps.rooms.Room;
 import com.deco2800.game.maps.rooms.RoomObject;
-import com.deco2800.game.utils.math.GridPoint2Utils;
-import com.deco2800.game.utils.math.IntUtils;
-import com.deco2800.game.utils.math.RandomUtils;
-import com.deco2800.game.utils.math.Vector2Utils;
+import com.deco2800.game.utils.math.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,33 +73,36 @@ public class FloorPlan implements Json.Serializable {
     public void read(Json json, JsonValue jsonData) {
         JsonValue iterator = jsonData.child();
         try {
-            assert iterator.name().equals("defaultTileObject");
+            FileLoader.assertJsonValueName(iterator, "defaultTileObject");
             defaultTileObject = new RoomObject();
             defaultTileObject.read(json, iterator);
 
             iterator = iterator.next();
-            assert iterator.name().equals("roomMappings");
+            FileLoader.assertJsonValueName(iterator, "roomMappings");
             roomMappings = new ObjectMap<>();
             FileLoader.readCharacterObjectMap(RoomPlan.class, roomMappings, json, iterator);
 
             iterator = iterator.next();
-            assert iterator.name().equals("miscMappings");
+            FileLoader.assertJsonValueName(iterator, "miscMappings");
             miscMappings = new ObjectMap<>();
             JsonValue miscIterator = iterator.child();
             do {
-                assert miscIterator.name().length() == 1;
+                if (miscIterator.name().length() != 1) {
+                    throw new IllegalArgumentException("Misc mapping key should be one character");
+                }
                 miscMappings.put(miscIterator.name().charAt(0), miscIterator.asString());
                 miscIterator = miscIterator.next();
             } while (miscIterator != null);
 
             iterator = iterator.next();
-            assert iterator.name().equals("floorGrid");
+            FileLoader.assertJsonValueName(iterator, "floorGrid");
             floorGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid(floorGrid, iterator);
+            MatrixUtils.flipVertically(floorGrid);
 
-            assert iterator.next() == null;
+            FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {
-            logger.error("Error reading floor plan at {}: {}", iterator.name(), iterator.asString());
+            logger.error(e.getMessage());
         }
     }
 
@@ -167,21 +167,20 @@ public class FloorPlan implements Json.Serializable {
         public void read(Json json, JsonValue jsonData) {
             JsonValue iterator = jsonData.child();
             try {
-                assert iterator.name().equals("offset");
+                FileLoader.assertJsonValueName(iterator, "offset");
                 offset = GridPoint2Utils.read(iterator);
 
                 iterator = iterator.next();
-                assert iterator.name().equals("dimensions");
+                FileLoader.assertJsonValueName(iterator, "dimensions");
                 dimensions = Vector2Utils.read(iterator);
 
                 iterator = iterator.next();
-                assert iterator.name().equals("numDoorways");
-                //numDoorways = IntUtils.strDigitsToInt(iterator.name());
+                FileLoader.assertJsonValueName(iterator, "numDoorways");
                 numDoorways = iterator.asInt();
 
                 iterator = iterator.next();
                 if (iterator != null) {
-                    assert iterator.name().equals("room");
+                    FileLoader.assertJsonValueName(iterator, "room");
                     room = new Room();
                     room.read(json, iterator);
                     iterator = iterator.next();
@@ -189,9 +188,9 @@ public class FloorPlan implements Json.Serializable {
                     room = null;
                 }
 
-                assert iterator == null;
+                FileLoader.assertJsonValueNull(iterator);
             } catch (Exception e) {
-                logger.error("Error reading room plan at {}: {}", iterator.name(), iterator.asString());
+                logger.error(e.getMessage());
             }
         }
     }

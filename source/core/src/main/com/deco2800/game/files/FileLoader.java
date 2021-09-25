@@ -120,6 +120,18 @@ public class FileLoader {
     return jsons;
   }
 
+  public static void assertJsonValueName(JsonValue jsonData, String name) {
+    if (!jsonData.name().equals(name)) {
+      throw new IllegalArgumentException("JsonValue name " + jsonData.name() + " does not equal " + name);
+    }
+  }
+
+  public static void assertJsonValueNull(JsonValue jsonData) {
+    if (jsonData != null) {
+      throw new IllegalArgumentException("Too much information in file");
+    }
+  }
+
   public static <E> void readObjectArray(Class<E> elementClass, Array<E> array,
                                          Json json, JsonValue jsonData)
           throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -137,10 +149,10 @@ public class FileLoader {
 
   public static void readCharacterGrid(Character[][] grid, JsonValue jsonData) {
     JsonValue iterator = jsonData.child();
-    for (int x = 0; x < grid.length; x++) {
+    for (int y = 0; y < grid.length; y++) {
       JsonValue cellIterator = iterator.child();
-      for (int y = 0; y < grid[0].length; y++) {
-        grid[x][y] = cellIterator.asChar();
+      for (int x = 0; x < grid[y].length; x++) {
+        grid[y][x] = cellIterator.asChar();
         cellIterator = cellIterator.next();
       }
       iterator = iterator.next();

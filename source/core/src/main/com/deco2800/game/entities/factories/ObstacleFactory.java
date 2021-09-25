@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.components.interactions.Actions.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.SingleUse;
@@ -87,8 +88,10 @@ public class ObstacleFactory {
       TextureAtlas textureAtlas = resourceService.getAsset(assets[0], TextureAtlas.class);
       AnimationRenderComponent animator = new AnimationRenderComponent(textureAtlas);
       // Add all atlas regions as animations to the component
-      for (TextureAtlas.AtlasRegion region : textureAtlas.getRegions()) {
-        animator.addAnimation(region.name, 1f);
+      for (TextureAtlas.AtlasRegion region : new Array.ArrayIterator<>(textureAtlas.getRegions())) {
+        if (!animator.hasAnimation(region.name)) {
+          animator.addAnimation(region.name, 1f);
+        }
       }
       obstacle.addComponent(animator);
     }

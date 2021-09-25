@@ -3,7 +3,7 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createTile
-      assets: [images/tiles/iso/iso_floor_1_alt.png]
+      assets: [images/tiles/iso/iso_wall_1_left.png]
     }
   }
   interiorEntities: {
@@ -13,18 +13,18 @@
       assets: [images/objects/banana_peel/banana.atlas]
     }
   }
-  rawTileGrid: [
-    [., ., ., ., .],
-    [., a, ., ., .],
-    [., ., ., ., .],
-    [., a, ., ., a],
-    [., ., ., ., .]
+  tileGrid: [
+    [., a, a, ., .],
+    [., a, ., a, .],
+    [., a, a, a, .],
+    [., a, ., a, .],
+    [., a, a, a, .]
   ]
-  rawEntityGrid: [
-    [., b, b, ., .],
-    [., b, ., b, .],
-    [., b, b, b, .],
-    [., b, ., b, .],
-    [., b, b, b, .]
+  entityGrid: [
+    [., ., ., ., .],
+    [., ., ., ., .],
+    [., ., ., ., .],
+    [., ., ., ., .],
+    [., ., ., ., .]
   ]
 }

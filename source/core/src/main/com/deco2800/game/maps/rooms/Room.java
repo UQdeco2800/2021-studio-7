@@ -15,9 +15,12 @@ import com.deco2800.game.maps.terrain.TerrainTile;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.utils.math.MatrixUtils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 public class Room implements Json.Serializable {
 
@@ -86,11 +89,11 @@ public class Room implements Json.Serializable {
     public void read(Json json, JsonValue jsonData) {
         JsonValue iterator = jsonData.child();
         try {
-            assert iterator.name().equals("maxDoorways");
+            FileLoader.assertJsonValueName(iterator, "maxDoorways");
             maxDoorways = iterator.asInt();
 
             iterator = iterator.next();
-            assert iterator.name().equals("doorwayRestrictions");
+            FileLoader.assertJsonValueName(iterator, "doorwayRestrictions");
             doorwayRestrictions = new ObjectMap<>();
             JsonValue restrictionsIterator = iterator.child();
             do {
@@ -102,7 +105,7 @@ public class Room implements Json.Serializable {
 
             iterator = iterator.next();
             if (iterator != null) {
-                assert iterator.name().equals("extraDoorways");
+                FileLoader.assertJsonValueName(iterator, "extraDoorways");
                 extraDoorways = new Array<>();
                 FileLoader.readObjectArray(Doorway.class, extraDoorways, json, jsonData);
                 iterator = iterator.next();
@@ -111,7 +114,7 @@ public class Room implements Json.Serializable {
             }
 
             if (iterator != null) {
-                assert iterator.name().equals("interior");
+                FileLoader.assertJsonValueName(iterator, "interior");
                 interior = new RoomInterior();
                 interior.read(json, iterator);
                 iterator = iterator.next();
@@ -119,16 +122,16 @@ public class Room implements Json.Serializable {
                 interior = null;
             }
 
-            assert iterator == null;
+            FileLoader.assertJsonValueNull(iterator);
         } catch (Exception e) {
-            logger.error("Error reading room type at {}: {}", iterator.name(), iterator.asString());
+            logger.error(e.getMessage());
         }
     }
 
     static public class RoomInterior implements Json.Serializable {
 
-        private ObjectMap<Character, RoomObject> tileMappings;
-        private ObjectMap<Character, RoomObject> entityMappings;
+        private ObjectMap<Character, RoomObject> interiorTiles;
+        private ObjectMap<Character, RoomObject> interiorEntities;
         private Character[][] tileGrid;
         private Character[][] entityGrid;
         private Vector2 roomScale;
@@ -141,12 +144,12 @@ public class Room implements Json.Serializable {
             return roomScale;
         }
 
-        public ObjectMap<Character, RoomObject> getTileMappings() {
-            return tileMappings;
+        public ObjectMap<Character, RoomObject> getInteriorTiles() {
+            return interiorTiles;
         }
 
-        public ObjectMap<Character, RoomObject> getEntityMappings() {
-            return entityMappings;
+        public ObjectMap<Character, RoomObject> getInteriorEntities() {
+            return interiorEntities;
         }
 
         public Character[][] getTileGrid() {
@@ -158,8 +161,8 @@ public class Room implements Json.Serializable {
         }
 
         public String[] getRoomAssets(String extension) {
-            Array<String> temp = getAssetsWithExtension(tileMappings, extension);
-            temp.addAll(getAssetsWithExtension(entityMappings, extension));
+            Array<String> temp = getAssetsWithExtension(interiorTiles, extension);
+            temp.addAll(getAssetsWithExtension(interiorEntities, extension));
 
             String[] assets = new String[temp.size];
             for (int i = 0; i < temp.size; i++) {
@@ -183,21 +186,11 @@ public class Room implements Json.Serializable {
             return assets;
         }
 
-        public ObjectMap<Character, TerrainTile> getCharacterTerrainTileMap() {
-            ResourceService resourceService = ServiceLocator.getResourceService();
-            ObjectMap<Character, TerrainTile> characterTerrainTileMap = new ObjectMap<>(tileMappings.size);
-            for (ObjectMap.Entry<Character, RoomObject> entry : new ObjectMap.Entries<>(tileMappings)) {
-                characterTerrainTileMap.put(entry.key, new TerrainTile(new TextureRegion(
-                        resourceService.getAsset(entry.value.getAssets()[0], Texture.class))));
-            }
-            return characterTerrainTileMap;
-        }
-
         @Override
         public void write(Json json) {
             json.writeObjectStart();
-            json.writeValue("tileMappings", tileMappings);
-            json.writeValue("entityMappings", entityMappings);
+            json.writeValue("interiorTiles", interiorTiles);
+            json.writeValue("interiorEntities", interiorEntities);
             json.writeValue("tileGrid", tileGrid);
             json.writeValue("entityGrid", entityGrid);
             json.writeObjectEnd();
@@ -207,30 +200,32 @@ public class Room implements Json.Serializable {
         public void read(Json json, JsonValue jsonData) {
             JsonValue iterator = jsonData.child();
             try {
-                assert iterator.name().equals("tileMappings");
-                tileMappings = new ObjectMap<>();
-                FileLoader.readCharacterObjectMap(RoomObject.class, tileMappings, json, iterator);
+                FileLoader.assertJsonValueName(iterator, "interiorTiles");
+                interiorTiles = new ObjectMap<>();
+                FileLoader.readCharacterObjectMap(RoomObject.class, interiorTiles, json, iterator);
 
                 iterator = iterator.next();
-                assert iterator.name().equals("entityMappings");
-                entityMappings = new ObjectMap<>();
-                FileLoader.readCharacterObjectMap(RoomObject.class, entityMappings, json, iterator);
+                FileLoader.assertJsonValueName(iterator, "interiorEntities");
+                interiorEntities = new ObjectMap<>();
+                FileLoader.readCharacterObjectMap(RoomObject.class, interiorEntities, json, iterator);
 
                 iterator = iterator.next();
-                assert iterator.name().equals("tileGrid");
+                FileLoader.assertJsonValueName(iterator, "tileGrid");
                 tileGrid = new Character[iterator.size][iterator.child().size];
                 FileLoader.readCharacterGrid(tileGrid, iterator);
+                MatrixUtils.flipVertically(tileGrid);
 
                 iterator = iterator.next();
-                assert iterator.name().equals("entityGrid");
+                FileLoader.assertJsonValueName(iterator, "entityGrid");
                 entityGrid = new Character[iterator.size][iterator.child().size];
                 FileLoader.readCharacterGrid(entityGrid, iterator);
+                MatrixUtils.flipVertically(entityGrid);
 
                 roomScale = new Vector2(tileGrid[0].length, tileGrid.length);
 
-                assert iterator.next() == null;
+                FileLoader.assertJsonValueNull(iterator.next());
             } catch (Exception e) {
-                logger.error("Error reading room interior at {}: {}", iterator.name(), iterator.asString());
+                logger.error(e.getMessage());
             }
         }
     }

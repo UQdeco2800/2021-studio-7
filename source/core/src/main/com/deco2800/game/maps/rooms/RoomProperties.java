@@ -48,7 +48,7 @@ public class RoomProperties implements Json.Serializable {
                 iterator = iterator.next();
             } while (iterator != null);
         } catch (Exception e) {
-            logger.error("Error creating room instance at {}: {}", iterator.name(), iterator.asString());
+            logger.error(e.getMessage());
         }
     }
 
