@@ -20,10 +20,10 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
 /**
  * Factory to create a player entity.
@@ -33,6 +33,7 @@ import java.io.FileReader;
  */
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
 public class PlayerFactory {
+  private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
@@ -78,14 +79,20 @@ public class PlayerFactory {
   }
 
   public static String getAtlas() {
+    File input = new File("configs/currentCharacterAtlas.txt");
+    BufferedReader br = null;
+    String line = null;
     try {
-      File input = new File("configs/currentCharacterAtlas.txt");
-      BufferedReader br = new BufferedReader(new FileReader(input));
-      String line = br.readLine();
-      return line;
-
-    } catch (Exception e) {
-      throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
-    }
+      br = new BufferedReader(new FileReader(input));
+      line = br.readLine();
+    } catch (IOException e) {
+      logger.error("Could not read currentCharacterAtlas.txt");
+    } finally {
+      try {
+        br.close();
+      } catch (NullPointerException | IOException e) {
+        logger.error("Could not close buffered reader for characterAtlas.txt");
+      }
+    } return line;
   }
 }
