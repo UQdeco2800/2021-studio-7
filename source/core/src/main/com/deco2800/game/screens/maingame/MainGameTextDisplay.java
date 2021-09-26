@@ -36,7 +36,7 @@ public class MainGameTextDisplay extends UIComponent {
         super.create();
         addActors();
         entity.getEvents().addListener("create_textbox",
-                (EventListener1<String>) this::display);
+                this::display);
         // Load background texture
         texture = new Texture(Gdx.files.internal(
                 "images/ui/elements/Textbox_1024.png"));
@@ -56,12 +56,12 @@ public class MainGameTextDisplay extends UIComponent {
      *
      * @param text The text to display
      */
-    private void display(String text) {
-        // Check to see if we're already displaying anything, and do nothing if we are
-        // TODO Probably should overwrite rather than do nothing
+    public void display(String text) {
+        // If we're already displaying a textbox, overwrite it
         if (visible) {
-            return;
+            this.hide();
         }
+
         this.text = text;
 
         // Divide screen into a more manageable grid
