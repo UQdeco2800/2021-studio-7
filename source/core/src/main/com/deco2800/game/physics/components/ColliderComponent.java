@@ -54,7 +54,7 @@ public class ColliderComponent extends Component {
    * @param alignY how to align y relative to entity
    * @return self
    */
-  public ColliderComponent setAsBoxAligned(Vector2 size, AlignX alignX, AlignY alignY) {
+  public ColliderComponent setAsIsoAligned(Vector2 size, AlignX alignX, AlignY alignY) {
     scale = size;
     Vector2 position = new Vector2();
     switch (alignX) {
@@ -81,7 +81,7 @@ public class ColliderComponent extends Component {
         break;
     }
 
-    return setAsBox(size, position);
+    return setAsIso(size, position);
   }
 
   /**
@@ -96,21 +96,26 @@ public class ColliderComponent extends Component {
 
     bbox.setAsBox(size.x / 2, size.y / 2, position, 0); //angle: 0.45f
 
-    double angle = Math.toRadians(30);
-    float ratio = (float) Math.tan(angle) * size.y;
-    float off = position.x;
-
-    Vector2 thr = new Vector2(size.x / 2, ratio);
-    Vector2 fou = new Vector2(size.x, ratio / 2);
-    Vector2 one = new Vector2(size.x / 2, 0f);
-    Vector2 two = new Vector2(0f, ratio / 2);
-
-    Vector2[] points = new Vector2[]{one, two, thr, fou};
-
-    bbox.set(points);
-
     setShape(bbox);
     return this;
+  }
+
+  public ColliderComponent setAsIso(Vector2 size, Vector2 position) {
+      PolygonShape bound = new PolygonShape();
+
+      double isoAngle = Math.toRadians(30);
+      float height = (float) Math.tan(isoAngle) * size.y;
+
+      Vector2 west = new Vector2(position.x - (size.x / 2), (height / 2));
+      Vector2 north = new Vector2(position.x, height);
+      Vector2 east = new Vector2(position.x + (size.x / 2), (height / 2));
+      Vector2 south = new Vector2(position.x, 0);
+      // Collect each of the isometric parallelogram's corners
+      Vector2[] points = new Vector2[]{west, north, east, south};
+
+      bound.set(points);
+      setShape(bound);
+      return this;
   }
 
   /**
