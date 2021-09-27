@@ -35,8 +35,7 @@ public class FloorPlan implements Json.Serializable {
 
     public void designateRooms() {
         for (RoomPlan roomPlan : new ObjectMap.Values<>(floorRooms)) {
-            roomPlan.setOffset(new GridPoint2((int) dimensions.y - roomPlan.getOffset().x - 1
-                    ,roomPlan.getOffset().y));
+            roomPlan.setOffset(new GridPoint2(roomPlan.getOffset().y, (int) dimensions.y - roomPlan.getOffset().x - 1));
             roomPlan.create();
         }
     }
@@ -103,9 +102,9 @@ public class FloorPlan implements Json.Serializable {
             FileLoader.assertJsonValueName(iterator, "floorGrid");
             floorGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid(floorGrid, iterator);
-            MatrixUtils.flipVertically(floorGrid);
+            floorGrid = MatrixUtils.rotateAntiClockwise(floorGrid);
 
-            dimensions = new Vector2(floorGrid.length, floorGrid[0].length);
+            dimensions = new Vector2(floorGrid[0].length, floorGrid.length);
 
             FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {

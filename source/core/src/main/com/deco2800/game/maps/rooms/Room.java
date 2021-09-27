@@ -38,7 +38,7 @@ public class Room implements Json.Serializable {
     public Character[][] getEntityGrid() {
         return entityGrid;
     }
-    
+
     public Vector2 getDimensions() {
         return dimensions;
     }
@@ -96,15 +96,15 @@ public class Room implements Json.Serializable {
             FileLoader.assertJsonValueName(iterator, "tileGrid");
             tileGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid(tileGrid, iterator);
-            MatrixUtils.flipVertically(tileGrid);
+            tileGrid = MatrixUtils.rotateAntiClockwise(tileGrid);
 
             iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "entityGrid");
             entityGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid(entityGrid, iterator);
-            MatrixUtils.flipVertically(entityGrid);
+            entityGrid = MatrixUtils.rotateAntiClockwise(entityGrid);
 
-            dimensions = new Vector2(tileGrid[0].length, tileGrid.length);
+            dimensions = new Vector2(tileGrid.length, tileGrid[0].length);
 
             FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {

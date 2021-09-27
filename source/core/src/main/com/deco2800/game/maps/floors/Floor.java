@@ -76,18 +76,20 @@ public class Floor extends GameArea {
                 (int) floorPlan.getDimensions().y,
                 textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 
-        for (int y = 0; y < floorPlan.getFloorGrid().length; y++) {
-            for (int x = 0; x < floorPlan.getFloorGrid()[y].length; x++) {
-                Character symbol = floorPlan.getFloorGrid()[y][x];
-                FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
-                Room room;
-                RoomObject roomTile;
-                if (roomPlan != null) {
-                    room = roomPlan.getRoom();
-                    roomTile = room.getRoomTiles().get(room.getTileGrid()
-                    [y - roomPlan.getOffset().x][x - roomPlan.getOffset().y]);
-                } else {
-                    roomTile = floorPlan.getDefaultFloorTile();
+        for (int x = 0; x < floorPlan.getFloorGrid().length; x++) {
+            for (int y = 0; y < floorPlan.getFloorGrid()[x].length; y++) {
+                Character symbol = floorPlan.getFloorGrid()[x][y];
+                RoomObject roomTile = floorPlan.getFloorTiles().get(symbol);
+
+                if (roomTile == null) {
+                    FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
+                    if (roomPlan == null) {
+                        roomTile = floorPlan.getDefaultFloorTile();
+                    } else {
+                        Room room = roomPlan.getRoom();
+                        roomTile = room.getRoomTiles().get(room.getTileGrid()
+                                [x - roomPlan.getOffset().x][y - roomPlan.getOffset().y]);
+                    }
                 }
                 invokeTileMethod(roomTile, new GridPoint2(x, y), layer);
             }
@@ -107,21 +109,22 @@ public class Floor extends GameArea {
         player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
         spawnEntityAt(player, new GridPoint2(1,1), true, true);
 
-        for (int y = 0; y < floorPlan.getFloorGrid().length; y++) {
-            for (int x = 0; x < floorPlan.getFloorGrid()[y].length; x++) {
-                Character symbol = floorPlan.getFloorGrid()[y][x];
-                FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
-                Room room;
-                RoomObject roomEntity;
-                if (roomPlan != null) {
-                    room = roomPlan.getRoom();
-                    roomEntity = room.getRoomEntities().get(room.getEntityGrid()
-                            [y - roomPlan.getOffset().x][x - roomPlan.getOffset().y]);
-                    invokeEntityMethod(roomEntity, new GridPoint2(x, y));
-                } else {
-                    Entity wall = ObstacleFactory.createWall(new String[]{"images/objects/walls/wall.png"});
-                    spawnEntityAt(wall, new GridPoint2(x, y), true, true);
+        for (int x = 0; x < floorPlan.getFloorGrid().length; x++) {
+            for (int y = 0; y < floorPlan.getFloorGrid()[x].length; y++) {
+                Character symbol = floorPlan.getFloorGrid()[x][y];
+                RoomObject roomEntity = floorPlan.getFloorEntities().get(symbol);
+
+                if (roomEntity == null) {
+                    FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
+                    if (roomPlan == null) {
+                        continue;
+                    } else {
+                        Room room = roomPlan.getRoom();
+                        roomEntity = room.getRoomEntities().get(room.getEntityGrid()
+                                [x - roomPlan.getOffset().x][y - roomPlan.getOffset().y]);
+                    }
                 }
+                invokeEntityMethod(roomEntity, new GridPoint2(x, y));
             }
         }
     }
