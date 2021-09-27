@@ -1,12 +1,9 @@
 package com.deco2800.game.generic;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.maps.Home;
-import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import org.slf4j.Logger;

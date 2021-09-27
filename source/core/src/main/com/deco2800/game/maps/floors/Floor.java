@@ -13,36 +13,34 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.rooms.Room;
 import com.deco2800.game.maps.rooms.RoomObject;
-import com.deco2800.game.maps.rooms.RoomProperties;
 import com.deco2800.game.maps.terrain.TerrainComponent;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.terrain.TerrainTile;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Floor extends GameArea {
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
-    private static final String FLOOR_PLAN_DIRECTORY = RoomProperties.DIRECTORY.concat("_floor_plans");
+    private static final String FLOOR_PLAN_DIRECTORY = Home.DIRECTORY.concat("_floor_plans");
     private OrthographicCamera camera;
-    private FloorPlan floorPlan;
-    private Entity player;
+    private FloorPlan floorPlan = null;
+    private Entity player = null;
     private boolean created = false;
 
     @Override
     public void create() {
         if (!created) {
             if (floorPlan == null) {
-                floorPlan = designateHomeFloorPlan();
-            } else {
-                floorPlan.create();
+                floorPlan = designateFloorPlan();
             }
+            floorPlan.create();
             loadAssets();
             displayUI();
             spawnHomeTiles();
@@ -51,7 +49,7 @@ public class Floor extends GameArea {
         created = true;
     }
 
-    public FloorPlan designateHomeFloorPlan() {
+    public FloorPlan designateFloorPlan() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(FLOOR_PLAN_DIRECTORY);
 
         FloorPlan randomFloorPlan;
@@ -61,34 +59,35 @@ public class Floor extends GameArea {
             fileHandles.removeValue(fileHandle, true);
         } while (randomFloorPlan == null && fileHandles.size > 0);
 
-        if (randomFloorPlan != null) {
-            randomFloorPlan.create();
+        if (randomFloorPlan == null) {
+            throw new NullPointerException("A valid floor plan json file could not be loaded");
         }
+
         return randomFloorPlan;
     }
 
     public void spawnHomeTiles() {
         TextureRegion textureRegion = new TextureRegion(
                 ServiceLocator.getResourceService().getAsset(
-                        floorPlan.getDefaultTileObject().getAssets()[0], Texture.class));
+                        floorPlan.getDefaultFloorTile().getAssets()[0], Texture.class));
 
         TiledMapTileLayer layer = new TiledMapTileLayer(
-                (int) floorPlan.getHomeDimensions().x,
-                (int) floorPlan.getHomeDimensions().y,
+                (int) floorPlan.getDimensions().x,
+                (int) floorPlan.getDimensions().y,
                 textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
 
         for (int y = 0; y < floorPlan.getFloorGrid().length; y++) {
             for (int x = 0; x < floorPlan.getFloorGrid()[y].length; x++) {
                 Character symbol = floorPlan.getFloorGrid()[y][x];
-                FloorPlan.RoomPlan roomPlan = floorPlan.getRoomMappings().get(symbol);
-                Room.RoomInterior roomInterior;
+                FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
+                Room room;
                 RoomObject roomTile;
                 if (roomPlan != null) {
-                    roomInterior = roomPlan.getRoom().getInterior();
-                    roomTile = roomInterior.getInteriorTiles().get(roomInterior.getTileGrid()
-                    [y - roomPlan.getOffset().y][x - roomPlan.getOffset().x]);
+                    room = roomPlan.getRoom();
+                    roomTile = room.getRoomTiles().get(room.getTileGrid()
+                    [y - roomPlan.getOffset().x][x - roomPlan.getOffset().y]);
                 } else {
-                    roomTile = floorPlan.getDefaultTileObject();
+                    roomTile = floorPlan.getDefaultFloorTile();
                 }
                 invokeTileMethod(roomTile, new GridPoint2(x, y), layer);
             }
@@ -111,13 +110,13 @@ public class Floor extends GameArea {
         for (int y = 0; y < floorPlan.getFloorGrid().length; y++) {
             for (int x = 0; x < floorPlan.getFloorGrid()[y].length; x++) {
                 Character symbol = floorPlan.getFloorGrid()[y][x];
-                FloorPlan.RoomPlan roomPlan = floorPlan.getRoomMappings().get(symbol);
-                Room.RoomInterior roomInterior;
+                FloorPlan.RoomPlan roomPlan = floorPlan.getFloorRooms().get(symbol);
+                Room room;
                 RoomObject roomEntity;
                 if (roomPlan != null) {
-                    roomInterior = roomPlan.getRoom().getInterior();
-                    roomEntity = roomInterior.getInteriorEntities().get(roomInterior.getEntityGrid()
-                            [y - roomPlan.getOffset().y][x - roomPlan.getOffset().x]);
+                    room = roomPlan.getRoom();
+                    roomEntity = room.getRoomEntities().get(room.getEntityGrid()
+                            [y - roomPlan.getOffset().x][x - roomPlan.getOffset().y]);
                     invokeEntityMethod(roomEntity, new GridPoint2(x, y));
                 } else {
                     Entity wall = ObstacleFactory.createWall(new String[]{"images/objects/walls/wall.png"});
@@ -129,7 +128,7 @@ public class Floor extends GameArea {
 
     public void invokeTileMethod(RoomObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
         if (tileObject == null) {
-            tileObject = floorPlan.getDefaultTileObject();
+            tileObject = floorPlan.getDefaultFloorTile();
         }
         try {
             TerrainTile tile = (TerrainTile) tileObject.getMethod().invoke(null, (Object) tileObject.getAssets());
@@ -159,13 +158,13 @@ public class Floor extends GameArea {
 
     public String[] getAllRoomAssets(String extension) {
         Array<String> temp = new Array<>();
-        for (String asset : floorPlan.getDefaultTileObject().getAssets()) {
+        for (String asset : floorPlan.getDefaultFloorTile().getAssets()) {
             if (asset.endsWith(extension)) {
                 temp.add(asset);
             }
         }
-        for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getRoomMappings())) {
-            for (String asset : roomFloorPlan.getRoom().getInterior().getRoomAssets(extension)) {
+        for (FloorPlan.RoomPlan roomFloorPlan : new ObjectMap.Values<>(floorPlan.getFloorRooms())) {
+            for (String asset : roomFloorPlan.getRoom().getRoomAssets(extension)) {
                 if (!temp.contains(asset, true)) {
                     temp.add(asset);
                 }

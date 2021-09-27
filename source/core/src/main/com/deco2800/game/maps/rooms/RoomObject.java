@@ -3,11 +3,9 @@ package com.deco2800.game.maps.rooms;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.maps.floors.FloorPlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 public class RoomObject implements Json.Serializable {

@@ -65,7 +65,7 @@ public class NPCFactory {
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
-    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+    PhysicsUtils.setScaledCollider(npc, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
     // Set npc to have base AI component
     npc.addComponent(new AITaskComponent()

@@ -1,5 +1,6 @@
 package com.deco2800.game.maps.floors;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -7,23 +8,22 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.maps.rooms.RoomProperties;
+import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.rooms.Room;
 import com.deco2800.game.maps.rooms.RoomObject;
 import com.deco2800.game.utils.math.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-
 public class FloorPlan implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(FloorPlan.class);
-    private RoomObject defaultTileObject;
-    private ObjectMap<Character, RoomPlan> roomMappings;
-    private ObjectMap<Character, String> miscMappings;
+    private RoomObject defaultFloorTile;
+    private ObjectMap<Character, RoomObject> floorTiles;
+    private ObjectMap<Character, RoomObject> floorEntities;
+    private ObjectMap<Character, RoomPlan> floorRooms;
     private Character[][] floorGrid;
+    private Vector2 dimensions;
     private boolean created = false;
 
     public void create() {
@@ -34,37 +34,44 @@ public class FloorPlan implements Json.Serializable {
     }
 
     public void designateRooms() {
-        for (RoomPlan roomFloorPlan : new ObjectMap.Values<>(roomMappings)) {
-            roomFloorPlan.create();
+        for (RoomPlan roomPlan : new ObjectMap.Values<>(floorRooms)) {
+            roomPlan.setOffset(new GridPoint2((int) dimensions.y - roomPlan.getOffset().x - 1
+                    ,roomPlan.getOffset().y));
+            roomPlan.create();
         }
     }
 
-    public RoomObject getDefaultTileObject() {
-        return defaultTileObject;
+    public RoomObject getDefaultFloorTile() {
+        return defaultFloorTile;
     }
 
-    public ObjectMap<Character, RoomPlan> getRoomMappings() {
-        return roomMappings;
+    public ObjectMap<Character, RoomPlan> getFloorRooms() {
+        return floorRooms;
     }
 
-    public ObjectMap<Character, String> getMiscMappings() {
-        return miscMappings;
+    public ObjectMap<Character, RoomObject> getFloorTiles() {
+        return floorTiles;
+    }
+
+    public ObjectMap<Character, RoomObject> getFloorEntities() {
+        return floorEntities;
     }
 
     public Character[][] getFloorGrid() {
         return floorGrid;
     }
 
-    public Vector2 getHomeDimensions() {
-        return new Vector2(floorGrid[0].length, floorGrid.length);
+    public Vector2 getDimensions() {
+        return dimensions;
     }
 
     @Override
     public void write(Json json) {
         json.writeObjectStart();
-        json.writeValue("defaultTileObject", defaultTileObject);
-        json.writeValue("roomMappings", roomMappings);
-        json.writeValue("miscMappings", miscMappings);
+        json.writeValue("defaultFloorTile", defaultFloorTile);
+        json.writeValue("floorTiles", floorTiles);
+        json.writeValue("floorEntities", floorEntities);
+        json.writeValue("floorRooms", floorRooms);
         json.writeValue("floorGrid", floorGrid);
         json.writeObjectEnd();
     }
@@ -73,32 +80,32 @@ public class FloorPlan implements Json.Serializable {
     public void read(Json json, JsonValue jsonData) {
         try {
             JsonValue iterator = jsonData.child();
-            FileLoader.assertJsonValueName(iterator, "defaultTileObject");
-            defaultTileObject = new RoomObject();
-            defaultTileObject.read(json, iterator);
+            FileLoader.assertJsonValueName(iterator, "defaultFloorTile");
+            defaultFloorTile = new RoomObject();
+            defaultFloorTile.read(json, iterator);
 
             iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "roomMappings");
-            roomMappings = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap(RoomPlan.class, roomMappings, json, iterator);
+            FileLoader.assertJsonValueName(iterator, "floorTiles");
+            floorTiles = new ObjectMap<>();
+            FileLoader.readCharacterObjectMap(RoomObject.class, floorTiles, json, iterator);
 
             iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "miscMappings");
-            miscMappings = new ObjectMap<>();
-            JsonValue miscIterator = iterator.child();
-            while (miscIterator != null) {
-                if (miscIterator.name().length() != 1) {
-                    throw new IllegalArgumentException("Misc mapping key should be one character");
-                }
-                miscMappings.put(miscIterator.name().charAt(0), miscIterator.asString());
-                miscIterator = miscIterator.next();
-            }
+            FileLoader.assertJsonValueName(iterator, "floorEntities");
+            floorEntities = new ObjectMap<>();
+            FileLoader.readCharacterObjectMap(RoomObject.class, floorEntities, json, iterator);
+
+            iterator = iterator.next();
+            FileLoader.assertJsonValueName(iterator, "floorRooms");
+            floorRooms = new ObjectMap<>();
+            FileLoader.readCharacterObjectMap(RoomPlan.class, floorRooms, json, iterator);
 
             iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "floorGrid");
             floorGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid(floorGrid, iterator);
             MatrixUtils.flipVertically(floorGrid);
+
+            dimensions = new Vector2(floorGrid.length, floorGrid[0].length);
 
             FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {
@@ -110,7 +117,7 @@ public class FloorPlan implements Json.Serializable {
 
         private GridPoint2 offset;
         private Vector2 dimensions;
-        private Integer numDoorways;
+        private Class<? extends Room> roomClass;
         private Room room;
         private boolean created = false;
 
@@ -119,38 +126,43 @@ public class FloorPlan implements Json.Serializable {
                 if (room == null) {
                     room = designateRoom();
                 } else {
-                    room.create(offset, dimensions);
+                    (roomClass.cast(room)).create();
                 }
             }
             created = true;
         }
 
         public Room designateRoom() {
-            String size = IntUtils.intToStrLetters((int) dimensions.x) +
-                    "_by_" + IntUtils.intToStrLetters((int) dimensions.y);
-            Array<Class<? extends Room>> classes = (new ObjectMap.Keys<>(RoomProperties.ROOM_CLASS_TO_PATH)).toArray();
+            Array<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.ROOM_CLASS_TO_PATH.get(roomClass));
 
             Room randomRoom;
             do {
-                Class<? extends Room> randomRoomClass = classes.get(RandomUtils.getSeed().nextInt(classes.size));
-                randomRoom = ServiceLocator.getHome().getRoomProperties().get(randomRoomClass, size);
-                classes.removeValue(randomRoomClass, true);
+                FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
+                randomRoom = FileLoader.readClass(roomClass, fileHandle.path());
+                fileHandles.removeValue(fileHandle, true);
 
-                if (randomRoom == null || numDoorways > randomRoom.getMaxDoorways()) {
-                    randomRoom = null;
-                    continue;
-                }
-                randomRoom.create(offset, dimensions);
-                if (randomRoom.getInterior() == null) {
+                if (!dimensions.equals(randomRoom.getDimensions())) {
                     randomRoom = null;
                 }
-            } while (randomRoom == null && classes.size > 0);
+            } while (randomRoom == null && fileHandles.size > 0);
+
+            if (randomRoom == null) {
+                throw new NullPointerException("A valid room interior json file could not be loaded");
+            }
 
             return randomRoom;
         }
 
         public GridPoint2 getOffset() {
             return offset;
+        }
+
+        public void setOffset(GridPoint2 offset) {
+            this.offset = offset;
+        }
+
+        public Vector2 getDimensions() {
+            return dimensions;
         }
 
         public Room getRoom() {
@@ -162,8 +174,8 @@ public class FloorPlan implements Json.Serializable {
             json.writeObjectStart();
             json.writeValue("offset", offset);
             json.writeValue("dimensions", dimensions);
-            json.writeValue("numDoorways", numDoorways);
-            json.writeValue(room.getClass().getName(), room);
+            json.writeValue("class", room.getClass().getName());
+            json.writeValue("room", room);
             json.writeObjectEnd();
         }
 
@@ -180,15 +192,15 @@ public class FloorPlan implements Json.Serializable {
                 dimensions = Vector2Utils.read(iterator);
 
                 iterator = iterator.next();
-                FileLoader.assertJsonValueName(iterator, "numDoorways");
-                numDoorways = iterator.asInt();
-
+                FileLoader.assertJsonValueName(iterator, "class");
+                roomClass = (Class<? extends Room>) Class.forName(iterator.asString());
+                
                 iterator = iterator.next();
                 room = null;
                 if (iterator != null) {
+                    FileLoader.assertJsonValueName(iterator, "room");
                     if (!iterator.isNull()) {
-                        Class<? extends Room> clazz = (Class<? extends Room>) Class.forName(iterator.name());
-                        room = clazz.getConstructor().newInstance();
+                        room = roomClass.getConstructor().newInstance();
                         room.read(json, iterator);
                     }
                     iterator = iterator.next();

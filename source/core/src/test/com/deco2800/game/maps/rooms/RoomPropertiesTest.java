@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomPropertiesTest {
 
-    private static GdxGame game;
+    /*private static GdxGame game;
     private static HeadlessApplication app;
 
     @BeforeEach
@@ -41,5 +41,5 @@ public class RoomPropertiesTest {
         assertTrue(roomProperties.getResources().containsKey(Kitchen.class));
         assertTrue(roomProperties.getResources().containsKey(Laundry.class));
         assertTrue(roomProperties.getResources().containsKey(Living.class));
-    }
+    }*/
 }
