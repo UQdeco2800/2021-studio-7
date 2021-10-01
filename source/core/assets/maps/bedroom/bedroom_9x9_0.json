@@ -1,12 +1,12 @@
 {
-  roomTiles: {
+  tileMap: {
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createTile
       assets: [images/tiles/iso/iso_wall_1_left.png]
     }
   }
-  roomEntities: {
+  entityMap: {
     W: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createWall

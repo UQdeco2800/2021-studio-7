@@ -1,8 +1,6 @@
 package com.deco2800.game.maps;
 
 
-import com.deco2800.game.maps.floors.GameArea;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

@@ -6,15 +6,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.maps.floors.Doorway;
-import com.deco2800.game.maps.rooms.RoomObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.function.Predicate;
 
 /**
  * Wrapper for reading Java objects from JSON files.
@@ -98,11 +93,7 @@ public class FileLoader {
   }
 
   public static Array<FileHandle> getJsonFiles(String directory) {
-    return getJsonFiles(new FileHandle(directory), ".json");
-  }
-
-  public static Array<FileHandle> getJsonFiles(FileHandle directory, String suffix) {
-    FileHandle[] files = directory.list(suffix);
+    FileHandle[] files = (new FileHandle(directory)).list(".json");
     Array<FileHandle> jsons = new Array<>();
     for (FileHandle file : files) {
       if (!file.isDirectory()) {
@@ -124,22 +115,8 @@ public class FileLoader {
     }
   }
 
-  public static <E> void readObjectArray(Class<E> elementClass, Array<E> array,
-                                         Json json, JsonValue jsonData)
-          throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    if (elementClass.isAssignableFrom(Json.Serializable.class)) {
-      throw new IllegalAccessException("Class should implement Json.Serializable");
-    }
-    JsonValue iterator = jsonData.child();
-    while (iterator != null) {
-      E object = elementClass.getConstructor().newInstance();
-      ((Json.Serializable) object).read(json, iterator);
-      array.add(object);
-      iterator = iterator.next();
-    }
-  }
-
-  public static void readCharacterGrid(Character[][] grid, JsonValue jsonData) {
+  public static void readCharacterGrid(String name, Character[][] grid, JsonValue jsonData) {
+    FileLoader.assertJsonValueName(jsonData, name);
     JsonValue iterator = jsonData.child();
     for (int y = 0; y < grid.length; y++) {
       JsonValue cellIterator = iterator.child();
@@ -151,17 +128,18 @@ public class FileLoader {
     }
   }
 
-  public static <V> void readCharacterObjectMap(Class<V> valueClass, ObjectMap<Character, V> mappings,
+  public static <V> void readCharacterObjectMap(String name, ObjectMap<Character, V> map, Class<V> valueClass,
                                         Json json, JsonValue jsonData)
           throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     if (valueClass.isAssignableFrom(Json.Serializable.class)) {
       throw new IllegalAccessException("Class does not implement Json.Serializable");
     }
+    FileLoader.assertJsonValueName(jsonData, name);
     JsonValue iterator = jsonData.child();
     while (iterator != null) {
       V object = valueClass.getConstructor().newInstance();
       ((Json.Serializable) object).read(json, iterator);
-      mappings.put(iterator.name().charAt(0), object);
+      map.put(iterator.name().charAt(0), object);
       iterator = iterator.next();
     }
   }

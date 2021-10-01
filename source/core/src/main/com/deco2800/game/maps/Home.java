@@ -1,40 +1,69 @@
 package com.deco2800.game.maps;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.maps.floors.Floor;
-import com.deco2800.game.maps.floors.FloorPlan;
-import com.deco2800.game.maps.rooms.*;
+import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Container for multiple game areas (floors).
+ * Contains functionality for randomising floor plans.
+ */
 public class Home {
     private static final Logger logger = LoggerFactory.getLogger(Home.class);
+    public static final String DIRECTORY = "maps/";
     private final Array<Floor> floors = new Array<>();
     private Floor activeFloor;
+    private boolean created = false;
 
     public Home() {
     }
 
     public Home(String filename) {
-        FloorPlan floorPlan = FileLoader.readClass(FloorPlan.class, filename);
-        if (floorPlan != null) {
-            floors.add(new Floor());
-            floors.get(0).setFloorPlan(floorPlan);
+        Floor floor = FileLoader.readClass(Floor.class, filename);
+        if (floor != null) {
+            Floor newFloor = randomiseFloor();
+            floors.add(newFloor);
         }
     }
 
     public void create(CameraComponent cameraComponent) {
-        if (floors.size == 0) {
-            floors.add(new Floor());
+        if (!created) {
+            if (floors.size == 0) {
+                Floor newFloor = randomiseFloor();
+                floors.add(newFloor);
+            }
+            activeFloor = floors.get(0);
+            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera());
+            activeFloor.create();
         }
-        activeFloor = floors.get(0);
-        activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera());
-        activeFloor.create();
+        created = true;
+    }
+
+    /**
+     * Queries for a list of JSON files in a pre-defined directory. Selects one at random
+     * and initialises the floor plan.
+     * @return A valid Floor extracted from a JSON file.
+     */
+    public Floor randomiseFloor() {
+        Array<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
+
+        Floor randomFloor;
+        do {
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
+            randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+            fileHandles.removeValue(fileHandle, true);
+        } while (randomFloor == null && fileHandles.size > 0);
+
+        if (randomFloor == null) {
+            throw new NullPointerException("A valid floor plan json file could not be loaded");
+        }
+
+        return randomFloor;
     }
 
     public Floor getActiveFloor() {
@@ -47,19 +76,5 @@ public class Home {
         } else {
             logger.error("Home does not have a floor at level {}", index);
         }
-    }
-
-    public static final String DIRECTORY = "maps/";
-    public static final String ROOM_PROPERTIES_PATH = DIRECTORY.concat("room_properties.json");
-    public static final ObjectMap<Class<? extends Room>, String> ROOM_CLASS_TO_PATH = new ObjectMap<>();
-    static {
-        ROOM_CLASS_TO_PATH.put(Bathroom.class, DIRECTORY.concat("bathroom"));
-        ROOM_CLASS_TO_PATH.put(Bedroom.class, DIRECTORY.concat("bedroom"));
-        ROOM_CLASS_TO_PATH.put(Dining.class, DIRECTORY.concat("dining"));
-        ROOM_CLASS_TO_PATH.put(FrontFoyer.class, DIRECTORY.concat("front_foyer"));
-        ROOM_CLASS_TO_PATH.put(Garage.class, DIRECTORY.concat("garage"));
-        ROOM_CLASS_TO_PATH.put(Kitchen.class, DIRECTORY.concat("kitchen"));
-        ROOM_CLASS_TO_PATH.put(Laundry.class, DIRECTORY.concat("laundry"));
-        ROOM_CLASS_TO_PATH.put(Living.class, DIRECTORY.concat("living"));
     }
 }

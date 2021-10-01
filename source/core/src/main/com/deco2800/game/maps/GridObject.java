@@ -1,5 +1,6 @@
-package com.deco2800.game.maps.rooms;
+package com.deco2800.game.maps;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.files.FileLoader;
@@ -8,9 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
-public class RoomObject implements Json.Serializable {
+/**
+ * Represents an object on a single point on a grid.
+ * Can define either a tile or an entity.
+ */
+public class GridObject implements Json.Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(RoomObject.class);
+    private static final Logger logger = LoggerFactory.getLogger(GridObject.class);
+    // Defined on deserialization
     private Method method;
     private String[] assets;
 
@@ -19,6 +25,20 @@ public class RoomObject implements Json.Serializable {
     }
 
     public String[] getAssets() {
+        return assets;
+    }
+
+    public String[] getAssets(String extension) {
+        Array<String> temp = new Array<>();
+        for (String asset : assets) {
+            if (asset.endsWith(extension)) {
+                temp.add(asset);
+            }
+        }
+        String[] assets = new String[temp.size];
+        for (int i = 0; i < temp.size; i++) {
+            assets[i] = temp.get(i);
+        }
         return assets;
     }
 

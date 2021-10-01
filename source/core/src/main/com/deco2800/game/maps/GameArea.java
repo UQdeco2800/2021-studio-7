@@ -1,4 +1,4 @@
-package com.deco2800.game.maps.floors;
+package com.deco2800.game.maps;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
