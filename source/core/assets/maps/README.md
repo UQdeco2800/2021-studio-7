@@ -1,7 +1,7 @@
 # Customisable Random Map Generation
 
 ```
-Customisable Random Map Generation Ver. 1
+Customisable Random Map Generation Ver. 2
 
 Created by Jaleel "Jantoom" Abdur-Raheem
 ```
@@ -10,10 +10,15 @@ Random generation is customisable in the sense that floor plans and
 room interiors can be prefabricated. The algorithm will pick from 
 these JSON files at random.
 
-There are four levels of random abstraction. A randomly-picked 
-floor plan will randomly populate its room plans with room types. 
-A room type will random-pick its interior design, that may include 
-declarations for randomly-generated entities.
+There are three levels of random abstraction. A Home may pick a
+floor plan at random, which may pick room interiors at random for
+each of its rooms. GridObjects in these files may reference the
+ObstacleFactory or TerrainFactory, which have been edited to support
+random object generation.
+
+Files follow a simple naming convention. The prefix describes in
+words what the file is, followed by the dimensions of the file and
+the unique id for that combination.
 
 The file `floor_plan_testing.json` is used for development tests. 
-In the future, this file will be disabled for random generation.
+This file will be disabled on release.

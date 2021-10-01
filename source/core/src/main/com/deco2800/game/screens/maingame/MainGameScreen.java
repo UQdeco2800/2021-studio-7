@@ -31,7 +31,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
   private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
-  private static final boolean useTestingFloorPlan = false;
+  private static final boolean usingTestingFloorPlan = true;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -58,11 +58,12 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
     createUI();
 
-    if (useTestingFloorPlan) {
+    if (usingTestingFloorPlan) {
       home = new Home(testingFloorPlan);
     } else {
       home = new Home();
     }
+    home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
     home.create(renderer.getCamera());
     player = home.getActiveFloor().getPlayer();
@@ -149,6 +150,10 @@ public class MainGameScreen extends ScreenAdapter {
 
   public Home getHome() {
     return home;
+  }
+
+  public String getTestingFloorPlan() {
+    return testingFloorPlan;
   }
 
   public Entity getPlayer() {

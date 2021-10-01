@@ -196,24 +196,14 @@ public class Room implements Json.Serializable {
 
             iterator = iterator.next();
             if (iterator != null) {
-                tileMap = new ObjectMap<>();
-                FileLoader.readCharacterObjectMap("tileMap", tileMap, GridObject.class, json, iterator);
+                FileLoader.assertJsonValueName(iterator, "interior");
+                Interior interior = new Interior();
+                interior.read(json, iterator);
+                tileMap = interior.getTileMap();
+                entityMap = interior.getEntityMap();
+                tileGrid = interior.getTileGrid();
+                entityGrid = interior.getEntityGrid();
                 iterator = iterator.next();
-
-                entityMap = new ObjectMap<>();
-                FileLoader.readCharacterObjectMap("entityMap", entityMap, GridObject.class, json, iterator);
-                iterator = iterator.next();
-
-                tileGrid = new Character[dimensions.x][dimensions.y];
-                FileLoader.readCharacterGrid("tileGrid", tileGrid, iterator);
-                iterator = iterator.next();
-
-                entityGrid = new Character[dimensions.x][dimensions.y];
-                FileLoader.readCharacterGrid("entityGrid", entityGrid, iterator);
-                iterator = iterator.next();
-
-                tileGrid = MatrixUtils.rotateAntiClockwise(tileGrid);
-                entityGrid = MatrixUtils.rotateAntiClockwise(entityGrid);
             }
 
             FileLoader.assertJsonValueNull(iterator);
