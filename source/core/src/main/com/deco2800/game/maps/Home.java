@@ -28,10 +28,8 @@ public class Home {
     }
 
     public Home(String filename) {
-        Floor floor = FileLoader.readClass(Floor.class, filename);
-        if (floor != null) {
-            floors.add(floor);
-        }
+        Floor newFloor = FileLoader.readClass(Floor.class, filename);
+        floors.add(newFloor);
     }
 
     public void create(CameraComponent cameraComponent) {
