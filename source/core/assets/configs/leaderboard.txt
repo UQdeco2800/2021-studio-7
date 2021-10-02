@@ -50,3 +50,15 @@ DirtyDefault94047:1000,
 DirtyDefault27305:1000,
 DirtyDefault90661:1000,
 DirtyDefault6449:1000,
+DirtyDefault33427:934,
+DirtyDefault37305:870,
+DirtyDefault37344:954,
+DirtyDefault31910:1000,
+DirtyDefault55683:
+DirtyDefault68011:797,
+DirtyDefault13697:209,
+DirtyDefault1244:
+DirtyDefault99460:1000,
+DirtyDefault27354:
+DirtyDefault18546:
+DirtyDefault75386:963,

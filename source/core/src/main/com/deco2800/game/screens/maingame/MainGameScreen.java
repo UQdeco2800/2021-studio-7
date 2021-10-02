@@ -1,8 +1,13 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.areas.MiniMap;
 import com.deco2800.game.areas.components.PerformanceDisplay;
 import com.deco2800.game.areas.HouseGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
@@ -42,6 +47,11 @@ public class MainGameScreen extends ScreenAdapter {
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
+  private final OrthographicCamera          camera = new OrthographicCamera();
+  private TiledMap                    map;
+  private OrthogonalTiledMapRenderer  maprenderer;
+  MiniMap miniMap;
+
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -70,12 +80,30 @@ public class MainGameScreen extends ScreenAdapter {
     mainGameArea = new HouseGameArea(terrainFactory);
 
     mainGameArea.create();
+
+
+    TiledMap map = new TmxMapLoader().load("maps/Map.tmx");
+
+    maprenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
+
+    OrthographicCamera camera = new OrthographicCamera();
+    camera.setToOrtho(false, 30, 20);
+
+    MiniMap miniMap = new MiniMap(map);
     entityPlayer = mainGameArea.player;
 
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+  }
 
+  public void update(float x, float y){
+    camera.position.x = x;
+    camera.position.y = y;
+    camera.update();
+    //renderer.setView(camera.combined, x - 10, y - 10, 20, 20);
+    maprenderer.setView(camera);
 
+    miniMap.update(x, y);
   }
 
   @Override
