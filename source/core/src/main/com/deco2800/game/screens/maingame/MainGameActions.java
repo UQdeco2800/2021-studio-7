@@ -68,8 +68,6 @@ public class MainGameActions extends Component {
     logger.info("Restart game");
 //        ServiceLocator.getGame().dispose();
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-    //TODO
-    // How will restarting work
   }
 
   /**
@@ -78,8 +76,9 @@ public class MainGameActions extends Component {
   private void onResume() {
     logger.info("Resume game");
 //        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+    ServiceLocator.getGame().getScreen().resume();
 
-    ServiceLocator.getGame().resume();
+//    ServiceLocator.getGame().resume();
   }
 
   /**

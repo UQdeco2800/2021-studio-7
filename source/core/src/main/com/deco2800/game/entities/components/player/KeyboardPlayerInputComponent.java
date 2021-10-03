@@ -114,13 +114,16 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         System.out.println(ServiceLocator.getGame().getScreen().toString());
         if (ServiceLocator.getGame().getScreen().getClass() ==
                 MainGameScreen.class) {
+//            ServiceLocator.getGame().getScreen().hide();
+//            ServiceLocator.getGame().getScreen().pause();
+//            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
+//            ServiceLocator.getGame().pause();
             ServiceLocator.getGame().getScreen().pause();
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-            ServiceLocator.getGame().pause();
         } else if (ServiceLocator.getGame().getScreen().getClass() ==
                 PauseMenuScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-            ServiceLocator.getGame().resume();
+//            ServiceLocator.getGame().getScreen().resume();
+//            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+//            ServiceLocator.getGame().resume();
         }
     }
 

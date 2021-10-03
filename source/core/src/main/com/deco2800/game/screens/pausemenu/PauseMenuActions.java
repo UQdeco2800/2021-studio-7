@@ -36,7 +36,7 @@ public class PauseMenuActions extends Component {
         logger.info("Resume game");
 //        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
         
-        ServiceLocator.getGame().resume();
+//        ServiceLocator.getGame().resume();
     }
 
     /**

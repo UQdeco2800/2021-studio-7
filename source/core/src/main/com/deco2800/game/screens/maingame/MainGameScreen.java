@@ -1,8 +1,13 @@
 package com.deco2800.game.screens.maingame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deco2800.game.areas.components.PerformanceDisplay;
 import com.deco2800.game.areas.HouseGameArea;
 import com.deco2800.game.areas.terrain.TerrainComponent;
@@ -20,10 +25,19 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.ui.components.UIComponent;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.*;
+import java.util.stream.StreamSupport;
 
 /**
  * The game screen containing the main game.
@@ -33,6 +47,9 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
+  private static final String[] pauseGameTextures = {
+          "images/ui/screens/paused_screen.png"
+  };
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
   private Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
@@ -41,10 +58,16 @@ public class MainGameScreen extends ScreenAdapter {
   private final PhysicsEngine physicsEngine;
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
+  private final Entity pauseGameEntity = new Entity();
+
 
   public static final int GAME_RUNNING = 0;
-  public static final int GAME_PAUSED = 0;
-  private int gameStatus;
+  public static final int GAME_PAUSED = 1;
+  public static final int GAME_RESUMING = 2;
+  private int gameStatus = GAME_RUNNING;
+
+  private Group pauseGroup;
+  private Table table;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -84,15 +107,158 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-//    if (gameStatus == GAME_PAUSED) {
+    if (gameStatus == GAME_PAUSED) {
+//      logger.debug("Loading pause screen assets");
+//      ResourceService resourceService = ServiceLocator.getResourceService();
+//      resourceService.loadTextures(pauseGameTextures);
+//      ServiceLocator.getResourceService().loadAll();
+//
+//      logger.debug("Creating ui");
 //      Stage stage = ServiceLocator.getRenderService().getStage();
-//      mainGameEntity.addComponent(new MainGamePauseMenuDisplay());
-//    }
-    PLAYER_POSITION = entityPlayer.getPosition();
-    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-    physicsEngine.update();
-    ServiceLocator.getEntityService().update();
+//      pauseGameEntity.addComponent(new MainGamePauseMenuDisplay());
+//
+//      ServiceLocator.getEntityService().register(pauseGameEntity);
+//      ResourceService resourceService = ServiceLocator.getResourceService();
+//      resourceService.loadTextures(pauseGameTextures);
+//      ServiceLocator.getResourceService().loadAll();
+//      pauseGroup = new Group();
+//      pauseGroup.setF
+//      Image bg = new com.badlogic.gdx.scenes.scene2d.ui.Image(ServiceLocator.getResourceService()
+//              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
+//      pauseGroup.addActor(bg);
+//      TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+//      TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+//      TextButton mainMenuBtn = new TextButton("Main Menu", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+//      TextButton settingsBtn = new TextButton("Settings", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+//
+//      // Trigger resume game
+//      resumeBtn.addListener(
+//              new ChangeListener() {
+//                @Override
+//                public void changed(ChangeEvent event, Actor actor) {
+//                  logger.debug("Resume button clicked");
+//                  mainGameEntity.getEvents().trigger("resume");
+//                  mainGameEntity.getEvents().trigger("resume");
+//                }
+//              });
+//
+//      // Trigger restart game
+//      restartBtn.addListener(
+//              new ChangeListener() {
+//                @Override
+//                public void changed(ChangeEvent event, Actor actor) {
+//                  logger.debug("Restart button clicked");
+//                  mainGameEntity.getEvents().trigger("restart");
+//                }
+//              });
+//
+//      // Trigger to go to settings menu
+//      settingsBtn.addListener(
+//              new ChangeListener() {
+//                @Override
+//                public void changed(ChangeEvent event, Actor actor) {
+//                  logger.debug("Settings button clicked");
+//                  mainGameEntity.getEvents().trigger("settings");
+//                }
+//              });
+//
+//      // Trigger to go to main menu
+//      mainMenuBtn.addListener(
+//              new ChangeListener() {
+//                @Override
+//                public void changed(ChangeEvent event, Actor actor) {
+//                  logger.debug("Main menu button clicked");
+//                  mainGameEntity.getEvents().trigger("main_menu");
+//                }
+//              });
+//
+//      pauseGroup.addActor(resumeBtn);
+//      pauseGroup.addActor(restartBtn);
+//      pauseGroup.addActor(settingsBtn);
+//      pauseGroup.addActor(mainMenuBtn);
+//      ServiceLocator.getRenderService().getStage().addActor(pauseGroup);
+
+      logger.debug("Loading pause screen assets");
+      ResourceService resourceService = ServiceLocator.getResourceService();
+      resourceService.loadTextures(pauseGameTextures);
+      ServiceLocator.getResourceService().loadAll();
+
+      table = new Table();
+      table.setFillParent(true);
+      Image bg = new Image(ServiceLocator.getResourceService()
+              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
+
+      TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+      TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+      TextButton mainMenuBtn = new TextButton("Main Menu", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+      TextButton settingsBtn = new TextButton("Settings", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+
+      // Trigger resume game
+      resumeBtn.addListener(
+              new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                  logger.debug("Resume button clicked");
+                  mainGameEntity.getEvents().trigger("resume");
+                }
+              });
+
+      // Trigger restart game
+      restartBtn.addListener(
+              new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                  logger.debug("Restart button clicked");
+                  mainGameEntity.getEvents().trigger("restart");
+                }
+              });
+
+      // Trigger to go to settings menu
+      settingsBtn.addListener(
+              new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                  logger.debug("Settings button clicked");
+                  mainGameEntity.getEvents().trigger("settings");
+                }
+              });
+
+      // Trigger to go to main menu
+      mainMenuBtn.addListener(
+              new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                  logger.debug("Main menu button clicked");
+                  mainGameEntity.getEvents().trigger("main_menu");
+                }
+              });
+
+      table.add(bg);
+      table.row();
+      table.add(resumeBtn).padTop(50f);
+      table.row();
+      table.add(restartBtn).padTop(15f);
+      table.row();
+      table.add(settingsBtn).padTop(15f);
+      table.row();
+      table.add(mainMenuBtn).padTop(15f);
+      table.setName("Pause Menu");
+      ServiceLocator.getRenderService().getStage().addActor(table);
+    } else if (gameStatus == GAME_RESUMING) {
+      for (Actor actor : ServiceLocator.getRenderService().getStage().getActors()) {
+        if (actor.getName() != null) {
+          actor.remove();
+        }
+      }
+      gameStatus = GAME_RUNNING;
+    } else {
+      PLAYER_POSITION = entityPlayer.getPosition();
+      renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+      physicsEngine.update();
+      ServiceLocator.getEntityService().update();
+    }
     renderer.render();
+
   }
 
   @Override
@@ -110,6 +276,7 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void resume() {
     logger.info("Game resumed");
+    gameStatus = GAME_RESUMING;
   }
 
   @Override
@@ -154,7 +321,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
-            .addComponent(new MainGamePauseMenuDisplay())
+//            .addComponent(new MainGamePauseMenuDisplay())
 //        .addComponent(new MainGameWinLossTestingDisplay())
 //        .addComponent(new MainGameTextDisplay())
         .addComponent(new Terminal())
