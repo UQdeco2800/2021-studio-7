@@ -19,6 +19,10 @@ public class MainGameActions extends Component {
     entity.getEvents().addListener("win_default", this::onWinDefault);
     entity.getEvents().addListener("loss_timed", this::onLossTimed);
     entity.getEvents().addListener("loss_caught", this::onLossCaught);
+    entity.getEvents().addListener("resume", this::onResume);
+    entity.getEvents().addListener("restart", this::onRestart);
+    entity.getEvents().addListener("settings", this::onSettings);
+    entity.getEvents().addListener("main_menu", this::onMainMenu);
   }
 
   /**
@@ -55,5 +59,42 @@ public class MainGameActions extends Component {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
+  }
+
+  /**
+   * Restarts game, by resetting game by running start.
+   */
+  private void onRestart() {
+    logger.info("Restart game");
+//        ServiceLocator.getGame().dispose();
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+    //TODO
+    // How will restarting work
+  }
+
+  /**
+   * Resumes game, by unpausing game state.
+   */
+  private void onResume() {
+    logger.info("Resume game");
+//        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+
+    ServiceLocator.getGame().resume();
+  }
+
+  /**
+   * Opens settings menu.
+   */
+  private void onSettings() {
+    logger.info("Launch settings screen");
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
+  }
+
+  /**
+   * Opens main menu.
+   */
+  private void onMainMenu() {
+    logger.info("Launch main menu screen");
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 }

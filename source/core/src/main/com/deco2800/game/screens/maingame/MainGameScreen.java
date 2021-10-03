@@ -84,9 +84,10 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    if (gameStatus == GAME_PAUSED) {
-      delta = 0;
-    }
+//    if (gameStatus == GAME_PAUSED) {
+//      Stage stage = ServiceLocator.getRenderService().getStage();
+//      mainGameEntity.addComponent(new MainGamePauseMenuDisplay());
+//    }
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
     physicsEngine.update();
@@ -153,6 +154,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
+            .addComponent(new MainGamePauseMenuDisplay())
 //        .addComponent(new MainGameWinLossTestingDisplay())
 //        .addComponent(new MainGameTextDisplay())
         .addComponent(new Terminal())
