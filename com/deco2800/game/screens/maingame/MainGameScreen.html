@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -159,8 +159,8 @@ extends <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badl
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i1">
-<td class="colFirst"><code><a href="../../areas/HouseGameArea.html" title="class in com.deco2800.game.areas">HouseGameArea</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMainGameArea()">getMainGameArea</a></span>()</code></th>
+<td class="colFirst"><code><a href="../../maps/Home.html" title="class in com.deco2800.game.maps">Home</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHome()">getHome</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
@@ -169,24 +169,39 @@ extends <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badl
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i3">
+<td class="colFirst"><code><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTestingFloorPlan()">getTestingFloorPlan</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pause()">pause</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#render(float)">render</a></span>&#8203;(float&nbsp;delta)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resize(int,int)">resize</a></span>&#8203;(int&nbsp;width,
 int&nbsp;height)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resume()">resume</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a></span>&#8203;(<a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -295,14 +310,32 @@ int&nbsp;height)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getMainGameArea()">getMainGameArea</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../areas/HouseGameArea.html" title="class in com.deco2800.game.areas">HouseGameArea</a></span>&nbsp;<span class="memberName">getMainGameArea</span>()</div>
+<h3><a id="getMainGameEntity()">getMainGameEntity</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getMainGameEntity</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getMainGameEntity()">getMainGameEntity</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getMainGameEntity</span>()</div>
+<h3><a id="getHome()">getHome</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../maps/Home.html" title="class in com.deco2800.game.maps">Home</a></span>&nbsp;<span class="memberName">getHome</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getTestingFloorPlan()">getTestingFloorPlan</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String</span>&nbsp;<span class="memberName">getTestingFloorPlan</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getPlayer()">getPlayer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getPlayer</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setPlayer(com.deco2800.game.entities.Entity)">setPlayer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setPlayer</span>&#8203;(<span class="arguments"><a href="../../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;player)</span></div>
 </section>
 </li>
 </ul>

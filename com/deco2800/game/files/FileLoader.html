@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
+<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -176,12 +176,44 @@ extends java.lang.Object</pre>
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assertJsonValueName(com.badlogic.gdx.utils.JsonValue,java.lang.String)">assertJsonValueName</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData,
+java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#assertJsonValueNull(com.badlogic.gdx.utils.JsonValue)">assertJsonValueNull</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>static <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/files/FileHandle.html?is-external=true" title="class or interface in com.badlogic.gdx.files" class="externalLink">FileHandle</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFileHandle(java.lang.String,com.deco2800.game.files.FileLoader.Location)">getFileHandle</a></span>&#8203;(java.lang.String&nbsp;filename,
 <a href="FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a>&nbsp;location)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>static <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Array.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Array</a>&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/files/FileHandle.html?is-external=true" title="class or interface in com.badlogic.gdx.files" class="externalLink">FileHandle</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getJsonFiles(java.lang.String)">getJsonFiles</a></span>&#8203;(java.lang.String&nbsp;directory)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readCharacterGrid(java.lang.String,java.lang.Character%5B%5D%5B%5D,com.badlogic.gdx.utils.JsonValue)">readCharacterGrid</a></span>&#8203;(java.lang.String&nbsp;name,
+java.lang.Character[][]&nbsp;grid,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>static &lt;V&gt;&nbsp;void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readCharacterObjectMap(java.lang.String,com.badlogic.gdx.utils.ObjectMap,java.lang.Class,com.badlogic.gdx.utils.Json,com.badlogic.gdx.utils.JsonValue)">readCharacterObjectMap</a></span>&#8203;(java.lang.String&nbsp;name,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;V&gt;&nbsp;map,
+java.lang.Class&lt;V&gt;&nbsp;valueClass,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Json</a>&nbsp;json,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;T</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readClass(java.lang.Class,java.lang.String)">readClass</a></span>&#8203;(java.lang.Class&lt;T&gt;&nbsp;type,
 java.lang.String&nbsp;filename)</code></th>
@@ -189,7 +221,7 @@ java.lang.String&nbsp;filename)</code></th>
 <div class="block">Read generic Java classes from a JSON file.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;T</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#readClass(java.lang.Class,java.lang.String,com.deco2800.game.files.FileLoader.Location)">readClass</a></span>&#8203;(java.lang.Class&lt;T&gt;&nbsp;type,
 java.lang.String&nbsp;filename,
@@ -198,7 +230,7 @@ java.lang.String&nbsp;filename,
 <div class="block">Read generic Java classes from a JSON file.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i8">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeClass(java.lang.Object,java.lang.String)">writeClass</a></span>&#8203;(java.lang.Object&nbsp;object,
 java.lang.String&nbsp;filename)</code></th>
@@ -206,7 +238,7 @@ java.lang.String&nbsp;filename)</code></th>
 <div class="block">Write generic Java classes to a JSON file.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeClass(java.lang.Object,java.lang.String,com.deco2800.game.files.FileLoader.Location)">writeClass</a></span>&#8203;(java.lang.Object&nbsp;object,
 java.lang.String&nbsp;filename,
@@ -318,6 +350,54 @@ java.lang.String&nbsp;filename,
 <dd><code>filename</code> - File to write to.</dd>
 <dd><code>location</code> - File storage type. See
      https://github.com/libgdx/libgdx/wiki/File-handling#file-storage-types</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getJsonFiles(java.lang.String)">getJsonFiles</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Array.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Array</a>&lt;<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/files/FileHandle.html?is-external=true" title="class or interface in com.badlogic.gdx.files" class="externalLink">FileHandle</a>&gt;</span>&nbsp;<span class="memberName">getJsonFiles</span>&#8203;(<span class="arguments">java.lang.String&nbsp;directory)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="assertJsonValueName(com.badlogic.gdx.utils.JsonValue,java.lang.String)">assertJsonValueName</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">assertJsonValueName</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData,
+java.lang.String&nbsp;name)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="assertJsonValueNull(com.badlogic.gdx.utils.JsonValue)">assertJsonValueNull</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">assertJsonValueNull</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="readCharacterGrid(java.lang.String,java.lang.Character[][],com.badlogic.gdx.utils.JsonValue)">readCharacterGrid</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">readCharacterGrid</span>&#8203;(<span class="arguments">java.lang.String&nbsp;name,
+java.lang.Character[][]&nbsp;grid,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="readCharacterObjectMap(java.lang.String,com.badlogic.gdx.utils.ObjectMap,java.lang.Class,com.badlogic.gdx.utils.Json,com.badlogic.gdx.utils.JsonValue)">readCharacterObjectMap</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="typeParameters">&lt;V&gt;</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">readCharacterObjectMap</span>&#8203;(<span class="arguments">java.lang.String&nbsp;name,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;V&gt;&nbsp;map,
+java.lang.Class&lt;V&gt;&nbsp;valueClass,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Json</a>&nbsp;json,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</span>
+                                       throws <span class="exceptions">java.lang.NoSuchMethodException,
+java.lang.reflect.InvocationTargetException,
+java.lang.InstantiationException,
+java.lang.IllegalAccessException</span></div>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.NoSuchMethodException</code></dd>
+<dd><code>java.lang.reflect.InvocationTargetException</code></dd>
+<dd><code>java.lang.InstantiationException</code></dd>
+<dd><code>java.lang.IllegalAccessException</code></dd>
 </dl>
 </section>
 </li>
