@@ -54,7 +54,7 @@ public class ColliderComponent extends Component {
    * @param alignY how to align y relative to entity
    * @return self
    */
-  public ColliderComponent setAsBoxAligned(Vector2 size, AlignX alignX, AlignY alignY) {
+  public ColliderComponent setAsIsoAligned(Vector2 size, AlignX alignX, AlignY alignY) {
     scale = size;
     Vector2 position = new Vector2();
     switch (alignX) {
@@ -81,7 +81,7 @@ public class ColliderComponent extends Component {
         break;
     }
 
-    return setAsBox(size, position);
+    return setAsIso(size, position);
   }
 
   /**
@@ -93,9 +93,29 @@ public class ColliderComponent extends Component {
    */
   public ColliderComponent setAsBox(Vector2 size, Vector2 position) {
     PolygonShape bbox = new PolygonShape();
-    bbox.setAsBox(size.x / 2, size.y / 2, position, 0.45f); //angle: 0.45f
+
+    bbox.setAsBox(size.x / 2, size.y / 2, position, 0); //angle: 0.45f
+
     setShape(bbox);
     return this;
+  }
+
+  public ColliderComponent setAsIso(Vector2 size, Vector2 position) {
+      PolygonShape bound = new PolygonShape();
+
+      double isoAngle = Math.toRadians(30);
+      float height = (float) Math.tan(isoAngle) * size.y;
+
+      Vector2 west = new Vector2(position.x - (size.x / 2), (height / 2));
+      Vector2 north = new Vector2(position.x, height);
+      Vector2 east = new Vector2(position.x + (size.x / 2), (height / 2));
+      Vector2 south = new Vector2(position.x, 0);
+      // Collect each of the isometric parallelogram's corners
+      Vector2[] points = new Vector2[]{west, north, east, south};
+
+      bound.set(points);
+      setShape(bound);
+      return this;
   }
 
   /**
@@ -217,7 +237,18 @@ public class ColliderComponent extends Component {
   private Shape makeBoundingBox() {
     PolygonShape bbox = new PolygonShape();
     Vector2 center = entity.getScale().scl(0.5f);
-    bbox.setAsBox(center.x, center.y, center, 0f);
+
+    double angle = Math.toRadians(30);
+    float ratio = (float) Math.tan(angle);
+
+    Vector2 one = new Vector2(0.5f, 0f);
+    Vector2 two = new Vector2(0f, ratio / 2);
+    Vector2 thr = new Vector2(0.5f, ratio);
+    Vector2 fou = new Vector2(1, ratio / 2);
+
+    Vector2[] points = new Vector2[]{one, two, thr, fou};
+    bbox.set(points);
+    //bbox.setAsBox(center.x, center.y, center, 0.45f);
     return bbox;
   }
 }

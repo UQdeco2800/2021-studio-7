@@ -3,6 +3,7 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.interactions.Actions.MumActions;
@@ -12,6 +13,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.MumConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -31,40 +33,22 @@ import com.deco2800.game.generic.ServiceLocator;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
+@SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
 public class NPCFactory {
+
   private static final NPCConfigs configs =
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
    * Creates a mum entity.
    *
-   * @param target entity to chase
    * @return entity
    */
-  public static Entity createMum(Entity target) {
-    Entity mum =  createBaseNPC(target);
+  public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService()
-                            .getAsset("images/characters/mum_01/mum_01.atlas", TextureAtlas.class));
-    animator.addAnimation("standing_north", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_east", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_south", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_west", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_north", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_east", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_south", 0.25f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_west", 0.25f, Animation.PlayMode.LOOP);
-
-    mum
+    Entity mum =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
-            .addComponent(animator)
             .addComponent(new MumActions());
-
-
-    //mum.getComponent(AnimationRenderComponent.class).scaleEntity();
     return mum;
   }
 
@@ -73,21 +57,35 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target) {
-    AITaskComponent aiComponent =
-        new AITaskComponent()
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f));
+  private static Entity createBaseNPC(Entity target, String[] assets) {
+    // Set npc to have base physics components
     Entity npc =
         new Entity()
             .addComponent(new PhysicsComponent())
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC))
-            .addComponent(aiComponent);
-
-    PhysicsUtils.setScaledCollider(npc, 0.9f, 0.4f);
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
+    PhysicsUtils.setScaledCollider(npc, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
+    // Set npc to have base AI component
+    npc.addComponent(new AITaskComponent()
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(target, 10, 3f, 4f)));
+    // Set npc to have a base render component
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    if (assets[0].endsWith(".atlas")) {
+      // Asset is an atlas, add an AnimationRenderComponent
+      TextureAtlas textureAtlas = resourceService.getAsset(assets[0], TextureAtlas.class);
+      AnimationRenderComponent animator = new AnimationRenderComponent(textureAtlas);
+      // Add all atlas regions as animations to the component
+      for (TextureAtlas.AtlasRegion region : new Array.ArrayIterable<>(textureAtlas.getRegions())) {
+        if (!animator.hasAnimation(region.name)) {
+          animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
+        }
+      }
+      npc.addComponent(animator);
+    }
+
     return npc;
   }
 

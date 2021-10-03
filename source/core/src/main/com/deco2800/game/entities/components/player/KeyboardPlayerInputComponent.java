@@ -4,8 +4,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.areas.ForestGameArea;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;

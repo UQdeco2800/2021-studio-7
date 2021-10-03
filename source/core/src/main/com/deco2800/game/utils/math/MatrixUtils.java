@@ -1,5 +1,7 @@
 package com.deco2800.game.utils.math;
 
+import java.lang.reflect.Array;
+
 public class MatrixUtils {
 
     public static <T> T[][] rotateClockwise(T[][] matrix) {
@@ -11,36 +13,36 @@ public class MatrixUtils {
     }
 
     public static <T> T[][] flipVertically(T[][] matrix) {
-        for (int x = 0; x < matrix.length; x++) {
-            for (int y = 0; y < matrix.length / 2; y++) {
-                T temp = matrix[x][y];
-                matrix[x][y] = matrix[x][matrix.length - y - 1];
-                matrix[x][matrix.length - y - 1] = temp;
+        for (int y = 0; y < matrix.length / 2; y++) {
+            for (int x = 0; x < matrix[y].length; x++) {
+                T temp = matrix[y][x];
+                matrix[y][x] = matrix[matrix.length - y - 1][x];
+                matrix[matrix.length - y - 1][x] = temp;
             }
         }
         return matrix;
     }
 
     public static <T> T[][] flipHorizontally(T[][] matrix) {
-        for (int x = 0; x < matrix.length; x++) {
-            for (int y = 0; y < matrix.length / 2; y++) {
-                T temp = matrix[x][y];
-                matrix[x][y] = matrix[matrix.length - x - 1][y];
-                matrix[matrix.length - x - 1][y] = temp;
+        for (int y = 0; y < matrix.length; y++) {
+            for (int x = 0; x < matrix[y].length / 2; x++) {
+                T temp = matrix[y][x];
+                matrix[y][x] = matrix[y][matrix[y].length - x - 1];
+                matrix[y][matrix[y].length - x - 1] = temp;
             }
         }
         return matrix;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[][] transpose(T[][] matrix) {
+        T[][] transposed = (T[][]) Array.newInstance(matrix[0][0].getClass(), matrix[0].length, matrix.length);
         for (int x = 0; x < matrix.length; x++) {
-            for (int y = 0; y < matrix.length; y++) {
-                T temp = matrix[x][y];
-                matrix[x][y] = matrix[y][x];
-                matrix[y][x] = temp;
+            for (int y = 0; y < matrix[x].length; y++) {
+                transposed[y][x] = matrix[x][y];
             }
         }
-        return matrix;
+        return transposed;
     }
 
     private MatrixUtils() {
