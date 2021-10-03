@@ -63,6 +63,9 @@ public class PauseMenuScreen extends ScreenAdapter {
     }
 
     @Override
+    public void hide(){}
+
+    @Override
     public void dispose() {
         logger.debug("Disposing main menu screen");
 

@@ -42,6 +42,10 @@ public class MainGameScreen extends ScreenAdapter {
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
+  public static final int GAME_RUNNING = 0;
+  public static final int GAME_PAUSED = 0;
+  private int gameStatus;
+
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
@@ -80,6 +84,9 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    if (gameStatus == GAME_PAUSED) {
+      delta = 0;
+    }
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
     physicsEngine.update();
@@ -96,6 +103,7 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    gameStatus = GAME_PAUSED;
   }
 
   @Override

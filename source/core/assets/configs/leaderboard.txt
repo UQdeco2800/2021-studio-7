@@ -17,14 +17,21 @@ DirtyDefault52859:73
 LUCY:123
 TIME:341
 DirtyDefault549:602
+DirtyDefault51513:680
 DirtyDefault71230:693
 DirtyDefault42521:704
+DirtyDefault14958:754
+ger:768
+DirtyDefault13559:790
 Kate:812
 DirtyDefault58238:829
 Ken:854
 DirtyDefault12674:875
 pepis:886
 twee:895
+DirtyDefault33082:927
+Testy hey hey:927
+DirtyDefault71236:939
 DirtyDefault21957:950
 TESTESTETSTEST:951
 twebb:952
@@ -32,7 +39,11 @@ DirtyDefault4567:955
 DirtyDefault25725:956
 DirtyDefault72555:964
 DirtyDefault28242:972
+DirtyDefault27305:1000
 DirtyDefault33237:1000
+DirtyDefault6449:1000
+DirtyDefault90661:1000
+DirtyDefault94047:1000
 James:1023
 Jim:1034
 BEN:1234
@@ -43,10 +54,5 @@ DirtyDefault5961:1933
 DirtyDefault57431:1956
 DirtyDefault47349:4121
 
-DirtyDefault14958:754,
-Testy hey hey:927,
-DirtyDefault71236:939,
-DirtyDefault94047:1000,
-DirtyDefault27305:1000,
-DirtyDefault90661:1000,
-DirtyDefault6449:1000,
+DirtyDefault40743:906,
+DirtyDefault72055:869,
