@@ -16,16 +16,18 @@ public class MainGameTimerDisplay extends UIComponent {
     Table timeTable;
     private final Label currentTimeLabel;
     private long lastTime = 0L;
-    private int hour;
-    private int minute;
+    private int start_hour;
+    private int start_minute;
+    private int end_hour;
+    private int end_minute;
     private static final Logger logger =
             LoggerFactory.getLogger(MainGameTimerDisplay.class);
 
     public MainGameTimerDisplay() {
         logger.debug("Initialising main game screen timer service");
-        hour = 20;
-        minute = 0;
-        CharSequence timeText = String.format("%d : 0%d",hour, minute);
+        setStart_hour(23);
+        setStart_minute(0);
+        CharSequence timeText = String.format("%d : 0%d",start_hour, start_minute);
         currentTimeLabel = new Label(timeText, skin, "large");
         logger.debug("Main game screen timer service started");
 
@@ -58,34 +60,67 @@ public class MainGameTimerDisplay extends UIComponent {
         // draw is handled by the stage
     }
 
+    public void setStart_hour(int hr) {
+        this.start_hour = hr;
+    }
+
+    public int getStart_hour() {
+        return this.start_hour;
+    }
+
+    public void setStart_minute(int min) {
+        this.start_minute = min;
+    }
+    public int getStart_minute() {
+        return this.start_minute;
+    }
+    public void setEnd_hour(int hr) {
+        this.end_hour = hr;
+    }
+
+    public int getEnd_hour() {
+        return this.end_hour;
+    }
+
+    public void setEnd_minute(int min) {
+        this.end_minute = min;
+    }
+
+    public int getEnd_minute() {
+        return this.end_minute;
+    }
     /**
      * Updates the main game screen clock
      */
     public void updateTimeUI() {
-        if (minute < 59) {
-            minute += 1;
-        } else if (minute == 59) {
-            if (hour < 23) {
-                hour ++;
-            } else if (hour == 23) {
-                hour = 0;
+        if (this.getStart_minute() < 59) {
+            this.setStart_minute(this.getStart_minute() + 1);
+        } else if (this.getStart_minute() == 59) {
+            if (this.getStart_hour() < 23) {
+                this.setStart_hour(this.getStart_hour() + 1);
+            } else if (this.getStart_hour() == 23) {
+                this.setStart_hour(0);
             }
-            minute = 0;
+            this.setStart_minute(0);
         }
         CharSequence timeText;
-        if (hour < 10) {
-            if (minute < 10) {
-                timeText = String.format("0%d : 0%d",hour, minute);
+        if (this.getStart_hour() < 10) {
+            if (this.getStart_minute() < 10) {
+                timeText = String.format("0%d : 0%d",this.getStart_hour(),
+                        this.getStart_minute());
             }
             else {
-                timeText = String.format("0%d : %d",hour, minute);
+                timeText = String.format("0%d : %d",this.getStart_hour(),
+                        this.getStart_minute());
             }
         } else {
-            if (minute < 10) {
-                timeText = String.format("%d : 0%d",hour, minute);
+            if (this.getStart_minute() < 10) {
+                timeText = String.format("%d : 0%d",this.getStart_hour(),
+                        this.getStart_minute());
             }
             else {
-                timeText = String.format("%d : %d",hour, minute);
+                timeText = String.format("%d : %d",this.getStart_hour(),
+                        this.getStart_minute());
             }
         }
         currentTimeLabel.setText(timeText);
@@ -108,7 +143,7 @@ public class MainGameTimerDisplay extends UIComponent {
         if (currentTime - lastTime >= 600L) {
             lastTime = currentTime;
             updateTimeUI();
-            if (hour == 2 && minute > 0) {
+            if (this.getStart_hour() == this.getEnd_hour() && this.getStart_minute() > this.getEnd_minute()) {
                 logger.info("Time end");
                 entity.getEvents().trigger("loss_timed");
             }
