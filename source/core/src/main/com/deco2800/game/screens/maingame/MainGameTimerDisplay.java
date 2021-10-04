@@ -1,6 +1,9 @@
 package com.deco2800.game.screens.maingame;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
@@ -15,6 +18,7 @@ import org.slf4j.LoggerFactory;
 public class MainGameTimerDisplay extends UIComponent {
     Table timeTable;
     private final Label currentTimeLabel;
+    Label displayText;
     private long lastTime = 0L;
     private int start_hour;
     private int start_minute;
@@ -22,13 +26,19 @@ public class MainGameTimerDisplay extends UIComponent {
     private int end_minute;
     private static final Logger logger =
             LoggerFactory.getLogger(MainGameTimerDisplay.class);
+    private Texture texture = new Texture(Gdx.files.internal("images/ui" +
+            "/elements/Textbox_256.png"));
+    private Image background = new Image(texture);
 
     public MainGameTimerDisplay() {
         logger.debug("Initialising main game screen timer service");
         setStart_hour(23);
         setStart_minute(0);
-        CharSequence timeText = String.format("%d : 0%d",start_hour, start_minute);
-        currentTimeLabel = new Label(timeText, skin, "large");
+        setEnd_minute(0);
+        setEnd_hour(2);
+CharSequence timeText = String.format("    %d:0%d",start_hour,
+        start_minute);
+        currentTimeLabel = new Label(timeText, skin, "title");
         logger.debug("Main game screen timer service started");
 
     }
@@ -49,9 +59,12 @@ public class MainGameTimerDisplay extends UIComponent {
      */
     public void addActors() {
         timeTable = new Table();
-        timeTable.top().right().padTop(10f).padRight(120f);
+        timeTable.bottom().right();
+        timeTable.padRight(60f);
         timeTable.setFillParent(true);
         timeTable.add(currentTimeLabel);
+        timeTable.add(background);
+        timeTable.stack(background, currentTimeLabel);
         stage.addActor(timeTable);
     }
 
@@ -106,20 +119,20 @@ public class MainGameTimerDisplay extends UIComponent {
         CharSequence timeText;
         if (this.getStart_hour() < 10) {
             if (this.getStart_minute() < 10) {
-                timeText = String.format("0%d : 0%d",this.getStart_hour(),
+                timeText = String.format("    0%d:0%d",this.getStart_hour(),
                         this.getStart_minute());
             }
             else {
-                timeText = String.format("0%d : %d",this.getStart_hour(),
+                timeText = String.format("    0%d:%d",this.getStart_hour(),
                         this.getStart_minute());
             }
         } else {
             if (this.getStart_minute() < 10) {
-                timeText = String.format("%d : 0%d",this.getStart_hour(),
+                timeText = String.format("    %d:0%d",this.getStart_hour(),
                         this.getStart_minute());
             }
             else {
-                timeText = String.format("%d : %d",this.getStart_hour(),
+                timeText = String.format("    %d:%d",this.getStart_hour(),
                         this.getStart_minute());
             }
         }
