@@ -26,7 +26,7 @@ import com.deco2800.game.generic.ServiceLocator;
 public class ObstacleFactory {
 
   public static Entity createWall(String[] assets) {
-    final float wallScale = 0.99f;
+    final float wallScale = 1f;
     Entity wall = createBaseObstacle(assets, BodyType.StaticBody);
     wall.setScale(wallScale, wallScale);
     // Set the collision box of the wall to the full wall size
