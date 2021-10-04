@@ -85,34 +85,60 @@ public class MainGameTimerDisplay extends UIComponent {
         logger.info("Timer setup ready");
     }
 
+    /**
+     * Set up start hour
+     */
+
     public void setStart_hour(int hr) {
         this.start_hour = hr;
     }
 
+    /**
+     * Get start hour now
+     */
     public int getStart_hour() {
         return this.start_hour;
     }
 
+    /**
+     * Set up start minute
+     */
     public void setStart_minute(int min) {
         this.start_minute = min;
     }
+    /**
+     * Get start minute now
+     */
 
     public int getStart_minute() {
         return this.start_minute;
     }
 
+    /**
+     * Set up end hour
+     */
+
     public void setEnd_hour(int hr) {
         this.end_hour = hr;
     }
 
+    /**
+     * Get end hour
+     */
     public int getEnd_hour() {
         return this.end_hour;
     }
 
+    /**
+     * Set up end minute
+     */
     public void setEnd_minute(int min) {
         this.end_minute = min;
     }
 
+    /**
+     * Get end minute now
+     */
     public int getEnd_minute() {
         return this.end_minute;
     }
