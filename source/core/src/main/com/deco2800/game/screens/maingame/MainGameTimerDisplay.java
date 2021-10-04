@@ -3,6 +3,7 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -18,7 +19,6 @@ import org.slf4j.LoggerFactory;
 public class MainGameTimerDisplay extends UIComponent {
     Table timeTable;
     private final Label currentTimeLabel;
-    Label displayText;
     private long lastTime = 0L;
     private int start_hour;
     private int start_minute;
@@ -32,11 +32,8 @@ public class MainGameTimerDisplay extends UIComponent {
 
     public MainGameTimerDisplay() {
         logger.debug("Initialising main game screen timer service");
-        setStart_hour(23);
-        setStart_minute(0);
-        setEnd_minute(0);
-        setEnd_hour(2);
-CharSequence timeText = String.format("    %d:0%d",start_hour,
+        setTimer(23, 0,  2, 0);
+        CharSequence timeText = String.format("    %d:0%d",start_hour,
         start_minute);
         currentTimeLabel = new Label(timeText, skin, "title");
         logger.debug("Main game screen timer service started");
@@ -73,6 +70,21 @@ CharSequence timeText = String.format("    %d:0%d",start_hour,
         // draw is handled by the stage
     }
 
+    /**
+     * Provide an interface to set up main game screen clock time
+     * @param hr1 Start hour time for this level's game
+     * @param hr2 End time for this level's game
+     * @param min1 Start min for this level's game
+     * @param min2 End min for this level's game
+     */
+    public void setTimer(int hr1, int min1, int hr2, int min2) {
+        setStart_hour(hr1);
+        setStart_minute(min1);
+        setEnd_hour(hr2);
+        setEnd_minute(min2);
+        logger.info("Timer setup ready");
+    }
+
     public void setStart_hour(int hr) {
         this.start_hour = hr;
     }
@@ -84,9 +96,11 @@ CharSequence timeText = String.format("    %d:0%d",start_hour,
     public void setStart_minute(int min) {
         this.start_minute = min;
     }
+
     public int getStart_minute() {
         return this.start_minute;
     }
+
     public void setEnd_hour(int hr) {
         this.end_hour = hr;
     }
@@ -137,6 +151,14 @@ CharSequence timeText = String.format("    %d:0%d",start_hour,
             }
         }
         currentTimeLabel.setText(timeText);
+        if(Math.abs(getStart_hour()-getEnd_hour()) <= 1 || Math.abs(getStart_hour()-getEnd_hour()) >= 23 && Math.abs(getEnd_minute() - getStart_minute()) > 30) {
+            System.out.println(getEnd_minute() - getStart_minute());
+            currentTimeLabel.addAction(Actions.alpha(0));
+            currentTimeLabel.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f),
+                    Actions.fadeOut(1f))));
+        }
+//        System.out.println(Math.abs(getStart_hour()-getEnd_hour()));
+
     }
 
     @Override
@@ -153,7 +175,7 @@ CharSequence timeText = String.format("    %d:0%d",start_hour,
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (currentTime - lastTime >= 600L) {
+        if (currentTime - lastTime >= 750L) {
             lastTime = currentTime;
             updateTimeUI();
             if (this.getStart_hour() == this.getEnd_hour() && this.getStart_minute() > this.getEnd_minute()) {
