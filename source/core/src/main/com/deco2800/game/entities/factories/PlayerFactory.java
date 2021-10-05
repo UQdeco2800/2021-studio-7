@@ -2,16 +2,17 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
-import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.input.InputService;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -23,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.Buffer;
 
 /**
  * Factory to create a player entity.
@@ -31,54 +31,53 @@ import java.nio.Buffer;
  * <p>Predefined player properties are loaded from a config stored as a json file and should have
  * the properties stores in 'PlayerConfig'.
  */
+@SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
 public class PlayerFactory {
   private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
   private static final PlayerConfig stats =
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
-  /**
-   * Create a player entity.
-   * @return entity
-   */
-  public static Entity createPlayer() {
-    InputComponent inputComponent =
-        ServiceLocator.getInputService().getInputFactory().createForPlayer();
-
-    AnimationRenderComponent animator =
-            new AnimationRenderComponent(
-                    ServiceLocator.getResourceService().getAsset(getAtlas(), TextureAtlas.class));
-    animator.addAnimation("standing_south", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_east", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_south", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_north", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_west", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_east", 0.1f, Animation.PlayMode.LOOP);
-
-    Entity player =
-        new Entity()
-            .addComponent(animator)
-            .addComponent(new PhysicsComponent())
-            .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+  public static Entity createPlayer(String[] assets) {
+    Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-            .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
             .addComponent(new ScoreComponent(1000));
-
-    player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
-    PhysicsUtils.setScaledHitbox(player, 1f, 1f);
     return player;
   }
 
-  /**
-   *
-   * @return
-   */
+  public static Entity createBasePlayer(String[] assets) {
+    // Set player to have base physics components
+    Entity player = new Entity()
+            .addComponent(new PhysicsComponent())
+            .addComponent(new ColliderComponent().setDensity(1.5f))
+            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
+    PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(player, 1f, 1f);
+
+    // Set player to have a base input component
+    InputService inputService = ServiceLocator.getInputService();
+    player.addComponent(inputService.getInputFactory().createForPlayer());
+
+    // Set player to have a base render component
+    ResourceService resourceService = ServiceLocator.getResourceService();
+    if (assets[0].endsWith(".atlas")) {
+      // Asset is an atlas, add an AnimationRenderComponent
+      TextureAtlas textureAtlas = resourceService.getAsset(assets[0], TextureAtlas.class);
+      AnimationRenderComponent animator = new AnimationRenderComponent(textureAtlas);
+      // Add all atlas regions as animations to the component
+      for (TextureAtlas.AtlasRegion region : new Array.ArrayIterable<>(textureAtlas.getRegions())) {
+        if (!animator.hasAnimation(region.name)) {
+          animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
+        }
+      }
+      player.addComponent(animator);
+    }
+
+    return player;
+  }
+
   public static String getAtlas() {
     File input = new File("configs/currentCharacterAtlas.txt");
     BufferedReader br = null;
@@ -91,15 +90,9 @@ public class PlayerFactory {
     } finally {
       try {
         br.close();
-      } catch (IOException e) {
+      } catch (NullPointerException | IOException e) {
         logger.error("Could not close buffered reader for characterAtlas.txt");
       }
     } return line;
-  }
-
-
-
-  private PlayerFactory() {
-    throw new IllegalStateException("Instantiating static util class");
   }
 }

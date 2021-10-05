@@ -1,12 +1,9 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.areas.components.PerformanceDisplay;
-import com.deco2800.game.areas.HouseGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.maps.Home;
+import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -33,14 +30,14 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  private Entity entityPlayer;
-  private Vector2 PLAYER_POSITION;
+  private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
+  private static final boolean usingTestingFloorPlan = true;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
-  private final HouseGameArea mainGameArea;
+  private final Home home;
   private final Entity mainGameEntity = new Entity();
+  private Entity player;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -55,33 +52,26 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
-
-
     renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
     loadAssets();
     createUI();
-    ServiceLocator.getEntityService().register(mainGameEntity);
 
-    logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
-    mainGameArea = new HouseGameArea(terrainFactory);
-
-    mainGameArea.create();
-    entityPlayer = mainGameArea.player;
-
-    PLAYER_POSITION = entityPlayer.getPosition();
-    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-
-
+    if (usingTestingFloorPlan) {
+      home = new Home(testingFloorPlan);
+    } else {
+      home = new Home();
+    }
+    home.setMainGameScreen(this);
+    ServiceLocator.registerHome(home);
+    home.create(renderer.getCamera());
+    player = home.getActiveFloor().getPlayer();
   }
 
   @Override
   public void render(float delta) {
-    PLAYER_POSITION = entityPlayer.getPosition();
-    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+    renderer.getCamera().getEntity().setPosition(player.getPosition());
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
@@ -109,7 +99,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-    entityPlayer.getEvents().trigger("write_score");
+    player.getEvents().trigger("write_score");
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
@@ -150,13 +140,27 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-  }
 
-  public HouseGameArea getMainGameArea() {
-    return mainGameArea;
+    ServiceLocator.getEntityService().register(mainGameEntity);
   }
 
   public Entity getMainGameEntity() {
     return mainGameEntity;
+  }
+
+  public Home getHome() {
+    return home;
+  }
+
+  public String getTestingFloorPlan() {
+    return testingFloorPlan;
+  }
+
+  public Entity getPlayer() {
+    return player;
+  }
+
+  public void setPlayer(Entity player) {
+    this.player = player;
   }
 }
