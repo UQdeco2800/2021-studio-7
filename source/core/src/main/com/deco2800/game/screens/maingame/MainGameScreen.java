@@ -47,7 +47,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
-  private Renderer  maprenderer;
+  private Renderer maprenderer;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");

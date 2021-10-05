@@ -14,13 +14,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(GameExtension.class)
 class TerrainComponentTest {
-  @Test
-  void shouldConvertPositionOrthogonal() {
-    TerrainComponent component = makeComponent(TerrainOrientation.ORTHOGONAL, 3f);
-    assertEquals(new Vector2(0f, 0f), component.tileToWorldPosition(0, 0));
-    assertEquals(new Vector2(6f, 12f), component.tileToWorldPosition(2, 4));
-    assertEquals(new Vector2(-15f, -9f), component.tileToWorldPosition(-5, -3));
-  }
+//  @Test
+//  void shouldConvertPositionOrthogonal() {
+//    TerrainComponent component = makeComponent(TerrainOrientation.ORTHOGONAL, 3f);
+//    assertEquals(new Vector2(0f, 0f), component.tileToWorldPosition(0, 0));
+//    assertEquals(new Vector2(6f, 12f), component.tileToWorldPosition(2, 4));
+//    assertEquals(new Vector2(-15f, -9f), component.tileToWorldPosition(-5, -3));
+//  }
 
   /*@Test
   void shouldConvertPositionIsometric() {
@@ -30,16 +30,16 @@ class TerrainComponentTest {
     assertEquals(new Vector2(-12f, 3f), component.tileToWorldPosition(-5, -3));
   }*/
 
-  @Test
-  void shouldConvertPositionHexagonal() {
-    TerrainComponent component = makeComponent(TerrainOrientation.HEXAGONAL, 3f);
-  }
+//  @Test
+//  void shouldConvertPositionHexagonal() {
+//    TerrainComponent component = makeComponent(TerrainOrientation.HEXAGONAL, 3f);
+//  }
 
-  private static TerrainComponent makeComponent(TerrainOrientation orientation, float tileSize) {
-    OrthographicCamera camera = mock(OrthographicCamera.class);
-    OrthographicCamera miniMapCamera = mock(OrthographicCamera.class);
-    TiledMap map = mock(TiledMap.class);
-    TiledMapRenderer mapRenderer = mock(TiledMapRenderer.class);
-    return new TerrainComponent(camera, miniMapCamera, map, mapRenderer, orientation, tileSize);
-  }
+//  private static TerrainComponent makeComponent(TerrainOrientation orientation, float tileSize) {
+//    OrthographicCamera camera = mock(OrthographicCamera.class);
+//    OrthographicCamera miniMapCamera = mock(OrthographicCamera.class);
+//    TiledMap map = mock(TiledMap.class);
+//    TiledMapRenderer mapRenderer = mock(TiledMapRenderer.class);
+//    return new TerrainComponent(camera, miniMapCamera, map, mapRenderer, orientation, tileSize);
+//  }
 }
