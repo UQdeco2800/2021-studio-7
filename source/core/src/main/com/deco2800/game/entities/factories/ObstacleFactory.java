@@ -140,7 +140,7 @@ public class ObstacleFactory {
             .addComponent(new ColliderComponent())
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
             .addComponent(tvAnimations)
-            .addComponent(new tvActions());
+            .addComponent(new TvActions());
 
     tv.getComponent(PhysicsComponent.class).setBodyType(BodyType.StaticBody);
     tv.scaleHeight(1.0f);

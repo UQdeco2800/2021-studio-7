@@ -50,3 +50,6 @@ DirtyDefault94047:1000,
 DirtyDefault27305:1000,
 DirtyDefault90661:1000,
 DirtyDefault6449:1000,
+
+DirtyDefault70013:408,
+DirtyDefault78798:939,739,

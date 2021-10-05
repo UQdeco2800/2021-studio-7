@@ -1,18 +1,12 @@
 package com.deco2800.game.entities.components.interactions.Actions;
 
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DrinkActions extends InteractionComponent {
     // Note this class requires the addition of the SingleUse component be added to obstacle entity
@@ -28,29 +22,46 @@ public class DrinkActions extends InteractionComponent {
 
 
     @Override
-    public void onCollisionStart(Fixture me, Fixture other) {
-        super.onCollisionStart(me, other);
-        logger.info("DRINK started collision with PLAYER");
-        animator.startAnimation("energy_highlight");
+    public void onCollisionStart(Entity target) {
+        if (target.getComponent(PlayerActions.class) != null) {
+            toggleDrinkHighlight(true);
+        }
     }
 
     @Override
-    public void onCollisionEnd(Fixture me, Fixture other) {
-        super.onCollisionEnd(me, other);
-        logger.info("DRINK ended collision with PLAYER");
-        animator.startAnimation("energy");
+    public void onCollisionEnd(Entity target) {
+        if (target.getComponent(PlayerActions.class) != null) {
+            toggleDrinkHighlight(false);
+        }
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
+        if (target.getComponent(PlayerActions.class) != null) {
             logger.info("PLAYER interacted with DRINK, increasing player stamina");
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             //add time restriction
         }
     }
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    private void toggleDrinkHighlight(boolean shouldHighlight) {
+        if (shouldHighlight) {
+            logger.info("DRINK started collision with PLAYER");
+            animator.startAnimation("energy_highlight");
+        } else {
+            logger.info("DRINK ended collision with PLAYER");
+            animator.startAnimation("energy");
+        }
+    }
 }
+
+// You should use update() to do time-related tasks instead
 
 /*
 class DrinkTimerTask extends TimerTask{

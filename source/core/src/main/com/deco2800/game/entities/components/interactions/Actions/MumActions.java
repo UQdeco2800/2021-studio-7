@@ -1,6 +1,5 @@
 package com.deco2800.game.entities.components.interactions.Actions;
 
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
@@ -21,14 +20,13 @@ public class MumActions extends InteractionComponent {
     }
 
     @Override
-    public void onCollisionStart(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
-        if (target != null && target.getComponent(PlayerActions.class) != null) {
+    public void onCollisionStart(Entity target) {
+        if (target.getComponent(PlayerActions.class) != null) {
             triggerLoseCondition();
         }
     }
 
-    public void triggerLoseCondition() {
+    private void triggerLoseCondition() {
         logger.info("MUM started collision with PLAYER, triggering lose condition");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
                 .getMainGameEntity().getEvents().trigger("loss_caught");
