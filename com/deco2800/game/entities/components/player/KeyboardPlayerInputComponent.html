@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -183,20 +183,34 @@ extends <a href="../../../input/components/InputComponent.html" title="class in 
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getcurrentDirectionCode()">getcurrentDirectionCode</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Will asign an integer value to the direction.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#keyDown(int)">keyDown</a></span>&#8203;(int&nbsp;keycode)</code></th>
 <td class="colLast">
 <div class="block">Triggers player events on specific keycodes.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#keyUp(int)">keyUp</a></span>&#8203;(int&nbsp;keycode)</code></th>
 <td class="colLast">
 <div class="block">Triggers player events on specific keycodes.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#movementEvents()">movementEvents</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Function used to update the entities animations based upon the direction of movement.</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#running()">running</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -311,6 +325,31 @@ extends <a href="../../../input/components/InputComponent.html" title="class in 
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../../input/components/InputComponent.html#running()">running</a></code>&nbsp;in class&nbsp;<code><a href="../../../input/components/InputComponent.html" title="class in com.deco2800.game.input.components">InputComponent</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getcurrentDirectionCode()">getcurrentDirectionCode</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">getcurrentDirectionCode</span>()</div>
+<div class="block">Will asign an integer value to the direction. Directions are broken into compass quadrents.
+ Where:
+ 0 = North
+ 1 = East
+ 2 = South
+ 3 = West
+ 4 = NorthEast
+ 5 = NorthWest
+ 6 = SouthEast
+ 7 = SouthWest</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="movementEvents()">movementEvents</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">movementEvents</span>()</div>
+<div class="block">Function used to update the entities animations based upon the direction of movement.
+ Character will display the animation that tis within 45 degrees of the nearest compass direction.
+ For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
 </section>
 </li>
 </ul>

@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -212,6 +212,13 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#standingEvents()">standingEvents</a></span>()</code></th>
+<td class="colLast">
+<div class="block">If the mom is standing still this function triggers a standing event in the last direction.</div>
+</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called once per frame of the game, and should be used for most component logic.</div>
@@ -342,11 +349,15 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <h3><a id="getcurrentDirectionCode()">getcurrentDirectionCode</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">getcurrentDirectionCode</span>()</div>
 <div class="block">Will asign an integer value to the direction. Directions are broken into compass quadrents.
-     Where:
-        0 = North
-        1 = East
-        2 = South
-        3 = West</div>
+ Where:
+ 0 = North
+ 1 = East
+ 2 = South
+ 3 = West
+ 4 = NorthEast
+ 5 = NorthWest
+ 6 = SouthEast
+ 7 = SouthWest</div>
 </section>
 </li>
 <li class="blockList">
@@ -354,8 +365,15 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <h3><a id="movementEvents()">movementEvents</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">movementEvents</span>()</div>
 <div class="block">Function used to update the entities animations based upon the direction of movement.
-    Character will display the animation that is within 45 degrees of the nearest compass direction.
-     For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
+ Character will display the animation that tis within 45 degrees of the nearest compass direction.
+ For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="standingEvents()">standingEvents</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">standingEvents</span>()</div>
+<div class="block">If the mom is standing still this function triggers a standing event in the last direction.</div>
 </section>
 </li>
 </ul>
