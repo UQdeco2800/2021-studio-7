@@ -1,6 +1,7 @@
 package com.deco2800.game.utils.math;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.JsonValue;
 
 /**
  * Contains additional utility constants and functions for common Vector2 operations.
@@ -40,6 +41,11 @@ public class Vector2Utils {
    */
   public static double angleFromTo(Vector2 from, Vector2 to) {
     return Math.toDegrees(Math.atan2(to.y - from.y, to.x - from.x));
+  }
+
+  public static Vector2 read(JsonValue jsonData) {
+    int[] points = jsonData.asIntArray();
+    return new Vector2(points[0], points[1]);
   }
 
   private Vector2Utils() {

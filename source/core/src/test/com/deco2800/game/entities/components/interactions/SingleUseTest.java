@@ -1,11 +1,10 @@
 package com.deco2800.game.entities.components.interactions;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -37,16 +36,28 @@ class SingleUseTest {
         ServiceLocator.registerTimeSource(gameTime);
         ServiceLocator.registerPhysicsService(new PhysicsService());
         ServiceLocator.registerResourceService(new ResourceService());
-
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextureAtlases(forestTextureAtlases);
-        resourceService.loadAll();
     }
 
     @Test
     void remove() {
         Entity player = new Entity().addComponent(new PlayerActions());
-        Entity energyDrink = ObstacleFactory.createEnergyDrink();
+        Entity energyDrink = new Entity();
+
+        AnimationRenderComponent drinkAnimations = new AnimationRenderComponent(
+                ServiceLocator.getResourceService().getAsset("images/objects/energy_drink/energy.atlas",
+                        TextureAtlas.class));
+
+        energyDrink.addComponent(drinkAnimations)
+                .addComponent(new PhysicsComponent().setBodyType(BodyDef.BodyType.DynamicBody))
+                .addComponent(new ColliderComponent())
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
+                .addComponent(new DrinkActions())
+                .addComponent(new SingleUse());
+
+
+
         energyDrink.getComponent(DrinkActions.class).onInteraction(player);
         assertNull(energyDrink.getComponent(PhysicsComponent.class));
         assertNull(energyDrink.getComponent(AnimationRenderComponent.class));
