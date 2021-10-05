@@ -42,29 +42,29 @@ public class PlayerFactory {
     AnimationRenderComponent animator =
             new AnimationRenderComponent(
                     ServiceLocator.getResourceService().getAsset(getAtlas(), TextureAtlas.class));
-    animator.addAnimation("standing_south", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_north", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_west", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_east", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_northeast", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_northwest", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_southeast", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("standing_southwest", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_south", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_north", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_west", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_east", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_northeast", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_northwest", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_southeast", 0.1f, Animation.PlayMode.LOOP);
-    animator.addAnimation("walking_southwest", 0.1f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_south", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_north", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_west", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_east", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northeast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_northwest", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southeast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("standing_southwest", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_south", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_north", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_west", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_east", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northeast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_northwest", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southeast", 0.2f, Animation.PlayMode.LOOP);
+    animator.addAnimation("walking_southwest", 0.2f, Animation.PlayMode.LOOP);
 
     Entity player =
         new Entity()
             .addComponent(animator)
             .addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
-            .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
+                .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER))
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
@@ -75,24 +75,11 @@ public class PlayerFactory {
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
     PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
+    player.scaleHeight(0.8f);
     return player;
   }
 
-  /**
-   *
-   * @return
-   */
-//  public static String getAtlas() {
-//    try {
-//      File input = new File("configs/currentCharacterAtlas.txt");
-//      BufferedReader br = new BufferedReader(new FileReader(input));
-//      String line = br.readLine();
-//      return line;
-//
-//    } catch (Exception e) {
-//      throw new IllegalStateException("Could not read currentCharacterAtlas.txt");
-//    }
-//  }
+
   public static String getAtlas() {
     BufferedReader br = null;
     try {
