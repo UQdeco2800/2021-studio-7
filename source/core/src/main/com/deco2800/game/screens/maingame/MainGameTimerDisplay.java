@@ -32,10 +32,13 @@ public class MainGameTimerDisplay extends UIComponent {
 
     public MainGameTimerDisplay() {
         logger.debug("Initialising main game screen timer service");
-        setTimer(23, 0,  2, 0);
+
+        //set up initial timer for the level 1
+        setTimer(23, 0,  0, 0);
         CharSequence timeText = String.format("    %d:0%d",start_hour,
         start_minute);
         currentTimeLabel = new Label(timeText, skin, "title");
+        currentTimeLabel.setText(timeText);
         logger.debug("Main game screen timer service started");
 
     }
@@ -59,7 +62,6 @@ public class MainGameTimerDisplay extends UIComponent {
         timeTable.bottom().right();
         timeTable.padRight(60f);
         timeTable.setFillParent(true);
-        timeTable.add(currentTimeLabel);
         timeTable.add(background);
         timeTable.stack(background, currentTimeLabel);
         stage.addActor(timeTable);
@@ -177,14 +179,12 @@ public class MainGameTimerDisplay extends UIComponent {
             }
         }
         currentTimeLabel.setText(timeText);
-        if(Math.abs(getStart_hour()-getEnd_hour()) <= 1 || Math.abs(getStart_hour()-getEnd_hour()) >= 23 && Math.abs(getEnd_minute() - getStart_minute()) > 30) {
-            System.out.println(getEnd_minute() - getStart_minute());
+        if((Math.abs(getStart_hour()-getEnd_hour()) <= 1 || Math.abs(getStart_hour()-getEnd_hour()) >= 23) && Math.abs(getEnd_minute() - getStart_minute()) > 30) {
+            currentTimeLabel.setColor(255, 0,0, 1f);
             currentTimeLabel.addAction(Actions.alpha(0));
             currentTimeLabel.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f),
                     Actions.fadeOut(1f))));
         }
-//        System.out.println(Math.abs(getStart_hour()-getEnd_hour()));
-
     }
 
     @Override
