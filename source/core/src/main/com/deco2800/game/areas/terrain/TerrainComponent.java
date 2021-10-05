@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.areas.MiniMap;
 import com.deco2800.game.rendering.components.RenderComponent;
 
 /**
@@ -19,20 +20,31 @@ public class TerrainComponent extends RenderComponent {
   private final TiledMap tiledMap;
   private final TiledMapRenderer tiledMapRenderer;
   private final OrthographicCamera camera;
+  private final OrthographicCamera miniMapCamera;
   private final TerrainOrientation orientation;
   private final float tileSize;
+  private final MiniMap miniMap;
 
-  public TerrainComponent(
-      OrthographicCamera camera,
-      TiledMap map,
-      TiledMapRenderer renderer,
-      TerrainOrientation orientation,
-      float tileSize) {
+
+  public TerrainComponent(OrthographicCamera camera, OrthographicCamera miniMapCamera, TiledMap map, TiledMapRenderer renderer,
+                          TerrainOrientation orientation, float tileSize) {
     this.camera = camera;
+    this.miniMapCamera = miniMapCamera;
     this.tiledMap = map;
     this.orientation = orientation;
     this.tileSize = tileSize;
     this.tiledMapRenderer = renderer;
+
+    miniMap = new MiniMap(this.tiledMap);
+  }
+
+  public void update(float x, float y){
+    camera.position.x = x;
+    camera.position.y = y;
+    camera.update();
+    tiledMapRenderer.setView(miniMapCamera);
+
+    miniMap.update(x, y);
   }
 
   public Vector2 tileToWorldPosition(GridPoint2 tilePos) {

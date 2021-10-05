@@ -6,14 +6,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class MiniMap {
 
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera = new OrthographicCamera();
+    private final OrthogonalTiledMapRenderer renderer;
+    private final OrthographicCamera camera = new OrthographicCamera();
 
     public MiniMap(TiledMap map) {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
-
         camera.setToOrtho(false, 30, 20);
-
         camera.zoom = 10;
     }
 
@@ -22,15 +20,10 @@ public class MiniMap {
     }
 
     public void update(float x, float y){
-
-        //Pixventure.instance.gameScreen.getCamera()
-
         camera.position.x = x;
         camera.position.y = y;
         camera.update();
-
         renderer.setView(camera.combined, x-15, y-15, 30, 30);
-        //renderer.setView(camera);
     }
 
     public void render(){

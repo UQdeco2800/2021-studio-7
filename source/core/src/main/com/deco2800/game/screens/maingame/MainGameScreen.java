@@ -39,7 +39,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  private Entity entityPlayer;
+  private final Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
 
   private final Renderer renderer;
@@ -47,10 +47,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
 
-  private final OrthographicCamera          camera = new OrthographicCamera();
-  private TiledMap                    map;
-  private OrthogonalTiledMapRenderer  maprenderer;
-  MiniMap miniMap;
+  private Renderer  maprenderer;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -71,6 +68,7 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
+
     loadAssets();
     createUI();
     ServiceLocator.getEntityService().register(mainGameEntity);
@@ -78,32 +76,13 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Initialising main game screen entities");
       TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
     mainGameArea = new HouseGameArea(terrainFactory);
-
     mainGameArea.create();
 
 
-    TiledMap map = new TmxMapLoader().load("maps/Map.tmx");
-
-    maprenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
-
-    OrthographicCamera camera = new OrthographicCamera();
-    camera.setToOrtho(false, 30, 20);
-
-    MiniMap miniMap = new MiniMap(map);
     entityPlayer = mainGameArea.player;
 
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-  }
-
-  public void update(float x, float y){
-    camera.position.x = x;
-    camera.position.y = y;
-    camera.update();
-    //renderer.setView(camera.combined, x - 10, y - 10, 20, 20);
-    maprenderer.setView(camera);
-
-    miniMap.update(x, y);
   }
 
   @Override

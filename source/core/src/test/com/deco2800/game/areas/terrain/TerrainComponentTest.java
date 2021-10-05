@@ -37,8 +37,9 @@ class TerrainComponentTest {
 
   private static TerrainComponent makeComponent(TerrainOrientation orientation, float tileSize) {
     OrthographicCamera camera = mock(OrthographicCamera.class);
+    OrthographicCamera miniMapCamera = mock(OrthographicCamera.class);
     TiledMap map = mock(TiledMap.class);
     TiledMapRenderer mapRenderer = mock(TiledMapRenderer.class);
-    return new TerrainComponent(camera, map, mapRenderer, orientation, tileSize);
+    return new TerrainComponent(camera, miniMapCamera, map, mapRenderer, orientation, tileSize);
   }
 }
