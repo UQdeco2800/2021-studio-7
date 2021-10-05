@@ -22,14 +22,14 @@ public class BedActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleBedHighlight(true);
+            toggleHighlight(true);
         }
     }
 
     @Override
     public void onCollisionEnd(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleBedHighlight(false);
+            toggleHighlight(false);
         }
     }
 
@@ -40,7 +40,8 @@ public class BedActions extends InteractionComponent {
         }
     }
 
-    private void toggleBedHighlight(boolean shouldHighlight) {
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.info("BED started collision with PLAYER, highlighting bed");
             animator.startAnimation("bed_highlight");

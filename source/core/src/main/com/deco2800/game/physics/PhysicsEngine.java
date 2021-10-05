@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.physics.raycast.AllHitCallback;
 import com.deco2800.game.physics.raycast.RaycastHit;
 import com.deco2800.game.physics.raycast.SingleHitCallback;
@@ -31,7 +33,9 @@ public class PhysicsEngine implements Disposable {
   private final AllHitCallback allHitCallback = new AllHitCallback();
   private float accumulator;
 
-  private Array<Body> bodiesScheduledForRemoval = new Array<>();
+  private final Array<Body> bodiesScheduledForRemoval = new Array<>();
+  private final Array<Entity> entitiesScheduledForHighlight = new Array<>();
+  private final Array<Entity> entitiesScheduledForUnhighlight = new Array<>();
 
   public PhysicsEngine() {
     this(new World(GRAVITY, true), ServiceLocator.getTimeSource());
@@ -65,10 +69,20 @@ public class PhysicsEngine implements Disposable {
       accumulator -= PHYSICS_TIMESTEP;
     }
 
-    for (Body body : bodiesScheduledForRemoval) {
+    for (Body body : new Array.ArrayIterator<>(bodiesScheduledForRemoval)) {
       destroyBody(body);
     }
     bodiesScheduledForRemoval.clear();
+
+    for (Entity entity : new Array.ArrayIterator<>(entitiesScheduledForHighlight)) {
+      entity.getComponent(InteractionComponent.class).toggleHighlight(true);
+    }
+    entitiesScheduledForHighlight.clear();
+
+    for (Entity entity : new Array.ArrayIterator<>(entitiesScheduledForUnhighlight)) {
+      entity.getComponent(InteractionComponent.class).toggleHighlight(false);
+    }
+    entitiesScheduledForUnhighlight.clear();
   }
 
   public Body createBody(BodyDef bodyDef) {
@@ -79,6 +93,16 @@ public class PhysicsEngine implements Disposable {
   public void scheduleBodyForRemoval(Body body) {
     logger.debug("Scheduling physics body {} for removal", body);
     bodiesScheduledForRemoval.add(body);
+  }
+
+  public void scheduleEntityForHighlight(Entity target) {
+    logger.debug("Scheduling entity {} for highlight", target);
+    entitiesScheduledForHighlight.add(target);
+  }
+
+  public void scheduleEntityForUnhighlight(Entity target) {
+    logger.debug("Scheduling entity {} for unhighlight", target);
+    entitiesScheduledForUnhighlight.add(target);
   }
 
   public void destroyBody(Body body) {

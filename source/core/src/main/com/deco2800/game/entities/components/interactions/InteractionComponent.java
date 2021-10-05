@@ -79,4 +79,7 @@ public class InteractionComponent extends Component implements Interactable {
 
     @Override
     public void onInteraction(Entity target) {}
+
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {}
 }

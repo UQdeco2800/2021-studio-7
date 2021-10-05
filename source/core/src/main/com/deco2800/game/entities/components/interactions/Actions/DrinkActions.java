@@ -24,14 +24,14 @@ public class DrinkActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleDrinkHighlight(true);
+            toggleHighlight(true);
         }
     }
 
     @Override
     public void onCollisionEnd(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleDrinkHighlight(false);
+            toggleHighlight(false);
         }
     }
 
@@ -46,11 +46,7 @@ public class DrinkActions extends InteractionComponent {
     }
 
     @Override
-    public void update() {
-        super.update();
-    }
-
-    private void toggleDrinkHighlight(boolean shouldHighlight) {
+    public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.info("DRINK started collision with PLAYER");
             animator.startAnimation("energy_highlight");
@@ -58,6 +54,11 @@ public class DrinkActions extends InteractionComponent {
             logger.info("DRINK ended collision with PLAYER");
             animator.startAnimation("energy");
         }
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 }
 

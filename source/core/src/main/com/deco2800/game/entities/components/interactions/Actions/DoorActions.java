@@ -22,14 +22,14 @@ public class DoorActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleDoorHighlight(true);
+            toggleHighlight(true);
         }
     }
 
     @Override
     public void onCollisionEnd(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleDoorHighlight(false);
+            toggleHighlight(false);
         }
     }
 
@@ -45,7 +45,8 @@ public class DoorActions extends InteractionComponent {
         }
     }
 
-    private void toggleDoorHighlight(boolean shouldHighlight) {
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.info("DOOR started collision with PLAYER, highlighting door");
             animator.startAnimation("Door_left_highlighted");

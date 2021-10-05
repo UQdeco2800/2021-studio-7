@@ -10,4 +10,5 @@ public interface Interactable {
     void onCollisionStart(Entity target);
     void onCollisionEnd(Entity target);
     void onInteraction(Entity target);
+    void toggleHighlight(boolean shouldHighlight);
 }

@@ -20,14 +20,14 @@ public class TvActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleTvHighlight(true);
+            toggleHighlight(true);
         }
     }
 
     @Override
     public void onCollisionEnd(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            toggleTvHighlight(false);
+            toggleHighlight(false);
         }
     }
 
@@ -40,7 +40,8 @@ public class TvActions extends InteractionComponent {
         }
     }
 
-    private void toggleTvHighlight(boolean shouldHighlight) {
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.info("TV started collision with PLAYER, tv animation");
             animator.startAnimation("TV_ONA");
