@@ -65,13 +65,13 @@ public class PlayerFactory {
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(inputComponent)
             .addComponent(new PlayerStatsDisplay())
+            .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new SurveyorComponent())
             .addComponent(new ScoreComponent(1000));
 
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
-    PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);
-    PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
+    PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
+    PhysicsUtils.setScaledHitbox(player, 1f, 1f);
     return player;
   }
 

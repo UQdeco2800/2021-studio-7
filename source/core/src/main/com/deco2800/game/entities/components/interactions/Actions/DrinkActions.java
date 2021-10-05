@@ -4,7 +4,6 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.physics.PhysicsLayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,23 +15,7 @@ public class DrinkActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        targetLayer = PhysicsLayer.PLAYER;
         animator.startAnimation("energy");
-    }
-
-
-    @Override
-    public void onCollisionStart(Entity target) {
-        if (target.getComponent(PlayerActions.class) != null) {
-            toggleHighlight(true);
-        }
-    }
-
-    @Override
-    public void onCollisionEnd(Entity target) {
-        if (target.getComponent(PlayerActions.class) != null) {
-            toggleHighlight(false);
-        }
     }
 
     @Override

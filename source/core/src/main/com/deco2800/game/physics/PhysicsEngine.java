@@ -34,8 +34,6 @@ public class PhysicsEngine implements Disposable {
   private float accumulator;
 
   private final Array<Body> bodiesScheduledForRemoval = new Array<>();
-  private final Array<Entity> entitiesScheduledForHighlight = new Array<>();
-  private final Array<Entity> entitiesScheduledForUnhighlight = new Array<>();
 
   public PhysicsEngine() {
     this(new World(GRAVITY, true), ServiceLocator.getTimeSource());
@@ -73,16 +71,6 @@ public class PhysicsEngine implements Disposable {
       destroyBody(body);
     }
     bodiesScheduledForRemoval.clear();
-
-    for (Entity entity : new Array.ArrayIterator<>(entitiesScheduledForHighlight)) {
-      entity.getComponent(InteractionComponent.class).toggleHighlight(true);
-    }
-    entitiesScheduledForHighlight.clear();
-
-    for (Entity entity : new Array.ArrayIterator<>(entitiesScheduledForUnhighlight)) {
-      entity.getComponent(InteractionComponent.class).toggleHighlight(false);
-    }
-    entitiesScheduledForUnhighlight.clear();
   }
 
   public Body createBody(BodyDef bodyDef) {
@@ -93,16 +81,6 @@ public class PhysicsEngine implements Disposable {
   public void scheduleBodyForRemoval(Body body) {
     logger.debug("Scheduling physics body {} for removal", body);
     bodiesScheduledForRemoval.add(body);
-  }
-
-  public void scheduleEntityForHighlight(Entity target) {
-    logger.debug("Scheduling entity {} for highlight", target);
-    entitiesScheduledForHighlight.add(target);
-  }
-
-  public void scheduleEntityForUnhighlight(Entity target) {
-    logger.debug("Scheduling entity {} for unhighlight", target);
-    entitiesScheduledForUnhighlight.add(target);
   }
 
   public void destroyBody(Body body) {

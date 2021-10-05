@@ -3,7 +3,6 @@ package com.deco2800.game.entities.components.interactions.Actions;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.physics.PhysicsLayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ public class BananaPeelActions extends InteractionComponent {
     @Override
     public void create(){
         super.create();
-        targetLayer = PhysicsLayer.PLAYER;
         animator.startAnimation("banana_peel");
     }
 

@@ -91,8 +91,7 @@ public class EventHandler {
    * @param eventName The name of the event to check for
    * @return True if there already exists an event under that name, false otherwise
    */
-  public boolean getListener(String eventName) {
-    //return listeners.getOrDefault(eventName, null) != null;
+  public boolean hasListener(String eventName) {
     return listeners.containsKey(eventName);
   }
 

@@ -29,6 +29,7 @@ public class InteractionComponent extends Component implements Interactable {
         entity.getEvents().addListener("collision_start", this::onCollisionStart);
         entity.getEvents().addListener("collision_end", this::onCollisionEnd);
         entity.getEvents().addListener("interaction", this::onInteraction);
+        entity.getEvents().addListener("toggle_highlight", this::toggleHighlight);
 
         targetLayer = PhysicsLayer.PLAYER;
 

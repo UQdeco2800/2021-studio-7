@@ -172,14 +172,6 @@ public class Entity {
     return (T) components.get(componentType.getId());
   }
 
-  /*public <T extends Component> T getSubComponent(Class<T> type) {
-    for (IntMap.Entry<Component> entry : new IntMap.Entries<Component>(components)) {
-      if (type.isAssignableFrom(entry.value.getClass())) {
-
-      }
-    }
-  }*/
-
   /**
    * Add a component to the entity. Can only be called before the entity is registered in the world.
    *

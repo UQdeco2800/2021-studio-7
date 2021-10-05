@@ -4,7 +4,6 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ public class MumActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        targetLayer = PhysicsLayer.PLAYER;
         animator.startAnimation("standing_south");
     }
 

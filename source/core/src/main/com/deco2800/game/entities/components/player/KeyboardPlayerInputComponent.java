@@ -54,8 +54,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(true);
-                //entity.getEvents().trigger("interaction", entity);
+                entity.getEvents().trigger("key_e", true);
                 return true;
             default:
                 return false;
@@ -92,7 +91,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerWalkEvent();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(false);
+                entity.getEvents().trigger("key_e", false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
