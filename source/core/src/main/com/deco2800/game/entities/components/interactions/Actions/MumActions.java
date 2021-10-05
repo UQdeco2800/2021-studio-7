@@ -25,7 +25,7 @@ public class MumActions extends InteractionComponent {
     }
 
     private void triggerLoseCondition() {
-        logger.info("MUM started collision with PLAYER, triggering lose condition");
+        logger.debug("MUM started collision with PLAYER, triggering lose condition");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
                 .getMainGameEntity().getEvents().trigger("loss_caught");
     }

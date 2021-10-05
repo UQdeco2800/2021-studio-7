@@ -21,7 +21,7 @@ public class DrinkActions extends InteractionComponent {
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("PLAYER interacted with DRINK, increasing player stamina");
+            logger.debug("PLAYER interacted with DRINK, increasing player stamina");
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             //add time restriction
@@ -31,10 +31,10 @@ public class DrinkActions extends InteractionComponent {
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
-            logger.info("DRINK started collision with PLAYER");
+            logger.debug("DRINK started collision with PLAYER");
             animator.startAnimation("energy_highlight");
         } else {
-            logger.info("DRINK ended collision with PLAYER");
+            logger.debug("DRINK ended collision with PLAYER");
             animator.startAnimation("energy");
         }
     }

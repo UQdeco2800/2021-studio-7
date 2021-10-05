@@ -21,7 +21,7 @@ public class DoorActions extends InteractionComponent {
     public void onInteraction(Entity target) {
         String string = "You opened a door! That's pretty cool.";
         if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("PLAYER interacted with DOOR, triggering door animation");
+            logger.debug("PLAYER interacted with DOOR, triggering door animation");
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             //animator.startAnimation("Door_left_highlighted_d");
@@ -32,10 +32,10 @@ public class DoorActions extends InteractionComponent {
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
-            logger.info("DOOR started collision with PLAYER, highlighting door");
+            logger.debug("DOOR started collision with PLAYER, highlighting door");
             animator.startAnimation("Door_left_highlighted");
         } else {
-            logger.info("DOOR ended collision with PLAYER, un-highlighting door");
+            logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
             animator.startAnimation("door_close_left");
         }
     }

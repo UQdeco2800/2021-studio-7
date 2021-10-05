@@ -27,16 +27,16 @@ public class BedActions extends InteractionComponent {
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
-            logger.info("BED started collision with PLAYER, highlighting bed");
+            logger.debug("BED started collision with PLAYER, highlighting bed");
             animator.startAnimation("bed_highlight");
         } else {
-            logger.info("BED ended collision with PLAYER, un-highlighting bed");
+            logger.debug("BED ended collision with PLAYER, un-highlighting bed");
             animator.startAnimation("bed");
         }
     }
 
     private void triggerWinCondition() {
-        logger.info("PLAYER interacted with BED, triggering win");
+        logger.debug("PLAYER interacted with BED, triggering win");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
                 .getMainGameEntity().getEvents().trigger("win_default");
     }

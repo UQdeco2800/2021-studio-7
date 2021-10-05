@@ -27,7 +27,7 @@ public class TvActions extends InteractionComponent {
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
-            logger.info("TV started collision with PLAYER, tv animation");
+            logger.debug("TV started collision with PLAYER, tv animation");
             animator.startAnimation("TV_ONA");
             animator.startAnimation("TV_ONB");
             animator.startAnimation("TV_ONC");

@@ -33,11 +33,11 @@ public class BananaPeelActions extends InteractionComponent {
 
     private void toggleSlipPlayer(Entity target, boolean shouldSlip) {
         if (shouldSlip) {
-            logger.info("PEEL started collision with PLAYER, executing task and removing object");
+            logger.debug("PEEL started collision with PLAYER, executing task and removing object");
             // Play some sort of slip animation
             // Alter player Vector2
         } else {
-            logger.info("PEEL ended collision with PLAYER");
+            logger.debug("PEEL ended collision with PLAYER");
             // Something
         }
     }
