@@ -1,0 +1,160 @@
+{
+  defaultInteriorTile: {
+    // Used for tile region specification and null texture declarations on grid
+    class: com.deco2800.game.maps.terrain.TerrainFactory
+    method: createTile
+    assets: [images/tiles/iso/iso_floor_1.png]
+  }
+  defaultInteriorWall: {
+    // Used for wall generation in hallways
+    class: com.deco2800.game.entities.factories.ObstacleFactory
+    method: createWall
+    assets: [images/objects/walls/3.png]
+  }
+  tileMap: {
+    // Grass tile. Can specify multiple textures and their chance to spawn
+    _: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createTile
+      assets: [images/tiles/iso/iso_wall_1_left.png]
+    }
+  }
+  entityMap: {
+    // Exterior wall. Can specify multiple textures and their chance to spawn
+    .: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createWall
+      assets: [images/objects/walls/wall.png]
+    }
+    // Creates a horizontally-facing door. In isometric view, this is northwest to southeast
+    -: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createDoor
+      assets: [images/objects/door/door_animationL.atlas]
+    }
+    // Creates a vertically-facing door. In isometric view, this is northeast to southwest
+    |: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createDoor
+      assets: [images/objects/door/door_animationL.atlas]
+    }
+    /* No entity. This overrides any entities relative to the interior's position
+    *: {
+      class: null
+      method: null
+      assets: []
+    } */
+  }
+  roomMap: {
+    A: {
+      type: bathroom
+      offset: [13, 22]
+      dimensions: [6, 6]
+    }
+    B: {
+      type: bedroom
+      offset: [19, 7]
+      dimensions: [9, 9]
+    }
+    C: {
+      type: dining
+      offset: [19, 16]
+      dimensions: [12, 6]
+    }
+    D: {
+      type: bedroom
+      offset: [19, 28]
+      dimensions: [9, 9]
+    }
+    E: {
+      type: bedroom
+      offset: [28, 3]
+      dimensions: [9, 9]
+    }
+    F: {
+      type: kitchen
+      offset: [28, 28]
+      dimensions: [6, 9]
+    }
+    G: {
+      type: living
+      offset: [28, 16]
+      dimensions: [12, 9]
+    }
+    H: {
+      type: laundry
+      offset: [28, 34]
+      dimensions: [5, 5]
+    }
+    I: {
+      type: bedroom
+      offset: [37, 7]
+      dimensions: [9, 9]
+    }
+    J: {
+      type: bathroom
+      offset: [34, 16]
+      dimensions: [6, 6]
+    }
+    K: {
+      type: front_foyer
+      offset: [33, 22]
+      dimensions: [5, 5]
+    }
+    L: {
+      type: garage
+      offset: [38, 27]
+      dimensions: [10, 10]
+    }
+    M: {
+      type: hallway
+      offset: [28, 12]
+      dimensions: [4, 9]
+    }
+  }
+  floorGrid: [
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, A, A, A, A, A, A, ., _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, A, A, A, A, A, A, ., _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, A, A, A, A, A, A, ., _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, ., _, _, _, _, _, A, A, A, A, A, A, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, ., _, _, _, _, _, A, A, A, A, A, A, -, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, ., _, _, _, _, _, A, A, A, A, A, A, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, D, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, B, B, B, B, B, B, B, B, B, C, C, C, C, C, C, C, C, C, C, C, C, -, D, D, D, D, D, D, D, D, ., _, _, _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, |, M, G, *, *, *, *, *, *, *, *, *, *, *, F, F, F, F, F, F, ., ., ., ., _, _, _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, G, G, G, G, G, G, G, G, G, G, G, G, F, F, F, F, F, F, ., _, _, _, _, _, _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, G, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, ., _, _, _, _, _, _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, *, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, ., _, _, _, _, _, _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, *, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, H, H, H, H, H, ., _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, *, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, H, H, H, H, H, ., _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, *, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, H, H, H, H, H, ., _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, -, M, M, M, G, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, H, H, H, H, H, ., _, _, _],
+    [_, _, _, E, E, E, E, E, E, E, E, E, M, M, M, M, G, G, G, G, G, G, G, G, G, G, G, G, *, F, F, F, F, F, -, H, H, H, H, ., _, _, _],
+    [_, _, _, ., ., ., ., I, I, I, I, I, I, I, |, I, J, |, J, J, J, J, K, *, *, *, *, L, L, L, L, L, L, L, L, L, L, ., ., ., _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, J, J, J, J, J, J, K, K, K, K, K, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, J, J, J, J, J, J, K, K, K, K, K, -, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, J, J, J, J, J, J, K, K, K, K, K, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, J, J, J, J, J, J, K, K, K, K, K, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, J, J, J, J, J, J, ., ., |, ., ., L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, ., ., ., ., ., ., ., _, _, _, _, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, ., _, _, _, _, _, _, _, _, _, _, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, I, I, I, I, I, I, I, I, I, ., _, _, _, _, _, _, _, _, _, _, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, ., ., ., ., ., ., ., ., ., ., _, _, _, _, _, _, _, _, _, _, L, L, L, L, L, L, L, L, L, L, ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, ., ., ., ., ., ., ., ., ., ., ., _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
+  ]
+}
