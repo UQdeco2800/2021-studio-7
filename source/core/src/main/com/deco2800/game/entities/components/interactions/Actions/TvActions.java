@@ -18,7 +18,7 @@ public class TvActions extends InteractionComponent {
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            logger.info("PLAYER interacted with TV, triggering TV animation");
+            logger.debug("PLAYER interacted with TV, triggering TV animation");
             animator.startAnimation("TV_offL");
             animator.startAnimation("TV_offL2");
         }
@@ -32,7 +32,7 @@ public class TvActions extends InteractionComponent {
             animator.startAnimation("TV_ONB");
             animator.startAnimation("TV_ONC");
         } else {
-            logger.info("TV ended collision with PLAYER, tv animation");
+            logger.debug("TV ended collision with PLAYER, tv animation");
             animator.startAnimation("TV_ONA");
             animator.startAnimation("TV_ONB");
             animator.startAnimation("TV_ONC");
