@@ -229,13 +229,11 @@ public class MainMenuDisplay extends UIComponent {
         try {
             writer = new FileWriter("configs/leaderboard.txt",true);
             String username;
-
             if (this.txtUsername.getText().length()<2){
                 username = "DirtyDefault"+ getRandomNum();
             }else{
                 username = this.txtUsername.getText();
             }
-
             StringBuilder sb = new StringBuilder();
             sb.append("\n");
             sb.append(username);
