@@ -11,9 +11,8 @@ Retroactive is an isometric, temporal racing game, delivered by the students
    to catch you; and if she does? Well, it may as well be the end of the world.*
 
 Delve into the rich and nostalgic world of 80s curfew to navigate obstacles
-, adolescence, and forgotten chores to get to bed before your Mum
- figures out you've
- stayed up late on a school night.
+, adolescence, and forgotten chores to get to bed before your Mum figures out
+ you've stayed up late on a school night.
 
 ###Objectives
 Retroactive challenges players to go as many nights as possible without being
