@@ -74,7 +74,7 @@ public class Room implements Json.Serializable {
      * Queries for a list of JSON files in a pre-defined directory. Selects one at random
      * and initialises the room interior plan.
      */
-    public void randomiseInterior() {
+    private void randomiseInterior() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.DIRECTORY.concat(type));
 
         Interior randomInterior;
