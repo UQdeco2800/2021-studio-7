@@ -77,7 +77,7 @@ public class MainGameScreen extends ScreenAdapter {
     home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
     home.create(renderer.getCamera(), miniMapRenderer.getCamera());
-    miniMapRenderer.getCamera().getEntity().setPosition(50,50);
+    miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
   }
 

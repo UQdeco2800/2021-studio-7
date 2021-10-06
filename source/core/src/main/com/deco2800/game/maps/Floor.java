@@ -93,7 +93,8 @@ public class Floor extends GameArea implements Json.Serializable {
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, 1f);
+        TiledMapRenderer miniMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
+        terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
