@@ -13,7 +13,7 @@ public class PhysicsUtils {
     Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
     entity
         .getComponent(ColliderComponent.class)
-        .setAsBoxAligned(
+        .setAsIsoAligned(
             boundingBox, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
   }
 
@@ -22,7 +22,7 @@ public class PhysicsUtils {
     Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
     entity
             .getComponent(HitboxComponent.class)
-            .setAsBoxAligned(
+            .setAsIsoAligned(
                     boundingBox, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
   }
 

@@ -4,7 +4,16 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 public class RandomUtils {
+
+  private static final Random seed = new Random();
+
+  public static Random getSeed() {
+    return seed;
+  }
+
   public static Vector2 random(Vector2 start, Vector2 end) {
     return new Vector2(MathUtils.random(start.x, end.x), MathUtils.random(start.y, end.y));
   }

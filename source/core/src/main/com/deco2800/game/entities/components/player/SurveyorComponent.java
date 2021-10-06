@@ -5,7 +5,9 @@ import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
+import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.raycast.RaycastHit;
 
 public class SurveyorComponent extends Component {
