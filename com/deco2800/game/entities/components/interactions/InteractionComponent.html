@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -103,7 +103,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="Actions/BananaPeelActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BananaPeelActions</a></code>, <code><a href="Actions/BedActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BedActions</a></code>, <code><a href="Actions/DoorActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DoorActions</a></code>, <code><a href="Actions/DrinkActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DrinkActions</a></code>, <code><a href="Actions/MumActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">MumActions</a></code>, <code><a href="../player/PlayerActions.html" title="class in com.deco2800.game.entities.components.player">PlayerActions</a></code>, <code><a href="Actions/TvActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">TvActions</a></code></dd>
+<dd><code><a href="Actions/BananaPeelActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BananaPeelActions</a></code>, <code><a href="Actions/BedActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BedActions</a></code>, <code><a href="Actions/DoorActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DoorActions</a></code>, <code><a href="Actions/DrinkActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DrinkActions</a></code>, <code><a href="../player/InteractionControllerComponent.html" title="class in com.deco2800.game.entities.components.player">InteractionControllerComponent</a></code>, <code><a href="Actions/MumActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">MumActions</a></code>, <code><a href="Actions/TvActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">TvActions</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">InteractionComponent</span>
@@ -209,26 +209,58 @@ implements <a href="Interactable.html" title="interface in com.deco2800.game.ent
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionEnd</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd</a></span>&#8203;(<a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></th>
+<td class="colLast">
+<div class="block">Called when a valid collision end is detected from one of the parent entity's
+ fixtures and one of the target entity's fixtures</div>
+</td>
 </tr>
 <tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionStart</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart</a></span>&#8203;(<a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></th>
+<td class="colLast">
+<div class="block">Called when a valid collision start is detected from one of the parent entity's
+ fixtures and one of the target entity's fixtures</div>
+</td>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onInteraction(com.deco2800.game.entities.Entity)">onInteraction</a></span>&#8203;(<a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Called when an interaction should happen between the parent entity and the
+ target entity</div>
+</td>
 </tr>
 <tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPreCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionEnd</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</code></th>
+<td class="colLast">
+<div class="block">Responsible for cleaner onCollisionEnd method signature and dependencies</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPreCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionStart</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</code></th>
+<td class="colLast">
+<div class="block">Responsible for cleaner onCollisionStart method signature and dependencies</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preCollisionCheck(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">preCollisionCheck</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Performs a check on whether the collision is valid for parsing.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toggleHighlight(boolean)">toggleHighlight</a></span>&#8203;(boolean&nbsp;shouldHighlight)</code></th>
+<td class="colLast">
+<div class="block">Called when the object is requested to toggle its highlight.</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -319,31 +351,78 @@ implements <a href="Interactable.html" title="interface in com.deco2800.game.ent
 <h3><a id="preCollisionCheck(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">preCollisionCheck</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">preCollisionCheck</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#preCollisionCheck(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">Interactable</a></code></span></div>
+<div class="block">Performs a check on whether the collision is valid for parsing.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Interactable.html#preCollisionCheck(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">preCollisionCheck</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>me</code> - should be owned by parent entity</dd>
+<dd><code>other</code> - owned by target entity</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>target entity if valid, otherwise null</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="onCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionStart</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onCollisionStart</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
+<h3><a id="onPreCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionStart</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onPreCollisionStart</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#onPreCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">Interactable</a></code></span></div>
+<div class="block">Responsible for cleaner onCollisionStart method signature and dependencies</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Interactable.html#onCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionStart</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dd><code><a href="Interactable.html#onPreCollisionStart(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionStart</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>me</code> - should be owned by parent entity</dd>
+<dd><code>other</code> - owned by target entity</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="onCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionEnd</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onCollisionEnd</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
+<h3><a id="onPreCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionEnd</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onPreCollisionEnd</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;me,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;other)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#onPreCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">Interactable</a></code></span></div>
+<div class="block">Responsible for cleaner onCollisionEnd method signature and dependencies</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Interactable.html#onCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onCollisionEnd</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dd><code><a href="Interactable.html#onPreCollisionEnd(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.physics.box2d.Fixture)">onPreCollisionEnd</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>me</code> - should be owned by parent entity</dd>
+<dd><code>other</code> - owned by target entity</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onCollisionStart</span>&#8203;(<span class="arguments"><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#onCollisionStart(com.deco2800.game.entities.Entity)">Interactable</a></code></span></div>
+<div class="block">Called when a valid collision start is detected from one of the parent entity's
+ fixtures and one of the target entity's fixtures</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Interactable.html#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - entity that has started colliding with the parent entity</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onCollisionEnd</span>&#8203;(<span class="arguments"><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#onCollisionEnd(com.deco2800.game.entities.Entity)">Interactable</a></code></span></div>
+<div class="block">Called when a valid collision end is detected from one of the parent entity's
+ fixtures and one of the target entity's fixtures</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Interactable.html#onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - entity that has ended colliding with the parent entity</dd>
 </dl>
 </section>
 </li>
@@ -351,9 +430,30 @@ implements <a href="Interactable.html" title="interface in com.deco2800.game.ent
 <section class="detail">
 <h3><a id="onInteraction(com.deco2800.game.entities.Entity)">onInteraction</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">onInteraction</span>&#8203;(<span class="arguments"><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#onInteraction(com.deco2800.game.entities.Entity)">Interactable</a></code></span></div>
+<div class="block">Called when an interaction should happen between the parent entity and the
+ target entity</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Interactable.html#onInteraction(com.deco2800.game.entities.Entity)">onInteraction</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - entity that has requested interaction with the parent entity</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="toggleHighlight(boolean)">toggleHighlight</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">toggleHighlight</span>&#8203;(<span class="arguments">boolean&nbsp;shouldHighlight)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Interactable.html#toggleHighlight(boolean)">Interactable</a></code></span></div>
+<div class="block">Called when the object is requested to toggle its highlight. May be extended for
+ multiplayer by checking that the list of colliding player entities is empty.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="Interactable.html#toggleHighlight(boolean)">toggleHighlight</a></code>&nbsp;in interface&nbsp;<code><a href="Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>shouldHighlight</code> - whether the render component should change to a
+                        highlighted variation or not</dd>
 </dl>
 </section>
 </li>
