@@ -109,7 +109,7 @@ public class MainGameChoresListDisplay extends UIComponent {
         //(currentTime - startTime)%10 == 0 &&
         if (visible && charCount < text.length()) {
             currentText += text.charAt(charCount);
-            displayText.setText(currentText);
+            displayText.setText(text);
             charCount += 1;
         }
 
