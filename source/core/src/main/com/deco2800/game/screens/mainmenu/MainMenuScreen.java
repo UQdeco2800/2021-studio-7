@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -30,6 +31,9 @@ public class MainMenuScreen extends ScreenAdapter {
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
   };
+  //add background music into the game
+  private static final String[] backgroundMusic = {"sounds/backgroundMusic-EP" +
+          ".mp3"};
 
   public MainMenuScreen() {
     logger.debug("Initialising main menu screen services");
@@ -43,8 +47,20 @@ public class MainMenuScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    playMusic();
   }
 
+  /**
+   * Play the background Music
+   */
+  private void playMusic() {
+    Music music =
+            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+                    Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
+  }
   @Override
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
@@ -93,6 +109,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+    resourceService.loadMusic(backgroundMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -100,6 +117,7 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
+    resourceService.unloadAssets(backgroundMusic);
   }
 
   /**
