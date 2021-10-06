@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -202,6 +202,72 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </td>
 </tr>
 <tr class="altColor" id="i4">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnd_hour()">getEnd_hour</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get end hour</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEnd_minute()">getEnd_minute</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get end minute now</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStart_hour()">getStart_hour</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get start hour now</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStart_minute()">getStart_minute</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get start minute now</div>
+</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnd_hour(int)">setEnd_hour</a></span>&#8203;(int&nbsp;hr)</code></th>
+<td class="colLast">
+<div class="block">Set up end hour</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEnd_minute(int)">setEnd_minute</a></span>&#8203;(int&nbsp;min)</code></th>
+<td class="colLast">
+<div class="block">Set up end minute</div>
+</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setStart_hour(int)">setStart_hour</a></span>&#8203;(int&nbsp;hr)</code></th>
+<td class="colLast">
+<div class="block">Set up start hour</div>
+</td>
+</tr>
+<tr class="rowColor" id="i11">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setStart_minute(int)">setStart_minute</a></span>&#8203;(int&nbsp;min)</code></th>
+<td class="colLast">
+<div class="block">Set up start minute</div>
+</td>
+</tr>
+<tr class="altColor" id="i12">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimer(int,int,int,int)">setTimer</a></span>&#8203;(int&nbsp;hr1,
+int&nbsp;min1,
+int&nbsp;hr2,
+int&nbsp;min2)</code></th>
+<td class="colLast">
+<div class="block">Provide an interface to set up main game screen clock time</div>
+</td>
+</tr>
+<tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -209,7 +275,7 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
  and stop when time reach 2 pm and trigger time loss event</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i14">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTimeUI()">updateTimeUI</a></span>()</code></th>
 <td class="colLast">
@@ -313,6 +379,79 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>batch</code> - Batch to render to.</dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setTimer(int,int,int,int)">setTimer</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTimer</span>&#8203;(<span class="arguments">int&nbsp;hr1,
+int&nbsp;min1,
+int&nbsp;hr2,
+int&nbsp;min2)</span></div>
+<div class="block">Provide an interface to set up main game screen clock time</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>hr1</code> - Start hour time for this level's game</dd>
+<dd><code>hr2</code> - End time for this level's game</dd>
+<dd><code>min1</code> - Start min for this level's game</dd>
+<dd><code>min2</code> - End min for this level's game</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setStart_hour(int)">setStart_hour</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setStart_hour</span>&#8203;(<span class="arguments">int&nbsp;hr)</span></div>
+<div class="block">Set up start hour</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getStart_hour()">getStart_hour</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getStart_hour</span>()</div>
+<div class="block">Get start hour now</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setStart_minute(int)">setStart_minute</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setStart_minute</span>&#8203;(<span class="arguments">int&nbsp;min)</span></div>
+<div class="block">Set up start minute</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getStart_minute()">getStart_minute</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getStart_minute</span>()</div>
+<div class="block">Get start minute now</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setEnd_hour(int)">setEnd_hour</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setEnd_hour</span>&#8203;(<span class="arguments">int&nbsp;hr)</span></div>
+<div class="block">Set up end hour</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getEnd_hour()">getEnd_hour</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getEnd_hour</span>()</div>
+<div class="block">Get end hour</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setEnd_minute(int)">setEnd_minute</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setEnd_minute</span>&#8203;(<span class="arguments">int&nbsp;min)</span></div>
+<div class="block">Set up end minute</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getEnd_minute()">getEnd_minute</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getEnd_minute</span>()</div>
+<div class="block">Get end minute now</div>
 </section>
 </li>
 <li class="blockList">
