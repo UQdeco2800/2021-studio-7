@@ -67,6 +67,8 @@ public class MainGameScreen extends ScreenAdapter {
   public static final int GAME_RESUMING = 2;
   private int gameStatus = GAME_RUNNING;
 
+  private boolean builtPauseMenu = false;
+
   private Stage pauseStage;
 
   public MainGameScreen() {
@@ -114,6 +116,7 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
+    final Table table = new Table();
     if (gameStatus == GAME_PAUSED) {
 //      logger.debug("Loading pause screen assets");
 //      ResourceService resourceService = ServiceLocator.getResourceService();
@@ -255,90 +258,105 @@ public class MainGameScreen extends ScreenAdapter {
 //      ServiceLocator.getRenderService().getStage().addActor(table);
 
       // Stage method
-      pauseStage = new Stage();
+//      pauseStage = new Stage();
 
-      ResourceService resourceService = ServiceLocator.getResourceService();
-      resourceService.loadTextures(pauseGameTextures);
-      ServiceLocator.getResourceService().loadAll();
+      if (builtPauseMenu == false) {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(pauseGameTextures);
+        ServiceLocator.getResourceService().loadAll();
 
-      //  private Group pauseGroup;
-      Table table = new Table();
-      table.setFillParent(true);
-//      Image bg = new Image(ServiceLocator.getResourceService()
-//              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
+        //      Table table = new Table();
+        table.setFillParent(true);
+        //      Image bg = new Image(ServiceLocator.getResourceService()
+        //              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
 
-      TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
-      TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
-      TextButton mainMenuBtn = new TextButton("Main Menu", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
-      TextButton settingsBtn = new TextButton("Settings", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton mainMenuBtn = new TextButton("Main Menu", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton settingsBtn = new TextButton("Settings", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
 
-//      mainGameEntity.addComponent(new InputDecorator(pauseStage) {
-//      })
+        //      mainGameEntity.addComponent(new InputDecorator(pauseStage) {
+        //      })
 
-      // Trigger resume game
-      resumeBtn.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                  logger.debug("Resume button clicked");
-                  mainGameEntity.getEvents().trigger("resume");
-                }
-              });
+        // Trigger resume game
+        resumeBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Resume button clicked");
+                    mainGameEntity.getEvents().trigger("resume");
+                  }
+                });
 
-      // Trigger restart game
-      restartBtn.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                  logger.debug("Restart button clicked");
-                  mainGameEntity.getEvents().trigger("restart");
-                }
-              });
+        // Trigger restart game
+        restartBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Restart button clicked");
+                    mainGameEntity.getEvents().trigger("restart");
+                  }
+                });
 
-      // Trigger to go to settings menu
-      settingsBtn.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                  logger.debug("Settings button clicked");
-                  mainGameEntity.getEvents().trigger("settings");
-                }
-              });
+        // Trigger to go to settings menu
+        settingsBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Settings button clicked");
+                    mainGameEntity.getEvents().trigger("settings");
+                  }
+                });
 
-      // Trigger to go to main menu
-      mainMenuBtn.addListener(
-              new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                  logger.debug("Main menu button clicked");
-                  mainGameEntity.getEvents().trigger("main_menu");
-                }
-              });
+        // Trigger to go to main menu
+        mainMenuBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Main menu button clicked");
+                    mainGameEntity.getEvents().trigger("main_menu");
+                  }
+                });
 
-//      table.add(bg);
-//      table.row();
-      table.add(resumeBtn).padTop(50f);
-      table.row();
-      table.add(restartBtn).padTop(15f);
-      table.row();
-      table.add(settingsBtn).padTop(15f);
-      table.row();
-      table.add(mainMenuBtn).padTop(15f);
-//      table.setName("Pause Menu");
-//      ServiceLocator.getRenderService().getStage().addActor(table);
-      pauseStage.addActor(table);
-//      ServiceLocator.getRenderService().getStage().act(delta);
+        //      table.add(bg);
+        //      table.row();
+        table.add(resumeBtn).padTop(50f);
+        table.row();
+        table.add(restartBtn).padTop(15f);
+        table.row();
+        table.add(settingsBtn).padTop(15f);
+        table.row();
+        table.add(mainMenuBtn).padTop(15f);
+        table.setName("Pause Menu");
+        ServiceLocator.getRenderService().getStage().addActor(table);
+        //      pauseStage.addActor(table);
+        //      ServiceLocator.getRenderService().getStage().act(delta);
+        //      renderer.render();
+        ServiceLocator.getRenderService().getStage().draw();
+        //      pauseStage.draw();
+        //      pauseStage.act();
+        builtPauseMenu = true;
+      }
       renderer.render();
-//      ServiceLocator.getRenderService().getStage().draw();
-      pauseStage.draw();
-//      pauseStage.act();
+
 
     } else if (gameStatus == GAME_RESUMING) {
       gameStatus = GAME_RUNNING;
+      Actor actorToRemove = new Actor();
+      for (Actor actor : ServiceLocator.getRenderService().getStage().getActors()) {
+        if (actor.getName() != null) {
+          actorToRemove = actor;
+//          ServiceLocator.getRenderService().getStage().unfocus(actor);
+//          actor.remove();
+        }
+      }
+
+      actorToRemove.remove();
+//      table.clear();
       renderer.render();
-      pauseStage.dispose();
+      builtPauseMenu = false;
+//      pauseStage.dispose();
 //      ServiceLocator.getRenderService().getStage().dispose();
-//      ServiceLocator.getRenderService().getStage().clear();
     } else {
       PLAYER_POSITION = entityPlayer.getPosition();
       renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
