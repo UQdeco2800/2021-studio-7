@@ -84,10 +84,10 @@
             method: createBananaPeel
             assets: [images/objects/banana_peel/banana.atlas]
           }
-          M: {
-            class: com.deco2800.game.entities.factories.NPCFactory
-            method: createMum
-            assets: [images/characters/mum_01/mum_01.atlas]
+          U: {
+            class: com.deco2800.game.entities.factories.ObstacleFactory
+            method: createPlaceableBox
+            assets: [images/objects/box/box.atlas]
           }
         }
         tileGrid: [
@@ -112,6 +112,7 @@
           [W, ., ., ., ., ., ., ., ., .],
           [W, B, ., D, ., T, ., b, ., .],
           [W, ., ., ., ., ., ., ., ., .],
+          [W, ., U, ., ., ., ., ., ., .],
           [W, ., ., ., ., ., ., ., ., .],
           [W, ., ., ., ., ., ., ., ., .],
           [W, ., ., ., ., ., ., ., ., .],
@@ -121,8 +122,7 @@
           [W, ., ., ., ., ., ., ., ., .],
           [W, ., ., ., ., ., ., ., ., .],
           [W, ., ., ., ., ., ., ., ., .],
-          [W, ., ., ., ., ., ., ., ., .],
-          [W, ., ., ., ., ., ., ., ., M]
+          [W, ., ., ., ., ., ., ., ., .]
         ]
       }
     }
