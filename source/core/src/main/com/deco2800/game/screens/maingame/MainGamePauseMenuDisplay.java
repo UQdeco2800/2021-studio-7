@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.pausemenu;
+package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,16 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.mainmenu.MainMenuDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.invoke.SerializedLambda;
-import java.security.Provider;
-
-public class PauseMenuDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(PauseMenuDisplay.class);
+public class MainGamePauseMenuDisplay extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(MainGamePauseMenuDisplay.class);
     private Table table;
     private static final float Z_INDEX = 2f;
 

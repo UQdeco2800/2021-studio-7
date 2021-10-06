@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.maingame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,10 +19,19 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.ui.components.UIComponent;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.*;
+import java.util.stream.StreamSupport;
 
 /**
  * The game screen containing the main game.
@@ -35,12 +45,27 @@ public class MainGameScreen extends ScreenAdapter {
    private static final boolean usingTestingFloorPlan = false;
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
+  private static final String[] pauseGameTextures = {
+          "images/ui/screens/paused_screen.png"
+  };
+  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  private Entity entityPlayer;
+  private Vector2 PLAYER_POSITION;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   private final Home home;
   private final Entity mainGameEntity = new Entity();
   private Entity player;
+  private final Entity pauseGameEntity = new Entity();
+
+
+  public static final int GAME_RUNNING = 0;
+  public static final int GAME_PAUSED = 1;
+  public static final int GAME_RESUMING = 2;
+  private int gameStatus = GAME_RUNNING;
+
+  private boolean builtPauseMenu = false;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -75,10 +100,100 @@ public class MainGameScreen extends ScreenAdapter {
 
   @Override
   public void render(float delta) {
-    renderer.getCamera().getEntity().setPosition(player.getPosition());
-    physicsEngine.update();
-    ServiceLocator.getEntityService().update();
-    renderer.render();
+    final Table table = new Table();
+    if (gameStatus == GAME_PAUSED) {
+      if (!builtPauseMenu) {
+        ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTextures(pauseGameTextures);
+        ServiceLocator.getResourceService().loadAll();
+
+        //      Table table = new Table();
+        table.setFillParent(true);
+        //      Image bg = new Image(ServiceLocator.getResourceService()
+        //              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
+
+        TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton mainMenuBtn = new TextButton("Main Menu", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+        TextButton settingsBtn = new TextButton("Settings", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
+
+        // Trigger resume game
+        resumeBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Resume button clicked");
+                    mainGameEntity.getEvents().trigger("resume");
+                  }
+                });
+
+        // Trigger restart game
+        restartBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Restart button clicked");
+                    mainGameEntity.getEvents().trigger("restart");
+                  }
+                });
+
+        // Trigger to go to settings menu
+        settingsBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Settings button clicked");
+                    mainGameEntity.getEvents().trigger("settings");
+                  }
+                });
+
+        // Trigger to go to main menu
+        mainMenuBtn.addListener(
+                new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent event, Actor actor) {
+                    logger.debug("Main menu button clicked");
+                    mainGameEntity.getEvents().trigger("main_menu");
+                  }
+                });
+
+        //      table.add(bg);
+        //      table.row();
+        table.add(resumeBtn).padTop(50f);
+        table.row();
+        table.add(restartBtn).padTop(15f);
+        table.row();
+        table.add(settingsBtn).padTop(15f);
+        table.row();
+        table.add(mainMenuBtn).padTop(15f);
+        table.setName("Pause Menu");
+        ServiceLocator.getRenderService().getStage().addActor(table);
+        ServiceLocator.getRenderService().getStage().draw();
+        builtPauseMenu = true;
+      }
+      renderer.render();
+
+
+    } else if (gameStatus == GAME_RESUMING) {
+      gameStatus = GAME_RUNNING;
+      Actor actorToRemove = new Actor();
+      for (Actor actor : ServiceLocator.getRenderService().getStage().getActors()) {
+        if (actor.getName() != null) {
+          actorToRemove = actor;
+
+        }
+      }
+
+      actorToRemove.remove();
+      renderer.render();
+      builtPauseMenu = false;
+    } else {
+      PLAYER_POSITION = entityPlayer.getPosition();
+      renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+      physicsEngine.update();
+      ServiceLocator.getEntityService().update();
+      renderer.render();
+    }
   }
 
   @Override
@@ -90,11 +205,13 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    gameStatus = GAME_PAUSED;
   }
 
   @Override
   public void resume() {
     logger.info("Game resumed");
+    gameStatus = GAME_RESUMING;
   }
 
   @Override
@@ -153,6 +270,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
+//            .addComponent(new MainGamePauseMenuDisplay())
 //        .addComponent(new MainGameWinLossTestingDisplay())
 //        .addComponent(new MainGameTextDisplay())
         .addComponent(new Terminal())

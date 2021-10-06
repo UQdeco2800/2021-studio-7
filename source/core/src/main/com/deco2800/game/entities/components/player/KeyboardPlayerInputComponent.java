@@ -7,7 +7,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -137,15 +136,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerPauseResumeEvent() {
         // If the screen is the main game it pauses the game, but if the screen is the pause screen
         // it resumes the game.
-        if (ServiceLocator.getGame().getScreen().getClass() ==
-                MainGameScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-            ServiceLocator.getGame().pause();
-        } else if (ServiceLocator.getGame().getScreen().getClass() ==
-                PauseMenuScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-            ServiceLocator.getGame().resume();
-        }
+//        System.out.println(ServiceLocator.getGame().getScreen().toString());
+        ServiceLocator.getGame().getScreen().pause();
     }
 
     private void triggerWalkEvent() {
