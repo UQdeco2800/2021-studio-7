@@ -19,6 +19,7 @@ public class TerrainComponent extends RenderComponent {
 
   private final TiledMap tiledMap;
   private final TiledMapRenderer tiledMapRenderer;
+  private final TiledMapRenderer miniMapRenderer;
   private final OrthographicCamera camera;
   private final OrthographicCamera miniMapCamera;
   private final TerrainOrientation orientation;
@@ -27,13 +28,14 @@ public class TerrainComponent extends RenderComponent {
 
 
   public TerrainComponent(OrthographicCamera camera, OrthographicCamera miniMapCamera, TiledMap map, TiledMapRenderer renderer,
-                          TerrainOrientation orientation, float tileSize) {
+                          TiledMapRenderer miniMapRenderer, TerrainOrientation orientation, float tileSize) {
     this.camera = camera;
     this.miniMapCamera = miniMapCamera;
     this.tiledMap = map;
     this.orientation = orientation;
     this.tileSize = tileSize;
     this.tiledMapRenderer = renderer;
+    this.miniMapRenderer = miniMapRenderer;
 
     miniMap = new MiniMap(this.tiledMap);
   }
@@ -43,7 +45,6 @@ public class TerrainComponent extends RenderComponent {
     camera.position.y = y;
     camera.update();
     tiledMapRenderer.setView(miniMapCamera);
-
     miniMap.update(x, y);
   }
 
@@ -83,6 +84,8 @@ public class TerrainComponent extends RenderComponent {
   public void draw(SpriteBatch batch) {
     tiledMapRenderer.setView(camera);
     tiledMapRenderer.render();
+    miniMapRenderer.setView(miniMapCamera);
+    miniMapRenderer.render();
   }
 
   @Override

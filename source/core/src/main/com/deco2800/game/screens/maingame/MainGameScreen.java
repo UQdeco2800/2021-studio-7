@@ -14,6 +14,7 @@ import com.deco2800.game.areas.terrain.TerrainComponent;
 import com.deco2800.game.areas.terrain.TerrainFactory;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputComponent;
@@ -39,15 +40,16 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
   private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
+  public static final int SCALE = 4;
   private final Entity entityPlayer;
   private Vector2 PLAYER_POSITION;
 
   private final Renderer renderer;
+  private final Renderer miniMapRenderer;
+  private OrthographicCamera cameraMiniMap;
   private final PhysicsEngine physicsEngine;
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
-
-  private Renderer maprenderer;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -65,16 +67,23 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
+    renderer.getCamera().getEntity().setPosition(1,1);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
+    cameraMiniMap = new OrthographicCamera();
+    Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
+
+
+    ServiceLocator.getEntityService().register(cameraMiniMap);
+    CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
+    miniMapRenderer = new Renderer(camComponent);
 
     loadAssets();
     createUI();
     ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), TerrainComponent.TerrainOrientation.ISOMETRIC);
+      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), miniMapRenderer.getCamera(),TerrainComponent.TerrainOrientation.ISOMETRIC);
     mainGameArea = new HouseGameArea(terrainFactory);
     mainGameArea.create();
 
@@ -83,6 +92,11 @@ public class MainGameScreen extends ScreenAdapter {
 
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+    miniMapRenderer.getCamera().getEntity().setPosition(37,32);
+    //miniMapRenderer.resize(2,1);
+    miniMapRenderer.getCamera().resize(1,1,80);
+    //miniMapRenderer.getCamera().resize(1,1,1);
+    //iniMapRenderer.getCamera().getEntity().setScale((float) 50,(float) 2);
   }
 
   @Override

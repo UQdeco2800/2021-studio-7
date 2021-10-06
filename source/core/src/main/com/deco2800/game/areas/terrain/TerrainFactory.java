@@ -27,7 +27,7 @@ public class TerrainFactory {
   private static final int ROCK_TILE_COUNT = 30;
 
   private final OrthographicCamera camera;
-  private final OrthographicCamera miniMapCamera = new OrthographicCamera();
+  private final OrthographicCamera miniMapCamera;
   private final TerrainOrientation orientation;
 
   /**
@@ -35,8 +35,8 @@ public class TerrainFactory {
    *
    * @param cameraComponent Camera to render terrains to. Must be ortographic.
    */
-  public TerrainFactory(CameraComponent cameraComponent) {
-    this(cameraComponent, TerrainOrientation.ORTHOGONAL);
+  public TerrainFactory(CameraComponent cameraComponent,CameraComponent miniMapCamera) {
+    this(cameraComponent,miniMapCamera, TerrainOrientation.ORTHOGONAL);
   }
 
   /**
@@ -45,8 +45,9 @@ public class TerrainFactory {
    * @param cameraComponent Camera to render terrains to. Must be orthographic.
    * @param orientation orientation to render terrain at
    */
-  public TerrainFactory(CameraComponent cameraComponent,TerrainOrientation orientation) {
+  public TerrainFactory(CameraComponent cameraComponent,CameraComponent miniMapCamera,TerrainOrientation orientation) {
     this.camera = (OrthographicCamera) cameraComponent.getCamera();
+    this.miniMapCamera = (OrthographicCamera) miniMapCamera.getCamera();
     this.orientation = orientation;
   }
 
@@ -94,7 +95,8 @@ public class TerrainFactory {
     GridPoint2 tilePixelSize = new GridPoint2(grass.getRegionWidth(), grass.getRegionHeight());
     TiledMap tiledMap = createForestDemoTiles(tilePixelSize, grass, grassTuft, rocks);
     TiledMapRenderer renderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
-    return new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, orientation, tileWorldSize);
+    TiledMapRenderer miniMapRenderer = createRenderer(tiledMap, tileWorldSize / tilePixelSize.x);
+    return new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer, orientation, tileWorldSize);
   }
 
   private TiledMapRenderer createRenderer(TiledMap tiledMap, float tileScale) {
@@ -164,7 +166,8 @@ public class TerrainFactory {
     GridPoint2 tilePixelSize = new GridPoint2(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
     TiledMap tiledMap = setRoomTiles(tilePixelSize, room);
     TiledMapRenderer renderer = createRenderer(tiledMap, 1f / tilePixelSize.x);
-    return new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, orientation, 1f);
+    TiledMapRenderer miniMapRenderer = createRenderer(tiledMap, 1f / tilePixelSize.x);
+    return new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer, orientation, 1f);
   }
 
   private TiledMap setRoomTiles(GridPoint2 tileSize, Room room) {
