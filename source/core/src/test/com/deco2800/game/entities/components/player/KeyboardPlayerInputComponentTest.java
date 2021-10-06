@@ -9,33 +9,10 @@ class KeyboardPlayerInputComponentTest {
 
 
 //    @Test
-//    void keyUpStandUpTest() {
-//        KeyboardPlayerInputComponent test1 = spy(KeyboardPlayerInputComponent.class);
-//        assertEquals(true, test1.keyUp(47));
-//    }
-//
-//    @Test
-//    void keyUpStandLeftTest() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertEquals(true, test2.keyUp(47));
-//    }
-//
-//    @Test
-//    void keyUpStandDownTest() {
-//        KeyboardPlayerInputComponent test1 = spy(KeyboardPlayerInputComponent.class);
-//        assertEquals(true, test1.keyUp(87));
-//    }
-//
-//    @Test
-//    void keyUpStandRightTest() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertTrue(test2.keyUp(Input.Keys.W));
-//    }
-//
-//    @Test
-//    void keyUpShift_Left() {
-//        KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
-//        assertEquals(true, test2.keyUp(Input.Keys.SHIFT_LEFT));
+//    void keyDownUpTest() {
+//        KeyboardPlayerInputComponent test = new KeyboardPlayerInputComponent();
+//        Input.Keys key = new Input.Keys();
+//        assertTrue(test.keyDown(key.E));
 //    }
 
     @Test
@@ -43,6 +20,5 @@ class KeyboardPlayerInputComponentTest {
         KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
         assertEquals(false, test2.keyUp(Input.Keys.UNKNOWN));
     }
-    //TODO only the last one can pass
 
 }
