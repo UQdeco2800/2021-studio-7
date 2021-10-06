@@ -96,7 +96,7 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
       // Button for testing the ChoreUI
       TextButton choreTextBtn = new TextButton("Test chores list", skin);
-      List<String> choresList = Arrays.asList("Switch off TV +", "Pick up Rubbish -", "Do laundary +");
+      List<String> choresList = Arrays.asList("Switch off TV +", "Pick up Rubbish -", "Do Laundry +");
       StringBuilder chores = new StringBuilder();
       chores.append("Chores List\n");
       for (int i = 0; i < choresList.size(); i++) {
@@ -108,6 +108,7 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
                   @Override
                   public void changed(ChangeEvent changeEvent, Actor actor) {
                       logger.debug("Toggle chores list button clicked");
+                      logger.info("Toggle chores list button clicked");
                       entity.getEvents().trigger("create_chores_list", chores.toString());
                   }
               });
