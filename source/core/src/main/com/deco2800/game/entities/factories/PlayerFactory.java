@@ -41,8 +41,8 @@ public class PlayerFactory {
     Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new PlayerStatsDisplay())
+            .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new SurveyorComponent())
             .addComponent(new ScoreComponent(1000));
     return player;
   }
@@ -54,7 +54,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent().setDensity(1.5f))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
-    PhysicsUtils.setScaledHitbox(player, 1.1f, 1.1f);
+    PhysicsUtils.setScaledHitbox(player, 1f, 1f);
 
     // Set player to have a base input component
     InputService inputService = ServiceLocator.getInputService();
