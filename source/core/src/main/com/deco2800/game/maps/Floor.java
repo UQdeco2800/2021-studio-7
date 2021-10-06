@@ -60,7 +60,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * Allows rooms to spawn their tiles first, then will iterate through the entire floor grid
      * for miscellaneous tile spawning. Creates a new TerrainComponent and spawns it into the world.
      */
-    public void spawnFloorTiles() {
+    private void spawnFloorTiles() {
         TextureRegion textureRegion = new TextureRegion(
                 ServiceLocator.getResourceService().getAsset(defaultInteriorTile.getAssets()[0], Texture.class));
 
@@ -97,15 +97,12 @@ public class Floor extends GameArea implements Json.Serializable {
     }
 
     /**
-     * Allows rooms to spawn their entities first, then will iterate through the entire floor grid
+     * Spawns player first to alleviate any dependencies.
+     * Allow rooms to spawn their entities first, then will iterate through the entire floor grid
      * for miscellaneous entity spawning.
      */
-    public void spawnFloorEntities() {
-        ServiceLocator.getResourceService().loadTexture("images/objects/walls/wall.png");
-        ServiceLocator.getResourceService().loadTextureAtlas("images/characters/boy_00/boy_00.atlas");
-        ServiceLocator.getResourceService().loadAll();
-        player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
-        spawnEntityAt(player, new GridPoint2(1,1), true, true);
+    private void spawnFloorEntities() {
+        spawnPlayer();
 
         // Spawn all room entities for each room plan
         for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
@@ -122,6 +119,17 @@ public class Floor extends GameArea implements Json.Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Spawns the player into the world
+     */
+    private void spawnPlayer() {
+        String[] playerAssets = new String[]{PlayerFactory.getAtlas()};
+        ServiceLocator.getResourceService().loadTextureAtlases(playerAssets);
+        ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(playerAssets);
+        spawnEntityAt(player, new GridPoint2(1,1), true, true);
     }
 
     /**
@@ -167,6 +175,10 @@ public class Floor extends GameArea implements Json.Serializable {
 
     public GridObject getDefaultInteriorWall() {
         return defaultInteriorWall;
+    }
+
+    public ObjectMap<Character, GridObject> getEntityMap() {
+        return entityMap;
     }
 
     public Character[][] getFloorGrid() {

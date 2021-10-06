@@ -31,7 +31,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
   private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
-  private static final boolean usingTestingFloorPlan = true;
+  private static final boolean usingTestingFloorPlan = false;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
