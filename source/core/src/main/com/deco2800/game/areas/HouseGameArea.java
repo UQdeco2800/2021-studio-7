@@ -2,7 +2,6 @@ package com.deco2800.game.areas;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.areas.components.GameAreaDisplay;
 import com.deco2800.game.areas.rooms.RoomObject;
 import com.deco2800.game.areas.rooms.Room;
 import com.deco2800.game.areas.rooms.RoomReader;
@@ -31,14 +30,15 @@ public class HouseGameArea extends GameArea {
             "images/objects/walls/wall.png",
             "images/objects/door/door_close_right.png",
             "images/objects/door/door_animationL.png",
-            "images/objects/tv/TV_animationL.png",
+            "images/objects/tv/TV_animation.png",
+            "images/objects/bed/bed_animation.png",
             "images/objects/furniture/coffee_table_left.png"
     };
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
-            "images/objects/bed/bed.atlas",
-            "images/objects/tv/TV_animationL.atlas",
+            "images/objects/bed/bed_animation.atlas",
+            "images/objects/tv/TV_animation.atlas",
             "images/objects/door/door_animationL.atlas",
             "images/objects/energy_drink/energy.atlas",
             "images/characters/girl_00/girl_00.atlas",

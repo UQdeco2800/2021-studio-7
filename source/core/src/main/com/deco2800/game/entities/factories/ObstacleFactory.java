@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.factories;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.entities.components.interactions.Actions.*;
@@ -77,10 +78,10 @@ public class ObstacleFactory {
     Entity bed = new Entity();
 
     AnimationRenderComponent bedAnimations = new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/objects/bed/bed.atlas",
+            ServiceLocator.getResourceService().getAsset("images/objects/bed/bed_animation.atlas",
                     TextureAtlas.class));
     bedAnimations.addAnimation("bed", 1f);
-    bedAnimations.addAnimation("bed_highlight", 1f);
+    bedAnimations.addAnimation("bedhighlight1", 0.25f);
 
     bed.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
@@ -128,13 +129,12 @@ public class ObstacleFactory {
     Entity tv = new Entity();
 
     AnimationRenderComponent tvAnimations = new AnimationRenderComponent(
-            ServiceLocator.getResourceService().getAsset("images/objects/tv/TV_animationL.atlas",
+            ServiceLocator.getResourceService().getAsset("images/objects/tv/TV_animation.atlas",
                     TextureAtlas.class));
-    tvAnimations.addAnimation("TV_offL", 1f);
-    tvAnimations.addAnimation("TV_offL2", 1f);
-    tvAnimations.addAnimation("TV_ONA", 1f);
-    tvAnimations.addAnimation("TV_ONB", 1f);
-    tvAnimations.addAnimation("TV_ONC", 1f);
+    tvAnimations.addAnimation("TV_off1", 1f);
+    tvAnimations.addAnimation("TV_off2", 1f);
+    tvAnimations.addAnimation("TV_on1", 0.1f, Animation.PlayMode.LOOP);
+    tvAnimations.addAnimation("TV_onh1", 0.1f, Animation.PlayMode.LOOP);
 
     tv.addComponent(new PhysicsComponent())
             .addComponent(new ColliderComponent())
