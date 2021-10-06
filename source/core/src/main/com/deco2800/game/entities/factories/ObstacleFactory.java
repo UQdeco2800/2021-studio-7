@@ -41,8 +41,9 @@ public class ObstacleFactory {
   }
 
   public static Entity createDoor(String[] assets) {
-    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-            .addComponent(new DoorActions());
+    //Entity door = createBaseInteractable(assets, BodyType.StaticBody)
+            //.addComponent(new DoorActions());
+    Entity door = new Entity();
     return door;
   }
 
@@ -65,14 +66,37 @@ public class ObstacleFactory {
     return bananaPeel;
   }
 
+  public static Entity createPuddle(String[] assets){
+    Entity puddle = createBaseInteractable(assets, BodyType.StaticBody).addComponent(new BananaPeelActions());
+    puddle.getComponent(PhysicsComponent.class).dispose();
+    return puddle;
+  }
+
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
+    bookcase.setScale(2f,2f);
+    PhysicsUtils.realignScaledCollider(bookcase,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
+    //System.out.printf("x = %d, y = %d\n", bookcase.getScale().x, bookcase.getScale().y);
     return bookcase;
   }
 
   public static Entity createLounge(String[] assets) {
     Entity lounge = createBaseObstacle(assets, BodyType.StaticBody);
+    lounge.getComponent(TextureRenderComponent.class).scaleEntity();
+    lounge.setScale(2f,1f);
+    PhysicsUtils.realignScaledCollider(lounge, 1f, 2f, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
     return lounge;
+  }
+
+  public static Entity createCoffeeTable(String[] assets) {
+    Entity coffeeTable = createBaseObstacle(assets, BodyType.StaticBody);
+    coffeeTable.setScale(1.5f,1f);
+    PhysicsUtils.setScaledCollider(coffeeTable,1f,1f);
+    return coffeeTable;
+  }
+
+  public static Entity createLamp(String[] assets) {
+    return createBaseObstacle(assets, BodyType.StaticBody);
   }
 
   public static Entity createBaseInteractable(String[] assets, BodyType bodyType) {
