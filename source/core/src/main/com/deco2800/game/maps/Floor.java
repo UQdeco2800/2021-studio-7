@@ -41,6 +41,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
+    private TiledMapRenderer miniMapRenderer;
     // Defined on call for creation
     private boolean created = false;
 
@@ -94,7 +95,8 @@ public class Floor extends GameArea implements Json.Serializable {
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
         TiledMapRenderer miniMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
+        this.miniMapRenderer = miniMapRenderer;
+                terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
@@ -194,6 +196,10 @@ public class Floor extends GameArea implements Json.Serializable {
     public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {
         this.camera = camera;
         this.miniMapCamera = miniMapCamera;
+    }
+
+    public OrthographicCamera getMiniMapCamera() {
+        return this.miniMapCamera;
     }
 
     private void displayUI() {

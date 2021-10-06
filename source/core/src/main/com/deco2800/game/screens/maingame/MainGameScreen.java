@@ -62,9 +62,10 @@ public class MainGameScreen extends ScreenAdapter {
     Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
     CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
     miniMapRenderer = new Renderer(camComponent);
-
+    miniMapRenderer.getCamera().getEntity().setPosition(10,10);
     renderer = RenderFactory.createRenderer();
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
 
     loadAssets();
     createUI();
@@ -76,7 +77,8 @@ public class MainGameScreen extends ScreenAdapter {
     }
     home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
-    home.create(renderer.getCamera(), miniMapRenderer.getCamera());
+    home.create(miniMapRenderer.getCamera(), renderer.getCamera());
+    home.getActiveFloor().getMiniMapCamera().position.set(10,10,10);
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
   }
