@@ -1,6 +1,7 @@
 package com.deco2800.game.screens.titlescreen;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -26,6 +27,9 @@ public class TitleScreen extends ScreenAdapter {
             "images/ui/screens/inactiveStart.png",
             "images/ui/title/RETROACTIVE-large.png"
     };
+    //add background music into the game
+    private static final String[] backgroundMusic = {"sounds/backgroundMusic" +
+            "-EP.mp3"};
 
     public TitleScreen() {
 
@@ -40,6 +44,7 @@ public class TitleScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+        playMusic();
     }
 
     @Override
@@ -77,10 +82,23 @@ public class TitleScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
+    /**
+     * Play the background Music
+     */
+    private void playMusic() {
+        Music music =
+                ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+                        Music.class);
+        music.setLooping(true);
+        music.setVolume(0.3f);
+        music.play();
+    }
+
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(TitleTextures);
+        resourceService.loadMusic(backgroundMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -88,6 +106,7 @@ public class TitleScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(TitleTextures);
+        resourceService.unloadAssets(backgroundMusic);
     }
 
     /**
