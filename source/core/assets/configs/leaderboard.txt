@@ -1,6 +1,3 @@
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 DirtyDefault33237:1000,
 DirtyDefault5961:933,1000,
 DirtyDefault57431:956,1000,
@@ -19,7 +16,6 @@ DirtyDefault12674:875,
 DirtyDefault71230:693,
 DirtyDefault51830:935,410,
 DirtyDefault549:602,
-<<<<<<< HEAD
 DirtyDefault5404:567,
 DirtyDefault14073:893,
 DirtyDefault43024:
@@ -34,7 +30,6 @@ DirtyDefault17074:805,
 DirtyDefault20986:777,
 DirtyDefault3329:765,
 DirtyDefault9598:864,
-=======
 DirtyDefault69899:420,874,822,
 DirtyDefault99187:1000,
 DirtyDefault39657:1000,
@@ -67,8 +62,6 @@ DirtyDefault10538:-1109,
 DirtyDefault82936:830,868,-564,
 DirtyDefault33905:-1293,
 DirtyDefault88537:682,
->>>>>>> 1651a8c6c8e71e87f2ced1d9910f49fe603f47d4
-=======
 DirtyDefault34474:
 DirtyDefault37894:
 DirtyDefault68809:
@@ -152,20 +145,15 @@ DirtyDefault60881:801,
 DirtyDefault36649:
 DirtyDefault85783:907,
 DirtyDefault35506:965,
->>>>>>> 59d03d178b346e40916abf65b9a4d6117a44e661
-
 DirtyDefault26706:657,
 DirtyDefault23366:942,
 DirtyDefault37905:910,
 DirtyDefault61319:519,
 DirtyDefault60811:772,
-=======
 DirtyDefault98733:877,
 DirtyDefault81673:883,
 DirtyDefault20108:490,
 DirtyDefault61554:732,
->>>>>>> 06527a55821c3e888216d8e0c6ab652a7b81b32f
-
 DirtyDefault23627:642,
 DirtyDefault98993:713,
 DirtyDefault39531:714,
