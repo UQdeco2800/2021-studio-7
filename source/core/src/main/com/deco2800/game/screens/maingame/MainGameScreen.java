@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deco2800.game.areas.components.PerformanceDisplay;
@@ -55,7 +54,6 @@ public class MainGameScreen extends ScreenAdapter {
   private Vector2 PLAYER_POSITION;
 
   private final Renderer renderer;
-//  private final Renderer pauseRenderer;
   private final PhysicsEngine physicsEngine;
   private final HouseGameArea mainGameArea;
   private final Entity mainGameEntity = new Entity();
@@ -68,8 +66,6 @@ public class MainGameScreen extends ScreenAdapter {
   private int gameStatus = GAME_RUNNING;
 
   private boolean builtPauseMenu = false;
-
-  private Stage pauseStage;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -90,9 +86,6 @@ public class MainGameScreen extends ScreenAdapter {
     renderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
-//    pauseRenderer = RenderFactory.createRenderer();
-//    pauseRenderer.getCamera().getEntity().setPosition(CAMERA_POSITION);
-
     loadAssets();
     createUI();
     ServiceLocator.getEntityService().register(mainGameEntity);
@@ -108,10 +101,6 @@ public class MainGameScreen extends ScreenAdapter {
 
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-
-//    pauseRenderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-
-
   }
 
   @Override
@@ -122,6 +111,11 @@ public class MainGameScreen extends ScreenAdapter {
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(pauseGameTextures);
         ServiceLocator.getResourceService().loadAll();
+
+        //      Table table = new Table();
+        table.setFillParent(true);
+        //      Image bg = new Image(ServiceLocator.getResourceService()
+        //              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
 
         TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
         TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
@@ -191,8 +185,10 @@ public class MainGameScreen extends ScreenAdapter {
       for (Actor actor : ServiceLocator.getRenderService().getStage().getActors()) {
         if (actor.getName() != null) {
           actorToRemove = actor;
+
         }
       }
+
       actorToRemove.remove();
       renderer.render();
       builtPauseMenu = false;
@@ -260,8 +256,6 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent =
         ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
-    pauseStage = new Stage();
-
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
@@ -273,8 +267,6 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-
-    pauseGameEntity.addComponent(new InputDecorator(pauseStage, 10));
   }
 
   public HouseGameArea getMainGameArea() {
