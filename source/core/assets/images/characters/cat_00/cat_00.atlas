@@ -3,280 +3,280 @@ size: 1920, 1000
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-cat_00_licking
+licking
   rotate: false
   xy: 0, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_licking
+licking
   rotate: false
   xy: 240, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_licking
+licking
   rotate: false
   xy: 480, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_licking
+licking
   rotate: false
   xy: 720, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 3
-cat_00_lying_east
+lying_east
   rotate: false
   xy: 960, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_lying_east
+lying_east
   rotate: false
   xy: 1200, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_lying_east
+lying_east
   rotate: false
   xy: 1440, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_lying_east
+lying_east
   rotate: false
   xy: 1680, 0
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 3
-cat_00_lying_west
+lying_west
   rotate: false
   xy: 0, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_lying_west
+lying_west
   rotate: false
   xy: 240, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_lying_west
+lying_west
   rotate: false
   xy: 480, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_lying_west
+lying_west
   rotate: false
   xy: 720, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 3
-cat_00_sitting
+sitting
   rotate: false
   xy: 960, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_sitting
+sitting
   rotate: false
   xy: 1200, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_sitting
+sitting
   rotate: false
   xy: 1440, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_sitting
+sitting
   rotate: false
   xy: 1680, 200
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 3
-cat_00_sleeping_east
+sleeping_east
   rotate: false
   xy: 0, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_sleeping_east
+sleeping_east
   rotate: false
   xy: 240, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_sleeping_west
+sleeping_west
   rotate: false
   xy: 480, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_sleeping_west
+sleeping_west
   rotate: false
   xy: 720, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_standing_east
+standing_east
   rotate: false
   xy: 960, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
-cat_00_standing_east
+standing_east
   rotate: false
   xy: 1200, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_standing_east
+standing_east
   rotate: false
   xy: 1440, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_standing_east
+standing_east
   rotate: false
   xy: 1680, 400
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_standing_north
+standing_north
   rotate: false
   xy: 0, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
-cat_00_standing_south
+standing_south
   rotate: false
   xy: 240, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
-cat_00_standing_west
+standing_west
   rotate: false
   xy: 480, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
-cat_00_stretching_east
+stretching_east
   rotate: false
   xy: 720, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_stretching_east
+stretching_east
   rotate: false
   xy: 960, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_stretching_west
+stretching_west
   rotate: false
   xy: 1200, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_stretching_west
+stretching_west
   rotate: false
   xy: 1440, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_walking_north
+walking_north
   rotate: false
   xy: 1680, 600
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_walking_north
+walking_north
   rotate: false
   xy: 0, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_walking_north
+walking_north
   rotate: false
   xy: 240, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_walking_south
+walking_south
   rotate: false
   xy: 480, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_walking_south
+walking_south
   rotate: false
   xy: 720, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_walking_south
+walking_south
   rotate: false
   xy: 960, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-cat_00_walking_west
+walking_west
   rotate: false
   xy: 1200, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-cat_00_walking_west
+walking_west
   rotate: false
   xy: 1440, 800
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-cat_00_walking_west
+walking_west
   rotate: false
   xy: 1680, 800
   size: 240, 200
