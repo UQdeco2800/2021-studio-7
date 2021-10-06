@@ -169,6 +169,10 @@ public class Floor extends GameArea implements Json.Serializable {
         return defaultInteriorWall;
     }
 
+    public ObjectMap<Character, GridObject> getEntityMap() {
+        return entityMap;
+    }
+
     public Character[][] getFloorGrid() {
         return floorGrid;
     }
