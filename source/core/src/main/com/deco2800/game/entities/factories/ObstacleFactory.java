@@ -66,6 +66,16 @@ public class ObstacleFactory {
     return bananaPeel;
   }
 
+  public static Entity createBookcase(String[] assets) {
+    Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
+    return bookcase;
+  }
+
+  public static Entity createLounge(String[] assets) {
+    Entity lounge = createBaseObstacle(assets, BodyType.StaticBody);
+    return lounge;
+  }
+
   public static Entity createBaseInteractable(String[] assets, BodyType bodyType) {
     // Set interactable to have a base hitbox component
     Entity interactable = createBaseObstacle(assets, bodyType)

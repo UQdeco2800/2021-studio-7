@@ -31,7 +31,9 @@ public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
   private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
-  private static final boolean usingTestingFloorPlan = true;
+   private static final boolean usingTestingFloorPlan = false;
+  //add background music into the game
+  private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -67,6 +69,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerHome(home);
     home.create(renderer.getCamera());
     player = home.getActiveFloor().getPlayer();
+    playMusic();
   }
 
   @Override
@@ -111,6 +114,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
+    resourceService.loadMusic(backgroundMusic);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -118,6 +122,19 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
+    resourceService.unloadAssets(backgroundMusic);
+  }
+
+  /**
+   * Play the background Music
+   */
+  private void playMusic() {
+    Music music =
+            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+                    Music.class);
+    music.setLooping(true);
+    music.setVolume(0.3f);
+    music.play();
   }
 
   /**
