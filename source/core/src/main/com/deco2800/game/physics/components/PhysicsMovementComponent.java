@@ -141,8 +141,6 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     float x = entityDirection.x;
     float y = entityDirection.y;
 
-    System.out.println(entityDirection);
-
     if (lastDirection != currentDirection) {
       if (x < 0.5 && x > -0.5 && y > 0) {
         entity.getEvents().trigger("update_animation", "walking_north");
