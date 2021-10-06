@@ -24,14 +24,14 @@ TV_ONA
   orig: 267, 267
   offset: 7, 3
   index: -1
-TV_ONB
+TV_ONA
   rotate: false
   xy: 1, 267
   size: 253, 264
   orig: 267, 267
   offset: 7, 3
   index: -1
-TV_ONC
+TV_ONA
   rotate: false
   xy: 1, 533
   size: 253, 264

@@ -1,3 +1,4 @@
+
 package com.deco2800.game.entities.components.interactions;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -23,9 +24,12 @@ public class InteractionComponent extends Component implements Interactable {
     @Override
     public void create() {
         super.create();
+        entity.getEvents().addListener("pre_collision_start", this::onPreCollisionStart);
+        entity.getEvents().addListener("pre_collision_end", this::onPreCollisionEnd);
         entity.getEvents().addListener("collision_start", this::onCollisionStart);
         entity.getEvents().addListener("collision_end", this::onCollisionEnd);
         entity.getEvents().addListener("interaction", this::onInteraction);
+        entity.getEvents().addListener("toggle_highlight", this::toggleHighlight);
 
         targetLayer = PhysicsLayer.PLAYER;
 
@@ -45,19 +49,38 @@ public class InteractionComponent extends Component implements Interactable {
         }
 
         if (!PhysicsLayer.contains(targetLayer, other.getFilterData().categoryBits)) {
-         // Doesn't match our target layer, ignore
-         return null;
-         }
+            // Doesn't match our target layer, ignore
+            return null;
+        }
 
         return ((BodyUserData) other.getBody().getUserData()).entity;
     }
 
     @Override
-    public void onCollisionStart(Fixture me, Fixture other) {}
+    public void onPreCollisionStart(Fixture me, Fixture other) {
+        Entity target = preCollisionCheck(me, other);
+        if (target != null) {
+            onCollisionStart(target);
+        }
+    }
 
     @Override
-    public void onCollisionEnd(Fixture me, Fixture other) {}
+    public void onPreCollisionEnd(Fixture me, Fixture other) {
+        Entity target = preCollisionCheck(me, other);
+        if (target != null) {
+            onCollisionEnd(target);
+        }
+    }
+
+    @Override
+    public void onCollisionStart(Entity target) {}
+
+    @Override
+    public void onCollisionEnd(Entity target) {}
 
     @Override
     public void onInteraction(Entity target) {}
+
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {}
 }
