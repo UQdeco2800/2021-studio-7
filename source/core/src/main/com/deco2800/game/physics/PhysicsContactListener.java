@@ -19,14 +19,14 @@ public class PhysicsContactListener implements ContactListener {
 
   @Override
   public void beginContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collision_start", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collision_start", contact.getFixtureA());
+    triggerEventOn(contact.getFixtureA(), "pre_collision_start", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "pre_collision_start", contact.getFixtureA());
   }
 
   @Override
   public void endContact(Contact contact) {
-    triggerEventOn(contact.getFixtureA(), "collision_end", contact.getFixtureB());
-    triggerEventOn(contact.getFixtureB(), "collision_end", contact.getFixtureA());
+    triggerEventOn(contact.getFixtureA(), "pre_collision_end", contact.getFixtureB());
+    triggerEventOn(contact.getFixtureB(), "pre_collision_end", contact.getFixtureA());
   }
 
   @Override

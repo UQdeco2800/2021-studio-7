@@ -44,8 +44,8 @@ class PhysicsContactListenerTest {
     // Register collision callbacks
     EventListener2<Fixture, Fixture> callback1 = mock(EventListener2.class);
     EventListener2<Fixture, Fixture> callback2 = mock(EventListener2.class);
-    entity1.getEvents().addListener("collision_start", callback1);
-    entity2.getEvents().addListener("collision_start", callback2);
+    entity1.getEvents().addListener("pre_collision_start", callback1);
+    entity2.getEvents().addListener("pre_collision_start", callback2);
 
     // Trigger collisions
     ServiceLocator.getPhysicsService().getPhysics().update();
@@ -68,8 +68,8 @@ class PhysicsContactListenerTest {
     // Register end collision callbacks
     EventListener2<Fixture, Fixture> endCallback1 = mock(EventListener2.class);
     EventListener2<Fixture, Fixture> endCallback2 = mock(EventListener2.class);
-    entity1.getEvents().addListener("collision_end", endCallback1);
-    entity2.getEvents().addListener("collision_end", endCallback2);
+    entity1.getEvents().addListener("pre_collision_end", endCallback1);
+    entity2.getEvents().addListener("pre_collision_end", endCallback2);
 
     ServiceLocator.getPhysicsService().getPhysics().update();
     verifyNoInteractions(endCallback1);

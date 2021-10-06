@@ -79,7 +79,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(true);
+                entity.getEvents().trigger("key_e", true);
                 return true;
             default:
                 return false;
@@ -116,7 +116,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(false);
+                entity.getEvents().trigger("key_e", false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
@@ -137,7 +137,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerPauseResumeEvent() {
         // If the screen is the main game it pauses the game, but if the screen is the pause screen
         // it resumes the game.
-        //System.out.println(ServiceLocator.getGame().getScreen().toString());
         if (ServiceLocator.getGame().getScreen().getClass() ==
                 MainGameScreen.class) {
             ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
