@@ -78,7 +78,7 @@ public class MainGameChoresListDisplay extends UIComponent {
         // Display Text
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition(colWidth*2, (float) rowHeight/2);
+        displayText.setPosition((float) colWidth/12, (float) rowHeight*10);
         displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
         displayText.setWrap(true);
 
