@@ -34,14 +34,13 @@ public class SlipTask extends DefaultTask implements PriorityTask{
     public void update() {
         if (movementTask.getStatus() != Status.ACTIVE) {
             changePriority(-1);
-            resetSlip();
         } movementTask.update();
     }
 
     private void resetSlip(){
         logger.debug("Recalibrating slip direction and status");
         movementTask.setTarget(getRandomPosInRange());
-        movementTask.status = Status.ACTIVE;
+        movementTask.start();
     }
 
     private Vector2 getRandomPosInRange() {
@@ -54,5 +53,8 @@ public class SlipTask extends DefaultTask implements PriorityTask{
     public void changePriority(int newPriority){
         logger.info("Priority changed to {}", newPriority);
         this.priority = newPriority;
+        if (priority == 1){
+            resetSlip();
+        }
     }
 }
