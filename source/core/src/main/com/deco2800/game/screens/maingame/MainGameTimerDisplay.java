@@ -34,7 +34,7 @@ public class MainGameTimerDisplay extends UIComponent {
         logger.debug("Initialising main game screen timer service");
 
         //set up initial timer for the level 1
-        setTimer(23, 0,  0, 0);
+        setTimer(23, 0,  2, 0);
         CharSequence timeText = String.format("    %d:0%d",start_hour,
         start_minute);
         currentTimeLabel = new Label(timeText, skin, "title");
