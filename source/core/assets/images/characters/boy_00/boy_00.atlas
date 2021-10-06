@@ -24,14 +24,14 @@ standing_northeast
   orig: 144, 272
   offset: 0, 0
   index: -1
-boy_00_standing_northwest
+standing_northwest
   rotate: false
   xy: 432, 0
   size: 144, 272
   orig: 144, 272
   offset: 0, 0
   index: -1
-boy_00_standing_south
+standing_south
   rotate: false
   xy: 576, 0
   size: 144, 272

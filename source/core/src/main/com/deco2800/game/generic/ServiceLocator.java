@@ -1,10 +1,9 @@
 package com.deco2800.game.generic;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
-import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.maps.Home;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import org.slf4j.LoggerFactory;
 public class ServiceLocator {
   private static final Logger logger = LoggerFactory.getLogger(ServiceLocator.class);
   private static GdxGame game;
+  private static Home home;
   private static EntityService entityService;
   private static RenderService renderService;
   private static PhysicsService physicsService;
@@ -29,6 +29,10 @@ public class ServiceLocator {
 
   public static GdxGame getGame() {
     return game;
+  }
+
+  public static Home getHome() {
+    return home;
   }
 
   public static EntityService getEntityService() {
@@ -58,6 +62,11 @@ public class ServiceLocator {
   public static void registerGame(GdxGame source) {
     logger.debug("Registering GdxGame {}", source);
     game = source;
+  }
+
+  public static void registerHome(Home source) {
+    logger.debug("Registering Home {}", source);
+    home = source;
   }
 
   public static void registerEntityService(EntityService service) {
