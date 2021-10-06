@@ -1,7 +1,9 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.entities.Entity;
@@ -34,6 +36,8 @@ public class MainGameScreen extends ScreenAdapter {
   private static final boolean usingTestingFloorPlan = false;
 
   private final Renderer renderer;
+  private final Renderer miniMapRenderer;
+  private OrthographicCamera cameraMiniMap;
   private final PhysicsEngine physicsEngine;
   private final Home home;
   private final Entity mainGameEntity = new Entity();
@@ -52,6 +56,13 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
+
+
+    cameraMiniMap = new OrthographicCamera();
+    Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
+    CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
+    miniMapRenderer = new Renderer(camComponent);
+
     renderer = RenderFactory.createRenderer();
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
@@ -65,7 +76,8 @@ public class MainGameScreen extends ScreenAdapter {
     }
     home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
-    home.create(renderer.getCamera());
+    home.create(renderer.getCamera(), miniMapRenderer.getCamera());
+    miniMapRenderer.getCamera().getEntity().setPosition(50,50);
     player = home.getActiveFloor().getPlayer();
   }
 

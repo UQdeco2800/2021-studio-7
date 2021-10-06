@@ -31,6 +31,7 @@ public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
     private OrthographicCamera camera;
+    private OrthographicCamera miniMapCamera;
     private Entity player = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
@@ -92,7 +93,7 @@ public class Floor extends GameArea implements Json.Serializable {
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        terrain = new TerrainComponent(camera, tiledMap, renderer, 1f);
+        terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, 1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
@@ -189,8 +190,9 @@ public class Floor extends GameArea implements Json.Serializable {
         return player;
     }
 
-    public void setCamera(OrthographicCamera camera) {
+    public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {
         this.camera = camera;
+        this.miniMapCamera = miniMapCamera;
     }
 
     private void displayUI() {
