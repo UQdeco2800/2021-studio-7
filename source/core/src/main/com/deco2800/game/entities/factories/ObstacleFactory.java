@@ -101,4 +101,3 @@ public class ObstacleFactory {
     return obstacle;
   }
 }
-
