@@ -2,9 +2,10 @@ package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.deco2800.game.ai.components.AITaskComponent;
+import com.deco2800.game.ai.tasks.SlipTask;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
-import com.deco2800.game.entities.components.player.InventoryComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
 import com.deco2800.game.entities.components.player.*;
@@ -17,6 +18,7 @@ import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import java.io.*;
@@ -62,7 +64,9 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new PlayerActions())
             .addComponent(new SurveyorComponent())
-            .addComponent(new ScoreComponent(1000));
+            .addComponent(new ScoreComponent(1000))
+            .addComponent(new AITaskComponent().addTask(new SlipTask()))
+            .addComponent(new PhysicsMovementComponent());
 
     player.getComponent(ColliderComponent.class).setDensity(1.5f);
     PhysicsUtils.setScaledCollider(player, 0.6f, 0.3f);

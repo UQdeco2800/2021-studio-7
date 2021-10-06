@@ -110,4 +110,6 @@ public class PlayerActions extends InteractionComponent {
   void stopRunning() {
     running = false;
   }
+
+  public Vector2 getWalkDirection() { return walkDirection; }
 }
