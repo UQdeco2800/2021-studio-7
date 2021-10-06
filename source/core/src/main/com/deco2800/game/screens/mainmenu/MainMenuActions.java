@@ -21,6 +21,7 @@ public class MainMenuActions extends Component {
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("settings", this::onSettings);
     entity.getEvents().addListener("change_character", this::onChangeCharacter);
+    entity.getEvents().addListener("upKey", this::onExit);
   }
 
   /**

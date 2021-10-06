@@ -1,5 +1,8 @@
 package com.deco2800.game.screens.mainmenu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
@@ -46,6 +49,16 @@ public class MainMenuScreen extends ScreenAdapter {
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
+
+    if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        MainMenuDisplay.moveUp();
+    }
+    if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+      MainMenuDisplay.moveDown();
+    }
+    if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+      MainMenuDisplay.pressMenu();
+    }
   }
 
   @Override
@@ -101,6 +114,7 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
+    //Gdx.input.setInputProcessor(new MenuInputProcessor());
   }
 
   /**
@@ -113,3 +127,5 @@ public class MainMenuScreen extends ScreenAdapter {
    *
    */
 }
+
+
