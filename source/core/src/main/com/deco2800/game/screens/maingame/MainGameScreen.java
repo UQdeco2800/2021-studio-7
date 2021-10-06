@@ -65,11 +65,6 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
 
-
-    renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(1,1);
-    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-
     cameraMiniMap = new OrthographicCamera();
     Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
 
@@ -77,6 +72,12 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(cameraMiniMap);
     CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
     miniMapRenderer = new Renderer(camComponent);
+
+    renderer = RenderFactory.createRenderer();
+    renderer.getCamera().getEntity().setPosition(1,1);
+    renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
+
+
 
     loadAssets();
     createUI();
