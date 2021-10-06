@@ -37,8 +37,8 @@ class InteractionComponentTest {
 
     @Test
     void shouldTriggerOnCollisionStart() {
-        object.getEvents().addListener("collision_start", listener);
-        object.getEvents().trigger("collision_start", objectFixture, playerFixture);
+        object.getEvents().addListener("pre_collision_start", listener);
+        object.getEvents().trigger("pre_collision_start", objectFixture, playerFixture);
 
         // Check that listener ran when the collision started
         verify(listener).handle(objectFixture, playerFixture);
@@ -46,8 +46,8 @@ class InteractionComponentTest {
 
     @Test
     void shouldEndCollisionEvent() {
-        object.getEvents().addListener("collision_end", listener);
-        object.getEvents().trigger("collision_end", objectFixture, playerFixture);
+        object.getEvents().addListener("pre_collision_end", listener);
+        object.getEvents().trigger("pre_collision_end", objectFixture, playerFixture);
 
         // Check that listener ran when the collision ended
         verify(listener).handle(objectFixture, playerFixture);
