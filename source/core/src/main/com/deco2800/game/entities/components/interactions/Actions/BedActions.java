@@ -24,6 +24,7 @@ public class BedActions extends InteractionComponent {
         }
     }
 
+
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {

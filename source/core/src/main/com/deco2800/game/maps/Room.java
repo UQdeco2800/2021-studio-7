@@ -74,7 +74,7 @@ public class Room implements Json.Serializable {
      * Queries for a list of JSON files in a pre-defined directory. Selects one at random
      * and initialises the room interior plan.
      */
-    public void randomiseInterior() {
+    private void randomiseInterior() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.DIRECTORY.concat(type));
 
         Interior randomInterior;
@@ -128,11 +128,22 @@ public class Room implements Json.Serializable {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                GridObject roomEntity = entityMap.get(entityGrid[x][y]);
-                if (roomEntity == null || !floor.getFloorGrid()[worldPos.x][worldPos.y].equals(key)) {
-                    continue;
+                Character floorSymbol = floor.getFloorGrid()[worldPos.x][worldPos.y];
+                Character roomSymbol = entityGrid[x][y];
+                GridObject roomEntity;
+                if (!floorSymbol.equals(key)) {
+                    // Restore overridden room symbol on floor grid
+                    floor.getFloorGrid()[worldPos.x][worldPos.y] = key;
+                    // Retain overriding entity on room's entity grid
+                    entityGrid[x][y] = floorSymbol;
+
+                    roomEntity = floor.getEntityMap().get(floorSymbol);
+                } else {
+                    roomEntity = entityMap.get(roomSymbol);
                 }
-                floor.invokeEntityMethod(roomEntity, worldPos);
+                if (roomEntity != null) {
+                    floor.invokeEntityMethod(roomEntity, worldPos);
+                }
             }
         }
     }
