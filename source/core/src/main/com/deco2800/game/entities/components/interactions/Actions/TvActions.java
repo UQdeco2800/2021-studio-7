@@ -9,18 +9,21 @@ import org.slf4j.LoggerFactory;
 public class TvActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(TvActions.class);
 
+    private boolean hasInteracted = false;
+
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("TV_ONA");
+        animator.startAnimation("TV_on1");
     }
 
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
             logger.debug("PLAYER interacted with TV, triggering TV animation");
-            animator.startAnimation("TV_offL");
-            animator.startAnimation("TV_offL2");
+            animator.startAnimation("TV_on1");
+            animator.startAnimation("TV_off2");
+            hasInteracted = true;
         }
     }
 
@@ -28,14 +31,18 @@ public class TvActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("TV started collision with PLAYER, tv animation");
-            animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
+            if (hasInteracted) {
+                animator.startAnimation("TV_off2");
+            } else {
+                animator.startAnimation("TV_onh1");
+            }
         } else {
             logger.debug("TV ended collision with PLAYER, tv animation");
-            animator.startAnimation("TV_ONA");
-            animator.startAnimation("TV_ONB");
-            animator.startAnimation("TV_ONC");
+            if (hasInteracted) {
+                animator.startAnimation("TV_off2");
+            } else {
+                animator.startAnimation("TV_on1");
+            }
         }
     }
 }
