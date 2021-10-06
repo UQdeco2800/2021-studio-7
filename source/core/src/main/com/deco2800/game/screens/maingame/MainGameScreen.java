@@ -84,13 +84,12 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(mainGameEntity);
 
     logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(renderer.getCamera(), miniMapRenderer.getCamera(),TerrainComponent.TerrainOrientation.ISOMETRIC);
+      TerrainFactory terrainFactory = new TerrainFactory(miniMapRenderer.getCamera(), renderer.getCamera(),TerrainComponent.TerrainOrientation.ISOMETRIC);
     mainGameArea = new HouseGameArea(terrainFactory);
     mainGameArea.create();
 
 
     entityPlayer = mainGameArea.player;
-
     PLAYER_POSITION = entityPlayer.getPosition();
     renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
     miniMapRenderer.getCamera().getEntity().setPosition(37,32);
