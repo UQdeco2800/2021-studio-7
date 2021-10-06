@@ -1,20 +1,11 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.areas.MiniMap;
-import com.deco2800.game.areas.components.PerformanceDisplay;
-import com.deco2800.game.areas.HouseGameArea;
-import com.deco2800.game.areas.terrain.TerrainComponent;
-import com.deco2800.game.areas.terrain.TerrainFactory;
+import com.deco2800.game.maps.Home;
+import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputComponent;
@@ -39,17 +30,14 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  public static final int SCALE = 4;
-  private final Entity entityPlayer;
-  private Vector2 PLAYER_POSITION;
+  private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
+  private static final boolean usingTestingFloorPlan = false;
 
   private final Renderer renderer;
-  private final Renderer miniMapRenderer;
-  private OrthographicCamera cameraMiniMap;
   private final PhysicsEngine physicsEngine;
-  private final HouseGameArea mainGameArea;
+  private final Home home;
   private final Entity mainGameEntity = new Entity();
+  private Entity player;
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -64,45 +52,26 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
-
-    cameraMiniMap = new OrthographicCamera();
-    Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
-
-
-    ServiceLocator.getEntityService().register(cameraMiniMap);
-    CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
-    miniMapRenderer = new Renderer(camComponent);
-
     renderer = RenderFactory.createRenderer();
-    renderer.getCamera().getEntity().setPosition(1,1);
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-
-
 
     loadAssets();
     createUI();
-    ServiceLocator.getEntityService().register(mainGameEntity);
 
-    logger.debug("Initialising main game screen entities");
-      TerrainFactory terrainFactory = new TerrainFactory(miniMapRenderer.getCamera(), renderer.getCamera(),TerrainComponent.TerrainOrientation.ISOMETRIC);
-    mainGameArea = new HouseGameArea(terrainFactory);
-    mainGameArea.create();
-
-
-    entityPlayer = mainGameArea.player;
-    PLAYER_POSITION = entityPlayer.getPosition();
-    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
-    miniMapRenderer.getCamera().getEntity().setPosition(37,32);
-    //miniMapRenderer.resize(2,1);
-    miniMapRenderer.getCamera().resize(1,1,80);
-    //miniMapRenderer.getCamera().resize(1,1,1);
-    //iniMapRenderer.getCamera().getEntity().setScale((float) 50,(float) 2);
+    if (usingTestingFloorPlan) {
+      home = new Home(testingFloorPlan);
+    } else {
+      home = new Home();
+    }
+    home.setMainGameScreen(this);
+    ServiceLocator.registerHome(home);
+    home.create(renderer.getCamera());
+    player = home.getActiveFloor().getPlayer();
   }
 
   @Override
   public void render(float delta) {
-    PLAYER_POSITION = entityPlayer.getPosition();
-    renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+    renderer.getCamera().getEntity().setPosition(player.getPosition());
     physicsEngine.update();
     ServiceLocator.getEntityService().update();
     renderer.render();
@@ -130,7 +99,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     renderer.dispose();
     unloadAssets();
-    entityPlayer.getEvents().trigger("write_score");
+    player.getEvents().trigger("write_score");
     ServiceLocator.getEntityService().dispose();
     ServiceLocator.getRenderService().dispose();
     ServiceLocator.getResourceService().dispose();
@@ -166,18 +135,32 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
-//        .addComponent(new MainGameWinLossTestingDisplay())
-//        .addComponent(new MainGameTextDisplay())
+        .addComponent(new MainGameWinLossTestingDisplay())
+        .addComponent(new MainGameTextDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
-  }
 
-  public HouseGameArea getMainGameArea() {
-    return mainGameArea;
+    ServiceLocator.getEntityService().register(mainGameEntity);
   }
 
   public Entity getMainGameEntity() {
     return mainGameEntity;
+  }
+
+  public Home getHome() {
+    return home;
+  }
+
+  public String getTestingFloorPlan() {
+    return testingFloorPlan;
+  }
+
+  public Entity getPlayer() {
+    return player;
+  }
+
+  public void setPlayer(Entity player) {
+    this.player = player;
   }
 }

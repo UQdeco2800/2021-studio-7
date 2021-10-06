@@ -1,6 +1,5 @@
 package com.deco2800.game.ai.tasks;
 
-import com.deco2800.game.ai.tasks.DefaultTask;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ServiceLocator;
 

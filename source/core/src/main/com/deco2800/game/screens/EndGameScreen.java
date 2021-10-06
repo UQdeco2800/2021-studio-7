@@ -22,6 +22,7 @@ public class EndGameScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
     private static final String[] winScreenTextures = {"images/ui/screens/win_screen.png"};
     private static final String[] loseScreenTextures = {"images/ui/screens/lose_screen.png"};
+    private static final String[] timeoutScreenTextures = {"images/ui/screens/time_out.png"};
     private final String[] activeScreenTextures;
     private final GdxGame.ScreenType result;
 
@@ -34,6 +35,8 @@ public class EndGameScreen extends ScreenAdapter {
                 this.activeScreenTextures = winScreenTextures;
                 break;
             case LOSS_TIMED:
+                this.activeScreenTextures = timeoutScreenTextures;
+                break;
             case LOSS_CAUGHT:
             default:
                 this.activeScreenTextures = loseScreenTextures;

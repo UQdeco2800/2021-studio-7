@@ -1,0 +1,26 @@
+bed_animation.png
+size: 648, 212
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bed
+  rotate: false
+  xy: 0, 0
+  size: 216, 212
+  orig: 216, 212
+  offset: 0, 0
+  index: -1
+bedhighlight1
+  rotate: false
+  xy: 432, 0
+  size: 216, 212
+  orig: 216, 212
+  offset: 0, 0
+  index: -1
+bedhighlight1
+  rotate: false
+  xy: 216, 0
+  size: 216, 212
+  orig: 216, 212
+  offset: 0, 0
+  index: -1

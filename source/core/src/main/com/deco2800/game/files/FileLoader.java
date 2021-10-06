@@ -2,9 +2,14 @@ package com.deco2800.game.files;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.ObjectMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Wrapper for reading Java objects from JSON files.
@@ -85,6 +90,58 @@ public class FileLoader {
     FileHandle file = getFileHandle(filename, location);
     assert file != null;
     file.writeString(json.prettyPrint(object), false);
+  }
+
+  public static Array<FileHandle> getJsonFiles(String directory) {
+    FileHandle[] files = (new FileHandle(directory)).list(".json");
+    Array<FileHandle> jsons = new Array<>();
+    for (FileHandle file : files) {
+      if (!file.isDirectory()) {
+        jsons.add(file);
+      }
+    }
+    return jsons;
+  }
+
+  public static void assertJsonValueName(JsonValue jsonData, String name) {
+    if (!jsonData.name().equals(name)) {
+      throw new IllegalArgumentException("JsonValue name " + jsonData.name() + " does not equal " + name);
+    }
+  }
+
+  public static void assertJsonValueNull(JsonValue jsonData) {
+    if (jsonData != null) {
+      throw new IllegalArgumentException("Too much information in file");
+    }
+  }
+
+  public static void readCharacterGrid(String name, Character[][] grid, JsonValue jsonData) {
+    FileLoader.assertJsonValueName(jsonData, name);
+    JsonValue iterator = jsonData.child();
+    for (int y = 0; y < grid.length; y++) {
+      JsonValue cellIterator = iterator.child();
+      for (int x = 0; x < grid[y].length; x++) {
+        grid[y][x] = cellIterator.asChar();
+        cellIterator = cellIterator.next();
+      }
+      iterator = iterator.next();
+    }
+  }
+
+  public static <V> void readCharacterObjectMap(String name, ObjectMap<Character, V> map, Class<V> valueClass,
+                                        Json json, JsonValue jsonData)
+          throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    if (valueClass.isAssignableFrom(Json.Serializable.class)) {
+      throw new IllegalAccessException("Class does not implement Json.Serializable");
+    }
+    FileLoader.assertJsonValueName(jsonData, name);
+    JsonValue iterator = jsonData.child();
+    while (iterator != null) {
+      V object = valueClass.getConstructor().newInstance();
+      ((Json.Serializable) object).read(json, iterator);
+      map.put(iterator.name().charAt(0), object);
+      iterator = iterator.next();
+    }
   }
 
   public static FileHandle getFileHandle(String filename, Location location) {

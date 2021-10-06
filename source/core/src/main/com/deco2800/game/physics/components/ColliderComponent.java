@@ -103,8 +103,11 @@ public class ColliderComponent extends Component {
   public ColliderComponent setAsIso(Vector2 size, Vector2 position) {
       PolygonShape bound = new PolygonShape();
 
-      double isoAngle = Math.toRadians(30);
-      float height = (float) Math.tan(isoAngle) * size.y;
+      /*
+        height would normally be tan(30 deg) * size.y for iso, but we estimate
+        it with a 1:2 ratio. Therefore, height is half of the y size.
+       */
+      float height = 0.5f * size.y;
 
       Vector2 west = new Vector2(position.x - (size.x / 2), (height / 2));
       Vector2 north = new Vector2(position.x, height);
@@ -235,20 +238,24 @@ public class ColliderComponent extends Component {
   }
 
   private Shape makeBoundingBox() {
-    PolygonShape bbox = new PolygonShape();
-    Vector2 center = entity.getScale().scl(0.5f);
+      PolygonShape bbox = new PolygonShape();
+      Vector2 center = entity.getScale().scl(0.5f);
 
-    double angle = Math.toRadians(30);
-    float ratio = (float) Math.tan(angle);
+      /*
+        height would normally be tan(30 deg) * size.y for iso, but we estimate
+        it with a 1:2 ratio. Therefore, height is half of the y size.
+       */
+      float height = 0.5f * center.y;
 
-    Vector2 one = new Vector2(0.5f, 0f);
-    Vector2 two = new Vector2(0f, ratio / 2);
-    Vector2 thr = new Vector2(0.5f, ratio);
-    Vector2 fou = new Vector2(1, ratio / 2);
+      Vector2 west = new Vector2(0 - (center.x / 2), (height / 2));
+      Vector2 north = new Vector2(0, height);
+      Vector2 east = new Vector2((center.x / 2), (height / 2));
+      Vector2 south = new Vector2(0, 0);
+      // Collect each of the isometric parallelogram's corners
+      Vector2[] points = new Vector2[]{west, north, east, south};
 
-    Vector2[] points = new Vector2[]{one, two, thr, fou};
-    bbox.set(points);
-    //bbox.setAsBox(center.x, center.y, center, 0.45f);
-    return bbox;
-  }
+      bbox.set(points);
+      setShape(bbox);
+      return bbox;
+    }
 }
