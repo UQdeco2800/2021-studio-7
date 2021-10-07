@@ -43,6 +43,7 @@ public class PlaceableBoxActions extends InteractionComponent {
     public void onInteraction(Entity target) {
     if (target != null && target.getComponent(PlayerActions.class) != null) {
             logger.info("BOX started interaction with SURVEYOR");
+            this.getEntity().dispose();
         }
     }
 
