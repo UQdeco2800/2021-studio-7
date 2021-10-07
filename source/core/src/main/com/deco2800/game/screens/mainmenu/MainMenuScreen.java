@@ -25,6 +25,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {
+          "images/ui/elements/menuFrame.png",
           "images/ui/title/RETROACTIVE-large.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",

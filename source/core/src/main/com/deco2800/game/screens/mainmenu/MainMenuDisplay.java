@@ -64,6 +64,7 @@ public class MainMenuDisplay extends UIComponent {
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
+
     writeAtlas(); //Stores copy of the first character
 
     TextButton startBtn = new TextButton("Start", skin);
@@ -83,8 +84,8 @@ public class MainMenuDisplay extends UIComponent {
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
 
-//    Image menuIndicator = new Image(ServiceLocator.getResourceService()
-//          .getAsset("images/ui/screens/menuFrame.png", Texture.class));
+    Image menuIndicator = new Image(ServiceLocator.getResourceService()
+         .getAsset("images/ui/elements/menuFrame.png", Texture.class));
 
 
     // Triggers an event when the button is pressed
