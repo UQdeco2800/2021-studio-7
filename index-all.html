@@ -100,6 +100,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Register an animation from the texture atlas.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#addChore(com.deco2800.game.entities.Entity)">addChore(Entity)</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
+<dd>
+<div class="block">Adds this entity as a chore to be completed by the player.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#addCommand(java.lang.String,com.deco2800.game.ui.terminal.commands.Command)">addCommand(String, Command)</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Adds a command to the list of valid terminal commands.</div>
@@ -248,6 +252,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/ChaseTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,int,float,float)">ChaseTask(Entity, int, float, float)</a></span> - Constructor for class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/ChaseTask.html" title="class in com.deco2800.game.ai.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores"><span class="typeNameLink">ChoreController</span></a> - Class in <a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a></dt>
+<dd>
+<div class="block">Stores and handles generation and completion of chores.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#%3Cinit%3E()">ChoreController()</a></span> - Constructor for class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH">CLASSPATH</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/generic/ServiceLocator.html#clear()">clear()</a></span> - Static method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/ServiceLocator.html" title="class in com.deco2800.game.generic">ServiceLocator</a></dt>
@@ -273,6 +283,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><a href="com/deco2800/game/ai/movement/package-summary.html">com.deco2800.game.ai.movement</a> - package com.deco2800.game.ai.movement</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/ai/tasks/package-summary.html">com.deco2800.game.ai.tasks</a> - package com.deco2800.game.ai.tasks</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a> - package com.deco2800.game.chores</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/concurrency/package-summary.html">com.deco2800.game.concurrency</a> - package com.deco2800.game.concurrency</dt>
 <dd>&nbsp;</dd>
@@ -474,6 +486,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameActions.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameActions.html" title="class in com.deco2800.game.screens.maingame">MainGameActions</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameScoreDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameScoreDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameScoreDisplay</a></dt>
@@ -530,13 +544,25 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/maps/terrain/TerrainFactory.html#createBaseTile(java.lang.String%5B%5D)">createBaseTile(String[])</a></span> - Static method in class com.deco2800.game.maps.terrain.<a href="com/deco2800/game/maps/terrain/TerrainFactory.html" title="class in com.deco2800.game.maps.terrain">TerrainFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBath(java.lang.String%5B%5D)">createBath(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBed(java.lang.String%5B%5D)">createBed(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBin(java.lang.String%5B%5D)">createBin(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#createBody(com.badlogic.gdx.physics.box2d.BodyDef)">createBody(BodyDef)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBookcase(java.lang.String%5B%5D)">createBookcase(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCabinet(java.lang.String%5B%5D)">createCabinet(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/RenderFactory.html#createCamera()">createCamera()</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/RenderFactory.html" title="class in com.deco2800.game.entities.factories">RenderFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createChair(java.lang.String%5B%5D)">createChair(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createCoffeeTable(java.lang.String%5B%5D)">createCoffeeTable(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createDesk(java.lang.String%5B%5D)">createDesk(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createDoor(java.lang.String%5B%5D)">createDoor(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -572,9 +598,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/TouchInputFactory.html#createForTitle()">createForTitle()</a></span> - Method in class com.deco2800.game.input.<a href="com/deco2800/game/input/TouchInputFactory.html" title="class in com.deco2800.game.input">TouchInputFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createFridge(java.lang.String%5B%5D)">createFridge(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/InputFactory.html#createFromInputType(com.deco2800.game.input.InputFactory.InputType)">createFromInputType(InputFactory.InputType)</a></span> - Static method in class com.deco2800.game.input.<a href="com/deco2800/game/input/InputFactory.html" title="class in com.deco2800.game.input">InputFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#createJoint(com.badlogic.gdx.physics.box2d.JointDef)">createJoint(JointDef)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createLamp(java.lang.String%5B%5D)">createLamp(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createLounge(java.lang.String%5B%5D)">createLounge(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -584,7 +614,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/PlayerFactory.html#createPlayer(java.lang.String%5B%5D)">createPlayer(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/PlayerFactory.html" title="class in com.deco2800.game.entities.factories">PlayerFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createPuddle(java.lang.String%5B%5D)">createPuddle(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/RenderFactory.html#createRenderer()">createRenderer()</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/RenderFactory.html" title="class in com.deco2800.game.entities.factories">RenderFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createSideTable(java.lang.String%5B%5D)">createSideTable(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/maps/terrain/TerrainFactory.html#createTile(java.lang.String%5B%5D)">createTile(String[])</a></span> - Static method in class com.deco2800.game.maps.terrain.<a href="com/deco2800/game/maps/terrain/TerrainFactory.html" title="class in com.deco2800.game.maps.terrain">TerrainFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -633,6 +667,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/components/InputComponent.html#disableRun()">disableRun()</a></span> - Method in class com.deco2800.game.input.components.<a href="com/deco2800/game/input/components/InputComponent.html" title="class in com.deco2800.game.input.components">InputComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#display(java.lang.String)">display(String)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
+<dd>
+<div class="block">Displays the text box at the bottom of the screen containing the given text.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html#display(java.lang.String)">display(String)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameTextDisplay</a></dt>
 <dd>
 <div class="block">Displays the text box at the bottom of the screen containing the given text.</div>
@@ -703,6 +741,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardScreen.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.leaderboardscreen.<a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardScreen.html" title="class in com.deco2800.game.screens.leaderboardscreen">LeaderBoardScreen</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameScoreDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameScoreDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameScoreDisplay</a></dt>
@@ -760,6 +800,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/EndGameDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.<a href="com/deco2800/game/screens/EndGameDisplay.html" title="class in com.deco2800.game.screens">EndGameDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.leaderboardscreen.<a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardDisplay.html" title="class in com.deco2800.game.screens.leaderboardscreen">LeaderBoardDisplay</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
@@ -1674,6 +1716,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameActions.html#%3Cinit%3E()">MainGameActions()</a></span> - Constructor for class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameActions.html" title="class in com.deco2800.game.screens.maingame">MainGameActions</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame"><span class="typeNameLink">MainGameChoresListDisplay</span></a> - Class in <a href="com/deco2800/game/screens/maingame/package-summary.html">com.deco2800.game.screens.maingame</a></dt>
+<dd>
+<div class="block">Creates a toggle-able and variable text box display at the bottom of the screen.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#%3Cinit%3E()">MainGameChoresListDisplay()</a></span> - Constructor for class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame"><span class="typeNameLink">MainGameExitDisplay</span></a> - Class in <a href="com/deco2800/game/screens/maingame/package-summary.html">com.deco2800.game.screens.maingame</a></dt>
 <dd>
 <div class="block">Displays a button to exit the Main Game screen to the Main Menu screen.</div>
@@ -2097,6 +2145,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/math/RandomUtils.html#random(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2)">random(Vector2, Vector2)</a></span> - Static method in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/RandomUtils.html" title="class in com.deco2800.game.utils.math">RandomUtils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/maps/Home.html#randomiseFloor()">randomiseFloor()</a></span> - Method in class com.deco2800.game.maps.<a href="com/deco2800/game/maps/Home.html" title="class in com.deco2800.game.maps">Home</a></dt>
+<dd>
+<div class="block">Queries for a list of JSON files in a pre-defined directory.</div>
+</dd>
 <dt><a href="com/deco2800/game/utils/math/RandomUtils.html" title="class in com.deco2800.game.utils.math"><span class="typeNameLink">RandomUtils</span></a> - Class in <a href="com/deco2800/game/utils/math/package-summary.html">com.deco2800.game.utils.math</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#raycast(com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,short,com.deco2800.game.physics.raycast.RaycastHit)">raycast(Vector2, Vector2, short, RaycastHit)</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
@@ -2149,6 +2201,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Read generic Java classes from a JSON file.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsUtils.html#realignScaledCollider(com.deco2800.game.entities.Entity,float,float,com.deco2800.game.physics.components.PhysicsComponent.AlignX,com.deco2800.game.physics.components.PhysicsComponent.AlignY)">realignScaledCollider(Entity, float, float, PhysicsComponent.AlignX, PhysicsComponent.AlignY)</a></span> - Static method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsUtils.html" title="class in com.deco2800.game.physics">PhysicsUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.DisplaySettings.html#refreshRate">refreshRate</a></span> - Variable in class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.DisplaySettings.html" title="class in com.deco2800.game.files">UserSettings.DisplaySettings</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/EntityService.html#register(com.deco2800.game.entities.Entity)">register(Entity)</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/EntityService.html" title="class in com.deco2800.game.entities">EntityService</a></dt>
@@ -2975,6 +3029,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardDisplay.html#update()">update()</a></span> - Method in class com.deco2800.game.screens.leaderboardscreen.<a href="com/deco2800/game/screens/leaderboardscreen/LeaderBoardDisplay.html" title="class in com.deco2800.game.screens.leaderboardscreen">LeaderBoardDisplay</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html#update()">update()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameChoresListDisplay</a></dt>
+<dd>
+<div class="block">Removes the textbox after a set amount of time (DURATION)</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html#update()">update()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameTextDisplay</a></dt>
 <dd>
 <div class="block">Removes the textbox after a set amount of time (DURATION)</div>
