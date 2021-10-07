@@ -6,6 +6,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -47,9 +50,7 @@ public class MainMenuDisplay extends UIComponent {
 
   private static int menuIndex = 0;
   private static List<TextButton> buttons = new ArrayList<TextButton>();
-  private static Image menuIndicator = new Image(ServiceLocator.getResourceService()
-            .getAsset("images/ui/elements/menuFrame.png", Texture.class));
-  private Table menuTable;
+  private static Image menuIndicator;
 
 
 
@@ -57,6 +58,7 @@ public class MainMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
+    updateMenuFrame();
   }
 
   private void addActors() {
@@ -87,8 +89,8 @@ public class MainMenuDisplay extends UIComponent {
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
 
-
-
+    menuIndicator = new Image(ServiceLocator.getResourceService()
+              .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -159,9 +161,10 @@ public class MainMenuDisplay extends UIComponent {
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
 
+    updateMenuFrame();
+    menuIndicator.setTouchable(Touchable.disabled);
+    stage.addActor(menuIndicator);
 
-//    menuIndicator.setPosition(0f,500f);
-//    stage.addActor(menuIndicator);
 
   }
 
@@ -245,6 +248,27 @@ public class MainMenuDisplay extends UIComponent {
         logger.info("Menu Index is " + Integer.toString(menuIndex));
     }
 
+
+    /**
+       Emulates mouse hover with keyboard
+     **/
+    public static void hoverMenu(Actor btn){
+        InputEvent event = new InputEvent();
+        event.setType(InputEvent.Type.enter);
+        event.setPointer(-1);
+        btn.fire(event);
+    }
+
+    /**
+     Emulates mouse unhover with keyboard
+     **/
+    public static void unhoverMenu(Actor btn){
+        InputEvent event = new InputEvent();
+        event.setType(InputEvent.Type.exit);
+        event.setPointer(-1);
+        btn.fire(event);
+    }
+
     private static boolean notAtTop() {
         return menuIndex > 0;
     }
@@ -266,24 +290,59 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public static void updateMenuFrame() {
+        TextButton startBtn = buttons.get(0);
+        TextButton LeadBtn = buttons.get(1);
+        TextButton SetBtn = buttons.get(2);
+        TextButton ExitBtn = buttons.get(3);
+        TextButton CharBtn = buttons.get(4);
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
-
+                menuIndicator.setPosition(500f,460);
+                hoverMenu(startBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
-
+                menuIndicator.setPosition(500f,402);
+                unhoverMenu(startBtn);
+                hoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 2: //Settings Button
-
+                menuIndicator.setPosition(500f,345);
+                unhoverMenu(startBtn);
+                unhoverMenu(LeadBtn);
+                hoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 3: //Exit Button
-
+                menuIndicator.setPosition(500f,287);
+                unhoverMenu(startBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                hoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 4: // Enter Username
-
+                menuIndicator.setPosition(500f,202);
+                unhoverMenu(startBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 5: //Character Button
-
+                menuIndicator.setPosition(500f,8);
+                unhoverMenu(startBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                hoverMenu(CharBtn);
                 break;
         }
     }
