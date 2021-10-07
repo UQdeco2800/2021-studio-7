@@ -82,7 +82,7 @@ public class MainGameScreen extends ScreenAdapter {
     home.getActiveFloor().getMiniMapCamera().position.set(10,10,10);
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
-    playMusic();
+    //playMusic();
   }
 
   @Override
@@ -138,17 +138,17 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(backgroundMusic);
   }
 
-  /**
-   * Play the background Music
-   */
-  private void playMusic() {
-    Music music =
-            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
-                    Music.class);
-    music.setLooping(true);
-    music.setVolume(0.3f);
-    music.play();
-  }
+//  /**
+//   * Play the background Music
+//   */
+//  private void playMusic() {
+//    Music music =
+//            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+//                    Music.class);
+//    music.setLooping(true);
+//    music.setVolume(0.3f);
+//    music.play();
+//  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and
@@ -165,8 +165,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
-//        .addComponent(new MainGameWinLossTestingDisplay())
-//        .addComponent(new MainGameTextDisplay())
+        .addComponent(new MainGameWinLossTestingDisplay())
+        .addComponent(new MainGameTextDisplay())
+        .addComponent(new MainGameChoresListDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());

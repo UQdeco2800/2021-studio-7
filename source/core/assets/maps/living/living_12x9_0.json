@@ -20,12 +20,27 @@
     B: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createBookcase
-      assets: [images/objects/furniture/Bookcase.png]
+      assets: [images/objects/furniture/bookcase1.png]
     }
     L: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createLounge
-      assets: [images/objects/furniture/Lounge.png]
+      assets: [images/objects/stopgap/couch_right_rear.png]
+    }
+    l: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createLamp
+      assets: [images/objects/stopgap/lamp.png]
+    }
+    C: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createCoffeeTable
+      assets: [images/objects/furniture/coffee_table_right.png]
+    }
+    E: {
+      class:com.deco2800.game.entities.factories.ObstacleFactory
+      method: createEnergyDrink
+      assets: [images/objects/energy_drink/energy.atlas]
     }
   }
   tileGrid: [
@@ -41,12 +56,12 @@
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
+    [W, B, ., ., ., T, ., ., ., ., ., .],
+    [W, B, ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., E, ., C, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., l, ., L, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]
   ]
