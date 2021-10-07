@@ -1,0 +1,13 @@
+1:Kitchen:Clean up garbage:
+2:Kitchen:Mop up:
+3:Kitchen:Do the Dishes
+4:Kitchen:Take the chicken out!
+5:Living:Turn off TV:
+6:Living:Hide console:
+7:Bedroom:Pet the dog:How can you sleep without saying goodnight to the best boy
+8:Bedroom:Pretend you were studying:
+9:Bathroom:Mop up!:
+10:Bathroom:Admire reflection:
+11:Bathroom:Shower:You haven't showered in days... disgusting
+12:Any:Collect all your Dountain Mew!:
+13:Any:Slip n slide on every Banana Peel
