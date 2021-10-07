@@ -53,13 +53,12 @@ public class Home {
     public Floor randomiseFloor() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
 
-        FileHandle testingFile = new FileHandle(mainGameScreen.getTestingFloorPlan());
-        fileHandles.removeValue(testingFile, true);
-
-        Floor randomFloor;
+        Floor randomFloor = null;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
-            randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+            if (!fileHandle.path().equals(mainGameScreen.getTestingFloorPlan())) {
+                randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+            }
             fileHandles.removeValue(fileHandle, true);
         } while (randomFloor == null && fileHandles.size > 0);
 
