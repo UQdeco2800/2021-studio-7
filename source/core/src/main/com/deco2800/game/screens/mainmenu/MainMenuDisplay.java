@@ -58,6 +58,7 @@ public class MainMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
+    updateMenuFrame();
   }
 
   private void addActors() {
@@ -157,8 +158,6 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
-
-
   }
 
   @Override
