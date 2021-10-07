@@ -24,12 +24,11 @@ public class BedActions extends InteractionComponent {
         }
     }
 
-
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BED started collision with PLAYER, highlighting bed");
-            animator.startAnimation("bed_highlight");
+            animator.startAnimation("bedhighlight2");
         } else {
             logger.debug("BED ended collision with PLAYER, un-highlighting bed");
             animator.startAnimation("bed");
