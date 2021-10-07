@@ -1,9 +1,9 @@
-banana.png
+puddle.png
 size: 424, 232
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-banana
+banana_peel
   rotate: false
   xy: 0, 0
   size: 424, 232
