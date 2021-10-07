@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
  * By default, will not display anything, but can call MainGameTextDisplay.display to display a
  * box with text (and optional image). Can then call remove to remove it.
  */
-public class MainGameChoresListDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameTextDisplay.class);
+public class ChoresListDisplay extends UIComponent {
 
     @Override
     public void create() {
