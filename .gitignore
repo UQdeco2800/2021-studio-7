@@ -4,4 +4,4 @@
 .gradle/
 
 # Ignore leaderboard.txt
-/leaderboard.txt
+leaderboard.txt
