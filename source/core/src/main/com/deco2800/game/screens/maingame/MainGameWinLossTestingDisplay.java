@@ -8,6 +8,10 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
@@ -25,7 +29,7 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
 
   private void addActors() {
       table = new Table();
-      table.bottom().right().padBottom(10f).padRight(10f);
+      table.bottom().left().padBottom(10f).padRight(10f);
       table.setFillParent(true);
 
       // Add button container to the table.
@@ -89,6 +93,26 @@ public class MainGameWinLossTestingDisplay extends UIComponent {
                   }
               });
       buttonContainer.addActor(textboxBtn);
+
+      // Button for testing the ChoreUI
+      TextButton choreTextBtn = new TextButton("Test chores list", skin);
+      List<String> choresList = Arrays.asList("Switch off TV +", "Pick up Rubbish -", "Do Laundry +");
+      StringBuilder chores = new StringBuilder();
+      chores.append("Chores List\n");
+      for (int i = 0; i < choresList.size(); i++) {
+          chores.append(choresList.get(i));
+          chores.append("\n");
+      }
+      choreTextBtn.addListener(
+              new ChangeListener() {
+                  @Override
+                  public void changed(ChangeEvent changeEvent, Actor actor) {
+                      logger.debug("Toggle chores list button clicked");
+                      logger.info("Toggle chores list button clicked");
+                      entity.getEvents().trigger("create_chores_list", chores.toString());
+                  }
+              });
+      buttonContainer.addActor(choreTextBtn);
 
       stage.addActor(table);
   }

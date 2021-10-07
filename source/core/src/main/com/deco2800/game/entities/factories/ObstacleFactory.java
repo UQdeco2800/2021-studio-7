@@ -1,6 +1,7 @@
 package com.deco2800.game.entities.factories;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
@@ -37,6 +38,8 @@ public class ObstacleFactory {
   public static Entity createBed(String[] assets) {
     Entity bed = createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new BedActions());
+    bed.setScale(1.5f, 1f);
+    PhysicsUtils.setScaledCollider(bed,1.5f, 1f);
     return bed;
   }
 
@@ -63,6 +66,91 @@ public class ObstacleFactory {
     Entity bananaPeel = createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new BananaPeelActions());
     return bananaPeel;
+  }
+
+  public static Entity createPuddle(String[] assets){
+    Entity puddle = createBaseInteractable(assets, BodyType.KinematicBody).addComponent(new BananaPeelActions());
+    return puddle;
+  }
+
+  public static Entity createBookcase(String[] assets) {
+    Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
+    bookcase.setScale(2f,2f);
+    PhysicsUtils.realignScaledCollider(bookcase,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
+    return bookcase;
+  }
+
+  public static Entity createBath(String[] assets) {
+    Entity bath = createBaseObstacle(assets, BodyType.StaticBody);
+    bath.setScale(1.5f,1.5f);
+    PhysicsUtils.setScaledCollider(bath,1f,1f);
+    return bath;
+  }
+
+  public static Entity createLounge(String[] assets) {
+    Entity lounge = createBaseObstacle(assets, BodyType.StaticBody);
+    lounge.getComponent(TextureRenderComponent.class).scaleEntity();
+    lounge.setScale(2f,1f);
+    PhysicsUtils.realignScaledCollider(lounge, 1f, 2f, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
+    return lounge;
+  }
+
+  public static Entity createDesk(String[] assets) {
+    Entity desk = createBaseObstacle(assets, BodyType.StaticBody);
+    desk.getComponent(TextureRenderComponent.class).scaleEntity();
+    desk.setScale(2f,2f);
+    PhysicsUtils.setScaledCollider(desk,2f,2f);
+    return desk;
+  }
+
+  public static Entity createCoffeeTable(String[] assets) {
+    Entity coffeeTable = createBaseObstacle(assets, BodyType.StaticBody);
+    coffeeTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    coffeeTable.setScale(1.5f,1f);
+    PhysicsUtils.setScaledCollider(coffeeTable,1f,1f);
+    return coffeeTable;
+  }
+
+  public static Entity createLamp(String[] assets) {
+    Entity lamp = createBaseObstacle(assets, BodyType.StaticBody);
+    lamp.getComponent(TextureRenderComponent.class).scaleEntity();
+    lamp.setScale(0.5f,1f);
+    return lamp;
+  }
+
+  public static Entity createChair(String[] assets) {
+    Entity chair = createBaseObstacle(assets, BodyType.StaticBody);
+    chair.setScale(1.25f, 1.25f);
+    PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    return chair;
+  }
+
+  public static Entity createSideTable(String[] assets) {
+    Entity side = createBaseObstacle(assets, BodyType.StaticBody);
+    side.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(side, 0.5f, 0.5f);
+    return side;
+  }
+
+  public static Entity createFridge(String[] assets) {
+    Entity fridge = createBaseObstacle(assets, BodyType.StaticBody);
+    fridge.setScale(2f,2f);
+    PhysicsUtils.realignScaledCollider(fridge,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
+    return fridge;
+  }
+
+  public static Entity createCabinet(String[] assets) {
+    Entity cab = createBaseObstacle(assets, BodyType.StaticBody);
+    cab.setScale(2.5f, 2f);
+    PhysicsUtils.setScaledCollider(cab, 1f,1f);
+    return cab;
+  }
+
+  public static Entity createBin(String[] assets) {
+    Entity bin = createBaseObstacle(assets, BodyType.StaticBody);
+    bin.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(bin, 0.5f, 0.5f);
+    return bin;
   }
 
   public static Entity createBaseInteractable(String[] assets, BodyType bodyType) {
@@ -93,7 +181,11 @@ public class ObstacleFactory {
       // Add all atlas regions as animations to the component
       for (TextureAtlas.AtlasRegion region : new Array.ArrayIterator<>(textureAtlas.getRegions())) {
         if (!animator.hasAnimation(region.name)) {
-          animator.addAnimation(region.name, 1f);
+          if (region.name.equals("TV_on1") || region.name.equals("TV_onh1")) {
+            animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
+          } else {
+            animator.addAnimation(region.name, 1f);
+          }
         }
       }
       obstacle.addComponent(animator);
