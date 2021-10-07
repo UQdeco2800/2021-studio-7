@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -47,9 +48,7 @@ public class MainMenuDisplay extends UIComponent {
 
   private static int menuIndex = 0;
   private static List<TextButton> buttons = new ArrayList<TextButton>();
-  private static Image menuIndicator = new Image(ServiceLocator.getResourceService()
-            .getAsset("images/ui/elements/menuFrame.png", Texture.class));
-  private Table menuTable;
+  private static Image menuIndicator;
 
 
 
@@ -87,7 +86,8 @@ public class MainMenuDisplay extends UIComponent {
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
 
-
+    menuIndicator = new Image(ServiceLocator.getResourceService()
+              .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
 
 
     // Triggers an event when the button is pressed
@@ -160,8 +160,9 @@ public class MainMenuDisplay extends UIComponent {
     stage.addActor(table);
 
 
-//    menuIndicator.setPosition(0f,500f);
-//    stage.addActor(menuIndicator);
+    updateMenuFrame();
+    menuIndicator.setTouchable(Touchable.disabled);
+    stage.addActor(menuIndicator);
 
   }
 
@@ -268,22 +269,22 @@ public class MainMenuDisplay extends UIComponent {
     public static void updateMenuFrame() {
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
-
+                menuIndicator.setPosition(500f,460);
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
-
+                menuIndicator.setPosition(500f,402);
                 break;
             case 2: //Settings Button
-
+                menuIndicator.setPosition(500f,345);
                 break;
             case 3: //Exit Button
-
+                menuIndicator.setPosition(500f,287);
                 break;
             case 4: // Enter Username
-
+                menuIndicator.setPosition(500f,202);
                 break;
             case 5: //Character Button
-
+                menuIndicator.setPosition(500f,8);
                 break;
         }
     }
