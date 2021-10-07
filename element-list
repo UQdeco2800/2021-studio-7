@@ -30,7 +30,6 @@ com.deco2800.game.screens.contextscreen
 com.deco2800.game.screens.leaderboardscreen
 com.deco2800.game.screens.maingame
 com.deco2800.game.screens.mainmenu
-com.deco2800.game.screens.pausemenu
 com.deco2800.game.screens.settingsmenu
 com.deco2800.game.screens.titlescreen
 com.deco2800.game.ui.components
