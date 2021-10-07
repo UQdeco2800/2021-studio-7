@@ -44,9 +44,8 @@ public class ObstacleFactory {
   }
 
   public static Entity createDoor(String[] assets) {
-    //Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-            //.addComponent(new DoorActions());
-    Entity door = new Entity(); //TODO remove later
+    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new DoorActions());
     return door;
   }
 
