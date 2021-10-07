@@ -1,0 +1,7 @@
+1:Kitchen:Clean up garbage:
+2:Kitchen:Mop up:
+3:Kitchen:Do the Dishes
+4:Kitchen:Take the chicken out!
+5:Living:Turn off TV:
+6:Living:Hide console:
+7:Bedroom:Pet the dog:How can you sleep without saying goodnight to the best boy
