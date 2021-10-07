@@ -10,4 +10,4 @@
 10:Bathroom:Admire reflection:
 11:Bathroom:Shower:You haven't showered in days... disgusting
 12:Any:Collect all your Dountain Mew!:
-13:Any:Slip n slide on every Banana Peel
+13:Any:Slip n slide on every Banana Peel:
