@@ -11,6 +11,11 @@
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createWall
       assets: [images/objects/walls/3.png]
+    },
+    U: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createPlaceableBox
+      assets: [images/objects/box/box.atlas]
     }
   }
   tileGrid: [
@@ -31,7 +36,7 @@
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., U, ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
