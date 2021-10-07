@@ -5,13 +5,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.leaderboardscreen.LeaderBoardDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 import com.deco2800.game.events.listeners.EventListener1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.*;
+import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Creates a toggle-able and variable text box display at the bottom of the screen.
@@ -20,38 +26,77 @@ import org.slf4j.LoggerFactory;
  * box with text (and optional image). Can then call remove to remove it.
  */
 public class ChoresListDisplay extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(ChoresListDisplay.class);
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().addListener("create_chores_list", this::display);
-    }
-
-    /**
-     * Displays the text box at the bottom of the screen containing the given text.
-     *
-     * @param text The text to display
-     */
-    public void display(String text) {
         // Divide screen into a more manageable grid
         int rowHeight = Gdx.graphics.getHeight() / 16;
         int colWidth = Gdx.graphics.getWidth() / 10;
 
+        // Read through text file
+        ArrayList<String> choreList = getChoreList();
+        String[] choreStrings = new String[30];
+        String[] choreEntities = new String[30];
+        // format: [count, "location:Entity:description:textbox string"]
+        for (int i = 0; i < choreList.size(); i++) {
+            String[] list = choreList.get(i).split(":");
+            choreStrings[i] = list[0] + ": " + list[2];
+            choreEntities[i] = list[1];
+        }
+
+        // Format string list
+        StringBuilder chores = new StringBuilder();
+        chores.append("Things I need to do:\n");
+        for (String choreString : choreStrings) {
+            if (choreString == null) {
+                break;
+            }
+            chores.append(choreString + "\n");
+        }
+
         // Display Text
-        Label displayText = new Label("", skin, "large");
-        displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition((float) colWidth/12, (float) rowHeight*10);
+        Label displayText = new Label(chores, skin, "large");
+        displayText.setSize(colWidth*6, rowHeight*6);
+        displayText.setPosition((float) colWidth/12, (float) rowHeight*6);
         displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
-        displayText.setWrap(true);
+        displayText.setAlignment(Align.topLeft);
+        //displayText.setWrap(true);
 
         stage.addActor(displayText);
     }
 
-    /**
-     * Removes the textbox after a set amount of time (DURATION)
-     */
-    @Override
-    public void update() {}
+    private ArrayList<String> getChoreList() {
+        File input = new File("configs/chores.txt");
+        BufferedReader br = null;
+        ArrayList<String> choreList = new ArrayList<String>();
+        int lineCount = 0;
+        String currentLine;
+
+        try {
+            br = new BufferedReader(new FileReader(input));
+            while ((currentLine = br.readLine()) != null) {
+                if ("".equals(currentLine)) {
+                    // Current line is blank, assume EOF
+                    break;
+                }
+                choreList.add(lineCount, currentLine);
+                lineCount++;
+            }
+        } catch (IOException e) {
+            logger.error("IOException in reading configs/testChores.txt");
+        } finally {
+            if (br != null){
+                try {
+                    br.close();
+                } catch (IOException e){
+                    logger.error("IOException in closing reader for configs/testChores.txt");
+                }
+            }
+        }
+        return choreList;
+    }
 
     @Override
     protected void draw(SpriteBatch batch) {
