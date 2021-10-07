@@ -2,3 +2,6 @@
 
 ### Gradle ###
 .gradle/
+
+# Ignore leaderboard.txt
+/leaderboard.txt
