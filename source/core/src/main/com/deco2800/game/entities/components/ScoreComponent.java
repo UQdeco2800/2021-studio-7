@@ -3,20 +3,8 @@ package com.deco2800.game.entities.components;
 import com.deco2800.game.generic.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.deco2800.game.entities.Entity;
-import com.deco2800.game.generic.Component;
-import com.deco2800.game.physics.PhysicsLayer;
-import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.generic.ServiceLocator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.FileWriter;
 import java.io.IOException;
-
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ScoreComponent extends Component {
 

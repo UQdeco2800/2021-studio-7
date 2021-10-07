@@ -9,6 +9,7 @@ import com.deco2800.game.entities.components.interactions.Actions.MumActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.configs.CatConfig;
 import com.deco2800.game.entities.configs.MumConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
@@ -36,8 +37,8 @@ public class NPCFactory {
       FileLoader.readClass(NPCConfigs.class, "configs/NPCs.json");
 
   /**
-   * Creates a mum entity.
    *
+   * Creates a mum entity.
    * @param target entity to chase
    * @return entity
    */
@@ -77,6 +78,44 @@ public class NPCFactory {
     //mum.getComponent(AnimationRenderComponent.class).scaleEntity();
     mum.scaleHeight(0.8f);
     return mum;
+  }
+
+  /**
+   *
+   * Creates a dog entity.
+   * @param target entity to chase
+   * @return entity
+   */
+  public static Entity createCat(Entity target) {
+    Entity cat =  createBaseNPC(target);
+    CatConfig config = configs.cat;
+
+    AnimationRenderComponent animator =
+            new AnimationRenderComponent(
+                    ServiceLocator.getResourceService()
+                            .getAsset("images/characters/cat_00/cat_00.atlas", TextureAtlas.class));
+    animator.addAnimation("cat_standing_north", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_standing_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_standing_south", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_standing_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_walking_north", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_walking_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_walking_south", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_walking_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_sleeping_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_sleeping_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_lying_west", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_lying_east", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_sitting", 0.25f, Animation.PlayMode.LOOP);
+    animator.addAnimation("cat_licking", 0.25f, Animation.PlayMode.LOOP);
+
+    cat
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(animator);
+//            .addComponent(new MumActions());
+
+    cat.scaleHeight(0.8f);
+    return cat;
   }
 
   /**

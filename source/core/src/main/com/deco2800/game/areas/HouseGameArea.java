@@ -37,6 +37,7 @@ public class HouseGameArea extends GameArea {
     private final String[] houseTextureAtlases = {
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/mum_01/mum_01.atlas",
+            "images/characters/cat_00/cat_00.atlas",
             "images/objects/bed/bed.atlas",
             "images/objects/tv/TV_animationL.atlas",
             "images/objects/door/door_animationL.atlas",
@@ -203,6 +204,11 @@ public class HouseGameArea extends GameArea {
     public void spawnMum(GridPoint2 gridPosition) {
         Entity mum = NPCFactory.createMum(player);
         spawnEntityAt(mum, gridPosition, true, true);
+    }
+
+    public void spawnCat(GridPoint2 gridPosition) {
+        Entity cat = NPCFactory.createCat(player);
+        spawnEntityAt(cat, gridPosition, true, true);
     }
 
     public void spawnBananaPeel(GridPoint2 gridPosition){
