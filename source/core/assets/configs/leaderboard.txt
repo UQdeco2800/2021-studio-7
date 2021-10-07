@@ -369,5 +369,3 @@ DirtyDefault75723:324,990,
 DirtyDefault17995:-511,
 DirtyDefault73811:-442,
 DirtyDefault33237:570,
-
-DirtyDefault73934:310,
