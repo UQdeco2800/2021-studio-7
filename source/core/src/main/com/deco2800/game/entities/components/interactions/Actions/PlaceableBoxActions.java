@@ -24,8 +24,7 @@ public class PlaceableBoxActions extends InteractionComponent {
     }
 
     @Override
-    public void onCollisionStart(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
+    public void onCollisionStart(Entity target) {
         if (target != null && target.getComponent(PlayerActions.class) != null) {
             logger.info("BOX started collision with PLAYER");
             highlightBox();
@@ -33,8 +32,7 @@ public class PlaceableBoxActions extends InteractionComponent {
     }
 
     @Override
-    public void onCollisionEnd(Fixture me, Fixture other) {
-        Entity target = preCollisionCheck(me, other);
+    public void onCollisionEnd(Entity target) {
         if (target != null && target.getComponent(PlayerActions.class) != null) {
             logger.info("BOX ended collision with PLAYER");
             deHighlightBox();
@@ -45,6 +43,7 @@ public class PlaceableBoxActions extends InteractionComponent {
     public void onInteraction(Entity target) {
     if (target != null && target.getComponent(PlayerActions.class) != null) {
             logger.info("BOX started interaction with SURVEYOR");
+            this.getEntity().dispose();
         }
     }
 
@@ -74,6 +73,5 @@ public class PlaceableBoxActions extends InteractionComponent {
         else {
             animator.startAnimation("box");
         }
-        this.getEntity().setPosition(100f,100f);
     }
 }

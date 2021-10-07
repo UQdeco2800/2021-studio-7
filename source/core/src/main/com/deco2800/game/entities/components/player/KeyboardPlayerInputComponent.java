@@ -7,7 +7,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -79,7 +78,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(true);
+                entity.getEvents().trigger("key_e", true);
                 return true;
             default:
                 return false;
@@ -116,7 +115,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.E:
-                entity.getComponent(SurveyorComponent.class).setEnabled(false);
+                entity.getEvents().trigger("key_e", false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
@@ -135,18 +134,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private void triggerPauseResumeEvent() {
-        // If the screen is the main game it pauses the game, but if the screen is the pause screen
-        // it resumes the game.
-        System.out.println(ServiceLocator.getGame().getScreen().toString());
-        if (ServiceLocator.getGame().getScreen().getClass() ==
-                MainGameScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-            ServiceLocator.getGame().pause();
-        } else if (ServiceLocator.getGame().getScreen().getClass() ==
-                PauseMenuScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-            ServiceLocator.getGame().resume();
-        }
+        ServiceLocator.getGame().getScreen().pause();
     }
 
     private void triggerWalkEvent() {
@@ -267,8 +255,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-        System.out.println("Triggering movement Events");
-        System.out.println(walkDirection);
+        // System.out.println("Triggering movement Events");
+        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;

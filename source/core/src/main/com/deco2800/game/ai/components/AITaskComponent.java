@@ -79,4 +79,13 @@ public class AITaskComponent extends Component implements TaskRunner {
       desiredTask.start();
     }
   }
+
+  public PriorityTask getPriorityTask(Class targetTask) {
+    for (int i = 0; 0 < priorityTasks.size(); i ++) {
+      if (priorityTasks.get(i).getClass().equals(targetTask)) {
+        return priorityTasks.get(i);
+      }
+    } return null;
+  }
+
 }

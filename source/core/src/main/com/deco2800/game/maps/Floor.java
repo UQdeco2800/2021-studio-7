@@ -31,6 +31,7 @@ public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
     private OrthographicCamera camera;
+    private OrthographicCamera miniMapCamera;
     private Entity player = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
@@ -40,6 +41,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
+    private TiledMapRenderer miniMapRenderer;
     // Defined on call for creation
     private boolean created = false;
 
@@ -60,7 +62,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * Allows rooms to spawn their tiles first, then will iterate through the entire floor grid
      * for miscellaneous tile spawning. Creates a new TerrainComponent and spawns it into the world.
      */
-    public void spawnFloorTiles() {
+    private void spawnFloorTiles() {
         TextureRegion textureRegion = new TextureRegion(
                 ServiceLocator.getResourceService().getAsset(defaultInteriorTile.getAssets()[0], Texture.class));
 
@@ -92,20 +94,19 @@ public class Floor extends GameArea implements Json.Serializable {
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        terrain = new TerrainComponent(camera, tiledMap, renderer, 1f);
+        TiledMapRenderer miniMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
+        this.miniMapRenderer = miniMapRenderer;
+                terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
     /**
-     * Allows rooms to spawn their entities first, then will iterate through the entire floor grid
+     * Spawns player first to alleviate any dependencies.
+     * Allow rooms to spawn their entities first, then will iterate through the entire floor grid
      * for miscellaneous entity spawning.
      */
-    public void spawnFloorEntities() {
-        ServiceLocator.getResourceService().loadTexture("images/objects/walls/wall.png");
-        ServiceLocator.getResourceService().loadTextureAtlas("images/characters/boy_00/boy_00.atlas");
-        ServiceLocator.getResourceService().loadAll();
-        player = PlayerFactory.createPlayer(new String[]{"images/characters/boy_00/boy_00.atlas"});
-        spawnEntityAt(player, new GridPoint2(1,1), true, true);
+    private void spawnFloorEntities() {
+        spawnPlayer();
 
         // Spawn all room entities for each room plan
         for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
@@ -122,6 +123,17 @@ public class Floor extends GameArea implements Json.Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Spawns the player into the world
+     */
+    private void spawnPlayer() {
+        String[] playerAssets = new String[]{PlayerFactory.getAtlas()};
+        ServiceLocator.getResourceService().loadTextureAtlases(playerAssets);
+        ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(playerAssets);
+        spawnEntityAt(player, new GridPoint2(1,1), true, true);
     }
 
     /**
@@ -169,6 +181,10 @@ public class Floor extends GameArea implements Json.Serializable {
         return defaultInteriorWall;
     }
 
+    public ObjectMap<Character, GridObject> getEntityMap() {
+        return entityMap;
+    }
+
     public Character[][] getFloorGrid() {
         return floorGrid;
     }
@@ -177,8 +193,13 @@ public class Floor extends GameArea implements Json.Serializable {
         return player;
     }
 
-    public void setCamera(OrthographicCamera camera) {
+    public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {
         this.camera = camera;
+        this.miniMapCamera = miniMapCamera;
+    }
+
+    public OrthographicCamera getMiniMapCamera() {
+        return this.miniMapCamera;
     }
 
     private void displayUI() {
