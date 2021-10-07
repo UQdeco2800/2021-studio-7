@@ -4,6 +4,8 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.entities.components.player.PlayerActions;
+import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,9 @@ public class DrinkActions extends InteractionComponent {
             logger.debug("PLAYER interacted with DRINK, increasing player stamina");
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
+            String string = "You drank a can of Dountain Mew. Yum!";
+            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
             //add time restriction
         }
     }
