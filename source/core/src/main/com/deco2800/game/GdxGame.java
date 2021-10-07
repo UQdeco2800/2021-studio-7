@@ -9,7 +9,6 @@ import com.deco2800.game.screens.contextscreen.ContextScreen;
 import com.deco2800.game.screens.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
-import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
 import com.deco2800.game.screens.leaderboardscreen.LeaderBoardScreen;
 import com.deco2800.game.screens.titlescreen.TitleScreen;
@@ -77,8 +76,8 @@ public class GdxGame extends Game {
         return new TitleScreen();
       case MAIN_MENU:
         return new MainMenuScreen();
-      case PAUSE_MENU:
-        return new PauseMenuScreen();
+//      case PAUSE_MENU:
+//        return new PauseMenuScreen();
       case MAIN_GAME:
         return new MainGameScreen();
       case SETTINGS:
