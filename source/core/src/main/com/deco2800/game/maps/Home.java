@@ -50,15 +50,11 @@ public class Home {
      * and initialises the floor plan.
      * @return A valid Floor extracted from a JSON file.
      */
-    private Floor randomiseFloor() {
+    public Floor randomiseFloor() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
 
-        for (FileHandle fileHandle : new Array.ArrayIterator<>(fileHandles)) {
-            if (fileHandle.path().equals(mainGameScreen.getTestingFloorPlan())) {
-                fileHandles.removeValue(fileHandle, true);
-                break;
-            }
-        }
+        FileHandle testingFile = new FileHandle(mainGameScreen.getTestingFloorPlan());
+        fileHandles.removeValue(testingFile, true);
 
         Floor randomFloor;
         do {
