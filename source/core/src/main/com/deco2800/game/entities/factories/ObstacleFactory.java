@@ -44,9 +44,16 @@ public class ObstacleFactory {
   }
 
   public static Entity createDoor(String[] assets) {
-    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-            .addComponent(new DoorActions());
+//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
+//            .addComponent(new DoorActions());
+    Entity door = new Entity();
     return door;
+  }
+
+  public static Entity createPlaceableBox(String[] assets) {
+    Entity box = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new PlaceableBoxActions());
+    return box;
   }
 
   public static Entity createTv(String[] assets) {
@@ -70,6 +77,8 @@ public class ObstacleFactory {
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets, BodyType.KinematicBody).addComponent(new BananaPeelActions());
+    puddle.setScale(1f, 0.5f);
+    PhysicsUtils.setScaledCollider(puddle,1f,1f);
     return puddle;
   }
 

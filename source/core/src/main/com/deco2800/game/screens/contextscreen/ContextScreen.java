@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
     private static final String[] ContextTextures = {
-            "images/ui/context/mum_and_bed.PNG",
+            "images/context_screen/context_screen.PNG",
             "images/ui/screens/inactiveStart.png"
     };
 
