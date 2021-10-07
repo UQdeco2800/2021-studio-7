@@ -29,6 +29,7 @@ LUCY:123
 DirtyDefault75945:258
 TIME:341
 DirtyDefault2177:419
+DirtyDefault57853:480
 DirtyDefault20225:513
 DirtyDefault90043:556
 DirtyDefault15206:559
@@ -86,6 +87,7 @@ DirtyDefault23371:1000
 DirtyDefault25411:1000
 DirtyDefault27305:1000
 DirtyDefault33237:1000
+DirtyDefault3482:1000
 DirtyDefault36231:1000
 DirtyDefault42245:1000
 DirtyDefault56424:1000
@@ -96,6 +98,7 @@ DirtyDefault71159:1000
 DirtyDefault7840:1000
 DirtyDefault83841:1000
 DirtyDefault89631:1000
+DirtyDefault90333:1000
 DirtyDefault90661:1000
 DirtyDefault91861:1000
 DirtyDefault92079:1000
@@ -107,15 +110,10 @@ Jim:1034
 DirtyDefault33618:1163
 BEN:1234
 DirtyDefault15012:1237
+DirtyDefault27242:1287
 DirtyDefault51830:1345
 DirtyDefault1479:1527
 DirtyDefault5961:1933
 DirtyDefault57431:1956
 DirtyDefault47349:4121
 DirtyDefault75214:4541
-
-DirtyDefault97029:
-DirtyDefault90333:1000,
-DirtyDefault3482:1000,
-DirtyDefault50152:
-DirtyDefault27242:873,414,

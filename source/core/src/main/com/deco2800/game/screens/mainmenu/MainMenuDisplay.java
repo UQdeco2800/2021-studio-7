@@ -58,7 +58,6 @@ public class MainMenuDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
-    updateMenuFrame();
   }
 
   private void addActors() {
@@ -303,6 +302,7 @@ public class MainMenuDisplay extends UIComponent {
                 unhoverMenu(SetBtn);
                 unhoverMenu(ExitBtn);
                 unhoverMenu(CharBtn);
+                logger.info("How many buttons " + Integer.toString(buttons.size()));
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
                 menuIndicator.setPosition(500f,402);
@@ -352,14 +352,17 @@ public class MainMenuDisplay extends UIComponent {
         switch (menuIndex) {
             case 0: //Start Button
                 TextButton startBtn = buttons.get(0);
+                buttons.clear();
                 startBtn.toggle();
                 break;
             case 1: //Leaderboard Button
                 TextButton LeadBtn = buttons.get(1);
+                buttons.clear();
                 LeadBtn.toggle();
                 break;
             case 2: //Settings Button
                 TextButton SetBtn = buttons.get(2);
+                buttons.clear();
                 SetBtn.toggle();
                 break;
             case 3: //Exit Button
