@@ -30,11 +30,17 @@
     l: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createLamp
+      assets: [images/objects/stopgap/lamp.png]
     }
     C: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createCoffeeTable
       assets: [images/objects/furniture/coffee_table_right.png]
+    }
+    E: {
+      class:com.deco2800.game.entities.factories.ObstacleFactory
+      method: createEnergyDrink
+      assets: [images/objects/energy_drink/energy.atlas]
     }
   }
   tileGrid: [
@@ -52,10 +58,10 @@
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, B, ., ., ., T, ., ., ., ., ., .],
     [W, B, ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., C, ., ., ., ., ., .],
+    [W, ., ., E, ., C, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., l, L, ., ., ., ., ., .],
+    [W, ., ., l, ., L, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]
   ]
