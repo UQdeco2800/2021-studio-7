@@ -194,8 +194,7 @@ public class MainGameScreen extends ScreenAdapter {
       renderer.render();
       builtPauseMenu = false;
     } else {
-      PLAYER_POSITION = entityPlayer.getPosition();
-      renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+      renderer.getCamera().getEntity().setPosition(player.getPosition());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
       renderer.render();
