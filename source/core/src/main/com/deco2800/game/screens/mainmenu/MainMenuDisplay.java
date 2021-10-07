@@ -47,6 +47,9 @@ public class MainMenuDisplay extends UIComponent {
 
   private static int menuIndex = 0;
   private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static Image menuIndicator = new Image(ServiceLocator.getResourceService()
+            .getAsset("images/ui/elements/menuFrame.png", Texture.class));
+  private Table menuTable;
 
 
 
@@ -84,8 +87,7 @@ public class MainMenuDisplay extends UIComponent {
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
 
-    Image menuIndicator = new Image(ServiceLocator.getResourceService()
-         .getAsset("images/ui/elements/menuFrame.png", Texture.class));
+
 
 
     // Triggers an event when the button is pressed
@@ -156,6 +158,10 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
+
+
+//    menuIndicator.setPosition(0f,500f);
+//    stage.addActor(menuIndicator);
 
   }
 
@@ -234,6 +240,7 @@ public class MainMenuDisplay extends UIComponent {
     public static void moveUp(){
         if (notAtTop()) {
             menuIndex--;
+            updateMenuFrame();
         }
         logger.info("Menu Index is " + Integer.toString(menuIndex));
     }
@@ -245,6 +252,7 @@ public class MainMenuDisplay extends UIComponent {
     public static void moveDown(){
         if (notAtBottom()) {
             menuIndex++;
+            updateMenuFrame();
         }
         logger.info("Menu Index is " + Integer.toString(menuIndex));
     }
@@ -256,6 +264,30 @@ public class MainMenuDisplay extends UIComponent {
     public static int getMenuIndex() {
         return menuIndex;
     }
+
+    public static void updateMenuFrame() {
+        switch (menuIndex) {
+            case 0: //Start Button (height of title image + 15f)
+
+                break;
+            case 1: //Leaderboard Button (height start btn + 15f)
+
+                break;
+            case 2: //Settings Button
+
+                break;
+            case 3: //Exit Button
+
+                break;
+            case 4: // Enter Username
+
+                break;
+            case 5: //Character Button
+
+                break;
+        }
+    }
+
     public static void pressMenu() {
         logger.info("Enter key is pressed");
         switch (menuIndex) {
