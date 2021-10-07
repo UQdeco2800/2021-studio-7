@@ -3,7 +3,10 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.entities.Entity;
@@ -48,16 +51,12 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] pauseGameTextures = {
           "images/ui/screens/paused_screen.png"
   };
-  private static final Vector2 CAMERA_POSITION = new Vector2(7.5f, 7.5f);
-  private Entity entityPlayer;
-  private Vector2 PLAYER_POSITION;
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   private final Home home;
   private final Entity mainGameEntity = new Entity();
   private Entity player;
-  private final Entity pauseGameEntity = new Entity();
 
 
   public static final int GAME_RUNNING = 0;
@@ -188,8 +187,7 @@ public class MainGameScreen extends ScreenAdapter {
       renderer.render();
       builtPauseMenu = false;
     } else {
-      PLAYER_POSITION = entityPlayer.getPosition();
-      renderer.getCamera().getEntity().setPosition(PLAYER_POSITION);
+      renderer.getCamera().getEntity().setPosition(player.getPosition());
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
       renderer.render();
