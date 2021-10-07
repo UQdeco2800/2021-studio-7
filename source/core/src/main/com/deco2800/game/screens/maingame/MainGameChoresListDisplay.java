@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
+import com.deco2800.game.events.listeners.EventListener1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * By default, will not display anything, but can call MainGameTextDisplay.display to display a
  * box with text (and optional image). Can then call remove to remove it.
  */
-public class MainGameTextDisplay extends UIComponent {
+public class MainGameChoresListDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameTextDisplay.class);
 
     private Table table;
@@ -34,11 +35,11 @@ public class MainGameTextDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("create_textbox",
+        entity.getEvents().addListener("create_chores_list",
                 this::display);
         // Load background texture
-        texture = new Texture(Gdx.files.internal(
-                "images/ui/elements/Textbox_1024.png"));
+//        texture = new Texture(Gdx.files.internal(
+//                "images/ui/elements/Textbox_1024.png"));
     }
 
     /**
@@ -46,7 +47,7 @@ public class MainGameTextDisplay extends UIComponent {
      */
     private void addActors() {
         table = new Table();
-        table.bottom();
+        table.top();
         stage.addActor(table);
     }
 
@@ -67,17 +68,17 @@ public class MainGameTextDisplay extends UIComponent {
         int rowHeight = Gdx.graphics.getHeight() / 16;
         int colWidth = Gdx.graphics.getWidth() / 10;
 
-        // Display background texture
+//        // Display background texture
         table.setSize(Gdx.graphics.getWidth(), rowHeight*4);
-        Image background = new Image(texture);
-        background.setScaleX((colWidth*8)/background.getWidth());
-        background.setOrigin(Align.center);
-        table.add(background);
+//        Image background = new Image(texture);
+//        background.setScaleX((colWidth*8)/background.getWidth());
+//        background.setOrigin(Align.center);
+//        table.add(background);
 
         // Display Text
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition(colWidth*2, (float) rowHeight/2);
+        displayText.setPosition((float) colWidth/12, (float) rowHeight*10);
         displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
         displayText.setWrap(true);
 
@@ -108,7 +109,7 @@ public class MainGameTextDisplay extends UIComponent {
         //(currentTime - startTime)%10 == 0 &&
         if (visible && charCount < text.length()) {
             currentText += text.charAt(charCount);
-            displayText.setText(currentText);
+            displayText.setText(text);
             charCount += 1;
         }
 
