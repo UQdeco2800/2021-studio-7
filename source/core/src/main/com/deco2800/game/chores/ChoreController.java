@@ -1,6 +1,8 @@
 package com.deco2800.game.chores;
 
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 
 import java.util.HashMap;
 
@@ -9,6 +11,7 @@ import java.util.HashMap;
  */
 public class ChoreController {
     HashMap<Entity, Boolean> choreList = new HashMap<>();
+    Entity mainGame = ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity();
 
     /**
      * Adds this entity as a chore to be completed by the player. Should be interactable.
@@ -29,5 +32,6 @@ public class ChoreController {
     private void markComplete(Entity chore) {
         choreList.replace(chore, Boolean.TRUE);
         // Should probably signal chore UI
+        //mainGame.getEvents().trigger();
     }
 }

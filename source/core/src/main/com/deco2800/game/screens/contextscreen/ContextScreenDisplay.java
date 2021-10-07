@@ -48,25 +48,15 @@ public class ContextScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
 
-        //Adds the story text, however the wrapping is not working properly so new lines are added
-        Label storyText = new Label("It’s 1982, a school night and mum went out tonight, " +
-                "saying she'll be back\nby midnight." +
-                "It's now 11:00, way past my bed time, but I hear the car\npull into the driveway. She's" +
-                "home early and coming after me. Can I make\nit to bed before she catches me?", skin);
-        storyText.setFontScale((float) 1.2);
-
-        table.add(storyText).padBottom(30f).padRight(10f);
-        table.row();
-
         //This is the image of the mum and the bed, they were combined as a PNG as it is easier to
         //be added rather than build multiple assets for it. This is because there are no functional
         //Actions by them
-        Image mumAndBed =
+        Image context =
                 new Image(
                         ServiceLocator.getResourceService()
-                                .getAsset("images/ui/context/mum_and_bed.PNG", Texture.class));
+                                .getAsset("images/context_screen/context_screen.PNG", Texture.class));
 
-        table.add(mumAndBed);
+        table.add(context);
         table.row();
         table.add(buttonContainer).padTop(30f);
 
