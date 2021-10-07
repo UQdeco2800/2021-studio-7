@@ -134,9 +134,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private void triggerPauseResumeEvent() {
-        // If the screen is the main game it pauses the game, but if the screen is the pause screen
-        // it resumes the game.
-//        System.out.println(ServiceLocator.getGame().getScreen().toString());
         ServiceLocator.getGame().getScreen().pause();
     }
 
@@ -258,6 +255,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
+        // System.out.println("Triggering movement Events");
+        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;

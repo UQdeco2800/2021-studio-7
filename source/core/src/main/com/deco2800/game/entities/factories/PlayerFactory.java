@@ -3,8 +3,6 @@ package com.deco2800.game.entities.factories;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.ai.components.AITaskComponent;
-import com.deco2800.game.ai.tasks.SlipTask;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
@@ -20,7 +18,6 @@ import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
@@ -38,7 +35,7 @@ import java.io.*;
 public class PlayerFactory {
   private static final Logger logger = LoggerFactory.getLogger(PlayerFactory.class);
   private static final PlayerConfig stats =
-          FileLoader.readClass(PlayerConfig.class, "configs/player.json");
+      FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
   public static Entity createPlayer(String[] assets) {
     Entity player = createBasePlayer(assets)
@@ -46,8 +43,6 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new AITaskComponent().addTask(new SlipTask()))
-            .addComponent(new PhysicsMovementComponent())
             .addComponent(new ScoreComponent(1000));
     return player;
   }
