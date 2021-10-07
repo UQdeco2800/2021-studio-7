@@ -91,8 +91,12 @@ public class MainGameScreen extends ScreenAdapter {
 
     Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
     CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
+
+    //This is the renderer for the minimap, essentially its display
     miniMapRenderer = new Renderer(camComponent);
     miniMapRenderer.getCamera().getEntity().setPosition(10,10);
+
+    //This is the main game renderer, which must be called last so the UI is shown
     renderer = RenderFactory.createRenderer();
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
 
@@ -106,8 +110,11 @@ public class MainGameScreen extends ScreenAdapter {
     }
     home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
+
     home.create(miniMapRenderer.getCamera(), renderer.getCamera());
     home.getActiveFloor().getMiniMapCamera().position.set(10,10,10);
+
+    //Adjust the minimap renderer to achieve a more isometric
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
     //playMusic();

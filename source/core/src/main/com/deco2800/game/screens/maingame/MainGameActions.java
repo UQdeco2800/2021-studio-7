@@ -28,7 +28,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen.
    */
-  private void onExit() {
+  public void onExit() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to main menu screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
@@ -37,7 +37,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onWinDefault() {
+  public void onWinDefault() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default win screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.WIN_DEFAULT);
@@ -46,7 +46,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onLossTimed() {
+  public void onLossTimed() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_TIMED);
@@ -55,7 +55,7 @@ public class MainGameActions extends Component {
   /**
    * Swaps to the Main Menu screen for now.
    */
-  private void onLossCaught() {
+  public void onLossCaught() {
     logger.info("Exiting main game screen...");
     logger.info("Swapping to default loss screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
@@ -64,7 +64,7 @@ public class MainGameActions extends Component {
   /**
    * Restarts game, by resetting game by running start.
    */
-  private void onRestart() {
+  public void onRestart() {
     logger.info("Restart game");
 //        ServiceLocator.getGame().dispose();
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
@@ -73,7 +73,7 @@ public class MainGameActions extends Component {
   /**
    * Resumes game, by unpausing game state.
    */
-  private void onResume() {
+  public void onResume() {
     logger.info("Resume game");
 //        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
     ServiceLocator.getGame().getScreen().resume();
@@ -84,7 +84,7 @@ public class MainGameActions extends Component {
   /**
    * Opens settings menu.
    */
-  private void onSettings() {
+  public void onSettings() {
     logger.info("Launch settings screen");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
   }
@@ -92,7 +92,7 @@ public class MainGameActions extends Component {
   /**
    * Opens main menu.
    */
-  private void onMainMenu() {
+  public void onMainMenu() {
     logger.info("Launch main menu screen");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
