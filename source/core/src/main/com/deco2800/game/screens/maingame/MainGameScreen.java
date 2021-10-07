@@ -61,7 +61,6 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerRenderService(new RenderService());
 
 
-    cameraMiniMap = new OrthographicCamera();
     Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
     CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
     miniMapRenderer = new Renderer(camComponent);
