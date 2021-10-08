@@ -61,7 +61,9 @@ public class ServiceLocator {
     return resourceService;
   }
 
-  public static ChoreController getChoreController() { return choreController; }
+  public static ChoreController getChoreController() {
+    return choreController;
+  }
 
   public static void registerGame(GdxGame source) {
     logger.debug("Registering GdxGame {}", source);

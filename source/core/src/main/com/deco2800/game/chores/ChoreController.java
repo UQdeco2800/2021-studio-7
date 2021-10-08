@@ -23,33 +23,37 @@ public class ChoreController {
      */
     public void addChore(Entity entity, ChoreList object) {
         Chore chore = new Chore(entity, object.getDescription());
+        entity.getEvents().addListener("chore_complete", this::markComplete);
         chores.add(chore);
-
-        ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                .getMainGameEntity().getComponent(ChoreUI.class).display();
-        //System.out.println("ChoreController");
     }
 
     /**
      * Marks the specified chore as complete
-     * @param chore The chore to mark off as complete
+     * @param entity The entity to mark off as complete
      */
-    private void markComplete(Chore chore) {
-        chores.remove(chore);
-        //chores.get(index).markComplete();
+    private void markComplete(Entity entity) {
+        //chores.remove(chore);
+        for (Chore chore : chores) {
+            if (chore.getEntity() == entity) {
+                chores.remove(chore);
+                break;
+            }
+        }
     }
 
+    /**
+     * Get an ArrayList of the chores registered
+     * @return The ArrayList of chores registered
+     */
     public ArrayList<Chore> getChores() {
         return chores;
     }
 
+    /**
+     * Check if there are any more chores to complete
+     * @return True if all chores are complete, false otherwise
+     */
     public boolean checkComplete() {
-        int numComplete = 0;
-        for (Chore chore : chores) {
-            if (!chore.isActive()) {
-                numComplete++;
-            }
-        }
-        return numComplete == chores.size();
+        return (chores.size() == 0);
     }
 }

@@ -160,6 +160,13 @@ public class ObstacleFactory {
     return bin;
   }
 
+  /**
+   * Creates the object as a chore, and registers it as a chore to the ChoreController
+   * @param assets the image and atlas assets of this object
+   * @param bodyType Static, kinematic or dynamic body type
+   * @param object The ChoreList ID of this object
+   * @return The new entity of this obstacle
+   */
   public static Entity createBaseChore(String[] assets, BodyType bodyType, ChoreList object) {
     Entity entity = createBaseInteractable(assets, bodyType);
     ServiceLocator.getChoreController().addChore(entity, object);

@@ -19,44 +19,45 @@ import java.util.ArrayList;
  */
 public class ChoreUI extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
-    private String text;
+    private boolean displaying = false;
+    private Label displayText;
 
     @Override
     public void create() {
         super.create();
+
+        // Divide screen into a more manageable grid
+        int rowHeight = Gdx.graphics.getHeight() / 16;
+        int colWidth = Gdx.graphics.getWidth() / 10;
+
+        // Display Text
+        displayText = new Label("", skin, "large");
+        displayText.setSize(colWidth*6f, rowHeight*6f);
+        displayText.setPosition(colWidth/12f, rowHeight*6f);
+        displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
+        displayText.setAlignment(Align.topLeft);
+        displayText.setWrap(true);
+
+        stage.addActor(displayText);
+
+        entity.getEvents().addListener("toggle_chores", this::toggleDisplay);
+    }
+
+    /**
+     * Toggle whether the chore list is being displayed or not
+     */
+    private void toggleDisplay() {
+        if (displaying) {
+            hide();
+        } else {
+            display();
+        }
     }
 
     /**
      * Displays the list of chores to the screen.
      */
     public void display() {
-        // Divide screen into a more manageable grid
-        int rowHeight = Gdx.graphics.getHeight() / 16;
-        int colWidth = Gdx.graphics.getWidth() / 10;
-
-        /*
-        // Read through text file
-        ArrayList<String> choreList = getChoreList();
-        ArrayList<String> choreStrings = new ArrayList<>();
-        ArrayList<String> choreEntities = new ArrayList<>();
-        // format: [count, "location:Entity:description:textbox string"]
-        for (String s : choreList) {
-            String[] list = s.split(":");
-            choreStrings.add(list[0] + ": " + list[2]);
-            choreEntities.add(list[1]);
-        }
-
-        // Format string list
-        StringBuilder chores = new StringBuilder();
-        chores.append("Things I need to do:\n");
-        for (String choreString : choreStrings) {
-            if (choreString == null) {
-                break;
-            }
-            chores.append(choreString).append("\n");
-        }
-        */
-
         // Get the list of chores from the ChoreController
         ArrayList<Chore> chores = ServiceLocator.getChoreController().getChores();
         String[] choreDescriptions = new String[chores.size()];
@@ -71,55 +72,16 @@ public class ChoreUI extends UIComponent {
             choreText.append(choreDescription).append("\n");
         }
 
-        // Display Text
-        Label displayText = new Label(choreText, skin, "large");
-        displayText.setSize(colWidth*6f, rowHeight*6f);
-        displayText.setPosition(colWidth/12f, rowHeight*6f);
-        displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
-        displayText.setAlignment(Align.topLeft);
-        //displayText.setWrap(true);
-
-        stage.addActor(displayText);
+        displayText.setText(choreText);
+        displaying = true;
     }
-
-    /*
-    private ArrayList<String> getChoreList() {
-        File input = new File("configs/chores.txt");
-        BufferedReader br = null;
-        ArrayList<String> choreList = new ArrayList<String>();
-        int lineCount = 0;
-        String currentLine;
-
-        try {
-            br = new BufferedReader(new FileReader(input));
-            while ((currentLine = br.readLine()) != null) {
-                if ("".equals(currentLine)) {
-                    // Current line is blank, assume EOF
-                    break;
-                }
-                choreList.add(lineCount, currentLine);
-                lineCount++;
-            }
-        } catch (IOException e) {
-            logger.error("IOException in reading configs/testChores.txt");
-        } finally {
-            if (br != null){
-                try {
-                    br.close();
-                } catch (IOException e){
-                    logger.error("IOException in closing reader for configs/testChores.txt");
-                }
-            }
-        }
-        return choreList;
-    }
-     */
 
     /**
      * Removes all current visual components from the screen (but doesn't do a full cleanup)
      */
     private void hide() {
-        //TODO Have objectives toggle on/ off at keypress
+        displayText.setText("");
+        displaying = false;
     }
 
     @Override

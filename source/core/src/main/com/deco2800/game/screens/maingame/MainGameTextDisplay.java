@@ -34,8 +34,7 @@ public class MainGameTextDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("create_textbox",
-                this::display);
+        entity.getEvents().addListener("create_textbox", this::display);
         // Load background texture
         texture = new Texture(Gdx.files.internal(
                 "images/ui/elements/Textbox_1024.png"));

@@ -80,6 +80,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case Keys.E:
                 entity.getEvents().trigger("key_e", true);
                 return true;
+            case Keys.O:
+                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
+                        .getEvents().trigger("toggle_chores");
+                return true;
             default:
                 return false;
         }
