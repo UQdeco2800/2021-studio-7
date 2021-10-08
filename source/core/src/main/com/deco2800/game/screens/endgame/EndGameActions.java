@@ -1,4 +1,4 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.endgame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;

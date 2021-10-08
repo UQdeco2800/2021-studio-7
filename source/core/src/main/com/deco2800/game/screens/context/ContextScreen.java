@@ -1,7 +1,6 @@
-package com.deco2800.game.screens.titlescreen;
+package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -9,7 +8,6 @@ import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
-import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
@@ -17,23 +15,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The game screen containing the title.
+ * The game screen containing the context.
  */
-public class TitleScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
+public class ContextScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
+    private static final String[] ContextTextures = {
+            "images/context_screen/context_screen.PNG",
+            "images/ui/screens/inactiveStart.png"
+    };
 
     private final Renderer renderer;
-    private static final String[] TitleTextures = {
-            "images/ui/screens/inactiveStart.png",
-            "images/ui/title/RETROACTIVE-large.png"
-    };
-    //add background music into the game
-    private static final String[] backgroundMusic = {"sounds/backgroundMusic" +
-            "-EP.mp3"};
 
-    public TitleScreen() {
+    public ContextScreen() {
 
-        logger.debug("Initialising title screen services");
+        logger.debug("Initialising Context screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -41,10 +36,10 @@ public class TitleScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
+        System.out.println();
 
         loadAssets();
         createUI();
-        playMusic();
     }
 
     @Override
@@ -71,7 +66,7 @@ public class TitleScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing title screen");
+        logger.debug("Disposing context screen");
 
         renderer.dispose();
         unloadAssets();
@@ -82,48 +77,30 @@ public class TitleScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-    /**
-     * Play the background Music
-     */
-    private void playMusic() {
-        Music music =
-                ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
-                        Music.class);
-        music.setLooping(true);
-        music.setVolume(0.01f);
-        music.play();
-    }
-
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(TitleTextures);
-        resourceService.loadMusic(backgroundMusic);
+        resourceService.loadTextures(ContextTextures);
         ServiceLocator.getResourceService().loadAll();
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(TitleTextures);
-        resourceService.unloadAssets(backgroundMusic);
+        resourceService.unloadAssets(ContextTextures);
     }
 
     /**
-     * Creates the title ui including components for rendering ui elements to the screen and
+     * Creates the context screens ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {
         logger.debug("Creating ui");
-        InputComponent inputComponent =
-                ServiceLocator.getInputService().getInputFactory().createForTitle();
-
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new TitleScreenDisplay())
+        ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(inputComponent)
-                .addComponent(new TitleScreenActions());
+                .addComponent(new ContextScreenActions());
         ServiceLocator.getEntityService().register(ui);
     }
 }
