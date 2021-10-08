@@ -369,3 +369,17 @@ DirtyDefault75723:324,990,
 DirtyDefault17995:-511,
 DirtyDefault73811:-442,
 DirtyDefault60570:823,
+DirtyDefault67010:841,-1430,
+DirtyDefault48914:613,924,
+DirtyDefault29771:847,849,
+DirtyDefault97236:925,-1032,
+DirtyDefault52860:
+DirtyDefault83491:
+DirtyDefault83238:
+DirtyDefault89782:783,
+DirtyDefault49218:873,
+DirtyDefault10208:1000,
+DirtyDefault80067:
+DirtyDefault21272:1000,
+DirtyDefault971:876,
+DirtyDefault23369:786,
