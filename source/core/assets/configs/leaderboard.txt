@@ -1,0 +1,13 @@
+DirtyDefault69011:-4597
+DirtyDefault63377:-2134
+DirtyDefault49698:-922
+DirtyDefault30448:-52
+DirtyDefault9581:986
+DirtyDefault17950:1000
+DirtyDefault26494:1000
+DirtyDefault53230:1000
+DirtyDefault64319:1000
+DirtyDefault84532:1000
+DirtyDefault6770:1595
+
+DirtyDefault26126:-1752,1000,

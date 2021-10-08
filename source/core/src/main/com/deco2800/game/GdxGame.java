@@ -76,8 +76,6 @@ public class GdxGame extends Game {
         return new TitleScreen();
       case MAIN_MENU:
         return new MainMenuScreen();
-//      case PAUSE_MENU:
-//        return new PauseMenuScreen();
       case MAIN_GAME:
         return new MainGameScreen();
       case SETTINGS:
