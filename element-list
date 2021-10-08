@@ -25,13 +25,13 @@ com.deco2800.game.physics.components
 com.deco2800.game.physics.raycast
 com.deco2800.game.rendering
 com.deco2800.game.rendering.components
-com.deco2800.game.screens
-com.deco2800.game.screens.contextscreen
-com.deco2800.game.screens.leaderboardscreen
+com.deco2800.game.screens.context
+com.deco2800.game.screens.endgame
+com.deco2800.game.screens.leaderboard
 com.deco2800.game.screens.maingame
 com.deco2800.game.screens.mainmenu
 com.deco2800.game.screens.settingsmenu
-com.deco2800.game.screens.titlescreen
+com.deco2800.game.screens.title
 com.deco2800.game.ui.components
 com.deco2800.game.ui.terminal
 com.deco2800.game.ui.terminal.commands
