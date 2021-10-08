@@ -73,14 +73,22 @@ public class InteractionComponent extends Component implements Interactable {
     }
 
     @Override
-    public void onCollisionStart(Entity target) {}
+    public void onCollisionStart(Entity target) {
+        // Interactables do nothing on collision start by default
+    }
 
     @Override
-    public void onCollisionEnd(Entity target) {}
+    public void onCollisionEnd(Entity target) {
+        // Interactables do nothing on collision end by default
+    }
 
     @Override
-    public void onInteraction(Entity target) {}
+    public void onInteraction(Entity target) {
+        // Interactables do nothing on interaction by default
+    }
 
     @Override
-    public void toggleHighlight(boolean shouldHighlight) {}
+    public void toggleHighlight(boolean shouldHighlight) {
+        // Subclasses should override to specify which textures to toggle
+    }
 }
