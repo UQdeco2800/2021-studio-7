@@ -59,7 +59,7 @@ public class MainMenuScreen extends ScreenAdapter {
             ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
                     Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.01f);
     music.play();
   }
   @Override

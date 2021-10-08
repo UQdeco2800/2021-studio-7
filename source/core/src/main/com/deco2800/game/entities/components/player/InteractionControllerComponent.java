@@ -26,7 +26,7 @@ public class InteractionControllerComponent extends InteractionComponent {
     public void create() {
         super.create();
         targetLayer = PhysicsLayer.OBSTACLE;
-        entity.getEvents().addListener("key_e", this::keyE);
+        entity.getEvents().addListener("toggle_interacting", this::toggleInteracting);
         entity.getEvents().trigger("update_animation", "standing_south");
     }
 
@@ -61,11 +61,10 @@ public class InteractionControllerComponent extends InteractionComponent {
     }
 
     /**
-     * Raw input parsing on the E key
-     * @param isDown true if key is currently down, otherwise false
+     * @param isInteracting true if interaction key is pressed down, otherwise false
      */
-    private void keyE(boolean isDown) {
-        isInteracting = isDown;
+    private void toggleInteracting(boolean isInteracting) {
+        this.isInteracting = isInteracting;
     }
 
     /**

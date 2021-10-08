@@ -7,7 +7,7 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.KeyboardInputFactory;
 import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.screens.titlescreen.TitleScreenActions;
+import com.deco2800.game.screens.title.TitleScreenActions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

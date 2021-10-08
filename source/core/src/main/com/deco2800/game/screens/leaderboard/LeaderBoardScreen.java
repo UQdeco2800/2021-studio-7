@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.leaderboardscreen;
+package com.deco2800.game.screens.leaderboard;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
