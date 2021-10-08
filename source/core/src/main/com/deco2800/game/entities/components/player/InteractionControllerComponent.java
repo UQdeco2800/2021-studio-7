@@ -14,6 +14,7 @@ public class InteractionControllerComponent extends InteractionComponent {
     // Highlighting entities
     private static final long MIN_TIME_BETWEEN_HIGHLIGHTS = 50L;
     private long timeSinceLastHighlight = 0L;
+    private static final String TOGGLE_HIGHLIGHT = "toggle_highlight";
     // Interacting with entities
     private static final long MIN_TIME_BETWEEN_INTERACTIONS = 100L;
     private long timeSinceLastInteraction = 0L;
@@ -31,7 +32,7 @@ public class InteractionControllerComponent extends InteractionComponent {
 
     @Override
     public void onCollisionStart(Entity target) {
-        if (target.getEvents().hasListener("toggle_highlight") &&
+        if (target.getEvents().hasListener(TOGGLE_HIGHLIGHT) &&
                 !interactables.contains(target, true)) {
             logger.debug("Added interactable to list");
             interactables.add(target);
@@ -86,12 +87,12 @@ public class InteractionControllerComponent extends InteractionComponent {
 
         if (highlightedInteractable != null && !highlightedInteractable.equals(closestInteractable)) {
             // Previously highlighted interactable is not eligible for highlighting, schedule for unhighlight
-            highlightedInteractable.getEvents().trigger("toggle_highlight", false);
+            highlightedInteractable.getEvents().trigger(TOGGLE_HIGHLIGHT, false);
         }
 
         if (closestInteractable != null && !closestInteractable.equals(highlightedInteractable)) {
             // New interactable is eligible for highlighting, schedule for highlight
-            closestInteractable.getEvents().trigger("toggle_highlight", true);
+            closestInteractable.getEvents().trigger(TOGGLE_HIGHLIGHT, true);
         }
 
         highlightedInteractable = closestInteractable;
