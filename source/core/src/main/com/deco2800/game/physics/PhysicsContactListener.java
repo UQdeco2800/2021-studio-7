@@ -1,6 +1,7 @@
 package com.deco2800.game.physics;
 
 import com.badlogic.gdx.physics.box2d.*;
+import com.deco2800.game.entities.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,10 +41,10 @@ public class PhysicsContactListener implements ContactListener {
   }
 
   private void triggerEventOn(Fixture fixture, String evt, Fixture otherFixture) {
-    BodyUserData userData = (BodyUserData) fixture.getBody().getUserData();
-    if (userData != null && userData.entity != null) {
-      logger.debug("{} on entity {}", evt, userData.entity);
-      userData.entity.getEvents().trigger(evt, fixture, otherFixture);
+    Entity userData = (Entity) fixture.getBody().getUserData();
+    if (userData != null) {
+      logger.debug("{} on entity {}", evt, userData);
+      userData.getEvents().trigger(evt, fixture, otherFixture);
     }
   }
 }

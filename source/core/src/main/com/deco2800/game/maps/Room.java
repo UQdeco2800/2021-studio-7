@@ -174,7 +174,7 @@ public class Room implements Json.Serializable {
     private Array<String> getAssets(ObjectMap<Character, GridObject> map, String extension) {
         Array<String> assets = new Array<>();
         for (GridObject gridObject : new ObjectMap.Values<>(map)) {
-            String[] objAssets = gridObject.getAssets(extension);
+            Array<String> objAssets = gridObject.getAssets(extension);
             assets.addAll(objAssets);
         }
         return assets;

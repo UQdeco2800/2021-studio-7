@@ -33,7 +33,7 @@ import com.deco2800.game.generic.ServiceLocator;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
-@SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
+@SuppressWarnings("unused")
 public class NPCFactory {
 
   private static final NPCConfigs configs =
@@ -46,10 +46,9 @@ public class NPCFactory {
    */
   public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-    Entity mum =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+    return createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
-    return mum;
   }
 
   /**
