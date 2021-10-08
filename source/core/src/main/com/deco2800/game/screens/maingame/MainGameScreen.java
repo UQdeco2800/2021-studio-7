@@ -3,7 +3,6 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.maps.Home;
@@ -21,26 +20,15 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.ui.components.UIComponent;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import java.awt.*;
-import java.util.stream.StreamSupport;
-
-import java.awt.*;
-import java.util.stream.StreamSupport;
 
 /**
  * The game screen containing the main game.
@@ -50,8 +38,8 @@ import java.util.stream.StreamSupport;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {""};
-  private static final String testingFloorPlan = "maps/_floor_plans/floor_plan_testing.json";
-   private static final boolean usingTestingFloorPlan = false;
+  private static final String TEST_FLOOR_PLAN = "maps/_floor_plans/floor_plan_testing.json";
+   private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
   private static final String[] pauseGameTextures = {
@@ -103,8 +91,8 @@ public class MainGameScreen extends ScreenAdapter {
     loadAssets();
     createUI();
 
-    if (usingTestingFloorPlan) {
-      home = new Home(testingFloorPlan);
+    if (USE_TEST_FLOOR_PLAN) {
+      home = new Home(TEST_FLOOR_PLAN);
     } else {
       home = new Home();
     }
@@ -291,7 +279,6 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
-        //.addComponent(new MainGameWinLossTestingDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoresListDisplay())
         .addComponent(new Terminal())
@@ -310,7 +297,7 @@ public class MainGameScreen extends ScreenAdapter {
   }
 
   public String getTestingFloorPlan() {
-    return testingFloorPlan;
+    return TEST_FLOOR_PLAN;
   }
 
   public Entity getPlayer() {

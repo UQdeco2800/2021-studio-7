@@ -100,4 +100,8 @@ public class PlayerFactory {
       }
     } return line;
   }
+
+  private PlayerFactory() {
+    throw new IllegalStateException("Instantiating static util class");
+  }
 }

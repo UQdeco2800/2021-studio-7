@@ -201,5 +201,9 @@ public class ObstacleFactory {
     }
     return obstacle;
   }
+
+  private ObstacleFactory() {
+    throw new IllegalStateException("Instantiating static util class");
+  }
 }
 

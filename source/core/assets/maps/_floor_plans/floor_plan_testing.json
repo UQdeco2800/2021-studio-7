@@ -2,7 +2,7 @@
   defaultInteriorTile: {
     // Used for tile region specification and null texture declarations on grid
     class: com.deco2800.game.maps.terrain.TerrainFactory
-    method: createTile
+    method: createBaseTile
     assets: [images/tiles/iso/iso_floor_1.png]
   }
   defaultInteriorWall: {
@@ -15,7 +15,7 @@
     // Grass tile. Can specify multiple textures and their chance to spawn
     _: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createTile
+      method: createBaseTile
       assets: [images/tiles/iso/iso_wall_1_left.png]
     }
   }
@@ -54,7 +54,7 @@
         tileMap: {
           a: {
             class: com.deco2800.game.maps.terrain.TerrainFactory
-            method: createTile
+            method: createBaseTile
             assets: [images/tiles/iso/iso_wall_1_left.png]
           }
         }
