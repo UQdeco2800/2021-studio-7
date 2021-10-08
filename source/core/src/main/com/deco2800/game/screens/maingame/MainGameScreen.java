@@ -129,10 +129,7 @@ public class MainGameScreen extends ScreenAdapter {
         resourceService.loadTextures(pauseGameTextures);
         ServiceLocator.getResourceService().loadAll();
 
-        //      Table table = new Table();
         table.setFillParent(true);
-        //      Image bg = new Image(ServiceLocator.getResourceService()
-        //              .getAsset("images/ui/screens/paused_screen.png", Texture.class));
 
         TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
         TextButton restartBtn = new TextButton("Restart from Start", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
@@ -179,8 +176,6 @@ public class MainGameScreen extends ScreenAdapter {
                   }
                 });
 
-        //      table.add(bg);
-        //      table.row();
         table.add(resumeBtn).padTop(50f);
         table.row();
         table.add(restartBtn).padTop(15f);
