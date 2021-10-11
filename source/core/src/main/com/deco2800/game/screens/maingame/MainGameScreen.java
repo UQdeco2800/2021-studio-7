@@ -21,6 +21,7 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.pausemenu.PauseMenuDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
@@ -125,10 +126,6 @@ public class MainGameScreen extends ScreenAdapter {
     final Table table = new Table();
     if (gameStatus == GAME_PAUSED) {
       if (!builtPauseMenu) {
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(pauseGameTextures);
-        ServiceLocator.getResourceService().loadAll();
-
         table.setFillParent(true);
 
         TextButton resumeBtn = new TextButton("Resume", new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json")));
@@ -291,6 +288,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new ChoresListDisplay())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
+        .addComponent(new PauseMenuDisplay())
         .addComponent(new TerminalDisplay());
 
     ServiceLocator.getEntityService().register(mainGameEntity);
