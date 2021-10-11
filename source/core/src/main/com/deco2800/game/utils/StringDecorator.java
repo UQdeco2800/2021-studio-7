@@ -7,8 +7,8 @@ import java.util.function.Function;
  * @param <T> Class to decorate
  */
 public class StringDecorator<T> {
-  public T object;
-  public Function<T, String> printFn;
+  private final T object;
+  private final Function<T, String> printFn;
 
   /**
    * Create a string-decorated object.
@@ -18,6 +18,10 @@ public class StringDecorator<T> {
   public StringDecorator(T object, Function<T, String> printFn) {
     this.object = object;
     this.printFn = printFn;
+  }
+
+  public T getObject() {
+    return object;
   }
 
   @Override

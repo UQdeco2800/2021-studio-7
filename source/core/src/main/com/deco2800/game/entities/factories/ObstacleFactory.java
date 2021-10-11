@@ -11,6 +11,7 @@ import com.deco2800.game.entities.components.interactions.Actions.BananaPeelActi
 import com.deco2800.game.entities.components.interactions.Actions.BedActions;
 import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
 import com.deco2800.game.entities.components.interactions.Actions.TvActions;
+import com.deco2800.game.entities.components.interactions.Actions.PlaceableBoxActions;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -52,6 +53,12 @@ public class ObstacleFactory {
 //            .addComponent(new DoorActions());
     Entity door = new Entity();
     return door;
+  }
+
+  public static Entity createPlaceableBox(String[] assets) {
+    Entity box = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new PlaceableBoxActions());
+    return box;
   }
 
   public static Entity createTv(String[] assets) {
@@ -211,6 +218,10 @@ public class ObstacleFactory {
       obstacle.addComponent(animator);
     }
     return obstacle;
+  }
+
+  private ObstacleFactory() {
+    throw new IllegalStateException("Instantiating static util class");
   }
 }
 

@@ -14,6 +14,7 @@ public class InteractionControllerComponent extends InteractionComponent {
     // Highlighting entities
     private static final long MIN_TIME_BETWEEN_HIGHLIGHTS = 50L;
     private long timeSinceLastHighlight = 0L;
+    private static final String TOGGLE_HIGHLIGHT = "toggle_highlight";
     // Interacting with entities
     private static final long MIN_TIME_BETWEEN_INTERACTIONS = 100L;
     private long timeSinceLastInteraction = 0L;
@@ -25,13 +26,13 @@ public class InteractionControllerComponent extends InteractionComponent {
     public void create() {
         super.create();
         targetLayer = PhysicsLayer.OBSTACLE;
-        entity.getEvents().addListener("key_e", this::keyE);
+        entity.getEvents().addListener("toggle_interacting", this::toggleInteracting);
         entity.getEvents().trigger("update_animation", "standing_south");
     }
 
     @Override
     public void onCollisionStart(Entity target) {
-        if (target.getEvents().hasListener("toggle_highlight") &&
+        if (target.getEvents().hasListener(TOGGLE_HIGHLIGHT) &&
                 !interactables.contains(target, true)) {
             logger.debug("Added interactable to list");
             interactables.add(target);
@@ -60,11 +61,10 @@ public class InteractionControllerComponent extends InteractionComponent {
     }
 
     /**
-     * Raw input parsing on the E key
-     * @param isDown true if key is currently down, otherwise false
+     * @param isInteracting true if interaction key is pressed down, otherwise false
      */
-    private void keyE(boolean isDown) {
-        isInteracting = isDown;
+    private void toggleInteracting(boolean isInteracting) {
+        this.isInteracting = isInteracting;
     }
 
     /**
@@ -86,12 +86,12 @@ public class InteractionControllerComponent extends InteractionComponent {
 
         if (highlightedInteractable != null && !highlightedInteractable.equals(closestInteractable)) {
             // Previously highlighted interactable is not eligible for highlighting, schedule for unhighlight
-            highlightedInteractable.getEvents().trigger("toggle_highlight", false);
+            highlightedInteractable.getEvents().trigger(TOGGLE_HIGHLIGHT, false);
         }
 
         if (closestInteractable != null && !closestInteractable.equals(highlightedInteractable)) {
             // New interactable is eligible for highlighting, schedule for highlight
-            closestInteractable.getEvents().trigger("toggle_highlight", true);
+            closestInteractable.getEvents().trigger(TOGGLE_HIGHLIGHT, true);
         }
 
         highlightedInteractable = closestInteractable;

@@ -20,7 +20,7 @@ public class BedActions extends InteractionComponent {
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            triggerWinCondition();
+            triggerBedInteracted();
         }
     }
 
@@ -35,17 +35,9 @@ public class BedActions extends InteractionComponent {
         }
     }
 
-    private void triggerWinCondition() {
-        logger.debug("PLAYER interacted with BED");
-        if (ServiceLocator.getChoreController().checkComplete()) {
-            // Every chore is complete, can finish level
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("win_default");
-        } else {
-            // Still have chores to complete
-            String string = "I haven't completed all of my chores!\n(Try pressing O)";
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
-        }
+    private void triggerBedInteracted() {
+        logger.debug("PLAYER interacted with BED, triggering bed interacted");
+        ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                .getMainGameEntity().getEvents().trigger("bed_interacted");
     }
 }

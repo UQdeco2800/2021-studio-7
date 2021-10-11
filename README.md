@@ -27,8 +27,9 @@ Retroactive challenges players to go as many nights as possible without being
 Whatever you do, don't get caught or its all over! <br />
 
 ## Controls ##
-**Movement:** ASDW <br />
+**Movement:** W A S D keys <br />
 **Interact:** E <br />
+**Sprint:** hold down shift bar
 
 ## Usage ##
 gradlew clean build# deco2800-engine <br />

@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.titlescreen;
+package com.deco2800.game.screens.title;
 
 import com.deco2800.game.input.components.InputComponent;
 import org.slf4j.Logger;

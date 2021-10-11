@@ -4,7 +4,6 @@ package com.deco2800.game.entities.components.interactions;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.Component;
-import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
@@ -53,7 +52,7 @@ public class InteractionComponent extends Component implements Interactable {
             return null;
         }
 
-        return ((BodyUserData) other.getBody().getUserData()).entity;
+        return (Entity) other.getBody().getUserData();
     }
 
     @Override
@@ -73,14 +72,22 @@ public class InteractionComponent extends Component implements Interactable {
     }
 
     @Override
-    public void onCollisionStart(Entity target) {}
+    public void onCollisionStart(Entity target) {
+        // Interactables do nothing on collision start by default
+    }
 
     @Override
-    public void onCollisionEnd(Entity target) {}
+    public void onCollisionEnd(Entity target) {
+        // Interactables do nothing on collision end by default
+    }
 
     @Override
-    public void onInteraction(Entity target) {}
+    public void onInteraction(Entity target) {
+        // Interactables do nothing on interaction by default
+    }
 
     @Override
-    public void toggleHighlight(boolean shouldHighlight) {}
+    public void toggleHighlight(boolean shouldHighlight) {
+        // Subclasses should override to specify which textures to toggle
+    }
 }

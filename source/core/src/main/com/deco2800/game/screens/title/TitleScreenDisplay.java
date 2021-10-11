@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.titlescreen;
+package com.deco2800.game.screens.title;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.EndGameDisplay;
+import com.deco2800.game.screens.endgame.EndGameDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 
 import org.slf4j.Logger;

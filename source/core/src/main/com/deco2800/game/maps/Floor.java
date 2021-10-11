@@ -203,9 +203,7 @@ public class Floor extends GameArea implements Json.Serializable {
     }
 
     private void displayUI() {
-        Entity ui = new Entity();
-        //ui.addComponent(new GameAreaDisplay("Box Forest"));
-        spawnEntity(ui);
+        // Add UI unique to this game area here
     }
 
     /**

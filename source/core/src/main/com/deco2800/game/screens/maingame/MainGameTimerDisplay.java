@@ -206,7 +206,7 @@ public class MainGameTimerDisplay extends UIComponent {
             updateTimeUI();
             if (this.getStart_hour() == this.getEnd_hour() && this.getStart_minute() > this.getEnd_minute()) {
                 logger.info("Time end");
-                entity.getEvents().trigger("loss_timed");
+                entity.getEvents().trigger("timer_ended");
             }
         }
         }
