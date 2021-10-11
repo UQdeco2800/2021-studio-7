@@ -100,7 +100,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Register an animation from the texture atlas.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#addChore(com.deco2800.game.entities.Entity)">addChore(Entity)</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#addChore(com.deco2800.game.entities.Entity,com.deco2800.game.chores.ChoreList)">addChore(Entity, ChoreList)</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
 <dd>
 <div class="block">Adds this entity as a chore to be completed by the player.</div>
 </dd>
@@ -204,6 +204,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/configs/BaseEntityConfig.html#%3Cinit%3E()">BaseEntityConfig()</a></span> - Constructor for class com.deco2800.game.entities.configs.<a href="com/deco2800/game/entities/configs/BaseEntityConfig.html" title="class in com.deco2800.game.entities.configs">BaseEntityConfig</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#BED">BED</a></span> - com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/components/interactions/Actions/BedActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions"><span class="typeNameLink">BedActions</span></a> - Class in <a href="com/deco2800/game/entities/components/interactions/Actions/package-summary.html">com.deco2800.game.entities.components.interactions.Actions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/BedActions.html#%3Cinit%3E()">BedActions()</a></span> - Constructor for class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/BedActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BedActions</a></dt>
@@ -246,17 +248,31 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/ChaseTask.html#%3Cinit%3E(com.deco2800.game.entities.Entity,int,float,float)">ChaseTask(Entity, int, float, float)</a></span> - Constructor for class com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/ChaseTask.html" title="class in com.deco2800.game.ai.tasks">ChaseTask</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#checkComplete()">checkComplete()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
+<dd>
+<div class="block">Check if there are any more chores to complete</div>
+</dd>
+<dt><a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores"><span class="typeNameLink">Chore</span></a> - Class in <a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a></dt>
+<dd>
+<div class="block">A struct-like class to simplify the chore system</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/Chore.html#%3Cinit%3E(com.deco2800.game.entities.Entity,java.lang.String)">Chore(Entity, String)</a></span> - Constructor for class com.deco2800.game.chores.<a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores">Chore</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores"><span class="typeNameLink">ChoreController</span></a> - Class in <a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a></dt>
 <dd>
 <div class="block">Stores and handles generation and completion of chores.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#%3Cinit%3E()">ChoreController()</a></span> - Constructor for class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame"><span class="typeNameLink">ChoresListDisplay</span></a> - Class in <a href="com/deco2800/game/screens/maingame/package-summary.html">com.deco2800.game.screens.maingame</a></dt>
+<dt><a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores"><span class="typeNameLink">ChoreList</span></a> - Enum in <a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a></dt>
+<dd>
+<div class="block">A standard set of object names for the chore system</div>
+</dd>
+<dt><a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores"><span class="typeNameLink">ChoreUI</span></a> - Class in <a href="com/deco2800/game/chores/package-summary.html">com.deco2800.game.chores</a></dt>
 <dd>
 <div class="block">Creates a toggle-able and variable text box display at the bottom of the screen.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html#%3Cinit%3E()">ChoresListDisplay()</a></span> - Constructor for class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">ChoresListDisplay</a></dt>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreUI.html#%3Cinit%3E()">ChoreUI()</a></span> - Constructor for class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#CLASSPATH">CLASSPATH</a></span> - com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>&nbsp;</dd>
@@ -412,6 +428,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Main function for timer, it would update time left
  and stop when time left equals to zero</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreUI.html#create()">create()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/CombatStatsComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.entities.components.<a href="com/deco2800/game/entities/components/CombatStatsComponent.html" title="class in com.deco2800.game.entities.components">CombatStatsComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html#create()">create()</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BananaPeelActions</a></dt>
@@ -484,8 +502,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboard/LeaderBoardDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.leaderboard.<a href="com/deco2800/game/screens/leaderboard/LeaderBoardDisplay.html" title="class in com.deco2800.game.screens.leaderboard">LeaderBoardDisplay</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">ChoresListDisplay</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameActions.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameActions.html" title="class in com.deco2800.game.screens.maingame">MainGameActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
@@ -532,6 +548,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBananaPeel(java.lang.String%5B%5D)">createBananaPeel(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBaseChore(java.lang.String%5B%5D,com.badlogic.gdx.physics.box2d.BodyDef.BodyType,com.deco2800.game.chores.ChoreList)">createBaseChore(String[], BodyDef.BodyType, ChoreList)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>
+<div class="block">Creates the object as a chore, and registers it as a chore to the ChoreController</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBaseInteractable(java.lang.String%5B%5D,com.badlogic.gdx.physics.box2d.BodyDef.BodyType)">createBaseInteractable(String[], BodyDef.BodyType)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createBaseObstacle(java.lang.String%5B%5D,com.badlogic.gdx.physics.box2d.BodyDef.BodyType)">createBaseObstacle(String[], BodyDef.BodyType)</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
@@ -663,6 +683,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/input/components/InputComponent.html#disableRun()">disableRun()</a></span> - Method in class com.deco2800.game.input.components.<a href="com/deco2800/game/input/components/InputComponent.html" title="class in com.deco2800.game.input.components">InputComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreUI.html#display()">display()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></dt>
+<dd>
+<div class="block">Displays the list of chores to the screen.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html#display(java.lang.String)">display(String)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameTextDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameTextDisplay</a></dt>
 <dd>
 <div class="block">Displays the text box at the bottom of the screen containing the given text.</div>
@@ -674,6 +698,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/UserSettings.DisplaySettings.html#%3Cinit%3E(com.badlogic.gdx.Graphics.DisplayMode)">DisplaySettings(Graphics.DisplayMode)</a></span> - Constructor for class com.deco2800.game.files.<a href="com/deco2800/game/files/UserSettings.DisplaySettings.html" title="class in com.deco2800.game.files">UserSettings.DisplaySettings</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/components/AITaskComponent.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.ai.components.<a href="com/deco2800/game/ai/components/AITaskComponent.html" title="class in com.deco2800.game.ai.components">AITaskComponent</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreUI.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/SingleUse.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.entities.components.interactions.<a href="com/deco2800/game/entities/components/interactions/SingleUse.html" title="class in com.deco2800.game.entities.components.interactions">SingleUse</a></dt>
 <dd>&nbsp;</dd>
@@ -733,8 +759,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboard/LeaderBoardScreen.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.leaderboard.<a href="com/deco2800/game/screens/leaderboard/LeaderBoardScreen.html" title="class in com.deco2800.game.screens.leaderboard">LeaderBoardScreen</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">ChoresListDisplay</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGamePauseMenuDisplay.html#dispose()">dispose()</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGamePauseMenuDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGamePauseMenuDisplay</a></dt>
@@ -767,6 +791,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/utils/math/Vector2Utils.html#DOWN">DOWN</a></span> - Static variable in class com.deco2800.game.utils.math.<a href="com/deco2800/game/utils/math/Vector2Utils.html" title="class in com.deco2800.game.utils.math">Vector2Utils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreUI.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/player/PlayerStatsDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.entities.components.player.<a href="com/deco2800/game/entities/components/player/PlayerStatsDisplay.html" title="class in com.deco2800.game.entities.components.player">PlayerStatsDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/maps/components/GameAreaDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.maps.components.<a href="com/deco2800/game/maps/components/GameAreaDisplay.html" title="class in com.deco2800.game.maps.components">GameAreaDisplay</a></dt>
@@ -788,8 +814,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/endgame/EndGameDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.endgame.<a href="com/deco2800/game/screens/endgame/EndGameDisplay.html" title="class in com.deco2800.game.screens.endgame">EndGameDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/leaderboard/LeaderBoardDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.leaderboard.<a href="com/deco2800/game/screens/leaderboard/LeaderBoardDisplay.html" title="class in com.deco2800.game.screens.leaderboard">LeaderBoardDisplay</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/ChoresListDisplay.html" title="class in com.deco2800.game.screens.maingame">ChoresListDisplay</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw(SpriteBatch)</a></span> - Method in class com.deco2800.game.screens.maingame.<a href="com/deco2800/game/screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></dt>
 <dd>&nbsp;</dd>
@@ -825,6 +849,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Draw a rectangle</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#DRINK">DRINK</a></span> - com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/components/interactions/Actions/DrinkActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions"><span class="typeNameLink">DrinkActions</span></a> - Class in <a href="com/deco2800/game/entities/components/interactions/Actions/package-summary.html">com.deco2800.game.entities.components.interactions.Actions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/DrinkActions.html#%3Cinit%3E()">DrinkActions()</a></span> - Constructor for class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/DrinkActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DrinkActions</a></dt>
@@ -1047,6 +1073,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Get the entity's center position</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/generic/ServiceLocator.html#getChoreController()">getChoreController()</a></span> - Static method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/ServiceLocator.html" title="class in com.deco2800.game.generic">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreController.html#getChores()">getChores()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreController.html" title="class in com.deco2800.game.chores">ChoreController</a></dt>
+<dd>
+<div class="block">Get an ArrayList of the chores registered</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/Entity.html#getComponent(java.lang.Class)">getComponent(Class&lt;T&gt;)</a></span> - Method in class com.deco2800.game.entities.<a href="com/deco2800/game/entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></dt>
 <dd>
 <div class="block">Get a component of type T on the entity.</div>
@@ -1075,6 +1107,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/generic/GameTime.html#getDeltaTime()">getDeltaTime()</a></span> - Method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/GameTime.html" title="class in com.deco2800.game.generic">GameTime</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/Chore.html#getDescription()">getDescription()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores">Chore</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#getDescription()">getDescription()</a></span> - Method in enum com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
+<dd>
+<div class="block">Get the chore description for the given object</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/maps/Interior.html#getDimensions()">getDimensions()</a></span> - Method in class com.deco2800.game.maps.<a href="com/deco2800/game/maps/Interior.html" title="class in com.deco2800.game.maps">Interior</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/player/PlayerStaminaBar.html#getDrawable(int,int,com.badlogic.gdx.graphics.Color)">getDrawable(int, int, Color)</a></span> - Static method in class com.deco2800.game.entities.components.player.<a href="com/deco2800/game/entities/components/player/PlayerStaminaBar.html" title="class in com.deco2800.game.entities.components.player">PlayerStaminaBar</a></dt>
@@ -1092,6 +1130,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#getEnteredMessage()">getEnteredMessage()</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/TaskRunner.html#getEntity()">getEntity()</a></span> - Method in interface com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/TaskRunner.html" title="interface in com.deco2800.game.ai.tasks">TaskRunner</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/Chore.html#getEntity()">getEntity()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores">Chore</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/generic/Component.html#getEntity()">getEntity()</a></span> - Method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/Component.html" title="class in com.deco2800.game.generic">Component</a></dt>
 <dd>
@@ -1470,6 +1510,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Invokes the method related to the tile.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/Chore.html#isActive()">isActive()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores">Chore</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/CombatStatsComponent.html#isDead()">isDead()</a></span> - Method in class com.deco2800.game.entities.components.<a href="com/deco2800/game/entities/components/CombatStatsComponent.html" title="class in com.deco2800.game.entities.components">CombatStatsComponent</a></dt>
 <dd>
 <div class="block">Returns true if the entity's has 0 health, otherwise false.</div>
@@ -1750,6 +1792,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">The game screen containing the main menu.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/mainmenu/MainMenuScreen.html#%3Cinit%3E()">MainMenuScreen()</a></span> - Constructor for class com.deco2800.game.screens.mainmenu.<a href="com/deco2800/game/screens/mainmenu/MainMenuScreen.html" title="class in com.deco2800.game.screens.mainmenu">MainMenuScreen</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/Chore.html#markComplete()">markComplete()</a></span> - Method in class com.deco2800.game.chores.<a href="com/deco2800/game/chores/Chore.html" title="class in com.deco2800.game.chores">Chore</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/utils/math/MatrixUtils.html" title="class in com.deco2800.game.utils.math"><span class="typeNameLink">MatrixUtils</span></a> - Class in <a href="com/deco2800/game/utils/math/package-summary.html">com.deco2800.game.utils.math</a></dt>
 <dd>&nbsp;</dd>
@@ -2185,6 +2229,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Register a new renderable.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/generic/ServiceLocator.html#registerChoreController(com.deco2800.game.chores.ChoreController)">registerChoreController(ChoreController)</a></span> - Static method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/ServiceLocator.html" title="class in com.deco2800.game.generic">ServiceLocator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/generic/ServiceLocator.html#registerEntityService(com.deco2800.game.entities.EntityService)">registerEntityService(EntityService)</a></span> - Static method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/ServiceLocator.html" title="class in com.deco2800.game.generic">ServiceLocator</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/generic/ServiceLocator.html#registerGame(com.deco2800.game.GdxGame)">registerGame(GdxGame)</a></span> - Static method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/ServiceLocator.html" title="class in com.deco2800.game.generic">ServiceLocator</a></dt>
@@ -2905,6 +2951,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Used to trigger the component to update itself.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#TV">TV</a></span> - com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/deco2800/game/entities/components/interactions/Actions/TvActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions"><span class="typeNameLink">TvActions</span></a> - Class in <a href="com/deco2800/game/entities/components/interactions/Actions/package-summary.html">com.deco2800.game.entities.components.interactions.Actions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/TvActions.html#%3Cinit%3E()">TvActions()</a></span> - Constructor for class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/TvActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">TvActions</a></dt>
@@ -3040,6 +3088,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/files/FileLoader.Location.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.deco2800.game.files.<a href="com/deco2800/game/files/FileLoader.Location.html" title="enum in com.deco2800.game.files">FileLoader.Location</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
@@ -3061,6 +3113,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ai/tasks/Task.Status.html#values()">values()</a></span> - Static method in enum com.deco2800.game.ai.tasks.<a href="com/deco2800/game/ai/tasks/Task.Status.html" title="enum in com.deco2800.game.ai.tasks">Task.Status</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum type, in
+the order they are declared.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/chores/ChoreList.html#values()">values()</a></span> - Static method in enum com.deco2800.game.chores.<a href="com/deco2800/game/chores/ChoreList.html" title="enum in com.deco2800.game.chores">ChoreList</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum type, in
 the order they are declared.</div>
