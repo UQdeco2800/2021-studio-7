@@ -8,12 +8,15 @@ import com.deco2800.game.files.FileLoader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(GameExtension.class)
 public class Vector2UtilsTest {
+
     @Test
     void shouldDeserializeGridPoint2OnRead() {
         Vector2Wrapper wrapper = FileLoader.readClass(Vector2Wrapper.class, "maps/testing/Vector2.json");
-        assert wrapper.vector2 != null;
+        assertNotNull(wrapper.vector2);
     }
 
     static class Vector2Wrapper implements Json.Serializable {
