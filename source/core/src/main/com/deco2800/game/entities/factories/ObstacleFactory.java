@@ -195,6 +195,9 @@ public class ObstacleFactory {
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 0.5f, 0.5f);
     obstacle.scaleHeight(1f);
+    if (assets.length <= 0) {
+      return obstacle;
+    }
     // Set obstacle to have a base render component
     ResourceService resourceService = ServiceLocator.getResourceService();
     if (assets[0].endsWith(".png")) {

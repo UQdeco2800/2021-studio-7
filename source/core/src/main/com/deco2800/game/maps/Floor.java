@@ -8,11 +8,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.factories.ObstacleFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
@@ -106,6 +108,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * for miscellaneous entity spawning.
      */
     private void spawnFloorEntities() {
+        spawnBorders();
         spawnPlayer();
 
         // Spawn all room entities for each room plan
@@ -134,6 +137,26 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadAll();
         player = PlayerFactory.createPlayer(playerAssets);
         spawnEntityAt(player, new GridPoint2(1,1), true, true);
+    }
+
+    /**
+     * Spawns border walls into the world. These borders outline the map given by the floor grid
+     */
+    private void spawnBorders() {
+        // Spawns north and south borders, left to right
+        for (int x = -1; x < floorGrid.length + 1; x++) {
+            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
+            spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
+        }
+        // Spawns east and west borders, bottom to top
+        for (int y = 0; y < floorGrid[0].length; y++) {
+            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
+            spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
+        }
     }
 
     /**
