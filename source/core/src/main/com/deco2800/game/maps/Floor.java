@@ -348,7 +348,7 @@ public class Floor extends GameArea implements Json.Serializable {
 
             dimensions = new GridPoint2(floorGrid[0].length, floorGrid.length);
 
-            floorGrid = MatrixUtils.rotateAntiClockwise(floorGrid);
+            floorGrid = MatrixUtils.rotateClockwise(floorGrid);
             for (Room room : new ObjectMap.Values<>(roomMap)) {
                 //noinspection SuspiciousNameCombination
                 room.setOffset(new GridPoint2(room.getOffset().y, dimensions.y - room.getOffset().x - 1));

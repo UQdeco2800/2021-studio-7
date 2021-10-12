@@ -74,8 +74,8 @@ public class Interior implements Json.Serializable {
 
             dimensions = new GridPoint2(tileGrid[0].length, tileGrid.length);
 
-            tileGrid = MatrixUtils.rotateAntiClockwise(tileGrid);
-            entityGrid = MatrixUtils.rotateAntiClockwise(entityGrid);
+            tileGrid = MatrixUtils.rotateClockwise(tileGrid);
+            entityGrid = MatrixUtils.rotateClockwise(entityGrid);
 
             FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {
