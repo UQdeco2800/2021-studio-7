@@ -112,7 +112,7 @@ public class Room implements Json.Serializable {
                 if (roomTile == null) {
                     roomTile = floor.getDefaultInteriorTile();
                 }
-                floor.invokeTileMethod(roomTile, worldPos, layer);
+                floor.spawnGridTile(roomTile, worldPos, layer);
             }
         }
     }
@@ -142,10 +142,30 @@ public class Room implements Json.Serializable {
                     roomEntity = entityMap.get(roomSymbol);
                 }
                 if (roomEntity != null) {
-                    floor.invokeEntityMethod(roomEntity, worldPos);
+                    floor.spawnGridEntity(roomEntity, worldPos);
                 }
             }
         }
+    }
+
+    /**
+     * @return list of all valid spawn locations for dynamic entities (e.g. players). These entities are
+     * typically not defined in the prefabrication files. Null if room type is not a valid spawning
+     * room type.
+     */
+    public Array<GridPoint2> getValidSpawnLocations() {
+        if (Arrays.stream(validSpawnRooms).noneMatch(Predicate.isEqual(type))) {
+            return null;
+        }
+        Array<GridPoint2> validSpawnLocations = new Array<>();
+        for (int x = 0; x < entityGrid.length; x++) {
+            for (int y = 0; y < entityGrid[x].length; y++) {
+                if (!entityMap.containsValue(entityGrid[x][y], true)) {
+                    validSpawnLocations.add(new GridPoint2(x + offset.x, y + offset.y));
+                }
+            }
+        }
+        return validSpawnLocations;
     }
 
     public GridPoint2 getOffset() {
@@ -231,5 +251,9 @@ public class Room implements Json.Serializable {
 
     private static final String[] validRoomTypes = {
             "bathroom", "bedroom", "dining", "front_foyer", "garage", "hallway", "kitchen", "laundry", "living"
+    };
+
+    private static final String[] validSpawnRooms = {
+            "living"
     };
 }
