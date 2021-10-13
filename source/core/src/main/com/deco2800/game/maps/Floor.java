@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -33,6 +34,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private OrthographicCamera camera;
     private OrthographicCamera miniMapCamera;
     private Entity player = null;
+    private Entity cat = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -107,6 +109,7 @@ public class Floor extends GameArea implements Json.Serializable {
      */
     private void spawnFloorEntities() {
         spawnPlayer();
+        spawnCat();
 
         // Spawn all room entities for each room plan
         for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
@@ -134,6 +137,17 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadAll();
         player = PlayerFactory.createPlayer(playerAssets);
         spawnEntityAt(player, new GridPoint2(1,1), true, true);
+    }
+
+    /**
+     * Spawns the NPC Cat.
+     */
+    private void spawnCat(){
+        String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
+        ServiceLocator.getResourceService().loadAll();
+        cat = NPCFactory.createCat(catAssets);
+        spawnEntityAt(cat, new GridPoint2(1,2), true, true);
     }
 
     /**

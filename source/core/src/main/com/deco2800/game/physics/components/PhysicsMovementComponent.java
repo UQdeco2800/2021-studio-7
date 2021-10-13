@@ -95,18 +95,15 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   }
 
   /**
-   * Will asign an integer value to the direction. Directions are broken into compass quadrents.
-   * Where:
-   * 0 = North
-   * 1 = East
-   * 2 = South
-   * 3 = West
-   * 4 = NorthEast
-   * 5 = NorthWest
-   * 6 = SouthEast
-   * 7 = SouthWest
+   Will asign an integer value to the direction. Directions are broken into compass quadrents.
+   Where:
+   0 = North
+   1 = East
+   2 = South
+   3 = West
+
    */
-  public void getcurrentDirectionCode() {
+  public void getcurrentDirectionCode(){
     Vector2 entityDirection = getDirection();
     float x = entityDirection.x;
     float y = entityDirection.y;
@@ -119,36 +116,25 @@ public class PhysicsMovementComponent extends Component implements MovementContr
       currentDirection = 2;
     } else if (x < 0 && y < 0.5 && y > -0.5) {  // Walking west
       currentDirection = 3;
-    } else if (x > 0.5 && y >0.5) {
-      currentDirection = 4;
-    } else if (x < -0.5 && y >0.5) {
-      currentDirection = 5;
-    } else if (x > 0.5 && y < -0.5) {
-      currentDirection = 6;
-    } else if (x < -0.5 && y < -0.5) {
-      currentDirection = 7;
     }
-
   }
 
   /**
-   * Function used to update the entities animations based upon the direction of movement.
-   * Character will display the animation that tis within 45 degrees of the nearest compass direction.
-   * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
+   Function used to update the entities animations based upon the direction of movement.
+   Character will display the animation that is within 45 degrees of the nearest compass direction.
+   For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
    */
   public void movementEvents() {
     Vector2 entityDirection = getDirection();
     float x = entityDirection.x;
     float y = entityDirection.y;
 
-    // System.out.println(entityDirection);
-
     if (lastDirection != currentDirection) {
       if (x < 0.5 && x > -0.5 && y > 0) {
         entity.getEvents().trigger("update_animation", "walking_north");
         lastDirection = 0;
       } else if (x > 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("update_animation", "walking_east");
+        entity.getEvents().trigger("update_animation", "standing_east");
         lastDirection = 1;
       } else if (x < 0.5 && x > -0.5 && y < 0) {
         entity.getEvents().trigger("update_animation", "walking_south");
@@ -156,54 +142,33 @@ public class PhysicsMovementComponent extends Component implements MovementContr
       } else if (x < 0 && y < 0.5 && y > -0.5) {
         entity.getEvents().trigger("update_animation", "walking_west");
         lastDirection = 3;
-      } else if (x > 0.5 && y >0.5) {
-        entity.getEvents().trigger("update_animation", "walking_northeast");
-        lastDirection = 4;
-      } else if (x < -0.5 && y >0.5) {
-        entity.getEvents().trigger("update_animation", "walking_northwest");
-        lastDirection = 5;
-      } else if (x > 0.5 && y < -0.5) {
-        entity.getEvents().trigger("update_animation", "walking_southeast");
-        lastDirection = 6;
-      } else if (x < -0.5 && y < -0.5) {
-        entity.getEvents().trigger("update_animation", "walking_southwest");
-        lastDirection = 7;
       }
     }
   }
 
   /**
-   * If the mom is standing still this function triggers a standing event in the last direction.
+   * If the cat is standing still this function triggers a standing event in the last direction.
    */
   public void standingEvents() {
     Vector2 entityDirection = getDirection();
     float x = entityDirection.x;
     float y = entityDirection.y;
 
-      if (lastDirection == 0) {
-        entity.getEvents().trigger("update_animation", "standing_north");
+    if (lastDirection == 0) {
+      entity.getEvents().trigger("update_animation", "licking");
 
-      } else if (lastDirection == 1) {
-        entity.getEvents().trigger("update_animation", "standing_east");
+    } else if (lastDirection == 1) {
+      entity.getEvents().trigger("update_animation", "lying_east");
 
-      } else if (lastDirection == 2) {
-        entity.getEvents().trigger("update_animation", "standing_south");
+    } else if (lastDirection == 2) {
+      entity.getEvents().trigger("update_animation", "standing_south");
 
-      } else if (lastDirection == 3) {
-        entity.getEvents().trigger("update_animation", "standing_west");
+    } else if (lastDirection == 3) {
+      entity.getEvents().trigger("update_animation", "sitting");
 
-      } else if (lastDirection ==4 ) {
-        entity.getEvents().trigger("update_animation", "standing_northeast");
-
-      } else if (lastDirection == 5) {
-        entity.getEvents().trigger("update_animation", "standing_northwest");
-
-      } else if (lastDirection == 6) {
-        entity.getEvents().trigger("update_animation", "standing_southeast");
-
-      } else if (lastDirection == 7) {
-        entity.getEvents().trigger("update_animation", "standing_southwest");
-
-      }
+    }
   }
+
+
+
 }

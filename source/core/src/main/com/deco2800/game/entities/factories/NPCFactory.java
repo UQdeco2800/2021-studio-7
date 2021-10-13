@@ -11,6 +11,7 @@ import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.MumConfig;
+import com.deco2800.game.entities.configs.CatConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
@@ -51,6 +52,15 @@ public class NPCFactory {
             .addComponent(new MumActions());
     return mum;
   }
+
+  public static Entity createCat(String[] assets) {
+    CatConfig config = configs.cat;
+    Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina));
+
+    return cat;
+  }
+
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.
