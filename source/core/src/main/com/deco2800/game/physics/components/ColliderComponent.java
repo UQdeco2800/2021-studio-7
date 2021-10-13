@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ColliderComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
+  private static final float X_SCALE = 1f;
+  private static final float Y_SCALE = 0.5f;
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
@@ -84,6 +86,47 @@ public class ColliderComponent extends Component {
     return setAsIso(size, position);
   }
 
+  public ColliderComponent setAsIsoAligned(
+          int bottomLeft,
+          int bottomRight,
+          Vector2 position
+  ) {
+      PolygonShape bound = new PolygonShape();
+
+      float left = ((float) bottomLeft) / 2;
+      float right = ((float) bottomRight) / 2;
+
+      // Hardcoded scaling factor. The 1:2 ratio gives an angle of 26.565 deg,
+      // the cosine of which is 0.894.
+      float scaling = 0.894f;
+
+      // Find midpoint of box width for offset
+      float midpoint = scaling * ((right - left) / 2);
+
+      // Each point is offset by the midpoint and the given alignment
+      float offset = position.x + midpoint;
+
+      Vector2 south = isoVector2(offset, 0);
+      Vector2 east = isoVector2(offset + right, right);
+      Vector2 north = isoVector2(offset + right - left, right + left);
+      Vector2 west = isoVector2(offset - left, left);
+
+      // Collect each of the isometric parallelogram's corners
+      Vector2[] points = new Vector2[]{west, north, east, south};
+      System.out.println("Points");
+      for (Vector2 vec : points) {
+          System.out.println(vec);
+      }
+
+      bound.set(points);
+      setShape(bound);
+      return this;
+  }
+
+  private Vector2 isoVector2(float x, float y) {
+      return new Vector2(x, y * Y_SCALE);
+  }
+
   /**
    * Set physics as a box with a given size and local position. Box is centered around the position.
    *
@@ -115,6 +158,10 @@ public class ColliderComponent extends Component {
       Vector2 south = new Vector2(position.x, 0);
       // Collect each of the isometric parallelogram's corners
       Vector2[] points = new Vector2[]{west, north, east, south};
+      System.out.println("Points");
+      for (Vector2 vec : points) {
+          System.out.println(vec);
+      }
 
       bound.set(points);
       setShape(bound);
