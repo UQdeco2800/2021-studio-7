@@ -86,25 +86,70 @@ public class ColliderComponent extends Component {
     return setAsIso(size, position);
   }
 
-  public ColliderComponent setAsIsoAligned(
-          int bottomLeft,
-          int bottomRight,
+  public ColliderComponent setIsoShape(float bottomLeft, float bottomRight) {
+      return setIsoShapeAligned(
+              bottomLeft,
+              bottomRight,
+              AlignX.CENTER,
+              AlignY.BOTTOM
+      );
+  }
+
+  public ColliderComponent setIsoShapeAligned(
+          float bottomLeft,
+          float bottomRight,
+          AlignX alignX,
+          AlignY alignY
+  ) {
+      // TODO TESTING
+      Vector2 position = new Vector2();
+
+      // TODO Need to calc proper height and width
+      float size = bottomLeft + bottomRight;
+
+      switch (alignX) {
+          case LEFT:
+              position.x = size / 2;
+              break;
+          case CENTER:
+              position.x = entity.getCenterPosition().x;
+              break;
+          case RIGHT:
+              position.x = entity.getScale().x - ((bottomLeft + bottomRight) / 2);
+              break;
+      }
+
+      switch (alignY) {
+          case BOTTOM:
+              position.y = size / 2;
+              break;
+          case CENTER:
+              position.y = entity.getCenterPosition().y;
+              break;
+          case TOP:
+              position.y = entity.getScale().y - (size / 2);
+              break;
+      }
+
+      return changeIsoShape(bottomLeft, bottomRight, position);
+  }
+
+  private ColliderComponent changeIsoShape (
+          float bottomLeft,
+          float bottomRight,
           Vector2 position
   ) {
       PolygonShape bound = new PolygonShape();
 
-      float left = ((float) bottomLeft) / 2;
-      float right = ((float) bottomRight) / 2;
+      float left = bottomLeft / 2;
+      float right = bottomRight / 2;
 
       // Hardcoded scaling factor. The 1:2 ratio gives an angle of 26.565 deg,
       // the cosine of which is 0.894.
       float scaling = 0.894f;
 
-      // Find midpoint of box width for offset
-      float midpoint = scaling * ((right - left) / 2);
-
-      // Each point is offset by the midpoint and the given alignment
-      float offset = position.x + midpoint;
+      // Each point is offset by the given alignment
+      float offset = position.x;
 
       Vector2 south = isoVector2(offset, 0);
       Vector2 east = isoVector2(offset + right, right);
