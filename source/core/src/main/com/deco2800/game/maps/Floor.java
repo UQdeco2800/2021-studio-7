@@ -140,7 +140,7 @@ public class Floor extends GameArea implements Json.Serializable {
     }
 
     /**
-     * Spawns the NPC Cat.
+     * Spawns the NPC Cat into map.
      */
     private void spawnCat(){
         String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
@@ -205,6 +205,10 @@ public class Floor extends GameArea implements Json.Serializable {
 
     public Entity getPlayer() {
         return player;
+    }
+
+    public Entity getCat() {
+        return cat;
     }
 
     public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {

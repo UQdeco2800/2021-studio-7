@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.interactions.Actions.MumActions;
+import com.deco2800.game.entities.components.interactions.Actions.CatActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
@@ -56,7 +57,8 @@ public class NPCFactory {
   public static Entity createCat(String[] assets) {
     CatConfig config = configs.cat;
     Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
-            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina));
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(new CatActions());
 
     return cat;
   }

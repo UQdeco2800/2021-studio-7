@@ -117,6 +117,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case Keys.E:
                 entity.getEvents().trigger("key_e", false);
                 return true;
+            case Keys.F:
+                entity.getEvents().trigger("update_animation", "emote");
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
