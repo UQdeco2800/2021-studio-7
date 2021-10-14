@@ -1,5 +1,6 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
@@ -122,5 +123,6 @@ public class EndGameScreen extends ScreenAdapter {
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new EndGameActions());
         ServiceLocator.getEntityService().register(ui);
+        Gdx.input.setInputProcessor(new EndGameInputProcessor());
     }
 }

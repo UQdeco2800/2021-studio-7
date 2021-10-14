@@ -36,6 +36,7 @@ public class LeaderBoardDisplay extends UIComponent {
     private final GdxGame game;
     private Table rootTable;
     private Table leaderTable;
+    private static TextButton button;
 
     public LeaderBoardDisplay(GdxGame game) {
         super();
@@ -94,7 +95,7 @@ public class LeaderBoardDisplay extends UIComponent {
 
     private Table makeMenuBtns() {
         TextButton exitBtn = new TextButton("Exit", skin);
-
+        button = exitBtn;
         exitBtn.addListener(
                 new ChangeListener() {
                     @Override
@@ -130,6 +131,10 @@ public class LeaderBoardDisplay extends UIComponent {
 
     private void exitMenu() {
         game.setScreen(ScreenType.MAIN_MENU);
+    }
+
+    public static void exitLB() {
+        button.toggle();
     }
 
     private void sortLeaderBoard() {
@@ -203,7 +208,7 @@ public class LeaderBoardDisplay extends UIComponent {
         TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
         String currentLine;
         try {
-             br = new BufferedReader(new FileReader(input));
+            br = new BufferedReader(new FileReader(input));
             while ((currentLine = br.readLine()) != null) {
                 if ("".equals(currentLine)) {
                     continue;

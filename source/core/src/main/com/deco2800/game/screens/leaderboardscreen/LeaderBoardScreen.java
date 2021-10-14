@@ -1,5 +1,7 @@
 package com.deco2800.game.screens.leaderboardscreen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
@@ -13,6 +15,7 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.mainmenu.MainMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +47,11 @@ public class LeaderBoardScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) ||
+                Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            LeaderBoardDisplay.exitLB();
+        }
     }
 
     @Override
@@ -71,6 +79,7 @@ public class LeaderBoardScreen extends ScreenAdapter {
         ui.addComponent(new LeaderBoardDisplay(game))
                 .addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
+        //Gdx.input.setInputProcessor(new LeadBdInputProcessor());
     }
 
     private void loadAssets() {

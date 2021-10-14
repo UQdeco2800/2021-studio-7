@@ -284,10 +284,6 @@ public class MainMenuDisplay extends UIComponent {
         return menuIndex < 5;
     }
 
-    public static int getMenuIndex() {
-        return menuIndex;
-    }
-
     public static void updateMenuFrame() {
         TextButton startBtn = buttons.get(0);
         TextButton LeadBtn = buttons.get(1);

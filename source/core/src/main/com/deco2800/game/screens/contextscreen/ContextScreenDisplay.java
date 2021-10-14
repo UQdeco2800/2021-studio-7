@@ -18,6 +18,7 @@ public class ContextScreenDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
+    private static TextButton button;
 
     public ContextScreenDisplay() {
         super();
@@ -62,6 +63,7 @@ public class ContextScreenDisplay extends UIComponent {
 
         // Add button to container. Transitions to the next level (main game screen).
         TextButton playGameBtn = new TextButton("Play Game", skin);
+        button = playGameBtn;
         playGameBtn.getLabel().setColor(0, 0,0, 1f);
         playGameBtn.addListener(
                 new ChangeListener() {
@@ -89,5 +91,9 @@ public class ContextScreenDisplay extends UIComponent {
     public void dispose() {
         table.clear();
         super.dispose();
+    }
+
+    public static void playButton(){
+        button.toggle();
     }
 }

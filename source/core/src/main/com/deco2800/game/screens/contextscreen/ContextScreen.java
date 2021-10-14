@@ -1,5 +1,7 @@
 package com.deco2800.game.screens.contextscreen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
@@ -46,6 +48,9 @@ public class ContextScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            ContextScreenDisplay.playButton();
+        }
     }
 
     @Override
@@ -102,5 +107,6 @@ public class ContextScreen extends ScreenAdapter {
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ContextScreenActions());
         ServiceLocator.getEntityService().register(ui);
+        Gdx.input.setInputProcessor(new ContextInputProcessor());
     }
 }
