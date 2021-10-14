@@ -8,54 +8,54 @@
   }
   entityMap: {
     W: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png]
     }
     f: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createFridge
       assets: [images/objects/furniture/fridge_southwest.png]
     }
     c: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
       assets: [images/objects/furniture/kitchen-table-east.png]
 
     }
     C: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
       assets: [images/objects/furniture/kitchen-table-west.png]
 
     }
     s: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
       assets: [images/objects/furniture/kitchen-sink-east.png]
     }
     S: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
       assets: [images/objects/furniture/kitchen-cooktop-east.png]
     }
     b: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBin
       assets: [images/objects/furniture/bath_bin.png]
     }
     p: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createPuddle //make puddle a atlas
       assets: [images/objects/puddle/puddle.atlas]
     }
     P: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBananaPeel
       assets: [images/objects/banana_peel/banana.atlas]
     }
     E: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createEnergyDrink
       assets: [images/objects/energy_drink/energy.atlas]
     }

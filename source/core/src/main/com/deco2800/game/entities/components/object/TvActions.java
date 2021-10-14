@@ -1,7 +1,7 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.object;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
