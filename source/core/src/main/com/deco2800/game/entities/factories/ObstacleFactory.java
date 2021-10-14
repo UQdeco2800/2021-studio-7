@@ -219,7 +219,6 @@ public class ObstacleFactory {
         }
       }
       obstacle.addComponent(animator);
-      obstacle.getEvents().addListener("update_animation", animator::startAnimation);
     }
     return obstacle;
   }

@@ -78,7 +78,6 @@ public class PlayerFactory {
         }
       }
       player.addComponent(animator);
-      player.getEvents().addListener("update_animation", animator::startAnimation);
     }
 
     return player;
