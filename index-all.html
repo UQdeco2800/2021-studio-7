@@ -166,8 +166,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Create the component for a given texture atlas.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/InteractionComponent.html#animator">animator</a></span> - Variable in class com.deco2800.game.entities.components.interactions.<a href="com/deco2800/game/entities/components/interactions/InteractionComponent.html" title="class in com.deco2800.game.entities.components.interactions">InteractionComponent</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/ui/terminal/Terminal.html#appendToMessage(char)">appendToMessage(char)</a></span> - Method in class com.deco2800.game.ui.terminal.<a href="com/deco2800/game/ui/terminal/Terminal.html" title="class in com.deco2800.game.ui.terminal">Terminal</a></dt>
 <dd>
 <div class="block">Appends the character to the end of the entered message.</div>
@@ -490,6 +488,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.physics.components.<a href="com/deco2800/game/physics/components/PhysicsMovementComponent.html" title="class in com.deco2800.game.physics.components">PhysicsMovementComponent</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/components/AnimationRenderComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.rendering.components.<a href="com/deco2800/game/rendering/components/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering.components">AnimationRenderComponent</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/components/RenderComponent.html#create()">create()</a></span> - Method in class com.deco2800.game.rendering.components.<a href="com/deco2800/game/rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/screens/context/ContextScreenActions.html#create()">create()</a></span> - Method in class com.deco2800.game.screens.context.<a href="com/deco2800/game/screens/context/ContextScreenActions.html" title="class in com.deco2800.game.screens.context">ContextScreenActions</a></dt>
@@ -641,6 +641,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createTv(java.lang.String%5B%5D)">createTv(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/factories/ObstacleFactory.html#createWall(java.lang.String%5B%5D)">createWall(String[])</a></span> - Static method in class com.deco2800.game.entities.factories.<a href="com/deco2800/game/entities/factories/ObstacleFactory.html" title="class in com.deco2800.game.entities.factories">ObstacleFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/generic/Component.html#creationPriority">creationPriority</a></span> - Variable in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/Component.html" title="class in com.deco2800.game.generic">Component</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <a id="I:D">
@@ -1084,6 +1086,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Get a component of type T on the entity.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/physics/PhysicsEngine.html#getContactListener()">getContactListener()</a></span> - Method in class com.deco2800.game.physics.<a href="com/deco2800/game/physics/PhysicsEngine.html" title="class in com.deco2800.game.physics">PhysicsEngine</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/generic/Component.html#getCreationPriority()">getCreationPriority()</a></span> - Method in class com.deco2800.game.generic.<a href="com/deco2800/game/generic/Component.html" title="class in com.deco2800.game.generic">Component</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/rendering/components/AnimationRenderComponent.html#getCurrentAnimation()">getCurrentAnimation()</a></span> - Method in class com.deco2800.game.rendering.components.<a href="com/deco2800/game/rendering/components/AnimationRenderComponent.html" title="class in com.deco2800.game.rendering.components">AnimationRenderComponent</a></dt>
 <dd>
@@ -1896,8 +1900,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html#onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd(Entity)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BananaPeelActions</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html#onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd(Entity)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">PlaceableBoxActions</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Interactable.html#onCollisionEnd(com.deco2800.game.entities.Entity)">onCollisionEnd(Entity)</a></span> - Method in interface com.deco2800.game.entities.components.interactions.<a href="com/deco2800/game/entities/components/interactions/Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></dt>
 <dd>
 <div class="block">Called when a valid collision end is detected from one of the parent entity's
@@ -1910,8 +1912,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart(Entity)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/BananaPeelActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">BananaPeelActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/MumActions.html#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart(Entity)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/MumActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">MumActions</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart(Entity)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">PlaceableBoxActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Interactable.html#onCollisionStart(com.deco2800.game.entities.Entity)">onCollisionStart(Entity)</a></span> - Method in interface com.deco2800.game.entities.components.interactions.<a href="com/deco2800/game/entities/components/interactions/Interactable.html" title="interface in com.deco2800.game.entities.components.interactions">Interactable</a></dt>
 <dd>
@@ -2823,6 +2823,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/DoorActions.html#toggleHighlight(boolean)">toggleHighlight(boolean)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/DoorActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DoorActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/DrinkActions.html#toggleHighlight(boolean)">toggleHighlight(boolean)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/DrinkActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">DrinkActions</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html#toggleHighlight(boolean)">toggleHighlight(boolean)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/PlaceableBoxActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">PlaceableBoxActions</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="com/deco2800/game/entities/components/interactions/Actions/TvActions.html#toggleHighlight(boolean)">toggleHighlight(boolean)</a></span> - Method in class com.deco2800.game.entities.components.interactions.Actions.<a href="com/deco2800/game/entities/components/interactions/Actions/TvActions.html" title="class in com.deco2800.game.entities.components.interactions.Actions">TvActions</a></dt>
 <dd>&nbsp;</dd>
