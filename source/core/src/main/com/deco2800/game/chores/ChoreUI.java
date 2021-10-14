@@ -96,7 +96,6 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chores changes
-
         if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }

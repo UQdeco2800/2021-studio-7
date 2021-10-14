@@ -67,7 +67,7 @@ public class MainGameTextDisplay extends UIComponent {
         int colWidth = Gdx.graphics.getWidth() / 10;
 
         // Display background texture
-        table.setSize(Gdx.graphics.getWidth(), rowHeight*4);
+        table.setSize(Gdx.graphics.getWidth(), rowHeight*4f);
         Image background = new Image(texture);
         background.setScaleX((colWidth*8)/background.getWidth());
         background.setOrigin(Align.center);

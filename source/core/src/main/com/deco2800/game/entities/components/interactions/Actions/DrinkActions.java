@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.components.interactions.Actions;
 
+import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.interactions.SingleUse;
@@ -30,6 +31,7 @@ public class DrinkActions extends InteractionComponent {
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             //add time restriction
+            entity.getEvents().trigger("chore_complete", ChoreList.DRINK);
         }
     }
 

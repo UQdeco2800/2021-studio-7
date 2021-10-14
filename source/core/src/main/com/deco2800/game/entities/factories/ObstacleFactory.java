@@ -68,7 +68,7 @@ public class ObstacleFactory {
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
+    Entity energyDrink = createBaseChore(assets, BodyType.DynamicBody, ChoreList.DRINK)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
     return energyDrink;
