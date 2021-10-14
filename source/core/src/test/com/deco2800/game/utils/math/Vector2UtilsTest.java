@@ -1,6 +1,6 @@
 package com.deco2800.game.utils.math;
 
-import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.extensions.GameExtension;
@@ -11,16 +11,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(GameExtension.class)
-public class GridPoint2UtilsTest {
+public class Vector2UtilsTest {
 
     @Test
     void shouldDeserializeGridPoint2OnRead() {
-        GridPoint2Wrapper wrapper = FileLoader.readClass(GridPoint2Wrapper.class, "maps/testing/GridPoint2.json");
-        assertNotNull(wrapper.gridPoint2);
+        Vector2Wrapper wrapper = FileLoader.readClass(Vector2Wrapper.class, "maps/testing/Vector2.json");
+        assertNotNull(wrapper.vector2);
     }
 
-    static class GridPoint2Wrapper implements Json.Serializable {
-        GridPoint2 gridPoint2 = null;
+    static class Vector2Wrapper implements Json.Serializable {
+        Vector2 vector2 = null;
 
         @Override
         public void write(Json json) {
@@ -30,7 +30,7 @@ public class GridPoint2UtilsTest {
         @Override
         public void read(Json json, JsonValue jsonData) {
             jsonData = jsonData.child();
-            gridPoint2 = GridPoint2Utils.read(jsonData);
+            vector2 = Vector2Utils.read(jsonData);
         }
     }
 }
