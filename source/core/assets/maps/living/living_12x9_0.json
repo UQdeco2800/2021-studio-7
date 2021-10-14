@@ -32,11 +32,11 @@
       method: createLamp
       assets: [images/objects/stopgap/lamp.png]
     }
-    C: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
-      method: createCoffeeTable
-      assets: [images/objects/furniture/coffee_table_right.png]
-    }
+//    C: {
+//      class: com.deco2800.game.entities.factories.ObstacleFactory
+//      method: createCoffeeTable
+//      assets: [images/objects/furniture/coffee_table_right.png]
+//    }
     E: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createEnergyDrink

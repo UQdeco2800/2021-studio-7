@@ -6,7 +6,6 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
-import com.deco2800.game.rendering.components.AnimationRenderComponent;
 
 /**
  * When this entity touches a valid hitbox, enact the unique interaction with them.
@@ -17,7 +16,6 @@ import com.deco2800.game.rendering.components.AnimationRenderComponent;
 public class InteractionComponent extends Component implements Interactable {
 
     protected short targetLayer;
-    protected AnimationRenderComponent animator;
     protected HitboxComponent hitbox;
 
     @Override
@@ -31,11 +29,6 @@ public class InteractionComponent extends Component implements Interactable {
         entity.getEvents().addListener("toggle_highlight", this::toggleHighlight);
 
         targetLayer = PhysicsLayer.PLAYER;
-
-        animator = entity.getComponent(AnimationRenderComponent.class);
-        if (animator != null) {
-            entity.getEvents().addListener("update_animation", animator::startAnimation);
-        }
 
         hitbox = entity.getComponent(HitboxComponent.class);
     }
