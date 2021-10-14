@@ -50,8 +50,8 @@ class RenderServiceTest {
     // Same layer, renderable2 is in front
     when(renderable1.getLayer()).thenReturn(1);
     when(renderable2.getLayer()).thenReturn(1);
-    when(renderable1.compareTo(any())).thenReturn(1);
-    when(renderable2.compareTo(any())).thenReturn(-1);
+    when(renderable1.compareTo((Renderable) any())).thenReturn(1);
+    when(renderable2.compareTo((Renderable) any())).thenReturn(-1);
 
     renderService.register(renderable1);
     renderService.register(renderable2);

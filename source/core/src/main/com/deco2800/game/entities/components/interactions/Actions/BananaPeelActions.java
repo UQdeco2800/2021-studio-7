@@ -14,7 +14,7 @@ public class BananaPeelActions extends InteractionComponent {
     @Override
     public void create(){
         super.create();
-        animator.startAnimation("banana_peel");
+        entity.getEvents().trigger("update_animation", "banana_peel");
     }
 
     @Override
@@ -30,7 +30,6 @@ public class BananaPeelActions extends InteractionComponent {
             toggleSlipPlayer(target, false);
         }
     }
-
 
     private void toggleSlipPlayer(Entity target, boolean shouldSlip) {
         if (shouldSlip) {

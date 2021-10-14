@@ -15,15 +15,15 @@ public class TvActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("TV_on1");
+        entity.getEvents().trigger("update_animation", "TV_on1");
     }
 
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
             logger.debug("PLAYER interacted with TV, triggering TV animation");
-            animator.startAnimation("TV_on1");
-            animator.startAnimation("TV_off2");
+            entity.getEvents().trigger("update_animation", "TV_on1");
+            entity.getEvents().trigger("update_animation", "TV_off2");
             hasInteracted = true;
             // Tell the chore controller that this chore is complete
             entity.getEvents().trigger("chore_complete", ChoreList.TV);
@@ -35,16 +35,16 @@ public class TvActions extends InteractionComponent {
         if (shouldHighlight) {
             logger.debug("TV started collision with PLAYER, tv animation");
             if (hasInteracted) {
-                animator.startAnimation("TV_off2");
+                entity.getEvents().trigger("update_animation", "TV_off2");
             } else {
-                animator.startAnimation("TV_onh1");
+                entity.getEvents().trigger("update_animation", "TV_onh1");
             }
         } else {
             logger.debug("TV ended collision with PLAYER, tv animation");
             if (hasInteracted) {
-                animator.startAnimation("TV_off2");
+                entity.getEvents().trigger("update_animation", "TV_off2");
             } else {
-                animator.startAnimation("TV_on1");
+                entity.getEvents().trigger("update_animation", "TV_on1");
             }
         }
     }

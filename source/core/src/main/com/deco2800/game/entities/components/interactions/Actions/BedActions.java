@@ -14,7 +14,7 @@ public class BedActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("bed");
+        entity.getEvents().trigger("update_animation", "bed");
     }
 
     @Override
@@ -28,10 +28,10 @@ public class BedActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BED started collision with PLAYER, highlighting bed");
-            animator.startAnimation("bedhighlight2");
+            entity.getEvents().trigger("update_animation", "bedhighlight2");
         } else {
             logger.debug("BED ended collision with PLAYER, un-highlighting bed");
-            animator.startAnimation("bed");
+            entity.getEvents().trigger("update_animation", "bed");
         }
     }
 
