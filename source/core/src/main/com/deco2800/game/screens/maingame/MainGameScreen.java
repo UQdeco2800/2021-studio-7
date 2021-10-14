@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {""};
+  private static final String[] mainGameTextures = {};
   private static final String TEST_FLOOR_PLAN = "maps/_floor_plans/floor_plan_testing.json";
    private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game

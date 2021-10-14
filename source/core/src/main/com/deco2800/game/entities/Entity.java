@@ -10,6 +10,8 @@ import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
+
 /**
  * Core entity class. Entities exist in the game and are updated each frame. All entities have a
  * position and scale, but have no default behaviour. Components should be added to an entity to
@@ -218,8 +220,9 @@ public class Entity {
           this);
       return;
     }
-    createdComponents = components.values().toArray();
-    for (Component component : createdComponents) {
+    createdComponents = (new IntMap.Values<>(components)).toArray();
+    createdComponents.sort(Comparator.comparingInt(Component::getCreationPriority));
+    for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.create();
     }
     created = true;
@@ -233,7 +236,7 @@ public class Entity {
     if (!enabled) {
       return;
     }
-    for (Component component : createdComponents) {
+    for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.triggerEarlyUpdate();
     }
   }

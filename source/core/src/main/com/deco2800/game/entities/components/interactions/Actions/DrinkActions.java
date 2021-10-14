@@ -17,7 +17,7 @@ public class DrinkActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("energy");
+        entity.getEvents().trigger("update_animation", "energy");
     }
 
     @Override
@@ -37,10 +37,10 @@ public class DrinkActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("DRINK started collision with PLAYER");
-            animator.startAnimation("energy_highlight");
+            entity.getEvents().trigger("update_animation", "energy_highlight");
         } else {
             logger.debug("DRINK ended collision with PLAYER");
-            animator.startAnimation("energy");
+            entity.getEvents().trigger("update_animation", "energy");
         }
     }
 
