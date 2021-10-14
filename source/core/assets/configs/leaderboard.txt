@@ -1,0 +1,34 @@
+<<<<<<< HEAD
+=======
+DirtyDefault69011:-4597
+DirtyDefault63377:-2134
+DirtyDefault49698:-922
+DirtyDefault30448:-52
+DirtyDefault9581:986
+DirtyDefault17950:1000
+DirtyDefault26494:1000
+DirtyDefault53230:1000
+DirtyDefault64319:1000
+DirtyDefault84532:1000
+DirtyDefault6770:1595
+
+DirtyDefault26126:-1752,1000,
+DirtyDefault51840:627,1000,
+DirtyDefault99966:693,881,
+DirtyDefault62726:785,
+DirtyDefault36199:879,1000,
+DirtyDefault54888:1000,
+DirtyDefault64428:267,
+DirtyDefault3183:
+DirtyDefault90466:
+DirtyDefault36349:886,
+DirtyDefault99728:964,
+DirtyDefault41592:940,
+DirtyDefault39718:958,
+DirtyDefault87630:947,
+DirtyDefault64325:942,
+DirtyDefault37738:849,
+DirtyDefault38752:780,
+>>>>>>> 050fef36b00a254dccd04b1f41709515678a547d
+
+DirtyDefault94122:-737,

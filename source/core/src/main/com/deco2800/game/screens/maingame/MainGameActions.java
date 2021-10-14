@@ -16,84 +16,32 @@ public class MainGameActions extends Component {
   @Override
   public void create() {
     entity.getEvents().addListener("exit", this::onExit);
-    entity.getEvents().addListener("win_default", this::onWinDefault);
-    entity.getEvents().addListener("loss_timed", this::onLossTimed);
-    entity.getEvents().addListener("loss_caught", this::onLossCaught);
-    entity.getEvents().addListener("resume", this::onResume);
-    entity.getEvents().addListener("restart", this::onRestart);
-    entity.getEvents().addListener("settings", this::onSettings);
-    entity.getEvents().addListener("main_menu", this::onMainMenu);
+    entity.getEvents().addListener("bed_interacted", this::onBedInteracted);
+    entity.getEvents().addListener("player_caught", this::onPlayerCaught);
+    entity.getEvents().addListener("timed_ended", this::onTimerEnded);
   }
 
-  /**
-   * Swaps to the Main Menu screen.
-   */
-  private void onExit() {
-    logger.info("Exiting main game screen...");
-    logger.info("Swapping to main menu screen...");
+  public void onExit() {
+    logger.debug("Exiting main game screen...");
+    logger.debug("Swapping to main menu screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
-  /**
-   * Swaps to the Main Menu screen for now.
-   */
-  private void onWinDefault() {
-    logger.info("Exiting main game screen...");
-    logger.info("Swapping to default win screen...");
+  public void onBedInteracted() {
+    logger.debug("Exiting main game screen...");
+    logger.debug("Swapping to default win screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.WIN_DEFAULT);
   }
 
-  /**
-   * Swaps to the Main Menu screen for now.
-   */
-  private void onLossTimed() {
-    logger.info("Exiting main game screen...");
-    logger.info("Swapping to default loss screen...");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_TIMED);
-  }
-
-  /**
-   * Swaps to the Main Menu screen for now.
-   */
-  private void onLossCaught() {
-    logger.info("Exiting main game screen...");
-    logger.info("Swapping to default loss screen...");
+  public void onPlayerCaught() {
+    logger.debug("Exiting main game screen...");
+    logger.debug("Swapping to default loss screen...");
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
   }
 
-  /**
-   * Restarts game, by resetting game by running start.
-   */
-  private void onRestart() {
-    logger.info("Restart game");
-//        ServiceLocator.getGame().dispose();
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-  }
-
-  /**
-   * Resumes game, by unpausing game state.
-   */
-  private void onResume() {
-    logger.info("Resume game");
-//        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-    ServiceLocator.getGame().getScreen().resume();
-
-//    ServiceLocator.getGame().resume();
-  }
-
-  /**
-   * Opens settings menu.
-   */
-  private void onSettings() {
-    logger.info("Launch settings screen");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
-  }
-
-  /**
-   * Opens main menu.
-   */
-  private void onMainMenu() {
-    logger.info("Launch main menu screen");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
+  public void onTimerEnded() {
+    logger.debug("Exiting main game screen...");
+    logger.debug("Swapping to default loss screen...");
+    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_TIMED);
   }
 }

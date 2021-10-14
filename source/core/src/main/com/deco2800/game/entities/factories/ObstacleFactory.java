@@ -50,6 +50,12 @@ public class ObstacleFactory {
     return door;
   }
 
+  public static Entity createPlaceableBox(String[] assets) {
+    Entity box = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new PlaceableBoxActions());
+    return box;
+  }
+
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new TvActions());
@@ -194,6 +200,10 @@ public class ObstacleFactory {
       obstacle.addComponent(animator);
     }
     return obstacle;
+  }
+
+  private ObstacleFactory() {
+    throw new IllegalStateException("Instantiating static util class");
   }
 }
 
