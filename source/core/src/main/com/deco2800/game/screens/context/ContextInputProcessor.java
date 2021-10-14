@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.contextscreen;
+package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ContextInputProcessor implements InputProcessor {
-    private final Logger logger = LoggerFactory.getLogger(com.deco2800.game.screens.contextscreen.ContextInputProcessor.class);
+    private final Logger logger = LoggerFactory.getLogger(com.deco2800.game.screens.context.ContextInputProcessor.class);
 
     @Override
     public boolean keyDown(int keycode) {
