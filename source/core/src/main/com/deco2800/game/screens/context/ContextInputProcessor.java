@@ -2,6 +2,8 @@ package com.deco2800.game.screens.contextscreen;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.deco2800.game.screens.context.ContextScreen;
+import com.deco2800.game.screens.context.ContextScreenDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
