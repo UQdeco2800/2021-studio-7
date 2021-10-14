@@ -21,6 +21,7 @@ public class ChoreUI extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
     private boolean displaying = false;
     private Label displayText;
+    ArrayList<Chore> chores;
 
     @Override
     public void create() {
@@ -59,7 +60,7 @@ public class ChoreUI extends UIComponent {
      */
     public void display() {
         // Get the list of chores from the ChoreController
-        ArrayList<Chore> chores = ServiceLocator.getChoreController().getChores();
+        chores = ServiceLocator.getChoreController().getChores();
         String[] choreDescriptions = new String[chores.size()];
         for (int i = 0; i < chores.size(); i++) {
             choreDescriptions[i] = chores.get(i).getDescription();
@@ -82,6 +83,14 @@ public class ChoreUI extends UIComponent {
     private void hide() {
         displayText.setText("");
         displaying = false;
+    }
+
+    @Override
+    public void update() {
+        // TODO Need to update when chores change
+        if (ServiceLocator.getChoreController().getChores() != chores) {
+            this.display();
+        }
     }
 
     @Override
