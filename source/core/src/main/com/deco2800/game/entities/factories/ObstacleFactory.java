@@ -5,10 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.entities.components.interactions.Actions.*;
+import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.interactions.Actions.BananaPeelActions;
+import com.deco2800.game.entities.components.interactions.Actions.BedActions;
+import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
+import com.deco2800.game.entities.components.interactions.Actions.TvActions;
+import com.deco2800.game.entities.components.interactions.Actions.PlaceableBoxActions;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -16,7 +22,6 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.rendering.components.TextureRenderComponent;
-import com.deco2800.game.generic.ServiceLocator;
 
 /**
  * Factory to create obstacle entities.
@@ -57,7 +62,7 @@ public class ObstacleFactory {
   }
 
   public static Entity createTv(String[] assets) {
-    Entity tv = createBaseInteractable(assets, BodyType.StaticBody)
+    Entity tv = createBaseChore(assets, BodyType.StaticBody, ChoreList.TV)
             .addComponent(new TvActions());
     return tv;
   }
@@ -162,6 +167,19 @@ public class ObstacleFactory {
     return bin;
   }
 
+  /**
+   * Creates the object as a chore, and registers it as a chore to the ChoreController
+   * @param assets the image and atlas assets of this object
+   * @param bodyType Static, kinematic or dynamic body type
+   * @param object The ChoreList ID of this object
+   * @return The new entity of this obstacle
+   */
+  public static Entity createBaseChore(String[] assets, BodyType bodyType, ChoreList object) {
+    Entity entity = createBaseInteractable(assets, bodyType);
+    ServiceLocator.getChoreController().addChore(entity, object);
+    return entity;
+  }
+
   public static Entity createBaseInteractable(String[] assets, BodyType bodyType) {
     // Set interactable to have a base hitbox component
     Entity interactable = createBaseObstacle(assets, bodyType)
@@ -177,6 +195,9 @@ public class ObstacleFactory {
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 0.5f, 0.5f);
     obstacle.scaleHeight(1f);
+    if (assets.length <= 0) {
+      return obstacle;
+    }
     // Set obstacle to have a base render component
     ResourceService resourceService = ServiceLocator.getResourceService();
     if (assets[0].endsWith(".png")) {
@@ -200,6 +221,10 @@ public class ObstacleFactory {
       obstacle.addComponent(animator);
     }
     return obstacle;
+  }
+
+  private ObstacleFactory() {
+    throw new IllegalStateException("Instantiating static util class");
   }
 }
 

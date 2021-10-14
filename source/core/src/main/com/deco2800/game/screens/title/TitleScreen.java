@@ -1,49 +1,39 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.title;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
-import com.deco2800.game.input.components.InputDecorator;
-import com.deco2800.game.input.InputService;
-import com.deco2800.game.rendering.RenderService;
-import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.input.InputService;
+import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.input.components.InputDecorator;
+import com.deco2800.game.rendering.RenderService;
+import com.deco2800.game.rendering.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The win/lose screen at the end of the game.
+ * The game screen containing the title.
  */
-public class EndGameScreen extends ScreenAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(EndGameScreen.class);
-    private static final String[] winScreenTextures = {"images/ui/screens/win_screen.png"};
-    private static final String[] loseScreenTextures = {"images/ui/screens/lose_screen.png"};
-    private static final String[] timeoutScreenTextures = {"images/ui/screens/time_out.png"};
-    private final String[] activeScreenTextures;
-    private final GdxGame.ScreenType result;
+public class TitleScreen extends ScreenAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
 
     private final Renderer renderer;
+    private static final String[] TitleTextures = {
+            "images/ui/screens/inactiveStart.png",
+            "images/ui/title/RETROACTIVE-large.png"
+    };
+    //add background music into the game
+    private static final String[] backgroundMusic = {"sounds/backgroundMusic" +
+            "-EP.mp3"};
 
-    public EndGameScreen(GdxGame.ScreenType result) {
-        this.result = result;
-        switch (this.result) {
-            case WIN_DEFAULT:
-                this.activeScreenTextures = winScreenTextures;
-                break;
-            case LOSS_TIMED:
-                this.activeScreenTextures = timeoutScreenTextures;
-                break;
-            case LOSS_CAUGHT:
-            default:
-                this.activeScreenTextures = loseScreenTextures;
-        }
+    public TitleScreen() {
 
-        logger.debug("Initialising end game screen services");
+        logger.debug("Initialising title screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
         ServiceLocator.registerEntityService(new EntityService());
@@ -51,8 +41,10 @@ public class EndGameScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
+
         loadAssets();
         createUI();
+        playMusic();
     }
 
     @Override
@@ -79,7 +71,7 @@ public class EndGameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        logger.debug("Disposing end game screen");
+        logger.debug("Disposing title screen");
 
         renderer.dispose();
         unloadAssets();
@@ -90,39 +82,48 @@ public class EndGameScreen extends ScreenAdapter {
         ServiceLocator.clear();
     }
 
-    public GdxGame.ScreenType getResult() {
-        return this.result;
-    }
-
-    public String[] getActiveScreenTextures() {
-        return this.activeScreenTextures;
+    /**
+     * Play the background Music
+     */
+    private void playMusic() {
+        Music music =
+                ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+                        Music.class);
+        music.setLooping(true);
+        music.setVolume(0.01f);
+        music.play();
     }
 
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(activeScreenTextures);
+        resourceService.loadTextures(TitleTextures);
+        resourceService.loadMusic(backgroundMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
     private void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(activeScreenTextures);
+        resourceService.unloadAssets(TitleTextures);
+        resourceService.unloadAssets(backgroundMusic);
     }
 
     /**
-     * Creates the end game's ui including components for rendering ui elements to the screen and
+     * Creates the title ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
     private void createUI() {
         logger.debug("Creating ui");
+        InputComponent inputComponent =
+                ServiceLocator.getInputService().getInputFactory().createForTitle();
+
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new EndGameDisplay(this))
+        ui.addComponent(new TitleScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
-                .addComponent(new EndGameActions());
+                .addComponent(inputComponent)
+                .addComponent(new TitleScreenActions());
         ServiceLocator.getEntityService().register(ui);
-        Gdx.input.setInputProcessor(new EndGameInputProcessor());
     }
 }

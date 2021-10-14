@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.contextscreen;
+package com.deco2800.game.screens.context;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;

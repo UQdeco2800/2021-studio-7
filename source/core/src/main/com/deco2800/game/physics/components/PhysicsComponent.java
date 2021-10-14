@@ -5,7 +5,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.deco2800.game.generic.Component;
-import com.deco2800.game.physics.BodyUserData;
 import com.deco2800.game.physics.PhysicsContactListener;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.generic.ServiceLocator;
@@ -68,10 +67,7 @@ public class PhysicsComponent extends Component {
   public void create() {
     body.setTransform(entity.getPosition(), 0f);
     body.setActive(true);
-
-    BodyUserData userData = new BodyUserData();
-    userData.entity = entity;
-    body.setUserData(userData);
+    body.setUserData(entity);
 
     entity.getEvents().addListener("setPosition", (Vector2 pos) -> body.setTransform(pos, 0f));
   }

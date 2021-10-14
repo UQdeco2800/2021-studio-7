@@ -34,8 +34,7 @@ public class MainGameTextDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("create_textbox",
-                this::display);
+        entity.getEvents().addListener("create_textbox", this::display);
         // Load background texture
         texture = new Texture(Gdx.files.internal(
                 "images/ui/elements/Textbox_1024.png"));
@@ -76,9 +75,9 @@ public class MainGameTextDisplay extends UIComponent {
 
         // Display Text
         displayText = new Label("", skin, "large");
-        displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition(colWidth*2, (float) rowHeight/2);
-        displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
+        displayText.setSize(colWidth*6f, rowHeight*3f);
+        displayText.setPosition(colWidth*2f, rowHeight/2f);
+        displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setWrap(true);
 
         stage.addActor(displayText);

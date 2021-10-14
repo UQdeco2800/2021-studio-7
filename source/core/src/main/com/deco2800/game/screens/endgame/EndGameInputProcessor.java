@@ -1,4 +1,4 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.endgame;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;

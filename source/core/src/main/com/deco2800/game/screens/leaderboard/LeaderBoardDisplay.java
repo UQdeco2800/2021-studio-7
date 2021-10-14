@@ -1,26 +1,17 @@
-package com.deco2800.game.screens.leaderboardscreen;
+package com.deco2800.game.screens.leaderboard;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics.DisplayMode;
-import com.badlogic.gdx.Graphics.Monitor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
-import com.deco2800.game.files.UserSettings;
-import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
-import com.deco2800.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.TreeMap;
-import java.util.ArrayList;
 import java.io.*;
 import java.util.*;
 import java.io.FileWriter;
