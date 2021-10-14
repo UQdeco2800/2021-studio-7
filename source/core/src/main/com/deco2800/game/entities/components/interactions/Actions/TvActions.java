@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.components.interactions.Actions;
 
+import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
@@ -25,7 +26,7 @@ public class TvActions extends InteractionComponent {
             animator.startAnimation("TV_off2");
             hasInteracted = true;
             // Tell the chore controller that this chore is complete
-            entity.getEvents().trigger("chore_complete", entity);
+            entity.getEvents().trigger("chore_complete", ChoreList.TV);
         }
     }
 

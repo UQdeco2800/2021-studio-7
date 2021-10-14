@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -18,10 +16,11 @@ import java.util.ArrayList;
  * box with text (and optional image). Can then call remove to remove it.
  */
 public class ChoreUI extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
+    //private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
     private boolean displaying = false;
     private Label displayText;
     private int size = 0;
+    private int entityCount;
 
     @Override
     public void create() {
@@ -64,6 +63,7 @@ public class ChoreUI extends UIComponent {
 
         // Get the list of chores from the ChoreController
         ArrayList<Chore> chores = ServiceLocator.getChoreController().getChores();
+        entityCount = ServiceLocator.getChoreController().getEntityCount();
         size = chores.size();
         String[] choreDescriptions = new String[size];
         for (int i = 0; i < size; i++) {
@@ -96,9 +96,11 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chores changes
-        if (ServiceLocator.getChoreController().getChores().size() != size) {
+
+        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }
+        //this.display();
     }
 
     @Override
