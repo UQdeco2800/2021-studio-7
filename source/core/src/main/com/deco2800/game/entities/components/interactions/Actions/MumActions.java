@@ -14,7 +14,7 @@ public class MumActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("standing_south");
+        entity.getEvents().trigger("update_animation", "standing_south");
     }
 
     @Override
