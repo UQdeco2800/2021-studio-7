@@ -83,6 +83,7 @@ public class NPCFactory {
         }
       }
       npc.addComponent(animator);
+      npc.getEvents().addListener("update_animation", animator::startAnimation);
     }
 
     return npc;
