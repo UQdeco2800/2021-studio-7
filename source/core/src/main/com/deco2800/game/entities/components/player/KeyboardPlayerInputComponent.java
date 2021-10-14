@@ -7,7 +7,6 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -79,7 +78,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", true);
+                entity.getEvents().trigger("toggle_interacting", true);
+                return true;
+            case Keys.O:
+                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
+                        .getEvents().trigger("toggle_chores");
                 return true;
             default:
                 return false;
@@ -116,7 +119,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", false);
+                entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
@@ -125,27 +128,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                triggerPauseResumeEvent();
-//                ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-//                ServiceLocator.getGame().pause();
+                ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                        .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
                 return true;
             default:
                 return false;
-        }
-    }
-
-    private void triggerPauseResumeEvent() {
-        // If the screen is the main game it pauses the game, but if the screen is the pause screen
-        // it resumes the game.
-        // System.out.println(ServiceLocator.getGame().getScreen().toString());
-        if (ServiceLocator.getGame().getScreen().getClass() ==
-                MainGameScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-            ServiceLocator.getGame().pause();
-        } else if (ServiceLocator.getGame().getScreen().getClass() ==
-                PauseMenuScreen.class) {
-            ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
-            ServiceLocator.getGame().resume();
         }
     }
 

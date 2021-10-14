@@ -14,13 +14,13 @@ public class BedActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("bed");
+        entity.getEvents().trigger("update_animation", "bed");
     }
 
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            triggerWinCondition();
+            triggerBedInteracted();
         }
     }
 
@@ -28,16 +28,16 @@ public class BedActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BED started collision with PLAYER, highlighting bed");
-            animator.startAnimation("bed_highlight");
+            entity.getEvents().trigger("update_animation", "bedhighlight2");
         } else {
             logger.debug("BED ended collision with PLAYER, un-highlighting bed");
-            animator.startAnimation("bed");
+            entity.getEvents().trigger("update_animation", "bed");
         }
     }
 
-    private void triggerWinCondition() {
-        logger.debug("PLAYER interacted with BED, triggering win");
+    private void triggerBedInteracted() {
+        logger.debug("PLAYER interacted with BED, triggering bed interacted");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                .getMainGameEntity().getEvents().trigger("win_default");
+                .getMainGameEntity().getEvents().trigger("bed_interacted");
     }
 }

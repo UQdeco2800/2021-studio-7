@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
@@ -32,14 +31,14 @@ public class Home {
         floors.add(newFloor);
     }
 
-    public void create(CameraComponent cameraComponent) {
+    public void create(CameraComponent cameraComponent, CameraComponent miniMapCameraComponent) {
         if (!created) {
             if (floors.size == 0) {
                 Floor newFloor = randomiseFloor();
                 floors.add(newFloor);
             }
             activeFloor = floors.get(0);
-            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera());
+            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera(), (OrthographicCamera) miniMapCameraComponent.getCamera());
             activeFloor.create();
         }
         created = true;
@@ -53,13 +52,12 @@ public class Home {
     public Floor randomiseFloor() {
         Array<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
 
-        FileHandle testingFile = new FileHandle(mainGameScreen.getTestingFloorPlan());
-        fileHandles.removeValue(testingFile, true);
-
-        Floor randomFloor;
+        Floor randomFloor = null;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
-            randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+            if (!fileHandle.path().equals(mainGameScreen.getTestingFloorPlan())) {
+                randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+            }
             fileHandles.removeValue(fileHandle, true);
         } while (randomFloor == null && fileHandles.size > 0);
 

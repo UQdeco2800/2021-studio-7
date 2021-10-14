@@ -22,6 +22,7 @@ public class ColliderComponent extends Component {
   private Vector2 scale;
 
   public ColliderComponent() {
+    creationPriority = 2;
     fixtureDef = new FixtureDef();
   }
 

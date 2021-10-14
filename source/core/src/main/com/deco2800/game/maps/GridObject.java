@@ -20,6 +20,14 @@ public class GridObject implements Json.Serializable {
     private Method method;
     private String[] assets;
 
+    public GridObject() {
+    }
+
+    public GridObject(Method method, String[] assets) {
+        this.method = method;
+        this.assets = assets;
+    }
+
     public Method getMethod() {
         return method;
     }
@@ -28,18 +36,14 @@ public class GridObject implements Json.Serializable {
         return assets;
     }
 
-    public String[] getAssets(String extension) {
-        Array<String> temp = new Array<>();
+    public Array<String> getAssets(String extension) {
+        Array<String> assetsWithExtension = new Array<>();
         for (String asset : assets) {
             if (asset.endsWith(extension)) {
-                temp.add(asset);
+                assetsWithExtension.add(asset);
             }
         }
-        String[] assets = new String[temp.size];
-        for (int i = 0; i < temp.size; i++) {
-            assets[i] = temp.get(i);
-        }
-        return assets;
+        return assetsWithExtension;
     }
 
     @Override

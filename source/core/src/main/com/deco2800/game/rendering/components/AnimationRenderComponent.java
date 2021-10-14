@@ -47,9 +47,16 @@ public class AnimationRenderComponent extends RenderComponent {
    * @param atlas libGDX-supported texture atlas containing desired animations
    */
   public AnimationRenderComponent(TextureAtlas atlas) {
+    creationPriority = 0;
     this.atlas = atlas;
     this.animations = new HashMap<>(4);
     timeSource = ServiceLocator.getTimeSource();
+  }
+
+  @Override
+  public void create() {
+    super.create();
+    entity.getEvents().addListener("update_animation", this::startAnimation);
   }
 
   /**

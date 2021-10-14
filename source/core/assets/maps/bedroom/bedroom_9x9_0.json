@@ -2,7 +2,7 @@
   tileMap: {
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createTile
+      method: createBaseTile
       assets: [images/tiles/iso/iso_wall_1_left.png]
     }
   }
@@ -11,6 +11,36 @@
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createWall
       assets: [images/objects/walls/3.png]
+    }
+    B: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createBed
+      assets:[images/objects/bed/bed_animation.atlas]
+    }
+    b: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createBookcase
+      assets: [images/objects/furniture/bookcase1.png]
+    }
+    d: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createDesk
+      assets: [images/objects/furniture/desk_southeast.png]
+    }
+    c: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createChair
+      assets: [images/objects/furniture/chair_left.png]
+    }
+    s: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createSideTable
+      assets: [images/objects/furniture/sidetable_southeast.png]
+    }
+    p: {
+      class: com.deco2800.game.entities.factories.ObstacleFactory
+      method: createSideTable
+      assets: [images/objects/furniture/pet-met.png]
     }
   }
   tileGrid: [
@@ -27,12 +57,23 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W],
     [W, ., ., ., ., ., ., ., .],
+    [W, ., ., s, B, ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
+    [W, d, c, ., ., ., ., ., .],
+    [W, b, ., ., ., p, ., ., .],
+    [W, b, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .]
   ]
+  /*choreGrid: [
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .]
+  ]*/
 }

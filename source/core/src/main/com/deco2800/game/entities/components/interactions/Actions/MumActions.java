@@ -14,19 +14,19 @@ public class MumActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("standing_south");
+        entity.getEvents().trigger("update_animation", "standing_south");
     }
 
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            triggerLoseCondition();
+            triggerPlayerCaught();
         }
     }
 
-    private void triggerLoseCondition() {
-        logger.debug("MUM started collision with PLAYER, triggering lose condition");
+    private void triggerPlayerCaught() {
+        logger.debug("MUM started collision with PLAYER, triggering player caught");
         ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                .getMainGameEntity().getEvents().trigger("loss_caught");
+                .getMainGameEntity().getEvents().trigger("player_caught");
     }
 }

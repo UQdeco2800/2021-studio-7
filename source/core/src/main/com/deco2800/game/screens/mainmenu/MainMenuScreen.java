@@ -1,5 +1,8 @@
 package com.deco2800.game.screens.mainmenu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,6 +26,7 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {
+          "images/ui/elements/menuFrame-LONG.png",
           "images/ui/title/RETROACTIVE-large.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
@@ -55,13 +59,23 @@ public class MainMenuScreen extends ScreenAdapter {
             ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
                     Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.01f);
     music.play();
   }
   @Override
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
+
+    if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        MainMenuDisplay.moveUp();
+    }
+    if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+      MainMenuDisplay.moveDown();
+    }
+    if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+      MainMenuDisplay.pressMenu();
+    }
   }
 
   @Override
@@ -119,6 +133,7 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
+    //Gdx.input.setInputProcessor(new MenuInputProcessor());
   }
 
   /**
@@ -131,3 +146,5 @@ public class MainMenuScreen extends ScreenAdapter {
    *
    */
 }
+
+

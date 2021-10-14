@@ -5,14 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.contextscreen.ContextScreen;
-import com.deco2800.game.screens.EndGameScreen;
+import com.deco2800.game.screens.context.ContextScreen;
+import com.deco2800.game.screens.endgame.EndGameScreen;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.screens.mainmenu.MainMenuScreen;
-import com.deco2800.game.screens.pausemenu.PauseMenuScreen;
 import com.deco2800.game.screens.settingsmenu.SettingsScreen;
-import com.deco2800.game.screens.leaderboardscreen.LeaderBoardScreen;
-import com.deco2800.game.screens.titlescreen.TitleScreen;
+import com.deco2800.game.screens.leaderboard.LeaderBoardScreen;
+import com.deco2800.game.screens.title.TitleScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,8 +76,6 @@ public class GdxGame extends Game {
         return new TitleScreen();
       case MAIN_MENU:
         return new MainMenuScreen();
-      case PAUSE_MENU:
-        return new PauseMenuScreen();
       case MAIN_GAME:
         return new MainGameScreen();
       case SETTINGS:
