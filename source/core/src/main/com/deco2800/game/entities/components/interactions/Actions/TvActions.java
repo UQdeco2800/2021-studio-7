@@ -24,7 +24,7 @@ public class TvActions extends InteractionComponent {
             animator.startAnimation("TV_on1");
             animator.startAnimation("TV_off2");
             hasInteracted = true;
-            // Try and tell the chore controller that this chore is complete (if we are a chore)
+            // Tell the chore controller that this chore is complete
             entity.getEvents().trigger("chore_complete", entity);
         }
     }

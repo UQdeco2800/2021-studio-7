@@ -21,7 +21,7 @@ public class ChoreUI extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
     private boolean displaying = false;
     private Label displayText;
-    ArrayList<Chore> chores;
+    private int size = 0;
 
     @Override
     public void create() {
@@ -59,18 +59,26 @@ public class ChoreUI extends UIComponent {
      * Displays the list of chores to the screen.
      */
     public void display() {
+        // Clear the current display (if displaying)
+        displayText.setText("");
+
         // Get the list of chores from the ChoreController
-        chores = ServiceLocator.getChoreController().getChores();
-        String[] choreDescriptions = new String[chores.size()];
-        for (int i = 0; i < chores.size(); i++) {
+        ArrayList<Chore> chores = ServiceLocator.getChoreController().getChores();
+        size = chores.size();
+        String[] choreDescriptions = new String[size];
+        for (int i = 0; i < size; i++) {
             choreDescriptions[i] = chores.get(i).getDescription();
         }
 
         // Format the output text
         StringBuilder choreText = new StringBuilder();
-        choreText.append("Things I need to do:\n");
-        for (String choreDescription : choreDescriptions) {
-            choreText.append(choreDescription).append("\n");
+        if (choreDescriptions.length != 0) {
+            choreText.append("Things I need to do:\n");
+            for (String choreDescription : choreDescriptions) {
+                choreText.append(choreDescription).append("\n");
+            }
+        } else {
+            choreText.append("Chores complete, get to bed!");
         }
 
         displayText.setText(choreText);
@@ -87,8 +95,8 @@ public class ChoreUI extends UIComponent {
 
     @Override
     public void update() {
-        // TODO Need to update when chores change
-        if (ServiceLocator.getChoreController().getChores() != chores) {
+        // Update the display when the number of chores changes
+        if (ServiceLocator.getChoreController().getChores().size() != size) {
             this.display();
         }
     }

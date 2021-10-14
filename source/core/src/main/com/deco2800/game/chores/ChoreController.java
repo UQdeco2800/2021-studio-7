@@ -1,8 +1,6 @@
 package com.deco2800.game.chores;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
