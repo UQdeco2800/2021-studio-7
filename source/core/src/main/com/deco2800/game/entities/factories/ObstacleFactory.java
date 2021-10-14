@@ -45,6 +45,7 @@ public class ObstacleFactory {
             .addComponent(new BedActions());
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setScaledCollider(bed,1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 2f, 2.5f);
     return bed;
   }
 
@@ -91,6 +92,7 @@ public class ObstacleFactory {
     Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
     bookcase.setScale(2f,2f);
     PhysicsUtils.realignScaledCollider(bookcase,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
+    PhysicsUtils.setColliderShape(bookcase, 0.5f, 0.5f);
     return bookcase;
   }
 
@@ -106,6 +108,7 @@ public class ObstacleFactory {
     lounge.getComponent(TextureRenderComponent.class).scaleEntity();
     lounge.setScale(2f,1f);
     PhysicsUtils.realignScaledCollider(lounge, 1f, 2f, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
+    PhysicsUtils.setColliderShape(lounge, 2f, 2.5f);
     return lounge;
   }
 
@@ -114,6 +117,8 @@ public class ObstacleFactory {
     desk.getComponent(TextureRenderComponent.class).scaleEntity();
     desk.setScale(2f,2f);
     PhysicsUtils.setScaledCollider(desk,2f,2f);
+    PhysicsUtils.setColliderShape(desk, 2f, 2.5f);
+
     return desk;
   }
 
@@ -128,6 +133,9 @@ public class ObstacleFactory {
   public static Entity createLamp(String[] assets) {
     Entity lamp = createBaseObstacle(assets, BodyType.StaticBody);
     lamp.getComponent(TextureRenderComponent.class).scaleEntity();
+    // New Part
+    PhysicsUtils.setColliderShape(lamp, 0.5f, 0.5f);
+    //
     lamp.setScale(0.5f,1f);
     return lamp;
   }
@@ -136,6 +144,7 @@ public class ObstacleFactory {
     Entity chair = createBaseObstacle(assets, BodyType.StaticBody);
     chair.setScale(1.25f, 1.25f);
     PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    PhysicsUtils.setColliderShape(chair, 0.5f, 0.5f);
     return chair;
   }
 
