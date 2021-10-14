@@ -19,8 +19,8 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -163,7 +163,7 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </a>
 <h2>Method Summary</h2>
 <div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="tableTab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
 <div id="memberSummary_tabpanel" role="tabpanel">
 <table aria-labelledby="t0">
 <thead>
@@ -175,27 +175,37 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#applySettings()">applySettings</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the entity is created and registered.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the component is disposed.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</code></th>
 <td class="colLast">
 <div class="block">Draw the renderable.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#exitSettingsMenu()">exitSettingsMenu</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -276,6 +286,18 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../ui/components/UIComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../ui/components/UIComponent.html" title="class in com.deco2800.game.ui.components">UIComponent</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="exitSettingsMenu()">exitSettingsMenu</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">exitSettingsMenu</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="applySettings()">applySettings</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">applySettings</span>()</div>
 </section>
 </li>
 <li class="blockList">
