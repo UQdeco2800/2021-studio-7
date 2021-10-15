@@ -11,14 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MainGameFogScreen extends UIComponent {
-    Table fogTable;
     private static final Logger logger = LoggerFactory.getLogger(MainGameFogScreen.class);
-    private Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog.png"));
+    private Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_efffect2.png"));
     private Image background = new Image(texture);
 
-    public MainGameFogScreen(){
+    public MainGameFogScreen() {
         logger.debug("Initialising main game screen timer service");
-
     }
 
     /**
@@ -42,22 +40,24 @@ public class MainGameFogScreen extends UIComponent {
 
     /**
      * Creates actors and positions them on the stage using a table.
+     *
      * @see Table for positioning options
      */
     public void addActors() {
-        fogTable = new Table();
-        fogTable.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        background.setScale(3, 2);
+        background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         background.setOrigin(Align.center);
-        fogTable.center();
-        fogTable.setFillParent(true);
-        fogTable.add(background);
-        stage.addActor(fogTable);
+        stage.addActor(background);
     }
 
     @Override
     public void dispose() {
-        fogTable.clear();
+        background.clear();
         super.dispose();
+    }
+
+    @Override
+    public void update() {
+        background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        background.setOrigin(Align.center);
     }
 }
