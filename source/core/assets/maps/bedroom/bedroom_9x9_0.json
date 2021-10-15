@@ -8,37 +8,37 @@
   }
   entityMap: {
     W: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png]
     }
     B: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBed
       assets:[images/objects/bed/bed_animation.atlas]
     }
     b: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
       assets: [images/objects/furniture/bookcase1.png]
     }
     d: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createDesk
       assets: [images/objects/furniture/desk_southeast.png]
     }
     c: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createChair
       assets: [images/objects/furniture/chair_left.png]
     }
     s: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
       assets: [images/objects/furniture/sidetable_southeast.png]
     }
     p: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
       assets: [images/objects/furniture/pet-met.png]
     }
