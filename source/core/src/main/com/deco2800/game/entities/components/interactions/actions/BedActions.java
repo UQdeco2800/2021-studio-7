@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.interactions.actions;
 
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.InteractionComponent;
@@ -42,6 +42,7 @@ public class BedActions extends InteractionComponent {
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("bed_interacted");
         } else {
+            // Still have chores to do, tell the player this
             String string = "I haven't finished all my chores!\n(Try pressing O)";
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
