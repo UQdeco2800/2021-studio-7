@@ -26,19 +26,20 @@ public class MainGameTimerDisplay extends UIComponent {
     private int end_minute;
     private static final Logger logger =
             LoggerFactory.getLogger(MainGameTimerDisplay.class);
-    private Texture texture = new Texture(Gdx.files.internal("images/ui" +
-            "/elements/Textbox_256.png"));
-    private Image background = new Image(texture);
+//    private Texture texture = new Texture(Gdx.files.internal("images/ui" +
+//            "/elements/Textbox_256.png"));
+//    private Image background = new Image(texture);
 
     public MainGameTimerDisplay() {
         logger.debug("Initialising main game screen timer service");
 
         //set up initial timer for the level 1
-        setTimer(23, 0,  2, 0);
+        setTimer(23, 0,  1, 0);
         CharSequence timeText = String.format("    %d:0%d",start_hour,
         start_minute);
         currentTimeLabel = new Label(timeText, skin, "title");
         currentTimeLabel.setText(timeText);
+        currentTimeLabel.setFontScale(2f);
         logger.debug("Main game screen timer service started");
 
     }
@@ -60,10 +61,11 @@ public class MainGameTimerDisplay extends UIComponent {
     public void addActors() {
         timeTable = new Table();
         timeTable.top().right();
-        timeTable.padRight(60f);
+        timeTable.padRight(500f).padTop(10f);
         timeTable.setFillParent(true);
-        timeTable.add(background);
-        timeTable.stack(background, currentTimeLabel);
+//        timeTable.add(background);
+//        timeTable.stack(background, currentTimeLabel);
+        timeTable.add(currentTimeLabel);
         stage.addActor(timeTable);
     }
 
