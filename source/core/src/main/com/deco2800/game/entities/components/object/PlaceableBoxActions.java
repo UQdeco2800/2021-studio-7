@@ -8,13 +8,14 @@ import org.slf4j.LoggerFactory;
 
 public class PlaceableBoxActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(PlaceableBoxActions.class);
+    private static final String updateAnimation = "update_animation";
 
     private boolean boxMoved = false;
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger("update_animation", "box");
+        entity.getEvents().trigger(updateAnimation, "box");
     }
 
     @Override
@@ -29,10 +30,10 @@ public class PlaceableBoxActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BOX ended collision with PLAYER");
-            entity.getEvents().trigger("update_animation", "box_highlight");
+            entity.getEvents().trigger(updateAnimation, "box_highlight");
         } else {
             logger.debug("BOX started collision with PLAYER");
-            entity.getEvents().trigger("update_animation", "box");
+            entity.getEvents().trigger(updateAnimation, "box");
         }
     }
 }
