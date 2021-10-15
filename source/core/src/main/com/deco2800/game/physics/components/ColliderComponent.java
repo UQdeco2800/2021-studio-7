@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ColliderComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
+  private static final float X_SCALE = 1f;
+  private static final float Y_SCALE = 0.5f;
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
@@ -84,6 +86,92 @@ public class ColliderComponent extends Component {
     return setAsIso(size, position);
   }
 
+  public ColliderComponent setIsoShape(float bottomLeft, float bottomRight) {
+      return setIsoShapeAligned(
+              bottomLeft,
+              bottomRight,
+              AlignX.CENTER,
+              AlignY.BOTTOM
+      );
+  }
+
+  public ColliderComponent setIsoShapeAligned(
+          float bottomLeft,
+          float bottomRight,
+          AlignX alignX,
+          AlignY alignY
+  ) {
+      // TODO TESTING
+      Vector2 position = new Vector2();
+
+      // TODO Need to calc proper height and width
+      float size = bottomLeft + bottomRight;
+
+      switch (alignX) {
+          case LEFT:
+              position.x = size / 2;
+              break;
+          case CENTER:
+              position.x = entity.getCenterPosition().x;
+              break;
+          case RIGHT:
+              position.x = entity.getScale().x - ((bottomLeft + bottomRight) / 2);
+              break;
+      }
+
+      switch (alignY) {
+          case BOTTOM:
+              position.y = size / 2;
+              break;
+          case CENTER:
+              position.y = entity.getCenterPosition().y;
+              break;
+          case TOP:
+              position.y = entity.getScale().y - (size / 2);
+              break;
+      }
+
+      return changeIsoShape(bottomLeft, bottomRight, position);
+  }
+
+  private ColliderComponent changeIsoShape (
+          float bottomLeft,
+          float bottomRight,
+          Vector2 position
+  ) {
+      PolygonShape bound = new PolygonShape();
+
+      float left = bottomLeft / 2;
+      float right = bottomRight / 2;
+
+      // Hardcoded scaling factor. The 1:2 ratio gives an angle of 26.565 deg,
+      // the cosine of which is 0.894.
+      float scaling = 0.894f;
+
+      // Each point is offset by the given alignment
+      float offset = position.x;
+
+      Vector2 south = isoVector2(offset, 0);
+      Vector2 east = isoVector2(offset + right, right);
+      Vector2 north = isoVector2(offset + right - left, right + left);
+      Vector2 west = isoVector2(offset - left, left);
+
+      // Collect each of the isometric parallelogram's corners
+      Vector2[] points = new Vector2[]{west, north, east, south};
+      System.out.println("Points");
+      for (Vector2 vec : points) {
+          System.out.println(vec);
+      }
+
+      bound.set(points);
+      setShape(bound);
+      return this;
+  }
+
+  private Vector2 isoVector2(float x, float y) {
+      return new Vector2(x, y * Y_SCALE);
+  }
+
   /**
    * Set physics as a box with a given size and local position. Box is centered around the position.
    *
@@ -115,6 +203,10 @@ public class ColliderComponent extends Component {
       Vector2 south = new Vector2(position.x, 0);
       // Collect each of the isometric parallelogram's corners
       Vector2[] points = new Vector2[]{west, north, east, south};
+      System.out.println("Points");
+      for (Vector2 vec : points) {
+          System.out.println(vec);
+      }
 
       bound.set(points);
       setShape(bound);

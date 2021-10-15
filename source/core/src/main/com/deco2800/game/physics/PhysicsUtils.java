@@ -35,6 +35,11 @@ public class PhysicsUtils {
                     boundingBox, var1, var2);
   }
 
+  public static void setColliderShape(Entity entity, float leftSides, float rightSides) {
+      entity.getComponent(ColliderComponent.class)
+              .setIsoShape(leftSides, rightSides);
+  }
+
   private PhysicsUtils() {
     throw new IllegalStateException("Instantiating static util class");
   }
