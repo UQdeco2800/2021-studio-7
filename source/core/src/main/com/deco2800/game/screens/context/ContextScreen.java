@@ -39,8 +39,6 @@ public class ContextScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
-        System.out.println();
-
         loadAssets();
         createUI();
     }

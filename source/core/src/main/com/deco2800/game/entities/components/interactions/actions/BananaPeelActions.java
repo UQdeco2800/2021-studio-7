@@ -39,7 +39,7 @@ public class BananaPeelActions extends InteractionComponent {
                         target.getComponent(AITaskComponent.class).getPriorityTask(SlipTask.class);
                 slipTask.changePriority(1);
             } catch (NullPointerException e) {
-                logger.error("SlipTask does not exist in player AIComponent");
+                logger.debug("SlipTask does not exist in player AIComponent");
             }
         } else {
             logger.debug("PEEL ended collision with PLAYER");

@@ -159,10 +159,6 @@ public class ColliderComponent extends Component {
 
       // Collect each of the isometric parallelogram's corners
       Vector2[] points = new Vector2[]{west, north, east, south};
-      System.out.println("Points");
-      for (Vector2 vec : points) {
-          System.out.println(vec);
-      }
 
       bound.set(points);
       setShape(bound);
@@ -204,10 +200,6 @@ public class ColliderComponent extends Component {
       Vector2 south = new Vector2(position.x, 0);
       // Collect each of the isometric parallelogram's corners
       Vector2[] points = new Vector2[]{west, north, east, south};
-      System.out.println("Points");
-      for (Vector2 vec : points) {
-          System.out.println(vec);
-      }
 
       bound.set(points);
       setShape(bound);

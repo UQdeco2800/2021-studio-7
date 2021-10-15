@@ -15,32 +15,32 @@
     T: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createTv
-      assets: [images/objects/tv/TV_animation.atlas, 0, 1]
+      assets: [images/objects/tv/TV_animation.atlas, 0, 1, 1]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookcase1.png, 0, 0]
+      assets: [images/objects/furniture/bookcase1.png, 0, 0, 0]
     }
     L: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createLounge
-      assets: [images/objects/stopgap/couch_right_rear.png, 0, 0]
+      assets: [images/objects/stopgap/couch_right_rear.png, 0, 0, 0]
     }
     l: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createLamp
-      assets: [images/objects/stopgap/lamp.png, 0, 0]
+      assets: [images/objects/stopgap/lamp.png, 0, 0, 0]
     }
     C: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createCoffeeTable
-      assets: [images/objects/furniture/coffee_table_right.png, 0, 0]
+      assets: [images/objects/furniture/coffee_table_right.png, 0, 0, 0]
     }
     E: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createEnergyDrink
-      assets: [images/objects/energy_drink/energy.atlas, 1, 2]
+      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
     }
   }
   tileGrid: [

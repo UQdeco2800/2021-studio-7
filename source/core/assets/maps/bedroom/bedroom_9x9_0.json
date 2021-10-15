@@ -15,32 +15,32 @@
     B: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createBed
-      assets:[images/objects/bed/bed_animation.atlas, 0, 4]
+      assets:[images/objects/bed/bed_animation.atlas, 0, 4, 0]
     }
     b: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookcase1.png, 0, 0]
+      assets: [images/objects/furniture/bookcase1.png, 0, 0, 0]
     }
     d: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createDesk
-      assets: [images/objects/furniture/desk_southeast.png, 0, 0]
+      assets: [images/objects/furniture/desk_southeast.png, 0, 0, 0]
     }
     c: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createChair
-      assets: [images/objects/furniture/chair_left.png, 0, 0]
+      assets: [images/objects/furniture/chair_left.png, 0, 0, 0]
     }
     s: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createSideTable
-      assets: [images/objects/furniture/sidetable_southeast.png, 0, 0]
+      assets: [images/objects/furniture/sidetable_southeast.png, 0, 0, 0]
     }
     p: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createSideTable
-      assets: [images/objects/furniture/pet-met.png, 2, 0]
+      assets: [images/objects/furniture/pet-met.png, 2, 0, 0]
     }
   }
   tileGrid: [

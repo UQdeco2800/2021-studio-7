@@ -64,12 +64,12 @@ public class ObstacleFactory {
   }
 
   public static Entity createTv(String[] assets) {
-    Entity tv = createBaseChore(assets, ChoreList.TV);
+    Entity tv = createBaseChore(assets);
     return tv;
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseChore(assets, ChoreList.DRINK);
+    Entity energyDrink = createBaseChore(assets);
     return energyDrink;
   }
 
@@ -176,12 +176,11 @@ public class ObstacleFactory {
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
    * @param assets the image and atlas assets of this object
-   * @param object The ChoreList ID of this object
    * @return The new entity of this obstacle
    */
-  public static Entity createBaseChore(String[] assets, ChoreList object) {
+  public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
-    ServiceLocator.getChoreController().addChore(entity, object);
+    ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
     return entity;
   }
 
@@ -259,8 +258,24 @@ public class ObstacleFactory {
         break;
       case "4":
         obstacle.addComponent(new BedActions());
+        break;
       case "5":
         obstacle.addComponent(new BananaPeelActions());
+        break;
+    }
+  }
+
+  private static ChoreList getChoreType(String choreID) {
+    switch (choreID) {
+      case "1":
+        return ChoreList.TV;
+      case "2":
+        return ChoreList.DRINK;
+      case "3":
+        return ChoreList.PUDDLE;
+      default:
+        logger.debug("Invalid choreID provided");
+        return null;
     }
   }
 

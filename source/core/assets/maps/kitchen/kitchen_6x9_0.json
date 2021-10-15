@@ -15,49 +15,48 @@
     f: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createFridge
-      assets: [images/objects/furniture/fridge_southwest.png, 0, 0]
+      assets: [images/objects/furniture/fridge_southwest.png, 0, 0, 0]
     }
     c: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-east.png, 0, 0]
+      assets: [images/objects/furniture/kitchen-table-east.png, 0, 0, 0]
 
     }
     C: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-west.png, 0, 0]
-
+      assets: [images/objects/furniture/kitchen-table-west.png, 0, 0, 0]
     }
     s: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-sink-east.png, 0, 0]
+      assets: [images/objects/furniture/kitchen-sink-east.png, 0, 0, 0]
     }
     S: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-cooktop-east.png, 0, 0]
+      assets: [images/objects/furniture/kitchen-cooktop-east.png, 0, 0, 0]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createBin
-      assets: [images/objects/furniture/bath_bin.png, 0, 0]
+      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
     }
     p: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createPuddle
-      assets: [images/objects/puddle/puddle.atlas, 2, 5]
+      assets: [images/objects/puddle/puddle.atlas, 2, 5, 3]
     }
     P: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createBananaPeel
-      assets: [images/objects/banana_peel/banana.atlas, 1, 5]
+      assets: [images/objects/banana_peel/banana.atlas, 1, 5, 0]
     }
     E: {
       class:com.deco2800.game.entities.factories.ObstacleFactory
       method: createEnergyDrink
-      assets: [images/objects/energy_drink/energy.atlas, 1, 2]
+      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 0]
     }
   }
   tileGrid: [
