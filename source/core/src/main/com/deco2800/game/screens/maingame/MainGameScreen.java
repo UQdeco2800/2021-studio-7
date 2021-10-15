@@ -1,6 +1,7 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.chores.ChoreController;
@@ -84,6 +85,7 @@ public class MainGameScreen extends ScreenAdapter {
 
     loadAssets();
     createUI();
+    playMusic();
 
     if (USE_TEST_FLOOR_PLAN) {
       home = new Home(TEST_FLOOR_PLAN);
@@ -99,7 +101,6 @@ public class MainGameScreen extends ScreenAdapter {
     //Adjust the minimap renderer to achieve a more isometric
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
-    //playMusic();
   }
 
   @Override
@@ -159,17 +160,17 @@ public class MainGameScreen extends ScreenAdapter {
     resourceService.unloadAssets(backgroundMusic);
   }
 
-//  /**
-//   * Play the background Music
-//   */
-//  private void playMusic() {
-//    Music music =
-//            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
-//                    Music.class);
-//    music.setLooping(true);
-//    music.setVolume(0.3f);
-//    music.play();
-//  }
+  /**
+   * Play the background Music
+   */
+  private void playMusic() {
+    Music music =
+            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+                    Music.class);
+    music.setLooping(true);
+    music.setVolume(0.2f);
+    music.play();
+  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

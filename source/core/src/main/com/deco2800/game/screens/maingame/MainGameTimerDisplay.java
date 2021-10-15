@@ -59,7 +59,7 @@ public class MainGameTimerDisplay extends UIComponent {
      */
     public void addActors() {
         timeTable = new Table();
-        timeTable.bottom().right();
+        timeTable.top().right();
         timeTable.padRight(60f);
         timeTable.setFillParent(true);
         timeTable.add(background);
