@@ -55,19 +55,13 @@ public class ScoreComponent extends Component {
       sb.append(",");
       String s = sb.toString();
       logger.info("Trying to write to leaderboard...");
-      FileWriter writer = null;
-      try {
-          writer = new FileWriter("configs/leaderboard.txt", true);
+
+      try (FileWriter writer = new FileWriter("configs/leaderboard.txt", true)) {
           writer.write(s);
+          writer.close();
           logger.info("Sucessfully wrote to leaderboard...");
       } catch (IOException e) {
           logger.error("IOException in writing to leaderboad.");
-      } finally {
-          try {
-              writer.close();
-          } catch (IOException e) {
-              logger.error("IOException in closing writer to leaderboard.");
-          }
       }
   }
 
