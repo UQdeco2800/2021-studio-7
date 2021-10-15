@@ -43,3 +43,13 @@ DirtyDefault8407:470,323,197,-1236,
 DirtyDefault70951:187,
 DirtyDefault43921:
 DirtyDefault8946:-2580,
+
+DirtyDefault66753:410,
+DirtyDefault78523:748,
+DirtyDefault49356:468,
+DirtyDefault46528:-192,
+DirtyDefault83148:413,197,
+DirtyDefault7312:1000,
+DirtyDefault45912:1000,
+DirtyDefault93728:1000,
+DirtyDefault85029:1000,

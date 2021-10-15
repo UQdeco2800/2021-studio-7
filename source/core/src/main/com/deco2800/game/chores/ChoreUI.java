@@ -10,10 +10,8 @@ import com.deco2800.game.ui.components.UIComponent;
 import java.util.List;
 
 /**
- * Creates a toggle-able and variable text box display at the bottom of the screen.
- *
- * By default, will not display anything, but can call MainGameTextDisplay.display to display a
- * box with text (and optional image). Can then call remove to remove it.
+ * Creates a list of chores that updates when chores are completed, and can be toggled
+ * on/ off with the 'o' key.
  */
 public class ChoreUI extends UIComponent {
     private boolean displaying = false;
