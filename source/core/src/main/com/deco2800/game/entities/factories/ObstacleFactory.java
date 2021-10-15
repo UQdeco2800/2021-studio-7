@@ -44,8 +44,7 @@ public class ObstacleFactory {
   }
 
   public static Entity createBed(String[] assets) {
-    Entity bed = createBaseInteractable(assets)
-            .addComponent(new BedActions());
+    Entity bed = createBaseInteractable(assets);
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setScaledCollider(bed,1.5f, 1f);
     PhysicsUtils.setColliderShape(bed, 2f, 2.5f);
@@ -60,33 +59,28 @@ public class ObstacleFactory {
   }
 
   public static Entity createPlaceableBox(String[] assets) {
-    Entity box = createBaseInteractable(assets)
-            .addComponent(new PlaceableBoxActions());
+    Entity box = createBaseInteractable(assets);
     return box;
   }
 
   public static Entity createTv(String[] assets) {
-    Entity tv = createBaseChore(assets, ChoreList.TV)
-            .addComponent(new TvActions());
+    Entity tv = createBaseChore(assets, ChoreList.TV);
     return tv;
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseChore(assets, ChoreList.DRINK)
-            .addComponent(new DrinkActions())
-            .addComponent(new SingleUse());
+    Entity energyDrink = createBaseChore(assets, ChoreList.DRINK);
     return energyDrink;
   }
 
   public static Entity createBananaPeel(String[] assets) {
-    Entity bananaPeel = createBaseInteractable(assets)
-            .addComponent(new BananaPeelActions());
+    Entity bananaPeel = createBaseInteractable(assets);
     return bananaPeel;
   }
 
   public static Entity createPuddle(String[] assets){
-    Entity puddle = createBaseInteractable(assets).addComponent(new BananaPeelActions());
-    puddle.setScale(1f, 0.5f);
+    Entity puddle = createBaseInteractable(assets);
+    puddle.setScale(1f,0.5f);
     PhysicsUtils.setScaledCollider(puddle,1f,1f);
     return puddle;
   }
@@ -193,10 +187,11 @@ public class ObstacleFactory {
 
   public static Entity createBaseInteractable(String[] assets) {
     // Set interactable to have a base hitbox component
-    Entity interactable = createBaseObstacle(assets)
+    Entity obstacle = createBaseObstacle(assets)
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
-    PhysicsUtils.setScaledHitbox(interactable, 1f, 1f);
-    return interactable;
+    addInteraction(assets[2], obstacle);
+    PhysicsUtils.setScaledHitbox(obstacle, 1f, 1f);
+    return obstacle;
   }
 
   public static Entity createBaseObstacle(String[] assets) {
@@ -205,7 +200,7 @@ public class ObstacleFactory {
             .addComponent(new PhysicsComponent().setBodyType(selectBodyType(assets[1])))
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 0.5f, 0.5f);
-    obstacle.scaleHeight(1f);
+    //obstacle.scaleHeight(1f);
     if (assets[0] == "") {
       return obstacle;
     }
@@ -245,6 +240,27 @@ public class ObstacleFactory {
       default:
         logger.error("No valid body type was specified");
         return BodyType.StaticBody;
+    }
+  }
+
+  private static void addInteraction(String interactionID, Entity obstacle) {
+    switch (interactionID) {
+      case "0":
+        logger.error("Interaction ID for non-interaction entity called");
+      case "1":
+        obstacle.addComponent(new TvActions());
+        break;
+      case "2":
+        obstacle.addComponent(new DrinkActions())
+                .addComponent(new SingleUse());
+        break;
+      case "3":
+        obstacle.addComponent(new PlaceableBoxActions());
+        break;
+      case "4":
+        obstacle.addComponent(new BedActions());
+      case "5":
+        obstacle.addComponent(new BananaPeelActions());
     }
   }
 
