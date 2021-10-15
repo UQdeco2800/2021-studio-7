@@ -3,14 +3,14 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png]
+      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
     }
   }
   entityMap: {
     W: {
       class: com.deco2800.game.entities.factories.ObstacleFactory
       method: createWall
-      assets: [images/objects/walls/3.png]
+      assets: [images/objects/walls/3.png, 0]
     }
   }
   tileGrid: [

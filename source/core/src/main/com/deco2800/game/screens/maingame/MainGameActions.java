@@ -24,6 +24,7 @@ public class MainGameActions extends Component {
   public void onExit() {
     logger.debug("Exiting main game screen...");
     logger.debug("Swapping to main menu screen...");
+    MainGameScreen.zerolevel();
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
