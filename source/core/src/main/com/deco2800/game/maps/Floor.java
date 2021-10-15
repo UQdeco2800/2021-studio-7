@@ -147,7 +147,7 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
-        spawnEntityAt(cat, new GridPoint2(1,2), true, true);
+        spawnEntityAt(cat, new GridPoint2(15,15), true, true);
     }
 
     /**

@@ -49,6 +49,8 @@ public class PlayerFactory {
             .addComponent(new ScoreComponent(2500))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new AITaskComponent().addTask(new SlipTask()));
+
+    player.setScale(0.8f,0.8f);
     return player;
   }
 
