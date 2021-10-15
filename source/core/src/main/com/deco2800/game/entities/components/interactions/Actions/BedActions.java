@@ -37,7 +37,14 @@ public class BedActions extends InteractionComponent {
 
     private void triggerBedInteracted() {
         logger.debug("PLAYER interacted with BED, triggering bed interacted");
-        ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                .getMainGameEntity().getEvents().trigger("bed_interacted");
+        if (ServiceLocator.getChoreController().checkComplete()) {
+            // Chores complete, finishing level
+            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                    .getMainGameEntity().getEvents().trigger("bed_interacted");
+        } else {
+            String string = "I haven't finished all my chores!\n(Try pressing O)";
+            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
+        }
     }
 }
