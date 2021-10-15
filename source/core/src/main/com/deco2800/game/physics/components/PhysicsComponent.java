@@ -32,6 +32,7 @@ public class PhysicsComponent extends Component {
    * @param engine The physics engine to attach the component to
    */
   public PhysicsComponent(PhysicsEngine engine) {
+    creationPriority = 1;
     this.physics = engine;
 
     BodyDef bodyDef = new BodyDef();

@@ -1,7 +1,7 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.object;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -14,7 +14,7 @@ public class DoorActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("door_close_left");
+        entity.getEvents().trigger("update_animation", "door_close_left");
     }
 
     @Override
@@ -24,8 +24,8 @@ public class DoorActions extends InteractionComponent {
             logger.debug("PLAYER interacted with DOOR, triggering door animation");
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
-            //animator.startAnimation("Door_left_highlighted_d");
-            animator.startAnimation("Door_open_left");
+            //entity.getEvents().trigger("update_animation", "Door_left_highlighted_d");
+            entity.getEvents().trigger("update_animation", "Door_open_left");
         }
     }
 
@@ -33,10 +33,10 @@ public class DoorActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
-            animator.startAnimation("Door_left_highlighted");
+            entity.getEvents().trigger("update_animation", "Door_left_highlighted");
         } else {
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            animator.startAnimation("door_close_left");
+            entity.getEvents().trigger("update_animation", "door_close_left");
         }
     }
 }

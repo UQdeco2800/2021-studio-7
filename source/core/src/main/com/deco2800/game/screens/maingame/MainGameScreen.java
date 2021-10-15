@@ -3,15 +3,20 @@ package com.deco2800.game.screens.maingame;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.entities.components.player.CameraComponent;
-import com.deco2800.game.maps.Home;
-import com.deco2800.game.maps.components.PerformanceDisplay;
+import com.deco2800.game.chores.ChoreController;
+import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.factories.RenderFactory;
+import com.deco2800.game.generic.GameTime;
+import com.deco2800.game.generic.ResourceService;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
+import com.deco2800.game.maps.Home;
+import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
@@ -31,7 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
-  private static final String[] mainGameTextures = {""};
+  private static final String[] mainGameTextures = {};
   private static final String TEST_FLOOR_PLAN = "maps/_floor_plans/floor_plan_testing.json";
    private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game
@@ -60,6 +65,8 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
+
+    ServiceLocator.registerChoreController(new ChoreController());
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
@@ -174,17 +181,16 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent = ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
-            .addComponent(new PerformanceDisplay())
-            .addComponent(new MainGameActions())
-            .addComponent(new MainGamePauseMenuDisplay())
-            .addComponent(new MainGameExitDisplay())
-            .addComponent(new MainGameTimerDisplay())
-            .addComponent(new MainGameTextDisplay())
-            .addComponent(new ChoresListDisplay())
-            .addComponent(new Terminal())
-            .addComponent(inputComponent)
-            .addComponent(new TerminalDisplay());
-
+        .addComponent(new PerformanceDisplay())
+        .addComponent(new MainGameActions())
+        .addComponent(new MainGamePauseMenuDisplay())
+        .addComponent(new MainGameExitDisplay())
+        .addComponent(new MainGameTimerDisplay())
+        .addComponent(new MainGameTextDisplay())
+        .addComponent(new ChoreUI())
+        .addComponent(new Terminal())
+        .addComponent(inputComponent)
+        .addComponent(new TerminalDisplay());
     ServiceLocator.getEntityService().register(mainGameEntity);
   }
 

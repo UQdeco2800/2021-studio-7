@@ -20,6 +20,14 @@ public class GridObject implements Json.Serializable {
     private Method method;
     private String[] assets;
 
+    public GridObject() {
+    }
+
+    public GridObject(Method method, String[] assets) {
+        this.method = method;
+        this.assets = assets;
+    }
+
     public Method getMethod() {
         return method;
     }
