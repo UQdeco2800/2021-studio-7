@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.ui.components.UIComponent;
 
 import java.util.concurrent.TimeUnit;
@@ -50,7 +51,7 @@ public class PlayerStatsDisplay extends UIComponent {
     table.padTop(10f).padLeft(10f);
 
     //display level
-    CharSequence levelText = String.format("Level %d", 1);
+    CharSequence levelText = String.format("Level %d", MainGameScreen.getLevel());
     levelLabel = new Label(levelText, skin, "large");
 
     // stamina text
