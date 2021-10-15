@@ -121,13 +121,13 @@ public class ColliderComponent extends Component {
 
       switch (alignY) {
           case BOTTOM:
-              position.y = size / 2;
+              position.y = 0;
               break;
           case CENTER:
               position.y = entity.getCenterPosition().y;
               break;
           case TOP:
-              position.y = entity.getScale().y - (size / 2);
+              position.y = Math.max(bottomLeft, bottomRight);
               break;
       }
 
@@ -151,10 +151,10 @@ public class ColliderComponent extends Component {
       // Each point is offset by the given alignment
       float offset = position.x;
 
-      Vector2 south = isoVector2(offset, 0);
-      Vector2 east = isoVector2(offset + right, right);
-      Vector2 north = isoVector2(offset + right - left, right + left);
-      Vector2 west = isoVector2(offset - left, left);
+      Vector2 south = isoVector2(offset, 0 + position.y);
+      Vector2 east = isoVector2(offset + right, right + position.y);
+      Vector2 north = isoVector2(offset + right - left, right + left + position.y);
+      Vector2 west = isoVector2(offset - left, left + position.y);
 
       // Collect each of the isometric parallelogram's corners
       Vector2[] points = new Vector2[]{west, north, east, south};

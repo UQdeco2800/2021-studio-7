@@ -37,7 +37,7 @@ public class PhysicsUtils {
 
   public static void setColliderShape(Entity entity, float leftSides, float rightSides) {
       entity.getComponent(ColliderComponent.class)
-              .setIsoShape(leftSides, rightSides);
+              .setIsoShapeAligned(leftSides, rightSides, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.TOP);
   }
 
   private PhysicsUtils() {
