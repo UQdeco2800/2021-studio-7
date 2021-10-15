@@ -34,13 +34,12 @@ public class MainGameTimerDisplay extends UIComponent {
         logger.debug("Initialising main game screen timer service");
 
         //set up initial timer for the level 1
-        setTimer(23, 0,  2, 0);
-        CharSequence timeText = String.format("    %d:0%d",start_hour,
-        start_minute);
+        setTimer(23, 0, 2, 0);
+        CharSequence timeText = String.format("    %d:0%d", start_hour,
+                start_minute);
         currentTimeLabel = new Label(timeText, skin, "title");
         currentTimeLabel.setText(timeText);
         logger.debug("Main game screen timer service started");
-
     }
 
 
@@ -55,6 +54,7 @@ public class MainGameTimerDisplay extends UIComponent {
 
     /**
      * Creates actors and positions them on the stage using a table.
+     *
      * @see Table for positioning options
      */
     public void addActors() {
@@ -68,14 +68,15 @@ public class MainGameTimerDisplay extends UIComponent {
     }
 
     @Override
-    public void draw(SpriteBatch batch)  {
+    public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
     /**
      * Provide an interface to set up main game screen clock time
-     * @param hr1 Start hour time for this level's game
-     * @param hr2 End time for this level's game
+     *
+     * @param hr1  Start hour time for this level's game
+     * @param hr2  End time for this level's game
      * @param min1 Start min for this level's game
      * @param min2 End min for this level's game
      */
@@ -108,6 +109,7 @@ public class MainGameTimerDisplay extends UIComponent {
     public void setStart_minute(int min) {
         this.start_minute = min;
     }
+
     /**
      * Get start minute now
      */
@@ -144,6 +146,7 @@ public class MainGameTimerDisplay extends UIComponent {
     public int getEnd_minute() {
         return this.end_minute;
     }
+
     /**
      * Updates the main game screen clock
      */
@@ -161,26 +164,24 @@ public class MainGameTimerDisplay extends UIComponent {
         CharSequence timeText;
         if (this.getStart_hour() < 10) {
             if (this.getStart_minute() < 10) {
-                timeText = String.format("    0%d:0%d",this.getStart_hour(),
+                timeText = String.format("    0%d:0%d", this.getStart_hour(),
                         this.getStart_minute());
-            }
-            else {
-                timeText = String.format("    0%d:%d",this.getStart_hour(),
+            } else {
+                timeText = String.format("    0%d:%d", this.getStart_hour(),
                         this.getStart_minute());
             }
         } else {
             if (this.getStart_minute() < 10) {
-                timeText = String.format("    %d:0%d",this.getStart_hour(),
+                timeText = String.format("    %d:0%d", this.getStart_hour(),
                         this.getStart_minute());
-            }
-            else {
-                timeText = String.format("    %d:%d",this.getStart_hour(),
+            } else {
+                timeText = String.format("    %d:%d", this.getStart_hour(),
                         this.getStart_minute());
             }
         }
         currentTimeLabel.setText(timeText);
-        if((Math.abs(getStart_hour()-getEnd_hour()) <= 1 || Math.abs(getStart_hour()-getEnd_hour()) >= 23) && Math.abs(getEnd_minute() - getStart_minute()) > 30) {
-            currentTimeLabel.setColor(255, 0,0, 1f);
+        if ((Math.abs(getStart_hour() - getEnd_hour()) <= 1 || Math.abs(getStart_hour() - getEnd_hour()) >= 23) && Math.abs(getEnd_minute() - getStart_minute()) > 30) {
+            currentTimeLabel.setColor(255, 0, 0, 1f);
             currentTimeLabel.addAction(Actions.alpha(0));
             currentTimeLabel.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f),
                     Actions.fadeOut(1f))));
@@ -209,5 +210,5 @@ public class MainGameTimerDisplay extends UIComponent {
                 entity.getEvents().trigger("timer_ended");
             }
         }
-        }
+    }
 }

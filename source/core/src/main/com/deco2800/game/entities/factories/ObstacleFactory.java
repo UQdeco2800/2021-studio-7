@@ -7,11 +7,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.Actions.BananaPeelActions;
-import com.deco2800.game.entities.components.interactions.Actions.BedActions;
-import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
-import com.deco2800.game.entities.components.interactions.Actions.TvActions;
-import com.deco2800.game.entities.components.interactions.Actions.PlaceableBoxActions;
+import com.deco2800.game.entities.components.interactions.actions.BananaPeelActions;
+import com.deco2800.game.entities.components.interactions.actions.BedActions;
+import com.deco2800.game.entities.components.interactions.actions.DrinkActions;
+import com.deco2800.game.entities.components.interactions.actions.TvActions;
+import com.deco2800.game.entities.components.interactions.actions.PlaceableBoxActions;
 import com.deco2800.game.entities.components.interactions.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -45,6 +45,7 @@ public class ObstacleFactory {
             .addComponent(new BedActions());
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setScaledCollider(bed,1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 2f, 2.5f);
     return bed;
   }
 
@@ -68,7 +69,7 @@ public class ObstacleFactory {
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
+    Entity energyDrink = createBaseChore(assets, BodyType.DynamicBody, ChoreList.DRINK)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
     return energyDrink;
@@ -91,6 +92,7 @@ public class ObstacleFactory {
     Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
     bookcase.setScale(2f,2f);
     PhysicsUtils.realignScaledCollider(bookcase,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
+    PhysicsUtils.setColliderShape(bookcase, 0.5f, 0.5f);
     return bookcase;
   }
 
@@ -106,6 +108,7 @@ public class ObstacleFactory {
     lounge.getComponent(TextureRenderComponent.class).scaleEntity();
     lounge.setScale(2f,1f);
     PhysicsUtils.realignScaledCollider(lounge, 1f, 2f, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
+    PhysicsUtils.setColliderShape(lounge, 2f, 2.5f);
     return lounge;
   }
 
@@ -114,6 +117,8 @@ public class ObstacleFactory {
     desk.getComponent(TextureRenderComponent.class).scaleEntity();
     desk.setScale(2f,2f);
     PhysicsUtils.setScaledCollider(desk,2f,2f);
+    PhysicsUtils.setColliderShape(desk, 2f, 2.5f);
+
     return desk;
   }
 
@@ -128,6 +133,9 @@ public class ObstacleFactory {
   public static Entity createLamp(String[] assets) {
     Entity lamp = createBaseObstacle(assets, BodyType.StaticBody);
     lamp.getComponent(TextureRenderComponent.class).scaleEntity();
+    // New Part
+    PhysicsUtils.setColliderShape(lamp, 0.5f, 0.5f);
+    //
     lamp.setScale(0.5f,1f);
     return lamp;
   }
@@ -136,6 +144,7 @@ public class ObstacleFactory {
     Entity chair = createBaseObstacle(assets, BodyType.StaticBody);
     chair.setScale(1.25f, 1.25f);
     PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    PhysicsUtils.setColliderShape(chair, 0.5f, 0.5f);
     return chair;
   }
 

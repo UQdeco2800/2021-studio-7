@@ -19,7 +19,7 @@ public enum ChoreList {
                 return "Turn off TV";
 
             case DRINK:
-                return "Have a little sippy";
+                return "Drink a can of Dountain Mew (TM)";
 
             case PUDDLE:
                 return "Clean up a puddle";

@@ -59,6 +59,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent().setDensity(1.5f))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
+    PhysicsUtils.setColliderShape(player, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(player, 1f, 1f);
 
     // Set player to have a base input component

@@ -185,6 +185,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
         .addComponent(new MainGameExitDisplay())
+        .addComponent(new MainGameFogScreen())
         .addComponent(new MainGameTimerDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())
