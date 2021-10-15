@@ -99,6 +99,7 @@ public class MainGameScreen extends ScreenAdapter {
     miniMapRenderer.getCamera().resize(2,1,200);
     miniMapRenderer.getCamera().getEntity().setPosition(98,38);
     miniMapRenderer.getCamera().update();
+
     player = home.getActiveFloor().getPlayer();
     //playMusic();
   }
