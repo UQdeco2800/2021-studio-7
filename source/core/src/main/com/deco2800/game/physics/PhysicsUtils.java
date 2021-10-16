@@ -29,6 +29,13 @@ public class PhysicsUtils {
               .setIsoShape(leftSides, rightSides);
   }
 
+  public static void setColliderOffset(Entity entity, float offsetX, float offsetY) {
+      ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+      entity.getComponent(ColliderComponent.class)
+              .setIsoShapeOffset(collider.getSides()[0], collider.getSides()[1],
+                      offsetX, offsetY);
+  }
+
   private PhysicsUtils() {
     throw new IllegalStateException("Instantiating static util class");
   }

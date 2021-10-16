@@ -26,6 +26,8 @@ public class ColliderComponent extends Component {
   private final FixtureDef fixtureDef;
   private Fixture fixture;
   private Vector2 scale;
+  private float left;
+  private float right;
 
   public ColliderComponent() {
     fixtureDef = new FixtureDef();
@@ -125,6 +127,9 @@ public class ColliderComponent extends Component {
           Vector2 position
   ) {
       PolygonShape bound = new PolygonShape();
+
+      this.left = left;
+      this.right = right;
 
       // Each point is offset by the given alignment
       Vector2 south = isoVector2(position.x, position.y);
@@ -259,6 +264,10 @@ public class ColliderComponent extends Component {
    */
   public Vector2 getScale() {
     return scale;
+  }
+
+  public float[] getSides() {
+      return new float[]{this.left, this.right};
   }
 
   private Shape makeBoundingBox() {
