@@ -44,7 +44,7 @@ public class ObstacleFactory {
     Entity bed = createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new BedActions());
     bed.setScale(1.5f, 1f);
-    PhysicsUtils.setScaledCollider(bed,1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 1f, 2f);
     return bed;
   }
 
@@ -64,6 +64,7 @@ public class ObstacleFactory {
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets, BodyType.StaticBody, ChoreList.TV)
             .addComponent(new TvActions());
+    PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
 
@@ -90,14 +91,13 @@ public class ObstacleFactory {
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObstacle(assets, BodyType.StaticBody);
     bookcase.setScale(2f,2f);
-    PhysicsUtils.realignScaledCollider(bookcase,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
     return bookcase;
   }
 
   public static Entity createBath(String[] assets) {
     Entity bath = createBaseObstacle(assets, BodyType.StaticBody);
     bath.setScale(1.5f,1.5f);
-    PhysicsUtils.setScaledCollider(bath,1f,1f);
+    PhysicsUtils.setColliderShape(bath, 2f, 1f);
     return bath;
   }
 
@@ -105,7 +105,6 @@ public class ObstacleFactory {
     Entity lounge = createBaseObstacle(assets, BodyType.StaticBody);
     lounge.getComponent(TextureRenderComponent.class).scaleEntity();
     lounge.setScale(2f,1f);
-    PhysicsUtils.realignScaledCollider(lounge, 1f, 2f, PhysicsComponent.AlignX.RIGHT, PhysicsComponent.AlignY.BOTTOM);
     return lounge;
   }
 
@@ -149,7 +148,6 @@ public class ObstacleFactory {
   public static Entity createFridge(String[] assets) {
     Entity fridge = createBaseObstacle(assets, BodyType.StaticBody);
     fridge.setScale(2f,2f);
-    PhysicsUtils.realignScaledCollider(fridge,0.5f,0.5f, PhysicsComponent.AlignX.LEFT, PhysicsComponent.AlignY.CENTER);
     return fridge;
   }
 
