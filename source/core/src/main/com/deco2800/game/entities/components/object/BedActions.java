@@ -1,7 +1,7 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.object;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -10,11 +10,12 @@ import org.slf4j.LoggerFactory;
 
 public class BedActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
+    private static final String updateAnimation = "update_animation";
 
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("bed");
+        entity.getEvents().trigger(updateAnimation, "bed");
     }
 
     @Override
@@ -28,10 +29,10 @@ public class BedActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BED started collision with PLAYER, highlighting bed");
-            animator.startAnimation("bedhighlight2");
+            entity.getEvents().trigger(updateAnimation, "bedhighlight2");
         } else {
             logger.debug("BED ended collision with PLAYER, un-highlighting bed");
-            animator.startAnimation("bed");
+            entity.getEvents().trigger(updateAnimation, "bed");
         }
     }
 

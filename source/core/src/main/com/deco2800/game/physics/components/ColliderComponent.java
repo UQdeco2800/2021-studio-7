@@ -30,6 +30,7 @@ public class ColliderComponent extends Component {
   private float right;
 
   public ColliderComponent() {
+    creationPriority = 2;
     fixtureDef = new FixtureDef();
   }
 

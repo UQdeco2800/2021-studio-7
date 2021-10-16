@@ -14,6 +14,9 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
  */
@@ -22,6 +25,7 @@ public class EndGameDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
   private final EndGameScreen screen;
+  private static List<TextButton> buttons = new ArrayList<TextButton>();
 
   public EndGameDisplay(EndGameScreen screen) {
     super();
@@ -59,6 +63,7 @@ public class EndGameDisplay extends UIComponent {
     // Add button to container. Transitions to the next level (main game screen).
     if (this.screen.getResult() == GdxGame.ScreenType.WIN_DEFAULT) {
       TextButton nextLevelBtn = new TextButton("Next level", skin);
+      buttons.add(nextLevelBtn);
       nextLevelBtn.addListener(
               new ChangeListener() {
                 @Override
@@ -68,18 +73,20 @@ public class EndGameDisplay extends UIComponent {
                 }
               });
       buttonContainer.addActor(nextLevelBtn);
+
     }
 
     // Add button to container. Transitions back to the main menu screen.
     TextButton mainMenuBtn = new TextButton("Back to main menu", skin);
+    buttons.add(mainMenuBtn);
     mainMenuBtn.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent changeEvent, Actor actor) {
-          logger.debug("Exit button clicked");
-          entity.getEvents().trigger("exit");
-        }
-      });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Exit button clicked");
+                entity.getEvents().trigger("exit");
+              }
+            });
     buttonContainer.addActor(mainMenuBtn);
 
     stage.addActor(table);
@@ -99,5 +106,23 @@ public class EndGameDisplay extends UIComponent {
   public void dispose() {
     table.clear();
     super.dispose();
+  }
+
+  public static void buttonLogic(String buttonChoice) {
+    TextButton nextLvl = new TextButton("", skin);
+    TextButton mainMenu = new TextButton("", skin);
+
+    if (buttons.size() > 1) {
+      nextLvl = buttons.get(0);
+      mainMenu = buttons.get(1);
+    } else {
+      mainMenu = buttons.get(0);
+    }
+
+    if (buttonChoice.equals("Enter")) {
+      nextLvl.toggle();
+    } else if (buttonChoice.equals("Escape")) {
+      mainMenu.toggle();
+    }
   }
 }

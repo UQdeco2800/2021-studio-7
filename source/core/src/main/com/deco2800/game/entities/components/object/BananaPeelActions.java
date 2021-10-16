@@ -1,9 +1,9 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.object;
 
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.ai.tasks.SlipTask;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ public class BananaPeelActions extends InteractionComponent {
     @Override
     public void create(){
         super.create();
-        animator.startAnimation("banana_peel");
+        entity.getEvents().trigger("update_animation", "banana_peel");
     }
 
     @Override
@@ -30,7 +30,6 @@ public class BananaPeelActions extends InteractionComponent {
             toggleSlipPlayer(target, false);
         }
     }
-
 
     private void toggleSlipPlayer(Entity target, boolean shouldSlip) {
         if (shouldSlip) {

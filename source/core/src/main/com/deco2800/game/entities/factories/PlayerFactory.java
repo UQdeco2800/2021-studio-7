@@ -86,20 +86,13 @@ public class PlayerFactory {
 
   public static String getAtlas() {
     File input = new File("configs/currentCharacterAtlas.txt");
-    BufferedReader br = null;
     String line = null;
-    try {
-      br = new BufferedReader(new FileReader(input));
+    try (BufferedReader br = new BufferedReader(new FileReader(input))) {
       line = br.readLine();
     } catch (IOException e) {
       logger.error("Could not read currentCharacterAtlas.txt");
-    } finally {
-      try {
-        br.close();
-      } catch (NullPointerException | IOException e) {
-        logger.error("Could not close buffered reader for characterAtlas.txt");
-      }
-    } return line;
+    }
+    return line;
   }
 
   private PlayerFactory() {

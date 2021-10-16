@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components.interactions;
+package com.deco2800.game.entities.components;
 
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.generic.Component;

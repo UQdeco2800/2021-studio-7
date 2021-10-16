@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public class ObstacleFactoryTest {
+public class ObjectFactoryTest {
 
 
     /**

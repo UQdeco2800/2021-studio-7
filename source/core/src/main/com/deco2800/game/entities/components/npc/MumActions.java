@@ -1,7 +1,7 @@
-package com.deco2800.game.entities.components.interactions.Actions;
+package com.deco2800.game.entities.components.npc;
 
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
+import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -14,7 +14,7 @@ public class MumActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        animator.startAnimation("standing_south");
+        entity.getEvents().trigger("update_animation", "standing_south");
     }
 
     @Override

@@ -8,12 +8,12 @@
   }
   entityMap: {
     W: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png]
     },
     U: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createPlaceableBox
       assets: [images/objects/box/box.atlas]
     }

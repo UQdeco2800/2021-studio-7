@@ -200,8 +200,7 @@ public class MainMenuDisplay extends UIComponent {
      * Updates currentCharacterAtlas.txt
      */
     public void writeAtlas(){
-        try {
-            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+        try (FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt")) {
             writer.write(this.playableAtlas[this.characterIndex]);
             writer.close();
             logger.info("Writing new atlas to settings.");
@@ -212,8 +211,7 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public void writeUsername(){
-        try {
-            FileWriter writer = new FileWriter("configs/leaderboard.txt",true);
+        try (FileWriter writer = new FileWriter("configs/leaderboard.txt",true)) {
             String username;
 
             if (this.txtUsername.getText().length()<2){
@@ -282,10 +280,6 @@ public class MainMenuDisplay extends UIComponent {
 
     private static boolean notAtBottom() {
         return menuIndex < 5;
-    }
-
-    public static int getMenuIndex() {
-        return menuIndex;
     }
 
     public static void updateMenuFrame() {
