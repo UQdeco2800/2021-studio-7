@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -161,10 +161,17 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="altColor" id="i2">
-<td class="colFirst"><code>java.util.ArrayList&lt;<a href="Chore.html" title="class in com.deco2800.game.chores">Chore</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.List&lt;<a href="Chore.html" title="class in com.deco2800.game.chores">Chore</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getChores()">getChores</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get an ArrayList of the chores registered</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEntityCount()">getEntityCount</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the number of entities currently registered and NOT completed</div>
 </td>
 </tr>
 </tbody>
@@ -221,11 +228,22 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getChores()">getChores</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.ArrayList&lt;<a href="Chore.html" title="class in com.deco2800.game.chores">Chore</a>&gt;</span>&nbsp;<span class="memberName">getChores</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.util.List&lt;<a href="Chore.html" title="class in com.deco2800.game.chores">Chore</a>&gt;</span>&nbsp;<span class="memberName">getChores</span>()</div>
 <div class="block">Get an ArrayList of the chores registered</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The ArrayList of chores registered</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getEntityCount()">getEntityCount</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getEntityCount</span>()</div>
+<div class="block">Get the number of entities currently registered and NOT completed</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The number of entity</dd>
 </dl>
 </section>
 </li>
