@@ -41,9 +41,7 @@ public class MainGameScreen extends ScreenAdapter {
    private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
-  private static final String[] pauseGameTextures = {
-          "images/ui/screens/paused_screen.png"
-  };
+  private static final String[] pauseGameTextures = {"images/ui/screens/paused_screen.png"};
 
   private final Renderer renderer;
   private final Renderer miniMapRenderer;
@@ -53,6 +51,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
+  private static int level = 1;
 
 
   public MainGameScreen() {
@@ -99,8 +98,15 @@ public class MainGameScreen extends ScreenAdapter {
     //Adjust the minimap renderer to achieve a more isometric
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
+    this.level = ++level;
     //playMusic();
   }
+
+  public static int getLevel() {
+    return level;
+  }
+
+  public static void zerolevel() {level = 0;}
 
   @Override
   public void render(float delta) {
@@ -185,6 +191,7 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
         .addComponent(new MainGameExitDisplay())
+        .addComponent(new MainGameFogScreen())
         .addComponent(new MainGameTimerDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())

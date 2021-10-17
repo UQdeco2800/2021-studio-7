@@ -29,7 +29,7 @@ public class ScoreComponent extends Component {
 
   public void changeScore(int change){
     this.score += change;
-    entity.getEvents().trigger("update_score",score);
+    entity.getEvents().trigger("update_score", score);
   }
 
   public void tickScore() {

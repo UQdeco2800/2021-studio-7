@@ -3,44 +3,44 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png]
+      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
     }
   }
   entityMap: {
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png]
+      assets: [images/objects/walls/3.png, 0]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBed
-      assets:[images/objects/bed/bed_animation.atlas]
+      assets:[images/objects/bed/bed_animation.atlas, 0, 4, 0]
     }
     b: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookcase1.png]
+      assets: [images/objects/furniture/bookcase1.png, 0, 0, 0]
     }
     d: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createDesk
-      assets: [images/objects/furniture/desk_southeast.png]
+      assets: [images/objects/furniture/desk_southeast.png, 0, 0, 0]
     }
     c: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createChair
-      assets: [images/objects/furniture/chair_left.png]
+      assets: [images/objects/furniture/chair_left.png, 0, 0, 0]
     }
     s: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
-      assets: [images/objects/furniture/sidetable_southeast.png]
+      assets: [images/objects/furniture/sidetable_southeast.png, 0, 0, 0]
     }
     p: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
-      assets: [images/objects/furniture/pet-met.png]
+      assets: [images/objects/furniture/pet-met.png, 2, 0, 0]
     }
   }
   tileGrid: [
@@ -61,19 +61,8 @@
     [W, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
     [W, d, c, ., ., ., ., ., .],
-    [W, b, ., ., ., p, ., ., .],
+    [W, b, ., ., ., ., ., ., .],
     [W, b, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .]
   ]
-  /*choreGrid: [
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .]
-  ]*/
 }

@@ -6,21 +6,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Creates a toggle-able and variable text box display at the bottom of the screen.
- *
- * By default, will not display anything, but can call MainGameTextDisplay.display to display a
- * box with text (and optional image). Can then call remove to remove it.
+ * Creates a list of chores that updates when chores are completed, and can be toggled
+ * on/ off with the 'o' key.
  */
 public class ChoreUI extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(ChoreUI.class);
     private boolean displaying = false;
     private Label displayText;
+    private int entityCount;
 
     @Override
     public void create() {
@@ -58,8 +54,12 @@ public class ChoreUI extends UIComponent {
      * Displays the list of chores to the screen.
      */
     public void display() {
+        // Clear the current display (if displaying)
+        displayText.setText("");
+
         // Get the list of chores from the ChoreController
-        ArrayList<Chore> chores = ServiceLocator.getChoreController().getChores();
+        List<Chore> chores = ServiceLocator.getChoreController().getChores();
+        entityCount = ServiceLocator.getChoreController().getEntityCount();
         String[] choreDescriptions = new String[chores.size()];
         for (int i = 0; i < chores.size(); i++) {
             choreDescriptions[i] = chores.get(i).getDescription();
@@ -67,9 +67,13 @@ public class ChoreUI extends UIComponent {
 
         // Format the output text
         StringBuilder choreText = new StringBuilder();
-        choreText.append("Things I need to do:\n");
-        for (String choreDescription : choreDescriptions) {
-            choreText.append(choreDescription).append("\n");
+        if (choreDescriptions.length != 0) {
+            choreText.append("Things I need to do:\n");
+            for (String choreDescription : choreDescriptions) {
+                choreText.append(choreDescription).append("\n");
+            }
+        } else {
+            choreText.append("Chores complete, get to bed!");
         }
 
         displayText.setText(choreText);
@@ -85,12 +89,15 @@ public class ChoreUI extends UIComponent {
     }
 
     @Override
-    protected void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+    public void update() {
+        // Update the display when the number of chore entities completed changes
+        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
+            this.display();
+        }
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
+    protected void draw(SpriteBatch batch) {
+        // draw is handled by the stage
     }
 }
