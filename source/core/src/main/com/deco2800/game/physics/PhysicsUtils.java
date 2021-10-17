@@ -13,8 +13,7 @@ public class PhysicsUtils {
     Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
     entity
         .getComponent(ColliderComponent.class)
-        .setAsIsoAligned(
-            boundingBox, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
+        .setIsoShape(scaleX, scaleY);
   }
 
   // Set the collider to the base of the entity, scaled relative to the entity size.
@@ -22,22 +21,19 @@ public class PhysicsUtils {
     Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
     entity
             .getComponent(HitboxComponent.class)
-            .setAsIsoAligned(
-                    boundingBox, PhysicsComponent.AlignX.CENTER, PhysicsComponent.AlignY.BOTTOM);
-  }
-
-  public static void realignScaledCollider(Entity entity, float scaleX, float scaleY, PhysicsComponent.AlignX var1,
-                                           PhysicsComponent.AlignY var2 ) {
-    Vector2 boundingBox = entity.getScale().cpy().scl(scaleX, scaleY);
-    entity
-            .getComponent(ColliderComponent.class)
-            .setAsIsoAligned(
-                    boundingBox, var1, var2);
+            .setIsoShape(scaleX, scaleY);
   }
 
   public static void setColliderShape(Entity entity, float leftSides, float rightSides) {
       entity.getComponent(ColliderComponent.class)
               .setIsoShape(leftSides, rightSides);
+  }
+
+  public static void setColliderOffset(Entity entity, float offsetX, float offsetY) {
+      ColliderComponent collider = entity.getComponent(ColliderComponent.class);
+      entity.getComponent(ColliderComponent.class)
+              .setIsoShapeOffset(collider.getSides()[0], collider.getSides()[1],
+                      offsetX, offsetY);
   }
 
   private PhysicsUtils() {

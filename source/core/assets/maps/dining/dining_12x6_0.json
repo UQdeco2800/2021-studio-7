@@ -8,7 +8,7 @@
   }
   entityMap: {
     W: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png, 0]
     }

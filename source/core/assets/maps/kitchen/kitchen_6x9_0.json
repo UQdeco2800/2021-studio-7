@@ -3,60 +3,61 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
+      assets: [images/tiles/iso/iso_wall_1_left.png]
     }
   }
   entityMap: {
     W: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png, 0]
+      assets: [images/objects/walls/3.png]
     }
     f: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createFridge
-      assets: [images/objects/furniture/fridge_southwest.png, 0, 0, 0]
+      assets: [images/objects/furniture/fridge_southwest.png]
     }
     c: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-east.png, 0, 0, 0]
+      assets: [images/objects/furniture/kitchen-table-east.png]
 
     }
     C: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-west.png, 0, 0, 0]
+      assets: [images/objects/furniture/kitchen-table-west.png]
+
     }
     s: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-sink-east.png, 0, 0, 0]
+      assets: [images/objects/furniture/kitchen-sink-east.png]
     }
     S: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-cooktop-east.png, 0, 0, 0]
+      assets: [images/objects/furniture/kitchen-cooktop-east.png]
     }
     b: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBin
-      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
+      assets: [images/objects/furniture/bath_bin.png]
     }
     p: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
-      method: createPuddle
-      assets: [images/objects/puddle/puddle.atlas, 2, 5, 3]
+      class:com.deco2800.game.entities.factories.ObjectFactory
+      method: createPuddle //make puddle a atlas
+      assets: [images/objects/puddle/puddle.atlas]
     }
     P: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBananaPeel
-      assets: [images/objects/banana_peel/banana.atlas, 1, 5, 0]
+      assets: [images/objects/banana_peel/banana.atlas]
     }
     E: {
-      class:com.deco2800.game.entities.factories.ObstacleFactory
+      class:com.deco2800.game.entities.factories.ObjectFactory
       method: createEnergyDrink
-      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 0]
+      assets: [images/objects/energy_drink/energy.atlas]
     }
   }
   tileGrid: [
@@ -81,4 +82,15 @@
     [W, ., ., ., ., .],
     [W, p, ., ., ., .]
   ]
+  /*choreGrid: [
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .]
+  ]*/
 }

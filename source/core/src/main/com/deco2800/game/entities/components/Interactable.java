@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components.interactions;
+package com.deco2800.game.entities.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
