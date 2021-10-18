@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.ui.components.UIComponent;
 
 import java.util.concurrent.TimeUnit;
@@ -25,6 +26,7 @@ public class PlayerStatsDisplay extends UIComponent {
   private Image heartImage;
   private Label healthLabel;
   private Label scoreLabel;
+  private Label levelLabel;
 
   /**
    * Creates reusable ui styles and adds actors to the stage.
@@ -46,8 +48,11 @@ public class PlayerStatsDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(45f).padLeft(10f);
+    table.padTop(10f).padLeft(10f);
 
+    //display level
+    CharSequence levelText = String.format("Level %d", MainGameScreen.getLevel());
+    levelLabel = new Label(levelText, skin, "large");
 
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
@@ -62,7 +67,8 @@ public class PlayerStatsDisplay extends UIComponent {
     CharSequence scoreText = String.format("Score: %d", score);
     scoreLabel = new Label(scoreText, skin, "large");
 
-
+    table.add(levelLabel).left();
+    table.row();
     table.add(staminaLabel).left();
     table.row();
     table.add(playerStaminaBar).size(190,50).left();

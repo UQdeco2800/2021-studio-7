@@ -61,6 +61,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent().setDensity(1.5f))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
+    PhysicsUtils.setColliderShape(player, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(player, 1f, 1f);
 
     // Set player to have a base input component
@@ -87,19 +88,16 @@ public class PlayerFactory {
 
   public static String getAtlas() {
     File input = new File("configs/currentCharacterAtlas.txt");
-    BufferedReader br = null;
     String line = null;
-    try {
-      br = new BufferedReader(new FileReader(input));
+    try (BufferedReader br = new BufferedReader(new FileReader(input))) {
       line = br.readLine();
     } catch (IOException e) {
       logger.error("Could not read currentCharacterAtlas.txt");
-    } finally {
-      try {
-        br.close();
-      } catch (NullPointerException | IOException e) {
-        logger.error("Could not close buffered reader for characterAtlas.txt");
-      }
-    } return line;
+    }
+    return line;
+  }
+
+  private PlayerFactory() {
+    throw new IllegalStateException("Instantiating static util class");
   }
 }

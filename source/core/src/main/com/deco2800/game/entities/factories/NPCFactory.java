@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
+import com.deco2800.game.entities.components.npc.MumActions;
 import com.deco2800.game.entities.components.interactions.Actions.MumActions;
 import com.deco2800.game.entities.components.interactions.Actions.CatActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
@@ -35,7 +36,7 @@ import com.deco2800.game.generic.ServiceLocator;
  * <p>If needed, this factory can be separated into more specific factories for entities with
  * similar characteristics.
  */
-@SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
+@SuppressWarnings("unused")
 public class NPCFactory {
 
   private static final NPCConfigs configs =
@@ -48,10 +49,9 @@ public class NPCFactory {
    */
   public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-    Entity mum =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+    return createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
-    return mum;
   }
 
   public static Entity createCat(String[] assets) {

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PlayerActions extends Component {
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
-  private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
   // Components
   private PhysicsComponent physicsComponent;
   private CombatStatsComponent combatStatsComponent;

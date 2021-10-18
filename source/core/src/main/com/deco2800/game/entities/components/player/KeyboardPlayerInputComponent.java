@@ -78,7 +78,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", true);
+                entity.getEvents().trigger("toggle_interacting", true);
+                return true;
+            case Keys.O:
+                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
+                        .getEvents().trigger("toggle_chores");
                 return true;
             default:
                 return false;
@@ -115,7 +119,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", false);
+                entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.F:
                 entity.getEvents().trigger("update_animation", "interacting_south_normal");
@@ -126,17 +130,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                triggerPauseResumeEvent();
-//                ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-//                ServiceLocator.getGame().pause();
+                ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                        .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
                 return true;
             default:
                 return false;
         }
-    }
-
-    private void triggerPauseResumeEvent() {
-        ServiceLocator.getGame().getScreen().pause();
     }
 
     private void triggerWalkEvent() {
