@@ -74,6 +74,14 @@ public class Interior implements Json.Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int result = Objects.hash(tileMap, entityMap, dimensions);
+        result = 31 * result + Arrays.deepHashCode(tileGrid);
+        result = 31 * result + Arrays.deepHashCode(entityGrid);
+        return result;
+    }
+
+    @Override
     public void write(Json json) {
         json.writeObjectStart();
         json.writeValue("tileMap", tileMap);
