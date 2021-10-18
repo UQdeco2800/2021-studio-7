@@ -3,13 +3,11 @@ package com.deco2800.game.maps;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.utils.math.GridPoint2Utils;
-import com.deco2800.game.utils.math.MatrixUtils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,7 +102,7 @@ public class Room implements Json.Serializable {
             if (!dimensions.equals(randomInterior.getDimensions())) {
                 randomInterior = null;
             }
-        } while (randomInterior == null && fileHandles.size() > 0);
+        } while (randomInterior == null && !fileHandles.isEmpty());
 
         if (randomInterior == null) {
             throw new NullPointerException("A valid room interior json file could not be loaded");
@@ -248,6 +246,14 @@ public class Room implements Json.Serializable {
                 Objects.equals(entityMap, room.entityMap) &&
                 Arrays.deepEquals(tileGrid, room.tileGrid) &&
                 Arrays.deepEquals(entityGrid, room.entityGrid);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(type, offset, dimensions, tileMap, entityMap, floor, created);
+        result = 31 * result + Arrays.deepHashCode(tileGrid);
+        result = 31 * result + Arrays.deepHashCode(entityGrid);
+        return result;
     }
 
     @Override

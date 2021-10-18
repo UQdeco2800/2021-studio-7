@@ -58,6 +58,13 @@ public class GridObject implements Json.Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int result = Objects.hash(method);
+        result = 31 * result + Arrays.hashCode(assets);
+        return result;
+    }
+
+    @Override
     public void write(Json json) {
         json.writeObjectStart();
         json.writeValue("class", (Object) method.getDeclaringClass());

@@ -2,7 +2,6 @@ package com.deco2800.game.maps;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -36,7 +35,7 @@ public class Home {
 
     public void create(CameraComponent cameraComponent) {
         if (!created) {
-            if (floors.size() == 0) {
+            if (floors.isEmpty()) {
                 Floor newFloor = createRandomFloor();
                 floors.add(newFloor);
             }
@@ -62,7 +61,7 @@ public class Home {
                 randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
             }
             fileHandles.remove(fileHandle);
-        } while (randomFloor == null && fileHandles.size() > 0);
+        } while (randomFloor == null && !fileHandles.isEmpty());
 
         if (randomFloor == null) {
             throw new NullPointerException("A valid floor plan json file could not be loaded");

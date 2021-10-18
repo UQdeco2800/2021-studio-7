@@ -205,7 +205,7 @@ public class Floor extends GameArea implements Json.Serializable {
         // Iterate through rooms to find a valid spawn location
         for (Room room : new ObjectMap.Values<>(roomMap)) {
             List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
-            if (roomSpawnLocations.size() > 0) {
+            if (!roomSpawnLocations.isEmpty()) {
                 spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
                 break;
             }
@@ -354,6 +354,13 @@ public class Floor extends GameArea implements Json.Serializable {
                 Objects.equals(roomMap, floor.roomMap) &&
                 Arrays.deepEquals(floorGrid, floor.floorGrid) &&
                 Objects.equals(dimensions, floor.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(defaultInteriorTile, defaultInteriorWall, tileMap, entityMap, roomMap, dimensions);
+        result = 31 * result + Arrays.deepHashCode(floorGrid);
+        return result;
     }
 
     @Override
