@@ -58,7 +58,7 @@ public class NPCFactory {
     Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new CatActions());
-
+    cat.setScale(0.8f,0.8f);
     return cat;
   }
 

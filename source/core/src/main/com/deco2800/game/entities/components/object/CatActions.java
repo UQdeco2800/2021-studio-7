@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 public class CatActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(CatActions.class);
+    private static final String updateAnimation = "update_animation";
+
 
     @Override
     public void create() {
@@ -20,7 +22,7 @@ public class CatActions extends InteractionComponent {
     @Override
     public void onCollisionStart(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-
+            entity.getEvents().trigger(updateAnimation, "licking");
         }
     }
 }
