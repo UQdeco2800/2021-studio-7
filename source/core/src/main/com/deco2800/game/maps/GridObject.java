@@ -14,9 +14,8 @@ import java.util.*;
  * Can define either a tile or an entity.
  */
 public class GridObject implements Json.Serializable {
-
     private static final Logger logger = LoggerFactory.getLogger(GridObject.class);
-    // Defined on deserialization
+    // Defined from deserialization or constructor injection
     private Method method;
     private String[] assets;
 

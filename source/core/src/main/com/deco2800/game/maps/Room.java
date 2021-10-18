@@ -22,20 +22,38 @@ import java.util.function.Predicate;
  * Contains functionality for randomising room interiors.
  */
 public class Room implements Json.Serializable {
-
     private static final Logger logger = LoggerFactory.getLogger(Room.class);
-    // Defined on deserialization
+    // Defined from deserialization or constructor injection
     private String type;
     private GridPoint2 offset;
     private GridPoint2 dimensions;
-    // Defined on deserialization or call for creation
+    // Defined from deserialization (when interior is defined) or constructor injection
     private ObjectMap<Character, GridObject> tileMap;
     private ObjectMap<Character, GridObject> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
-    // Defined on call for creation
+    // Defined from constructor injection
     private Floor floor;
     private boolean created = false;
+
+    public Room() {
+    }
+
+    public Room(String type, GridPoint2 offset, GridPoint2 dimensions) {
+        this(type, offset, dimensions, null);
+    }
+
+    public Room(String type, GridPoint2 offset, GridPoint2 dimensions, Interior interior) {
+        this.type = type;
+        this.offset = offset;
+        this.dimensions = dimensions;
+        if (interior != null) {
+            this.tileMap = interior.getTileMap();
+            this.entityMap = interior.getEntityMap();
+            this.tileGrid = interior.getTileGrid();
+            this.entityGrid = interior.getEntityGrid();
+        }
+    }
 
     public void create(Floor floor) {
         if (!created) {
@@ -60,11 +78,11 @@ public class Room implements Json.Serializable {
         entityGrid = new Character[dimensions.x][dimensions.y];
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
-                tileGrid[x][y] = ' ';
+                tileGrid[x][y] = '.';
                 if (x == 0 || y == dimensions.y - 1) {
                     entityGrid[x][y] = 'W';
                 } else {
-                    entityGrid[x][y] = ' ';
+                    entityGrid[x][y] = '.';
                 }
             }
         }
@@ -160,7 +178,7 @@ public class Room implements Json.Serializable {
         List<GridPoint2> validSpawnLocations = new ArrayList<>();
         for (int x = 0; x < entityGrid.length; x++) {
             for (int y = 0; y < entityGrid[x].length; y++) {
-                if (!entityMap.containsValue(entityGrid[x][y], true)) {
+                if (!entityMap.containsKey(entityGrid[x][y])) {
                     validSpawnLocations.add(new GridPoint2(x + offset.x, y + offset.y));
                 }
             }
@@ -174,6 +192,26 @@ public class Room implements Json.Serializable {
 
     public void setOffset(GridPoint2 offset) {
         this.offset = offset;
+    }
+
+    public GridPoint2 getDimensions() {
+        return dimensions;
+    }
+
+    public ObjectMap<Character, GridObject> getTileMap() {
+        return tileMap;
+    }
+
+    public ObjectMap<Character, GridObject> getEntityMap() {
+        return entityMap;
+    }
+
+    public Character[][] getTileGrid() {
+        return tileGrid;
+    }
+
+    public Character[][] getEntityGrid() {
+        return entityGrid;
     }
 
     /**

@@ -11,12 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 @ExtendWith(GameExtension.class)
 public class InteriorTest {
 
     @Test
-    void shouldDeserializeInteriorOnRead() throws NoSuchMethodException {
+    void shouldReadInterior() throws NoSuchMethodException {
         Interior interior1 = createTestInterior();
         Interior interior2 = FileLoader
                 .readClass(Interior.class, "maps/testing/Interior.json");
@@ -25,12 +24,10 @@ public class InteriorTest {
     }
 
     Interior createTestInterior() throws NoSuchMethodException {
-
         ObjectMap<Character, GridObject> tileMap = new ObjectMap<>();
         tileMap.put('a', new GridObject(
                 TerrainFactory.class.getMethod("createBaseTile", String[].class),
                 new String[]{"images/tiles/iso/iso_wall_1_left.png"}));
-
         ObjectMap<Character, GridObject> entityMap = new ObjectMap<>();
         entityMap.put('W', new GridObject(
                 ObjectFactory.class.getMethod("createWall", String[].class),
@@ -38,7 +35,6 @@ public class InteriorTest {
         entityMap.put('s', new GridObject(
                 ObjectFactory.class.getMethod("createWall", String[].class),
                 new String[]{"images/objects/furniture/sink_southeast.png"}));
-
         Character[][] tileGrid = {
                 {'.', '.', '.', '.', '.', '.'},
                 {'.', '.', '.', 'a', '.', '.'},
@@ -47,7 +43,6 @@ public class InteriorTest {
                 {'.', '.', '.', '.', '.', '.'},
                 {'.', '.', '.', '.', '.', '.'},
         };
-
         Character[][] entityGrid = {
                 {'W', 'W', 'W', 'W', 'W', 'W'},
                 {'.', 's', '.', '.', '.', 'W'},
@@ -56,7 +51,6 @@ public class InteriorTest {
                 {'.', '.', '.', '.', '.', 'W'},
                 {'.', '.', '.', '.', '.', 'W'},
         };
-
         GridPoint2 dimensions = new GridPoint2(6, 6);
 
         return new Interior(tileMap, entityMap, tileGrid, entityGrid, dimensions);

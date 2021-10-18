@@ -33,12 +33,12 @@ import java.util.List;
  * Holds raw data for room allocation and non-room object generation.
  */
 public class Floor extends GameArea implements Json.Serializable {
-
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
+
     private OrthographicCamera camera;
     private OrthographicCamera miniMapCamera;
     private Entity player = null;
-    // Defined on deserialization
+    // Defined from deserialization or constructor injection
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
     private ObjectMap<Character, GridObject> tileMap;
@@ -46,8 +46,8 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
+    
     private TiledMapRenderer miniMapRenderer;
-    // Defined on call for creation
     private boolean created = false;
 
     public void create() {
@@ -228,8 +228,16 @@ public class Floor extends GameArea implements Json.Serializable {
         return defaultInteriorTile;
     }
 
+    public void setDefaultInteriorTile(GridObject defaultInteriorTile) {
+        this.defaultInteriorTile = defaultInteriorTile;
+    }
+
     public GridObject getDefaultInteriorWall() {
         return defaultInteriorWall;
+    }
+
+    public void setDefaultInteriorWall(GridObject defaultInteriorWall) {
+        this.defaultInteriorWall = defaultInteriorWall;
     }
 
     public ObjectMap<Character, GridObject> getEntityMap() {

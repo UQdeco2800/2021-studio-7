@@ -17,9 +17,8 @@ import java.util.Objects;
  * which is injected into a Room instance.
  */
 public class Interior implements Json.Serializable {
-
     private static final Logger logger = LoggerFactory.getLogger(Interior.class);
-    // Defined on deserialization
+    // Defined from deserialization or constructor injection
     private ObjectMap<Character, GridObject> tileMap;
     private ObjectMap<Character, GridObject> entityMap;
     private Character[][] tileGrid;

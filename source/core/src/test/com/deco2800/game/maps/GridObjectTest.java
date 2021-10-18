@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GridObjectTest {
 
     @Test
-    void shouldDeserializeGridObjectOnRead() throws NoSuchMethodException {
+    void shouldReadGridObject() throws NoSuchMethodException {
         GridObject gridObject = FileLoader
                 .readClass(GridObjectWrapper.class, "maps/testing/GridObject.json").gridObject;
         assertNotNull(gridObject);
@@ -24,7 +24,7 @@ public class GridObjectTest {
     }
 
     @Test
-    void shouldReturnAssetsWithExtension() throws NoSuchMethodException {
+    void shouldGetAssetsWithExtension() throws NoSuchMethodException {
         GridObject gridObject = new GridObject(
                 ObjectFactory.class.getMethod("createWall", String[].class),
                 new String[]{"test.png", "test.atlas", "test1.atlas"});
