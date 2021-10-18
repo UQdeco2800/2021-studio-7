@@ -98,7 +98,7 @@ public class MainGameScreen extends ScreenAdapter {
     //Adjust the minimap renderer to achieve a more isometric
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
-    this.level = ++level;
+    ++level;
     //playMusic();
   }
 
