@@ -39,12 +39,8 @@ public class Floor extends GameArea implements Json.Serializable {
 
     private OrthographicCamera camera;
     private Entity player = null;
-<<<<<<< HEAD
-    // Defined from deserialization or constructor injection
-=======
     private Entity cat = null;
-    // Defined on deserialization
->>>>>>> main
+    // Defined from deserialization or constructor injection
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
     private ObjectMap<Character, GridObject> tileMap;
@@ -52,12 +48,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
-<<<<<<< HEAD
 
-    private TiledMapRenderer miniMapRenderer;
-=======
-    // Defined on call for creation
->>>>>>> main
     private boolean created = false;
 
     public Floor() {
@@ -142,12 +133,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * Allow rooms to spawn their entities first, then will iterate through the entire floor grid
      * for miscellaneous entity spawning. Finally, spawns non-prefab defined entities into the world.
      */
-<<<<<<< HEAD
     private void spawnAllEntities() {
-=======
-    private void spawnFloorEntities() {
-
->>>>>>> main
         // Create player entity for dependency injection
         createPlayer();
 
