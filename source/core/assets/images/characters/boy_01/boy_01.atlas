@@ -73,7 +73,28 @@ interacting_south_normal
   size: 144, 264
   orig: 192, 272
   offset: 24, 0
-  index: -1
+  index: 1
+interacting_south_normal
+  rotate: false
+  xy: 440, 7660
+  size: 144, 264
+  orig: 192, 272
+  offset: 24, 0
+  index: 2
+interacting_south_normal
+  rotate: false
+  xy: 586, 7926
+  size: 144, 264
+  orig: 192, 272
+  offset: 24, 0
+  index: 3
+interacting_south_normal
+  rotate: false
+  xy: 586, 7926
+  size: 144, 264
+  orig: 192, 272
+  offset: 24, 0
+  index: 4
 interacting_southeast_buffed
   rotate: false
   xy: 148, 6330
@@ -447,11 +468,18 @@ walking_east_normal
   index: 0
 walking_east_normal
   rotate: false
+  xy: 2, 268
+  size: 96, 264
+  orig: 192, 272
+  offset: 48, 0
+  index: 1
+walking_east_normal
+  rotate: false
   xy: 2316, 7950
   size: 120, 240
   orig: 192, 272
   offset: 40, 24
-  index: 1
+  index: 2
 walking_north_buffed
   rotate: false
   xy: 294, 7394
