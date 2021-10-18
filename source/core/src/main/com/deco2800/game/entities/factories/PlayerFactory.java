@@ -46,9 +46,11 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new ScoreComponent(1000))
+            .addComponent(new ScoreComponent(2500))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new AITaskComponent().addTask(new SlipTask()));
+
+    player.setScale(0.8f,0.8f);
     return player;
   }
 

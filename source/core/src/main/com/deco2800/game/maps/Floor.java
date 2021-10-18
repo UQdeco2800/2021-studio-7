@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -37,9 +38,13 @@ public class Floor extends GameArea implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
 
     private OrthographicCamera camera;
-    private OrthographicCamera miniMapCamera;
     private Entity player = null;
+<<<<<<< HEAD
     // Defined from deserialization or constructor injection
+=======
+    private Entity cat = null;
+    // Defined on deserialization
+>>>>>>> main
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
     private ObjectMap<Character, GridObject> tileMap;
@@ -47,8 +52,12 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
+<<<<<<< HEAD
 
     private TiledMapRenderer miniMapRenderer;
+=======
+    // Defined on call for creation
+>>>>>>> main
     private boolean created = false;
 
     public Floor() {
@@ -121,13 +130,10 @@ public class Floor extends GameArea implements Json.Serializable {
                 }
             }
         }
-
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        TiledMapRenderer miniMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        this.miniMapRenderer = miniMapRenderer;
-                terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
+        terrain = new TerrainComponent(camera, tiledMap, renderer,1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
@@ -136,7 +142,12 @@ public class Floor extends GameArea implements Json.Serializable {
      * Allow rooms to spawn their entities first, then will iterate through the entire floor grid
      * for miscellaneous entity spawning. Finally, spawns non-prefab defined entities into the world.
      */
+<<<<<<< HEAD
     private void spawnAllEntities() {
+=======
+    private void spawnFloorEntities() {
+
+>>>>>>> main
         // Create player entity for dependency injection
         createPlayer();
 
@@ -159,6 +170,7 @@ public class Floor extends GameArea implements Json.Serializable {
         // Spawn non-prefab defined entities
         spawnPlayer();
         spawnBorders();
+        spawnCat();
     }
 
     /**
@@ -218,6 +230,7 @@ public class Floor extends GameArea implements Json.Serializable {
         }
 
         spawnEntityAt(player, spawnLocation, true, true);
+        player.getEvents().trigger("update_animation", "standing_south_normal");
     }
 
     /**
@@ -238,6 +251,16 @@ public class Floor extends GameArea implements Json.Serializable {
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }
+    }
+    /**
+     * Spawns the NPC Cat into map.
+     */
+    private void spawnCat(){
+        String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
+        ServiceLocator.getResourceService().loadAll();
+        cat = NPCFactory.createCat(catAssets);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     public GridObject getDefaultInteriorTile() {
@@ -268,13 +291,12 @@ public class Floor extends GameArea implements Json.Serializable {
         return player;
     }
 
-    public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {
-        this.camera = camera;
-        this.miniMapCamera = miniMapCamera;
+    public Entity getCat() {
+        return cat;
     }
 
-    public OrthographicCamera getMiniMapCamera() {
-        return this.miniMapCamera;
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 
     private void displayUI() {
