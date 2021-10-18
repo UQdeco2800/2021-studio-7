@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -26,7 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Game area representation of a single floor in a home.
@@ -46,9 +47,24 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
-    
+
     private TiledMapRenderer miniMapRenderer;
     private boolean created = false;
+
+    public Floor() {
+    }
+
+    public Floor(GridObject defaultInteriorTile, GridObject defaultInteriorWall,
+                 ObjectMap<Character, GridObject> tileMap, ObjectMap<Character, GridObject> entityMap,
+                 ObjectMap<Character, Room> roomMap, Character[][] floorGrid, GridPoint2 dimensions) {
+        this.defaultInteriorTile = defaultInteriorTile;
+        this.defaultInteriorWall = defaultInteriorWall;
+        this.tileMap = tileMap;
+        this.entityMap = entityMap;
+        this.roomMap = roomMap;
+        this.floorGrid = floorGrid;
+        this.dimensions = dimensions;
+    }
 
     public void create() {
         if (!created) {
@@ -269,9 +285,11 @@ public class Floor extends GameArea implements Json.Serializable {
      * @param extension specific extension for all assets returned
      * @return asset filenames from the floor plan to the individual objects
      */
-    private String[] getAssets(String extension) {
+    public String[] getAssets(String extension) {
         // Add default floor tile assets
         List<String> assetsWithExtension = new ArrayList<>(defaultInteriorTile.getAssets(extension));
+        // Add default floor wall assets
+        assetsWithExtension.addAll(defaultInteriorWall.getAssets(extension));
         // Add floor-level tile assets
         for (GridObject gridTile : new ObjectMap.Values<>(tileMap)) {
             assetsWithExtension.addAll(gridTile.getAssets(extension));
@@ -310,6 +328,24 @@ public class Floor extends GameArea implements Json.Serializable {
     public void dispose() {
         super.dispose();
         this.unloadAssets();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Floor floor = (Floor) o;
+        return Objects.equals(defaultInteriorTile, floor.defaultInteriorTile) &&
+                Objects.equals(defaultInteriorWall, floor.defaultInteriorWall) &&
+                Objects.equals(tileMap, floor.tileMap) &&
+                Objects.equals(entityMap, floor.entityMap) &&
+                Objects.equals(roomMap, floor.roomMap) &&
+                Arrays.deepEquals(floorGrid, floor.floorGrid) &&
+                Objects.equals(dimensions, floor.dimensions);
     }
 
     @Override
