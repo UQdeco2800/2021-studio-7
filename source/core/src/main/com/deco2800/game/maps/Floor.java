@@ -137,6 +137,7 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadAll();
         player = PlayerFactory.createPlayer(playerAssets);
         spawnEntityAt(player, new GridPoint2(1,1), true, true);
+        player.getEvents().trigger("update_animation", "standing_south_normal");
     }
 
     /**
