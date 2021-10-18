@@ -16,14 +16,14 @@ public class InteriorTest {
 
     @Test
     void shouldReadInterior() throws NoSuchMethodException {
-        Interior interior1 = createTestInterior();
+        Interior interior1 = createBaseInterior();
         Interior interior2 = FileLoader
-                .readClass(Interior.class, "maps/testing/Interior.json");
+                .readClass(Interior.class, "maps/testing/interior.json");
 
         assertEquals(interior1, interior2);
     }
 
-    Interior createTestInterior() throws NoSuchMethodException {
+    Interior createBaseInterior() throws NoSuchMethodException {
         ObjectMap<Character, GridObject> tileMap = new ObjectMap<>();
         tileMap.put('a', new GridObject(
                 TerrainFactory.class.getMethod("createBaseTile", String[].class),

@@ -47,7 +47,7 @@ public class RoomTest {
         Room roomA = createBaseRoom("bedroom");
         Room roomB = createStyledRoom("living");
         RoomWrapper wrapper = FileLoader
-                .readClass(RoomWrapper.class, "maps/testing/Room.json");
+                .readClass(RoomWrapper.class, "maps/testing/room.json");
 
         assertEquals(roomA, wrapper.roomA);
         assertEquals(roomB, wrapper.roomB);

@@ -17,7 +17,7 @@ public class GridPoint2UtilsTest {
     @Test
     void shouldDeserializeGridPoint2OnRead() {
         GridPoint2 gridPoint2 = FileLoader
-                .readClass(GridPoint2Wrapper.class, "maps/testing/GridPoint2.json").gridPoint2;
+                .readClass(GridPoint2Wrapper.class, "maps/testing/grid_point_2.json").gridPoint2;
         assertNotNull(gridPoint2);
         assertEquals(gridPoint2.x, 1);
         assertEquals(gridPoint2.y, 2);
