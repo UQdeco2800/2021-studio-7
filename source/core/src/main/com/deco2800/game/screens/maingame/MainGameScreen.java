@@ -90,7 +90,7 @@ public class MainGameScreen extends ScreenAdapter {
 
 
     player = home.getActiveFloor().getPlayer();
-    this.level = ++level;
+    ++level;
     //playMusic();
   }
 
