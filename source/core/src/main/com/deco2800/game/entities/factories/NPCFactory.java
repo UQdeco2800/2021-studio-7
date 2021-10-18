@@ -6,11 +6,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.entities.components.CombatStatsComponent;
-import com.deco2800.game.entities.components.interactions.Actions.MumActions;
+import com.deco2800.game.entities.components.npc.MumActions;
+import com.deco2800.game.entities.components.object.CatActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.MumConfig;
+import com.deco2800.game.entities.configs.CatConfig;
 import com.deco2800.game.entities.configs.NPCConfigs;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
@@ -50,6 +52,16 @@ public class NPCFactory {
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
   }
+
+  public static Entity createCat(String[] assets) {
+    CatConfig config = configs.cat;
+    Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+            .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
+            .addComponent(new CatActions());
+    cat.setScale(0.8f,0.8f);
+    return cat;
+  }
+
 
   /**
    * Creates a generic NPC to be used as a base entity by more specific NPC creation methods.

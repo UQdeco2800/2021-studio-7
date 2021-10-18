@@ -6,7 +6,9 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         google()
     }
-    dependencies {}
+    dependencies {
+        classpath "com.badlogicgames.gdx:gdx-ai:1.8.1"
+    }
 }
 
 plugins {
@@ -46,6 +48,7 @@ allprojects {
         mockitoVersion = '3.8.0'
         gdxUtilsVersion = '0.13.4'
         slf4jVersion = '1.7.30'
+        aiVersion = '1.8.0'
     }
 
     repositories {
@@ -80,6 +83,7 @@ project(":core") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         api "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion"
+        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
 
         // Logging
         api  "org.slf4j:slf4j-api:$slf4jVersion"

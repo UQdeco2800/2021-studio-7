@@ -7,7 +7,7 @@
   }
   defaultInteriorWall: {
     // Used for wall generation in hallways
-    class: com.deco2800.game.entities.factories.ObstacleFactory
+    class: com.deco2800.game.entities.factories.ObjectFactory
     method: createWall
     assets: [images/objects/walls/3.png]
   }
@@ -22,19 +22,19 @@
   entityMap: {
     // Exterior wall. Can specify multiple textures and their chance to spawn
     .: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/wall.png]
     }
     // Creates a horizontally-facing door. In isometric view, this is northwest to southeast
     -: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createDoor
       assets: [images/objects/door/door_animationL.atlas]
     }
     // Creates a vertically-facing door. In isometric view, this is northeast to southwest
     |: {
-      class: com.deco2800.game.entities.factories.ObstacleFactory
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createDoor
       assets: [images/objects/door/door_animationL.atlas]
     }
@@ -60,32 +60,32 @@
         }
         entityMap: {
           W: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createWall
             assets: [images/objects/walls/3.png]
           }
           B: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createBed
             assets: [images/objects/bed/bed_animation.atlas]
           }
           D: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createDoor
             assets: [images/objects/door/door_animationL.atlas]
           }
           T: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createTv
             assets: [images/objects/tv/TV_animation.atlas]
           }
           b: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createBananaPeel
             assets: [images/objects/banana_peel/puddle.atlas]
           }
           U: {
-            class: com.deco2800.game.entities.factories.ObstacleFactory
+            class: com.deco2800.game.entities.factories.ObjectFactory
             method: createPlaceableBox
             assets: [images/objects/box/box.atlas]
           }

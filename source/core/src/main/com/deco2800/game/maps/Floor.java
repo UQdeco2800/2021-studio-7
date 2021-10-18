@@ -14,8 +14,9 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -35,6 +36,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private OrthographicCamera camera;
     private OrthographicCamera miniMapCamera;
     private Entity player = null;
+    private Entity cat = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -106,6 +108,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * for miscellaneous entity spawning. Finally, spawns non-prefab defined entities into the world.
      */
     private void spawnFloorEntities() {
+
         // Create player entity for dependency injection
         createPlayer();
 
@@ -128,6 +131,7 @@ public class Floor extends GameArea implements Json.Serializable {
         // Spawn non-prefab defined entities
         spawnPlayer();
         spawnBorders();
+        spawnCat();
     }
 
     /**
@@ -160,6 +164,7 @@ public class Floor extends GameArea implements Json.Serializable {
         }
 
         spawnEntityAt(player, spawnLocation, true, true);
+        player.getEvents().trigger("update_animation", "standing_south_normal");
     }
 
     /**
@@ -168,18 +173,28 @@ public class Floor extends GameArea implements Json.Serializable {
     private void spawnBorders() {
         // Spawns north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
             spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
         }
         // Spawns east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }
+    }
+    /**
+     * Spawns the NPC Cat into map.
+     */
+    private void spawnCat(){
+        String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
+        ServiceLocator.getResourceService().loadAll();
+        cat = NPCFactory.createCat(catAssets);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     /**
@@ -237,6 +252,10 @@ public class Floor extends GameArea implements Json.Serializable {
 
     public Entity getPlayer() {
         return player;
+    }
+
+    public Entity getCat() {
+        return cat;
     }
 
     public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {

@@ -121,6 +121,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case Keys.E:
                 entity.getEvents().trigger("toggle_interacting", false);
                 return true;
+            case Keys.F:
+                entity.getEvents().trigger("update_animation", "interacting_south_normal");
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
@@ -140,41 +142,41 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         getcurrentDirectionCode();
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-            entity.getEvents().trigger("update_animation", "standing_north");
+            entity.getEvents().trigger("update_animation", "standing_south_normal");
 
         } else {
             if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_north");
+                    entity.getEvents().trigger("update_animation", "walking_north_normal");
                     lastDirection = 0;
 
                 } else if (walkDirection.epsilonEquals(1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_east");
+                    entity.getEvents().trigger("update_animation", "walking_east_normal");
                     lastDirection = 1;
 
                 } else if (walkDirection.epsilonEquals(0, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_south");
+                    entity.getEvents().trigger("update_animation", "walking_south_normal");
                     lastDirection = 2;
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_west");
+                    entity.getEvents().trigger("update_animation", "walking_west_normal");
                     lastDirection = 3;
 
                 } else if (walkDirection.epsilonEquals(1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northeast");
+                    entity.getEvents().trigger("update_animation", "walking_northeast_normal");
                     lastDirection = 4;
 
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northwest");
+                    entity.getEvents().trigger("update_animation", "walking_northwest_normal");
                     lastDirection = 5;
 
                 } else if (walkDirection.epsilonEquals(1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southeast");
+                    entity.getEvents().trigger("update_animation", "walking_southeast_normal");
                     lastDirection = 6;
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southwest");
+                    entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                     lastDirection = 7;
                 }
             }
@@ -262,28 +264,28 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         if (lastDirection != currentDirection) {
             if (x < 0.5 && x > -0.5 && y > 0) {
-                entity.getEvents().trigger("update_animation", "walking_north");
+                entity.getEvents().trigger("update_animation", "walking_north_normal");
                 lastDirection = 0;
             } else if (x > 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_east");
+                entity.getEvents().trigger("update_animation", "walking_east_normal");
                 lastDirection = 1;
             } else if (x < 0.5 && x > -0.5 && y < 0) {
-                entity.getEvents().trigger("update_animation", "walking_south");
+                entity.getEvents().trigger("update_animation", "walking_south_normal");
                 lastDirection = 2;
             } else if (x < 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_west");
+                entity.getEvents().trigger("update_animation", "walking_west_normal");
                 lastDirection = 3;
             } else if (x > 0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northeast");
+                entity.getEvents().trigger("update_animation", "walking_northeast_normal");
                 lastDirection = 4;
             } else if (x < -0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northwest");
+                entity.getEvents().trigger("update_animation", "walking_northwest_normal");
                 lastDirection = 5;
             } else if (x > 0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southeast");
+                entity.getEvents().trigger("update_animation", "walking_southeast_normal");
                 lastDirection = 6;
             } else if (x < -0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southwest");
+                entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                 lastDirection = 7;
             }
         }
