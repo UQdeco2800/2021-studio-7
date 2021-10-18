@@ -31,14 +31,14 @@ public class Home {
         floors.add(newFloor);
     }
 
-    public void create(CameraComponent cameraComponent, CameraComponent miniMapCameraComponent) {
+    public void create(CameraComponent cameraComponent) {
         if (!created) {
             if (floors.size == 0) {
                 Floor newFloor = randomiseFloor();
                 floors.add(newFloor);
             }
             activeFloor = floors.get(0);
-            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera(), (OrthographicCamera) miniMapCameraComponent.getCamera());
+            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera());
             activeFloor.create();
         }
         created = true;
