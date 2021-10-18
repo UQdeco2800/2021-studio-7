@@ -31,8 +31,18 @@ public class PhysicsUtils {
 
   public static void setColliderOffset(Entity entity, float offsetX, float offsetY) {
       ColliderComponent collider = entity.getComponent(ColliderComponent.class);
-      entity.getComponent(ColliderComponent.class)
-              .setIsoShapeOffset(collider.getSides()[0], collider.getSides()[1],
+      collider.setIsoShapeOffset(collider.getSides()[0], collider.getSides()[1],
+                      offsetX, offsetY);
+  }
+
+  public static void setHitboxShape(Entity entity, float leftSides, float rightSides) {
+      entity.getComponent(HitboxComponent.class)
+              .setIsoShape(leftSides, rightSides);
+  }
+
+  public static void setHitboxOffset(Entity entity, float offsetX, float offsetY) {
+      ColliderComponent hitbox = entity.getComponent(HitboxComponent.class);
+      hitbox.setIsoShapeOffset(hitbox.getSides()[0], hitbox.getSides()[1],
                       offsetX, offsetY);
   }
 
