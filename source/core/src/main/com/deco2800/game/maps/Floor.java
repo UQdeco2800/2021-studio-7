@@ -110,7 +110,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * for miscellaneous entity spawning. Finally, spawns non-prefab defined entities into the world.
      */
     private void spawnFloorEntities() {
-        spawnCat();
+
         // Create player entity for dependency injection
         createPlayer();
 
@@ -133,6 +133,7 @@ public class Floor extends GameArea implements Json.Serializable {
         // Spawn non-prefab defined entities
         spawnPlayer();
         spawnBorders();
+        spawnCat();
     }
 
     /**
@@ -195,7 +196,7 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
-        spawnEntityAt(cat, new GridPoint2(15,15), true, true);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     /**
