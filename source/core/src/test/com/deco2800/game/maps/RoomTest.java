@@ -19,31 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(GameExtension.class)
 public class RoomTest {
 
-    private final Character[][] hallwayTileGrid = {
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'}
-    };
-    private final Character[][] hallwayEntityGrid = {
-            {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'}
-    };
-
     @Test
-    void shouldReadRoom() throws NoSuchMethodException {
+    void shouldReadRoom() {
         Room roomA = createBaseRoom("bedroom");
         Room roomB = createStyledRoom("living");
         RoomWrapper wrapper = FileLoader
@@ -80,21 +57,21 @@ public class RoomTest {
     }
 
     @Test
-    void shouldGetValidSpawnLocationsFromLiving() throws NoSuchMethodException {
+    void shouldGetValidSpawnLocationsFromLiving() {
         Room room = createStyledRoom("living");
         List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
         assertEquals(validSpawnLocations.size(), 26);
     }
 
     @Test
-    void shouldGetNoValidSpawnLocationsFromOther() throws NoSuchMethodException {
+    void shouldGetNoValidSpawnLocationsFromOther() {
         Room room = createStyledRoom("bedroom");
         List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
         assertEquals(validSpawnLocations.size(), 0);
     }
 
     @Test
-    void shouldGetAssetsWithExtension() throws NoSuchMethodException {
+    void shouldGetAssetsWithExtension() {
         Room room = createStyledRoom("bedroom");
         List<String> assetsWithExtension = room.getAssets(".png");
         assertArrayEquals(assetsWithExtension.toArray(),
@@ -102,53 +79,12 @@ public class RoomTest {
     }
 
     Room createBaseRoom(String type) {
-        GridPoint2 offset = new GridPoint2(0, 0);
-        GridPoint2 dimensions = new GridPoint2(9, 9);
-        return new Room(type, offset, dimensions);
+        return new Room(type, offset, baseDimensions);
     }
 
-    Room createStyledRoom(String type) throws NoSuchMethodException {
-        GridPoint2 offset = new GridPoint2(14, 0);
-        GridPoint2 dimensions = new GridPoint2(10, 4);
-
-        ObjectMap<Character, GridObject> tileMap = new ObjectMap<>();
-        tileMap.put('a', new GridObject(
-                TerrainFactory.class.getMethod("createBaseTile", String[].class),
-                new String[]{"images/tiles/iso/iso_wall_1_left.png"}));
-        ObjectMap<Character, GridObject> entityMap = new ObjectMap<>();
-        entityMap.put('W', new GridObject(
-                ObjectFactory.class.getMethod("createWall", String[].class),
-                new String[]{"images/objects/walls/3.png"}));
-        entityMap.put('B', new GridObject(
-                ObjectFactory.class.getMethod("createBed", String[].class),
-                new String[]{"images/objects/bed/bed_animation.atlas"}));
-        Character[][] tileGrid = {
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'},
-                {'.', '.', '.', '.'}
-        };
-        Character[][] entityGrid = {
-                {'W', 'W', 'W', 'W'},
-                {'.', 'B', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'},
-                {'.', '.', '.', 'W'}
-        };
-
-        return new Room(type, offset, dimensions,
-                new Interior(tileMap, entityMap, tileGrid, entityGrid, dimensions));
+    Room createStyledRoom(String type) {
+        return new Room(type, offset, styledDimensions,
+                new Interior(styledTileMap, styledEntityMap, styledTileGrid, styledEntityGrid, styledDimensions));
     }
 
     static class RoomWrapper implements Json.Serializable {
@@ -166,6 +102,73 @@ public class RoomTest {
             roomA.read(json, jsonData);
             jsonData = jsonData.next();
             roomB.read(json, jsonData);
+        }
+    }
+
+    static final GridPoint2 offset = new GridPoint2(0, 0);
+    static final GridPoint2 baseDimensions = new GridPoint2(9, 9);
+    static final GridPoint2 styledDimensions = new GridPoint2(10, 4);
+    static final Character[][] hallwayTileGrid = {
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', '.'}
+    };
+    static final Character[][] hallwayEntityGrid = {
+            {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+    };
+    static final Character[][] styledTileGrid = {
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'},
+            {'.', '.', '.', '.'}
+    };
+    static final Character[][] styledEntityGrid = {
+            {'W', 'W', 'W', 'W'},
+            {'.', 'B', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'},
+            {'.', '.', '.', 'W'}
+    };
+    static final ObjectMap<Character, GridObject> styledTileMap = new ObjectMap<>();
+    static final ObjectMap<Character, GridObject> styledEntityMap = new ObjectMap<>();
+    static {
+        try {
+            styledTileMap.put('a', new GridObject(
+                    TerrainFactory.class.getMethod("createBaseTile", String[].class),
+                    new String[]{"images/tiles/iso/iso_wall_1_left.png"}));
+            styledEntityMap.put('W', new GridObject(
+                    ObjectFactory.class.getMethod("createWall", String[].class),
+                    new String[]{"images/objects/walls/3.png"}));
+            styledEntityMap.put('B', new GridObject(
+                    ObjectFactory.class.getMethod("createBed", String[].class),
+                    new String[]{"images/objects/bed/bed_animation.atlas"}));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
     }
 }

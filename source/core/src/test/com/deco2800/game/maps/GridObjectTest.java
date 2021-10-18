@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GridObjectTest {
 
     @Test
-    void shouldReadGridObject() throws NoSuchMethodException {
+    void shouldReadGridObject() {
         GridObject gridObject1 = createBaseGridObject();
         GridObject gridObject2 = FileLoader
                 .readClass(GridObjectWrapper.class, "maps/testing/grid_object.json").gridObject;
@@ -24,15 +24,13 @@ public class GridObjectTest {
     }
 
     @Test
-    void shouldGetAssetsWithExtension() throws NoSuchMethodException {
+    void shouldGetAssetsWithExtension() {
         GridObject gridObject = createBaseGridObject();
         assertArrayEquals(gridObject.getAssets(".png").toArray(), new String[]{"test.png"});
         assertArrayEquals(gridObject.getAssets(".atlas").toArray(), new String[]{"test.atlas", "test1.atlas"});
     }
 
-    GridObject createBaseGridObject() throws NoSuchMethodException {
-        Method method = TerrainFactory.class.getMethod("createBaseTile", String[].class);
-        String[] assets = new String[]{"test.png", "test.atlas", "test1.atlas"};
+    GridObject createBaseGridObject() {
         return new GridObject(method, assets);
     }
 
@@ -48,6 +46,16 @@ public class GridObjectTest {
         public void read(Json json, JsonValue jsonData) {
             jsonData = jsonData.child();
             gridObject.read(json, jsonData);
+        }
+    }
+
+    static Method method;
+    static final String[] assets = new String[]{"test.png", "test.atlas", "test1.atlas"};
+    static {
+        try {
+            method = TerrainFactory.class.getMethod("createBaseTile", String[].class);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
     }
 }
