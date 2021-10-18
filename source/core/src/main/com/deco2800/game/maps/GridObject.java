@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents an object on a single point on a grid.
@@ -46,6 +44,18 @@ public class GridObject implements Json.Serializable {
             }
         }
         return assetsWithExtension;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GridObject that = (GridObject) o;
+        return Objects.equals(method, that.method) && Arrays.equals(assets, that.assets);
     }
 
     @Override

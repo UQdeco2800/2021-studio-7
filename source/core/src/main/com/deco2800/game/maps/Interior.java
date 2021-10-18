@@ -9,6 +9,9 @@ import com.deco2800.game.utils.math.MatrixUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * Main purpose is to extract raw room interior data,
  * which is injected into a Room instance.
@@ -22,6 +25,18 @@ public class Interior implements Json.Serializable {
     private Character[][] tileGrid;
     private Character[][] entityGrid;
     private GridPoint2 dimensions;
+
+    public Interior() {
+    }
+
+    public Interior(ObjectMap<Character, GridObject> tileMap, ObjectMap<Character, GridObject> entityMap,
+                    Character[][] tileGrid, Character[][] entityGrid, GridPoint2 dimensions) {
+        this.tileMap = tileMap;
+        this.entityMap = entityMap;
+        this.tileGrid = tileGrid;
+        this.entityGrid = entityGrid;
+        this.dimensions = dimensions;
+    }
 
     public ObjectMap<Character, GridObject> getTileMap() {
         return tileMap;
@@ -41,6 +56,22 @@ public class Interior implements Json.Serializable {
 
     public GridPoint2 getDimensions() {
         return dimensions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Interior interior = (Interior) o;
+        return Objects.equals(tileMap, interior.tileMap) &&
+                Objects.equals(entityMap, interior.entityMap) &&
+                Arrays.deepEquals(tileGrid, interior.tileGrid) &&
+                Arrays.deepEquals(entityGrid, interior.entityGrid) &&
+                Objects.equals(dimensions, interior.dimensions);
     }
 
     @Override

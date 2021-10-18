@@ -195,6 +195,24 @@ public class Room implements Json.Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Room room = (Room) o;
+        return Objects.equals(type, room.type) &&
+                Objects.equals(offset, room.offset) &&
+                Objects.equals(dimensions, room.dimensions) &&
+                Objects.equals(tileMap, room.tileMap) &&
+                Objects.equals(entityMap, room.entityMap) &&
+                Arrays.deepEquals(tileGrid, room.tileGrid) &&
+                Arrays.deepEquals(entityGrid, room.entityGrid);
+    }
+
+    @Override
     public void write(Json json) {
         json.writeObjectStart();
         json.writeValue("type", type);
