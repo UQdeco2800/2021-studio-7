@@ -221,7 +221,9 @@ float&nbsp;bottomRight)</code></th>
 float&nbsp;bottomRight,
 float&nbsp;offsetX,
 float&nbsp;offsetY)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set physics to be an isometric shape of a given length and width.</div>
+</td>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code><a href="ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></code></td>
@@ -313,11 +315,12 @@ float&nbsp;offsetY)</code></th>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="ColliderComponent.html" title="class in com.deco2800.game.physics.components">ColliderComponent</a></span>&nbsp;<span class="memberName">setIsoShape</span>&#8203;(<span class="arguments">float&nbsp;bottomLeft,
 float&nbsp;bottomRight)</span></div>
 <div class="block">Set physics to be an isometric shape of a given length and width. Is
- centred to the middle bottom point of the entity by default.</div>
+ centred to the middle bottom point of the entity by default. There is also
+ no offset to this physics component.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>bottomLeft</code> - number of tiles along the bottom left for the shape</dd>
-<dd><code>bottomRight</code> - number of tiles along the bottom left for the shape</dd>
+<dd><code>bottomLeft</code> - number of tiles along the bottom left side of the shape.</dd>
+<dd><code>bottomRight</code> - number of tiles along the bottom right side of the shape.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>self</dd>
 </dl>
@@ -330,6 +333,18 @@ float&nbsp;bottomRight)</span></div>
 float&nbsp;bottomRight,
 float&nbsp;offsetX,
 float&nbsp;offsetY)</span></div>
+<div class="block">Set physics to be an isometric shape of a given length and width. Is
+ centred to the provided offset, with reference to the bottom middle point
+ of the entity.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bottomLeft</code> - number of tiles along the bottom left side of the shape.</dd>
+<dd><code>bottomRight</code> - number of tiles along the bottom right side of the shape.</dd>
+<dd><code>offsetX</code> - pixel offset in the x direction</dd>
+<dd><code>offsetY</code> - pixel offset in the y direction</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>self</dd>
+</dl>
 </section>
 </li>
 <li class="blockList">
@@ -447,6 +462,10 @@ float&nbsp;offsetY)</span></div>
 <section class="detail">
 <h3><a id="getSides()">getSides</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float[]</span>&nbsp;<span class="memberName">getSides</span>()</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Size of the collider component, in tile units, broken down by side length.</dd>
+</dl>
 </section>
 </li>
 </ul>
