@@ -1,0 +1,45 @@
+{
+  A: {
+    type: bedroom
+    offset: [0, 0]
+    dimensions: [9, 9]
+  }
+  B: {
+    type: living
+    offset: [0, 0]
+    dimensions: [10, 4]
+    interior: {
+      tileMap: {
+        a: {
+          class: com.deco2800.game.maps.terrain.TerrainFactory
+          method: createBaseTile
+          assets: [images/tiles/iso/iso_wall_1_left.png]
+        }
+      }
+      entityMap: {
+        W: {
+          class: com.deco2800.game.entities.factories.ObjectFactory
+          method: createWall
+          assets: [images/objects/walls/3.png]
+        }
+        B: {
+          class: com.deco2800.game.entities.factories.ObjectFactory
+          method: createBed
+          assets: [images/objects/bed/bed_animation.atlas]
+        }
+      }
+      tileGrid: [
+        [., ., ., ., ., ., ., ., ., .],
+        [., ., ., ., ., ., ., ., ., .],
+        [., ., ., ., ., ., ., ., ., .],
+        [., ., ., ., ., ., ., ., ., .]
+      ]
+      entityGrid: [
+        [W, W, W, W, W, W, W, W, W, W],
+        [W, ., ., ., ., ., ., ., ., .],
+        [W, B, ., ., ., ., ., ., ., .],
+        [W, ., ., ., ., ., ., ., ., .]
+      ]
+    }
+  }
+}

@@ -68,16 +68,17 @@ public class LeaderBoardDisplay extends UIComponent {
         logger.info("Trying to get leader board...");
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
         logger.info("Got leader board.");
-        Set set = leaderboard.entrySet();
-        Iterator i = set.iterator();
+        Set <Map.Entry<String,Integer>> set = leaderboard.entrySet();
+        Iterator <Map.Entry<String,Integer>> i = set.iterator();
         String insert;
         int t = 0;
         while (i.hasNext()) {
             t++;
             if (t == 11){break;}
             leaderTable.row();
-            Map.Entry mp = (Map.Entry) i.next();
-            insert = mp.getKey() + ":" + String.valueOf(mp.getValue());
+            Map.Entry<String,Integer> mp = (Map.Entry) i.next();
+            String score = String.valueOf(mp.getValue());
+            insert = mp.getKey() + ":" + score;
             Label label = new Label(insert, skin);
             leaderTable.add(label).padTop(15f);
         }

@@ -2,6 +2,7 @@ package com.deco2800.game.ai.movement;
 
 import com.badlogic.gdx.math.Vector2;
 
+
 /** A movement controller moves something to a given a target. */
 public interface MovementController {
   /** @param movementEnabled true to enable controller movement, false to disable. */
