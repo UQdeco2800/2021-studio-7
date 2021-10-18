@@ -1,6 +1,5 @@
 package com.deco2800.game.maps;
 
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.files.FileLoader;
@@ -8,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represents an object on a single point on a grid.
@@ -36,8 +38,8 @@ public class GridObject implements Json.Serializable {
         return assets;
     }
 
-    public Array<String> getAssets(String extension) {
-        Array<String> assetsWithExtension = new Array<>();
+    public List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
         for (String asset : assets) {
             if (asset.endsWith(extension)) {
                 assetsWithExtension.add(asset);

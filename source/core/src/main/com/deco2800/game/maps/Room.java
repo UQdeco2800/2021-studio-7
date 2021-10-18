@@ -14,7 +14,7 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -43,7 +43,7 @@ public class Room implements Json.Serializable {
             if (type.equals("hallway")) {
                 createHallwayInterior();
             } else if (tileMap == null) {
-                randomiseInterior();
+                createRandomInterior();
             }
         }
         created = true;
@@ -74,19 +74,19 @@ public class Room implements Json.Serializable {
      * Queries for a list of JSON files in a pre-defined directory. Selects one at random
      * and initialises the room interior plan.
      */
-    private void randomiseInterior() {
-        Array<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.DIRECTORY.concat(type));
+    private void createRandomInterior() {
+        List<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.DIRECTORY.concat(type));
 
         Interior randomInterior;
         do {
-            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
             randomInterior = FileLoader.readClass(Interior.class, fileHandle.path());
-            fileHandles.removeValue(fileHandle, true);
+            fileHandles.remove(fileHandle);
 
             if (!dimensions.equals(randomInterior.getDimensions())) {
                 randomInterior = null;
             }
-        } while (randomInterior == null && fileHandles.size > 0);
+        } while (randomInterior == null && fileHandles.size() > 0);
 
         if (randomInterior == null) {
             throw new NullPointerException("A valid room interior json file could not be loaded");
@@ -153,11 +153,11 @@ public class Room implements Json.Serializable {
      * typically not defined in the prefabrication files. Null if room type is not a valid spawning
      * room type.
      */
-    public Array<GridPoint2> getValidSpawnLocations() {
+    public List<GridPoint2> getValidSpawnLocations() {
         if (Arrays.stream(validSpawnRooms).noneMatch(Predicate.isEqual(type))) {
-            return null;
+            return new ArrayList<>();
         }
-        Array<GridPoint2> validSpawnLocations = new Array<>();
+        List<GridPoint2> validSpawnLocations = new ArrayList<>();
         for (int x = 0; x < entityGrid.length; x++) {
             for (int y = 0; y < entityGrid[x].length; y++) {
                 if (!entityMap.containsValue(entityGrid[x][y], true)) {
@@ -180,24 +180,18 @@ public class Room implements Json.Serializable {
      * @param extension specific extension for all assets returned
      * @return asset filenames from the room to the individual objects
      */
-    public String[] getAssets(String extension) {
-        Array<String> temp = getAssets(tileMap, extension);
-        temp.addAll(getAssets(entityMap, extension));
-
-        String[] assets = new String[temp.size];
-        for (int i = 0; i < temp.size; i++) {
-            assets[i] = temp.get(i);
-        }
-        return assets;
+    public List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>(getAssets(tileMap, extension));
+        assetsWithExtension.addAll(getAssets(entityMap, extension));
+        return assetsWithExtension;
     }
 
-    private Array<String> getAssets(ObjectMap<Character, GridObject> map, String extension) {
-        Array<String> assets = new Array<>();
+    private List<String> getAssets(ObjectMap<Character, GridObject> map, String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
         for (GridObject gridObject : new ObjectMap.Values<>(map)) {
-            Array<String> objAssets = gridObject.getAssets(extension);
-            assets.addAll(objAssets);
+            assetsWithExtension.addAll(gridObject.getAssets(extension));
         }
-        return assets;
+        return assetsWithExtension;
     }
 
     @Override

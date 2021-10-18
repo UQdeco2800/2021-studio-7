@@ -10,6 +10,9 @@ import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Container for multiple game areas (floors).
  * Contains functionality for randomising floor plans.
@@ -17,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class Home {
     private static final Logger logger = LoggerFactory.getLogger(Home.class);
     public static final String DIRECTORY = "maps/";
-    private final Array<Floor> floors = new Array<>();
+    private final List<Floor> floors = new ArrayList<>();
     private Floor activeFloor;
     // Defined on call for creation
     private MainGameScreen mainGameScreen;
@@ -33,8 +36,8 @@ public class Home {
 
     public void create(CameraComponent cameraComponent, CameraComponent miniMapCameraComponent) {
         if (!created) {
-            if (floors.size == 0) {
-                Floor newFloor = randomiseFloor();
+            if (floors.size() == 0) {
+                Floor newFloor = createRandomFloor();
                 floors.add(newFloor);
             }
             activeFloor = floors.get(0);
@@ -49,17 +52,17 @@ public class Home {
      * and initialises the floor plan.
      * @return A valid Floor extracted from a JSON file.
      */
-    public Floor randomiseFloor() {
-        Array<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
+    private Floor createRandomFloor() {
+        List<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
 
         Floor randomFloor = null;
         do {
-            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size));
+            FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
             if (!fileHandle.path().equals(mainGameScreen.getTestingFloorPlan())) {
                 randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
             }
-            fileHandles.removeValue(fileHandle, true);
-        } while (randomFloor == null && fileHandles.size > 0);
+            fileHandles.remove(fileHandle);
+        } while (randomFloor == null && fileHandles.size() > 0);
 
         if (randomFloor == null) {
             throw new NullPointerException("A valid floor plan json file could not be loaded");
@@ -73,7 +76,7 @@ public class Home {
     }
 
     public void setActiveFloor(Integer index) {
-        if (index < floors.size) {
+        if (index < floors.size()) {
             activeFloor = floors.get(index);
         } else {
             logger.error("Home does not have a floor at level {}", index);
