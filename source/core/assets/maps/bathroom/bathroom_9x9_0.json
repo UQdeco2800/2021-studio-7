@@ -10,22 +10,22 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
       }
     s: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/furniture/sink_southeast.png]
+      assets: [images/objects/furniture/sink_southeast.png, 0, 0, 0]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBath
-      assets: [images/objects/furniture/bath_tub_southwest.png]
+      assets: [images/objects/furniture/bath_tub_southwest.png, 0, 0, 0]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBin
-      assets: [images/objects/furniture/bath_bin.png]
+      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
     }
     t: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
@@ -40,12 +40,12 @@
     P: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/furniture/toilet_southeast.png]
+      assets: [images/objects/furniture/toilet_southeast.png, 0, 0, 0]
     }
     p: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createPuddle //make puddle a atlas
-      assets: [images/objects/puddle/puddle.atlas]
+      assets: [images/objects/puddle/puddle.atlas, 2, 5, 0]
     }
   }
   tileGrid: [

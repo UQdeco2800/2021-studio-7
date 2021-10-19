@@ -10,54 +10,54 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     }
     f: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createFridge
-      assets: [images/objects/furniture/fridge_southwest.png]
+      assets: [images/objects/furniture/fridge_southwest.png, 0, 0, 0]
     }
     c: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_table.png]
+      assets: [images/objects/furniture/new_kitchen_table.png, 0, 0, 0]
 
     }
     C: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_table.png]
+      assets: [images/objects/furniture/new_kitchen_table.png, 0, 0, 0]
 
     }
     s: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_sink.png]
+      assets: [images/objects/furniture/new_kitchen_sink.png, 0, 0, 0]
     }
     S: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_stove.png]
+      assets: [images/objects/furniture/new_kitchen_stove.png, 0, 0, 0]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBin
-      assets: [images/objects/furniture/bath_bin.png]
+      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
     }
     p: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createPuddle //make puddle a atlas
-      assets: [images/objects/puddle/puddle.atlas]
+      assets: [images/objects/puddle/puddle.atlas, 2, 5, 3]
     }
     P: {
       class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createBananaPeel
-      assets: [images/objects/banana_peel/banana.atlas]
+      method: createBaseInteractable
+      assets: [images/objects/banana_peel/banana.atlas, 1, 5, 3]
     }
     E: {
       class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createEnergyDrink
-      assets: [images/objects/energy_drink/energy.atlas]
+      method: createBaseChore
+      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
     }
   }
   tileGrid: [
