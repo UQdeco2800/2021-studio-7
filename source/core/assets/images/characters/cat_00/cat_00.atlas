@@ -149,7 +149,7 @@ standing_east
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: -1
+  index: 3
 standing_east
   rotate: false
   xy: 1200, 400

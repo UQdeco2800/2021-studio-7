@@ -37,15 +37,13 @@ import org.slf4j.LoggerFactory;
 public class MainGameScreen extends ScreenAdapter {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {};
-  private static final String TEST_FLOOR_PLAN = "maps/_floor_plans/floor_plan_testing.json";
+  private static final String TEST_FLOOR_PLAN = "maps/testing/demo.json";
    private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
   private static final String[] pauseGameTextures = {"images/ui/screens/paused_screen.png"};
 
   private final Renderer renderer;
-  private final Renderer miniMapRenderer;
-  private OrthographicCamera cameraMiniMap;
   private final PhysicsEngine physicsEngine;
   private final Home home;
   private final Entity mainGameEntity = new Entity();
@@ -73,10 +71,6 @@ public class MainGameScreen extends ScreenAdapter {
     Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
     CameraComponent camComponent = cameraMiniMap.getComponent(CameraComponent.class);
 
-    //This is the renderer for the minimap, essentially its display
-    miniMapRenderer = new Renderer(camComponent);
-    miniMapRenderer.getCamera().getEntity().setPosition(10,10);
-
     //This is the main game renderer, which must be called last so the UI is shown
     renderer = RenderFactory.createRenderer();
     renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
@@ -92,13 +86,11 @@ public class MainGameScreen extends ScreenAdapter {
     home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
 
-    home.create(miniMapRenderer.getCamera(), renderer.getCamera());
-    home.getActiveFloor().getMiniMapCamera().position.set(10,10,10);
+    home.create(renderer.getCamera());
 
-    //Adjust the minimap renderer to achieve a more isometric
-    miniMapRenderer.getCamera().resize(2,1,200);
+
     player = home.getActiveFloor().getPlayer();
-    this.level = ++level;
+    ++level;
     //playMusic();
   }
 
