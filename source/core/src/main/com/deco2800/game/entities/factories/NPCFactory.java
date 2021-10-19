@@ -58,7 +58,7 @@ public class NPCFactory {
      //Set AI tasks
     mum.addComponent(new AITaskComponent()
             .addTask(new MumWaitTask())
-            .addTask(new ChaseTask(target, 10, 3f, 4f)));
+            .addTask(new ChaseTask(target, 10, 5f, 8f)));
     mum.setScale(0.9f,0.9f);
     return mum;
   }
@@ -73,7 +73,8 @@ public class NPCFactory {
     //Set AI tasks
     cat.addComponent(new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(player, 10, 0.2f, 1f)));
+            .addTask(new ChaseTask(player, 10, 0.5f, 1f)));
+    cat.getComponent(PhysicsMovementComponent.class).setTwoDCharacter();
     cat.setScale(0.8f,0.8f);
     return cat;
   }

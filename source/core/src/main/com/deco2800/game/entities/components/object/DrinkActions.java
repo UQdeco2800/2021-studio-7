@@ -38,6 +38,7 @@ public class DrinkActions extends InteractionComponent {
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
             //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.DRINK);
+            target.getEvents().trigger(updateAnimation, "standing_south_buffed");
         }
     }
 

@@ -20,24 +20,24 @@
     c: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-east.png]
+      assets: [images/objects/furniture/new_kitchen_table.png]
 
     }
     C: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-table-west.png]
+      assets: [images/objects/furniture/new_kitchen_table.png]
 
     }
     s: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-sink-east.png]
+      assets: [images/objects/furniture/new_kitchen_sink.png]
     }
     S: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createCabinet
-      assets: [images/objects/furniture/kitchen-cooktop-east.png]
+      assets: [images/objects/furniture/new_kitchen_stove.png]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObjectFactory

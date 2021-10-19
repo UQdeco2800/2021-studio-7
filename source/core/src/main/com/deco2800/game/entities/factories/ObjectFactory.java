@@ -72,7 +72,6 @@ public class ObjectFactory {
     Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
-    System.out.printf("DRINK CREATED with id %s\n", energyDrink);
     return energyDrink;
   }
 
@@ -91,7 +90,9 @@ public class ObjectFactory {
 
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObject(assets, BodyType.StaticBody);
-    bookcase.setScale(2f,2f);
+    bookcase.setScale(1f, 1.5f);
+    PhysicsUtils.setColliderShape(bookcase, 1f, 1f);
+    PhysicsUtils.setColliderOffset(bookcase, 0, 0.3f);
     return bookcase;
   }
 
@@ -106,14 +107,14 @@ public class ObjectFactory {
     Entity lounge = createBaseObject(assets, BodyType.StaticBody);
     lounge.getComponent(TextureRenderComponent.class).scaleEntity();
     lounge.setScale(2f,1f);
+    PhysicsUtils.setColliderShape(lounge, 2.5f, 1f);
+    PhysicsUtils.setColliderOffset(lounge, 0.5f, 0);
     return lounge;
   }
 
   public static Entity createDesk(String[] assets) {
     Entity desk = createBaseObject(assets, BodyType.StaticBody);
-    desk.getComponent(TextureRenderComponent.class).scaleEntity();
-    desk.setScale(2f,2f);
-    PhysicsUtils.setScaledCollider(desk,2f,2f);
+    PhysicsUtils.setColliderShape(desk, 1f, 1f);
     return desk;
   }
 
@@ -129,13 +130,14 @@ public class ObjectFactory {
     Entity lamp = createBaseObject(assets, BodyType.StaticBody);
     lamp.getComponent(TextureRenderComponent.class).scaleEntity();
     lamp.setScale(0.5f,1f);
+    PhysicsUtils.setColliderShape(lamp, 0.5f, 0.5f);
     return lamp;
   }
 
   public static Entity createChair(String[] assets) {
     Entity chair = createBaseObject(assets, BodyType.StaticBody);
-    chair.setScale(1.25f, 1.25f);
-    PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    PhysicsUtils.setColliderShape(chair, 0.5f, 0.5f);
+    PhysicsUtils.setColliderOffset(chair, 0, 0.5f);
     return chair;
   }
 
@@ -148,13 +150,13 @@ public class ObjectFactory {
 
   public static Entity createFridge(String[] assets) {
     Entity fridge = createBaseObject(assets, BodyType.StaticBody);
-    fridge.setScale(2f,2f);
+    fridge.setScale(1f, 1.5f);
+    PhysicsUtils.setColliderShape(fridge, 1f, 1f);
     return fridge;
   }
 
   public static Entity createCabinet(String[] assets) {
     Entity cab = createBaseObject(assets, BodyType.StaticBody);
-    cab.setScale(2.5f, 2f);
     PhysicsUtils.setScaledCollider(cab, 1f,1f);
     return cab;
   }
