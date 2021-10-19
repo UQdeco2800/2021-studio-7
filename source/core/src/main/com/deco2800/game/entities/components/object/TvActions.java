@@ -40,7 +40,7 @@ public class TvActions extends InteractionComponent {
             if (hasInteracted) {
                 entity.getEvents().trigger(updateAnimation, tvOff);
             } else {
-                entity.getEvents().trigger(updateAnimation, tvOn);
+                entity.getEvents().trigger(updateAnimation, tvOnH);
             }
         } else {
             logger.debug("TV ended collision with PLAYER, tv animation");
