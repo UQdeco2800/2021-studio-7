@@ -160,6 +160,12 @@ public class ObjectFactory {
     PhysicsUtils.setScaledCollider(shelf, 0.5f, 0.5f);
     return shelf;
   }
+  public static Entity createTowelHanger(String[] assets) {
+    Entity shelf = createBaseObject(assets, BodyType.StaticBody);
+    shelf.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(shelf, 0.5f, 1.5f);
+    return shelf;
+  }
 
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
