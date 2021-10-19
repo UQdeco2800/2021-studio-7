@@ -6,14 +6,25 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Stores and handles generation and completion of chores.
  */
 public class ChoreController {
     private static final Logger logger = LoggerFactory.getLogger(ChoreController.class);
-    List<Chore> chores = new ArrayList<>();
+    List<Chore> chores;
     private int entityCount = 0;
+    private int level;
+
+    /**
+     * Stores and handles generation and completion of chores, scaled to the current level.
+     * @param level The current level.
+     */
+    public ChoreController(int level) {
+        this.level = level;
+        this.chores = new ArrayList<>();
+    }
 
     /**
      * Adds this entity as a chore to be completed by the player. Should be interactable.
@@ -40,8 +51,8 @@ public class ChoreController {
     }
 
     /**
-     * Marks the specified chore as complete
-     * @param object The object chore to mark off as complete
+     * Marks the specified chore as complete.
+     * @param object The object chore to mark off as complete.
      */
     private void markCompleted(ChoreList object) {
         Chore chore = getChoreOf(object);
@@ -57,24 +68,44 @@ public class ChoreController {
     }
 
     /**
-     * Get an ArrayList of the chores registered
-     * @return The ArrayList of chores registered
+     * Scales the current list of chores to the difficulty level by reducing the number of chores.
+     */
+    private void scaleChores() {
+        // How many chores we want to keep
+        int numChores = 2 * level + 2;
+
+        if (chores.size() <= numChores) {
+            // We have the correct number of chores already
+            return;
+        }
+
+        while (chores.size() > numChores) {
+            // Keep removing random chores until we have the correct amount.
+            int randomNum = ThreadLocalRandom.current().nextInt(chores.size());
+            chores.remove(randomNum);
+        }
+    }
+
+    /**
+     * Get an ArrayList of the chores registered.
+     * @return The ArrayList of chores registered.
      */
     public List<Chore> getChores() {
+        scaleChores();
         return chores;
     }
 
     /**
-     * Get the number of entities currently registered and NOT completed
-     * @return The number of entity
+     * Get the number of entities currently registered and NOT completed.
+     * @return The number of entity.
      */
     public int getEntityCount() {
         return entityCount;
     }
 
     /**
-     * Check if there are any more chores to complete
-     * @return True if all chores are complete, false otherwise
+     * Check if there are any more chores to complete.
+     * @return True if all chores are complete, false otherwise.
      */
     public boolean checkComplete() {
         return chores.isEmpty();
