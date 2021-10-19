@@ -2,6 +2,8 @@ package com.deco2800.game.entities.components;
 
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
@@ -15,20 +17,10 @@ public class SingleUse extends Component implements Disposable {
 
     public SingleUse(){}
 
-    /*
-    @Override
-    public void create(){
-        entity.getEvents().addListener("interaction",  this::remove);
-    }*/
-
-
     //Removes objects from map, but not from game
     public void remove(){
-        entity.getComponent(AnimationRenderComponent.class).dispose();
-        entity.getComponent(PhysicsComponent.class).dispose();
-        entity.getComponent(HitboxComponent.class).dispose();
-        entity.getComponent(ColliderComponent.class).dispose();
-        logger.info("Animation, Physics, Hitbox and Collider components disposed of");
+        ServiceLocator.getEntityService().scheduleEntityForRemoval(this.entity);
+        logger.info("Object queued to be destroyed by physics engine");
     }
 
     @Override
