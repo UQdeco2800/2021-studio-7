@@ -35,7 +35,7 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
-  private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static List<TextButton> buttons = new ArrayList<>();
 
   @Override
   public void create() {
@@ -216,13 +216,14 @@ public class SettingsMenuDisplay extends UIComponent {
 
   public static void exitSettingsMenu(){
     TextButton current = buttons.get(0);
-    buttons.clear();
+//    buttons.clear();
     current.toggle();
   }
 
   public static void applySettings(){
+    SettingsScreen.playButtonSound();
     TextButton current = buttons.get(1);
-    buttons.clear();
+//    buttons.clear();
     current.toggle();
   }
 
