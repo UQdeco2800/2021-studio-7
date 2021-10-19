@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
+import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ public class PlayerActions extends Component {
   private boolean moving = false;
   private boolean running = false;
   private boolean energydrinkconsumed =false;
+  private int energydrinkticks = 0;
 
   @Override
   public void create() {
@@ -39,6 +41,16 @@ public class PlayerActions extends Component {
   public void update() {
     if (moving) {
       updateSpeed();
+
+      if(energydrinkconsumed){
+        energydrinkticks +=1;
+        System.out.println(energydrinkticks);
+        if(energydrinkticks>600){
+          this.energydrinkconsumed = false;
+          entity.getComponent(KeyboardPlayerInputComponent.class).setBuffedOff();
+          this.energydrinkticks = 0;
+        }
+      }
       entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
@@ -120,5 +132,9 @@ public class PlayerActions extends Component {
     }else{
       this.energydrinkconsumed=true;
     }
+  }
+
+  public void turnOfEnergyDrink(){
+    this.energydrinkconsumed = false;
   }
 }

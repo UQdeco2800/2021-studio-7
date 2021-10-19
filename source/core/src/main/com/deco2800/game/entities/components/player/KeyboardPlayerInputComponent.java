@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -20,6 +21,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
     private boolean buffed = false;
+
     public KeyboardPlayerInputComponent() {
         super(5);
     }
@@ -286,14 +288,18 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
             }
 
-        }System.out.println(lastDirection);
+        }
     }
     public void setBuffed(){
         this.buffed = true;
-        System.out.println(this.buffed);
+    }
+
+    public void setBuffedOff(){
+        this.buffed = false;
     }
 
     public void setAnimation(String direction) {
+
         if (this.buffed == true) {
             String animation = direction + "_buffed";
             entity.getEvents().trigger("update_animation", animation);
