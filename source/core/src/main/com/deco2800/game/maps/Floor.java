@@ -265,44 +265,6 @@ public class Floor extends GameArea implements Json.Serializable {
 
     }
 
-
-    /**
-     * Invokes the method related to the tile.
-     * @param tileObject instance containing the method and parameters
-     * @param position world-related position
-     * @param layer container for tile cells
-     */
-    public void spawnGridTile(GridObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
-        if (tileObject == null) {
-            tileObject = defaultInteriorTile;
-        }
-        try {
-            TerrainTile tile = (TerrainTile) tileObject.getMethod().invoke(null, (Object) tileObject.getAssets());
-            TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-            cell.setTile(tile);
-            layer.setCell(position.x, position.y, cell);
-        } catch (Exception e) {
-            logger.error("Error invoking method {}", tileObject.getMethod().getName());
-        }
-    }
-
-    /**
-     * Invokes the method related to the entity.
-     * @param entityObject instance containing the method and parameters
-     * @param position world-related position
-     */
-    public void spawnGridEntity(GridObject entityObject, GridPoint2 position) {
-        if (entityObject == null) {
-            return;
-        }
-        try {
-            Entity entity = (Entity) entityObject.getMethod().invoke(null, (Object) entityObject.getAssets());
-            spawnEntityAt(entity, position, true, true);
-        } catch (Exception e) {
-            logger.error("Error invoking method {}", entityObject.getMethod().getName());
-        }
-    }
-
     public GridObject getDefaultInteriorTile() {
         return defaultInteriorTile;
     }

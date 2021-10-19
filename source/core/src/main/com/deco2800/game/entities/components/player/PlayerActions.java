@@ -45,7 +45,7 @@ public class PlayerActions extends Component {
 
       if(energydrinkconsumed){
         energydrinkticks +=1;
-        System.out.println(energydrinkticks);
+
         if(energydrinkticks>600){
           this.energydrinkconsumed = false;
           entity.getComponent(KeyboardPlayerInputComponent.class).setBuffedOff();
