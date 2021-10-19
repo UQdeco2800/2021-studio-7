@@ -13,10 +13,12 @@ public class MenuInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Keys.UP:
+            case Keys.W:
                 MainMenuDisplay.moveUp();
                 logger.info("Up Key Pressed");
                 break;
             case Keys.DOWN:
+            case Keys.S:
                 MainMenuDisplay.moveDown();
                 logger.info("Down Key Pressed");
                 break;

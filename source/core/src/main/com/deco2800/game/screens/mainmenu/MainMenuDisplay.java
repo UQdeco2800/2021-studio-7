@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.lang.Math;
+
+import static com.badlogic.gdx.Gdx.graphics;
 
 
 /**
@@ -54,7 +57,6 @@ public class MainMenuDisplay extends UIComponent {
   private static int menuIndex = 0;
   private static List<TextButton> buttons = new ArrayList<TextButton>();
   private static Image menuIndicator;
-
 
 
     @Override
@@ -102,6 +104,7 @@ public class MainMenuDisplay extends UIComponent {
 
     menuIndicator = new Image(ServiceLocator.getResourceService()
               .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
+
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -154,6 +157,7 @@ public class MainMenuDisplay extends UIComponent {
                 }
             });
 
+
     tableLeft.add(startBtn).align(Align.center);
     tableLeft.row();
     tableLeft.add(leaderboardBtn).padTop(50f);
@@ -162,6 +166,8 @@ public class MainMenuDisplay extends UIComponent {
     tableLeft.row();
     tableLeft.add(exitBtn).padTop(50f);
     tableLeft.row();
+
+
 
     tableRight.add(character);
     tableRight.row();
@@ -173,8 +179,8 @@ public class MainMenuDisplay extends UIComponent {
     tableMain.add(tableLeft).expandY().fillY().fillX();
     tableMain.add(tableRight).expandY().fillY().fill();
     stage.addActor(tableMain);
-    stage.setDebugAll(true);
 
+    stage.setDebugAll(true);
     updateMenuFrame();
     menuIndicator.setTouchable(Touchable.disabled);
     stage.addActor(menuIndicator);
@@ -296,7 +302,7 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private static boolean notAtBottom() {
-        return menuIndex < 5;
+        return menuIndex < 3;
     }
 
     public static void updateMenuFrame() {
@@ -305,18 +311,21 @@ public class MainMenuDisplay extends UIComponent {
         TextButton SetBtn = buttons.get(2);
         TextButton ExitBtn = buttons.get(3);
         TextButton CharBtn = buttons.get(4);
+        float buttonXLocation = startBtn.getX()-20;
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
-                menuIndicator.setPosition(500f,460);
+                menuIndicator.setPosition(buttonXLocation, startBtn.getY()-10);
                 hoverMenu(startBtn);
                 unhoverMenu(LeadBtn);
                 unhoverMenu(SetBtn);
                 unhoverMenu(ExitBtn);
                 unhoverMenu(CharBtn);
                 logger.info("How many buttons " + Integer.toString(buttons.size()));
+                logger.info("Button x is "  + startBtn.getX());
+                logger.info("ButtonxLocation is " + buttonXLocation);
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
-                menuIndicator.setPosition(500f,402);
+                menuIndicator.setPosition(buttonXLocation, LeadBtn.getY()-10);
                 unhoverMenu(startBtn);
                 hoverMenu(LeadBtn);
                 unhoverMenu(SetBtn);
@@ -324,7 +333,7 @@ public class MainMenuDisplay extends UIComponent {
                 unhoverMenu(CharBtn);
                 break;
             case 2: //Settings Button
-                menuIndicator.setPosition(500f,345);
+                menuIndicator.setPosition(buttonXLocation,SetBtn.getY()-10);
                 unhoverMenu(startBtn);
                 unhoverMenu(LeadBtn);
                 hoverMenu(SetBtn);
@@ -332,7 +341,7 @@ public class MainMenuDisplay extends UIComponent {
                 unhoverMenu(CharBtn);
                 break;
             case 3: //Exit Button
-                menuIndicator.setPosition(500f,287);
+                menuIndicator.setPosition(buttonXLocation,ExitBtn.getY()-10);
                 unhoverMenu(startBtn);
                 unhoverMenu(LeadBtn);
                 unhoverMenu(SetBtn);
