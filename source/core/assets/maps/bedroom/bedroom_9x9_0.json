@@ -20,7 +20,7 @@
     b: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookcase1.png, 0, 0, 0]
+      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
     }
     d: {
       class: com.deco2800.game.entities.factories.ObjectFactory
