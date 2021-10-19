@@ -72,7 +72,6 @@ public class ObjectFactory {
     Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
-    System.out.printf("DRINK CREATED with id %s\n", energyDrink);
     return energyDrink;
   }
 
