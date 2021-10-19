@@ -35,12 +35,14 @@ import java.util.Objects;
  * Holds raw data for room allocation and non-room object generation.
  */
 public class Floor extends GameArea implements Json.Serializable {
+
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
 
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
-    // Defined from deserialization or constructor injection
+    private Entity mum = null;
+    // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
     private ObjectMap<Character, GridObject> tileMap;
@@ -121,6 +123,7 @@ public class Floor extends GameArea implements Json.Serializable {
                 }
             }
         }
+
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
@@ -157,6 +160,7 @@ public class Floor extends GameArea implements Json.Serializable {
         spawnPlayer();
         spawnBorders();
         spawnCat();
+        spawnMum();
     }
 
     /**
@@ -247,6 +251,18 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
         spawnEntityAt(cat, new GridPoint2(20,20), true, true);
+    }
+
+    /**
+     * Spawns the mum into the game
+     */
+    private void spawnMum(){
+        String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
+        ServiceLocator.getResourceService().loadAll();
+        mum = NPCFactory.createMum(mumAssets);
+        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+
     }
 
     public GridObject getDefaultInteriorTile() {

@@ -4,7 +4,10 @@ import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.SingleUse;
+import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
+import com.deco2800.game.entities.components.CombatStatsComponent;
+
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
@@ -30,8 +33,12 @@ public class DrinkActions extends InteractionComponent {
             String string = "You drank a can of Dountain Mew. Yum!";
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
+            target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
+            target.getComponent(CombatStatsComponent.class).changeStamina(501);
+            target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
             //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.DRINK);
+            target.getEvents().trigger(updateAnimation, "standing_south_buffed");
         }
     }
 
@@ -46,24 +53,3 @@ public class DrinkActions extends InteractionComponent {
         }
     }
 }
-
-// You should use update() to do time-related tasks instead
-
-/*
-class DrinkTimerTask extends TimerTask{
-
-    private Entity target;
-
-    private static final Logger logger = LoggerFactory.getLogger(DrinkTimerTask.class);
-
-    public DrinkTimerTask(Entity target){
-        this.target = target;
-        logger.info("TimerTask for DrinkActions created, task will run in 10 seconds");
-    }
-
-    @Override
-    public void run() {
-        target.getEvents().trigger("energyDrinkEnd");
-        logger.info("TimerTask for Drink item executed, modifying player speed");
-    }
-}*/

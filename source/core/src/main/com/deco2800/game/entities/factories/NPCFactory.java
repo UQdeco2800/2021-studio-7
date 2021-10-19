@@ -10,6 +10,8 @@ import com.deco2800.game.entities.components.npc.MumActions;
 import com.deco2800.game.entities.components.object.CatActions;
 import com.deco2800.game.ai.tasks.ChaseTask;
 import com.deco2800.game.ai.tasks.WanderTask;
+import com.deco2800.game.ai.tasks.MumWaitTask;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.MumConfig;
 import com.deco2800.game.entities.configs.CatConfig;
@@ -48,16 +50,31 @@ public class NPCFactory {
    */
   public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-    return createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+    Entity target = ServiceLocator.getHome().getActiveFloor().getPlayer();
+
+    Entity mum = createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
+     //Set AI tasks
+    mum.addComponent(new AITaskComponent()
+            .addTask(new MumWaitTask())
+            .addTask(new ChaseTask(target, 10, 5f, 8f)));
+    mum.setScale(0.9f,0.9f);
+    return mum;
   }
 
   public static Entity createCat(String[] assets) {
     CatConfig config = configs.cat;
+    Entity player = ServiceLocator.getHome().getActiveFloor().getPlayer();
     Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new CatActions());
+
+    //Set AI tasks
+    cat.addComponent(new AITaskComponent()
+            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
+            .addTask(new ChaseTask(player, 10, 0.5f, 1f)));
+    cat.getComponent(PhysicsMovementComponent.class).setTwoDCharacter();
     cat.setScale(0.8f,0.8f);
     return cat;
   }
@@ -78,10 +95,7 @@ public class NPCFactory {
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.NPC));
     PhysicsUtils.setScaledCollider(npc, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(npc, 1.1f, 1.1f);
-    // Set npc to have base AI component
-    npc.addComponent(new AITaskComponent()
-            .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(target, 10, 3f, 4f)));
+
     // Set npc to have a base render component
     ResourceService resourceService = ServiceLocator.getResourceService();
     if (assets[0].endsWith(".atlas")) {
