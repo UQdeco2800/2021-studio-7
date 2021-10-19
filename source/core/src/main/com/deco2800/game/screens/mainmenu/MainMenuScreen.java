@@ -71,15 +71,8 @@ public class MainMenuScreen extends ScreenAdapter {
    * @param button button pressed
    */
   public static void playButtonSound(String button) {
-
-    Sound sound;
-    if (button.equals("enter")) {
-      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
-    } else {
-      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
-    }
+    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
     sound.play();
-
     logger.info(button + "button sound played");
   }
 

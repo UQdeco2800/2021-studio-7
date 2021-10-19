@@ -45,7 +45,10 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] pauseGameTextures = {
           "images/ui/screens/paused_screen.png"
   };
-  private static final String[] buttonSounds = {"sounds/confirm.ogg"};
+  private static final String[] buttonSounds = {
+          "sounds/confirm.ogg",
+          "sounds/browse-short.ogg"
+  };
 
   private final Renderer renderer;
   private final Renderer miniMapRenderer;
@@ -102,7 +105,8 @@ public class MainGameScreen extends ScreenAdapter {
     player = home.getActiveFloor().getPlayer();
     //playMusic();
 
-    playButtonSound();
+    // play enter sound after entering from context screen
+    playButtonSound("enter");
   }
 
   @Override
@@ -124,12 +128,14 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    playButtonSound("pause");
     gamePaused = true;
   }
 
   @Override
   public void resume() {
     logger.info("Game resumed");
+    playButtonSound("enter");
     gamePaused = false;
   }
 
@@ -176,8 +182,15 @@ public class MainGameScreen extends ScreenAdapter {
 //    music.play();
 //  }
 
-  public void playButtonSound() {
-    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+  public void playButtonSound(String button) {
+    Sound sound;
+
+    if (button.equals("enter")) {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+    } else {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    }
+
     sound.play();
     logger.info("enter button sound played on main game screen launch");
   }

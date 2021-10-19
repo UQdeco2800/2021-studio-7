@@ -363,12 +363,10 @@ public class MainMenuDisplay extends UIComponent {
                 hoverMenu(CharBtn);
                 break;*/
         }
-//        MainMenuScreen.playButtonSound("browse");
     }
 
     public static void pressMenu() {
         logger.info("Enter key is pressed");
-        MainMenuScreen.playButtonSound("enter");
         switch (menuIndex) {
             case 0: //Start Button
                 TextButton startBtn = buttons.get(0);
