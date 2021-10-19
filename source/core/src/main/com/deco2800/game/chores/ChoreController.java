@@ -72,7 +72,13 @@ public class ChoreController {
      */
     private void scaleChores() {
         // How many chores we want to keep
-        int numChores = 2 * level + 2;
+        int numChores;
+        if (level < 3) {
+            numChores = 0;
+        } else {
+            numChores = 2 * level - 2; // 0, 0, 4, 6, 8...
+        }
+
 
         if (chores.size() <= numChores) {
             // We have the correct number of chores already
