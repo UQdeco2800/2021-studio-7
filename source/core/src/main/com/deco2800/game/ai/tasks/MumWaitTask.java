@@ -28,7 +28,7 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
         super.start();
         startPos = owner.getEntity().getPosition();
 
-        waitTask = new WaitTask(60);
+        waitTask = new WaitTask(1);
         waitTask.create(owner);
 
         movementTask = new MovementTask(new Vector2(20f,-1.5f));
@@ -42,6 +42,7 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
         if (currentTask.getStatus() != Status.ACTIVE) {
             if (currentTask == waitTask) {
                 startMoving();
+                this.priority = -1; //Change priority to now chase.
             }
         }
         currentTask.update();
