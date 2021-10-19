@@ -21,6 +21,7 @@ public class PlayerActions extends Component {
   private Vector2 walkDirection = Vector2.Zero.cpy();
   private boolean moving = false;
   private boolean running = false;
+  private boolean energydrinkconsumed =false;
 
   @Override
   public void create() {
@@ -47,9 +48,17 @@ public class PlayerActions extends Component {
   private void updateSpeed() {
     // increase speed when running, only when there is stamina left
     if (running && combatStatsComponent.getStamina() > 0) {
-      MAX_SPEED.set(6f, 6f); //TODO adjust running speed
+      if(energydrinkconsumed){
+        MAX_SPEED.set(5f,5f);
+      }else {
+        MAX_SPEED.set(4f, 4f); //TODO adjust running speed
+      }
     } else {
-      MAX_SPEED.set(3f, 3f);
+      if(energydrinkconsumed){
+        MAX_SPEED.set(3f,3f);
+      }else {
+        MAX_SPEED.set(2f, 2f);
+      }
     } Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
     Vector2 desiredVelocity = walkDirection.cpy().scl(MAX_SPEED);
@@ -103,5 +112,13 @@ public class PlayerActions extends Component {
    */
   void stopRunning() {
     running = false;
+  }
+
+  public void toggleEnergyDrinkConsumed(){
+    if (this.energydrinkconsumed == true){
+      this.energydrinkconsumed = false;
+    }else{
+      this.energydrinkconsumed=true;
+    }
   }
 }

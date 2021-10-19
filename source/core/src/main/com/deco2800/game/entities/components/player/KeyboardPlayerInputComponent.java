@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
+
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
@@ -19,7 +20,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
     private boolean buffed = false;
-
     public KeyboardPlayerInputComponent() {
         super(5);
     }
@@ -100,22 +100,22 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Keys.W:
-                walkDirection.sub(Vector2Utils.UP);
+                setWalkDirection(Vector2Utils.UP);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.A:
-                walkDirection.sub(Vector2Utils.LEFT);
+                setWalkDirection(Vector2Utils.LEFT);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.S:
-                walkDirection.sub(Vector2Utils.DOWN);
+                setWalkDirection(Vector2Utils.DOWN);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.D:
-                walkDirection.sub(Vector2Utils.RIGHT);
+                setWalkDirection(Vector2Utils.RIGHT);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
@@ -300,6 +300,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         } else {
             String animation = direction + "_normal";
             entity.getEvents().trigger("update_animation", animation);
+        }
+    }
+
+
+
+    public void setWalkDirection(Vector2 direction) {
+        if (this.buffed) {
+            //Vector2 x = direction.sub(direction);
+            walkDirection.sub(direction);
+        } else {
+            walkDirection.sub(direction);
         }
     }
 
