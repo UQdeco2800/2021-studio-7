@@ -22,6 +22,8 @@ import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.rendering.components.TextureRenderComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Factory to create obstacle entities.
@@ -30,6 +32,8 @@ import com.deco2800.game.rendering.components.TextureRenderComponent;
  */
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
 public class ObjectFactory {
+
+  private static final Logger logger = LoggerFactory.getLogger(ObjectFactory.class);
 
   public static Entity createWall(String[] assets) {
     final float wallScale = 1f;
@@ -171,7 +175,7 @@ public class ObjectFactory {
    * @param bodyType Static, kinematic or dynamic body type
    * @param object The ChoreList ID of this object
    * @return The new entity of this obstacle
-   */
+   **/
   public static Entity createBaseChore(String[] assets, BodyType bodyType, ChoreList object) {
     Entity entity = createBaseInteractable(assets, bodyType);
     ServiceLocator.getChoreController().addChore(entity, object);
