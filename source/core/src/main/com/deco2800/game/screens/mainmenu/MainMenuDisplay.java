@@ -185,10 +185,6 @@ public class MainMenuDisplay extends UIComponent {
     tableMain.add(tableRight).expandY().fillY().fill();
     stage.addActor(tableMain);
 
-    //stage.setDebugAll(true);
-
-
-    stage.setDebugAll(true);
     updateMenuFrame();
     menuIndicator.setTouchable(Touchable.disabled);
     stage.addActor(menuIndicator);
