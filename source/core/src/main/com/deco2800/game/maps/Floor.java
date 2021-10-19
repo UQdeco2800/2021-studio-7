@@ -37,6 +37,7 @@ public class Floor extends GameArea implements Json.Serializable {
     private OrthographicCamera miniMapCamera;
     private Entity player = null;
     private Entity cat = null;
+    private Entity mum = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -134,6 +135,7 @@ public class Floor extends GameArea implements Json.Serializable {
         spawnPlayer();
         spawnBorders();
         spawnCat();
+        spwanMum();
     }
 
     /**
@@ -197,6 +199,16 @@ public class Floor extends GameArea implements Json.Serializable {
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
         spawnEntityAt(cat, new GridPoint2(20,20), true, true);
+    }
+
+
+    private void spwanMum(){
+        String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
+        ServiceLocator.getResourceService().loadAll();
+        mum = NPCFactory.createMum(mumAssets);
+        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+
     }
 
     /**
