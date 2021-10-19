@@ -168,6 +168,20 @@ public class ObjectFactory {
     return bin;
   }
 
+  public static Entity createPottedPlant(String[] assets) {
+    Entity plant = createBaseObject(assets, BodyType.StaticBody);
+    plant.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(plant, 0.5f, 0.5f);
+    return plant;
+  }
+
+  public static Entity createShelf(String[] assets) {
+    Entity shelf = createBaseObject(assets, BodyType.StaticBody);
+    shelf.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(shelf, 0.5f, 0.5f);
+    return shelf;
+  }
+
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
    * @param assets the image and atlas assets of this object

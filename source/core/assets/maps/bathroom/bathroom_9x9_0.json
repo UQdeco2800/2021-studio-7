@@ -28,6 +28,16 @@
       assets: [images/objects/furniture/bath_bin.png]
     }
     t: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPottedPlant,
+      assets: [images/objects/furniture/pot_plant.png]
+    },
+    S: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createShelf,
+      assets: [images/objects/furniture/shelf1_southeast.png]
+    },
+    P: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/furniture/toilet_southeast.png]
@@ -50,9 +60,9 @@
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W, W],
-    [W, ., ., B, ., ., ., ., .],
+    [W, S, ., B, ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
-    [W, t, ., p, ., ., ., ., .],
+    [W, t, ., p, ., ., ., P, .],
     [W, s, ., ., ., ., ., ., .],
     [W, b, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
