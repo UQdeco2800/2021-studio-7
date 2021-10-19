@@ -63,9 +63,6 @@ public class ContextScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            ContextScreenDisplay.playButton();
-        }
     }
 
     @Override

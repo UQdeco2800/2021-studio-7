@@ -29,7 +29,9 @@ public class MainMenuScreen extends ScreenAdapter {
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png",
-          "images/main_menu/bgart.png"
+          "images/main_menu/bgart.png",
+          "images/main_menu/pointer-R-inactive.png",
+          "images/main_menu/pointer-L-inactive.png"
   };
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-EP" +
@@ -73,29 +75,20 @@ public class MainMenuScreen extends ScreenAdapter {
   public static void playButtonSound(String button) {
     Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
     sound.play();
-    logger.info(button + "button sound played");
+    logger.info(button + " button sound played");
   }
 
   @Override
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
-
-    if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-        MainMenuDisplay.moveUp();
-    }
-    if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-      MainMenuDisplay.moveDown();
-    }
-    if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-      MainMenuDisplay.pressMenu();
-    }
   }
 
   @Override
   public void resize(int width, int height) {
     renderer.resize(width, height);
     logger.trace("Resized renderer: ({} x {})", width, height);
+
   }
 
   @Override
@@ -149,7 +142,7 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
-    //Gdx.input.setInputProcessor(new MenuInputProcessor());
+    Gdx.input.setInputProcessor(new MenuInputProcessor());
   }
 
   /**

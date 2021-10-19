@@ -47,11 +47,6 @@ public class LeaderBoardScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) ||
-                Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            LeaderBoardDisplay.exitLB();
-        }
     }
 
     @Override
@@ -79,7 +74,7 @@ public class LeaderBoardScreen extends ScreenAdapter {
         ui.addComponent(new LeaderBoardDisplay(game))
                 .addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
-        //Gdx.input.setInputProcessor(new LeadBdInputProcessor());
+        Gdx.input.setInputProcessor(new LeadBdInputProcessor());
     }
 
     private void loadAssets() {
