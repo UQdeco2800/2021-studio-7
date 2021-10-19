@@ -1,284 +1,264 @@
+
 cat_00.png
-size: 1920, 1000
+size: 2048, 1024
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest, Nearest
 repeat: none
 licking
   rotate: false
-  xy: 0, 0
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 0
-licking
-  rotate: false
-  xy: 240, 0
+  xy: 244, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
 licking
   rotate: false
-  xy: 480, 0
+  xy: 244, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: 2
+  index: 3
 licking
   rotate: false
-  xy: 720, 0
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 3
-lying_east
-  rotate: false
-  xy: 960, 0
+  xy: 728, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
-lying_east
+licking
   rotate: false
-  xy: 1200, 0
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 1
-lying_east
-  rotate: false
-  xy: 1440, 0
+  xy: 1454, 608
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
 lying_east
   rotate: false
-  xy: 1680, 0
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 3
-lying_west
-  rotate: false
-  xy: 0, 200
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 0
-lying_west
-  rotate: false
-  xy: 240, 200
+  xy: 244, 608
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-lying_west
+lying_east
   rotate: false
-  xy: 480, 200
+  xy: 728, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 3
+lying_east
+  rotate: false
+  xy: 970, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+lying_east
+  rotate: false
+  xy: 970, 2
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
 lying_west
   rotate: false
-  xy: 720, 200
+  xy: 2, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+lying_west
+  rotate: false
+  xy: 486, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+lying_west
+  rotate: false
+  xy: 1696, 608
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 3
-sitting
+lying_west
   rotate: false
-  xy: 960, 200
+  xy: 1696, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 sitting
   rotate: false
-  xy: 1200, 200
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 1
-sitting
-  rotate: false
-  xy: 1440, 200
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 2
-sitting
-  rotate: false
-  xy: 1680, 200
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 3
-sleeping_east
-  rotate: false
-  xy: 0, 400
+  xy: 1212, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 sleeping_east
   rotate: false
-  xy: 240, 400
+  xy: 486, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
-sleeping_west
+sleeping_east
   rotate: false
-  xy: 480, 400
+  xy: 1212, 2
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 sleeping_west
   rotate: false
-  xy: 720, 400
+  xy: 728, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+sleeping_west
+  rotate: false
+  xy: 1454, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
 standing_east
   rotate: false
-  xy: 960, 400
+  xy: 486, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: 3
+  index: 1
 standing_east
   rotate: false
-  xy: 1200, 400
+  xy: 1212, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 standing_east
   rotate: false
-  xy: 1440, 400
+  xy: 728, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: 1
+  index: -1
 standing_east
   rotate: false
-  xy: 1680, 400
+  xy: 1212, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
 standing_north
   rotate: false
-  xy: 0, 600
+  xy: 970, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
 standing_south
   rotate: false
-  xy: 240, 600
+  xy: 244, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
 standing_west
   rotate: false
-  xy: 480, 600
+  xy: 1212, 608
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: -1
 stretching_east
   rotate: false
-  xy: 720, 600
+  xy: 486, 608
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: 0
+  index: 1
 stretching_east
   rotate: false
-  xy: 960, 600
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 1
-stretching_west
-  rotate: false
-  xy: 1200, 600
+  xy: 1454, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 stretching_west
   rotate: false
-  xy: 1440, 600
+  xy: 2, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+stretching_west
+  rotate: false
+  xy: 970, 204
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
 walking_north
   rotate: false
-  xy: 1680, 600
+  xy: 2, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 0
 walking_north
   rotate: false
-  xy: 0, 800
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 1
-walking_north
-  rotate: false
-  xy: 240, 800
+  xy: 486, 406
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
-walking_south
+walking_north
   rotate: false
-  xy: 480, 800
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 0
-walking_south
-  rotate: false
-  xy: 720, 800
+  xy: 1696, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
 walking_south
   rotate: false
-  xy: 960, 800
+  xy: 970, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+walking_south
+  rotate: false
+  xy: 1454, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+walking_south
+  rotate: false
+  xy: 1454, 2
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 2
 walking_west
   rotate: false
-  xy: 1200, 800
-  size: 240, 200
-  orig: 240, 200
-  offset: 0, 0
-  index: 0
-walking_west
-  rotate: false
-  xy: 1440, 800
+  xy: 2, 810
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
   index: 1
 walking_west
   rotate: false
-  xy: 1680, 800
+  xy: 244, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+walking_west
+  rotate: false
+  xy: 728, 2
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
