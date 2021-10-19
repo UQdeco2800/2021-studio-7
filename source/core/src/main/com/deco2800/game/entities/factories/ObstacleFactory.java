@@ -10,6 +10,8 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.Actions.BananaPeelActions;
 import com.deco2800.game.entities.components.interactions.Actions.BedActions;
 import com.deco2800.game.entities.components.interactions.Actions.DrinkActions;
+import com.deco2800.game.entities.components.interactions.Actions.HorizontalDoorActions;
+import com.deco2800.game.entities.components.interactions.Actions.VerticalDoorActions;
 import com.deco2800.game.entities.components.interactions.Actions.TvActions;
 import com.deco2800.game.entities.components.interactions.Actions.PlaceableBoxActions;
 import com.deco2800.game.entities.components.interactions.SingleUse;
@@ -48,11 +50,17 @@ public class ObstacleFactory {
     return bed;
   }
 
-  public static Entity createDoor(String[] assets) {
-//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-//            .addComponent(new DoorActions());
-    Entity door = new Entity();
-    return door;
+  public static Entity createHorizontalDoor(String[] assets) {
+    Entity horizontalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new HorizontalDoorActions());
+    //Entity horizontalDoor = new Entity();
+    return horizontalDoor;
+  }
+  public static Entity createVerticalDoor(String[] assets) {
+    Entity verticalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new VerticalDoorActions());
+    //Entity verticalDoor = new Entity();
+    return verticalDoor;
   }
 
   public static Entity createPlaceableBox(String[] assets) {
