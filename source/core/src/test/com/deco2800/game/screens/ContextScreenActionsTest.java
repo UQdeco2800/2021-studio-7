@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
-public class ContextScreenActionsTest {
+class ContextScreenActionsTest {
 
     /**
      * Tests whether the play Game function is working by changing the game screen.
