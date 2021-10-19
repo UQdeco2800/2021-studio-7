@@ -10,37 +10,32 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     }
     T: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createTv
-      assets: [images/objects/tv/TV_animation.atlas]
+      assets: [images/objects/tv/TV_animation.atlas, 0, 1, 1]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookshelf_new_southeast.png]
+      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
     }
     L: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createLounge
-      assets: [images/objects/stopgap/couch_right_rear.png]
+      assets: [images/objects/stopgap/couch_right_rear.png, 0, 0, 0]
     }
     l: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createLamp
-      assets: [images/objects/stopgap/lamp.png]
+      assets: [images/objects/stopgap/lamp.png, 0, 0, 0]
     }
-//    C: {
-//      class: com.deco2800.game.entities.factories.ObjectFactory
-//      method: createCoffeeTable
-//      assets: [images/objects/furniture/coffee_table_right.png]
-//    }
     E: {
       class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createEnergyDrink
-      assets: [images/objects/energy_drink/energy.atlas]
+      method: createBaseChore
+      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
     }
   }
   tileGrid: [
@@ -58,7 +53,7 @@
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, B, ., ., ., T, ., ., ., ., ., .],
     [W, B, ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., E, ., C, ., ., ., ., ., .],
+    [W, ., ., E, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., E, ., ., .],
     [W, ., ., l, ., L, ., ., ., ., ., .],

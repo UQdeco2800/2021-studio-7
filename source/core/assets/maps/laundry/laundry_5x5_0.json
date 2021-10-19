@@ -10,7 +10,7 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png, 0]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     }
   }
   tileGrid: [

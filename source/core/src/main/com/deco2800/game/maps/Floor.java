@@ -227,17 +227,18 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns border walls into the world. These borders outline the map given by the floor grid
      */
     private void spawnBorders() {
+        String[] boarderspec = {"", "0"};
         // Spawns north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
         }
         // Spawns east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }

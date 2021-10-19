@@ -10,7 +10,7 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png, 0]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
@@ -40,7 +40,7 @@
     p: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
-      assets: [images/objects/furniture/pet-met.png, 2, 0, 0]
+      assets: [images/objects/furniture/pet-met.png, 0, 0, 0]
     }
   }
   tileGrid: [
