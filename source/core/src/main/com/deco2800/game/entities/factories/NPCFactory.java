@@ -74,6 +74,7 @@ public class NPCFactory {
     cat.addComponent(new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
             .addTask(new ChaseTask(player, 10, 0.2f, 1f)));
+    cat.getComponent(PhysicsMovementComponent.class).setTwoDCharacter();
     cat.setScale(0.8f,0.8f);
     return cat;
   }
