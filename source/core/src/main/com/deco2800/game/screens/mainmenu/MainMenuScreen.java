@@ -1,10 +1,8 @@
 package com.deco2800.game.screens.mainmenu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -36,6 +34,11 @@ public class MainMenuScreen extends ScreenAdapter {
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-EP" +
           ".mp3"};
 
+  private static final String[] buttonSounds = {
+          "sounds/confirm-shorter.ogg",
+          "sounds/browse-short.ogg"
+  };
+
   public MainMenuScreen() {
     logger.debug("Initialising main menu screen services");
     ServiceLocator.registerInputService(new InputService());
@@ -44,7 +47,6 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.registerRenderService(new RenderService());
 
     renderer = RenderFactory.createRenderer();
-
 
     loadAssets();
     createUI();
@@ -62,6 +64,24 @@ public class MainMenuScreen extends ScreenAdapter {
     music.setVolume(0.01f);
     music.play();
   }
+
+  /**
+   * Play button sounds
+   * @param button button pressed
+   */
+  public static void playButtonSound(String button) {
+
+    Sound sound;
+    if (button.equals("enter")) {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+    } else {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    }
+    sound.play();
+
+    logger.info(button + "button sound played");
+  }
+
   @Override
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
@@ -111,6 +131,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
     resourceService.loadMusic(backgroundMusic);
+    resourceService.loadSounds(buttonSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -119,6 +140,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
     resourceService.unloadAssets(backgroundMusic);
+    resourceService.unloadAssets(buttonSounds);
   }
 
   /**

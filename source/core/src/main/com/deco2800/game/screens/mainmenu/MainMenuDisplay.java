@@ -300,6 +300,8 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public static void updateMenuFrame() {
+        MainMenuScreen.playButtonSound("browse");
+
         TextButton startBtn = buttons.get(0);
         TextButton LeadBtn = buttons.get(1);
         TextButton SetBtn = buttons.get(2);
@@ -356,10 +358,12 @@ public class MainMenuDisplay extends UIComponent {
                 hoverMenu(CharBtn);
                 break;*/
         }
+//        MainMenuScreen.playButtonSound("browse");
     }
 
     public static void pressMenu() {
         logger.info("Enter key is pressed");
+        MainMenuScreen.playButtonSound("enter");
         switch (menuIndex) {
             case 0: //Start Button
                 TextButton startBtn = buttons.get(0);
