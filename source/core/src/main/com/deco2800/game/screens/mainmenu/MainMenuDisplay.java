@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
@@ -34,7 +35,9 @@ public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
   private static TextField txtUsername;
-  private Table table;
+  private Table tableMain;
+  private Table tableLeft;
+  private Table tableRight;
   private String playablecharcters[] = {
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
@@ -62,18 +65,27 @@ public class MainMenuDisplay extends UIComponent {
 
   private void addActors() {
 
-    table = new Table();
-    table.setFillParent(true);
+    tableLeft = new Table();
+    tableRight = new Table();
+    tableMain = new Table();
+
+    tableMain.setFillParent(true);
+
     Image title =
         new Image(
             ServiceLocator.getResourceService()
                 .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
 
+    title.setAlign(Align.center);
+
     writeAtlas(); //Stores copy of the first character
 
     TextButton startBtn = new TextButton("Start", skin);
+    startBtn.setTransform(true);
     buttons.add(startBtn);
     TextButton leaderboardBtn = new TextButton("LeaderBoard", skin);
+    leaderboardBtn.setTransform(true);
+    leaderboardBtn.setSize(2f, 2f);
     buttons.add(leaderboardBtn);
     TextButton settingsBtn = new TextButton("Settings", skin);
     buttons.add(settingsBtn);
@@ -142,23 +154,26 @@ public class MainMenuDisplay extends UIComponent {
                 }
             });
 
+    tableLeft.add(startBtn).align(Align.center);
+    tableLeft.row();
+    tableLeft.add(leaderboardBtn).padTop(50f);
+    tableLeft.row();
+    tableLeft.add(settingsBtn).padTop(50f);
+    tableLeft.row();
+    tableLeft.add(exitBtn).padTop(50f);
+    tableLeft.row();
 
-    table.add(title);
-    table.row();
-    table.add(startBtn).padTop(15f);
-    table.row();
-    table.add(leaderboardBtn).padTop(15f);
-    table.row();
-    table.add(settingsBtn).padTop(15f);
-    table.row();
-    table.add(exitBtn).padTop(15f);
-    table.row();
-    table.add(txtUsername).padTop(50f);
-    table.row();
-    table.add(character).padTop(20f);
-    table.row();
-    table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
-    stage.addActor(table);
+    tableRight.add(character);
+    tableRight.row();
+    tableRight.add(changeCharacterBtn).padTop(10f).padBottom(20f);
+    tableRight.row();
+
+    tableMain.add(title).colspan(2);
+    tableMain.row();
+    tableMain.add(tableLeft).expandY().fillY().fillX();
+    tableMain.add(tableRight).expandY().fillY().fill();
+    stage.addActor(tableMain);
+    stage.setDebugAll(true);
 
     updateMenuFrame();
     menuIndicator.setTouchable(Touchable.disabled);
@@ -179,7 +194,7 @@ public class MainMenuDisplay extends UIComponent {
 
   @Override
   public void dispose() {
-    table.clear();
+    tableMain.clear();
     super.dispose();
   }
 
@@ -324,7 +339,7 @@ public class MainMenuDisplay extends UIComponent {
                 hoverMenu(ExitBtn);
                 unhoverMenu(CharBtn);
                 break;
-            case 4: // Enter Username
+            /*case 4: // Enter Username
                 menuIndicator.setPosition(500f,202);
                 unhoverMenu(startBtn);
                 unhoverMenu(LeadBtn);
@@ -339,7 +354,7 @@ public class MainMenuDisplay extends UIComponent {
                 unhoverMenu(SetBtn);
                 unhoverMenu(ExitBtn);
                 hoverMenu(CharBtn);
-                break;
+                break;*/
         }
     }
 
