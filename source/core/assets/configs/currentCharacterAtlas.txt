@@ -1,1 +1,1 @@
-images/characters/boy_01/boy_01.atlas
+images/characters/boy_00/boy_00.atlas

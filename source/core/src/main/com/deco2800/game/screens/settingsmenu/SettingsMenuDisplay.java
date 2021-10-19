@@ -156,14 +156,14 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   private Table makeMenuBtns() {
-    TextButton exitBtn = new TextButton("Exit", skin);
-    exitBtn.getLabel().setColor(0, 0,0, 1f);
+    TextButton exitBtn1 = new TextButton("Exit", skin);
+    exitBtn1.getLabel().setColor(0, 0,0, 1f);
     TextButton applyBtn = new TextButton("Apply", skin);
     applyBtn.getLabel().setColor(0, 0,0, 1f);
 
-    buttons.add(exitBtn);
+    buttons.add(exitBtn1);
     buttons.add(applyBtn);
-    exitBtn.addListener(
+    exitBtn1.addListener(
             new ChangeListener() {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -182,7 +182,7 @@ public class SettingsMenuDisplay extends UIComponent {
             });
 
     Table table = new Table();
-    table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
+    table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
     table.add(applyBtn).expandX().right().pad(0f, 0f, 15f, 15f);
     return table;
   }
