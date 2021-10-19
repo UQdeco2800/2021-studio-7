@@ -30,7 +30,8 @@ public class MainMenuScreen extends ScreenAdapter {
           "images/ui/title/RETROACTIVE-large.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
-          "images/characters/boy_00/boy_00_menu_preview.png"
+          "images/characters/boy_00/boy_00_menu_preview.png",
+          "images/main_menu/bgart.png"
   };
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-EP" +
