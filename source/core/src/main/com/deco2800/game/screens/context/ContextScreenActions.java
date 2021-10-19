@@ -15,13 +15,13 @@ public class ContextScreenActions extends Component {
 
     @Override
     public void create() {
-        entity.getEvents().addListener("play_game", this::playGame);
+        //
     }
 
     /**
      * Swaps to the Main Game Screen.
      */
-    public void playGame() {
+    public static void playGame() {
         logger.info("Exiting context screen...");
         logger.info("Swapping to main game screen...");
         ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);

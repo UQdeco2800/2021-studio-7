@@ -14,7 +14,8 @@ public class ContextInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.ENTER:
-                ContextScreenDisplay.playButton();
+                //ContextScreenDisplay.playButton();
+                ContextScreenActions.playGame();
                 logger.info("Enter Key Pressed");
                 break;
         }
