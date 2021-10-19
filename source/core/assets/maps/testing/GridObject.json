@@ -1,5 +1,0 @@
-{
-  class: com.deco2800.game.maps.terrain.TerrainFactory
-  method: createBaseTile
-  assets: [images/tiles/iso/iso_wall_1_left.png]
-}
