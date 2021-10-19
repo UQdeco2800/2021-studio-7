@@ -20,6 +20,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private int currentDirection = 0;
   public boolean twoDCharacter = false;
 
+
   @Override
   public void create() {
     physicsComponent = entity.getComponent(PhysicsComponent.class);
@@ -87,11 +88,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     Vector2 velocity = body.getLinearVelocity();
     //System.out.println(velocity);
     if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1){
-      if(this.twoDCharacter){
-        standingEventsTwoD();
-      }  else {
-        standingEvents();
-      }
+        if(twoDCharacter ==false){standingEvents();}
     }
     Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -155,18 +152,15 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     if (lastDirection == 0) {
       entity.getEvents().trigger("update_animation", "standing_north");
-      entity.getEvents().trigger("update_animation", "licking");
 
     } else if (lastDirection == 1) {
       entity.getEvents().trigger("update_animation", "standing_east");
-      entity.getEvents().trigger("update_animation", "sleeping_east");
 
     } else if (lastDirection == 2) {
       entity.getEvents().trigger("update_animation", "standing_south");
 
     } else if (lastDirection == 3) {
       entity.getEvents().trigger("update_animation", "standing_west");
-      entity.getEvents().trigger("update_animation", "sitting");
 
     } else if (lastDirection ==4 ) {
       entity.getEvents().trigger("update_animation", "standing_northeast");
@@ -256,22 +250,33 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     getcurrentDirectionCodeTwoD();
 
-    if (lastDirection != currentDirection) {
-      if (x < 0.5 && x > -0.5 && y > 0) {
-        entity.getEvents().trigger("update_animation", "walking_north");
-        lastDirection = 0;
-      } else if (x > 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("update_animation", "standing_east");
-        lastDirection = 1;
-      } else if (x < 0.5 && x > -0.5 && y < 0) {
-        entity.getEvents().trigger("update_animation", "walking_south");
-        lastDirection = 2;
-      } else if (x < 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger("update_animation", "walking_west");
-        lastDirection = 3;
+    Body body = physicsComponent.getBody();
+    Vector2 velocity = body.getLinearVelocity();
+    System.out.println(velocity);
+    System.out.println(twoDCharacter);
+    if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1) {
+      standingEventsTwoD();
+      System.out.println("Played low velocity");
+    } else {
+      if (lastDirection != currentDirection) {
+        if (x < 0.5 && x > -0.5 && y > 0) {
+          entity.getEvents().trigger("update_animation", "walking_north");
+          lastDirection = 0;
+        } else if (x > 0 && y < 0.5 && y > -0.5) {
+          entity.getEvents().trigger("update_animation", "standing_east");
+          lastDirection = 1;
+        } else if (x < 0.5 && x > -0.5 && y < 0) {
+          entity.getEvents().trigger("update_animation", "walking_south");
+          lastDirection = 2;
+        } else if (x < 0 && y < 0.5 && y > -0.5) {
+          entity.getEvents().trigger("update_animation", "walking_west");
+          lastDirection = 3;
+        }
       }
     }
-  }
+
+    }
+
 
   /**
    * If the cat is standing still, this function triggers a standing event in the last direction.
@@ -281,17 +286,17 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     float x = entityDirection.x;
     float y = entityDirection.y;
 
-    if (lastDirection == 0) {
-      entity.getEvents().trigger("update_animation", "licking");
+    if (lastDirection == 0) {//NORTH
+      entity.getEvents().trigger("update_animation", "standing_north");
 
-    } else if (lastDirection == 1) {
+    } else if (lastDirection == 1) {//EAST
       entity.getEvents().trigger("update_animation", "lying_east");
 
-    } else if (lastDirection == 2) {
+    } else if (lastDirection == 2) {//SOUTH
       entity.getEvents().trigger("update_animation", "standing_south");
 
-    } else if (lastDirection == 3) {
-      entity.getEvents().trigger("update_animation", "sitting");
+    } else if (lastDirection == 3) {//WEST
+      entity.getEvents().trigger("update_animation", "standing_west");
 
     }
   }
