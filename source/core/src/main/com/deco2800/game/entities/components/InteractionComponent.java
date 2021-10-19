@@ -83,4 +83,8 @@ public class InteractionComponent extends Component implements Interactable {
     public void toggleHighlight(boolean shouldHighlight) {
         // Subclasses should override to specify which textures to toggle
     }
+
+    public short getTargetLayer() {
+        return targetLayer;
+    }
 }
