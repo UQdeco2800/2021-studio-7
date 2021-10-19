@@ -17,13 +17,6 @@ public class SingleUse extends Component implements Disposable {
 
     public SingleUse(){}
 
-    /*
-    @Override
-    public void create(){
-        entity.getEvents().addListener("interaction",  this::remove);
-    }*/
-
-
     //Removes objects from map, but not from game
     public void remove(){
         ServiceLocator.getEntityService().scheduleEntityForRemoval(this.entity);
