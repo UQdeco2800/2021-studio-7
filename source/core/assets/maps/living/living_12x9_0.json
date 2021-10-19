@@ -36,8 +36,24 @@
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBaseChore
       assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
+    },
+    N: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createNintendo,
+      assets: [images/objects/furniture/Nintendo_southeast.png, 0, 0, 0]
+    },
+    C: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createCouchLarge,
+      assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
+    },
+    c: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createCouchSmall,
+      assets: [images/objects/furniture/sofa-small.png, 0, 0, 0]
     }
-  }
+
+  },
   tileGrid: [
     [., ., ., ., ., ., ., ., ., ., ., .],
     [., ., ., ., ., ., ., ., ., ., ., .],
@@ -52,9 +68,9 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, B, ., ., ., T, ., ., ., ., ., .],
-    [W, B, ., ., ., ., ., ., ., ., ., .],
+    [W, B, ., ., ., N, ., ., ., ., ., .],
     [W, ., ., E, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., c, C, c, ., ., ., ., .],
     [W, ., ., ., ., ., ., ., E, ., ., .],
     [W, ., ., l, ., L, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
