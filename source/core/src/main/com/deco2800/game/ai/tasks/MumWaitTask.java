@@ -28,7 +28,7 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
         super.start();
         startPos = owner.getEntity().getPosition();
 
-        waitTask = new WaitTask(1);
+        waitTask = new WaitTask(60);
         waitTask.create(owner);
 
         movementTask = new MovementTask(new Vector2(20f,-1.5f));

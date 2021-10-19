@@ -59,6 +59,7 @@ public class NPCFactory {
     mum.addComponent(new AITaskComponent()
             .addTask(new MumWaitTask())
             .addTask(new ChaseTask(target, 10, 3f, 4f)));
+    mum.setScale(0.9f,0.9f);
     return mum;
   }
 
