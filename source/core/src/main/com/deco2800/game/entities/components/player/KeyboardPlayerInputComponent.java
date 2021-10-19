@@ -18,6 +18,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
+    private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
         super(5);
@@ -138,46 +139,85 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         }
     }
 
+
     private void triggerWalkEvent() {
-        getcurrentDirectionCode();
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-            entity.getEvents().trigger("update_animation", "standing_south_normal");
+            if(lastDirection == 0){
+                this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
 
+            }else if(lastDirection == 1) {
+                    this.setAnimation("standing_east");
+                    //entity.getEvents().trigger("update_animation", "standing_east_normal");
+
+            }else if(lastDirection==2){
+                this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
+
+            }else if(lastDirection == 3){
+                this.setAnimation("standing_west");
+                //entity.getEvents().trigger("update_animation", "standing_west_normal");
+
+            }else if(lastDirection==4){
+                this.setAnimation("standing_northeast");
+                //entity.getEvents().trigger("update_animation", "standing_northeast_normal");
+
+            }else if(lastDirection == 5 ){
+                this.setAnimation("standing_northwest");
+                //entity.getEvents().trigger("update_animation", "standing_northwest_normal");
+
+            }else if(lastDirection == 6){
+                this.setAnimation("standing_southeast");
+                //entity.getEvents().trigger("update_animation", "standing_southeast_normal");
+
+            }else if(lastDirection == 7){
+                this.setAnimation("standing_southwest");
+                //entity.getEvents().trigger("update_animation", "standing_southwest_normal");
+
+            }else{
+                this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
+            }
         } else {
             if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_north_normal");
-                    lastDirection = 0;
+                    this.setAnimation("walking_north");
+                    //entity.getEvents().trigger("update_animation", "walking_north_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_east_normal");
-                    lastDirection = 1;
+                    this.setAnimation("walking_east");
+                    //entity.getEvents().trigger("update_animation", "walking_east_normal");
+
 
                 } else if (walkDirection.epsilonEquals(0, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_south_normal");
-                    lastDirection = 2;
+                    this.setAnimation("walking_south");
+                    //entity.getEvents().trigger("update_animation", "walking_south_normal");
+
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_west_normal");
-                    lastDirection = 3;
+                    this.setAnimation("walking_west");
+                    //entity.getEvents().trigger("update_animation", "walking_west_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northeast_normal");
-                    lastDirection = 4;
+                    this.setAnimation("walking_northeast");
+                    //entity.getEvents().trigger("update_animation", "walking_northeast_normal");
+
 
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northwest_normal");
-                    lastDirection = 5;
+                    this.setAnimation("walking_northwest");
+                    //entity.getEvents().trigger("update_animation", "walking_northwest_normal");
+
 
                 } else if (walkDirection.epsilonEquals(1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southeast_normal");
-                    lastDirection = 6;
+                    this.setAnimation("walking_southeast");
+                    //entity.getEvents().trigger("update_animation", "walking_southeast_normal");
+
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southwest_normal");
-                    lastDirection = 7;
+                    this.setAnimation("walking_southwest");
+                    //entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                 }
             }
         }
@@ -209,48 +249,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     /**
-     * Will asign an integer value to the direction. Directions are broken into compass quadrents.
-     * Where:
-     * 0 = North
-     * 1 = East
-     * 2 = South
-     * 3 = West
-     * 4 = NorthEast
-     * 5 = NorthWest
-     * 6 = SouthEast
-     * 7 = SouthWest
-     */
-    public void getcurrentDirectionCode() {
-        Vector2 entityDirection = walkDirection;
-        float x = entityDirection.x;
-        float y = entityDirection.y;
-
-        if (walkDirection.epsilonEquals(Vector2.Zero)) {
-            entity.getEvents().trigger("stop_walking");
-            currentDirection = -1;
-        } else {
-            entity.getEvents().trigger("walk", walkDirection);
-            if (walkDirection.epsilonEquals(0, 1)) {
-                currentDirection = 0;
-            } else if (walkDirection.epsilonEquals(1, 0)) {
-                currentDirection = 1;
-            } else if (walkDirection.epsilonEquals(0, -1) ) {
-                currentDirection = 2;
-            } else if (walkDirection.epsilonEquals(-1, 0)) {
-                currentDirection = 3;
-            } else if (walkDirection.epsilonEquals(1,1)) {
-                currentDirection = 4;
-            } else if (walkDirection.epsilonEquals(-1,1)) {
-                currentDirection = 5;
-            } else if (walkDirection.epsilonEquals(1,-1)) {
-                currentDirection = 6;
-            } else if (walkDirection.epsilonEquals(-1,-1)) {
-                currentDirection = 7;
-            }
-        }
-    }
-
-    /**
      * Function used to update the entities animations based upon the direction of movement.
      * Character will display the animation that tis within 45 degrees of the nearest compass direction.
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
@@ -264,32 +262,45 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         if (lastDirection != currentDirection) {
             if (x < 0.5 && x > -0.5 && y > 0) {
-                entity.getEvents().trigger("update_animation", "walking_north_normal");
                 lastDirection = 0;
+
             } else if (x > 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_east_normal");
                 lastDirection = 1;
+
             } else if (x < 0.5 && x > -0.5 && y < 0) {
-                entity.getEvents().trigger("update_animation", "walking_south_normal");
                 lastDirection = 2;
+
             } else if (x < 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_west_normal");
                 lastDirection = 3;
+
             } else if (x > 0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northeast_normal");
                 lastDirection = 4;
             } else if (x < -0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northwest_normal");
                 lastDirection = 5;
+
             } else if (x > 0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southeast_normal");
                 lastDirection = 6;
+
             } else if (x < -0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                 lastDirection = 7;
+
             }
-        }
+
+        }System.out.println(lastDirection);
+    }
+    public void setBuffed(){
+        this.buffed = true;
+        System.out.println(this.buffed);
     }
 
+    public void setAnimation(String direction) {
+        if (this.buffed == true) {
+            String animation = direction + "_buffed";
+            entity.getEvents().trigger("update_animation", animation);
+        } else {
+            String animation = direction + "_normal";
+            entity.getEvents().trigger("update_animation", animation);
+        }
+    }
 
 }
