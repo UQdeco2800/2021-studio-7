@@ -72,7 +72,7 @@ public class NPCFactory {
     //Set AI tasks
     cat.addComponent(new AITaskComponent()
             .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
-            .addTask(new ChaseTask(player, 10, 3f, 4f)));
+            .addTask(new ChaseTask(player, 10, 0.2f, 1f)));
     cat.setScale(0.8f,0.8f);
     return cat;
   }
