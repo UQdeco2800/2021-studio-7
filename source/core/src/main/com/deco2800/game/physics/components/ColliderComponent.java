@@ -18,6 +18,7 @@ public class ColliderComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
   private static final float X_SCALE = 1f;
   private static final float Y_SCALE = 0.5f;
+  private static final int ALIGN_SCALE = 2;
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
@@ -105,9 +106,9 @@ public class ColliderComponent extends Component {
           float offsetX,
           float offsetY
     ) {
-        // Divide values by two for middle aligning
-        bottomLeft /= 2;
-        bottomRight /= 2;
+        // Divide values by the alignment scaling factor for middle aligning
+        bottomLeft /= ALIGN_SCALE;
+        bottomRight /= ALIGN_SCALE;
 
         float mid = Math.abs(bottomLeft / 2 - bottomRight / 2);
 
@@ -306,9 +307,10 @@ public class ColliderComponent extends Component {
 
     /**
      * @return Size of the collider component, in tile units, broken down by side length.
+     *          The side length is a scalar multiple of the stored value.
      */
     public float[] getSides() {
-        return new float[]{this.left, this.right};
+        return new float[]{this.left * ALIGN_SCALE, this.right * ALIGN_SCALE};
     }
 
     private Shape makeBoundingBox() {
