@@ -252,8 +252,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     Body body = physicsComponent.getBody();
     Vector2 velocity = body.getLinearVelocity();
-    System.out.println(velocity);
-    System.out.println(twoDCharacter);
+
     if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1) {
       standingEventsTwoD();
       System.out.println("Played low velocity");
