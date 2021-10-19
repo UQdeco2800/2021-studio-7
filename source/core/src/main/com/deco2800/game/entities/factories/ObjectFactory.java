@@ -106,14 +106,17 @@ public class ObjectFactory {
     Entity lounge = createBaseObject(assets, BodyType.StaticBody);
     lounge.getComponent(TextureRenderComponent.class).scaleEntity();
     lounge.setScale(2f,1f);
+    PhysicsUtils.setColliderShape(lounge, 2.5f, 1f);
+    PhysicsUtils.setColliderOffset(lounge, 0.5f, 0);
     return lounge;
   }
 
   public static Entity createDesk(String[] assets) {
     Entity desk = createBaseObject(assets, BodyType.StaticBody);
-    desk.getComponent(TextureRenderComponent.class).scaleEntity();
-    desk.setScale(2f,2f);
-    PhysicsUtils.setScaledCollider(desk,2f,2f);
+    //desk.getComponent(TextureRenderComponent.class).scaleEntity();
+    //desk.setScale(2f,2f);
+    //PhysicsUtils.setScaledCollider(desk,2f,2f);
+    PhysicsUtils.setColliderShape(desk, 1f, 1f);
     return desk;
   }
 
@@ -129,13 +132,16 @@ public class ObjectFactory {
     Entity lamp = createBaseObject(assets, BodyType.StaticBody);
     lamp.getComponent(TextureRenderComponent.class).scaleEntity();
     lamp.setScale(0.5f,1f);
+    PhysicsUtils.setColliderShape(lamp, 0.5f, 0.5f);
     return lamp;
   }
 
   public static Entity createChair(String[] assets) {
     Entity chair = createBaseObject(assets, BodyType.StaticBody);
-    chair.setScale(1.25f, 1.25f);
-    PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    //chair.setScale(1.25f, 1.25f);
+    //PhysicsUtils.setScaledCollider(chair,1.5f, 1.5f);
+    PhysicsUtils.setColliderShape(chair, 0.5f, 0.5f);
+    PhysicsUtils.setColliderOffset(chair, 0, 0.5f);
     return chair;
   }
 
