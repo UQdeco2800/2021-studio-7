@@ -1,6 +1,7 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.chores.ChoreController;
@@ -44,6 +45,10 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] pauseGameTextures = {
           "images/ui/screens/paused_screen.png"
   };
+  private static final String[] buttonSounds = {
+          "sounds/confirm.ogg",
+          "sounds/browse-short.ogg"
+  };
 
   private final Renderer renderer;
   private final Renderer miniMapRenderer;
@@ -53,7 +58,6 @@ public class MainGameScreen extends ScreenAdapter {
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
-
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -100,6 +104,9 @@ public class MainGameScreen extends ScreenAdapter {
     miniMapRenderer.getCamera().resize(2,1,200);
     player = home.getActiveFloor().getPlayer();
     //playMusic();
+
+    // play enter sound after entering from context screen
+    playButtonSound("enter");
   }
 
   @Override
@@ -121,12 +128,14 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    playButtonSound("pause");
     gamePaused = true;
   }
 
   @Override
   public void resume() {
     logger.info("Game resumed");
+    playButtonSound("enter");
     gamePaused = false;
   }
 
@@ -149,6 +158,7 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
     resourceService.loadMusic(backgroundMusic);
+    resourceService.loadSounds(buttonSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -157,6 +167,7 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
     resourceService.unloadAssets(backgroundMusic);
+    resourceService.unloadAssets(buttonSounds);
   }
 
 //  /**
@@ -170,6 +181,19 @@ public class MainGameScreen extends ScreenAdapter {
 //    music.setVolume(0.3f);
 //    music.play();
 //  }
+
+  public void playButtonSound(String button) {
+    Sound sound;
+
+    if (button.equals("enter")) {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+    } else {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    }
+
+    sound.play();
+    logger.info("enter button sound played on main game screen launch");
+  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

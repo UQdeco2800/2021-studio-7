@@ -71,7 +71,13 @@ public class MainMenuDisplay extends UIComponent {
     tableRight = new Table();
     tableMain = new Table();
 
-    tableMain.setFillParent(true);
+
+
+      Image background = new Image(ServiceLocator.getResourceService()
+              .getAsset("images/main_menu/bgart.png", Texture.class));
+
+      tableMain.setFillParent(true);
+      tableMain.setBackground(background.getDrawable());
 
     Image title =
         new Image(
@@ -97,7 +103,6 @@ public class MainMenuDisplay extends UIComponent {
     buttons.add(changeCharacterBtn);
     this.txtUsername = new TextField("", skin);
     txtUsername.setMessageText("Username:");
-
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -174,11 +179,14 @@ public class MainMenuDisplay extends UIComponent {
     tableRight.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     tableRight.row();
 
-    tableMain.add(title).colspan(2);
+    tableMain.add(title).colspan(2).padTop(50f);
     tableMain.row();
     tableMain.add(tableLeft).expandY().fillY().fillX();
     tableMain.add(tableRight).expandY().fillY().fill();
     stage.addActor(tableMain);
+
+    //stage.setDebugAll(true);
+
 
     stage.setDebugAll(true);
     updateMenuFrame();
@@ -306,6 +314,8 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public static void updateMenuFrame() {
+        MainMenuScreen.playButtonSound("browse");
+
         TextButton startBtn = buttons.get(0);
         TextButton LeadBtn = buttons.get(1);
         TextButton SetBtn = buttons.get(2);
