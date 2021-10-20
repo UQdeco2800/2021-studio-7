@@ -34,8 +34,7 @@ public class ChoreController {
             chore.increaseAmount();
         } else {
             // Register a new Chore
-            chore = new Chore(object);
-            chores.add(chore);
+            chores.add(new Chore(object));
         }
     }
 

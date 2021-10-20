@@ -50,7 +50,7 @@
     p: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createPuddle //make puddle a atlas
-      assets: [images/objects/puddle/puddle.atlas, 2, 5, 0]
+      assets: [images/objects/puddle/puddle.atlas, 2, 6, 3]
     }
   },
   tileGrid: [

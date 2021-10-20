@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.interactions.BaseInteractable;
 import com.deco2800.game.entities.components.object.BananaPeelActions;
 import com.deco2800.game.entities.components.object.BedActions;
 import com.deco2800.game.entities.components.object.DrinkActions;
@@ -240,7 +241,7 @@ public class ObjectFactory {
     // Set interactable to have a base hitbox component
     Entity obstacle = createBaseObject(assets)
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
-    addInteraction(assets[2], obstacle);
+    addInteraction(assets, obstacle);
     PhysicsUtils.setScaledHitbox(obstacle, 1f, 1f);
     return obstacle;
   }
@@ -294,8 +295,8 @@ public class ObjectFactory {
     }
   }
 
-  private static void addInteraction(String interactionID, Entity obstacle) {
-    switch (interactionID) {
+  private static void addInteraction(String[] assets, Entity obstacle) {
+    switch (assets[2]) {
       case "0":
         logger.error("Interaction ID for non-interaction entity called");
       case "1":
@@ -314,6 +315,13 @@ public class ObjectFactory {
       case "5":
         obstacle.addComponent(new BananaPeelActions());
         break;
+      case "6": //Base interactable
+        // Get the name of the object from the atlas filepath
+        String atlasPath = assets[0];
+        String fileName = atlasPath.substring(atlasPath.lastIndexOf("/")+1);
+        String name = fileName.split("\\.")[0];
+
+        obstacle.addComponent(new BaseInteractable(name));
     }
   }
 
