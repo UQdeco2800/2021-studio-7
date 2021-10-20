@@ -1,6 +1,7 @@
 package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.deco2800.game.ui.components.UIComponent;
@@ -88,13 +89,15 @@ public class ContextScreenDisplay extends UIComponent {
         table = new Table();
         table.setFillParent(true);
         int colWidth = Gdx.graphics.getWidth() / 10;
-        Label enterName = new Label("PLEASE ENTER YOUR NAME", skin, "title");
+        Label enterName = new Label("PLEASE ENTER YOUR GAMER TAG", skin, "title");
         enterName.setFontScale((colWidth*10f)/1000f);
         enterName.addAction(Actions.alpha(0));
         enterName.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
 
         this.txtUserName = new TextField("", skin);
-        this.txtUserName.setScale((colWidth*10f)/1000f);
+        this.txtUserName.setColor(Color.BLACK);
+        this.txtUserName.setScale(5f);
+        //this.txtUserName.setScale((colWidth*10f)/800f);
 
         table.add(enterName).padTop(50f);
         table.row();
