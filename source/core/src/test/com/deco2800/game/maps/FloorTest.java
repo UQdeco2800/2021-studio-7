@@ -28,9 +28,9 @@ class FloorTest {
         Floor floor = createBaseFloor();
         String[] assetsWithExtension = floor.getAssets(".png");
         assertArrayEquals(new String[]{"images/tiles/iso/iso_floor_1.png", "images/objects/walls/1.png",
-                        "images/tiles/iso/iso_wall_1_left.png", "images/objects/walls/wall.png",
-                        "images/tiles/iso/iso_grass_1.png", "images/objects/walls/3.png",
-                        "images/tiles/iso/iso_grass_2.png", "images/objects/walls/4.png"}, assetsWithExtension);
+                "images/tiles/iso/iso_wall_1_left.png", "images/objects/walls/wall.png",
+                "images/tiles/iso/iso_grass_1.png", "images/objects/walls/3.png",
+                "images/tiles/iso/iso_grass_2.png", "images/objects/walls/4.png"}, assetsWithExtension);
         assetsWithExtension = floor.getAssets(".atlas");
         assertArrayEquals(new String[]{"images/objects/door/door_animationL.atlas"}, assetsWithExtension);
     }
