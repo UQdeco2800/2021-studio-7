@@ -28,6 +28,7 @@ public class ContextScreen extends ScreenAdapter {
     };
 
     private final Renderer renderer;
+    private Stage stage;
 
     public ContextScreen() {
 
@@ -47,6 +48,9 @@ public class ContextScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
+        if (stage != null) {
+            stage.draw();
+        }
     }
 
     @Override

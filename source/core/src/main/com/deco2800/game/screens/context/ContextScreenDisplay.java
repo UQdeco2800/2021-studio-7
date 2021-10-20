@@ -25,6 +25,7 @@ public class ContextScreenDisplay extends UIComponent {
     private static int level = 1;
     private int charCount = 0;
     private String currentText = "";
+    private boolean toggle = true;
 
     public ContextScreenDisplay() {
         super();
@@ -38,7 +39,10 @@ public class ContextScreenDisplay extends UIComponent {
 
     @Override
     public void update() {
-        stage.draw();
+        if (toggle) {
+            Gdx.input.setInputProcessor(stage);
+        }
+
         /*long currentTime = ServiceLocator.getTimeSource().getTime();
 
         // Gradually display text across the textbox
@@ -63,9 +67,9 @@ public class ContextScreenDisplay extends UIComponent {
         table.row();
         table.add(txtUserName).padTop(50f);
         stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(txtUserName);
         stage.addActor(table);
+
 
         /*switch(level++) {
             case 1:

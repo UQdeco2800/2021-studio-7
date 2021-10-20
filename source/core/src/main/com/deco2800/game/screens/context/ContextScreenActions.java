@@ -1,5 +1,7 @@
 package com.deco2800.game.screens.context;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ServiceLocator;
@@ -19,6 +21,13 @@ public class ContextScreenActions extends Component {
     @Override
     public void create() {
         //
+    }
+
+    @Override
+    public void update() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_ENTER)) {
+            entity.getComponent(ContextInputProcessor.class).keyDown(Input.Keys.ENTER);
+        }
     }
 
     /**

@@ -182,12 +182,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
-<<<<<<< HEAD
         .addComponent(new MainGameExitDisplay())
         //.addComponent(new MainGameFogScreen())
-=======
         //.addComponent(new MainGameExitDisplay()
->>>>>>> 7718960d4fdf31bb9eab4fc111d059ba8622a2b3
         .addComponent(new MainGameTimerDisplay())
         .addComponent(new MainGameFogScreen())
         .addComponent(new MainGameTextDisplay())

@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.context;
 
+
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,7 +24,6 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
                 }
                 ContextScreenActions.playGame();
                 break;
-
         }
         return false;
     }
