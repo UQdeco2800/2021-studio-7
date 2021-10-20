@@ -3,10 +3,12 @@ package com.deco2800.game.chores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 
+import javax.swing.text.TabableView;
 import java.util.List;
 
 /**
@@ -28,13 +30,19 @@ public class ChoreUI extends UIComponent {
 
         // Display Text
         displayText = new Label("", skin, "large");
-        displayText.setSize(colWidth*6f, rowHeight*6f);
-        displayText.setPosition(colWidth/12f, rowHeight*6f);
+        displayText.setSize(colWidth*4f, rowHeight*6f);
+        //displayText.setPosition(colWidth*5.8f, rowHeight*5f);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
-        displayText.setAlignment(Align.topLeft);
+        displayText.setAlignment(Align.topRight);
         displayText.setWrap(true);
 
-        stage.addActor(displayText);
+        Table table = new Table();
+        table.top().right();
+        table.pad(30f);
+        table.setFillParent(true);
+        table.add(displayText);
+
+        stage.addActor(table);
 
         entity.getEvents().addListener("toggle_chores", this::toggleDisplay);
     }

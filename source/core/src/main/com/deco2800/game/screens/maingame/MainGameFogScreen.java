@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class MainGameFogScreen extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameFogScreen.class);
-    private Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_efffect2.png"));
+    private Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_effect_2.png"));
     private Image background = new Image(texture);
 
     public MainGameFogScreen() {
