@@ -34,7 +34,7 @@ public class MainGameTimerDisplay extends UIComponent {
         logger.debug("Initialising main game screen timer service");
 
         //set up initial timer for the level 1
-        setTimer(23, 0,  2, 0);
+        setTimer(11, 0,  2, 0);
         CharSequence timeText = String.format("    %d:0%d",startHour,
                 startMinute);
         currentTimeLabel = new Label(timeText, skin, "title");
@@ -59,8 +59,8 @@ public class MainGameTimerDisplay extends UIComponent {
      */
     public void addActors() {
         timeTable = new Table();
-        timeTable.bottom().right();
-        timeTable.padRight(60f);
+        timeTable.top();
+        timeTable.padTop(10f);
         timeTable.setFillParent(true);
         timeTable.add(background);
         timeTable.stack(background, currentTimeLabel);

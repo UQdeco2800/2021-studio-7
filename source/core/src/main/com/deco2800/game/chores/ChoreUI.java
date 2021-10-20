@@ -99,7 +99,7 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chore entities completed changes
-        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
+        if (displaying && ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }
     }
@@ -107,5 +107,11 @@ public class ChoreUI extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        hide();
     }
 }
