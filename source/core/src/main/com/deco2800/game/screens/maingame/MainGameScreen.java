@@ -63,7 +63,7 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
 
-    ServiceLocator.registerChoreController(new ChoreController());
+    ServiceLocator.registerChoreController(new ChoreController(level));
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
@@ -182,9 +182,9 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
-        .addComponent(new MainGameExitDisplay())
-        //.addComponent(new MainGameFogScreen())
+        //.addComponent(new MainGameExitDisplay()
         .addComponent(new MainGameTimerDisplay())
+        //.addComponent(new MainGameFogScreen())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())
         .addComponent(new Terminal())

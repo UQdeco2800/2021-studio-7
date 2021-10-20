@@ -222,6 +222,12 @@ public class ObjectFactory {
     return stove;
   }
 
+  public static Entity createFishTank(String[] assets) {
+    Entity fishTank = createBaseObject(assets);
+    PhysicsUtils.setScaledCollider(fishTank, 1f,1f);
+    return fishTank;
+  }
+
 
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
