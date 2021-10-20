@@ -72,7 +72,7 @@ public class EndGameScreen extends ScreenAdapter {
         }
 
         sound.play();
-        logger.info(button + " button sound played on end game screen");
+        logger.info("{} button sound played on end game screen", button);
     }
 
     @Override

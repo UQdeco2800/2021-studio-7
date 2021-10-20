@@ -82,14 +82,54 @@ public class UserSettings {
     /**
      * FPS cap of the game. Independant of screen FPS.
      */
-    public int fps = 60;
-    public boolean fullscreen = true;
-    public boolean vsync = true;
+    private int fps = 60;
+    private boolean fullscreen = true;
+    private boolean vsync = true;
     /**
      * ui Scale. Currently unused, but can be implemented.
      */
-    public float uiScale = 1f;
-    public DisplaySettings displayMode = null;
+    private float uiScale = 1f;
+    private DisplaySettings displayMode = null;
+
+    public int getFps() {
+      return fps;
+    }
+
+    public boolean isFullscreen() {
+      return fullscreen;
+    }
+
+    public boolean isVsync() {
+      return vsync;
+    }
+
+    public float getUiScale() {
+      return uiScale;
+    }
+
+    public DisplaySettings getDisplayMode() {
+      return displayMode;
+    }
+
+    public void setFps(int fps) {
+      this.fps = fps;
+    }
+
+    public void setFullscreen(boolean fullscreen) {
+      this.fullscreen = fullscreen;
+    }
+
+    public void setVsync(boolean vsync) {
+      this.vsync = vsync;
+    }
+
+    public void setUiScale(float uiScale) {
+      this.uiScale = uiScale;
+    }
+
+    public void setDisplayMode(DisplaySettings displayMode) {
+      this.displayMode = displayMode;
+    }
   }
 
   /**

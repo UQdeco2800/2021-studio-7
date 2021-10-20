@@ -146,10 +146,6 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the mom is standing still this function triggers a standing event in the last direction.
    */
   public void standingEvents() {
-    Vector2 entityDirection = getDirection();
-    float x = entityDirection.x;
-    float y = entityDirection.y;
-
     if (lastDirection == 0) {
       entity.getEvents().trigger("update_animation", "standing_north");
 
@@ -281,10 +277,6 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the cat is standing still, this function triggers a standing event in the last direction.
    */
   public void standingEventsTwoD() {
-    Vector2 entityDirection = getDirection();
-    float x = entityDirection.x;
-    float y = entityDirection.y;
-
     if (lastDirection == 0) {//NORTH
       entity.getEvents().trigger("update_animation", "standing_north");
 

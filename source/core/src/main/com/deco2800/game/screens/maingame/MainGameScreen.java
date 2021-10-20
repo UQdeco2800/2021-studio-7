@@ -9,7 +9,6 @@ import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
-import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
@@ -71,8 +70,6 @@ public class MainGameScreen extends ScreenAdapter {
 
     ServiceLocator.registerEntityService(new EntityService());
     ServiceLocator.registerRenderService(new RenderService());
-
-    Entity cameraMiniMap = new Entity().addComponent(new CameraComponent());
 
     //This is the main game renderer, which must be called last so the UI is shown
     renderer = RenderFactory.createRenderer();
