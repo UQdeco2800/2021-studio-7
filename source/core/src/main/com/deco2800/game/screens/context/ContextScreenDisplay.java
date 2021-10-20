@@ -62,7 +62,7 @@ public class ContextScreenDisplay extends UIComponent {
         table.add(buttonContainer).padTop(30f);
 
         // Add button to container. Transitions to the next level (main game screen).
-        TextButton playGameBtn = new TextButton("Play Game", skin);
+        TextButton playGameBtn = new TextButton("PRESS ENTER TO PLAY!", skin);
         button = playGameBtn;
         playGameBtn.getLabel().setColor(0, 0,0, 1f);
         playGameBtn.addListener(

@@ -27,7 +27,7 @@ public class EndGameDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
   private final EndGameScreen screen;
-  private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static List<TextButton> buttons = new ArrayList<>();
   private static int menuIndex = 0;
 
   public EndGameDisplay(EndGameScreen screen) {
@@ -176,7 +176,7 @@ public class EndGameDisplay extends UIComponent {
    */
   public static void moveDown(){
     if (notFarDown()) {
-//      MainGameScreen.playButtonSound("browse");
+      EndGameScreen.playButtonSound("browse");
       menuIndex++;
       unhoverMenu(buttons.get(menuIndex - 1));
       hoverMenu(buttons.get(menuIndex));
@@ -188,7 +188,7 @@ public class EndGameDisplay extends UIComponent {
    */
   public static void moveUp(){
     if (notFarUp()) {
-//      MainGameScreen.playButtonSound("browse");
+      EndGameScreen.playButtonSound("browse");
       menuIndex--;
       unhoverMenu(buttons.get(menuIndex + 1));
       hoverMenu(buttons.get(menuIndex));
