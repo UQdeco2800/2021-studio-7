@@ -448,10 +448,10 @@ public class MainMenuDisplay extends UIComponent {
         TextButton LeadBtn = buttons.get(1);
         TextButton SetBtn = buttons.get(2);
         TextButton ExitBtn = buttons.get(3);
-        float buttonXLocation = graphics.getWidth()/2 -430;
+        float buttonXLocation = (float) graphics.getWidth() / 2 - 430;
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
-                menuIndicator.setPosition(buttonXLocation, graphics.getHeight()/2);
+                menuIndicator.setPosition(buttonXLocation, (float) graphics.getHeight() / 2);
                 hoverMenu(startBtn);
                 unhoverMenu(LeadBtn);
                 unhoverMenu(SetBtn);
