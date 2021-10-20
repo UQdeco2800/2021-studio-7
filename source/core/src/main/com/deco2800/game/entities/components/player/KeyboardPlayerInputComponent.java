@@ -97,8 +97,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", true);
                 return true;
             case Keys.O:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
-                        .getEvents().trigger("toggle_chores");
+                ServiceLocator.getScreen(MainGameScreen.class)
+                        .getMainGameEntity().getEvents().trigger("toggle_chores");
                 return true;
             case Keys.LEFT:
                 if (isPaused) {
@@ -165,7 +165,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                ServiceLocator.getScreen(MainGameScreen.class)
                         .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
                 isPaused = !isPaused;
                 MainGamePauseMenuDisplay.resetHover();

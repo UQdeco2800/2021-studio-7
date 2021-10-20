@@ -4,6 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
@@ -22,9 +23,6 @@ import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.generic.GameTime;
-import com.deco2800.game.generic.ResourceService;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
@@ -55,6 +53,7 @@ public class MainGameScreen extends ScreenAdapter {
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
+  private GdxGame.ScreenType queuedScreen = null;
   private static int level = 1;
 
   public MainGameScreen() {
@@ -102,11 +101,15 @@ public class MainGameScreen extends ScreenAdapter {
     playButtonSound("enter");
   }
 
+  public void queueNewScreen(GdxGame.ScreenType screenType) {
+    queuedScreen = screenType;
+  }
+
   public static int getLevel() {
     return level;
   }
 
-  public static void zerolevel() {level = 0;}
+  public static void zeroLevel() {level = 0;}
 
   @Override
   public void render(float delta) {
@@ -114,8 +117,12 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    renderer.getCamera().getEntity().setPosition(player.getPosition());
-    renderer.render();
+    if (queuedScreen == null) {
+      renderer.getCamera().getEntity().setPosition(player.getPosition());
+      renderer.render();
+    } else {
+      ServiceLocator.getGame().setScreen(queuedScreen);
+    }
   }
 
   @Override

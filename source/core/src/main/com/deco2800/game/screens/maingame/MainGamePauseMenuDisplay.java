@@ -39,9 +39,9 @@ public class MainGamePauseMenuDisplay extends UIComponent {
         isVisible = !isVisible;
         table.setVisible(isVisible);
         if (isVisible) {
-            ServiceLocator.getGame().getScreen().pause();
+            entity.getEvents().trigger("pause");
         } else {
-            ServiceLocator.getGame().getScreen().resume();
+            entity.getEvents().trigger("resume");
         }
     }
 
@@ -88,8 +88,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("Restart button clicked");
-                        MainGameScreen.zerolevel();
-                        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
+                        entity.getEvents().trigger("restart");
                     }
                 });
         buttonContainer.addActor(restartBtn);
@@ -102,7 +101,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("Settings button clicked");
-                        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
+                        entity.getEvents().trigger("settings");
                     }
                 });
         buttonContainer.addActor(settingsBtn);
@@ -115,7 +114,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("Main menu button clicked");
-                        ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
+                        entity.getEvents().trigger("main_menu");
                     }
                 });
         buttonContainer.addActor(mainMenuBtn);

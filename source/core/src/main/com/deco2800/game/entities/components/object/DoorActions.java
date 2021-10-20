@@ -23,7 +23,7 @@ public class DoorActions extends InteractionComponent {
         String string = "You opened a door! That's pretty cool.";
         if (target.getComponent(PlayerActions.class) != null) {
             logger.debug("PLAYER interacted with DOOR, triggering door animation");
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+            ServiceLocator.getScreen(MainGameScreen.class)
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             //entity.getEvents().trigger(updateAnimation, "Door_left_highlighted_d");
             entity.getEvents().trigger(updateAnimation, "Door_open_left");
