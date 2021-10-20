@@ -60,6 +60,11 @@ public class ObjectFactory {
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
+  public static Entity createPlant(String[] assets) {
+    Entity plant = createBaseChore(assets);
+    PhysicsUtils.setColliderShape(plant, 1f, 1f);
+    return plant;
+  }
 
   public static Entity createDishwasher(String[] assets) {
     Entity dishWasher = createBaseChore(assets);
@@ -332,6 +337,9 @@ public class ObjectFactory {
         break;
       case "6":
         obstacle.addComponent(new WashingDishesActions());
+        break;
+      case "7":
+        obstacle.addComponent(new PlantActions());
     }
   }
 
@@ -345,6 +353,8 @@ public class ObjectFactory {
         return ChoreList.PUDDLE;
       case "4":
         return ChoreList.DISHWASHER;
+      case "5":
+        return ChoreList.PLANT;
       default:
         logger.debug("Invalid choreID provided");
         return null;
