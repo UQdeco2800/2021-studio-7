@@ -35,7 +35,6 @@ public class WashingDishesActions extends InteractionComponent {
             logger.debug("DISHWASHER ended collision with PLAYER");
         }
         triggerAnimationChange(count);
-        startTime = ServiceLocator.getTimeSource().getTime();
     }
 
     private void triggerDishWasherInteracted() {
@@ -44,7 +43,9 @@ public class WashingDishesActions extends InteractionComponent {
             count++;
             triggerAnimationChange(count);
             startTime = ServiceLocator.getTimeSource().getTime();
-        } else if (startTime > 3000L){
+        }
+        long currentTime = ServiceLocator.getTimeSource().getTime();
+        if (currentTime - startTime >= 500L){
             count++;
             triggerAnimationChange(count);
             startTime = ServiceLocator.getTimeSource().getTime();
@@ -69,6 +70,7 @@ public class WashingDishesActions extends InteractionComponent {
             default:
                 entity.getEvents().trigger(updateAnimation, "dishwasher_working");
                 entity.getEvents().trigger("chore_complete", ChoreList.DISHWASHER);
+                break;
         }
     }
 }

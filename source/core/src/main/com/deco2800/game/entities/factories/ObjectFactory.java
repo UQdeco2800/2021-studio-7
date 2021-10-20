@@ -231,6 +231,11 @@ public class ObjectFactory {
     PhysicsUtils.setScaledCollider(fishTank, 1f,1f);
     return fishTank;
   }
+  public static Entity createClock(String[] assets) {
+    Entity clock = createBaseObject(assets);
+    PhysicsUtils.setScaledCollider(clock, 1f,1f);
+    return clock;
+  }
 
 
   /**
