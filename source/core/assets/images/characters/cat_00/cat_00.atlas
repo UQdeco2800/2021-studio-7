@@ -1,0 +1,265 @@
+
+cat_00.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+licking
+  rotate: false
+  xy: 244, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+licking
+  rotate: false
+  xy: 244, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 3
+licking
+  rotate: false
+  xy: 728, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+licking
+  rotate: false
+  xy: 1454, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+lying_east
+  rotate: false
+  xy: 244, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+lying_east
+  rotate: false
+  xy: 728, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 3
+lying_east
+  rotate: false
+  xy: 970, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+lying_east
+  rotate: false
+  xy: 970, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+lying_west
+  rotate: false
+  xy: 2, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+lying_west
+  rotate: false
+  xy: 486, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+lying_west
+  rotate: false
+  xy: 1696, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 3
+lying_west
+  rotate: false
+  xy: 1696, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+sitting
+  rotate: false
+  xy: 1212, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+sleeping_east
+  rotate: false
+  xy: 486, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+sleeping_east
+  rotate: false
+  xy: 1212, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+sleeping_west
+  rotate: false
+  xy: 728, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+sleeping_west
+  rotate: false
+  xy: 1454, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+standing_east
+  rotate: false
+  xy: 486, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+standing_east
+  rotate: false
+  xy: 1212, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+standing_east
+  rotate: false
+  xy: 728, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: -1
+standing_east
+  rotate: false
+  xy: 1212, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+standing_north
+  rotate: false
+  xy: 970, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: -1
+standing_south
+  rotate: false
+  xy: 244, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+standing_west
+  rotate: false
+  xy: 1212, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: -1
+stretching_east
+  rotate: false
+  xy: 486, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+stretching_east
+  rotate: false
+  xy: 1454, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+stretching_west
+  rotate: false
+  xy: 2, 608
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+stretching_west
+  rotate: false
+  xy: 970, 204
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+walking_north
+  rotate: false
+  xy: 2, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+walking_north
+  rotate: false
+  xy: 486, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+walking_north
+  rotate: false
+  xy: 1696, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+walking_south
+  rotate: false
+  xy: 970, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+walking_south
+  rotate: false
+  xy: 1454, 406
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+walking_south
+  rotate: false
+  xy: 1454, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2
+walking_west
+  rotate: false
+  xy: 2, 810
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 1
+walking_west
+  rotate: false
+  xy: 244, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 0
+walking_west
+  rotate: false
+  xy: 728, 2
+  size: 240, 200
+  orig: 240, 200
+  offset: 0, 0
+  index: 2

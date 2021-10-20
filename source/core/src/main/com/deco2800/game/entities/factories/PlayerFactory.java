@@ -46,9 +46,11 @@ public class PlayerFactory {
             .addComponent(new PlayerStatsDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new ScoreComponent(1000))
+            .addComponent(new ScoreComponent(2500))
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new AITaskComponent().addTask(new SlipTask()));
+
+    player.setScale(0.8f,0.8f);
     return player;
   }
 
@@ -59,6 +61,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent().setDensity(1.5f))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
+    PhysicsUtils.setColliderShape(player, 0.5f, 0.5f);
     PhysicsUtils.setScaledHitbox(player, 1f, 1f);
 
     // Set player to have a base input component

@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for reading Java objects from JSON files.
@@ -92,9 +94,9 @@ public class FileLoader {
     file.writeString(json.prettyPrint(object), false);
   }
 
-  public static Array<FileHandle> getJsonFiles(String directory) {
+  public static List<FileHandle> getJsonFiles(String directory) {
     FileHandle[] files = (new FileHandle(directory)).list(".json");
-    Array<FileHandle> jsons = new Array<>();
+    List<FileHandle> jsons = new ArrayList<>();
     for (FileHandle file : files) {
       if (!file.isDirectory()) {
         jsons.add(file);

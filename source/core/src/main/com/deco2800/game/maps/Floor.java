@@ -9,13 +9,13 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.ObstacleFactory;
+import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.entities.factories.PlayerFactory;
+import com.deco2800.game.entities.factories.NPCFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -25,6 +25,11 @@ import com.deco2800.game.utils.math.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Game area representation of a single floor in a home.
  * Holds raw data for room allocation and non-room object generation.
@@ -32,9 +37,11 @@ import org.slf4j.LoggerFactory;
 public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
+
     private OrthographicCamera camera;
-    private OrthographicCamera miniMapCamera;
     private Entity player = null;
+    private Entity cat = null;
+    private Entity mum = null;
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -43,9 +50,23 @@ public class Floor extends GameArea implements Json.Serializable {
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
-    private TiledMapRenderer miniMapRenderer;
-    // Defined on call for creation
+
     private boolean created = false;
+
+    public Floor() {
+    }
+
+    public Floor(GridObject defaultInteriorTile, GridObject defaultInteriorWall,
+                 ObjectMap<Character, GridObject> tileMap, ObjectMap<Character, GridObject> entityMap,
+                 ObjectMap<Character, Room> roomMap, Character[][] floorGrid, GridPoint2 dimensions) {
+        this.defaultInteriorTile = defaultInteriorTile;
+        this.defaultInteriorWall = defaultInteriorWall;
+        this.tileMap = tileMap;
+        this.entityMap = entityMap;
+        this.roomMap = roomMap;
+        this.floorGrid = floorGrid;
+        this.dimensions = dimensions;
+    }
 
     public void create() {
         if (!created) {
@@ -54,17 +75,27 @@ public class Floor extends GameArea implements Json.Serializable {
             }
             loadAssets();
             displayUI();
-            spawnFloorTiles();
-            spawnFloorEntities();
+            spawnAllTiles();
+            spawnAllEntities();
         }
         created = true;
+    }
+
+    /**
+     * Creates the player entity. Does not spawn yet to account for static entity generation first.
+     */
+    private void createPlayer() {
+        String[] playerAssets = new String[]{PlayerFactory.getAtlas()};
+        ServiceLocator.getResourceService().loadTextureAtlases(playerAssets);
+        ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(playerAssets);
     }
 
     /**
      * Allows rooms to spawn their tiles first, then will iterate through the entire floor grid
      * for miscellaneous tile spawning. Creates a new TerrainComponent and spawns it into the world.
      */
-    private void spawnFloorTiles() {
+    private void spawnAllTiles() {
         TextureRegion textureRegion = new TextureRegion(
                 ServiceLocator.getResourceService().getAsset(defaultInteriorTile.getAssets()[0], Texture.class));
 
@@ -96,9 +127,7 @@ public class Floor extends GameArea implements Json.Serializable {
         TiledMap tiledMap = new TiledMap();
         tiledMap.getLayers().add(layer);
         TiledMapRenderer renderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        TiledMapRenderer miniMapRenderer = new IsometricTiledMapRenderer(tiledMap, 1f / textureRegion.getRegionWidth());
-        this.miniMapRenderer = miniMapRenderer;
-                terrain = new TerrainComponent(camera, miniMapCamera, tiledMap, renderer, miniMapRenderer,1f);
+        terrain = new TerrainComponent(camera, tiledMap, renderer,1f);
         spawnEntity(new Entity().addComponent(terrain));
     }
 
@@ -107,7 +136,7 @@ public class Floor extends GameArea implements Json.Serializable {
      * Allow rooms to spawn their entities first, then will iterate through the entire floor grid
      * for miscellaneous entity spawning. Finally, spawns non-prefab defined entities into the world.
      */
-    private void spawnFloorEntities() {
+    private void spawnAllEntities() {
         // Create player entity for dependency injection
         createPlayer();
 
@@ -130,58 +159,8 @@ public class Floor extends GameArea implements Json.Serializable {
         // Spawn non-prefab defined entities
         spawnPlayer();
         spawnBorders();
-    }
-
-    /**
-     * Creates the player entity. Does not spawn yet to account for static entity generation first.
-     */
-    private void createPlayer() {
-        String[] playerAssets = new String[]{PlayerFactory.getAtlas()};
-        ServiceLocator.getResourceService().loadTextureAtlases(playerAssets);
-        ServiceLocator.getResourceService().loadAll();
-        player = PlayerFactory.createPlayer(playerAssets);
-    }
-
-    /**
-     * Spawns the player into the world. Will try to spawn on a non-entity living room tile,
-     * otherwise a random non-entity tile in the world.
-     */
-    private void spawnPlayer() {
-        GridPoint2 spawnLocation = null;
-        // Iterate through rooms to find a valid spawn location
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            Array<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
-            if (roomSpawnLocations != null) {
-                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size));
-                break;
-            }
-        }
-        // Set default spawn location if one was not found
-        if (spawnLocation == null) {
-            spawnLocation = new GridPoint2(1, 1);
-        }
-
-        spawnEntityAt(player, spawnLocation, true, true);
-    }
-
-    /**
-     * Spawns border walls into the world. These borders outline the map given by the floor grid
-     */
-    private void spawnBorders() {
-        // Spawns north and south borders, left to right
-        for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
-            spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
-        }
-        // Spawns east and west borders, bottom to top
-        for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObstacleFactory.createBaseObstacle(new String[0], BodyDef.BodyType.StaticBody);
-            spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
-            spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
-        }
+        spawnCat();
+        spawnMum();
     }
 
     /**
@@ -221,12 +200,100 @@ public class Floor extends GameArea implements Json.Serializable {
         }
     }
 
+    /**
+     * Spawns the player into the world. Will try to spawn on a non-entity living room tile,
+     * otherwise a random non-entity tile in the world.
+     */
+    private void spawnPlayer() {
+        GridPoint2 spawnLocation = null;
+        // Iterate through rooms to find a valid spawn location
+        for (Room room : new ObjectMap.Values<>(roomMap)) {
+            List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
+            if (!roomSpawnLocations.isEmpty()) {
+                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
+                break;
+            }
+        }
+        // Set default spawn location if one was not found
+        if (spawnLocation == null) {
+            spawnLocation = new GridPoint2(1, 1);
+        }
+
+        spawnEntityAt(player, spawnLocation, true, true);
+        player.getEvents().trigger("update_animation", "standing_south_normal");
+    }
+
+    /**
+     * Spawns border walls into the world. These borders outline the map given by the floor grid
+     */
+    private void spawnBorders() {
+        // Spawns north and south borders, left to right
+        for (int x = -1; x < floorGrid.length + 1; x++) {
+            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
+            spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
+        }
+        // Spawns east and west borders, bottom to top
+        for (int y = 0; y < floorGrid[0].length; y++) {
+            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
+            spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
+        }
+    }
+    /**
+     * Spawns the NPC Cat into map.
+     */
+    private void spawnCat(){
+
+        GridPoint2 spawnLocation = null;
+        // Iterate through rooms to find a valid spawn location
+        for (Room room : new ObjectMap.Values<>(roomMap)) {
+            List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
+            if (!roomSpawnLocations.isEmpty()) {
+                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
+                break;
+            }
+        }
+        // Set default spawn location if one was not found
+        if (spawnLocation == null) {
+            spawnLocation = new GridPoint2(1, 1);
+        }
+
+        String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
+        ServiceLocator.getResourceService().loadAll();
+        cat = NPCFactory.createCat(catAssets);
+        spawnEntityAt(cat, spawnLocation, true, true);
+    }
+
+    /**
+     * Spawns the mum into the game
+     */
+    private void spawnMum(){
+        String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
+        ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
+        ServiceLocator.getResourceService().loadAll();
+        mum = NPCFactory.createMum(mumAssets);
+        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+
+    }
+
     public GridObject getDefaultInteriorTile() {
         return defaultInteriorTile;
     }
 
+    public void setDefaultInteriorTile(GridObject defaultInteriorTile) {
+        this.defaultInteriorTile = defaultInteriorTile;
+    }
+
     public GridObject getDefaultInteriorWall() {
         return defaultInteriorWall;
+    }
+
+    public void setDefaultInteriorWall(GridObject defaultInteriorWall) {
+        this.defaultInteriorWall = defaultInteriorWall;
     }
 
     public ObjectMap<Character, GridObject> getEntityMap() {
@@ -241,13 +308,12 @@ public class Floor extends GameArea implements Json.Serializable {
         return player;
     }
 
-    public void setCamera(OrthographicCamera camera, OrthographicCamera miniMapCamera) {
-        this.camera = camera;
-        this.miniMapCamera = miniMapCamera;
+    public Entity getCat() {
+        return cat;
     }
 
-    public OrthographicCamera getMiniMapCamera() {
-        return this.miniMapCamera;
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 
     private void displayUI() {
@@ -258,28 +324,24 @@ public class Floor extends GameArea implements Json.Serializable {
      * @param extension specific extension for all assets returned
      * @return asset filenames from the floor plan to the individual objects
      */
-    private String[] getAssets(String extension) {
-        Array<String> temp = new Array<>();
+    public String[] getAssets(String extension) {
         // Add default floor tile assets
-        temp.addAll(defaultInteriorTile.getAssets(extension));
+        List<String> assetsWithExtension = new ArrayList<>(defaultInteriorTile.getAssets(extension));
+        // Add default floor wall assets
+        assetsWithExtension.addAll(defaultInteriorWall.getAssets(extension));
         // Add floor-level tile assets
         for (GridObject gridTile : new ObjectMap.Values<>(tileMap)) {
-            temp.addAll(gridTile.getAssets(extension));
+            assetsWithExtension.addAll(gridTile.getAssets(extension));
         }
         // Add floor-level entity assets
         for (GridObject gridEntity : new ObjectMap.Values<>(entityMap)) {
-            temp.addAll(gridEntity.getAssets(extension));
+            assetsWithExtension.addAll(gridEntity.getAssets(extension));
         }
         // Add room-level assets
         for (Room room : new ObjectMap.Values<>(roomMap)) {
-            temp.addAll(room.getAssets(extension));
+            assetsWithExtension.addAll(room.getAssets(extension));
         }
-        // Convert to String[] type
-        String[] assets = new String[temp.size];
-        for (int i = 0; i < temp.size; i++) {
-            assets[i] = temp.get(i);
-        }
-        return assets;
+        return assetsWithExtension.toArray(new String[0]);
     }
 
     private void loadAssets() {
@@ -305,6 +367,31 @@ public class Floor extends GameArea implements Json.Serializable {
     public void dispose() {
         super.dispose();
         this.unloadAssets();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Floor floor = (Floor) o;
+        return Objects.equals(defaultInteriorTile, floor.defaultInteriorTile) &&
+                Objects.equals(defaultInteriorWall, floor.defaultInteriorWall) &&
+                Objects.equals(tileMap, floor.tileMap) &&
+                Objects.equals(entityMap, floor.entityMap) &&
+                Objects.equals(roomMap, floor.roomMap) &&
+                Arrays.deepEquals(floorGrid, floor.floorGrid) &&
+                Objects.equals(dimensions, floor.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(defaultInteriorTile, defaultInteriorWall, tileMap, entityMap, roomMap, dimensions);
+        result = 31 * result + Arrays.deepHashCode(floorGrid);
+        return result;
     }
 
     @Override

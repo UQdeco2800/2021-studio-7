@@ -1,8 +1,12 @@
 package com.deco2800.game.screens.mainmenu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -17,10 +21,14 @@ import org.slf4j.LoggerFactory;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.io.FileWriter;
-import java.util.Random;
+import java.lang.Math;
 
 
 /**
@@ -29,15 +37,15 @@ import java.util.Random;
 public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
-  private static TextField txtUsername = new TextField("", skin);
+  private static TextField txtUsername;
   private Table table;
-  private String[] playablecharcters = {
+  private String playablecharcters[] = {
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
           "images/characters/boy_00/boy_00_menu_preview.png"
 
   };
-  private String[] playableAtlas ={
+  private  String playableAtlas[]={
           "images/characters/boy_01/boy_01.atlas",
           "images/characters/girl_00/girl_00.atlas",
           "images/characters/boy_00/boy_00.atlas"
@@ -45,9 +53,8 @@ public class MainMenuDisplay extends UIComponent {
   int characterIndex= 0 ;
 
   private static int menuIndex = 0;
-  private static List<TextButton> buttons = new ArrayList<>();
-  private static Image menuIndicator = new Image(ServiceLocator.getResourceService()
-              .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
+  private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static Image menuIndicator;
 
 
 
@@ -78,11 +85,15 @@ public class MainMenuDisplay extends UIComponent {
     buttons.add(exitBtn);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
     buttons.add(changeCharacterBtn);
+    this.txtUsername = new TextField("", skin);
     txtUsername.setMessageText("Username:");
 
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
+
+    menuIndicator = new Image(ServiceLocator.getResourceService()
+              .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
 
     // Triggers an event when the button is pressed
     startBtn.addListener(
@@ -192,24 +203,49 @@ public class MainMenuDisplay extends UIComponent {
     /**
      * Updates currentCharacterAtlas.txt
      */
+//    public void writeAtlas(){
+//        try {
+//            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
+//            writer.write(this.playableAtlas[this.characterIndex]);
+//            writer.close();
+//            logger.info("Writing new atlas to settings.");
+//        } catch (Exception e){
+//
+//            logger.debug("Could not load the atlas after character change was made.");
+//        }
+//    }
+
     public void writeAtlas(){
-        try (FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt")) {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("configs/currentCharacterAtlas.txt");
             writer.write(this.playableAtlas[this.characterIndex]);
+            writer.close();
             logger.info("Writing new atlas to settings.");
         } catch (Exception e){
 
             logger.debug("Could not load the atlas after character change was made.");
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     public void writeUsername(){
-        try (FileWriter writer = new FileWriter("configs/leaderboard.txt",true)) {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("configs/leaderboard.txt",true);
             String username;
 
-            if (txtUsername.getText().length()<2){
+            if (this.txtUsername.getText().length()<2){
                 username = "DirtyDefault"+ getRandomNum();
             }else{
-                username = txtUsername.getText();
+                username = this.txtUsername.getText();
             }
 
             StringBuilder sb = new StringBuilder();
@@ -218,20 +254,30 @@ public class MainMenuDisplay extends UIComponent {
             sb.append(":");
             String s = sb.toString();
             writer.write(s);
+            writer.close();
             logger.info("Wrote username to leaderboard.");
         } catch (Exception e){
             logger.debug("Could not write username to leaderboard.");
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     public int getRandomNum(){
-        try {
-            Random rand = SecureRandom.getInstanceStrong();
-            return rand.nextInt(100000);
-        } catch (NoSuchAlgorithmException e) {
-            logger.error("Random isn't available in this environment.");
-            return 0;
-        }
+        // try {
+        //     Random rand = SecureRandom.getInstanceStrong();
+        //     return rand.nextInt(100000);
+        // } catch (NoSuchAlgorithmException e) {
+        //     logger.error("Random isn't available in this environment.");
+        //     return 0;
+        // }
+        return (int)(Math.random()*100000);
     }
 
     public static void moveUp(){
@@ -239,7 +285,7 @@ public class MainMenuDisplay extends UIComponent {
             menuIndex--;
             updateMenuFrame();
         }
-        logger.info("Menu Index is {}", menuIndex);
+        logger.info("Menu Index is " + Integer.toString(menuIndex));
     }
 
 
@@ -272,72 +318,72 @@ public class MainMenuDisplay extends UIComponent {
             menuIndex++;
             updateMenuFrame();
         }
-
-        logger.info("Menu Index is {}", menuIndex);
+        logger.info("Menu Index is " + Integer.toString(menuIndex));
     }
 
     private static boolean notAtBottom() {
         return menuIndex < 5;
     }
 
+    public static int getMenuIndex() {
+        return menuIndex;
+    }
+
     public static void updateMenuFrame() {
         TextButton startBtn = buttons.get(0);
-        TextButton leadBtn = buttons.get(1);
-        TextButton setBtn = buttons.get(2);
-        TextButton exitBtn = buttons.get(3);
-        TextButton charBtn = buttons.get(4);
+        TextButton LeadBtn = buttons.get(1);
+        TextButton SetBtn = buttons.get(2);
+        TextButton ExitBtn = buttons.get(3);
+        TextButton CharBtn = buttons.get(4);
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
                 menuIndicator.setPosition(500f,460);
                 hoverMenu(startBtn);
-                unhoverMenu(leadBtn);
-                unhoverMenu(setBtn);
-                unhoverMenu(exitBtn);
-                unhoverMenu(charBtn);
-                logger.info("How many buttons {}", buttons.size());
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
+                logger.info("How many buttons " + Integer.toString(buttons.size()));
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
                 menuIndicator.setPosition(500f,402);
                 unhoverMenu(startBtn);
-                hoverMenu(leadBtn);
-                unhoverMenu(setBtn);
-                unhoverMenu(exitBtn);
-                unhoverMenu(charBtn);
+                hoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 2: //Settings Button
                 menuIndicator.setPosition(500f,345);
                 unhoverMenu(startBtn);
-                unhoverMenu(leadBtn);
-                hoverMenu(setBtn);
-                unhoverMenu(exitBtn);
-                unhoverMenu(charBtn);
+                unhoverMenu(LeadBtn);
+                hoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 3: //Exit Button
                 menuIndicator.setPosition(500f,287);
                 unhoverMenu(startBtn);
-                unhoverMenu(leadBtn);
-                unhoverMenu(setBtn);
-                hoverMenu(exitBtn);
-                unhoverMenu(charBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                hoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 4: // Enter Username
                 menuIndicator.setPosition(500f,202);
                 unhoverMenu(startBtn);
-                unhoverMenu(leadBtn);
-                unhoverMenu(setBtn);
-                unhoverMenu(exitBtn);
-                unhoverMenu(charBtn);
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                unhoverMenu(CharBtn);
                 break;
             case 5: //Character Button
                 menuIndicator.setPosition(500f,8);
                 unhoverMenu(startBtn);
-                unhoverMenu(leadBtn);
-                unhoverMenu(setBtn);
-                unhoverMenu(exitBtn);
-                hoverMenu(charBtn);
-                break;
-            default:
-                logger.error("Invalid menu button or has no function.");
+                unhoverMenu(LeadBtn);
+                unhoverMenu(SetBtn);
+                unhoverMenu(ExitBtn);
+                hoverMenu(CharBtn);
                 break;
         }
     }
@@ -351,18 +397,18 @@ public class MainMenuDisplay extends UIComponent {
                 startBtn.toggle();
                 break;
             case 1: //Leaderboard Button
-                TextButton leadBtn = buttons.get(1);
+                TextButton LeadBtn = buttons.get(1);
                 buttons.clear();
-                leadBtn.toggle();
+                LeadBtn.toggle();
                 break;
             case 2: //Settings Button
-                TextButton setBtn = buttons.get(2);
+                TextButton SetBtn = buttons.get(2);
                 buttons.clear();
-                setBtn.toggle();
+                SetBtn.toggle();
                 break;
             case 3: //Exit Button
-                TextButton exitBtn = buttons.get(3);
-                exitBtn.toggle();
+                TextButton ExitBtn = buttons.get(3);
+                ExitBtn.toggle();
                 break;
             case 4: // Enter Username
 
@@ -370,9 +416,6 @@ public class MainMenuDisplay extends UIComponent {
             case 5: //Character Button
                 TextButton charBtn = buttons.get(4);
                 charBtn.toggle();
-                break;
-            default:
-                logger.error("Invalid menu button or has no function.");
                 break;
         }
     }

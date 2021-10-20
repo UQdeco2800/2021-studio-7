@@ -18,12 +18,13 @@ public class MainGameActions extends Component {
     entity.getEvents().addListener("exit", this::onExit);
     entity.getEvents().addListener("bed_interacted", this::onBedInteracted);
     entity.getEvents().addListener("player_caught", this::onPlayerCaught);
-    entity.getEvents().addListener("timed_ended", this::onTimerEnded);
+    entity.getEvents().addListener("timer_ended", this::onTimerEnded);
   }
 
   public void onExit() {
     logger.debug("Exiting main game screen...");
     logger.debug("Swapping to main menu screen...");
+    MainGameScreen.zerolevel();
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 

@@ -76,6 +76,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         logger.debug("Restart button clicked");
+                        MainGameScreen.zerolevel();
                         ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
                     }
                 });

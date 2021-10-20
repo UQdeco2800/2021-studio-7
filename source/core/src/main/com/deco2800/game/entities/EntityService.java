@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class EntityService {
   private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
   private static final int INITIAL_CAPACITY = 16;
+  private Array<Entity> entitiesScheduledForRemoval = new Array<>();
 
   private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
@@ -44,6 +45,16 @@ public class EntityService {
       entities.get(i).earlyUpdate();
       entities.get(i).update();
     }
+
+    for (Entity entity: entitiesScheduledForRemoval) {
+      entity.dispose();
+    }
+    entitiesScheduledForRemoval.clear();
+  }
+
+  public void scheduleEntityForRemoval(Entity entity) {
+    logger.info("Scheduling entity {} for removal", entity);
+    entitiesScheduledForRemoval.add(entity);
   }
 
   /**

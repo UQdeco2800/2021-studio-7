@@ -13,7 +13,7 @@ these JSON files at random.
 There are three levels of random abstraction. A Home may pick a
 floor plan at random, which may pick room interiors at random for
 each of its rooms. GridObjects in these files may reference the
-ObstacleFactory or TerrainFactory, which have been edited to support
+ObjectFactory or TerrainFactory, which have been edited to support
 random object generation.
 
 Files follow a simple naming convention. The prefix describes in
