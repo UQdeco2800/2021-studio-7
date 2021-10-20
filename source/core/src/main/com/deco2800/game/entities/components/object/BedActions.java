@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 
 public class BedActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
-    private static final String updateAnimation = "update_animation";
+    private static final String UPDATE_ANIMATION = "update_animation";
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(updateAnimation, "bed");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "bed");
     }
 
     @Override
@@ -29,10 +29,10 @@ public class BedActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("BED started collision with PLAYER, highlighting bed");
-            entity.getEvents().trigger(updateAnimation, "bedhighlight2");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "bedhighlight2");
         } else {
             logger.debug("BED ended collision with PLAYER, un-highlighting bed");
-            entity.getEvents().trigger(updateAnimation, "bed");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "bed");
         }
     }
 

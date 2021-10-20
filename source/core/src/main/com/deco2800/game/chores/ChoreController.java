@@ -32,7 +32,7 @@ public class ChoreController {
      * @param object The object type of the chore.
      */
     public void addChore(Entity entity, ChoreList object) {
-        logger.debug("Added chore " + object + " to chore controller");
+        logger.debug("Added chore to chore controller");
 
         // Add a listener to the entity
         entity.getEvents().addListener("chore_complete", this::markCompleted);
