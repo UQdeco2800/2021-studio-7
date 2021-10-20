@@ -12,11 +12,11 @@ import org.slf4j.LoggerFactory;
 public class HorizontalDoorActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(HorizontalDoorActions.class);
     private boolean isOpened = false;
-    private static String UPDATE_ANIMATION = "update_animation";
+    private static String UPDATEANIMATION = "update_animation";
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re");
+        entity.getEvents().trigger(UPDATEANIMATION, "door_close_right_re");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class HorizontalDoorActions extends InteractionComponent {
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_right_re");
+            entity.getEvents().trigger(UPDATEANIMATION, "door_open_right_re");
         }
 
     }
@@ -41,10 +41,10 @@ public class HorizontalDoorActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight && !isOpened) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, "right_highlight"); //Door_left_highlighted
+            entity.getEvents().trigger(UPDATEANIMATION, "right_highlight"); //Door_left_highlighted
         } else if (!isOpened){
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re"); //door_close_left
+            entity.getEvents().trigger(UPDATEANIMATION, "door_close_right_re"); //door_close_left
         }
     }
 }

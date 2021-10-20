@@ -180,32 +180,33 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-            if(lastDirection == 0){
-                this.setAnimation(STANDINGSOUTH);
 
-            }else if(lastDirection == 1) {
+            switch (lastDirection) {
+                case 0:
+                case 2:
+                    this.setAnimation(STANDINGSOUTH);
+                    break;
+                case 1:
                     this.setAnimation("standing_east");
-
-            }else if(lastDirection==2){
-                this.setAnimation(STANDINGSOUTH);
-
-            }else if(lastDirection == 3){
-                this.setAnimation("standing_west");
-
-            }else if(lastDirection==4){
-                this.setAnimation("standing_northeast");
-
-            }else if(lastDirection == 5 ){
-                this.setAnimation("standing_northwest");
-
-            }else if(lastDirection == 6){
-                this.setAnimation("standing_southeast");
-
-            }else if(lastDirection == 7){
-                this.setAnimation("standing_southwest");
-
-            }else{
-                this.setAnimation(STANDINGSOUTH);
+                    break;
+                case 3:
+                    this.setAnimation("standing_west");
+                    break;
+                case 4:
+                    this.setAnimation("standing_northeast");
+                    break;
+                case 5:
+                    this.setAnimation("standing_northwest");
+                    break;
+                case 6:
+                    this.setAnimation("standing_southeast");
+                    break;
+                case 7:
+                    this.setAnimation("standing_southwest");
+                    break;
+                default:
+                    this.setAnimation(STANDINGSOUTH);
+                    break;
             }
         } else {
             if (true) {
