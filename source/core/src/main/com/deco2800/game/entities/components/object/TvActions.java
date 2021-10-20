@@ -18,7 +18,7 @@ public class TvActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, tvOn);
+        entity.getEvents().trigger(UPDATE_ANIMATION, TV_ON);
     }
 
     @Override

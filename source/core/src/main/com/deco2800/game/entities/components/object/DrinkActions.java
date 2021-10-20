@@ -44,10 +44,10 @@ public class DrinkActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight) {
             logger.debug("DRINK started collision with PLAYER");
-            entity.getEvents().trigger(updateAnimation, "energy_highlight");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "energy_highlight");
         } else {
             logger.debug("DRINK ended collision with PLAYER");
-            entity.getEvents().trigger(updateAnimation, "energy");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "energy");
         }
     }
 }

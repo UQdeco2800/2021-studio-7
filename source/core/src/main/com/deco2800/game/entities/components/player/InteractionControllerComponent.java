@@ -1,7 +1,7 @@
 package com.deco2800.game.entities.components.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
+
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.generic.ServiceLocator;
