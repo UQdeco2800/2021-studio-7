@@ -34,7 +34,6 @@ public class DrinkActions extends InteractionComponent {
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
-            target.getComponent(CombatStatsComponent.class).changeStamina(501);
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
             //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.DRINK);
@@ -53,24 +52,3 @@ public class DrinkActions extends InteractionComponent {
         }
     }
 }
-
-// You should use update() to do time-related tasks instead
-
-/*
-class DrinkTimerTask extends TimerTask{
-
-    private Entity target;
-
-    private static final Logger logger = LoggerFactory.getLogger(DrinkTimerTask.class);
-
-    public DrinkTimerTask(Entity target){
-        this.target = target;
-        logger.info("TimerTask for DrinkActions created, task will run in 10 seconds");
-    }
-
-    @Override
-    public void run() {
-        target.getEvents().trigger("energyDrinkEnd");
-        logger.info("TimerTask for Drink item executed, modifying player speed");
-    }
-}*/
