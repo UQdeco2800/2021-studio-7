@@ -7,11 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.object.BananaPeelActions;
-import com.deco2800.game.entities.components.object.BedActions;
-import com.deco2800.game.entities.components.object.DrinkActions;
-import com.deco2800.game.entities.components.object.TvActions;
-import com.deco2800.game.entities.components.object.PlaceableBoxActions;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -48,17 +44,32 @@ public class ObjectFactory {
     return bed;
   }
 
+  public static Entity createHorizontalDoor(String[] assets) {
+    Entity horizontalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new HorizontalDoorActions());
+    //setScale
+    //Physicsutil.setColliderShape
+    //"".setColliderOffset
+    //Entity horizontalDoor = new Entity();
+    return horizontalDoor;
+  }
+
+  public static Entity createVerticalDoor(String[] assets) {
+      Entity verticalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+              .addComponent(new VerticalDoorActions());
+      //Entity verticalDoor = new Entity();
+      return verticalDoor;
+  }
+
   public static Entity createDoor(String[] assets) {
 //    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
 //            .addComponent(new DoorActions());
-    Entity door = new Entity();
-    return door;
+    return new Entity();
   }
 
   public static Entity createPlaceableBox(String[] assets) {
-    Entity box = createBaseInteractable(assets, BodyType.StaticBody)
+    return createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new PlaceableBoxActions());
-    return box;
   }
 
   public static Entity createTv(String[] assets) {
@@ -69,16 +80,14 @@ public class ObjectFactory {
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
+    return createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
-    return energyDrink;
   }
 
   public static Entity createBananaPeel(String[] assets) {
-    Entity bananaPeel = createBaseInteractable(assets, BodyType.DynamicBody)
+    return createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new BananaPeelActions());
-    return bananaPeel;
   }
 
   public static Entity createPuddle(String[] assets){

@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(GameExtension.class)
-public class TitleScreenTest {
+class TitleScreenTest {
 
     /**
      * Tests whether the title screen is working in creation

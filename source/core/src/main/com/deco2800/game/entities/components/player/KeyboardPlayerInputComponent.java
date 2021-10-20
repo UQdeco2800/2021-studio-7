@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
@@ -19,6 +18,8 @@ import org.slf4j.LoggerFactory;
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
     private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
+    private static final String UPDATEANIMATION = "update_animation";
+    private static final String STANDINGSOUTH = "standing_south";
 
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
@@ -156,7 +157,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.F:
-                entity.getEvents().trigger("update_animation", "interacting_south_normal");
+                entity.getEvents().trigger(UPDATEANIMATION, "interacting_south_normal");
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
@@ -180,13 +181,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
             if(lastDirection == 0){
-                this.setAnimation("standing_south");
+                this.setAnimation(STANDINGSOUTH);
 
             }else if(lastDirection == 1) {
                     this.setAnimation("standing_east");
 
             }else if(lastDirection==2){
-                this.setAnimation("standing_south");
+                this.setAnimation(STANDINGSOUTH);
 
             }else if(lastDirection == 3){
                 this.setAnimation("standing_west");
@@ -204,7 +205,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 this.setAnimation("standing_southwest");
 
             }else{
-                this.setAnimation("standing_south");
+                this.setAnimation(STANDINGSOUTH);
             }
         } else {
             if (true) {
@@ -318,10 +319,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         if (this.buffed) {
             String animation = direction + "_buffed";
-            entity.getEvents().trigger("update_animation", animation);
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
         } else {
             String animation = direction + "_normal";
-            entity.getEvents().trigger("update_animation", animation);
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
         }
     }
 

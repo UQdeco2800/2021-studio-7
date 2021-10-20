@@ -11,6 +11,5 @@ import org.slf4j.LoggerFactory;
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
-
+//I never got implmented.
 }

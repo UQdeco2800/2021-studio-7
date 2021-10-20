@@ -1,7 +1,6 @@
 package com.deco2800.game.ai.tasks;
 
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.ai.components.AITaskComponent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,6 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
     @Override
     public void start(){
         super.start();
-        Vector2 startPos = owner.getEntity().getPosition();
 
         waitTask = new WaitTask(60);
         waitTask.create(owner);
