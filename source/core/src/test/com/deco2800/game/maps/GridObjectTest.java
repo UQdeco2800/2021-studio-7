@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
-public class GridObjectTest {
+class GridObjectTest {
 
     @Test
     void shouldReadGridObject() {
@@ -26,8 +26,8 @@ public class GridObjectTest {
     @Test
     void shouldGetAssetsWithExtension() {
         GridObject gridObject = createBaseGridObject();
-        assertArrayEquals(gridObject.getAssets(".png").toArray(), new String[]{"test.png"});
-        assertArrayEquals(gridObject.getAssets(".atlas").toArray(), new String[]{"test.atlas", "test1.atlas"});
+        assertArrayEquals(new String[]{"test.png"}, gridObject.getAssets(".png").toArray());
+        assertArrayEquals(new String[]{"test.atlas", "test1.atlas"}, gridObject.getAssets(".atlas").toArray());
     }
 
     GridObject createBaseGridObject() {

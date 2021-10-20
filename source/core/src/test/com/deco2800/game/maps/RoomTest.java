@@ -17,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(GameExtension.class)
-public class RoomTest {
+class RoomTest {
 
     @Test
     void shouldReadRoom() {
@@ -37,8 +37,8 @@ public class RoomTest {
                 new String[]{"images/objects/walls/3.png"}));
         Room room = createBaseRoom("hallway");
         room.create(floor);
-        assertEquals(room.getTileMap().size, 0);
-        assertEquals(room.getEntityMap().size, 1);
+        assertEquals(0, room.getTileMap().size);
+        assertEquals(1, room.getEntityMap().size);
         assertNotNull(room.getEntityMap().get('W'));
         assertTrue(Arrays.deepEquals(room.getTileGrid(), hallwayTileGrid));
         assertTrue(Arrays.deepEquals(room.getEntityGrid(), hallwayEntityGrid));
@@ -59,22 +59,22 @@ public class RoomTest {
     void shouldGetValidSpawnLocationsFromLiving() {
         Room room = createStyledRoom("living");
         List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
-        assertEquals(validSpawnLocations.size(), 26);
+        assertEquals(26, validSpawnLocations.size());
     }
 
     @Test
     void shouldGetNoValidSpawnLocationsFromOther() {
         Room room = createStyledRoom("bedroom");
         List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
-        assertEquals(validSpawnLocations.size(), 0);
+        assertEquals(0, validSpawnLocations.size());
     }
 
     @Test
     void shouldGetAssetsWithExtension() {
         Room room = createStyledRoom("bedroom");
         List<String> assetsWithExtension = room.getAssets(".png");
-        assertArrayEquals(assetsWithExtension.toArray(),
-                new String[]{"images/tiles/iso/iso_wall_1_left.png", "images/objects/walls/3.png"});
+        assertArrayEquals(new String[]{"images/tiles/iso/iso_wall_1_left.png", "images/objects" +
+                "/walls/3.png"}, assetsWithExtension.toArray());
     }
 
     Room createBaseRoom(String type) {
