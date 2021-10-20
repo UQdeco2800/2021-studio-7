@@ -193,12 +193,13 @@ public class MainGameScreen extends ScreenAdapter {
 
     if (button.equals("enter")) {
       sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+      logger.info("enter button sound played on main game screen launch");
     } else {
       sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+      logger.info("scrolling button sound played on main game screen launch");
     }
 
     sound.play();
-    logger.info("enter button sound played on main game screen launch");
   }
 
   /**

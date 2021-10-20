@@ -38,7 +38,6 @@ public class MainMenuScreen extends ScreenAdapter {
           ".mp3"};
 
   private static final String[] buttonSounds = {
-          "sounds/confirm-shorter.ogg",
           "sounds/browse-short.ogg"
   };
 
@@ -73,7 +72,7 @@ public class MainMenuScreen extends ScreenAdapter {
    * @param button button pressed
    */
   public static void playButtonSound(String button) {
-    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
     sound.play();
     logger.info(button + " button sound played");
   }

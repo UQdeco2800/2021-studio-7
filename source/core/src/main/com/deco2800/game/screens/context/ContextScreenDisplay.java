@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +61,7 @@ public class ContextScreenDisplay extends UIComponent {
         table.add(buttonContainer).padTop(30f);
 
         // Add button to container. Transitions to the next level (main game screen).
-        TextButton playGameBtn = new TextButton("Play Game", skin);
+        TextButton playGameBtn = new TextButton("PRESS ENTER TO PLAY!", skin);
         button = playGameBtn;
         playGameBtn.getLabel().setColor(0, 0,0, 1f);
         playGameBtn.addListener(
@@ -81,10 +80,12 @@ public class ContextScreenDisplay extends UIComponent {
         // draw is handled by the stage
     }
 
+    @Override
     public float getZIndex() {
         return Z_INDEX;
     }
 
+    @Override
     public void dispose() {
         table.clear();
         super.dispose();
