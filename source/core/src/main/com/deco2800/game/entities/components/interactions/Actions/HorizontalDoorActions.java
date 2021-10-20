@@ -33,6 +33,17 @@ public class HorizontalDoorActions extends InteractionComponent {
             this.isOpened = true;
             entity.getEvents().trigger("update_animation", "door_open_right_re");
         }
+        /*
+        //closing a door
+        else if (isOpened ) {
+            String string = "You closed a horizontal door";
+            logger.debug("PLAYER interacted with DOOR, triggering door animation");
+            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
+            entity.getComponent(ColliderComponent.class).setSensor(false);
+            this.isOpened = false;
+            entity.getEvents().trigger("update_animation", "door_close_right_re");
+        }*/
     }
 
     @Override
