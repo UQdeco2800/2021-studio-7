@@ -3,3 +3,7 @@ CowaBummer:
 CowaBummer:2500,
 hello:
 hello:2500,
+jjk:
+jjk:2033,2315,1758,1575,
+GaryGygax:
+GaryGygax:2427,
