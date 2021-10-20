@@ -53,6 +53,8 @@ public class MainMenuDisplay extends UIComponent {
     private static List<ImageButton> imageButtons = new ArrayList<>();
     private static Image menuIndicator;
 
+    private Random r = new Random();
+
     @Override
     public void create() {
         super.create();
@@ -316,7 +318,6 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public int getRandomNum(){
-        Random r = new Random();
         return r.nextInt(100000);
     }
 
