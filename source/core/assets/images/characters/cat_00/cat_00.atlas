@@ -164,7 +164,7 @@ standing_south
   size: 240, 200
   orig: 240, 200
   offset: 0, 0
-  index: 0
+  index: -1
 standing_west
   rotate: false
   xy: 1212, 608
