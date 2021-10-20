@@ -182,7 +182,7 @@ public class MainGameScreen extends ScreenAdapter {
 //    music.play();
 //  }
 
-  public void playButtonSound(String button) {
+  public static void playButtonSound(String button) {
     Sound sound;
 
     if (button.equals("enter")) {
