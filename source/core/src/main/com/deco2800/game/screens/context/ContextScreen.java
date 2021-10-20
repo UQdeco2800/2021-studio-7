@@ -21,8 +21,7 @@ import org.slf4j.LoggerFactory;
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
     private static final String[] ContextTextures = {
-            "images/context_screen/context_screen.PNG",
-            "images/ui/screens/inactiveStart.png"
+            "images/objects/bed/bed_static.PNG"
     };
 
     private final Renderer renderer;
@@ -48,7 +47,12 @@ public class ContextScreen extends ScreenAdapter {
         return screen;
     }
 
+    public static void incrementScreen() {
+        screen++;
+    }
+
     public static void setSkip() {
+
         skip = true;
     }
 

@@ -37,6 +37,7 @@ public class ContextScreenActions extends Component {
     public static void playGame() {
         logger.info("Exiting context screen...");
         logger.info("Swapping to main game screen...");
+        ContextScreen.incrementScreen();
         ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_GAME);
     }
 
