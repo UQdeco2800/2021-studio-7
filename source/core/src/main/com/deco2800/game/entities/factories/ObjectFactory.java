@@ -7,11 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.object.BananaPeelActions;
-import com.deco2800.game.entities.components.object.BedActions;
-import com.deco2800.game.entities.components.object.DrinkActions;
-import com.deco2800.game.entities.components.object.TvActions;
-import com.deco2800.game.entities.components.object.PlaceableBoxActions;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -46,6 +42,23 @@ public class ObjectFactory {
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setColliderShape(bed, 1f, 2f);
     return bed;
+  }
+
+  public static Entity createHorizontalDoor(String[] assets) {
+    Entity horizontalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new HorizontalDoorActions());
+    //setScale
+    //Physicsutil.setColliderShape
+    //"".setColliderOffset
+    //Entity horizontalDoor = new Entity();
+    return horizontalDoor;
+  }
+
+  public static Entity createVerticalDoor(String[] assets) {
+      Entity verticalDoor = createBaseInteractable(assets, BodyType.StaticBody)
+              .addComponent(new VerticalDoorActions());
+      //Entity verticalDoor = new Entity();
+      return verticalDoor;
   }
 
   public static Entity createDoor(String[] assets) {
