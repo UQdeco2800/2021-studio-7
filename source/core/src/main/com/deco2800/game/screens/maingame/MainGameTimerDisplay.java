@@ -1,6 +1,5 @@
 package com.deco2800.game.screens.maingame;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,31 +16,16 @@ import org.slf4j.LoggerFactory;
  * A ui component for displaying player stats, e.g. health.
  */
 public class MainGameTimerDisplay extends UIComponent {
-    Table timeTable;
-    private final Label currentTimeLabel;
+    private static final Logger logger = LoggerFactory.getLogger(MainGameTimerDisplay.class);
+    private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
+    private static final float TIMER_START = 23.00f;
+    private static final float TIMER_END = 3.00f;
+    private static final long TIMER_TICK_RATE = 750L;
+    private Table table;
+    private Label timerLabel;
+    private TimerStatus timerStatus;
+    private float timerTime;
     private long lastTime = 0L;
-    private int startHour;
-    private int startMinute;
-    private int endHour;
-    private int endMinute;
-    private static final Logger logger =
-            LoggerFactory.getLogger(MainGameTimerDisplay.class);
-    private Texture texture = new Texture(Gdx.files.internal("images/ui" +
-            "/elements/Textbox_256.png"));
-    private Image background = new Image(texture);
-
-    public MainGameTimerDisplay() {
-        logger.debug("Initialising main game screen timer service");
-
-        //set up initial timer for the level 1
-        setTimer(23, 0,  2, 0);
-        CharSequence timeText = String.format("    %d:0%d",startHour,
-        startMinute);
-        currentTimeLabel = new Label(timeText, skin, "title");
-        currentTimeLabel.setText(timeText);
-        logger.debug("Main game screen timer service started");
-
-    }
 
 
     /**
@@ -50,6 +34,8 @@ public class MainGameTimerDisplay extends UIComponent {
     @Override
     public void create() {
         super.create();
+        timerTime = TIMER_START;
+        timerStatus = TimerStatus.NORMAL;
         addActors();
     }
 
@@ -58,13 +44,24 @@ public class MainGameTimerDisplay extends UIComponent {
      * @see Table for positioning options
      */
     public void addActors() {
-        timeTable = new Table();
-        timeTable.bottom().right();
-        timeTable.padRight(60f);
-        timeTable.setFillParent(true);
-        timeTable.add(background);
-        timeTable.stack(background, currentTimeLabel);
-        stage.addActor(timeTable);
+        table = new Table(skin);
+        table.setFillParent(true);
+        table.bottom().right().padRight(60f);
+
+        // Set background to the appropriate texture for the timer display
+        ServiceLocator.getResourceService().loadTexture(TIMER_BACKGROUND);
+        ServiceLocator.getResourceService().loadAll();
+        Image timerBackground =
+                new Image(
+                        ServiceLocator.getResourceService()
+                                .getAsset(TIMER_BACKGROUND, Texture.class));
+        table.setBackground(timerBackground.getDrawable());
+
+        // Add timer label to the table
+        timerLabel = new Label(getCurrentTime(), skin);
+        table.add(timerLabel);
+
+        stage.addActor(table);
     }
 
     @Override
@@ -72,125 +69,52 @@ public class MainGameTimerDisplay extends UIComponent {
         // draw is handled by the stage
     }
 
-    /**
-     * Provide an interface to set up main game screen clock time
-     * @param hr1 Start hour time for this level's game
-     * @param hr2 End time for this level's game
-     * @param min1 Start min for this level's game
-     * @param min2 End min for this level's game
-     */
-    public void setTimer(int hr1, int min1, int hr2, int min2) {
-        setStartHour(hr1);
-        setStartMinute(min1);
-        setEndHour(hr2);
-        setEndMinute(min2);
-        logger.info("Timer setup ready");
+    public CharSequence getCurrentTime() {
+        return String.format("%02d%02d", getHours(), getMinutes());
     }
 
-    /**
-     * Set up start hour
-     */
-
-    public void setStartHour(int hr) {
-        this.startHour = hr;
+    public int getHours() {
+        return (int) timerTime;
     }
 
-    /**
-     * Get start hour now
-     */
-    public int getStartHour() {
-        return this.startHour;
+    public int getMinutes() {
+        return (int) (timerTime % 1);
     }
 
-    /**
-     * Set up start minute
-     */
-    public void setStartMinute(int min) {
-        this.startMinute = min;
-    }
-    /**
-     * Get start minute now
-     */
-
-    public int getStartMinute() {
-        return this.startMinute;
-    }
-
-    /**
-     * Set up end hour
-     */
-
-    public void setEndHour(int hr) {
-        this.endHour = hr;
-    }
-
-    /**
-     * Get end hour
-     */
-    public int getEndHour() {
-        return this.endHour;
-    }
-
-    /**
-     * Set up end minute
-     */
-    public void setEndMinute(int min) {
-        this.endMinute = min;
-    }
-
-    /**
-     * Get end minute now
-     */
-    public int getEndMinute() {
-        return this.endMinute;
-    }
-    /**
-     * Updates the main game screen clock
-     */
-    public void updateTimeUI() {
-        if (this.getStartMinute() < 59) {
-            this.setStartMinute(this.getStartMinute() + 1);
-        } else if (this.getStartMinute() == 59) {
-            if (this.getStartHour() < 23) {
-                this.setStartHour(this.getStartHour() + 1);
-            } else if (this.getStartHour() == 23) {
-                this.setStartHour(0);
-            }
-            this.setStartMinute(0);
-        }
-        CharSequence timeText;
-        if (this.getStartHour() < 10) {
-            if (this.getStartMinute() < 10) {
-                timeText = String.format("    0%d:0%d",this.getStartHour(),
-                        this.getStartMinute());
-            }
-            else {
-                timeText = String.format("    0%d:%d",this.getStartHour(),
-                        this.getStartMinute());
-            }
+    public void tick() {
+        if (getMinutes() < 59) {
+            timerTime += 0.01f;
         } else {
-            if (this.getStartMinute() < 10) {
-                timeText = String.format("    %d:0%d",this.getStartHour(),
-                        this.getStartMinute());
+            timerTime += 0.41f;
+            if (getHours() > 23) {
+                timerTime -= (int) timerTime;
             }
-            else {
-                timeText = String.format("    %d:%d",this.getStartHour(),
-                        this.getStartMinute());
-            }
-        }
-        currentTimeLabel.setText(timeText);
-        if((Math.abs(getStartHour()-getEndHour()) <= 1 || Math.abs(getStartHour()-getEndHour()) >= 23) && Math.abs(getEndMinute() - getStartMinute()) > 30) {
-            currentTimeLabel.setColor(255, 0,0, 1f);
-            currentTimeLabel.addAction(Actions.alpha(0));
-            currentTimeLabel.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f),
-                    Actions.fadeOut(1f))));
         }
     }
 
+    public void updateLabel() {
+        timerLabel.setText(getCurrentTime());
+
+        if (timerStatus == TimerStatus.NORMAL && TIMER_END - timerTime <= 1) {
+            timerLabel.setColor(255, 0,0, 1f);
+            timerLabel.addAction(Actions.alpha(0));
+            timerLabel.addAction(Actions.forever(Actions.sequence(
+                    Actions.fadeIn(1f),
+                    Actions.fadeOut(1f))));
+            timerStatus = TimerStatus.FLASHING;
+        }
+    }
+
+    public void checkTimerEnd() {
+        if (timerTime >= TIMER_END) {
+            logger.debug("Timer has finished");
+            entity.getEvents().trigger("timer_ended");
+        }
+    }
+    
     @Override
     public void dispose() {
-        logger.debug("Disposing timer");
-        timeTable.clear();
+        table.clear();
         super.dispose();
     }
 
@@ -201,13 +125,15 @@ public class MainGameTimerDisplay extends UIComponent {
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (currentTime - lastTime >= 750L) {
+        if (currentTime - lastTime >= TIMER_TICK_RATE) {
             lastTime = currentTime;
-            updateTimeUI();
-            if (this.getStartHour() == this.getEndHour() && this.getStartMinute() > this.getEndMinute()) {
-                logger.info("Time end");
-                entity.getEvents().trigger("timer_ended");
-            }
+            tick();
+            updateLabel();
+            checkTimerEnd();
         }
-        }
+    }
+    
+    enum TimerStatus {
+        NORMAL, FLASHING
+    }
 }
