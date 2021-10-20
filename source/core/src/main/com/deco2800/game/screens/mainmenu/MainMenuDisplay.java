@@ -19,6 +19,9 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
