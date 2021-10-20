@@ -1,8 +1,6 @@
 package com.deco2800.game.ai.tasks;
 
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.ai.components.AITaskComponent;
-import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +14,16 @@ public class SlipTask extends DefaultTask implements PriorityTask{
     private MovementTask movementTask;
     private int priority = -1;
 
-    public SlipTask (){ }
+    public SlipTask (){
+        // Placeholder method
+    }
 
     @Override
     public int getPriority() {
         return priority;
     }
 
+    @Override
     public void start() {
         super.start();
         startPos = owner.getEntity().getPosition();

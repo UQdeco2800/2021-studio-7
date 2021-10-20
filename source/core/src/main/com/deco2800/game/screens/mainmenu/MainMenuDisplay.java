@@ -337,7 +337,7 @@ public class MainMenuDisplay extends UIComponent {
                 try {
                     writer.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.debug("Failed to close writer.");
                 }
             }
         }
@@ -370,7 +370,7 @@ public class MainMenuDisplay extends UIComponent {
                 try {
                     writer.close();
                 }catch (IOException e) {
-                    e.printStackTrace();
+                    logger.debug("Failed to close writer.");
                 }
             }
         }
