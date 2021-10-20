@@ -1,7 +1,6 @@
 package com.deco2800.game.screens.leaderboard;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,7 +15,6 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.mainmenu.MainMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

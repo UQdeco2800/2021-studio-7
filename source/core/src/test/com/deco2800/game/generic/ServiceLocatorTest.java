@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
 @ExtendWith(GameExtension.class)
-class erviceLocatorTest {
+class ServiceLocatorTest {
   @Test
   void shouldGetSetServices() {
     EntityService entityService = new EntityService();

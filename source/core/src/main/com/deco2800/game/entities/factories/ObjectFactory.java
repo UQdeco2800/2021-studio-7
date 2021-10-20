@@ -51,14 +51,12 @@ public class ObjectFactory {
   public static Entity createDoor(String[] assets) {
 //    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
 //            .addComponent(new DoorActions());
-    Entity door = new Entity();
-    return door;
+    return new Entity();
   }
 
   public static Entity createPlaceableBox(String[] assets) {
-    Entity box = createBaseInteractable(assets, BodyType.StaticBody)
+    return createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new PlaceableBoxActions());
-    return box;
   }
 
   public static Entity createTv(String[] assets) {
@@ -69,16 +67,14 @@ public class ObjectFactory {
   }
 
   public static Entity createEnergyDrink(String[] assets) {
-    Entity energyDrink = createBaseInteractable(assets, BodyType.DynamicBody)
+    return createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new DrinkActions())
             .addComponent(new SingleUse());
-    return energyDrink;
   }
 
   public static Entity createBananaPeel(String[] assets) {
-    Entity bananaPeel = createBaseInteractable(assets, BodyType.DynamicBody)
+    return createBaseInteractable(assets, BodyType.DynamicBody)
             .addComponent(new BananaPeelActions());
-    return bananaPeel;
   }
 
   public static Entity createPuddle(String[] assets){

@@ -1,12 +1,8 @@
 package com.deco2800.game.screens.mainmenu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -20,16 +16,13 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.lang.Math;
+import java.util.Random;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
@@ -42,15 +35,13 @@ public class MainMenuDisplay extends UIComponent {
     private static final float Z_INDEX = 2f;
     private static TextField txtUsername;
     private Table tableMain;
-    private Table tableLeft;
-    private Table tableRight;
-    private String playablecharcters[] = {
+    private String[] playablecharcters = {
             "images/characters/boy_01/boy_01_menu_preview.png",
             "images/characters/girl_00/girl_00_menu_preview.png",
             "images/characters/boy_00/boy_00_menu_preview.png"
 
     };
-    private  String playableAtlas[]={
+    private String[] playableAtlas ={
             "images/characters/boy_01/boy_01.atlas",
             "images/characters/girl_00/girl_00.atlas",
             "images/characters/boy_00/boy_00.atlas"
@@ -58,18 +49,9 @@ public class MainMenuDisplay extends UIComponent {
     private int characterIndex = 0;
 
     private static int menuIndex = 0;
-    private static List<TextButton> buttons = new ArrayList<TextButton>();
-    private static List<ImageButton> imageButtons = new ArrayList<ImageButton>();
+    private static List<TextButton> buttons = new ArrayList<>();
+    private static List<ImageButton> imageButtons = new ArrayList<>();
     private static Image menuIndicator;
-
-    private Texture leftTexture;
-    private TextureRegion leftTextureRegion;
-    private TextureRegionDrawable leftTextureRegionDrawable;
-    private Texture rightTexture;
-    private TextureRegion rightTextureRegion;
-    private TextureRegionDrawable rightTextureRegionDrawable;
-    private Image leftBtnGrey;
-    private Image rightBtnGrey;
 
     @Override
     public void create() {
@@ -80,11 +62,9 @@ public class MainMenuDisplay extends UIComponent {
 
     private void addActors() {
 
-        tableLeft = new Table();
-        tableRight = new Table();
+        Table tableLeft = new Table();
+        Table tableRight = new Table();
         tableMain = new Table();
-
-        menuIndex = 0;
 
         Image background = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/main_menu/bgart.png", Texture.class));
@@ -113,14 +93,14 @@ public class MainMenuDisplay extends UIComponent {
         TextButton exitBtn = new TextButton("Exit", skin);
         buttons.add(exitBtn);
 
-        leftTexture = new Texture("images/main_menu/pointer-L.png");
-        leftTextureRegion = new TextureRegion(leftTexture);
-        leftTextureRegionDrawable = new TextureRegionDrawable(leftTextureRegion);
+        Texture leftTexture = new Texture("images/main_menu/pointer-L.png");
+        TextureRegion leftTextureRegion = new TextureRegion(leftTexture);
+        TextureRegionDrawable leftTextureRegionDrawable = new TextureRegionDrawable(leftTextureRegion);
         ImageButton leftBtn = new ImageButton(leftTextureRegionDrawable);
 
-        rightTexture = new Texture("images/main_menu/pointer-R.png");
-        rightTextureRegion = new TextureRegion(rightTexture);
-        rightTextureRegionDrawable = new TextureRegionDrawable(rightTextureRegion);
+        Texture rightTexture = new Texture("images/main_menu/pointer-R.png");
+        TextureRegion rightTextureRegion = new TextureRegion(rightTexture);
+        TextureRegionDrawable rightTextureRegionDrawable = new TextureRegionDrawable(rightTextureRegion);
         ImageButton rightBtn = new ImageButton(rightTextureRegionDrawable);
 
         imageButtons.add(leftBtn);
@@ -135,13 +115,12 @@ public class MainMenuDisplay extends UIComponent {
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
 
-        menuIndicator = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
+        createMenuIndicator();
 
-        rightBtnGrey = new Image(ServiceLocator.getResourceService()
+        Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
 
-        leftBtnGrey = new Image(ServiceLocator.getResourceService()
+        Image leftBtnGrey = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/main_menu/pointer-L-inactive.png", Texture.class));
 
 
@@ -278,8 +257,6 @@ public class MainMenuDisplay extends UIComponent {
             imageButtons.clear();
             dispose();
             create();
-        } else {
-
         }
     }
 
@@ -302,57 +279,28 @@ public class MainMenuDisplay extends UIComponent {
             imageButtons.clear();
             dispose();
             create();
-        } else {
-
         }
     }
 
     /**
      * Updates currentCharacterAtlas.txt
      */
-//    public void writeAtlas(){
-//        try {
-//            FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt");
-//            writer.write(this.playableAtlas[this.characterIndex]);
-//            writer.close();
-//            logger.info("Writing new atlas to settings.");
-//        } catch (Exception e){
-//
-//            logger.debug("Could not load the atlas after character change was made.");
-//        }
-//    }
-
     public void writeAtlas(){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("configs/currentCharacterAtlas.txt");
+        try (FileWriter writer = new FileWriter("configs/currentCharacterAtlas.txt")) {
             writer.write(this.playableAtlas[this.characterIndex]);
-            writer.close();
             logger.info("Writing new atlas to settings.");
         } catch (Exception e){
-
             logger.debug("Could not load the atlas after character change was made.");
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    logger.debug("Failed to close writer.");
-                }
-            }
         }
     }
 
     public void writeUsername(){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("configs/leaderboard.txt",true);
+        try (FileWriter writer = new FileWriter("configs/leaderboard.txt",true)) {
             String username;
-
-            if (this.txtUsername.getText().length()<2){
+            if (txtUsername.getText().length()<2){
                 username = "DirtyDefault"+ getRandomNum();
             }else{
-                username = this.txtUsername.getText();
+                username = txtUsername.getText();
             }
 
             StringBuilder sb = new StringBuilder();
@@ -361,23 +309,15 @@ public class MainMenuDisplay extends UIComponent {
             sb.append(":");
             String s = sb.toString();
             writer.write(s);
-            writer.close();
             logger.info("Wrote username to leaderboard.");
         } catch (Exception e){
             logger.debug("Could not write username to leaderboard.");
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                }catch (IOException e) {
-                    logger.debug("Failed to close writer.");
-                }
-            }
         }
     }
 
     public int getRandomNum(){
-        return (int)(Math.random()*100000);
+        Random r = new Random();
+        return r.nextInt(100000);
     }
 
     /**
@@ -426,7 +366,12 @@ public class MainMenuDisplay extends UIComponent {
             menuIndex++;
             updateMenuFrame();
         }
-        logger.info("Menu Index is " + Integer.toString(menuIndex));
+        logger.info("Menu Index is {}", menuIndex);
+    }
+
+    private static void createMenuIndicator() {
+        menuIndicator = new Image(ServiceLocator.getResourceService()
+                .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
     }
 
     /**
@@ -445,38 +390,41 @@ public class MainMenuDisplay extends UIComponent {
         MainMenuScreen.playButtonSound("browse");
 
         TextButton startBtn = buttons.get(0);
-        TextButton LeadBtn = buttons.get(1);
-        TextButton SetBtn = buttons.get(2);
-        TextButton ExitBtn = buttons.get(3);
+        TextButton leadBtn = buttons.get(1);
+        TextButton setBtn = buttons.get(2);
+        TextButton exitBtn = buttons.get(3);
         float buttonXLocation = (float) graphics.getWidth() / 2 - 430;
         switch (menuIndex) {
             case 0: //Start Button (height of title image + 15f)
                 menuIndicator.setPosition(buttonXLocation, (float) graphics.getHeight() / 2);
                 hoverMenu(startBtn);
-                unhoverMenu(LeadBtn);
-                unhoverMenu(SetBtn);
-                unhoverMenu(ExitBtn);
+                unhoverMenu(leadBtn);
+                unhoverMenu(setBtn);
+                unhoverMenu(exitBtn);
                 break;
             case 1: //Leaderboard Button (height start btn + 15f)
-                menuIndicator.setPosition(buttonXLocation, LeadBtn.getY()-10);
+                menuIndicator.setPosition(buttonXLocation, leadBtn.getY()-10);
                 unhoverMenu(startBtn);
-                hoverMenu(LeadBtn);
-                unhoverMenu(SetBtn);
-                unhoverMenu(ExitBtn);
+                hoverMenu(leadBtn);
+                unhoverMenu(setBtn);
+                unhoverMenu(exitBtn);
                 break;
             case 2: //Settings Button
-                menuIndicator.setPosition(buttonXLocation,SetBtn.getY()-10);
+                menuIndicator.setPosition(buttonXLocation,setBtn.getY()-10);
                 unhoverMenu(startBtn);
-                unhoverMenu(LeadBtn);
-                hoverMenu(SetBtn);
-                unhoverMenu(ExitBtn);
+                unhoverMenu(leadBtn);
+                hoverMenu(setBtn);
+                unhoverMenu(exitBtn);
                 break;
             case 3: //Exit Button
-                menuIndicator.setPosition(buttonXLocation,ExitBtn.getY()-10);
+                menuIndicator.setPosition(buttonXLocation,exitBtn.getY()-10);
                 unhoverMenu(startBtn);
-                unhoverMenu(LeadBtn);
-                unhoverMenu(SetBtn);
-                hoverMenu(ExitBtn);
+                unhoverMenu(leadBtn);
+                unhoverMenu(setBtn);
+                hoverMenu(exitBtn);
+                break;
+            default:
+                logger.debug("Invalid menu button.");
                 break;
         }
     }
@@ -494,20 +442,23 @@ public class MainMenuDisplay extends UIComponent {
                 startBtn.toggle();
                 break;
             case 1: //Leaderboard Button
-                TextButton LeadBtn = buttons.get(1);
+                TextButton leadBtn = buttons.get(1);
                 buttons.clear();
                 imageButtons.clear();
-                LeadBtn.toggle();
+                leadBtn.toggle();
                 break;
             case 2: //Settings Button
-                TextButton SetBtn = buttons.get(2);
+                TextButton setBtn = buttons.get(2);
                 buttons.clear();
                 imageButtons.clear();
-                SetBtn.toggle();
+                setBtn.toggle();
                 break;
             case 3: //Exit Button
-                TextButton ExitBtn = buttons.get(3);
-                ExitBtn.toggle();
+                TextButton exitBtn = buttons.get(3);
+                exitBtn.toggle();
+                break;
+            default:
+                logger.debug("Invalid menu button.");
                 break;
         }
     }

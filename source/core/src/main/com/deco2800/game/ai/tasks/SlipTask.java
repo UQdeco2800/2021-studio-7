@@ -32,6 +32,7 @@ public class SlipTask extends DefaultTask implements PriorityTask{
         movementTask.start();
     }
 
+    @Override
     public void update() {
         if (movementTask.getStatus() != Status.ACTIVE) {
             changePriority(-1);
