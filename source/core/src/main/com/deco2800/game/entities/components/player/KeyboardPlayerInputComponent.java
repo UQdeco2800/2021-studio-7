@@ -324,12 +324,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     public void setWalkDirection(Vector2 direction) {
-        if (this.buffed) {
-            //Vector2 x = direction.sub(direction);
-            walkDirection.sub(direction);
-        } else {
-            walkDirection.sub(direction);
-        }
+        walkDirection.sub(direction);
     }
 
 }
