@@ -1,3 +1,5 @@
 
 CowaBummer:
 CowaBummer:2500,
+hello:
+hello:2500,
