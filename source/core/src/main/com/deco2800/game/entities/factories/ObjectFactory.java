@@ -62,14 +62,12 @@ public class ObjectFactory {
   }
 
   public static Entity createHorizontalDoor(String[] assets) {
-    String[] ass = {assets[0], "0", "8", "0"};
-    Entity horizontalDoor = createBaseInteractable(ass);
+    Entity horizontalDoor = createBaseInteractable(assets);
     return horizontalDoor;
   }
 
   public static Entity createVerticalDoor(String[] assets) {
-      String[] ass = {assets[0], "0", "7", "0"};
-      Entity verticalDoor = createBaseInteractable(ass);
+      Entity verticalDoor = createBaseInteractable(assets);
       //Entity verticalDoor = new Entity();
       return verticalDoor;
   }
