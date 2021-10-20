@@ -312,13 +312,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     public void setAnimation(String direction) {
 
-        if (this.buffed == true) {
-            String animation = direction + "_buffed";
-            entity.getEvents().trigger(UPDATEANIMATION, animation);
+        String animation;
+        if (this.buffed) {
+            animation = direction + "_buffed";
         } else {
-            String animation = direction + "_normal";
-            entity.getEvents().trigger(UPDATEANIMATION, animation);
+            animation = direction + "_normal";
         }
+        entity.getEvents().trigger(UPDATEANIMATION, animation);
     }
 
 

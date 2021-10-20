@@ -89,7 +89,8 @@ public class ContextScreenDisplay extends UIComponent {
         try {
             TimeUnit.MILLISECONDS.sleep(timeout);
         } catch (InterruptedException e) {
-            logger.error("Sleep interupted");
+            logger.error("Sleep interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -147,7 +148,7 @@ public class ContextScreenDisplay extends UIComponent {
         int colWidth = Gdx.graphics.getWidth() / 10;
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*8f, rowHeight*12f);
-        displayText.setPosition(colWidth, rowHeight*3);
+        displayText.setPosition(colWidth, (float) rowHeight * 3);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setWrap(true);
         stage.addActor(displayText);
