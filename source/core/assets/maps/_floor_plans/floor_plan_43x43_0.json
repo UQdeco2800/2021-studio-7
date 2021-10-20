@@ -29,14 +29,14 @@
     // Creates a horizontally-facing door. In isometric view, this is northwest to southeast
     -: {
       class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createDoor
-      assets: [images/objects/door/door_animationL.atlas, 0, 0, 0]
+      method: createHorizontalDoor
+      assets: [images/objects/door/door_animationL.atlas, 0, 9, 0]
     }
     // Creates a vertically-facing door. In isometric view, this is northeast to southwest
     |: {
       class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createDoor
-      assets: [images/objects/door/door_animationL.atlas, 0, 0, 0]
+      method: createVerticalDoor
+      assets: [images/objects/door/door_animationL.atlas, 0, 8, 0]
     }
     /* No entity. This overrides any entities relative to the interior's position
     *: {

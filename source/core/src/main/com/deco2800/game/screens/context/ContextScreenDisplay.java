@@ -164,8 +164,8 @@ public class ContextScreenDisplay extends UIComponent {
                         "E\n\n Sprint: shift" ;
                 break;
             case 2:
-                this.text = "You've escaped with your proverbial life this time, but the odds are against you tonight" +
-                        ".\n\n\n You've put off the chores in favor of clocking the new Exhale of the City game. " +
+                this.text = "You've escaped with your life this time, but the odds are against you tonight" +
+                        ".\n\n\n You've put off the chores in favor of finishing the new Exhale of the City (TM) game. " +
                         "\n\n\n T-minus two hours until Mum gets home, complete your chores and head to bed!";
                 break;
         }
