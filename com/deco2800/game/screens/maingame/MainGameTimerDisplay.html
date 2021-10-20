@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -108,7 +108,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">MainGameTimerDisplay</span>
 extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2800.game.ui.components">UIComponent</a></pre>
-<div class="block">A ui component for displaying player stats, e.g. health.</div>
+<div class="block">Displays a timer in 24-hour time. Acts like an alarm; it will end the game once the desired time is reached.</div>
 </section>
 <section class="summary">
 <ul class="blockList">
@@ -176,110 +176,66 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addActors()">addActors</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Creates actors and positions them on the stage using a table.</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Creates reusable ui styles and adds actors to the stage.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkTimerEnd()">checkTimerEnd</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Called when the entity is created and registered.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the component is disposed.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</code></th>
 <td class="colLast">
 <div class="block">Draw the renderable.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEndHour()">getEndHour</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get end hour</div>
-</td>
-</tr>
 <tr class="rowColor" id="i5">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEndMinute()">getEndMinute</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get end minute now</div>
-</td>
+<td class="colFirst"><code>java.lang.CharSequence</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCurrentTime()">getCurrentTime</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i6">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStartHour()">getStartHour</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get start hour now</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getHours()">getHours</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStartMinute()">getStartMinute</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Get start minute now</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMinutes()">getMinutes</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i8">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEndHour(int)">setEndHour</a></span>&#8203;(int&nbsp;hr)</code></th>
-<td class="colLast">
-<div class="block">Set up end hour</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tick()">tick</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setEndMinute(int)">setEndMinute</a></span>&#8203;(int&nbsp;min)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Set up end minute</div>
+<div class="block">Called once per frame of the game, and should be used for most component logic.</div>
 </td>
 </tr>
 <tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setStartHour(int)">setStartHour</a></span>&#8203;(int&nbsp;hr)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateLabel()">updateLabel</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Set up start hour</div>
-</td>
-</tr>
-<tr class="rowColor" id="i11">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setStartMinute(int)">setStartMinute</a></span>&#8203;(int&nbsp;min)</code></th>
-<td class="colLast">
-<div class="block">Set up start minute</div>
-</td>
-</tr>
-<tr class="altColor" id="i12">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimer(int,int,int,int)">setTimer</a></span>&#8203;(int&nbsp;hr1,
-int&nbsp;min1,
-int&nbsp;hr2,
-int&nbsp;min2)</code></th>
-<td class="colLast">
-<div class="block">Provide an interface to set up main game screen clock time</div>
-</td>
-</tr>
-<tr class="rowColor" id="i13">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Main function for timer, it would update time left
- and stop when time reach 2 pm and trigger time loss event</div>
-</td>
-</tr>
-<tr class="altColor" id="i14">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTimeUI()">updateTimeUI</a></span>()</code></th>
-<td class="colLast">
-<div class="block">Updates the main game screen clock</div>
+<div class="block">Updates the timer label to the new time.</div>
 </td>
 </tr>
 </tbody>
@@ -349,7 +305,9 @@ int&nbsp;min2)</code></th>
 <section class="detail">
 <h3><a id="create()">create</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
-<div class="block">Creates reusable ui styles and adds actors to the stage.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../generic/Component.html#create()">Component</a></code></span></div>
+<div class="block">Called when the entity is created and registered. Initial logic such as calls to GetComponent
+ should be made here, not in the constructor which is called before an entity is finished.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../ui/components/UIComponent.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../ui/components/UIComponent.html" title="class in com.deco2800.game.ui.components">UIComponent</a></code></dd>
@@ -360,11 +318,6 @@ int&nbsp;min2)</code></th>
 <section class="detail">
 <h3><a id="addActors()">addActors</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">addActors</span>()</div>
-<div class="block">Creates actors and positions them on the stage using a table.</div>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink"><code>for positioning options</code></a></dd>
-</dl>
 </section>
 </li>
 <li class="blockList">
@@ -383,82 +336,42 @@ int&nbsp;min2)</code></th>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setTimer(int,int,int,int)">setTimer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTimer</span>&#8203;(<span class="arguments">int&nbsp;hr1,
-int&nbsp;min1,
-int&nbsp;hr2,
-int&nbsp;min2)</span></div>
-<div class="block">Provide an interface to set up main game screen clock time</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>hr1</code> - Start hour time for this level's game</dd>
-<dd><code>hr2</code> - End time for this level's game</dd>
-<dd><code>min1</code> - Start min for this level's game</dd>
-<dd><code>min2</code> - End min for this level's game</dd>
-</dl>
+<h3><a id="getCurrentTime()">getCurrentTime</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.CharSequence</span>&nbsp;<span class="memberName">getCurrentTime</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setStartHour(int)">setStartHour</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setStartHour</span>&#8203;(<span class="arguments">int&nbsp;hr)</span></div>
-<div class="block">Set up start hour</div>
+<h3><a id="getHours()">getHours</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getHours</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getStartHour()">getStartHour</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getStartHour</span>()</div>
-<div class="block">Get start hour now</div>
+<h3><a id="getMinutes()">getMinutes</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getMinutes</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setStartMinute(int)">setStartMinute</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setStartMinute</span>&#8203;(<span class="arguments">int&nbsp;min)</span></div>
-<div class="block">Set up start minute</div>
+<h3><a id="tick()">tick</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">tick</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getStartMinute()">getStartMinute</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getStartMinute</span>()</div>
-<div class="block">Get start minute now</div>
+<h3><a id="updateLabel()">updateLabel</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateLabel</span>()</div>
+<div class="block">Updates the timer label to the new time.
+
+ If the timer is within an hour of the final time,
+ then the label will change colour and blink until the alarm goes off.</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setEndHour(int)">setEndHour</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setEndHour</span>&#8203;(<span class="arguments">int&nbsp;hr)</span></div>
-<div class="block">Set up end hour</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getEndHour()">getEndHour</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getEndHour</span>()</div>
-<div class="block">Get end hour</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setEndMinute(int)">setEndMinute</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setEndMinute</span>&#8203;(<span class="arguments">int&nbsp;min)</span></div>
-<div class="block">Set up end minute</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getEndMinute()">getEndMinute</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getEndMinute</span>()</div>
-<div class="block">Get end minute now</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="updateTimeUI()">updateTimeUI</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateTimeUI</span>()</div>
-<div class="block">Updates the main game screen clock</div>
+<h3><a id="checkTimerEnd()">checkTimerEnd</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">checkTimerEnd</span>()</div>
 </section>
 </li>
 <li class="blockList">
@@ -479,8 +392,9 @@ int&nbsp;min2)</span></div>
 <section class="detail">
 <h3><a id="update()">update</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">update</span>()</div>
-<div class="block">Main function for timer, it would update time left
- and stop when time reach 2 pm and trigger time loss event</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../generic/Component.html#update()">Component</a></code></span></div>
+<div class="block">Called once per frame of the game, and should be used for most component logic. Not called if
+ component is disabled.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../generic/Component.html#update()">update</a></code>&nbsp;in class&nbsp;<code><a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></code></dd>
