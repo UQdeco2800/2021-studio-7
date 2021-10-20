@@ -13,16 +13,16 @@ import java.util.TimerTask;
  */
 public class MainGameScoreDisplay extends UIComponent {
     Table table;
-    private Label timerLabel;
     private Label scoreLabel;
     private static Timer timer;
-    private static int timeLeft;
-    private static int score;
-    private static int timeSinceStart;
+    private int timeLeft;
+    private int score;
+    private int timeSinceStart;
 
     public MainGameScoreDisplay(int initialTime, int initialscore) {
-        timeLeft = initialTime;
-        score = initialscore;
+        this.timeLeft = initialTime;
+        this.score = initialscore;
+        timeSinceStart = 0;
     }
 
     /**
@@ -70,8 +70,8 @@ public class MainGameScoreDisplay extends UIComponent {
      * @return score as an int
      */
     public int getscore(){
-        score -= 1;
-        return score;
+        this.score -= 1;
+        return this.score;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class MainGameScoreDisplay extends UIComponent {
      * and stop when time left equals to zero
      */
     public void countDown() {
-        timer = new Timer();
+        makeTimer();
         int delay = 100;
         int period = 30;
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -97,9 +97,13 @@ public class MainGameScoreDisplay extends UIComponent {
         }, delay, period);
     }
 
-    private static void tick() {
-        timeLeft--;
-        timeSinceStart++;
+    private void makeTimer() {
+        timer = new Timer();
+    }
+
+    private void tick() {
+        this.timeLeft--;
+        this.timeSinceStart++;
     }
 
 }
