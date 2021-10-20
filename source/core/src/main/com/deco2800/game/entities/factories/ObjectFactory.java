@@ -42,18 +42,44 @@ public class ObjectFactory {
   }
 
   public static Entity createBed(String[] assets) {
+    // Dummy method, eventually the intended entity will be returned from
+    // createPlayerBed or createNormalBed
+    return null;
+  }
+
+  public static Entity createPlayerBed(String[] assets) {
     Entity bed = createBaseInteractable(assets);
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setColliderShape(bed, 1f, 2f);
     return bed;
   }
 
+  public static Entity createNormalBed(String[] assets) {
+    Entity bed = createBaseObject(assets);
+    bed.setScale(1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 1f, 2f);
+    return bed;
+  }
+
+  public static Entity createHorizontalDoor(String[] assets) {
+    String[] ass = {assets[0], "0", "8", "0"};
+    Entity horizontalDoor = createBaseInteractable(ass);
+    return horizontalDoor;
+  }
+
+  public static Entity createVerticalDoor(String[] assets) {
+      String[] ass = {assets[0], "0", "7", "0"};
+      Entity verticalDoor = createBaseInteractable(ass);
+      //Entity verticalDoor = new Entity();
+      return verticalDoor;
+  }
+
   public static Entity createDoor(String[] assets) {
 //    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
 //            .addComponent(new DoorActions());
-    Entity door = new Entity();
-    return door;
+    return new Entity();
   }
+
 
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
@@ -61,11 +87,13 @@ public class ObjectFactory {
     return tv;
   }
 
+
   public static Entity createDishwasher(String[] assets) {
     Entity dishWasher = createBaseChore(assets);
     PhysicsUtils.setColliderShape(dishWasher, 1f, 1f);
     return dishWasher;
   }
+
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets);
@@ -240,11 +268,11 @@ public class ObjectFactory {
 
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
+   * FORMAT: PATH, BODYTYPE, INTERACTID, CHOREID
    * @param assets the image and atlas assets of this object
    * @return The new entity of this obstacle
    * */
 
-  //FORMAT: PATH, BODYTYPE, INTERACTID, CHOREID
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
@@ -332,6 +360,12 @@ public class ObjectFactory {
         break;
       case "6":
         obstacle.addComponent(new WashingDishesActions());
+      case "7":
+        obstacle.addComponent(new VerticalDoorActions());
+        break;
+      case "8":
+        obstacle.addComponent(new HorizontalDoorActions());
+        break;
     }
   }
 

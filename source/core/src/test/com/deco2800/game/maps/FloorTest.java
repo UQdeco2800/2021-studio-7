@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(GameExtension.class)
-public class FloorTest {
+class FloorTest {
 
     @Test
     void shouldReadFloor() {
@@ -27,13 +27,12 @@ public class FloorTest {
     void shouldGetAssetsWithExtension() {
         Floor floor = createBaseFloor();
         String[] assetsWithExtension = floor.getAssets(".png");
-        assertArrayEquals(assetsWithExtension,
-                new String[]{"images/tiles/iso/iso_floor_1.png", "images/objects/walls/1.png",
-                        "images/tiles/iso/iso_wall_1_left.png", "images/objects/walls/wall.png",
-                        "images/tiles/iso/iso_grass_1.png", "images/objects/walls/3.png",
-                        "images/tiles/iso/iso_grass_2.png", "images/objects/walls/4.png"});
+        assertArrayEquals(new String[]{"images/tiles/iso/iso_floor_1.png", "images/objects/walls/1.png",
+                "images/tiles/iso/iso_wall_1_left.png", "images/objects/walls/wall.png",
+                "images/tiles/iso/iso_grass_1.png", "images/objects/walls/3.png",
+                "images/tiles/iso/iso_grass_2.png", "images/objects/walls/4.png"}, assetsWithExtension);
         assetsWithExtension = floor.getAssets(".atlas");
-        assertArrayEquals(assetsWithExtension, new String[]{"images/objects/door/door_animationL.atlas"});
+        assertArrayEquals(new String[]{"images/objects/door/door_animationL.atlas"}, assetsWithExtension);
     }
 
     Floor createBaseFloor() {

@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.leaderboard;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.deco2800.game.screens.leaderboard.LeaderBoardDisplay;
@@ -11,12 +12,10 @@ public class LeadBdInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.ENTER:
-            case Input.Keys.ESCAPE:
-                LeaderBoardDisplay.exitLB();
-                logger.info("Enter Key Pressed");
-                break;
+        if((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) ||
+                (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) ){
+            LeaderBoardDisplay.exitLB();
+            logger.info("Enter Key Pressed");
         }
         return false;
     }

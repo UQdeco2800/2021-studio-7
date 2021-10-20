@@ -86,9 +86,9 @@ public class LeaderBoardDisplay extends UIComponent {
     }
 
     private Table makeMenuBtns() {
-        TextButton exitBtn = new TextButton("Exit", skin);
-        button = exitBtn;
-        exitBtn.addListener(
+        TextButton exitBtn1 = new TextButton("Exit", skin);
+        button = exitBtn1;
+        exitBtn1.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -99,7 +99,7 @@ public class LeaderBoardDisplay extends UIComponent {
 
         Table table = new Table();
 
-        table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
+        table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
     }
 

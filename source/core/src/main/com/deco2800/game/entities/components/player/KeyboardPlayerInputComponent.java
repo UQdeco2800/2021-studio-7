@@ -3,23 +3,29 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
+    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
+    private static final String UPDATEANIMATION = "update_animation";
+    private static final String STANDINGSOUTH = "standing_south";
+
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
+    private boolean isPaused = false;
     private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
@@ -41,9 +47,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.A:
-                walkDirection.add(Vector2Utils.LEFT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                } else {
+                    walkDirection.add(Vector2Utils.LEFT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.S:
                 walkDirection.add(Vector2Utils.DOWN);
@@ -51,9 +61,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.D:
-                walkDirection.add(Vector2Utils.RIGHT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                } else {
+                    walkDirection.add(Vector2Utils.RIGHT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.R:
                 walkDirection.add(Vector2Utils.NORTHEAST);
@@ -84,8 +98,25 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", true);
                 return true;
             case Keys.O:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
-                        .getEvents().trigger("toggle_chores");
+                ServiceLocator.getScreen(MainGameScreen.class)
+                        .getMainGameEntity().getEvents().trigger("toggle_chores");
+                return true;
+            case Keys.LEFT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                }
+                return true;
+            case Keys.RIGHT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                }
+                return true;
+            case Keys.ENTER:
+                if (isPaused) {
+                    ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                            .getMainGameEntity().getEvents().trigger("pressed_enter_in_pause");
+                    isPaused = false;
+                }
                 return true;
             default:
                 return false;
@@ -125,7 +156,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.F:
-                entity.getEvents().trigger("update_animation", "interacting_south_normal");
+                entity.getEvents().trigger(UPDATEANIMATION, "interacting_south_normal");
+                return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
@@ -133,8 +165,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                ServiceLocator.getScreen(MainGameScreen.class)
                         .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
+                isPaused = !isPaused;
+                MainGamePauseMenuDisplay.resetHover();
                 return true;
             default:
                 return false;
@@ -146,80 +180,57 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
             if(lastDirection == 0){
-                this.setAnimation("standing_south");
-                //entity.getEvents().trigger("update_animation", "standing_south_normal");
-
+                this.setAnimation(STANDINGSOUTH);
             }else if(lastDirection == 1) {
                     this.setAnimation("standing_east");
-                    //entity.getEvents().trigger("update_animation", "standing_east_normal");
 
-            }else if(lastDirection==2){
-                this.setAnimation("standing_south");
-                //entity.getEvents().trigger("update_animation", "standing_south_normal");
+            }else if(lastDirection == 2){
+                this.setAnimation(STANDINGSOUTH);
 
             }else if(lastDirection == 3){
                 this.setAnimation("standing_west");
-                //entity.getEvents().trigger("update_animation", "standing_west_normal");
 
             }else if(lastDirection==4){
                 this.setAnimation("standing_northeast");
-                //entity.getEvents().trigger("update_animation", "standing_northeast_normal");
 
             }else if(lastDirection == 5 ){
                 this.setAnimation("standing_northwest");
-                //entity.getEvents().trigger("update_animation", "standing_northwest_normal");
 
             }else if(lastDirection == 6){
                 this.setAnimation("standing_southeast");
-                //entity.getEvents().trigger("update_animation", "standing_southeast_normal");
 
             }else if(lastDirection == 7){
                 this.setAnimation("standing_southwest");
-                //entity.getEvents().trigger("update_animation", "standing_southwest_normal");
 
             }else{
-                this.setAnimation("standing_south");
-                //entity.getEvents().trigger("update_animation", "standing_south_normal");
+                this.setAnimation(STANDINGSOUTH);
             }
         } else {
             if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
                     this.setAnimation("walking_north");
-                    //entity.getEvents().trigger("update_animation", "walking_north_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 0)) {
                     this.setAnimation("walking_east");
-                    //entity.getEvents().trigger("update_animation", "walking_east_normal");
-
 
                 } else if (walkDirection.epsilonEquals(0, -1)) {
                     this.setAnimation("walking_south");
-                    //entity.getEvents().trigger("update_animation", "walking_south_normal");
-
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
                     this.setAnimation("walking_west");
-                    //entity.getEvents().trigger("update_animation", "walking_west_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 1)) {
                     this.setAnimation("walking_northeast");
-                    //entity.getEvents().trigger("update_animation", "walking_northeast_normal");
-
 
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
                     this.setAnimation("walking_northwest");
-                    //entity.getEvents().trigger("update_animation", "walking_northwest_normal");
-
 
                 } else if (walkDirection.epsilonEquals(1, -1)) {
                     this.setAnimation("walking_southeast");
-                    //entity.getEvents().trigger("update_animation", "walking_southeast_normal");
-
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
                     this.setAnimation("walking_southwest");
-                    //entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                 }
             }
         }
@@ -302,10 +313,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         if (this.buffed == true) {
             String animation = direction + "_buffed";
-            entity.getEvents().trigger("update_animation", animation);
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
         } else {
             String animation = direction + "_normal";
-            entity.getEvents().trigger("update_animation", animation);
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
         }
     }
 

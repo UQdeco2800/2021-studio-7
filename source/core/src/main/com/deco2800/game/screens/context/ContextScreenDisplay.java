@@ -141,6 +141,7 @@ public class ContextScreenDisplay extends UIComponent {
 
     public void clearTable() {
         table.clear();
+        stage.clear();
     }
 
     public void tellStory() {
@@ -178,7 +179,6 @@ public class ContextScreenDisplay extends UIComponent {
         return this.start;
     }
 
-    @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }

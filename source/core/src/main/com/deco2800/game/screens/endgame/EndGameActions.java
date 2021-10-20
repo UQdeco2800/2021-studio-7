@@ -43,7 +43,7 @@ public class EndGameActions extends Component {
   public void onExit() {
     logger.info("Exiting end game screen...");
     logger.info("Swapping to main menu screen...");
-    MainGameScreen.zerolevel();
+    MainGameScreen.zeroLevel();
     ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 }

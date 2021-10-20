@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.settingsmenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import org.slf4j.Logger;
@@ -11,15 +12,13 @@ public class SettingsInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.ESCAPE:
-                SettingsMenuDisplay.exitSettingsMenu();
-                logger.info("Escape Key Pressed");
-                break;
-            case Input.Keys.ENTER:
-                SettingsMenuDisplay.applySettings();
-                logger.info("Enter Key Pressed");
-                break;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            SettingsMenuDisplay.applySettings();
+            logger.info("Enter Key Pressed");
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            SettingsMenuDisplay.exitSettingsMenu();
+            logger.info("Escape Key Pressed");
         }
         return false;
     }

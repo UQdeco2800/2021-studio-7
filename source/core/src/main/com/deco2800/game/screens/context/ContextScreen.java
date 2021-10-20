@@ -2,6 +2,7 @@ package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -29,6 +30,10 @@ public class ContextScreen extends ScreenAdapter {
     private static int screen = 1;
     private static boolean skip = false;
 
+    private static final String[] buttonSounds = {
+            "sounds/confirm.ogg",
+    };
+
     public ContextScreen() {
 
         logger.debug("Initialising Context screen services");
@@ -41,6 +46,13 @@ public class ContextScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+        playButtonSound();
+    }
+
+    public void playButtonSound() {
+        Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+        sound.play();
+        logger.info("enter button sound played on context screen launch");
     }
 
     public static int getScreen() {
@@ -103,6 +115,7 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(ContextTextures);
+        resourceService.loadSounds(buttonSounds);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -110,6 +123,7 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(ContextTextures);
+        resourceService.unloadAssets(buttonSounds);
     }
 
     /**

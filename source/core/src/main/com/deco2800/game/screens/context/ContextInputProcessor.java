@@ -29,11 +29,9 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
                             display.displayWarning();
                     }
                 }
-
         }
         return false;
     }
-
 
     @Override
     public boolean keyUp(int keycode) {
