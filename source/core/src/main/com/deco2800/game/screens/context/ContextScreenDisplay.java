@@ -61,6 +61,7 @@ public class ContextScreenDisplay extends UIComponent {
 
     @Override
     public void update() {
+        stage.draw();
         /*long currentTime = ServiceLocator.getTimeSource().getTime();
 
         // Gradually display text across the textbox
