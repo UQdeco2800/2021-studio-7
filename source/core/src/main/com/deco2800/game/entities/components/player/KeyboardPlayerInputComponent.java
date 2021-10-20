@@ -3,21 +3,30 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
+
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
+    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
+    private static final String UPDATEANIMATION = "update_animation";
+    private static final String STANDINGSOUTH = "standing_south";
+
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
+    private boolean isPaused = false;
+    private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
         super(5);
@@ -38,9 +47,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.A:
-                walkDirection.add(Vector2Utils.LEFT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                } else {
+                    walkDirection.add(Vector2Utils.LEFT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.S:
                 walkDirection.add(Vector2Utils.DOWN);
@@ -48,9 +61,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.D:
-                walkDirection.add(Vector2Utils.RIGHT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                } else {
+                    walkDirection.add(Vector2Utils.RIGHT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.R:
                 walkDirection.add(Vector2Utils.NORTHEAST);
@@ -78,9 +95,31 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerRunEvent();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", true);
+                entity.getEvents().trigger("toggle_interacting", true);
+                return true;
+            case Keys.O:
+                ServiceLocator.getScreen(MainGameScreen.class)
+                        .getMainGameEntity().getEvents().trigger("toggle_chores");
+                return true;
+            case Keys.LEFT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                }
+                return true;
+            case Keys.RIGHT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                }
+                return true;
+            case Keys.ENTER:
+                if (isPaused) {
+                    ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                            .getMainGameEntity().getEvents().trigger("pressed_enter_in_pause");
+                    isPaused = false;
+                }
                 return true;
             default:
+                logger.debug("Default keyDown Case");
                 return false;
         }
     }
@@ -95,30 +134,31 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Keys.W:
-                walkDirection.sub(Vector2Utils.UP);
+                setWalkDirection(Vector2Utils.UP);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.A:
-                walkDirection.sub(Vector2Utils.LEFT);
+                setWalkDirection(Vector2Utils.LEFT);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.S:
-                walkDirection.sub(Vector2Utils.DOWN);
+                setWalkDirection(Vector2Utils.DOWN);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.D:
-                walkDirection.sub(Vector2Utils.RIGHT);
+                setWalkDirection(Vector2Utils.RIGHT);
                 triggerWalkEvent();
                 movementEvents();
                 return true;
             case Keys.E:
-                entity.getEvents().trigger("key_e", false);
+                entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.F:
-                entity.getEvents().trigger("update_animation", "emote");
+                entity.getEvents().trigger(UPDATEANIMATION, "interacting_south_normal");
+                return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
@@ -126,59 +166,78 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                triggerPauseResumeEvent();
-//                ServiceLocator.getGame().setScreen(GdxGame.ScreenType.PAUSE_MENU);
-//                ServiceLocator.getGame().pause();
+                ServiceLocator.getScreen(MainGameScreen.class)
+                        .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
+                isPaused = !isPaused;
+                MainGamePauseMenuDisplay.resetHover();
                 return true;
             default:
                 return false;
         }
     }
 
-    private void triggerPauseResumeEvent() {
-        ServiceLocator.getGame().getScreen().pause();
-    }
 
     private void triggerWalkEvent() {
-        getcurrentDirectionCode();
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-            entity.getEvents().trigger("update_animation", "standing_north");
+            if(lastDirection == 0){
+                this.setAnimation(STANDINGSOUTH);
 
+            }else if(lastDirection == 1) {
+                    this.setAnimation("standing_east");
+
+            }else if(lastDirection==2){
+                this.setAnimation(STANDINGSOUTH);
+
+            }else if(lastDirection == 3){
+                this.setAnimation("standing_west");
+
+            }else if(lastDirection==4){
+                this.setAnimation("standing_northeast");
+
+            }else if(lastDirection == 5 ){
+                this.setAnimation("standing_northwest");
+
+            }else if(lastDirection == 6){
+                this.setAnimation("standing_southeast");
+
+            }else if(lastDirection == 7){
+                this.setAnimation("standing_southwest");
+
+            }else{
+                this.setAnimation(STANDINGSOUTH);
+            }
         } else {
             if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_north");
-                    lastDirection = 0;
+                    this.setAnimation("walking_north");
 
                 } else if (walkDirection.epsilonEquals(1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_east");
-                    lastDirection = 1;
+                    this.setAnimation("walking_east");
+
 
                 } else if (walkDirection.epsilonEquals(0, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_south");
-                    lastDirection = 2;
+                    this.setAnimation("walking_south");
+
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
-                    entity.getEvents().trigger("update_animation", "walking_west");
-                    lastDirection = 3;
+                    this.setAnimation("walking_west");
 
                 } else if (walkDirection.epsilonEquals(1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northeast");
-                    lastDirection = 4;
+                    this.setAnimation("walking_northeast");
+
 
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
-                    entity.getEvents().trigger("update_animation", "walking_northwest");
-                    lastDirection = 5;
+                    this.setAnimation("walking_northwest");
+
 
                 } else if (walkDirection.epsilonEquals(1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southeast");
-                    lastDirection = 6;
+                    this.setAnimation("walking_southeast");
+
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
-                    entity.getEvents().trigger("update_animation", "walking_southwest");
-                    lastDirection = 7;
+                    this.setAnimation("walking_southwest");
                 }
             }
         }
@@ -210,87 +269,67 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     /**
-     * Will asign an integer value to the direction. Directions are broken into compass quadrents.
-     * Where:
-     * 0 = North
-     * 1 = East
-     * 2 = South
-     * 3 = West
-     * 4 = NorthEast
-     * 5 = NorthWest
-     * 6 = SouthEast
-     * 7 = SouthWest
-     */
-    public void getcurrentDirectionCode() {
-        Vector2 entityDirection = walkDirection;
-        float x = entityDirection.x;
-        float y = entityDirection.y;
-
-        if (walkDirection.epsilonEquals(Vector2.Zero)) {
-            entity.getEvents().trigger("stop_walking");
-            currentDirection = -1;
-        } else {
-            entity.getEvents().trigger("walk", walkDirection);
-            if (walkDirection.epsilonEquals(0, 1)) {
-                currentDirection = 0;
-            } else if (walkDirection.epsilonEquals(1, 0)) {
-                currentDirection = 1;
-            } else if (walkDirection.epsilonEquals(0, -1) ) {
-                currentDirection = 2;
-            } else if (walkDirection.epsilonEquals(-1, 0)) {
-                currentDirection = 3;
-            } else if (walkDirection.epsilonEquals(1,1)) {
-                currentDirection = 4;
-            } else if (walkDirection.epsilonEquals(-1,1)) {
-                currentDirection = 5;
-            } else if (walkDirection.epsilonEquals(1,-1)) {
-                currentDirection = 6;
-            } else if (walkDirection.epsilonEquals(-1,-1)) {
-                currentDirection = 7;
-            }
-        }
-    }
-
-    /**
      * Function used to update the entities animations based upon the direction of movement.
      * Character will display the animation that tis within 45 degrees of the nearest compass direction.
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-        // System.out.println("Triggering movement Events");
-        // System.out.println(walkDirection);
+
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;
 
         if (lastDirection != currentDirection) {
             if (x < 0.5 && x > -0.5 && y > 0) {
-                entity.getEvents().trigger("update_animation", "walking_north");
                 lastDirection = 0;
+
             } else if (x > 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_east");
                 lastDirection = 1;
+
             } else if (x < 0.5 && x > -0.5 && y < 0) {
-                entity.getEvents().trigger("update_animation", "walking_south");
                 lastDirection = 2;
+
             } else if (x < 0 && y < 0.5 && y > -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_west");
                 lastDirection = 3;
+
             } else if (x > 0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northeast");
                 lastDirection = 4;
             } else if (x < -0.5 && y >0.5) {
-                entity.getEvents().trigger("update_animation", "walking_northwest");
                 lastDirection = 5;
+
             } else if (x > 0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southeast");
                 lastDirection = 6;
+
             } else if (x < -0.5 && y < -0.5) {
-                entity.getEvents().trigger("update_animation", "walking_southwest");
                 lastDirection = 7;
+
             }
+
+        }
+    }
+    public void setBuffed(){
+        this.buffed = true;
+    }
+
+    public void setBuffedOff(){
+        this.buffed = false;
+    }
+
+    public void setAnimation(String direction) {
+
+        if (this.buffed) {
+            String animation = direction + "_buffed";
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
+        } else {
+            String animation = direction + "_normal";
+            entity.getEvents().trigger(UPDATEANIMATION, animation);
         }
     }
 
+
+
+    public void setWalkDirection(Vector2 direction) {
+        walkDirection.sub(direction);
+    }
 
 }

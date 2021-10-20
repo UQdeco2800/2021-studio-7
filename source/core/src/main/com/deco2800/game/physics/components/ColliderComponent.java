@@ -16,12 +16,17 @@ import org.slf4j.LoggerFactory;
  */
 public class ColliderComponent extends Component {
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
+  private static final float X_SCALE = 1f;
+  private static final float Y_SCALE = 0.5f;
 
   private final FixtureDef fixtureDef;
   private Fixture fixture;
   private Vector2 scale;
+  private float left;
+  private float right;
 
   public ColliderComponent() {
+    creationPriority = 2;
     fixtureDef = new FixtureDef();
   }
 
@@ -37,89 +42,151 @@ public class ColliderComponent extends Component {
   }
 
   /**
-   * Set physics as a box with a given size. Box is centered around the entity.
+   * Set physics to be an isometric shape of a given length and width. Is
+   * centred to the middle bottom point of the entity by default. There is also
+   * no offset to this physics component.
    *
-   * @param size size of the box
+   * @param bottomLeft number of tiles along the bottom left side of the shape.
+   * @param bottomRight number of tiles along the bottom right side of the shape.
    * @return self
    */
-  public ColliderComponent setAsBox(Vector2 size) {
-    return setAsBox(size, entity.getCenterPosition());
-  }
-
-  /**
-   * Set physics as a box with a given size. Box is aligned based on alignment.
-   *
-   * @param size size of the box
-   * @param alignX how to align x relative to entity
-   * @param alignY how to align y relative to entity
-   * @return self
-   */
-  public ColliderComponent setAsIsoAligned(Vector2 size, AlignX alignX, AlignY alignY) {
-    scale = size;
-    Vector2 position = new Vector2();
-    switch (alignX) {
-      case LEFT:
-        position.x = size.x / 2;
-        break;
-      case CENTER:
-        position.x = entity.getCenterPosition().x;
-        break;
-      case RIGHT:
-        position.x = entity.getScale().x - (size.x / 2);
-        break;
+    public ColliderComponent setIsoShape(float bottomLeft, float bottomRight) {
+        return setIsoShapeAligned(
+              bottomLeft,
+              bottomRight,
+              AlignX.CENTER,
+              AlignY.BOTTOM,
+              0,
+              0
+        );
     }
 
-    switch (alignY) {
-      case BOTTOM:
-        position.y = size.y / 2;
-        break;
-      case CENTER:
-        position.y = entity.getCenterPosition().y;
-        break;
-      case TOP:
-        position.y = entity.getScale().y - (size.y / 2);
-        break;
+    /**
+     * Set physics to be an isometric shape of a given length and width. Is
+     * centred to the provided offset, with reference to the bottom middle point
+     * of the entity.
+     *
+     * @param bottomLeft number of tiles along the bottom left side of the shape.
+     * @param bottomRight number of tiles along the bottom right side of the shape.
+     * @param offsetX pixel offset in the x direction
+     * @param offsetY pixel offset in the y direction
+     * @return self
+     */
+    public ColliderComponent setIsoShapeOffset(
+            float bottomLeft,
+            float bottomRight,
+            float offsetX,
+            float offsetY) {
+
+        return setIsoShapeAligned(
+                bottomLeft, bottomRight,
+                AlignX.CENTER, AlignY.BOTTOM,
+                offsetX, offsetY
+        );
     }
 
-    return setAsIso(size, position);
-  }
+    /**
+     * Set physics to be an isometric shape of a given length and width. Is
+     * centred to the given alignment point, with an added offset.
+     *
+     * @param bottomLeft number of tiles along the bottom left side of the shape.
+     * @param bottomRight number of tiles along the bottom right side of the shape.
+     * @param alignX AlignX value that specifies alignment in x direction.
+     * @param alignY AlignY value that specifies alignment in y direction.
+     * @param offsetX pixel offset in the x direction.
+     * @param offsetY pixel offset in the y direction.
+     * @return self
+     */
+    private ColliderComponent setIsoShapeAligned(
+          float bottomLeft,
+          float bottomRight,
+          AlignX alignX,
+          AlignY alignY,
+          float offsetX,
+          float offsetY
+    ) {
+        // Divide values by two for middle aligning
+        bottomLeft /= 2;
+        bottomRight /= 2;
 
-  /**
-   * Set physics as a box with a given size and local position. Box is centered around the position.
-   *
-   * @param size size of the box
-   * @param position position of the box center relative to the entity.
-   * @return self
-   */
-  public ColliderComponent setAsBox(Vector2 size, Vector2 position) {
-    PolygonShape bbox = new PolygonShape();
+        float mid = Math.abs(bottomLeft / 2 - bottomRight / 2);
 
-    bbox.setAsBox(size.x / 2, size.y / 2, position, 0); //angle: 0.45f
+        Vector2 position = new Vector2();
+        switch (alignX) {
+            case LEFT:
+                position.x = entity.getScale().x;
+                break;
+            case CENTER:
+                position.x = entity.getCenterPosition().x;
+                break;
+            case RIGHT:
+                position.x = entity.getScale().x - bottomRight;
+                break;
+            }
 
-    setShape(bbox);
-    return this;
-  }
+        switch (alignY) {
+            case BOTTOM:
+                position.y = 0;
+                break;
+            case CENTER:
+                position.y = entity.getCenterPosition().y;
+                break;
+            case TOP:
+                position.y = entity.getScale().y - mid;
+                break;
+        }
 
-  public ColliderComponent setAsIso(Vector2 size, Vector2 position) {
-      PolygonShape bound = new PolygonShape();
+        position.x += offsetX;
+        position.y += offsetY;
 
-      /*
-        height would normally be tan(30 deg) * size.y for iso, but we estimate
-        it with a 1:2 ratio. Therefore, height is half of the y size.
-       */
-      float height = 0.5f * size.y;
+        return changeIsoShape(bottomLeft, bottomRight, position);
+    }
 
-      Vector2 west = new Vector2(position.x - (size.x / 2), (height / 2));
-      Vector2 north = new Vector2(position.x, height);
-      Vector2 east = new Vector2(position.x + (size.x / 2), (height / 2));
-      Vector2 south = new Vector2(position.x, 0);
-      // Collect each of the isometric parallelogram's corners
-      Vector2[] points = new Vector2[]{west, north, east, south};
+    /**
+     * Changes the shape of the component to be an isometric, 4-sided polygon.
+     *
+     * @param left length of the shape on the bottom left (and top right) sides, in tile units.
+     * @param right length of the shape on the bottom right (and top left) sides, in tile units.
+     * @param position offset for the shape.
+     * @return self
+     */
+    private ColliderComponent changeIsoShape (
+          float left,
+          float right,
+          Vector2 position
+    ) {
+        PolygonShape bound = new PolygonShape();
 
-      bound.set(points);
-      setShape(bound);
-      return this;
-  }
+        this.left = left;
+        this.right = right;
+
+        // Each point is offset by the given alignment
+        Vector2 south = isoVector2(position.x, position.y);
+        Vector2 east = isoVector2(position.x + right, position.y + right);
+        Vector2 north = isoVector2(position.x + right - left, position.y + right + left);
+        Vector2 west = isoVector2(position.x - left, position.y + left);
+
+        // Collect each of the isometric parallelogram's corners
+        Vector2[] points = new Vector2[]{west, north, east, south};
+
+        bound.set(points);
+        setShape(bound);
+        return this;
+    }
+
+    /**
+     * Helper method to convert points into a vector on an isometric scale. The
+     * conversion works by scaling the x and y values by the corresponding iso
+     * scalar value.
+     *
+     * @param x length to scale in the x-direction, in tile units.
+     * @param y length to scale in the y-direction, in tile units.
+     * @return Vector2 representing the resultant scaled points.
+     */
+    private Vector2 isoVector2(float x, float y) {
+        return new Vector2(x * X_SCALE, y * Y_SCALE);
+    }
+
 
   /**
    * Set friction. This affects the object when touching other objects, but does not affect friction
@@ -237,25 +304,32 @@ public class ColliderComponent extends Component {
     return scale;
   }
 
-  private Shape makeBoundingBox() {
-      PolygonShape bbox = new PolygonShape();
-      Vector2 center = entity.getScale().scl(0.5f);
+    /**
+     * @return Size of the collider component, in tile units, broken down by side length.
+     */
+    public float[] getSides() {
+        return new float[]{this.left, this.right};
+    }
 
-      /*
+    private Shape makeBoundingBox() {
+        PolygonShape bbox = new PolygonShape();
+        Vector2 center = entity.getScale().scl(0.5f);
+
+        /*
         height would normally be tan(30 deg) * size.y for iso, but we estimate
         it with a 1:2 ratio. Therefore, height is half of the y size.
-       */
-      float height = 0.5f * center.y;
+        */
+        float height = 0.5f * center.y;
 
-      Vector2 west = new Vector2(0 - (center.x / 2), (height / 2));
-      Vector2 north = new Vector2(0, height);
-      Vector2 east = new Vector2((center.x / 2), (height / 2));
-      Vector2 south = new Vector2(0, 0);
-      // Collect each of the isometric parallelogram's corners
-      Vector2[] points = new Vector2[]{west, north, east, south};
+        Vector2 west = new Vector2(0 - (center.x / 2), (height / 2));
+        Vector2 north = new Vector2(0, height);
+        Vector2 east = new Vector2((center.x / 2), (height / 2));
+        Vector2 south = new Vector2(0, 0);
+        // Collect each of the isometric parallelogram's corners
+        Vector2[] points = new Vector2[]{west, north, east, south};
 
-      bbox.set(points);
-      setShape(bbox);
-      return bbox;
+        bbox.set(points);
+        setShape(bbox);
+        return bbox;
     }
 }

@@ -7,7 +7,7 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.KeyboardInputFactory;
 import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.screens.titlescreen.TitleScreenActions;
+import com.deco2800.game.screens.title.TitleScreenActions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(GameExtension.class)
-public class TitleScreenTest {
+class TitleScreenTest {
 
     /**
      * Tests whether the title screen is working in creation

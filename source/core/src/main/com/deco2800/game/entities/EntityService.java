@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class EntityService {
   private static final Logger logger = LoggerFactory.getLogger(EntityService.class);
   private static final int INITIAL_CAPACITY = 16;
+  private final Array<Entity> entitiesScheduledForRemoval = new Array<>();
 
   private final Array<Entity> entities = new Array<>(false, INITIAL_CAPACITY);
 
@@ -40,18 +41,28 @@ public class EntityService {
    * Update all registered entities. Should only be called from the main game loop.
    */
   public void update() {
-    for (int i = 0; i < entities.size; i++) {
-      entities.get(i).earlyUpdate();
-      entities.get(i).update();
+    for (Entity entity : new Array.ArrayIterator<>(entities)) {
+      entity.earlyUpdate();
+      entity.update();
     }
+
+    for (Entity entity : new Array.ArrayIterator<>(entitiesScheduledForRemoval)) {
+      entity.dispose();
+    }
+    entitiesScheduledForRemoval.clear();
+  }
+
+  public void scheduleEntityForRemoval(Entity entity) {
+    logger.info("Scheduling entity {} for removal", entity);
+    entitiesScheduledForRemoval.add(entity);
   }
 
   /**
    * Dispose all entities.
    */
   public void dispose() {
-    for (int i = 0; i < entities.size; i++) {
-      entities.get(i).dispose();
+    for (Entity entity : new Array.ArrayIterator<>(entities)) {
+      entity.dispose();
     }
   }
 }

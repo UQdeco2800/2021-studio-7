@@ -34,11 +34,9 @@ public class MainGameTextDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
-        entity.getEvents().addListener("create_textbox",
-                this::display);
+        entity.getEvents().addListener("create_textbox", this::display);
         // Load background texture
-        texture = new Texture(Gdx.files.internal(
-                "images/ui/elements/Textbox_1024.png"));
+        texture = new Texture(Gdx.files.internal("images/ui/elements/Textbox_1024.png"));
     }
 
     /**
@@ -56,6 +54,7 @@ public class MainGameTextDisplay extends UIComponent {
      * @param text The text to display
      */
     public void display(String text) {
+        logger.debug("Displaying textbox to screen");
         // If we're already displaying a textbox, overwrite it
         if (visible) {
             this.hide();
@@ -68,7 +67,7 @@ public class MainGameTextDisplay extends UIComponent {
         int colWidth = Gdx.graphics.getWidth() / 10;
 
         // Display background texture
-        table.setSize(Gdx.graphics.getWidth(), rowHeight*4);
+        table.setSize(Gdx.graphics.getWidth(), rowHeight*4f);
         Image background = new Image(texture);
         background.setScaleX((colWidth*8)/background.getWidth());
         background.setOrigin(Align.center);
@@ -76,9 +75,9 @@ public class MainGameTextDisplay extends UIComponent {
 
         // Display Text
         displayText = new Label("", skin, "large");
-        displayText.setSize(colWidth*6, rowHeight*3);
-        displayText.setPosition(colWidth*2, (float) rowHeight/2);
-        displayText.setFontScale((float) (colWidth*10)/1280); // Scale font to screen size
+        displayText.setSize(colWidth*6f, rowHeight*3f);
+        displayText.setPosition(colWidth*2f, rowHeight/2f);
+        displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setWrap(true);
 
         stage.addActor(displayText);
@@ -91,6 +90,7 @@ public class MainGameTextDisplay extends UIComponent {
      * Removes all current visual components from the screen (but doesn't do a full cleanup)
      */
     private void hide() {
+        logger.debug("Hiding textbox");
         table.clear();
         displayText.setText("");
         text = "";
@@ -100,20 +100,21 @@ public class MainGameTextDisplay extends UIComponent {
     }
 
     /**
-     * Removes the textbox after a set amount of time (DURATION)
+     * Removes the textbox after a set amount of time
      */
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        //(currentTime - startTime)%10 == 0 &&
+
+        // Gradually display text across the textbox
         if (visible && charCount < text.length()) {
             currentText += text.charAt(charCount);
             displayText.setText(currentText);
             charCount += 1;
         }
 
+        // Hide the textbox after 3000ms
         if (visible && currentTime - startTime >= 3000L) {
-            // (3000ms) has passed, hide textbox
             hide();
         }
     }
@@ -125,6 +126,7 @@ public class MainGameTextDisplay extends UIComponent {
 
     @Override
     public void dispose() {
+        table.clear();
         super.dispose();
     }
 }

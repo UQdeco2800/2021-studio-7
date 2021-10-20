@@ -5,14 +5,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 
-@SuppressWarnings({"unused", "UnnecessaryLocalVariable"})
+@SuppressWarnings("unused")
 public class TerrainFactory {
 
-    public static TerrainTile createTile(String[] assets) {
-        TerrainTile tile = createBaseTile(assets);
-        return tile;
-    }
-    
     public static TerrainTile createBaseTile(String[] assets) {
         TerrainTile baseTile = null;
         ResourceService resourceService = ServiceLocator.getResourceService();
@@ -21,5 +16,9 @@ public class TerrainFactory {
                     resourceService.getAsset(assets[0], Texture.class)));
         }
         return baseTile;
+    }
+
+    private TerrainFactory() {
+        throw new IllegalStateException("Instantiating static util class");
     }
 }

@@ -19,6 +19,9 @@ import com.deco2800.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
  * DECO2800Game/settings.json under your home directory (This is C:/users/[username] on Windows).
@@ -32,6 +35,7 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
+  private static List<TextButton> buttons = new ArrayList<>();
 
   @Override
   public void create() {
@@ -113,11 +117,11 @@ public class SettingsMenuDisplay extends UIComponent {
 
     // Events on inputs
     uiScaleSlider.addListener(
-        (Event event) -> {
-          float value = uiScaleSlider.getValue();
-          uiScaleValue.setText(String.format("%.2fx", value));
-          return true;
-        });
+            (Event event) -> {
+              float value = uiScaleSlider.getValue();
+              uiScaleValue.setText(String.format("%.2fx", value));
+              return true;
+            });
 
     return table;
   }
@@ -126,10 +130,10 @@ public class SettingsMenuDisplay extends UIComponent {
     DisplayMode active = Gdx.graphics.getDisplayMode();
 
     for (StringDecorator<DisplayMode> stringMode : modes) {
-      DisplayMode mode = stringMode.object;
+      DisplayMode mode = stringMode.getObject();
       if (active.width == mode.width
-          && active.height == mode.height
-          && active.refreshRate == mode.refreshRate) {
+              && active.height == mode.height
+              && active.refreshRate == mode.refreshRate) {
         return stringMode;
       }
     }
@@ -152,31 +156,33 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   private Table makeMenuBtns() {
-    TextButton exitBtn = new TextButton("Exit", skin);
-    exitBtn.getLabel().setColor(0, 0,0, 1f);
+    TextButton exitBtn1 = new TextButton("Exit", skin);
+    exitBtn1.getLabel().setColor(0, 0,0, 1f);
     TextButton applyBtn = new TextButton("Apply", skin);
     applyBtn.getLabel().setColor(0, 0,0, 1f);
 
-    exitBtn.addListener(
-                new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Exit button clicked");
-            exitMenu();
-          }
-        });
+    buttons.add(exitBtn1);
+    buttons.add(applyBtn);
+    exitBtn1.addListener(
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Exit button clicked");
+                exitMenu();
+              }
+            });
 
     applyBtn.addListener(
-        new ChangeListener() {
-          @Override
-          public void changed(ChangeEvent changeEvent, Actor actor) {
-            logger.debug("Apply button clicked");
-            applyChanges();
-          }
-        });
+            new ChangeListener() {
+              @Override
+              public void changed(ChangeEvent changeEvent, Actor actor) {
+                logger.debug("Apply button clicked");
+                applyChanges();
+              }
+            });
 
     Table table = new Table();
-    table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
+    table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
     table.add(applyBtn).expandX().right().pad(0f, 0f, 15f, 15f);
     return table;
   }
@@ -190,7 +196,7 @@ public class SettingsMenuDisplay extends UIComponent {
     }
     settings.fullscreen = fullScreenCheck.isChecked();
     settings.uiScale = uiScaleSlider.getValue();
-    settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().object);
+    settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().getObject());
     settings.vsync = vsyncCheck.isChecked();
 
     UserSettings.set(settings, true);
@@ -206,6 +212,19 @@ public class SettingsMenuDisplay extends UIComponent {
     } catch (NumberFormatException e) {
       return null;
     }
+  }
+
+  public static void exitSettingsMenu(){
+    TextButton current = buttons.get(0);
+//    buttons.clear();
+    current.toggle();
+  }
+
+  public static void applySettings(){
+    SettingsScreen.playButtonSound();
+    TextButton current = buttons.get(1);
+//    buttons.clear();
+    current.toggle();
   }
 
   @Override

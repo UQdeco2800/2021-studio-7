@@ -1,6 +1,8 @@
 package com.deco2800.game.generic;
 
+import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.maps.Home;
@@ -26,9 +28,14 @@ public class ServiceLocator {
   private static GameTime timeSource;
   private static InputService inputService;
   private static ResourceService resourceService;
+  private static ChoreController choreController;
 
   public static GdxGame getGame() {
     return game;
+  }
+
+  public static <T extends ScreenAdapter> T getScreen(Class<T> clazz) {
+    return clazz.cast(game.getScreen());
   }
 
   public static Home getHome() {
@@ -57,6 +64,10 @@ public class ServiceLocator {
 
   public static ResourceService getResourceService() {
     return resourceService;
+  }
+
+  public static ChoreController getChoreController() {
+    return choreController;
   }
 
   public static void registerGame(GdxGame source) {
@@ -99,6 +110,11 @@ public class ServiceLocator {
     resourceService = source;
   }
 
+  public static void registerChoreController(ChoreController source) {
+    logger.debug("Registering chore controller {}", source);
+    choreController = source;
+  }
+
   public static void clear() {
     entityService = null;
     renderService = null;
@@ -106,6 +122,7 @@ public class ServiceLocator {
     timeSource = null;
     inputService = null;
     resourceService = null;
+    choreController = null;
   }
 
   private ServiceLocator() {
