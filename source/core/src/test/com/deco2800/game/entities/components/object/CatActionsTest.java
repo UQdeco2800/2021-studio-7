@@ -7,10 +7,7 @@ import org.mockito.ArgumentCaptor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-<<<<<<< HEAD
 @ExtendWith(GameExtension.class)
-=======
->>>>>>> 273cd24ae849b8789f03336ee5641ddb0c42d668
 class CatActionsTest {
 
     @Test
