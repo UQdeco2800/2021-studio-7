@@ -30,3 +30,29 @@ k:
 piss:
 k:
 k:2500,
+Big Chungus:
+Big Chungus:1900,
+Big Brain 234:
+Big Brain 234:2151,
+sad:
+sad:2500,
+ef:
+ef:1617,
+cdf:
+cdf:2500,
+asd:
+asd:2300,2500,1184,1627,1151,2077,
+afd:
+afd:1307,
+player1:
+player1:1751,
+ad:
+ad:2318,
+sf:
+sf:2253,
+wds:
+wds:2053,
+df:
+df:1790,
+awd:
+awd:0,
