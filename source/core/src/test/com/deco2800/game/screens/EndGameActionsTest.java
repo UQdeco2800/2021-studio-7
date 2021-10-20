@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
-public class EndGameActionsTest {
+class EndGameActionsTest {
     @Test
     void onNextLevelTest() {
         GdxGame game = mock(GdxGame.class);

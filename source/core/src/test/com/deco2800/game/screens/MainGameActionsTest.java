@@ -12,7 +12,7 @@ import java.security.Provider;
 import static org.mockito.Mockito.*;
 /*
 @ExtendWith(GameExtension.class)
-public class MainGameActionsTest {
+class MainGameActionsTest {
 
     @Test
     void onExitTest() {
