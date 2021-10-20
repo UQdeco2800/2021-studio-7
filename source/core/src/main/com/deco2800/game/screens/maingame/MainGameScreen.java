@@ -43,9 +43,7 @@ public class MainGameScreen extends ScreenAdapter {
   //add background music into the game
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
   private static final String[] pauseGameTextures = {"images/ui/screens/paused_screen.png"};
-  private static final String[] pauseGameTextures = {
-          "images/ui/screens/paused_screen.png"
-  };
+
   private static final String[] buttonSounds = {
           "sounds/confirm.ogg",
           "sounds/browse-short.ogg"
