@@ -15,20 +15,21 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.ENTER:
+                ContextScreenDisplay display = entity.getComponent(ContextScreenDisplay.class);
                 logger.info("Enter Key Pressed");
-                if (entity.getComponent(ContextScreenDisplay.class).getStoryStatus()) {
+                if (display.getStoryStatus() && display.getPrintStatus()) {
                     ContextScreenActions.playGame();
                 }
                 if (ContextScreen.getScreen() == 1) {
-                    if (entity.getComponent(ContextScreenDisplay.class).userNameValid()) {
+                    if (display.userNameValid()) {
                         entity.getComponent(ContextScreenActions.class).writeUsername();
-                        entity.getComponent(ContextScreenDisplay.class).clearTable();
-                        entity.getComponent(ContextScreenDisplay.class).tellStory();
+                        display.clearTable();
+                        display.tellStory();
                     } else {
-                        entity.getComponent(ContextScreenDisplay.class).displayWarning();
+                            display.displayWarning();
                     }
                 }
-                break;
+
         }
         return false;
     }
