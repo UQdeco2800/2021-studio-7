@@ -16,13 +16,18 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
         switch (keycode) {
             case Input.Keys.ENTER:
                 logger.info("Enter Key Pressed");
-                if (entity.getComponent(ContextScreenDisplay.class).userNameValid()) {
-                    entity.getComponent(ContextScreenActions.class).writeUsername();
+                if (entity.getComponent(ContextScreenDisplay.class).getStoryStatus()) {
                     ContextScreenActions.playGame();
-                } else {
-                    entity.getComponent(ContextScreenDisplay.class).displayWarning();
                 }
-                ContextScreenActions.playGame();
+                if (ContextScreen.getScreen() == 1) {
+                    if (entity.getComponent(ContextScreenDisplay.class).userNameValid()) {
+                        entity.getComponent(ContextScreenActions.class).writeUsername();
+                        entity.getComponent(ContextScreenDisplay.class).clearTable();
+                        entity.getComponent(ContextScreenDisplay.class).tellStory();
+                    } else {
+                        entity.getComponent(ContextScreenDisplay.class).displayWarning();
+                    }
+                }
                 break;
         }
         return false;
