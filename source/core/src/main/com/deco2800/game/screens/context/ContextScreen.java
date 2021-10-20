@@ -53,24 +53,29 @@ public class ContextScreen extends ScreenAdapter {
         logger.info("enter button sound played on context screen launch");
     }
 
+    @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
     }
 
+    @Override
     public void resize(int width, int height) {
         renderer.resize(width, height);
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
 
+    @Override
     public void pause() {
         logger.info("Game paused");
     }
 
+    @Override
     public void resume() {
         logger.info("Game resumed");
     }
 
+    @Override
     public void dispose() {
         logger.debug("Disposing context screen");
 
