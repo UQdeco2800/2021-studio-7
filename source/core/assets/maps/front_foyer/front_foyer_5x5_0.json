@@ -16,7 +16,7 @@
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createPlant,
       assets: [images/objects/dead_plant/plant_animation.atlas, 0, 7, 5]
-    }
+    },
   }
   tileGrid: [
     [., ., ., ., .],

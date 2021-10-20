@@ -36,7 +36,7 @@
     |: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createVerticalDoor
-      assets: [images/objects/door/door_animationL.atlas, 0, 8, 0]
+      assets: [images/objects/door/door_animationL.atlas, 0, 10, 0]
     }
     /* No entity. This overrides any entities relative to the interior's position
     *: {
