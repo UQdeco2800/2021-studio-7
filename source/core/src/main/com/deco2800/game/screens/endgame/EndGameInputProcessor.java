@@ -19,12 +19,22 @@ public class EndGameInputProcessor implements InputProcessor {
                 break;
             case Input.Keys.ENTER:
                 EndGameDisplay.buttonLogic("Enter");
+                EndGameDisplay.resetHover();
                 logger.info("Enter Key Pressed");
+                break;
+            case Input.Keys.UP:
+            case Input.Keys.W:
+                EndGameDisplay.moveUp();
+                logger.info("Up or W key pressed");
+                break;
+            case Input.Keys.DOWN:
+            case Input.Keys.S:
+                EndGameDisplay.moveDown();
+                logger.info("Down or S key pressed");
                 break;
             default:
                 logger.debug("Default case error in keyDown processing");
                 break;
-
         }
         return false;
     }
