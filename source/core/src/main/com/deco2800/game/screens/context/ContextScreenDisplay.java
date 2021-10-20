@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * A ui component for displaying the Context screen.
  */
 public class ContextScreenDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContextScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
     private static TextButton button;

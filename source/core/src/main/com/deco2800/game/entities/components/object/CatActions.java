@@ -3,8 +3,6 @@ package com.deco2800.game.entities.components.object;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +14,7 @@ public class CatActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
+        logger.debug("created Cat actions. ");
 
     }
 

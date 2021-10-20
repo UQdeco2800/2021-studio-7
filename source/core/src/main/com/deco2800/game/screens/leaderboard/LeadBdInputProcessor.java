@@ -2,7 +2,6 @@ package com.deco2800.game.screens.leaderboard;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.deco2800.game.screens.leaderboard.LeaderBoardDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +16,8 @@ public class LeadBdInputProcessor implements InputProcessor {
                 LeaderBoardDisplay.exitLB();
                 logger.info("Enter Key Pressed");
                 break;
+            default:
+                logger.debug("keydown error");
         }
         return false;
     }
