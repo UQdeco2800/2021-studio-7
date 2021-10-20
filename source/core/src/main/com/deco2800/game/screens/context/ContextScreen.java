@@ -102,7 +102,9 @@ public class ContextScreen extends ScreenAdapter {
         ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ContextScreenActions());
+        ContextInputProcessor input = new ContextInputProcessor();
+        ui.addComponent(input);
         ServiceLocator.getEntityService().register(ui);
-        Gdx.input.setInputProcessor(new ContextInputProcessor());
+        Gdx.input.setInputProcessor(input);
     }
 }

@@ -98,7 +98,7 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Start button clicked");
-            writeUsername();
+            //writeUsername();
             entity.getEvents().trigger("start");
           }
         });
@@ -154,7 +154,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(exitBtn).padTop(15f);
     table.row();
-    table.add(txtUsername).padTop(50f);
+    //table.add(txtUsername).padTop(50f);
     table.row();
     table.add(character).padTop(20f);
     table.row();
@@ -232,6 +232,7 @@ public class MainMenuDisplay extends UIComponent {
             }
         }
     }
+
 
     public void writeUsername(){
         FileWriter writer = null;

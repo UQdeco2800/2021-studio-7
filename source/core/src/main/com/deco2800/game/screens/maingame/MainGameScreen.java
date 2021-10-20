@@ -98,7 +98,7 @@ public class MainGameScreen extends ScreenAdapter {
     return level;
   }
 
-  public static void zerolevel() {level = 0;}
+  public static void zerolevel() {level = 1;}
 
   @Override
   public void render(float delta) {
