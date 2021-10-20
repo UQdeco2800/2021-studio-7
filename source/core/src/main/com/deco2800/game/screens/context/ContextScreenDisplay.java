@@ -149,7 +149,7 @@ public class ContextScreenDisplay extends UIComponent {
         int colWidth = Gdx.graphics.getWidth() / 10;
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*8f, rowHeight*12f);
-        displayText.setPosition(colWidth, rowHeight*4);
+        displayText.setPosition(colWidth, rowHeight*3);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setWrap(true);
         stage.addActor(displayText);
@@ -159,7 +159,8 @@ public class ContextScreenDisplay extends UIComponent {
                         "finished your" +
                         " new game, but your mother is awake and she knows that you are too.\n\n\n You have until she" +
                         " gets home at 2:00AM to get to bed or else she's going to catch you; and if she does?\n\n\n\n\n " +
-                        "Well, it may as well be the end of the world. . .";
+                        "Well, it may as well be the end of the world. . .\n\n\n\n Movement: ASDW\n\n Interact: " +
+                        "E\n\n Sprint: shift" ;
                 break;
             case 2:
                 this.text = "You've escaped with your proverbial life this time, but the odds are against you tonight" +
