@@ -154,6 +154,8 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(exitBtn).padTop(15f);
     table.row();
+    //table.add(txtUsername).padTop(50f);
+    table.row();
     table.add(character).padTop(20f);
     table.row();
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
