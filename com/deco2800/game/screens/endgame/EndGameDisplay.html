@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10};
+<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -206,6 +206,55 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <div class="block">Z index controls rendering order within a layer.</div>
 </td>
 </tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">hoverMenu</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</code></th>
+<td class="colLast">
+<div class="block">Emulates mouse hover with keyboard</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveDown()">moveDown</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Moves the button highlight down</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveUp()">moveUp</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Moves the button highlight up</div>
+</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarDown()">notFarDown</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the menuIndex cannot go beyond number of buttons to avoid OutOfIndex Error</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarUp()">notFarUp</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the menuIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetHover()">resetHover</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Reset the hover position to resume button when pause menu is closed</div>
+</td>
+</tr>
+<tr class="rowColor" id="i11">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unhoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">unhoverMenu</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</code></th>
+<td class="colLast">
+<div class="block">Emulates mouse unhover with keyboard</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -330,6 +379,55 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <section class="detail">
 <h3><a id="buttonLogic(java.lang.String)">buttonLogic</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">buttonLogic</span>&#8203;(<span class="arguments">java.lang.String&nbsp;buttonChoice)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="hoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">hoverMenu</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">hoverMenu</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</span></div>
+<div class="block">Emulates mouse hover with keyboard</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="unhoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">unhoverMenu</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unhoverMenu</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</span></div>
+<div class="block">Emulates mouse unhover with keyboard</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="resetHover()">resetHover</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resetHover</span>()</div>
+<div class="block">Reset the hover position to resume button when pause menu is closed</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="notFarDown()">notFarDown</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarDown</span>()</div>
+<div class="block">Ensures that the menuIndex cannot go beyond number of buttons to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="notFarUp()">notFarUp</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarUp</span>()</div>
+<div class="block">Ensures that the menuIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="moveDown()">moveDown</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveDown</span>()</div>
+<div class="block">Moves the button highlight down</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="moveUp()">moveUp</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveUp</span>()</div>
+<div class="block">Moves the button highlight up</div>
 </section>
 </li>
 </ul>
