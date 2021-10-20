@@ -19,9 +19,6 @@ public class EndGameInputProcessor implements InputProcessor {
                 EndGameDisplay.buttonLogic("Enter");
                 logger.info("Enter Key Pressed");
                 break;
-            default:
-                logger.debug("Default case error in keyDown processing");
-                break;
 
         }
         return false;

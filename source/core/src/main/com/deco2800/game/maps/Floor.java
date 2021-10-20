@@ -247,26 +247,11 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns the NPC Cat into map.
      */
     private void spawnCat(){
-
-        GridPoint2 spawnLocation = null;
-        // Iterate through rooms to find a valid spawn location
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
-            if (!roomSpawnLocations.isEmpty()) {
-                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
-                break;
-            }
-        }
-        // Set default spawn location if one was not found
-        if (spawnLocation == null) {
-            spawnLocation = new GridPoint2(1, 1);
-        }
-
         String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
-        spawnEntityAt(cat, spawnLocation, true, true);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     /**

@@ -21,6 +21,11 @@
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createGameTable,
       assets: [images/objects/furniture/game-table.png, 0, 0, 0]
+    },
+    F: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createFishTank,
+      assets: [images/objects/furniture/newGoldfishBowl.png, 0, 0, 0]
     }
   }
   tileGrid: [
@@ -33,8 +38,8 @@
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., G, ., ., ., ., ., ., ., ., .],
+    [W, F, ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., ., G, ., .],
     [W, ., ., ., ., ., D, ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]

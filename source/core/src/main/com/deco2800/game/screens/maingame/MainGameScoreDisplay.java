@@ -41,7 +41,7 @@ public class MainGameScoreDisplay extends UIComponent {
      */
     public void addActors() {
         table = new Table();
-        table.top().left().pad(30f);
+        table.bottom().left().padBottom(60f).padLeft(5f);
         table.setFillParent(true);
 
         scoreLabel = new Label(

@@ -10,16 +10,12 @@ import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
-
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
@@ -92,7 +88,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                         .getEvents().trigger("toggle_chores");
                 return true;
             default:
-                logger.debug("Default keyDown Case");
                 return false;
         }
     }
@@ -131,7 +126,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.F:
                 entity.getEvents().trigger("update_animation", "interacting_south_normal");
-                return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
@@ -153,62 +147,79 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             entity.getEvents().trigger("stop_walking");
             if(lastDirection == 0){
                 this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
 
             }else if(lastDirection == 1) {
                     this.setAnimation("standing_east");
+                    //entity.getEvents().trigger("update_animation", "standing_east_normal");
 
             }else if(lastDirection==2){
                 this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
 
             }else if(lastDirection == 3){
                 this.setAnimation("standing_west");
+                //entity.getEvents().trigger("update_animation", "standing_west_normal");
 
             }else if(lastDirection==4){
                 this.setAnimation("standing_northeast");
+                //entity.getEvents().trigger("update_animation", "standing_northeast_normal");
 
             }else if(lastDirection == 5 ){
                 this.setAnimation("standing_northwest");
+                //entity.getEvents().trigger("update_animation", "standing_northwest_normal");
 
             }else if(lastDirection == 6){
                 this.setAnimation("standing_southeast");
+                //entity.getEvents().trigger("update_animation", "standing_southeast_normal");
 
             }else if(lastDirection == 7){
                 this.setAnimation("standing_southwest");
+                //entity.getEvents().trigger("update_animation", "standing_southwest_normal");
 
             }else{
                 this.setAnimation("standing_south");
+                //entity.getEvents().trigger("update_animation", "standing_south_normal");
             }
         } else {
             if (true) {
                 entity.getEvents().trigger("walk", walkDirection);
                 if (walkDirection.epsilonEquals(0, 1)) {
                     this.setAnimation("walking_north");
+                    //entity.getEvents().trigger("update_animation", "walking_north_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 0)) {
                     this.setAnimation("walking_east");
+                    //entity.getEvents().trigger("update_animation", "walking_east_normal");
 
 
                 } else if (walkDirection.epsilonEquals(0, -1)) {
                     this.setAnimation("walking_south");
+                    //entity.getEvents().trigger("update_animation", "walking_south_normal");
 
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
                     this.setAnimation("walking_west");
+                    //entity.getEvents().trigger("update_animation", "walking_west_normal");
 
                 } else if (walkDirection.epsilonEquals(1, 1)) {
                     this.setAnimation("walking_northeast");
+                    //entity.getEvents().trigger("update_animation", "walking_northeast_normal");
 
 
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
                     this.setAnimation("walking_northwest");
+                    //entity.getEvents().trigger("update_animation", "walking_northwest_normal");
 
 
                 } else if (walkDirection.epsilonEquals(1, -1)) {
                     this.setAnimation("walking_southeast");
+                    //entity.getEvents().trigger("update_animation", "walking_southeast_normal");
 
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
                     this.setAnimation("walking_southwest");
+                    //entity.getEvents().trigger("update_animation", "walking_southwest_normal");
                 }
             }
         }
@@ -245,7 +256,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-
+        // System.out.println("Triggering movement Events");
+        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;
@@ -288,7 +300,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     public void setAnimation(String direction) {
 
-        if (this.buffed) {
+        if (this.buffed == true) {
             String animation = direction + "_buffed";
             entity.getEvents().trigger("update_animation", animation);
         } else {
@@ -300,7 +312,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     public void setWalkDirection(Vector2 direction) {
-        walkDirection.sub(direction);
+        if (this.buffed) {
+            //Vector2 x = direction.sub(direction);
+            walkDirection.sub(direction);
+        } else {
+            walkDirection.sub(direction);
+        }
     }
 
 }
