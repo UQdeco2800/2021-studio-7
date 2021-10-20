@@ -10,7 +10,7 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png, 0]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
@@ -20,7 +20,7 @@
     b: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookcase1.png, 0, 0, 0]
+      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
     }
     d: {
       class: com.deco2800.game.entities.factories.ObjectFactory
@@ -40,7 +40,12 @@
     p: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createSideTable
-      assets: [images/objects/furniture/pet-met.png, 2, 0, 0]
+      assets: [images/objects/furniture/pet-met.png, 0, 0, 0]
+    },
+    C: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createStorageCabinet,
+      assets: [images/objects/furniture/Storage_cabinet_southeast.png, 0, 0, 0]
     }
   }
   tileGrid: [
@@ -56,13 +61,13 @@
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., d, .],
     [W, ., ., s, B, ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
     [W, d, c, ., ., ., ., ., .],
     [W, b, ., ., ., ., ., ., .],
-    [W, b, ., ., ., ., ., ., .],
+    [W, b, ., ., ., ., ., C, .],
     [W, ., ., ., ., ., ., ., .]
   ]
 }

@@ -3,6 +3,7 @@ package com.deco2800.game.screens;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.context.ContextScreen;
 import com.deco2800.game.screens.endgame.EndGameActions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,11 @@ class EndGameActionsTest {
         GdxGame game = mock(GdxGame.class);
         ServiceLocator.registerGame(game);
         EndGameActions endGameActions = new EndGameActions();
+        endGameActions.onNextLevel();
+        if (ContextScreen.getScreen() == 2){
+            verify(game).setScreen(GdxGame.ScreenType.CONTEXT);
+        }
+        ContextScreen.incrementScreen();
         endGameActions.onNextLevel();
         verify(game).setScreen(GdxGame.ScreenType.MAIN_GAME);
     }

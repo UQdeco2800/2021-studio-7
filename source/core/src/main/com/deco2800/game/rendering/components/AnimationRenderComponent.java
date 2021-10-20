@@ -184,5 +184,8 @@ public class AnimationRenderComponent extends RenderComponent {
     animationPlayTime += timeSource.getDeltaTime();
   }
 
-
+  @Override
+  public void dispose() {
+    super.dispose();
+  }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
+import com.deco2800.game.entities.components.player.PlayerStaminaBar;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.ui.components.UIComponent;
 
@@ -12,7 +13,7 @@ import com.deco2800.game.ui.components.UIComponent;
 /**
  * A ui component for displaying player stats, e.g. health.
  */
-public class PlayerStatsDisplay extends UIComponent {
+public class PlayerStatDisplay extends UIComponent {
   Table table;
 
   private Label staminaLabel;
@@ -46,6 +47,11 @@ public class PlayerStatsDisplay extends UIComponent {
     String largeStyle = "large";
     Label levelLabel = new Label(levelText, skin, largeStyle);
 
+    // Score display
+    int score = entity.getComponent(ScoreComponent.class).getScore();
+    CharSequence scoreText = String.format("Score: %d", score);
+    scoreLabel = new Label(scoreText, skin, largeStyle);
+
     // stamina text
     double stamina = entity.getComponent(CombatStatsComponent.class).getStamina();
     CharSequence staminaText = String.format("Stamina: %.0f", stamina/5);
@@ -55,17 +61,18 @@ public class PlayerStatsDisplay extends UIComponent {
     playerStaminaBar = new PlayerStaminaBar(100, 100);
     playerStaminaBar.setValue((float) stamina);
 
-    int score = entity.getComponent(ScoreComponent.class).getScore();
-    CharSequence scoreText = String.format("Score: %d", score);
-    scoreLabel = new Label(scoreText, skin, largeStyle);
+
 
     table.add(levelLabel).left();
     table.row();
-    table.add(staminaLabel).left();
+    table.add(scoreLabel).left();
+    table.row();
+    table.row();
     table.row();
     table.add(playerStaminaBar).size(190,50).left();
     table.row();
-    table.add(scoreLabel).left();
+    table.add(staminaLabel).left();
+
     stage.addActor(table);
   }
 

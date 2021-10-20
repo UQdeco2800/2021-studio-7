@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -14,10 +17,9 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
 import java.util.Random;
 
 import static com.badlogic.gdx.Gdx.graphics;
@@ -29,7 +31,6 @@ import static com.badlogic.gdx.Gdx.graphics;
 public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
-    private static TextField txtUsername;
     private static final String BROWSE = "browse";
     private Table tableMain;
     private String[] playablecharcters = {
@@ -107,11 +108,6 @@ public class MainMenuDisplay extends UIComponent {
         imageButtons.add(rightBtn);
 
 
-        /** USERNAME
-        this.txtUsername = new TextField("", skin);
-        txtUsername.setMessageText("Username:");
-         */
-
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
 
@@ -123,7 +119,6 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Start button clicked");
-                        writeUsername();
                         entity.getEvents().trigger("start");
                     }
                 });
@@ -204,17 +199,15 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     @Override
-
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
     @Override
     public float getZIndex() {
-        return Z_INDEX;
-    }
+    return Z_INDEX;
+  }
 
-    @Override
     public void dispose() {
         tableMain.clear();
         super.dispose();
@@ -287,30 +280,6 @@ public class MainMenuDisplay extends UIComponent {
         }
     }
 
-    public void writeUsername(){
-        try (FileWriter writer = new FileWriter("configs/leaderboard.txt",true)) {
-            String username;
-            if (txtUsername.getText().length()<2){
-                username = "DirtyDefault"+ getRandomNum();
-            }else{
-                username = txtUsername.getText();
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("\n");
-            sb.append(username);
-            sb.append(":");
-            String s = sb.toString();
-            writer.write(s);
-            logger.info("Wrote username to leaderboard.");
-        } catch (Exception e){
-            logger.debug("Could not write username to leaderboard.");
-        }
-    }
-
-    public int getRandomNum(){
-        return r.nextInt(100000);
-    }
 
     /**
      * Moves the menuFrame up

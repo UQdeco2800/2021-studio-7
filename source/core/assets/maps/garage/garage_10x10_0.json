@@ -10,12 +10,17 @@
     W: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/walls/3.png, 0]
+      assets: [images/objects/walls/3.png, 0, 0, 0]
     },
     U: {
       class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createPlaceableBox
-      assets: [images/objects/box/box.atlas, 1, 3, 0]
+      method: createBaseInteractable
+      assets: [images/objects/box/box.atlas, 0, 3, 0]
+    },
+    L: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createClothesDrying,
+      assets: [images/objects/furniture/clothes-drying-rack.png, 0, 0, 0]
     }
   }
   tileGrid: [
@@ -36,7 +41,7 @@
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., U, ., ., ., .],
+    [W, ., ., L, ., U, ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],

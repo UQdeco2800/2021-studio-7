@@ -1,21 +1,19 @@
 package com.deco2800.game.ai.tasks;
 
 import com.badlogic.gdx.math.Vector2;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MumWaitTask extends DefaultTask implements PriorityTask {
-    private static final Logger logger = LoggerFactory.getLogger(MumWaitTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(SlipTask.class);
 
     private MovementTask movementTask;
     private WaitTask waitTask;
+    private Vector2 startPos;
     private int priority = 100;
     private Task currentTask;
 
-    public MumWaitTask(){
-        //This method is empty because all is handled by start() and other tasks.
-    }
+    public MumWaitTask(){}
 
     @Override
     public int getPriority() {
@@ -37,9 +35,11 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
     }
     @Override
     public void update() {
-        if (currentTask.getStatus() != Status.ACTIVE && currentTask == waitTask) {
+        if (currentTask.getStatus() != Status.ACTIVE) {
+            if (currentTask == waitTask) {
                 startMoving();
                 this.priority = -1; //Change priority to now chase.
+            }
         }
         currentTask.update();
     }

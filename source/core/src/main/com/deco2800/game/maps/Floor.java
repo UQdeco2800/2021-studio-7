@@ -231,17 +231,18 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns border walls into the world. These borders outline the map given by the floor grid
      */
     private void spawnBorders() {
+        String[] boarderspec = {"", "0"};
         // Spawns north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
         }
         // Spawns east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }
@@ -250,26 +251,11 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns the NPC Cat into map.
      */
     private void spawnCat(){
-
-        GridPoint2 spawnLocation = null;
-        // Iterate through rooms to find a valid spawn location
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
-            if (!roomSpawnLocations.isEmpty()) {
-                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
-                break;
-            }
-        }
-        // Set default spawn location if one was not found
-        if (spawnLocation == null) {
-            spawnLocation = new GridPoint2(1, 1);
-        }
-
         String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
-        spawnEntityAt(cat, spawnLocation, true, true);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     /**
@@ -289,9 +275,9 @@ public class Floor extends GameArea implements Json.Serializable {
         GridObject normalBed;
         try {
             playerBed = new GridObject(ObjectFactory.class.getMethod("createPlayerBed", String[].class),
-                    new String[]{PLAYER_BED_ATLAS});
+                    new String[]{PLAYER_BED_ATLAS, "0","4", "0"});
             normalBed = new GridObject(ObjectFactory.class.getMethod("createNormalBed", String[].class),
-                    new String[]{NORMAL_BED_TEXTURE});
+                    new String[]{NORMAL_BED_TEXTURE, "0", "0", "0"});
         } catch (NoSuchMethodException e) {
             throw new NullPointerException("Could not retrieve either createNormalBed or createPlayerBed methods");
         }

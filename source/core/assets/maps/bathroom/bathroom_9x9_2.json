@@ -3,7 +3,7 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createBaseTile
-      assets: [images/tiles/iso/iso_floor_tiles_half_white.png]
+      assets: [images/tiles/iso/iso_floor_tiles_quarter_white.png]
     }
   }
   entityMap: {
@@ -15,12 +15,12 @@
     s: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/furniture/sink_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/sink_southwest.png, 0, 0, 0]
     }
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBath
-      assets: [images/objects/furniture/bath_tub_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/bath_tub_southwest.png, 0, 0, 0]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObjectFactory
@@ -35,17 +35,17 @@
     T: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createTowelHanger,
-      assets: [images/objects/furniture/towel_hanger_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/towel_hanger_southwest.png, 0, 0, 0]
     },
     S: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createShelf,
-      assets: [images/objects/furniture/shelf1_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/shelf1_southwest.png, 0, 0, 0]
     },
     P: {
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
-      assets: [images/objects/furniture/toilet_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/toilet_southwest.png, 0, 0, 0]
     }
     p: {
       class:com.deco2800.game.entities.factories.ObjectFactory
@@ -65,13 +65,13 @@
   ],
   entityGrid: [
     [W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., B, ., ., ., .],
+    [W, ., B, ., t, s, ., P, .],
     [W, ., ., ., ., ., ., ., .],
-    [W, s, ., ., ., p, ., ., .],
-    [W, P, ., ., ., ., ., ., .],
+    [W, t, ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., p, ., .],
     [W, b, ., ., ., ., ., ., .],
-    [W, ., ., p, ., ., p, ., .],
-    [W, ., ., ., ., ., ., ., .]
+    [W, ., ., ., ., ., ., ., .],
+    [W, t, ., ., ., ., ., ., .]
   ]
   /*choreGrid: [
     [., ., ., ., ., .],

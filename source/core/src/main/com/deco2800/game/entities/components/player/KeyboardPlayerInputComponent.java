@@ -119,7 +119,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 }
                 return true;
             default:
-                logger.debug("Default keyDown Case");
                 return false;
         }
     }
@@ -180,7 +179,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-
             switch (lastDirection) {
                 case 0:
                 case 2:
@@ -217,10 +215,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 } else if (walkDirection.epsilonEquals(1, 0)) {
                     this.setAnimation("walking_east");
 
-
                 } else if (walkDirection.epsilonEquals(0, -1)) {
                     this.setAnimation("walking_south");
-
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
                     this.setAnimation("walking_west");
@@ -228,14 +224,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 } else if (walkDirection.epsilonEquals(1, 1)) {
                     this.setAnimation("walking_northeast");
 
-
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
                     this.setAnimation("walking_northwest");
 
-
                 } else if (walkDirection.epsilonEquals(1, -1)) {
                     this.setAnimation("walking_southeast");
-
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
                     this.setAnimation("walking_southwest");
@@ -275,7 +268,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-
+        // System.out.println("Triggering movement Events");
+        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;
@@ -318,7 +312,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     public void setAnimation(String direction) {
 
-        if (this.buffed) {
+        if (this.buffed == true) {
             String animation = direction + "_buffed";
             entity.getEvents().trigger(UPDATEANIMATION, animation);
         } else {
@@ -330,7 +324,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     public void setWalkDirection(Vector2 direction) {
-        walkDirection.sub(direction);
+        if (this.buffed) {
+            //Vector2 x = direction.sub(direction);
+            walkDirection.sub(direction);
+        } else {
+            walkDirection.sub(direction);
+        }
     }
 
 }
