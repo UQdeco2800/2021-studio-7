@@ -79,7 +79,6 @@ public class ChoreController {
             numChores = 2 * level - 2; // 0, 0, 4, 6, 8...
         }
 
-
         if (chores.size() <= numChores) {
             // We have the correct number of chores already
             return;
