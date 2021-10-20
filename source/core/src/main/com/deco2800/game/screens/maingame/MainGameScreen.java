@@ -98,7 +98,7 @@ public class MainGameScreen extends ScreenAdapter {
     return level;
   }
 
-  public static void zerolevel() {level = 0;}
+  public static void zerolevel() {level = 1;}
 
   @Override
   public void render(float delta) {
@@ -182,11 +182,11 @@ public class MainGameScreen extends ScreenAdapter {
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
-        //.addComponent(new MainGameExitDisplay()
+        .addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
-        //.addComponent(new MainGameFogScreen())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())
+        .addComponent(new MainGameFogScreen())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());

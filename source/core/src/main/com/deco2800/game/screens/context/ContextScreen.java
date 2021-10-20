@@ -28,6 +28,7 @@ public class ContextScreen extends ScreenAdapter {
     };
 
     private final Renderer renderer;
+    private Stage stage;
 
     public ContextScreen() {
 
@@ -47,8 +48,8 @@ public class ContextScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            ContextScreenDisplay.playButton();
+        if (stage != null) {
+            stage.draw();
         }
     }
 
@@ -105,7 +106,9 @@ public class ContextScreen extends ScreenAdapter {
         ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ContextScreenActions());
+        ContextInputProcessor input = new ContextInputProcessor();
+        ui.addComponent(input);
+        Gdx.input.setInputProcessor(input);
         ServiceLocator.getEntityService().register(ui);
-        Gdx.input.setInputProcessor(new ContextInputProcessor());
     }
 }

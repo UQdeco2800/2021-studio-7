@@ -1,8 +1,5 @@
 package com.deco2800.game.screens.mainmenu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,19 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.io.FileWriter;
 import java.lang.Math;
 
@@ -34,7 +27,6 @@ import java.lang.Math;
 public class MainMenuDisplay extends UIComponent {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
   private static final float Z_INDEX = 2f;
-  private static TextField txtUsername;
   private Table table;
   private String playablecharcters[] = {
           "images/characters/boy_01/boy_01_menu_preview.png",
@@ -82,9 +74,6 @@ public class MainMenuDisplay extends UIComponent {
     buttons.add(exitBtn);
     TextButton changeCharacterBtn = new TextButton("Change Character", skin);
     buttons.add(changeCharacterBtn);
-    this.txtUsername = new TextField("", skin);
-    txtUsername.setMessageText("Username:");
-
 
     Image character = new Image(ServiceLocator.getResourceService()
             .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -98,7 +87,7 @@ public class MainMenuDisplay extends UIComponent {
           @Override
           public void changed(ChangeEvent changeEvent, Actor actor) {
             logger.debug("Start button clicked");
-            writeUsername();
+            //writeUsername();
             entity.getEvents().trigger("start");
           }
         });
@@ -154,9 +143,7 @@ public class MainMenuDisplay extends UIComponent {
     table.row();
     table.add(exitBtn).padTop(15f);
     table.row();
-    table.add(txtUsername).padTop(50f);
-    table.row();
-    table.add(character).padTop(20f);
+    table.add(character).padTop(100f);
     table.row();
     table.add(changeCharacterBtn).padTop(10f).padBottom(20f);
     stage.addActor(table);
@@ -233,38 +220,6 @@ public class MainMenuDisplay extends UIComponent {
         }
     }
 
-    public void writeUsername(){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("configs/leaderboard.txt",true);
-            String username;
-
-            if (this.txtUsername.getText().length()<2){
-                username = "DirtyDefault"+ getRandomNum();
-            }else{
-                username = this.txtUsername.getText();
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("\n");
-            sb.append(username);
-            sb.append(":");
-            String s = sb.toString();
-            writer.write(s);
-            writer.close();
-            logger.info("Wrote username to leaderboard.");
-        } catch (Exception e){
-            logger.debug("Could not write username to leaderboard.");
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     public int getRandomNum(){
         return (int)(Math.random()*100000);

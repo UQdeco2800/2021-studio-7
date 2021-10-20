@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.chores.Chore;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.object.*;
@@ -20,6 +21,8 @@ import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.rendering.components.TextureRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Factory to create obstacle entities.
@@ -240,6 +243,7 @@ public class ObjectFactory {
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
+    List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
 
