@@ -212,14 +212,14 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent = ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
+        .addComponent(new MainGameFogScreen())
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
-        .addComponent(new MainGameExitDisplay())
+        //.addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())
-        //.addComponent(new MainGameFogScreen())
         .addComponent(new Terminal())
         .addComponent(inputComponent)
         .addComponent(new TerminalDisplay());
