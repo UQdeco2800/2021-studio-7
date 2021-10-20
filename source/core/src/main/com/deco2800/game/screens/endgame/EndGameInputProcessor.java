@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EndGameInputProcessor implements InputProcessor {
-    private final Logger logger = LoggerFactory.getLogger(MenuInputProcessor.class);
+    private final Logger logger = LoggerFactory.getLogger(EndGameInputProcessor.class);
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {

@@ -34,7 +34,6 @@ public class DrinkActions extends InteractionComponent {
             ((MainGameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
-            target.getComponent(CombatStatsComponent.class).changeStamina(501);
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
             //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.DRINK);
