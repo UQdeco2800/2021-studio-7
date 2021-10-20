@@ -58,6 +58,11 @@
       class:com.deco2800.game.entities.factories.ObjectFactory
       method: createBaseChore
       assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
+    },
+    Y: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createStove,
+      assets: [images/objects/furniture/stove_southeast.png, 0, 0, 0]
     }
   }
   tileGrid: [
@@ -74,7 +79,7 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W],
     [W, c, f, ., ., ., ., .],
-    [W, c, ., ., ., ., ., .],
+    [W, c, ., ., ., ., Y, .],
     [W, S, ., ., ., ., ., .],
     [W, s, ., P, ., ., ., .],
     [W, c, ., ., ., ., ., .],

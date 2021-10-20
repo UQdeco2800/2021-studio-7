@@ -12,6 +12,7 @@ public class TvActions extends InteractionComponent {
     private static final String updateAnimation = "update_animation";
     private static final String tvOn = "TV_on1";
     private static final String tvOff = "TV_off2";
+    private static final String tvOnH = "TV_onh1";
     private boolean hasInteracted = false;
 
     @Override
@@ -39,7 +40,7 @@ public class TvActions extends InteractionComponent {
             if (hasInteracted) {
                 entity.getEvents().trigger(updateAnimation, tvOff);
             } else {
-                entity.getEvents().trigger(updateAnimation, tvOn);
+                entity.getEvents().trigger(updateAnimation, tvOnH);
             }
         } else {
             logger.debug("TV ended collision with PLAYER, tv animation");

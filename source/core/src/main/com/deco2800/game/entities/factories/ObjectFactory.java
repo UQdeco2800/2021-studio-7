@@ -150,6 +150,82 @@ public class ObjectFactory {
     return bin;
   }
 
+  public static Entity createPottedPlant(String[] assets) {
+    Entity plant = createBaseObject(assets);
+    plant.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(plant, 0.5f, 0.5f);
+    return plant;
+  }
+
+  public static Entity createShelf(String[] assets) {
+    Entity shelf = createBaseObject(assets);
+    shelf.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(shelf, 0.5f, 0.5f);
+    return shelf;
+  }
+  public static Entity createTowelHanger(String[] assets) {
+    Entity towelHanger = createBaseObject(assets);
+    towelHanger.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(towelHanger, 0.5f, 1.5f);
+    return towelHanger;
+  }
+
+  public static Entity createClothesDrying(String[] assets) {
+    Entity clothes = createBaseObject(assets);
+    clothes.setScale(1.5f, 1f);
+    PhysicsUtils.setColliderShape(clothes, 1f, 2f);
+    return clothes;
+  }
+
+  public static Entity createDiningTable(String[] assets) {
+    Entity diningTable = createBaseObject(assets);
+    diningTable.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(diningTable, 0.5f, 1.5f);
+    return diningTable;
+  }
+
+  public static Entity createGameTable(String[] assets) {
+    Entity gameTable = createBaseObject(assets);
+    gameTable.setScale(1f, 2f);
+    PhysicsUtils.setScaledCollider(gameTable, 1f, 1.5f);
+    return gameTable;
+  }
+
+  public static Entity createNintendo(String[] assets) {
+    Entity nintendo = createBaseObject(assets);
+    nintendo.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(nintendo, 0.5f, 1.5f);
+    return nintendo;
+  }
+
+  public static Entity createCouchLarge(String[] assets) {
+    Entity couch = createBaseObject(assets);
+    couch.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(couch, 0.5f, 1.5f);
+    return couch;
+  }
+  public static Entity createCouchSmall(String[] assets) {
+    Entity couch = createBaseObject(assets);
+    couch.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(couch, 0.5f, 1.5f);
+    return couch;
+  }
+
+  public static Entity createStorageCabinet(String[] assets) {
+    Entity cabinet = createBaseObject(assets);
+    cabinet.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(cabinet, 0.5f, 1.5f);
+    return cabinet;
+  }
+
+  public static Entity createStove(String[] assets) {
+    Entity stove = createBaseObject(assets);
+    stove.setScale(0.5f, 0.5f);
+    PhysicsUtils.setScaledCollider(stove, 0.5f, 1.5f);
+    return stove;
+  }
+
+
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
    * @param assets the image and atlas assets of this object

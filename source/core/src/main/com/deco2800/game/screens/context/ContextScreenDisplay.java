@@ -66,6 +66,7 @@ public class ContextScreenDisplay extends UIComponent {
         Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(txtUserName);
         stage.addActor(table);
+
         /*switch(level++) {
             case 1:
 

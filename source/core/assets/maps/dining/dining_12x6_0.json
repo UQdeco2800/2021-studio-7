@@ -11,6 +11,16 @@
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png, 0, 0, 0]
+    },
+    D: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createDiningTable,
+      assets: [images/objects/furniture/dinningtable1.png, 0, 0, 0]
+    },
+    G: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createGameTable,
+      assets: [images/objects/furniture/game-table.png, 0, 0, 0]
     }
   }
   tileGrid: [
@@ -24,8 +34,8 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
+    [W, ., G, ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., D, ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]
   ]
