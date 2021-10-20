@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +113,7 @@ public class EndGameDisplay extends UIComponent {
   }
 
   public static void buttonLogic(String buttonChoice) {
-    TextButton mainMenu = new TextButton("", skin);
+    TextButton mainMenu;
 
     if (buttons.size() > 1) {
       mainMenu = buttons.get(1);
@@ -181,7 +180,7 @@ public class EndGameDisplay extends UIComponent {
       unhoverMenu(buttons.get(menuIndex - 1));
       hoverMenu(buttons.get(menuIndex));
     }
-    logger.info("Menu Index is " + menuIndex);
+    logger.info(String.format("Menu index is %d", menuIndex));
   }
   /**
    * Moves the button highlight up
@@ -193,6 +192,6 @@ public class EndGameDisplay extends UIComponent {
       unhoverMenu(buttons.get(menuIndex + 1));
       hoverMenu(buttons.get(menuIndex));
     }
-    logger.info("Menu Index is " + menuIndex);
+    logger.info(String.format("Menu index is %d", menuIndex));
   }
 }
