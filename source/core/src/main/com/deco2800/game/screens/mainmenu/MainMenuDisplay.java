@@ -18,6 +18,9 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,7 +58,7 @@ public class MainMenuDisplay extends UIComponent {
 
 
 
-    @Override
+  @Override
   public void create() {
     super.create();
     addActors();
@@ -267,6 +270,13 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     public int getRandomNum(){
+        // try {
+        //     Random rand = SecureRandom.getInstanceStrong();
+        //     return rand.nextInt(100000);
+        // } catch (NoSuchAlgorithmException e) {
+        //     logger.error("Random isn't available in this environment.");
+        //     return 0;
+        // }
         return (int)(Math.random()*100000);
     }
 
