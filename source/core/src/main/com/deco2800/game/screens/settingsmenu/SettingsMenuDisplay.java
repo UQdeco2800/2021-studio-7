@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
@@ -216,14 +215,12 @@ public class SettingsMenuDisplay extends UIComponent {
 
   public static void exitSettingsMenu(){
     TextButton current = buttons.get(0);
-//    buttons.clear();
     current.toggle();
   }
 
   public static void applySettings(){
     SettingsScreen.playButtonSound();
     TextButton current = buttons.get(1);
-//    buttons.clear();
     current.toggle();
   }
 
@@ -240,6 +237,7 @@ public class SettingsMenuDisplay extends UIComponent {
   @Override
   public void dispose() {
     rootTable.clear();
+    buttons.clear();
     super.dispose();
   }
 }

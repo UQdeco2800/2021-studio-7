@@ -3,7 +3,6 @@ package com.deco2800.game.screens.settingsmenu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

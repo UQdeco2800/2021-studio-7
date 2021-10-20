@@ -62,7 +62,7 @@ public class MainMenuScreen extends ScreenAdapter {
             ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
                     Music.class);
     music.setLooping(true);
-    music.setVolume(0.01f);
+    music.setVolume(0.2f);
     music.play();
   }
 
@@ -73,7 +73,7 @@ public class MainMenuScreen extends ScreenAdapter {
   public static void playButtonSound(String button) {
     Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
     sound.play();
-    logger.info(button + " button sound played");
+    logger.info("{} button sound played", button);
   }
 
   @Override
@@ -142,16 +142,7 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.getEntityService().register(ui);
     Gdx.input.setInputProcessor(new MenuInputProcessor());
   }
-
-  /**
-   *       _          _          _          _          _
-   *     >(')____,  >(')____,  >(')____,  >(')____,  >(') ___,
-   *       (` =~~/    (` =~~/    (` =~~/    (` =~~/    (` =~~/
-   *    ~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~^`---'~^~^~
-   *
-   *
-   *
-   */
+  
 }
 
 

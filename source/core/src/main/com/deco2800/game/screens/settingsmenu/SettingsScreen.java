@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -16,7 +15,6 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.mainmenu.MainMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +89,6 @@ public class SettingsScreen extends ScreenAdapter {
     ui.addComponent(new SettingsMenuDisplay())
             .addComponent(new InputDecorator(stage, 10));
     ServiceLocator.getEntityService().register(ui);
-    //Gdx.input.setInputProcessor(new SettingsInputProcessor());
   }
 
   private void loadAssets() {
