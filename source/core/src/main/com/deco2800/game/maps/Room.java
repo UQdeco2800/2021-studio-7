@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
@@ -152,12 +153,16 @@ public class Room implements Json.Serializable {
                     floor.getFloorGrid()[worldPos.x][worldPos.y] = key;
                     // Retain overriding entity on room's entity grid
                     entityGrid[x][y] = floorSymbol;
-
                     roomEntity = floor.getEntityMap().get(floorSymbol);
                 } else {
                     roomEntity = entityMap.get(roomSymbol);
                 }
-                if (roomEntity != null) {
+                if (roomEntity == null) {
+                    continue;
+                }
+                if (roomEntity.getMethod().getName().equals("createBed")) {
+                    floor.stashBedPosition(worldPos);
+                } else {
                     floor.spawnGridEntity(roomEntity, worldPos);
                 }
             }

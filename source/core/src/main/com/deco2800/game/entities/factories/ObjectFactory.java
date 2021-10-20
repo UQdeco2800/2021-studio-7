@@ -44,6 +44,21 @@ public class ObjectFactory {
     return bed;
   }
 
+  public static Entity createPlayerBed(String[] assets) {
+    Entity bed = createBaseInteractable(assets, BodyType.StaticBody)
+            .addComponent(new BedActions());
+    bed.setScale(1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 1f, 2f);
+    return bed;
+  }
+
+  public static Entity createNormalBed(String[] assets) {
+    Entity bed = createBaseObject(assets, BodyType.StaticBody);
+    bed.setScale(1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 1f, 2f);
+    return bed;
+  }
+
   public static Entity createHorizontalDoor(String[] assets) {
     Entity horizontalDoor = createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new HorizontalDoorActions());
