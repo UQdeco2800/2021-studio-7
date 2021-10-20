@@ -1,0 +1,7 @@
+{
+  GridObject: {
+    class: com.deco2800.game.maps.terrain.TerrainFactory
+    method: createBaseTile
+    assets: [test.png, test.atlas, test1.atlas]
+  }
+}

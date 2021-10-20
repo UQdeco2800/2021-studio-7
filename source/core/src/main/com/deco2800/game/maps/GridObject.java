@@ -1,6 +1,5 @@
 package com.deco2800.game.maps;
 
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.deco2800.game.files.FileLoader;
@@ -8,15 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * Represents an object on a single point on a grid.
  * Can define either a tile or an entity.
  */
 public class GridObject implements Json.Serializable {
-
     private static final Logger logger = LoggerFactory.getLogger(GridObject.class);
-    // Defined on deserialization
+    // Defined from deserialization or constructor injection
     private Method method;
     private String[] assets;
 
@@ -36,14 +35,33 @@ public class GridObject implements Json.Serializable {
         return assets;
     }
 
-    public Array<String> getAssets(String extension) {
-        Array<String> assetsWithExtension = new Array<>();
+    public List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
         for (String asset : assets) {
             if (asset.endsWith(extension)) {
                 assetsWithExtension.add(asset);
             }
         }
         return assetsWithExtension;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GridObject that = (GridObject) o;
+        return Objects.equals(method, that.method) && Arrays.equals(assets, that.assets);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(method);
+        result = 31 * result + Arrays.hashCode(assets);
+        return result;
     }
 
     @Override

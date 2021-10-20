@@ -3,6 +3,7 @@ package com.deco2800.game.screens.context;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
@@ -13,7 +14,7 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.screens.context.ContextInputProcessor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,10 @@ public class ContextScreen extends ScreenAdapter {
 
     private final Renderer renderer;
 
+    private static final String[] buttonSounds = {
+            "sounds/confirm.ogg",
+    };
+
     public ContextScreen() {
 
         logger.debug("Initialising Context screen services");
@@ -39,19 +44,23 @@ public class ContextScreen extends ScreenAdapter {
 
         renderer = RenderFactory.createRenderer();
 
-        System.out.println();
-
         loadAssets();
         createUI();
+        playButtonSound();
+    }
+
+    public void playButtonSound() {
+        Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+
+        sound.play();
+
+        logger.info("enter button sound played on context screen launch");
     }
 
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            ContextScreenDisplay.playButton();
-        }
     }
 
     @Override
@@ -87,6 +96,7 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(ContextTextures);
+        resourceService.loadSounds(buttonSounds);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -94,6 +104,7 @@ public class ContextScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(ContextTextures);
+        resourceService.unloadAssets(buttonSounds);
     }
 
     /**

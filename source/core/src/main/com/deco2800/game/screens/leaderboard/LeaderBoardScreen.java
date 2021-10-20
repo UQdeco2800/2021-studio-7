@@ -1,8 +1,8 @@
 package com.deco2800.game.screens.leaderboard;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -15,7 +15,6 @@ import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.mainmenu.MainMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +25,9 @@ public class LeaderBoardScreen extends ScreenAdapter {
             "images/ui/title/leaderboard.png"};
     private final GdxGame game;
     private final Renderer renderer;
+    private static final String[] buttonSounds = {
+            "sounds/confirm.ogg",
+    };
 
     public LeaderBoardScreen(GdxGame game) {
         this.game = game;
@@ -41,17 +43,19 @@ public class LeaderBoardScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+        playButtonSound();
+    }
+
+    public static void playButtonSound() {
+        Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+        sound.play();
+        logger.info("enter button sound played on leaderboard screen");
     }
 
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) ||
-                Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            LeaderBoardDisplay.exitLB();
-        }
     }
 
     @Override
@@ -79,13 +83,14 @@ public class LeaderBoardScreen extends ScreenAdapter {
         ui.addComponent(new LeaderBoardDisplay(game))
                 .addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
-        //Gdx.input.setInputProcessor(new LeadBdInputProcessor());
+        Gdx.input.setInputProcessor(new LeadBdInputProcessor());
     }
 
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(leaderBoardTextures);
+        resourceService.loadSounds(buttonSounds);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -93,5 +98,6 @@ public class LeaderBoardScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(leaderBoardTextures);
+        resourceService.unloadAssets(buttonSounds);
     }
 }

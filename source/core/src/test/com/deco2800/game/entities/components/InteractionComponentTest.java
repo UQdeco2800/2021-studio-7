@@ -2,7 +2,6 @@ package com.deco2800.game.entities.components;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.interactions.InteractionComponent;
 import com.deco2800.game.events.listeners.EventListener2;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -14,43 +13,78 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 class InteractionComponentTest {
 
-    Entity player;
     Entity object;
-    Fixture playerFixture;
     Fixture objectFixture;
-    CollisionListener listener;
+    InteractionComponent component;
+
+    Entity player;
+    Fixture playerFixture;
 
     @BeforeEach
     void beforeEach() {
         ServiceLocator.registerPhysicsService(new PhysicsService());
+        component = spy(new InteractionComponent());
         player = createPlayer();
-        object = createObject();
+        object = createObject(component);
         playerFixture = player.getComponent(HitboxComponent.class).getFixture();
         objectFixture = object.getComponent(HitboxComponent.class).getFixture();
-        listener = mock(CollisionListener.class);
+    }
+
+    @Test
+    void shouldReturnNullOnPreCollisionCheckFailure() {
+        assertNull(component.preCollisionCheck(playerFixture, objectFixture));
+
+        Fixture object2Fixture = createObject(new InteractionComponent())
+                .getComponent(HitboxComponent.class).getFixture();
+        assertNull(component.preCollisionCheck(objectFixture, object2Fixture));
+    }
+
+    @Test
+    void shouldReturnEntityOnPreCollisionCheckSuccess() {
+        assertEquals(component.preCollisionCheck(objectFixture, playerFixture), player);
+    }
+
+    @Test
+    void shouldTriggerOnPreCollisionStart() {
+        object.getEvents().trigger("pre_collision_start", objectFixture, playerFixture);
+        verify(component).onPreCollisionStart(objectFixture, playerFixture);
+    }
+
+    @Test
+    void shouldTriggerOnPreCollisionEnd() {
+        object.getEvents().trigger("pre_collision_end", objectFixture, playerFixture);
+        verify(component).onPreCollisionEnd(objectFixture, playerFixture);
     }
 
     @Test
     void shouldTriggerOnCollisionStart() {
-        object.getEvents().addListener("pre_collision_start", listener);
-        object.getEvents().trigger("pre_collision_start", objectFixture, playerFixture);
-
-        // Check that listener ran when the collision started
-        verify(listener).handle(objectFixture, playerFixture);
+        object.getEvents().trigger("collision_start", player);
+        verify(component).onCollisionStart(player);
     }
 
     @Test
-    void shouldEndCollisionEvent() {
-        object.getEvents().addListener("pre_collision_end", listener);
-        object.getEvents().trigger("pre_collision_end", objectFixture, playerFixture);
+    void shouldTriggerOnCollisionEnd() {
+        object.getEvents().trigger("collision_end", player);
+        verify(component).onCollisionEnd(player);
+    }
 
-        // Check that listener ran when the collision ended
-        verify(listener).handle(objectFixture, playerFixture);
+    @Test
+    void shouldTriggerOnInteraction() {
+        object.getEvents().trigger("interaction", player);
+        verify(component).onInteraction(player);
+    }
+
+    @Test
+    void shouldTriggerToggleHighlight() {
+        object.getEvents().trigger("toggle_highlight", true);
+        verify(component).toggleHighlight(true);
     }
 
     Entity createPlayer() {
@@ -62,15 +96,13 @@ class InteractionComponentTest {
         return player;
     }
 
-    Entity createObject() {
+    Entity createObject(InteractionComponent component) {
         Entity object =
                 new Entity()
                         .addComponent(new PhysicsComponent())
                         .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE))
-                        .addComponent(new InteractionComponent());
+                        .addComponent(component);
         object.create();
         return object;
     }
 }
-
-interface CollisionListener extends EventListener2<Fixture, Fixture> {}

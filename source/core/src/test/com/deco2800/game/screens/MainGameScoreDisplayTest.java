@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(GameExtension.class)
-public class MainGameScoreDisplayTest {
+class MainGameScoreDisplayTest {
 
     @Test
     void createTest() {

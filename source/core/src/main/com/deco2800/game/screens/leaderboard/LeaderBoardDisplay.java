@@ -26,8 +26,9 @@ public class LeaderBoardDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(LeaderBoardDisplay.class);
     private final GdxGame game;
     private Table rootTable;
-    private Table leaderTable;
+    private String configFile = "configs/leaderboard.txt";
     private static TextButton button;
+    private Map sortedLeaderboard;
 
     public LeaderBoardDisplay(GdxGame game) {
         super();
@@ -64,20 +65,21 @@ public class LeaderBoardDisplay extends UIComponent {
 
 
     private Table makeLeaderBoardTable() {
-        leaderTable = new Table();
+        Table leaderTable = new Table();
         logger.info("Trying to get leader board...");
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
         logger.info("Got leader board.");
-        Set set = leaderboard.entrySet();
-        Iterator i = set.iterator();
+        Set <Map.Entry<String,Integer>> set = sortedLeaderboard.entrySet();
+        Iterator <Map.Entry<String,Integer>> i = set.iterator();
         String insert;
         int t = 0;
         while (i.hasNext()) {
             t++;
             if (t == 11){break;}
             leaderTable.row();
-            Map.Entry mp = (Map.Entry) i.next();
-            insert = mp.getKey() + ":" + String.valueOf(mp.getValue());
+            Map.Entry<String,Integer> mp = i.next();
+            String score = String.valueOf(mp.getValue());
+            insert = mp.getKey() + ":" + score;
             Label label = new Label(insert, skin);
             leaderTable.add(label).padTop(15f);
         }
@@ -85,9 +87,9 @@ public class LeaderBoardDisplay extends UIComponent {
     }
 
     private Table makeMenuBtns() {
-        TextButton exitBtn = new TextButton("Exit", skin);
-        button = exitBtn;
-        exitBtn.addListener(
+        TextButton exitBtn1 = new TextButton("Exit", skin);
+        button = exitBtn1;
+        exitBtn1.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -98,7 +100,7 @@ public class LeaderBoardDisplay extends UIComponent {
 
         Table table = new Table();
 
-        table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
+        table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
         return table;
     }
 
@@ -130,13 +132,14 @@ public class LeaderBoardDisplay extends UIComponent {
 
     private void sortLeaderBoard() {
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
-        Map sortedLeaderboard = valueSort(leaderboard);
+        sortedLeaderboard = valueSort(leaderboard);
         FileWriter clearer = null;
         FileWriter writer = null;
+
         try {
-            clearer = new FileWriter("configs/leaderboard.txt");
+            clearer = new FileWriter(configFile);
             clearer.write("");
-            writer = new FileWriter("configs/leaderboard.txt", true);
+            writer = new FileWriter(configFile, true);
             Set set = sortedLeaderboard.entrySet();
             Iterator i = set.iterator();
             while (i.hasNext()) {
@@ -173,8 +176,8 @@ public class LeaderBoardDisplay extends UIComponent {
             // return comparison results of values of
             // two keys
             public int compare(K k1, K k2) {
-                int comp = map.get(k1).compareTo(
-                        map.get(k2));
+                int comp = map.get(k2).compareTo(
+                        map.get(k1));
                 if (comp == 0)
                     return 1;
                 else
@@ -184,7 +187,7 @@ public class LeaderBoardDisplay extends UIComponent {
         };
 
         // SortedMap created using the comparator
-        Map<K, V> sorted = new TreeMap<K, V>(valueComparator);
+        Map<K,V> sorted = new TreeMap<>(valueComparator);
         sorted.putAll(map);
 
         return sorted;
@@ -194,11 +197,13 @@ public class LeaderBoardDisplay extends UIComponent {
      * Reads the leaderbaord text file and returns the result in a treeMap as it is.
      */
     public TreeMap<String, Integer> getLeaderBoard() {
-        File input = new File("configs/leaderboard.txt");
-        BufferedReader br = null;
+
         TreeMap<String, Integer> leaderboard = new TreeMap<String, Integer>();
         String currentLine;
+        BufferedReader br = null;
+
         try {
+            File input = new File(configFile);
             br = new BufferedReader(new FileReader(input));
             while ((currentLine = br.readLine()) != null) {
                 if ("".equals(currentLine)) {

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(GameExtension.class)
-public class LeaderBoardDisplayTest {
+class LeaderBoardDisplayTest {
     public GdxGame game;
 
     @Test
