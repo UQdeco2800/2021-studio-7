@@ -63,6 +63,11 @@
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createStove,
       assets: [images/objects/furniture/stove_southeast.png, 0, 0, 0]
+    },
+    w: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createDishwasher,
+      assets: [images/objects/dish_washer/dishwashing_animation.atlas, 0, 6, 4]
     }
   }
   tileGrid: [
@@ -83,7 +88,7 @@
     [W, S, ., ., ., ., ., .],
     [W, s, ., P, ., ., ., .],
     [W, c, ., ., ., ., ., .],
-    [W, b, ., ., ., ., ., p],
+    [W, b, ., ., ., w, ., p],
     [W, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., .]
   ]

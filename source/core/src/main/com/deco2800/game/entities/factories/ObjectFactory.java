@@ -7,11 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.object.BananaPeelActions;
-import com.deco2800.game.entities.components.object.BedActions;
-import com.deco2800.game.entities.components.object.DrinkActions;
-import com.deco2800.game.entities.components.object.TvActions;
-import com.deco2800.game.entities.components.object.PlaceableBoxActions;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -62,6 +58,11 @@ public class ObjectFactory {
     return tv;
   }
 
+  public static Entity createDishwasher(String[] assets) {
+    Entity dishWasher = createBaseChore(assets);
+    PhysicsUtils.setColliderShape(dishWasher, 1f, 1f);
+    return dishWasher;
+  }
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets);
@@ -320,6 +321,8 @@ public class ObjectFactory {
       case "5":
         obstacle.addComponent(new BananaPeelActions());
         break;
+      case "6":
+        obstacle.addComponent(new WashingDishesActions());
     }
   }
 
@@ -331,6 +334,8 @@ public class ObjectFactory {
         return ChoreList.DRINK;
       case "3":
         return ChoreList.PUDDLE;
+      case "4":
+        return ChoreList.DISHWASHER;
       default:
         logger.debug("Invalid choreID provided");
         return null;
