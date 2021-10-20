@@ -180,7 +180,7 @@ public class EndGameDisplay extends UIComponent {
       unhoverMenu(buttons.get(menuIndex - 1));
       hoverMenu(buttons.get(menuIndex));
     }
-    logger.info(String.format("Menu index is %d", menuIndex));
+    logger.info("Menu index is {}", menuIndex);
   }
   /**
    * Moves the button highlight up
@@ -192,6 +192,6 @@ public class EndGameDisplay extends UIComponent {
       unhoverMenu(buttons.get(menuIndex + 1));
       hoverMenu(buttons.get(menuIndex));
     }
-    logger.info(String.format("Menu index is %d", menuIndex));
+    logger.info("Menu index is {}", menuIndex);
   }
 }

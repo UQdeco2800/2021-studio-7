@@ -30,6 +30,7 @@ public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
     private static TextField txtUsername;
+    private static final String BROWSE = "browse";
     private Table tableMain;
     private String[] playablecharcters = {
             "images/characters/boy_01/boy_01_menu_preview.png",
@@ -116,11 +117,11 @@ public class MainMenuDisplay extends UIComponent {
 
         menuIndicator = createMenuIndicator();
 
-        Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
-
-        Image leftBtnGrey = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/main_menu/pointer-L-inactive.png", Texture.class));
+//        Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
+//                .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
+//
+//        Image leftBtnGrey = new Image(ServiceLocator.getResourceService()
+//                .getAsset("images/main_menu/pointer-L-inactive.png", Texture.class));
 
 
         // Triggers an event when the button is pressed
@@ -250,7 +251,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     public void changeCharacterLeft(){
         if (notFarLeft()){
-            MainMenuScreen.playButtonSound("browse");
+            MainMenuScreen.playButtonSound(BROWSE);
             characterIndex--;
             buttons.clear();
             imageButtons.clear();
@@ -272,7 +273,7 @@ public class MainMenuDisplay extends UIComponent {
      */
     public void changeCharacterRight(){
         if (notFarRight()){
-            MainMenuScreen.playButtonSound("browse");
+            MainMenuScreen.playButtonSound(BROWSE);
             characterIndex++;
             buttons.clear();
             imageButtons.clear();
@@ -389,7 +390,7 @@ public class MainMenuDisplay extends UIComponent {
      * Also plays the 'b e e p'
      */
     public static void updateMenuFrame() {
-        MainMenuScreen.playButtonSound("browse");
+        MainMenuScreen.playButtonSound(BROWSE);
 
         TextButton startBtn = buttons.get(0);
         TextButton leadBtn = buttons.get(1);
