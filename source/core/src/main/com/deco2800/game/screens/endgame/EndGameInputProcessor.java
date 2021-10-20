@@ -1,7 +1,9 @@
 package com.deco2800.game.screens.endgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.deco2800.game.screens.context.ContextScreenDisplay;
 import com.deco2800.game.screens.mainmenu.MenuInputProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
