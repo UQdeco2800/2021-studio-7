@@ -18,6 +18,7 @@ import java.io.IOException;
 public class ContextScreenActions extends Component {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreenActions.class);
 
+
     @Override
     public void create() {
         //
