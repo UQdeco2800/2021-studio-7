@@ -1,9 +1,11 @@
 package com.deco2800.game.screens.context;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.deco2800.game.screens.context.ContextScreen;
 import com.deco2800.game.screens.context.ContextScreenDisplay;
+import com.deco2800.game.screens.leaderboard.LeaderBoardDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,14 +14,13 @@ public class ContextInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.ENTER:
-                ContextScreenDisplay.playButton();
-                logger.info("Enter Key Pressed");
-                break;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            ContextScreenDisplay.playButton();
+            logger.info("Enter Key Pressed");
         }
         return false;
     }
+
 
 
     @Override

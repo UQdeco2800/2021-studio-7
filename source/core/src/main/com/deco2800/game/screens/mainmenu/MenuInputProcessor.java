@@ -1,5 +1,6 @@
 package com.deco2800.game.screens.mainmenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -8,23 +9,36 @@ import org.slf4j.LoggerFactory;
 
 public class MenuInputProcessor implements InputProcessor {
     private final Logger logger = LoggerFactory.getLogger(MenuInputProcessor.class);
-    private int menuIndex;
+
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Keys.UP:
-                MainMenuDisplay.moveUp();
-                logger.info("Up Key Pressed");
-                break;
-            case Keys.DOWN:
-                MainMenuDisplay.moveDown();
-                logger.info("Down Key Pressed");
-                break;
-            case Keys.ENTER:
-                logger.info("Enter Key Pressed");
-                MainMenuDisplay.pressMenu();
-                break;
+        if((Gdx.input.isKeyJustPressed(Keys.UP)) ||
+                (Gdx.input.isKeyJustPressed(Keys.W))){
+            MainMenuDisplay.moveUp();
+            logger.info("Up/W Key Pressed");
+        }
 
+        if((Gdx.input.isKeyJustPressed(Keys.DOWN)) ||
+                (Gdx.input.isKeyJustPressed(Keys.S))){
+            MainMenuDisplay.moveDown();
+            logger.info("Down/S Key Pressed");
+        }
+
+        if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+            MainMenuDisplay.pressMenu();
+            logger.info("Enter Key Pressed");
+        }
+
+        if((Gdx.input.isKeyJustPressed(Keys.LEFT)) ||
+                (Gdx.input.isKeyJustPressed(Keys.A))){
+            MainMenuDisplay.toggleLeftBtn();
+            logger.info("Left/A Key Pressed");
+        }
+
+        if((Gdx.input.isKeyJustPressed(Keys.RIGHT)) ||
+                (Gdx.input.isKeyJustPressed(Keys.D))){
+            MainMenuDisplay.toggleRightBtn();
+            logger.info("Right/D Key Pressed");
         }
         return false;
     }

@@ -3,11 +3,11 @@ package com.deco2800.game.entities.components.player;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.input.components.InputComponent;
+import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
@@ -24,6 +24,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
+    private boolean isPaused = false;
     private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
@@ -45,9 +46,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.A:
-                walkDirection.add(Vector2Utils.LEFT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                } else {
+                    walkDirection.add(Vector2Utils.LEFT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.S:
                 walkDirection.add(Vector2Utils.DOWN);
@@ -55,9 +60,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.D:
-                walkDirection.add(Vector2Utils.RIGHT);
-                triggerWalkEvent();
-                movementEvents();
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                } else {
+                    walkDirection.add(Vector2Utils.RIGHT);
+                    triggerWalkEvent();
+                    movementEvents();
+                }
                 return true;
             case Keys.R:
                 walkDirection.add(Vector2Utils.NORTHEAST);
@@ -88,8 +97,25 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", true);
                 return true;
             case Keys.O:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen()).getMainGameEntity()
-                        .getEvents().trigger("toggle_chores");
+                ServiceLocator.getScreen(MainGameScreen.class)
+                        .getMainGameEntity().getEvents().trigger("toggle_chores");
+                return true;
+            case Keys.LEFT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveLeft();
+                }
+                return true;
+            case Keys.RIGHT:
+                if (isPaused) {
+                    MainGamePauseMenuDisplay.moveRight();
+                }
+                return true;
+            case Keys.ENTER:
+                if (isPaused) {
+                    ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                            .getMainGameEntity().getEvents().trigger("pressed_enter_in_pause");
+                    isPaused = false;
+                }
                 return true;
             default:
                 logger.debug("Default keyDown Case");
@@ -139,8 +165,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
-                ((MainGameScreen) ServiceLocator.getGame().getScreen())
+                ServiceLocator.getScreen(MainGameScreen.class)
                         .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
+                isPaused = !isPaused;
+                MainGamePauseMenuDisplay.resetHover();
                 return true;
             default:
                 return false;

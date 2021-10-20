@@ -1,8 +1,10 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
@@ -21,9 +23,6 @@ import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.generic.GameTime;
-import com.deco2800.game.generic.ResourceService;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
@@ -43,14 +42,19 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
   private static final String[] pauseGameTextures = {"images/ui/screens/paused_screen.png"};
 
+  private static final String[] buttonSounds = {
+          "sounds/confirm.ogg",
+          "sounds/browse-short.ogg"
+  };
+
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
   private final Home home;
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
+  private GdxGame.ScreenType queuedScreen = null;
   private static int level = 1;
-
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -92,13 +96,20 @@ public class MainGameScreen extends ScreenAdapter {
     player = home.getActiveFloor().getPlayer();
     ++level;
     //playMusic();
+
+    // play enter sound after entering from context screen
+    playButtonSound("enter");
+  }
+
+  public void queueNewScreen(GdxGame.ScreenType screenType) {
+    queuedScreen = screenType;
   }
 
   public static int getLevel() {
     return level;
   }
 
-  public static void zerolevel() {level = 0;}
+  public static void zeroLevel() {level = 0;}
 
   @Override
   public void render(float delta) {
@@ -106,8 +117,12 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    renderer.getCamera().getEntity().setPosition(player.getPosition());
-    renderer.render();
+    if (queuedScreen == null) {
+      renderer.getCamera().getEntity().setPosition(player.getPosition());
+      renderer.render();
+    } else {
+      ServiceLocator.getGame().setScreen(queuedScreen);
+    }
   }
 
   @Override
@@ -119,12 +134,14 @@ public class MainGameScreen extends ScreenAdapter {
   @Override
   public void pause() {
     logger.info("Game paused");
+    playButtonSound("pause");
     gamePaused = true;
   }
 
   @Override
   public void resume() {
     logger.info("Game resumed");
+    playButtonSound("enter");
     gamePaused = false;
   }
 
@@ -147,6 +164,7 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
     resourceService.loadMusic(backgroundMusic);
+    resourceService.loadSounds(buttonSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -155,6 +173,7 @@ public class MainGameScreen extends ScreenAdapter {
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
     resourceService.unloadAssets(backgroundMusic);
+    resourceService.unloadAssets(buttonSounds);
   }
 
 //  /**
@@ -168,6 +187,19 @@ public class MainGameScreen extends ScreenAdapter {
 //    music.setVolume(0.3f);
 //    music.play();
 //  }
+
+  public static void playButtonSound(String button) {
+    Sound sound;
+
+    if (button.equals("enter")) {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+    } else {
+      sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    }
+
+    sound.play();
+    logger.info("enter button sound played on main game screen launch");
+  }
 
   /**
    * Creates the main game's ui including components for rendering ui elements to the screen and

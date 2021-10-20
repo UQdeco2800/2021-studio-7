@@ -203,7 +203,7 @@ public class Entity {
 
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {
-    for (Component component : createdComponents) {
+    for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.dispose();
     }
     ServiceLocator.getEntityService().unregister(this);
@@ -249,8 +249,8 @@ public class Entity {
     if (!enabled) {
       return;
     }
-    for (int i = 0; i < createdComponents.size; i++) {
-        createdComponents.get(i).triggerUpdate();
+    for (Component component : new Array.ArrayIterator<>(createdComponents)) {
+      component.triggerUpdate();
     }
   }
 
