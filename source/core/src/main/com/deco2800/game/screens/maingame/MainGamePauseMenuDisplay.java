@@ -162,6 +162,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
      */
     public static void moveRight(){
         if (notFarRight()) {
+            MainGameScreen.playButtonSound("browse");
             menuIndex++;
             unhoverMenu(buttons.get(menuIndex - 1));
             hoverMenu(buttons.get(menuIndex));
@@ -173,6 +174,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
      */
     public static void moveLeft(){
         if (notFarLeft()) {
+            MainGameScreen.playButtonSound("browse");
             menuIndex--;
             unhoverMenu(buttons.get(menuIndex + 1));
             hoverMenu(buttons.get(menuIndex));
