@@ -15,34 +15,56 @@ public class MainGameActions extends Component {
 
   @Override
   public void create() {
-    entity.getEvents().addListener("exit", this::onExit);
+    entity.getEvents().addListener("pause", this::onPause);
+    entity.getEvents().addListener("resume", this::onResume);
+    entity.getEvents().addListener("restart", this::onRestart);
+    entity.getEvents().addListener("settings", this::onSettings);
+    entity.getEvents().addListener("main_menu", this::onMainMenu);
     entity.getEvents().addListener("bed_interacted", this::onBedInteracted);
     entity.getEvents().addListener("player_caught", this::onPlayerCaught);
     entity.getEvents().addListener("timer_ended", this::onTimerEnded);
   }
 
-  public void onExit() {
-    logger.debug("Exiting main game screen...");
+  public void onPause() {
+    logger.debug("Pausing the game...");
+    ServiceLocator.getGame().getScreen().pause();
+  }
+
+  public void onResume() {
+    logger.debug("Resuming the game...");
+    ServiceLocator.getGame().getScreen().resume();
+  }
+
+  public void onMainMenu() {
     logger.debug("Swapping to main menu screen...");
-    MainGameScreen.zerolevel();
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.MAIN_MENU);
+    MainGameScreen.zeroLevel();
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.MAIN_MENU);
+  }
+
+  public void onRestart() {
+    logger.debug("Swapping to new main game screen...");
+    MainGameScreen.zeroLevel();
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.MAIN_GAME);
+  }
+
+  public void onSettings() {
+    logger.debug("Swapping to settings screen...");
+    MainGameScreen.zeroLevel();
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.SETTINGS);
   }
 
   public void onBedInteracted() {
-    logger.debug("Exiting main game screen...");
-    logger.debug("Swapping to default win screen...");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.WIN_DEFAULT);
+    logger.debug("Swapping to win screen...");
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.WIN_DEFAULT);
   }
 
   public void onPlayerCaught() {
-    logger.debug("Exiting main game screen...");
-    logger.debug("Swapping to default loss screen...");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_CAUGHT);
+    logger.debug("Swapping to caught lose screen...");
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.LOSS_CAUGHT);
   }
 
   public void onTimerEnded() {
-    logger.debug("Exiting main game screen...");
-    logger.debug("Swapping to default loss screen...");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.LOSS_TIMED);
+    logger.debug("Swapping to timed lose screen...");
+    ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.LOSS_TIMED);
   }
 }

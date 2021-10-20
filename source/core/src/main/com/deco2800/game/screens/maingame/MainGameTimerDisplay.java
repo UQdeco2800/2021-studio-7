@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
@@ -13,24 +14,20 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * A ui component for displaying player stats, e.g. health.
+ * Displays a timer in 24-hour time. Acts like an alarm; it will end the game once the desired time is reached.
  */
 public class MainGameTimerDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameTimerDisplay.class);
     private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
-    private static final float TIMER_START = 23.00f;
-    private static final float TIMER_END = 3.00f;
+    private static final int TIMER_START = 2300;
+    private static final int TIMER_END = 300;
     private static final long TIMER_TICK_RATE = 750L;
+    private long lastTime = 0L;
     private Table table;
     private Label timerLabel;
     private TimerStatus timerStatus;
-    private float timerTime;
-    private long lastTime = 0L;
+    private int timerTime;
 
-
-    /**
-     * Creates reusable ui styles and adds actors to the stage.
-     */
     @Override
     public void create() {
         super.create();
@@ -39,27 +36,22 @@ public class MainGameTimerDisplay extends UIComponent {
         addActors();
     }
 
-    /**
-     * Creates actors and positions them on the stage using a table.
-     * @see Table for positioning options
-     */
     public void addActors() {
-        table = new Table(skin);
+        table = new Table();
         table.setFillParent(true);
-        table.bottom().right().padRight(60f);
+        table.top().padTop(30f);
 
-        // Set background to the appropriate texture for the timer display
         ServiceLocator.getResourceService().loadTexture(TIMER_BACKGROUND);
         ServiceLocator.getResourceService().loadAll();
         Image timerBackground =
                 new Image(
                         ServiceLocator.getResourceService()
                                 .getAsset(TIMER_BACKGROUND, Texture.class));
-        table.setBackground(timerBackground.getDrawable());
 
-        // Add timer label to the table
-        timerLabel = new Label(getCurrentTime(), skin);
-        table.add(timerLabel);
+        timerLabel = new Label(getCurrentTime(), skin, "title");
+        timerLabel.setAlignment(Align.center);
+
+        table.stack(timerBackground, timerLabel);
 
         stage.addActor(table);
     }
@@ -70,32 +62,39 @@ public class MainGameTimerDisplay extends UIComponent {
     }
 
     public CharSequence getCurrentTime() {
-        return String.format("%02d%02d", getHours(), getMinutes());
+        return String.format("%02d:%02d", getHours(), getMinutes());
     }
 
     public int getHours() {
-        return (int) timerTime;
+        return timerTime / 100;
     }
 
     public int getMinutes() {
-        return (int) (timerTime % 1);
+        return timerTime % 100;
     }
 
     public void tick() {
         if (getMinutes() < 59) {
-            timerTime += 0.01f;
+            timerTime += 1;
         } else {
-            timerTime += 0.41f;
+            timerTime += 41;
             if (getHours() > 23) {
-                timerTime -= (int) timerTime;
+                timerTime = getMinutes();
             }
         }
     }
 
+    /**
+     * Updates the timer label to the new time.
+     *
+     * If the timer is within an hour of the final time,
+     * then the label will change colour and blink until the alarm goes off.
+     */
     public void updateLabel() {
         timerLabel.setText(getCurrentTime());
 
-        if (timerStatus == TimerStatus.NORMAL && TIMER_END - timerTime <= 1) {
+        int timeUntilEnd = TIMER_END - timerTime;
+        if (timerStatus == TimerStatus.NORMAL && timeUntilEnd > 0 && timeUntilEnd <= 100) {
             timerLabel.setColor(255, 0,0, 1f);
             timerLabel.addAction(Actions.alpha(0));
             timerLabel.addAction(Actions.forever(Actions.sequence(
@@ -106,7 +105,7 @@ public class MainGameTimerDisplay extends UIComponent {
     }
 
     public void checkTimerEnd() {
-        if (timerTime >= TIMER_END) {
+        if (timerTime == TIMER_END) {
             logger.debug("Timer has finished");
             entity.getEvents().trigger("timer_ended");
         }
@@ -118,10 +117,6 @@ public class MainGameTimerDisplay extends UIComponent {
         super.dispose();
     }
 
-    /**
-     * Main function for timer, it would update time left
-     * and stop when time reach 2 pm and trigger time loss event
-     */
     @Override
     public void update() {
         long currentTime = ServiceLocator.getTimeSource().getTime();

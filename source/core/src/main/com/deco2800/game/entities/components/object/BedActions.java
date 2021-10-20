@@ -38,7 +38,7 @@ public class BedActions extends InteractionComponent {
 
     private void triggerBedInteracted() {
         logger.debug("PLAYER interacted with BED, triggering bed interacted");
-        ((MainGameScreen) ServiceLocator.getGame().getScreen())
+        ServiceLocator.getScreen(MainGameScreen.class)
                 .getMainGameEntity().getEvents().trigger("bed_interacted");
     }
 }
