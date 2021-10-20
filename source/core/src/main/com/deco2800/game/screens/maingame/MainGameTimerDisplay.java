@@ -20,7 +20,7 @@ public class MainGameTimerDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameTimerDisplay.class);
     private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
     private static final int TIMER_START = 2300;
-    private static final int TIMER_END = 300;
+    private static final int TIMER_END = 200;
     private static final long TIMER_TICK_RATE = 750L;
     private long lastTime = 0L;
     private Table table;
