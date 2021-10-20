@@ -39,6 +39,7 @@ public class ObjectFactory {
   public static Entity createBed(String[] assets) {
     // Dummy method, eventually the intended entity will be returned from
     // createPlayerBed or createNormalBed
+    return null;
   }
 
   public static Entity createPlayerBed(String[] assets) {
