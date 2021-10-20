@@ -19,8 +19,8 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":10,"i10":9,"i11":10,"i12":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -161,7 +161,7 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </a>
 <h2>Method Summary</h2>
 <div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="tableTab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
 <div id="memberSummary_tabpanel" role="tabpanel">
 <table aria-labelledby="t0">
 <thead>
@@ -201,9 +201,65 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </td>
 </tr>
 <tr class="altColor" id="i4">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">hoverMenu</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</code></th>
+<td class="colLast">
+<div class="block">Emulates mouse hover with keyboard</div>
+</td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveLeft()">moveLeft</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Moves the button highlight left</div>
+</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveRight()">moveRight</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Moves the button highlight right</div>
+</td>
+</tr>
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarLeft()">notFarLeft</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the menuIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarRight()">notFarRight</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the menuIndex cannot go above 3 to avoid OutOfIndex Error</div>
+</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pressButton()">pressButton</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Function used to toggle each respective button and trigger their respective listeners</div>
+</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetHover()">resetHover</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Reset the hover position to resume button when pause menu is closed</div>
+</td>
+</tr>
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toggleVisibility()">toggleVisibility</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i12">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unhoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">unhoverMenu</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</code></th>
+<td class="colLast">
+<div class="block">Emulates mouse unhover with keyboard</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -289,6 +345,55 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="notFarRight()">notFarRight</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarRight</span>()</div>
+<div class="block">Ensures that the menuIndex cannot go above 3 to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="notFarLeft()">notFarLeft</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarLeft</span>()</div>
+<div class="block">Ensures that the menuIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="hoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">hoverMenu</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">hoverMenu</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</span></div>
+<div class="block">Emulates mouse hover with keyboard</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="unhoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">unhoverMenu</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unhoverMenu</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</span></div>
+<div class="block">Emulates mouse unhover with keyboard</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="moveRight()">moveRight</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveRight</span>()</div>
+<div class="block">Moves the button highlight right</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="moveLeft()">moveLeft</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveLeft</span>()</div>
+<div class="block">Moves the button highlight left</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="resetHover()">resetHover</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">resetHover</span>()</div>
+<div class="block">Reset the hover position to resume button when pause menu is closed</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">draw</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</span></div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../rendering/components/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">RenderComponent</a></code></span></div>
@@ -329,6 +434,13 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../rendering/components/RenderComponent.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="pressButton()">pressButton</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">pressButton</span>()</div>
+<div class="block">Function used to toggle each respective button and trigger their respective listeners</div>
 </section>
 </li>
 </ul>

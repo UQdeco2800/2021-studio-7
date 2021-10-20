@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":10,"i14":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":9,"i8":9,"i9":9,"i10":10,"i11":10,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":10,"i18":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -175,36 +175,40 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeCharacterDisplay()">changeCharacterDisplay</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeCharacterLeft()">changeCharacterLeft</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Changes the character displayed on the main menu page and cycles the index.</div>
+<div class="block">Changes the character to the previous skin
+ Also plays the 'b e e p'</div>
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeCharacterRight()">changeCharacterRight</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Changes the character to the next skin
+ Also plays the 'b e e p'</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the entity is created and registered.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Called when the component is disposed.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</code></th>
 <td class="colLast">
 <div class="block">Draw the renderable.</div>
 </td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code>static int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMenuIndex()">getMenuIndex</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>int</code></td>
@@ -228,38 +232,74 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <tr class="altColor" id="i8">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveDown()">moveDown</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Moves the menuFrame down</div>
+</td>
 </tr>
 <tr class="rowColor" id="i9">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#moveUp()">moveUp</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Moves the menuFrame up</div>
+</td>
 </tr>
 <tr class="altColor" id="i10">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pressMenu()">pressMenu</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarLeft()">notFarLeft</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the characterIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</td>
 </tr>
 <tr class="rowColor" id="i11">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#notFarRight()">notFarRight</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Ensures that the characterIndex cannot go above 2 to avoid OutOfIndex Error</div>
+</td>
+</tr>
+<tr class="altColor" id="i12">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pressMenu()">pressMenu</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Function used to toggle each respective button and trigger their respective listeners</div>
+</td>
+</tr>
+<tr class="rowColor" id="i13">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toggleLeftBtn()">toggleLeftBtn</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Used to toggle the left arrow button for character selection</div>
+</td>
+</tr>
+<tr class="altColor" id="i14">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toggleRightBtn()">toggleRightBtn</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i15">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unhoverMenu(com.badlogic.gdx.scenes.scene2d.Actor)">unhoverMenu</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Actor.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Actor</a>&nbsp;btn)</code></th>
 <td class="colLast">
 <div class="block">Emulates mouse unhover with keyboard</div>
 </td>
 </tr>
-<tr class="altColor" id="i12">
+<tr class="altColor" id="i16">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateMenuFrame()">updateMenuFrame</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Changes the position of the menuFrame corresponding to the menuIndex
+ Also changes the required buttons to hover/unhover
+ Also plays the 'b e e p'</div>
+</td>
 </tr>
-<tr class="rowColor" id="i13">
+<tr class="rowColor" id="i17">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeAtlas()">writeAtlas</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Updates currentCharacterAtlas.txt</div>
 </td>
 </tr>
-<tr class="altColor" id="i14">
+<tr class="altColor" id="i18">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#writeUsername()">writeUsername</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -386,9 +426,45 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="changeCharacterDisplay()">changeCharacterDisplay</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">changeCharacterDisplay</span>()</div>
-<div class="block">Changes the character displayed on the main menu page and cycles the index.</div>
+<h3><a id="toggleLeftBtn()">toggleLeftBtn</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">toggleLeftBtn</span>()</div>
+<div class="block">Used to toggle the left arrow button for character selection</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="toggleRightBtn()">toggleRightBtn</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">toggleRightBtn</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="notFarLeft()">notFarLeft</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarLeft</span>()</div>
+<div class="block">Ensures that the characterIndex cannot go below 0 to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="changeCharacterLeft()">changeCharacterLeft</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">changeCharacterLeft</span>()</div>
+<div class="block">Changes the character to the previous skin
+ Also plays the 'b e e p'</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="notFarRight()">notFarRight</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">notFarRight</span>()</div>
+<div class="block">Ensures that the characterIndex cannot go above 2 to avoid OutOfIndex Error</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="changeCharacterRight()">changeCharacterRight</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">changeCharacterRight</span>()</div>
+<div class="block">Changes the character to the next skin
+ Also plays the 'b e e p'</div>
 </section>
 </li>
 <li class="blockList">
@@ -414,6 +490,7 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <section class="detail">
 <h3><a id="moveUp()">moveUp</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveUp</span>()</div>
+<div class="block">Moves the menuFrame up</div>
 </section>
 </li>
 <li class="blockList">
@@ -434,24 +511,23 @@ extends <a href="../../ui/components/UIComponent.html" title="class in com.deco2
 <section class="detail">
 <h3><a id="moveDown()">moveDown</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">moveDown</span>()</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getMenuIndex()">getMenuIndex</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getMenuIndex</span>()</div>
+<div class="block">Moves the menuFrame down</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="updateMenuFrame()">updateMenuFrame</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">updateMenuFrame</span>()</div>
+<div class="block">Changes the position of the menuFrame corresponding to the menuIndex
+ Also changes the required buttons to hover/unhover
+ Also plays the 'b e e p'</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="pressMenu()">pressMenu</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">pressMenu</span>()</div>
+<div class="block">Function used to toggle each respective button and trigger their respective listeners</div>
 </section>
 </li>
 </ul>
