@@ -53,6 +53,9 @@ public class ObstacleFactory {
   public static Entity createHorizontalDoor(String[] assets) {
     Entity horizontalDoor = createBaseInteractable(assets, BodyType.StaticBody)
             .addComponent(new HorizontalDoorActions());
+    //setScale
+    //Physicsutil.setColliderShape
+    //"".setColliderOffset
     //Entity horizontalDoor = new Entity();
     return horizontalDoor;
   }
