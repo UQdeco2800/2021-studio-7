@@ -111,14 +111,7 @@ public class MainMenuDisplay extends UIComponent {
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
 
-        menuIndicator = createMenuIndicator();
-
-//        Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
-//                .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
-//
-//        Image leftBtnGrey = new Image(ServiceLocator.getResourceService()
-//                .getAsset("images/main_menu/pointer-L-inactive.png", Texture.class));
-
+        createMenuIndicator();
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
