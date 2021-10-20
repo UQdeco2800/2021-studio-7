@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -16,12 +15,9 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileWriter;
-import java.lang.Math;
 import java.util.Random;
 
 import static com.badlogic.gdx.Gdx.graphics;
@@ -63,6 +59,7 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private void addActors() {
+        resetMenuIndex();
 
         Table tableLeft = new Table();
         Table tableRight = new Table();
@@ -117,7 +114,7 @@ public class MainMenuDisplay extends UIComponent {
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
 
-        createMenuIndicator();
+        menuIndicator = createMenuIndicator();
 
         Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
@@ -370,9 +367,13 @@ public class MainMenuDisplay extends UIComponent {
         logger.info("Menu Index is {}", menuIndex);
     }
 
-    private static void createMenuIndicator() {
-        menuIndicator = new Image(ServiceLocator.getResourceService()
+    private static Image createMenuIndicator() {
+        return new Image(ServiceLocator.getResourceService()
                 .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
+    }
+
+    private static void resetMenuIndex() {
+        menuIndex = 0;
     }
 
     /**
