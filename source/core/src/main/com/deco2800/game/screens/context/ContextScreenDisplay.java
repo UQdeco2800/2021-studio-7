@@ -77,17 +77,14 @@ public class ContextScreenDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-    @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
-    @Override
     public float getZIndex() {
         return Z_INDEX;
     }
 
-    @Override
     public void dispose() {
         table.clear();
         super.dispose();
