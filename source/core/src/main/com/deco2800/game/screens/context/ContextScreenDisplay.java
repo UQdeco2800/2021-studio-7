@@ -1,38 +1,15 @@
 package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.FileWriter;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
-import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * A ui component for displaying the Context screen.
@@ -61,6 +38,7 @@ public class ContextScreenDisplay extends UIComponent {
 
     @Override
     public void update() {
+        stage.draw();
         /*long currentTime = ServiceLocator.getTimeSource().getTime();
 
         // Gradually display text across the textbox
@@ -69,8 +47,6 @@ public class ContextScreenDisplay extends UIComponent {
             displayText.setText(currentText);
             charCount += 1;
         }*/
-
-
     }
 
 
@@ -82,7 +58,6 @@ public class ContextScreenDisplay extends UIComponent {
         enterName.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
 
         this.txtUserName = new TextField("", skin);
-        txtUserName.setMessageText("Username:");
 
         table.add(enterName).padTop(50f);
         table.row();

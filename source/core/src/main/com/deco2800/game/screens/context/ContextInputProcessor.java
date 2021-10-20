@@ -24,7 +24,9 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
                 } else {
                     entity.getComponent(ContextScreenDisplay.class).displayWarning();
                 }
+                ContextScreenActions.playGame();
                 break;
+
         }
         return false;
     }
