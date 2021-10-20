@@ -37,11 +37,8 @@ public class ObjectFactory {
   }
 
   public static Entity createBed(String[] assets) {
-    Entity bed = createBaseInteractable(assets, BodyType.StaticBody)
-            .addComponent(new BedActions());
-    bed.setScale(1.5f, 1f);
-    PhysicsUtils.setColliderShape(bed, 1f, 2f);
-    return bed;
+    // Dummy method, eventually the intended entity will be returned from
+    // createPlayerBed or createNormalBed
   }
 
   public static Entity createPlayerBed(String[] assets) {
