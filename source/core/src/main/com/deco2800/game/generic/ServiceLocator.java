@@ -1,5 +1,6 @@
 package com.deco2800.game.generic;
 
+import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.entities.EntityService;
@@ -31,6 +32,10 @@ public class ServiceLocator {
 
   public static GdxGame getGame() {
     return game;
+  }
+
+  public static <T extends ScreenAdapter> T getScreen(Class<T> clazz) {
+    return clazz.cast(game.getScreen());
   }
 
   public static Home getHome() {

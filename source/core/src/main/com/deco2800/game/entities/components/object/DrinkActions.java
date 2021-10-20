@@ -6,7 +6,6 @@ import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.SingleUse;
 import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.CombatStatsComponent;
 
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.maingame.MainGameScreen;
@@ -31,7 +30,7 @@ public class DrinkActions extends InteractionComponent {
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             String string = "You drank a can of Dountain Mew. Yum!";
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+            ServiceLocator.getScreen(MainGameScreen.class)
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();

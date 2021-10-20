@@ -1,8 +1,8 @@
 package com.deco2800.game.screens.maingame;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
@@ -21,9 +21,6 @@ import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.generic.GameTime;
-import com.deco2800.game.generic.ResourceService;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
@@ -40,8 +37,7 @@ public class MainGameScreen extends ScreenAdapter {
   private static final String TEST_FLOOR_PLAN = "maps/testing/demo.json";
    private static final boolean USE_TEST_FLOOR_PLAN = false;
   //add background music into the game
-  private static final String[] backgroundMusic = {"sounds/backgroundMusic-MG.mp3"};
-  private static final String[] pauseGameTextures = {"images/ui/screens/paused_screen.png"};
+  private static final String[] BACKGROUND_MUSIC = {"sounds/backgroundMusic-MG.mp3"};
 
   private final Renderer renderer;
   private final PhysicsEngine physicsEngine;
@@ -49,8 +45,8 @@ public class MainGameScreen extends ScreenAdapter {
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
+  private GdxGame.ScreenType queuedScreen = null;
   private static int level = 1;
-
 
   public MainGameScreen() {
     logger.debug("Initialising main game screen services");
@@ -94,11 +90,15 @@ public class MainGameScreen extends ScreenAdapter {
     //playMusic();
   }
 
+  public void queueNewScreen(GdxGame.ScreenType screenType) {
+    queuedScreen = screenType;
+  }
+
   public static int getLevel() {
     return level;
   }
 
-  public static void zerolevel() {level = 0;}
+  public static void zeroLevel() {level = 0;}
 
   @Override
   public void render(float delta) {
@@ -106,8 +106,12 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    renderer.getCamera().getEntity().setPosition(player.getPosition());
-    renderer.render();
+    if (queuedScreen == null) {
+      renderer.getCamera().getEntity().setPosition(player.getPosition());
+      renderer.render();
+    } else {
+      ServiceLocator.getGame().setScreen(queuedScreen);
+    }
   }
 
   @Override
@@ -146,7 +150,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
-    resourceService.loadMusic(backgroundMusic);
+    resourceService.loadMusic(BACKGROUND_MUSIC);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -154,7 +158,7 @@ public class MainGameScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
-    resourceService.unloadAssets(backgroundMusic);
+    resourceService.unloadAssets(BACKGROUND_MUSIC);
   }
 
 //  /**
