@@ -28,6 +28,7 @@ public class LeaderBoardDisplay extends UIComponent {
     private Table rootTable;
     private Table leaderTable;
     private static TextButton button;
+    private Map sortedLeaderboard;
 
     public LeaderBoardDisplay(GdxGame game) {
         super();
@@ -68,7 +69,7 @@ public class LeaderBoardDisplay extends UIComponent {
         logger.info("Trying to get leader board...");
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
         logger.info("Got leader board.");
-        Set <Map.Entry<String,Integer>> set = leaderboard.entrySet();
+        Set <Map.Entry<String,Integer>> set = sortedLeaderboard.entrySet();
         Iterator <Map.Entry<String,Integer>> i = set.iterator();
         String insert;
         int t = 0;
@@ -131,7 +132,7 @@ public class LeaderBoardDisplay extends UIComponent {
 
     private void sortLeaderBoard() {
         TreeMap<String, Integer> leaderboard = getLeaderBoard();
-        Map sortedLeaderboard = valueSort(leaderboard);
+        sortedLeaderboard = valueSort(leaderboard);
         FileWriter clearer = null;
         FileWriter writer = null;
         try {
@@ -174,8 +175,8 @@ public class LeaderBoardDisplay extends UIComponent {
             // return comparison results of values of
             // two keys
             public int compare(K k1, K k2) {
-                int comp = map.get(k1).compareTo(
-                        map.get(k2));
+                int comp = map.get(k2).compareTo(
+                        map.get(k1));
                 if (comp == 0)
                     return 1;
                 else
