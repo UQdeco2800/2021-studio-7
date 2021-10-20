@@ -340,6 +340,9 @@ public class ObjectFactory {
         break;
       case "7":
         obstacle.addComponent(new PlantActions());
+        break;
+      case "8":
+        obstacle.addComponent(new ShrubActions());
     }
   }
 
@@ -355,6 +358,8 @@ public class ObjectFactory {
         return ChoreList.DISHWASHER;
       case "5":
         return ChoreList.PLANT;
+      case "6":
+        return ChoreList.SHRUB;
       default:
         logger.debug("Invalid choreID provided");
         return null;

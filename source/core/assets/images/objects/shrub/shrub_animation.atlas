@@ -1,0 +1,26 @@
+shrub_animation.png
+size: 840, 320
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Shrub
+  rotate: false
+  xy: 0, 0
+  size: 280, 320
+  orig: 280, 320
+  offset: 0, 0
+  index: -1
+Shrub_untrimmed
+  rotate: false
+  xy: 280, 0
+  size: 280, 320
+  orig: 280, 320
+  offset: 0, 0
+  index: -1
+Shrub_untrimmed_highlight
+  rotate: false
+  xy: 560, 0
+  size: 280, 320
+  orig: 280, 320
+  offset: 0, 0
+  index: -1
