@@ -74,7 +74,7 @@ public class Floor extends GameArea implements Json.Serializable {
     public void create() {
         if (!created) {
             for (Room room : new ObjectMap.Values<>(roomMap)) {
-                room.create(this);
+                room.create();
             }
             loadAssets();
             displayUI();
@@ -144,8 +144,8 @@ public class Floor extends GameArea implements Json.Serializable {
         createPlayer();
 
         // Spawn all room entities for each room interior
-        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
-            entry.value.spawnRoomEntities(entry.key);
+        for (Room room : new ObjectMap.Values<>(roomMap)) {
+            room.spawnRoomEntities();
         }
 
         // Spawn all non-room entities in floor plan
@@ -316,6 +316,10 @@ public class Floor extends GameArea implements Json.Serializable {
         return entityMap;
     }
 
+    public ObjectMap<Character, Room> getRoomMap() {
+        return roomMap;
+    }
+
     public Character[][] getFloorGrid() {
         return floorGrid;
     }
@@ -454,9 +458,11 @@ public class Floor extends GameArea implements Json.Serializable {
             dimensions = new GridPoint2(floorGrid[0].length, floorGrid.length);
 
             floorGrid = MatrixUtils.rotateClockwise(floorGrid);
-            for (Room room : new ObjectMap.Values<>(roomMap)) {
+            for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
                 //noinspection SuspiciousNameCombination
-                room.setOffset(new GridPoint2(room.getOffset().y, dimensions.y - room.getOffset().x - 1));
+                entry.value.setOffset(new GridPoint2(
+                        entry.value.getOffset().y, dimensions.y - entry.value.getOffset().x - 1));
+                entry.value.setFloor(this);
             }
 
             FileLoader.assertJsonValueNull(iterator.next());
