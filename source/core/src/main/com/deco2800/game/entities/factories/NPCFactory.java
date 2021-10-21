@@ -52,7 +52,7 @@ public class NPCFactory {
     MumConfig config = configs.mum;
     Entity target = ServiceLocator.getHome().getActiveFloor().getPlayer();
 
-    Entity mum = createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+    Entity mum = createBaseNPC(assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new MumActions());
      //Set AI tasks
@@ -66,7 +66,7 @@ public class NPCFactory {
   public static Entity createCat(String[] assets) {
     CatConfig config = configs.cat;
     Entity player = ServiceLocator.getHome().getActiveFloor().getPlayer();
-    Entity cat =  createBaseNPC(ServiceLocator.getHome().getActiveFloor().getPlayer(), assets)
+    Entity cat =  createBaseNPC(assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new CatActions());
 
@@ -85,7 +85,7 @@ public class NPCFactory {
    *
    * @return entity
    */
-  private static Entity createBaseNPC(Entity target, String[] assets) {
+  private static Entity createBaseNPC(String[] assets) {
     // Set npc to have base physics components
     Entity npc =
         new Entity()

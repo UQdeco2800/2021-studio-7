@@ -40,7 +40,7 @@ public class BookActions extends InteractionComponent {
     @Override
     public void update(){
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (currentTime - startTime >= 1000L && hasInteracted){
+        if (hasInteracted){
             entity.getComponent(SingleUse.class).remove();
             entity.getEvents().trigger("chore_complete", ChoreList.BOOKS);
         }

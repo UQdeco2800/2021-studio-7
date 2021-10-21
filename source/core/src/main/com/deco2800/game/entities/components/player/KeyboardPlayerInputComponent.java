@@ -9,15 +9,12 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
     private static final String UPDATEANIMATION = "update_animation";
     private static final String STANDINGSOUTH = "standing_south";
 
@@ -268,8 +265,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-        // System.out.println("Triggering movement Events");
-        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;

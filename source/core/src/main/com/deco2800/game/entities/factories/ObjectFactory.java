@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.chores.Chore;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
+import com.deco2800.game.entities.components.interactions.GenericChore;
+import com.deco2800.game.entities.components.interactions.GenericToggleHighlight;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -22,7 +23,6 @@ import com.deco2800.game.rendering.components.TextureRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -63,34 +63,23 @@ public class ObjectFactory {
   }
 
   public static Entity createHorizontalDoor(String[] assets) {
-    Entity horizontalDoor = createBaseInteractable(assets);
-    return horizontalDoor;
+    return createBaseInteractable(assets);
   }
 
   public static Entity createVerticalDoor(String[] assets) {
-      Entity verticalDoor = createBaseInteractable(assets);
-      //Entity verticalDoor = new Entity();
-      return verticalDoor;
+      return createBaseInteractable(assets);
   }
 
   public static Entity createDoor(String[] assets) {
-//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-//            .addComponent(new DoorActions());
+      Entity door = createBaseInteractable(assets).addComponent(new DoorActions());
     return new Entity();
   }
-
 
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
-  public static Entity createPlant(String[] assets) {
-    Entity plant = createBaseChore(assets);
-    PhysicsUtils.setColliderShape(plant, 1f, 1f);
-    return plant;
-  }
-
 
   public static Entity createDishwasher(String[] assets) {
     Entity dishWasher = createBaseChore(assets);
@@ -98,6 +87,13 @@ public class ObjectFactory {
     return dishWasher;
   }
 
+  public static Entity createPlant(String[] assets) {
+    Entity plant = createBaseChore(assets)
+            .addComponent(new GenericToggleHighlight("plant"))
+            .addComponent(new GenericChore(ChoreList.PLANT));
+    PhysicsUtils.setColliderShape(plant, 1f, 1f);
+    return plant;
+  }
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets);
@@ -147,14 +143,6 @@ public class ObjectFactory {
     Entity desk = createBaseObject(assets);
     PhysicsUtils.setColliderShape(desk, 1f, 1f);
     return desk;
-  }
-
-  public static Entity createCoffeeTable(String[] assets) {
-    Entity coffeeTable = createBaseObject(assets);
-    coffeeTable.getComponent(TextureRenderComponent.class).scaleEntity();
-    //coffeeTable.setScale(1.5f,1f);
-    PhysicsUtils.setScaledCollider(coffeeTable,1f,1f);
-    return coffeeTable;
   }
 
   public static Entity createLamp(String[] assets) {
@@ -254,8 +242,8 @@ public class ObjectFactory {
   }
   public static Entity createCouchSmall(String[] assets) {
     Entity couch = createBaseObject(assets);
-    couch.setScale(0.5f, 0.5f);
-    PhysicsUtils.setScaledCollider(couch, 0.5f, 1.5f);
+    couch.setScale(1f, 1f);
+    PhysicsUtils.setScaledCollider(couch, 1f, 1f);
     return couch;
   }
 
@@ -295,14 +283,12 @@ public class ObjectFactory {
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
-    List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
   public static Entity createSmallBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     entity.setScale(0.5f, 0.5f);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
-    List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
 
@@ -321,7 +307,6 @@ public class ObjectFactory {
             .addComponent(new PhysicsComponent().setBodyType(selectBodyType(assets[1])))
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 1f, 1f);
-    //obstacle.scaleHeight(1f);
     if (Objects.equals(assets[0], "")) {
       return obstacle;
     }
@@ -352,8 +337,8 @@ public class ObjectFactory {
     return obstacle;
   }
 
-  private static BodyType selectBodyType(String ID) {
-    switch (ID) {
+  private static BodyType selectBodyType(String id) {
+    switch (id) {
       case "0":
         return BodyType.StaticBody;
       case "1":
@@ -390,20 +375,14 @@ public class ObjectFactory {
         obstacle.addComponent(new WashingDishesActions());
         break;
       case "7":
-        obstacle.addComponent(new PlantActions());
         break;
       case "8":
         obstacle.addComponent(new ShrubActions());
         break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
-        break;
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
-        break;
-      case "11":
-        obstacle.addComponent(new BookActions())
-                .addComponent(new SingleUse());
       default:
         logger.debug("Invalid interactionID provided");
     }
@@ -423,8 +402,6 @@ public class ObjectFactory {
         return ChoreList.PLANT;
       case "6":
         return ChoreList.SHRUB;
-      case "7":
-        return ChoreList.BOOKS;
       default:
         logger.debug("Invalid choreID provided");
         return null;

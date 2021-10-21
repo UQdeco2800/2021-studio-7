@@ -23,7 +23,6 @@ public enum ChoreList {
                 return "Turn off TV";
             case DRINK:
                 return "Drink a can of Dountain Mew (TM)";
-
             case PUDDLE:
                 return "Clean up a puddle";
             case DISHWASHER:
@@ -53,13 +52,13 @@ public enum ChoreList {
             case PUDDLE:
                 return "Clean up " + amount + " puddles";
             case DISHWASHER:
-                return "Wash the dishes";
+                return "Wash " + amount + " dishes";
             case PLANT:
-                return "Water the plants";
+                return "Water " + amount + " plants";
             case SHRUB:
-                return "Trim the shrubs";
+                return "Trim " + amount + " shrubs";
             case BOOKS:
-                return "Pick up books";
+                return "Pick up" + amount + "books";
             default:
                 return null;
         }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -43,7 +42,6 @@ public class Floor extends GameArea implements Json.Serializable {
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
-    private Entity mum = null;
     private List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
     private GridObject defaultInteriorTile;
@@ -265,8 +263,7 @@ public class Floor extends GameArea implements Json.Serializable {
         String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
         ServiceLocator.getResourceService().loadAll();
-        mum = NPCFactory.createMum(mumAssets);
-        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+        spawnEntityAt(NPCFactory.createMum(mumAssets), new GridPoint2(24,0), true, true);
 
     }
 
