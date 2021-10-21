@@ -42,7 +42,7 @@ public class ObjectFactory {
     return wall;
   }
 
-  public static Entity createBed() {
+  public static Entity createBed(String[] assets) {
     // Dummy method, eventually the intended entity will be returned from
     // createPlayerBed or createNormalBed
     return null;
@@ -63,14 +63,19 @@ public class ObjectFactory {
   }
 
   public static Entity createHorizontalDoor(String[] assets) {
-    return createBaseInteractable(assets);
+    Entity horizontalDoor = createBaseInteractable(assets);
+    return horizontalDoor;
   }
 
   public static Entity createVerticalDoor(String[] assets) {
-      return createBaseInteractable(assets);
+      Entity verticalDoor = createBaseInteractable(assets);
+      //Entity verticalDoor = new Entity();
+      return verticalDoor;
   }
 
-  public static Entity createDoor() {
+  public static Entity createDoor(String[] assets) {
+//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
+//            .addComponent(new DoorActions());
     return new Entity();
   }
 
@@ -147,6 +152,7 @@ public class ObjectFactory {
   public static Entity createCoffeeTable(String[] assets) {
     Entity coffeeTable = createBaseObject(assets);
     coffeeTable.getComponent(TextureRenderComponent.class).scaleEntity();
+    //coffeeTable.setScale(1.5f,1f);
     PhysicsUtils.setScaledCollider(coffeeTable,1f,1f);
     return coffeeTable;
   }
@@ -338,6 +344,7 @@ public class ObjectFactory {
             .addComponent(new PhysicsComponent().setBodyType(selectBodyType(assets[1])))
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 1f, 1f);
+    //obstacle.scaleHeight(1f);
     if (Objects.equals(assets[0], "")) {
       return obstacle;
     }
@@ -367,8 +374,8 @@ public class ObjectFactory {
     return obstacle;
   }
 
-  private static BodyType selectBodyType(String id) {
-    switch (id) {
+  private static BodyType selectBodyType(String ID) {
+    switch (ID) {
       case "0":
         return BodyType.StaticBody;
       case "1":
@@ -385,7 +392,6 @@ public class ObjectFactory {
     switch (interactionID) {
       case "0":
         logger.error("Interaction ID for non-interaction entity called");
-        break;
       case "1":
         obstacle.addComponent(new TvActions());
         break;
