@@ -372,8 +372,10 @@ public class ObjectFactory {
         break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
+        break;
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
+        break;
     }
   }
 
