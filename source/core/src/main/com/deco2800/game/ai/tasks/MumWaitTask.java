@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MumWaitTask extends DefaultTask implements PriorityTask {
-    private static final Logger logger = LoggerFactory.getLogger(SlipTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(MumWaitTask.class);
 
     private MovementTask movementTask;
     private WaitTask waitTask;

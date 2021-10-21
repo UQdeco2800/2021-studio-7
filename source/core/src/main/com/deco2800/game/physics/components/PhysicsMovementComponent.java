@@ -19,7 +19,7 @@ PhysicsMovementComponent extends Component implements MovementController {
   private boolean movementEnabled = true;
   private int lastDirection = 0;
   private int currentDirection = 0;
-  public boolean twoDCharacter = false;
+  private boolean twoDCharacter = false;
   private static final String UPDATE_ANIMATION = "update_animation";
 
 

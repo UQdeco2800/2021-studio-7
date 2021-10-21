@@ -39,7 +39,7 @@ public class PlayerStatDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(10f).padLeft(10f);
+    table.pad(30f);
 
     //display level
     CharSequence levelText = String.format("Level %d", MainGameScreen.getLevel());

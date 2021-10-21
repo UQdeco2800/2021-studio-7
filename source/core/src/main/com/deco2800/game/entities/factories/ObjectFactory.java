@@ -63,13 +63,11 @@ public class ObjectFactory {
   }
 
   public static Entity createHorizontalDoor(String[] assets) {
-    Entity horizontalDoor = createBaseInteractable(assets);
-    return horizontalDoor;
+    return createBaseInteractable(assets);
   }
 
   public static Entity createVerticalDoor(String[] assets) {
-      Entity verticalDoor = createBaseInteractable(assets);
-      return verticalDoor;
+      return createBaseInteractable(assets);
   }
 
   public static Entity createDoor(String[] assets) {
@@ -287,6 +285,12 @@ public class ObjectFactory {
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
     return entity;
   }
+  public static Entity createSmallBaseChore(String[] assets) {
+    Entity entity = createBaseInteractable(assets);
+    entity.setScale(0.5f, 0.5f);
+    ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
+    return entity;
+  }
 
   public static Entity createBaseInteractable(String[] assets) {
     // Set interactable to have a base hitbox component
@@ -319,7 +323,8 @@ public class ObjectFactory {
       // Add all atlas regions as animations to the component
       for (TextureAtlas.AtlasRegion region : new Array.ArrayIterator<>(textureAtlas.getRegions())) {
         if (!animator.hasAnimation(region.name)) {
-          if (region.name.equals("TV_on1") || region.name.equals("TV_onh1")) {
+          if (region.name.equals("TV_on1") || region.name.equals("TV_onh1")
+                  || region.name.equals("dust1")) {
             animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
           } else {
             animator.addAnimation(region.name, 1f);
@@ -331,8 +336,8 @@ public class ObjectFactory {
     return obstacle;
   }
 
-  private static BodyType selectBodyType(String ID) {
-    switch (ID) {
+  private static BodyType selectBodyType(String id) {
+    switch (id) {
       case "0":
         return BodyType.StaticBody;
       case "1":
@@ -348,8 +353,7 @@ public class ObjectFactory {
   private static void addInteraction(String interactionID, Entity obstacle) {
     switch (interactionID) {
       case "0":
-        // Use for manual component adding
-        break;
+        logger.error("Interaction ID for non-interaction entity called");
       case "1":
         obstacle.addComponent(new TvActions());
         break;
@@ -369,12 +373,15 @@ public class ObjectFactory {
       case "6":
         obstacle.addComponent(new WashingDishesActions());
         break;
+      case "7":
+        break;
+      case "8":
+        obstacle.addComponent(new ShrubActions());
+        break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
-        break;
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
-        break;
       default:
         logger.debug("Invalid interactionID provided");
     }

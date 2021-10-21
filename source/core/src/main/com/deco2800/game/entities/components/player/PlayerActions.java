@@ -5,9 +5,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
@@ -128,7 +125,7 @@ public class PlayerActions extends Component {
   }
 
   public void toggleEnergyDrinkConsumed(){
-    if (this.energydrinkconsumed == true){
+    if (this.energydrinkconsumed){
       this.energydrinkconsumed = false;
     }else{
       this.energydrinkconsumed=true;

@@ -64,12 +64,15 @@ public class ContextScreen extends ScreenAdapter {
     }
 
     public static void setSkip() {
-
         skip = true;
     }
 
     public static boolean getSkip() {
         return skip;
+    }
+
+    public static void screenZero() {
+        screen = 1;
     }
 
 
