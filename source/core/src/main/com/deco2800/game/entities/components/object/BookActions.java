@@ -32,7 +32,6 @@ public class BookActions extends InteractionComponent {
             logger.debug("PLAYER interacted with Book");
             startTime = ServiceLocator.getTimeSource().getTime();
             hasInteracted = true;
-//            target.getEvents().trigger("drink_energy_drink");
             entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
         }
     }
@@ -46,14 +45,7 @@ public class BookActions extends InteractionComponent {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (currentTime - startTime >= 1000L && hasInteracted){
             entity.getComponent(SingleUse.class).remove();
-//            String string = "You drank a can of Dountain Mew. Yum!";
-//            ServiceLocator.getScreen(MainGameScreen.class)
-//                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
-//            target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
-//            target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
-            //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.BOOKS);
         }
-
     }
 }
