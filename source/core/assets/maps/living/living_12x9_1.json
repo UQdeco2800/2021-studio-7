@@ -27,6 +27,11 @@
       method: createCouch
       assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
     }
+    u: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createLounge
+      assets: [images/objects/furniture/sofa-back.png, 0, 0, 0
+    }
     l: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createLamp
@@ -81,7 +86,7 @@
     [W, t, ., ., ., ., ., N, ., ., ., .],
     [W, t, ., ., L, ., ., ., ., ., ., .],
     [W, Z, ., ., ., ., ., ., ., ., ., .],
-    [W, Z, ., ., l, ., L, ., E, ., ., .],
+    [W, Z, ., ., l, ., u, ., E, ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]
