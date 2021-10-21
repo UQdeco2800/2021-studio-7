@@ -4,12 +4,9 @@ import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.SingleUse;
-import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.rendering.components.AnimationRenderComponent;
-import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +29,6 @@ public class BookActions extends InteractionComponent {
             logger.debug("PLAYER interacted with Book");
             startTime = ServiceLocator.getTimeSource().getTime();
             hasInteracted = true;
-//            target.getEvents().trigger("drink_energy_drink");
             entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
         }
     }
@@ -46,14 +42,7 @@ public class BookActions extends InteractionComponent {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (hasInteracted){
             entity.getComponent(SingleUse.class).remove();
-//            String string = "You drank a can of Dountain Mew. Yum!";
-//            ServiceLocator.getScreen(MainGameScreen.class)
-//                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
-//            target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
-//            target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
-            //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.BOOKS);
         }
-
     }
 }
