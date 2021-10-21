@@ -1,11 +1,18 @@
-puddle.png
-size: 424, 232
+puddle2.png
+size: 848, 232
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-banana_peel
+puddle
   rotate: false
   xy: 0, 0
+  size: 424, 232
+  orig: 424, 232
+  offset: 0, 0
+  index: -1
+puddle_highlight
+  rotate: false
+  xy: 424, 0
   size: 424, 232
   orig: 424, 232
   offset: 0, 0
