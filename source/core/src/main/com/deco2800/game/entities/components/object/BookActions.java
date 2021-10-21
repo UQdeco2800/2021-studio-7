@@ -8,6 +8,7 @@ import com.deco2800.game.entities.components.player.KeyboardPlayerInputComponent
 import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class BookActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book_blue");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book");
     }
 
     @Override

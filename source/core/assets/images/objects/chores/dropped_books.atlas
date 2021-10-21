@@ -3,7 +3,7 @@ size: 168, 92
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-dropped_books
+dropped_book
   rotate: false
   xy: 0, 0
   size: 168, 92

@@ -36,6 +36,16 @@
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createSmallBaseChore,
       assets: [images/objects/chores/dropped_book_blue.atlas, 1, 11, 7]
+    },
+    R: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallBaseChore,
+      assets: [images/objects/chores/dropped_book_red.atlas, 1, 11, 7]
+    },
+    M: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallBaseChore,
+      assets: [images/objects/chores/dropped_books.atlas, 1, 11, 7]
     }
   },
   tileGrid: [
@@ -49,9 +59,9 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, F, ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., G, ., .],
+    [W, ., ., ., G, ., ., ., ., R, ., .],
     [W, ., C, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., B, ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .]
+    [W, ., ., M, ., ., ., ., ., ., ., .]
   ]
 }
