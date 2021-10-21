@@ -50,7 +50,7 @@
     c: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createCouchSmall,
-      assets: [images/objects/furniture/sofa-small.png, 0, 0, 0]
+      assets: [images/objects/furniture/sofa-left.png, 0, 0, 0]
     },
     Z: {
       class: com.deco2800.game.entities.factories.ObjectFactory,
