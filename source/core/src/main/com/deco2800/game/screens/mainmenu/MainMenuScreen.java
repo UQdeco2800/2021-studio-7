@@ -80,6 +80,7 @@ public class MainMenuScreen extends ScreenAdapter {
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
+    MainMenuDisplay.updateMenuFrame();
   }
 
   @Override

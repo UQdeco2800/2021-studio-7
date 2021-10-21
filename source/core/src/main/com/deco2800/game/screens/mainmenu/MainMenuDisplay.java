@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -51,15 +52,15 @@ public class MainMenuDisplay extends UIComponent {
     private static List<ImageButton> imageButtons = new ArrayList<>();
     private static Image menuIndicator;
 
+
     @Override
     public void create() {
         super.create();
         addActors();
-        updateMenuFrame();
     }
 
     private void addActors() {
-        resetMenuIndex();
+        //resetMenuIndex();
 
         Table tableLeft = new Table();
         Table tableRight = new Table();
@@ -191,8 +192,8 @@ public class MainMenuDisplay extends UIComponent {
         tableMain.add(tableRight).expandY().fillY().fill();
         stage.addActor(tableMain);
 
-        menuIndicator.setTouchable(Touchable.disabled);
         stage.addActor(menuIndicator);
+        menuIndicator.setPosition(-100,-100);
     }
 
     @Override
@@ -241,6 +242,13 @@ public class MainMenuDisplay extends UIComponent {
             imageButtons.clear();
             dispose();
             create();
+        } else {
+            characterIndex = 2;
+            MainMenuScreen.playButtonSound(BROWSE);
+            buttons.clear();
+            imageButtons.clear();
+            dispose();
+            create();
         }
     }
 
@@ -259,6 +267,13 @@ public class MainMenuDisplay extends UIComponent {
         if (notFarRight()){
             MainMenuScreen.playButtonSound(BROWSE);
             characterIndex++;
+            buttons.clear();
+            imageButtons.clear();
+            dispose();
+            create();
+        } else {
+            characterIndex = 0;
+            MainMenuScreen.playButtonSound(BROWSE);
             buttons.clear();
             imageButtons.clear();
             dispose();
@@ -286,6 +301,7 @@ public class MainMenuDisplay extends UIComponent {
         if (notAtTop()) {
             menuIndex--;
             updateMenuFrame();
+            MainMenuScreen.playButtonSound(BROWSE);
         }
     }
 
@@ -324,6 +340,7 @@ public class MainMenuDisplay extends UIComponent {
         if (notAtBottom()) {
             menuIndex++;
             updateMenuFrame();
+            MainMenuScreen.playButtonSound(BROWSE);
         }
         logger.info("Menu Index is {}", menuIndex);
     }
@@ -350,8 +367,6 @@ public class MainMenuDisplay extends UIComponent {
      * Also plays the 'b e e p'
      */
     public static void updateMenuFrame() {
-        MainMenuScreen.playButtonSound(BROWSE);
-
         TextButton startBtn = buttons.get(0);
         TextButton leadBtn = buttons.get(1);
         TextButton setBtn = buttons.get(2);
