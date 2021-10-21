@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -56,13 +56,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -108,43 +108,6 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </section>
 <section class="summary">
 <ul class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<li class="blockList">
-<section class="fieldSummary"><a id="field.summary">
-<!--   -->
-</a>
-<h2>Field Summary</h2>
-<div class="memberSummary">
-<table>
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<thead>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#didHit">didHit</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code><a href="RaycastHit.html" title="class in com.deco2800.game.physics.raycast">RaycastHit</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hit">hit</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>short</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#layerMask">layerMask</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li class="blockList">
 <section class="constructorSummary"><a id="constructor.summary">
@@ -189,11 +152,31 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDidHit()">isDidHit</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code>float</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reportRayFixture(com.badlogic.gdx.physics.box2d.Fixture,com.badlogic.gdx.math.Vector2,com.badlogic.gdx.math.Vector2,float)">reportRayFixture</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/physics/box2d/Fixture.html?is-external=true" title="class or interface in com.badlogic.gdx.physics.box2d" class="externalLink">Fixture</a>&nbsp;fixture,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;point,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;normal,
 float&nbsp;fraction)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDidHit(boolean)">setDidHit</a></span>&#8203;(boolean&nbsp;val)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHit(com.deco2800.game.physics.raycast.RaycastHit)">setHit</a></span>&#8203;(<a href="RaycastHit.html" title="class in com.deco2800.game.physics.raycast">RaycastHit</a>&nbsp;raycastHit)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLayerMask(short)">setLayerMask</a></span>&#8203;(short&nbsp;layerMask)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -211,34 +194,6 @@ float&nbsp;fraction)</code></th>
 </section>
 <section class="details">
 <ul class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<li class="blockList">
-<section class="fieldDetails"><a id="field.detail">
-<!--   -->
-</a>
-<h2>Field Details</h2>
-<ul class="blockList">
-<li class="blockList">
-<section class="detail">
-<h3><a id="layerMask">layerMask</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">short</span>&nbsp;<span class="memberName">layerMask</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="hit">hit</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="RaycastHit.html" title="class in com.deco2800.game.physics.raycast">RaycastHit</a></span>&nbsp;<span class="memberName">hit</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="didHit">didHit</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">didHit</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li class="blockList">
 <section class="constructorDetails"><a id="constructor.detail">
@@ -275,6 +230,30 @@ float&nbsp;fraction)</span></div>
 </dl>
 </section>
 </li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setHit(com.deco2800.game.physics.raycast.RaycastHit)">setHit</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setHit</span>&#8203;(<span class="arguments"><a href="RaycastHit.html" title="class in com.deco2800.game.physics.raycast">RaycastHit</a>&nbsp;raycastHit)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setLayerMask(short)">setLayerMask</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setLayerMask</span>&#8203;(<span class="arguments">short&nbsp;layerMask)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setDidHit(boolean)">setDidHit</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setDidHit</span>&#8203;(<span class="arguments">boolean&nbsp;val)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="isDidHit()">isDidHit</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">isDidHit</span>()</div>
+</section>
+</li>
 </ul>
 </section>
 </li>
@@ -308,13 +287,13 @@ float&nbsp;fraction)</span></div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
