@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 
-import javax.swing.text.TabableView;
+
 import java.util.List;
 
 /**
@@ -31,7 +31,6 @@ public class ChoreUI extends UIComponent {
         // Display Text
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*4f, rowHeight*6f);
-        //displayText.setPosition(colWidth*5.8f, rowHeight*5f);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setAlignment(Align.topRight);
         displayText.setWrap(true);
@@ -99,7 +98,7 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chore entities completed changes
-        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
+        if (displaying && ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }
     }
@@ -107,5 +106,11 @@ public class ChoreUI extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        hide();
     }
 }

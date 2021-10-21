@@ -1,8 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
 import com.deco2800.game.generic.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A component intended to be used by the player to track their inventory.
@@ -11,6 +9,5 @@ import org.slf4j.LoggerFactory;
  * Can also be used as a more generic component for other entities.
  */
 public class InventoryComponent extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(InventoryComponent.class);
-
+//I never got implmented.
 }

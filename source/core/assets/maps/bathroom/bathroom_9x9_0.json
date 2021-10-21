@@ -20,7 +20,7 @@
     B: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBath
-      assets: [images/objects/furniture/bath_tub_southwest.png, 0, 0, 0]
+      assets: [images/objects/furniture/bath_tub_southeast.png, 0, 0, 0]
     }
     b: {
       class:com.deco2800.game.entities.factories.ObjectFactory
@@ -65,12 +65,12 @@
   ],
   entityGrid: [
     [W, W, W, W, W, W, W, W, W],
-    [W, ., ., s, t, ., S, B, .],
+    [W, ., ., ., B, ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, s, ., ., ., p, ., ., .],
+    [W, P, ., ., ., ., ., ., .],
     [W, b, ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., P, .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, T, ., ., ., ., ., p, .],
+    [W, ., ., p, ., ., p, ., .],
     [W, ., ., ., ., ., ., ., .]
   ]
   /*choreGrid: [

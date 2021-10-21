@@ -51,6 +51,11 @@
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createCouchSmall,
       assets: [images/objects/furniture/sofa-small.png, 0, 0, 0]
+    },
+    Z: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPlant,
+      assets: [images/objects/shrub/shrub_animation.atlas, 0, 8, 6]
     }
 
   },
@@ -68,7 +73,7 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, B, ., ., ., ., T, ., ., ., ., .],
-    [W, B, ., ., ., ., N, ., ., ., ., .],
+    [W, B, ., ., ., ., N, ., ., Z, ., .],
     [W, ., ., E, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., l, ., ., L, ., E, ., ., .],

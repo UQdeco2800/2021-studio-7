@@ -11,7 +11,12 @@
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWall
       assets: [images/objects/walls/3.png, 0, 0, 0]
-    }
+    },
+    P: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPlant,
+      assets: [images/objects/dead_plant/plant_animation.atlas, 0, 7, 5]
+    },
   }
   tileGrid: [
     [., ., ., ., .],
@@ -23,7 +28,7 @@
   entityGrid: [
     [W, W, W, W, W],
     [W, ., ., ., .],
-    [W, ., ., ., .],
+    [W, ., P, ., .],
     [W, ., ., ., .],
     [W, ., ., ., .]
   ]

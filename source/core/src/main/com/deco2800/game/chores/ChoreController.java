@@ -32,7 +32,7 @@ public class ChoreController {
      * @param object The object type of the chore.
      */
     public void addChore(Entity entity, ChoreList object) {
-        logger.debug("Added chore " + object + " to chore controller");
+        logger.debug("Added chore to chore controller");
 
         // Add a listener to the entity
         entity.getEvents().addListener("chore_complete", this::markCompleted);
@@ -72,12 +72,11 @@ public class ChoreController {
     private void scaleChores() {
         // How many chores we want to keep
         int numChores;
-        if (level < 3) {
+        if (level < 2) {
             numChores = 0;
         } else {
             numChores = 2 * level - 2; // 0, 0, 4, 6, 8...
         }
-
 
         if (chores.size() <= numChores) {
             // We have the correct number of chores already

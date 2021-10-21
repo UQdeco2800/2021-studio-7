@@ -3,6 +3,7 @@ package com.deco2800.game.screens.endgame;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -25,7 +26,8 @@ public class EndGameDisplay extends UIComponent {
   private static final float Z_INDEX = 2f;
   private Table table;
   private final EndGameScreen screen;
-  private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static List<TextButton> buttons = new ArrayList<>();
+  private static int menuIndex = 0;
 
   public EndGameDisplay(EndGameScreen screen) {
     super();
@@ -36,6 +38,7 @@ public class EndGameDisplay extends UIComponent {
   public void create() {
     super.create();
     addActors();
+    hoverMenu(buttons.get(menuIndex));
   }
 
   private void addActors() {
@@ -105,24 +108,90 @@ public class EndGameDisplay extends UIComponent {
   @Override
   public void dispose() {
     table.clear();
+    buttons.clear();
     super.dispose();
   }
 
   public static void buttonLogic(String buttonChoice) {
-    TextButton nextLvl = new TextButton("", skin);
-    TextButton mainMenu = new TextButton("", skin);
+    TextButton mainMenu;
 
     if (buttons.size() > 1) {
-      nextLvl = buttons.get(0);
       mainMenu = buttons.get(1);
     } else {
       mainMenu = buttons.get(0);
     }
 
     if (buttonChoice.equals("Enter")) {
-      nextLvl.toggle();
+      buttons.get(menuIndex).toggle();
     } else if (buttonChoice.equals("Escape")) {
       mainMenu.toggle();
     }
+    buttons.clear();
+  }
+
+  /**
+   Emulates mouse hover with keyboard
+   **/
+  public static void hoverMenu(Actor btn){
+    InputEvent event = new InputEvent();
+    event.setType(InputEvent.Type.enter);
+    event.setPointer(-1);
+    btn.fire(event);
+  }
+
+  /**
+   Emulates mouse unhover with keyboard
+   **/
+  public static void unhoverMenu(Actor btn){
+    InputEvent event = new InputEvent();
+    event.setType(InputEvent.Type.exit);
+    event.setPointer(-1);
+    btn.fire(event);
+  }
+
+  /**
+   * Reset the hover position to resume button when pause menu is closed
+   */
+  public static void resetHover() {
+    menuIndex = 0;
+  }
+
+  /**
+   * Ensures that the menuIndex cannot go beyond number of buttons to avoid OutOfIndex Error
+   */
+  public static boolean notFarDown() {
+    return menuIndex < buttons.size() - 1;
+  }
+
+  /**
+   * Ensures that the menuIndex cannot go below 0 to avoid OutOfIndex Error
+   */
+  public static boolean notFarUp() {
+    return menuIndex > 0;
+  }
+
+  /**
+   * Moves the button highlight down
+   */
+  public static void moveDown(){
+    if (notFarDown()) {
+      EndGameScreen.playButtonSound("browse");
+      menuIndex++;
+      unhoverMenu(buttons.get(menuIndex - 1));
+      hoverMenu(buttons.get(menuIndex));
+    }
+    logger.info("Menu index is {}", menuIndex);
+  }
+  /**
+   * Moves the button highlight up
+   */
+  public static void moveUp(){
+    if (notFarUp()) {
+      EndGameScreen.playButtonSound("browse");
+      menuIndex--;
+      unhoverMenu(buttons.get(menuIndex + 1));
+      hoverMenu(buttons.get(menuIndex));
+    }
+    logger.info("Menu index is {}", menuIndex);
   }
 }

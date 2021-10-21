@@ -37,11 +37,14 @@ import java.util.Objects;
 public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
+    private static final String PLAYER_BED_ATLAS = "images/objects/bed/bed_animation.atlas";
+    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/game-table.png";
 
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
     private Entity mum = null;
+    private List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -161,6 +164,7 @@ public class Floor extends GameArea implements Json.Serializable {
         spawnBorders();
         spawnCat();
         spawnMum();
+        spawnBeds();
     }
 
     /**
@@ -266,6 +270,32 @@ public class Floor extends GameArea implements Json.Serializable {
 
     }
 
+    private void spawnBeds() {
+        GridObject playerBed;
+        GridObject normalBed;
+        try {
+            playerBed = new GridObject(ObjectFactory.class.getMethod("createPlayerBed", String[].class),
+                    new String[]{PLAYER_BED_ATLAS, "0","4", "0"});
+            normalBed = new GridObject(ObjectFactory.class.getMethod("createNormalBed", String[].class),
+                    new String[]{NORMAL_BED_TEXTURE, "0", "0", "0"});
+        } catch (NoSuchMethodException e) {
+            throw new NullPointerException("Could not retrieve either createNormalBed or createPlayerBed methods");
+        }
+
+        GridPoint2 playerBedPosition = bedPositions.get(RandomUtils.getSeed().nextInt(bedPositions.size()));
+        spawnGridEntity(playerBed, playerBedPosition);
+
+        bedPositions.remove(playerBedPosition);
+        for (GridPoint2 normalBedPosition : bedPositions) {
+            spawnGridEntity(normalBed, normalBedPosition);
+        }
+        bedPositions.add(playerBedPosition);
+    }
+
+    public void stashBedPosition(GridPoint2 worldPos) {
+        bedPositions.add(worldPos);
+    }
+
     public GridObject getDefaultInteriorTile() {
         return defaultInteriorTile;
     }
@@ -333,7 +363,9 @@ public class Floor extends GameArea implements Json.Serializable {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTexture(NORMAL_BED_TEXTURE);
         resourceService.loadTextures(getAssets(".png"));
+        resourceService.loadTextureAtlas(PLAYER_BED_ATLAS);
         resourceService.loadTextureAtlases(getAssets(".atlas"));
 
         while (!resourceService.loadForMillis(20)) {

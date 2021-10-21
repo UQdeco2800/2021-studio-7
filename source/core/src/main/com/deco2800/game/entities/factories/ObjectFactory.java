@@ -41,24 +41,55 @@ public class ObjectFactory {
   }
 
   public static Entity createBed(String[] assets) {
+    // Dummy method, eventually the intended entity will be returned from
+    // createPlayerBed or createNormalBed
+    return null;
+  }
+
+  public static Entity createPlayerBed(String[] assets) {
     Entity bed = createBaseInteractable(assets);
     bed.setScale(1.5f, 1f);
     PhysicsUtils.setColliderShape(bed, 1f, 2f);
     return bed;
   }
 
+  public static Entity createNormalBed(String[] assets) {
+    Entity bed = createBaseObject(assets);
+    bed.setScale(1.5f, 1f);
+    PhysicsUtils.setColliderShape(bed, 1f, 2f);
+    return bed;
+  }
+
+  public static Entity createHorizontalDoor(String[] assets) {
+    Entity horizontalDoor = createBaseInteractable(assets);
+    return horizontalDoor;
+  }
+
+  public static Entity createVerticalDoor(String[] assets) {
+      Entity verticalDoor = createBaseInteractable(assets);
+      //Entity verticalDoor = new Entity();
+      return verticalDoor;
+  }
+
   public static Entity createDoor(String[] assets) {
 //    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
 //            .addComponent(new DoorActions());
-    Entity door = new Entity();
-    return door;
+    return new Entity();
   }
+
 
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
+  public static Entity createPlant(String[] assets) {
+    Entity plant = createBaseChore(assets);
+    PhysicsUtils.setColliderShape(plant, 1f, 1f);
+    return plant;
+  }
+
+
 
 
   public static Entity createPuddle(String[] assets){
@@ -234,11 +265,11 @@ public class ObjectFactory {
 
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
+   * FORMAT: PATH, BODYTYPE, INTERACTID, CHOREID
    * @param assets the image and atlas assets of this object
    * @return The new entity of this obstacle
    * */
 
-  //FORMAT: PATH, BODYTYPE, INTERACTID, CHOREID
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
@@ -326,17 +357,16 @@ public class ObjectFactory {
       case "6":
         obstacle.addComponent(new WashingDishesActions());
         break;
-
-        /*
-      case "6": //Base interactable
-        // Get the name of the object from the atlas filepath
-        String atlasPath = assets[0];
-        String fileName = atlasPath.substring(atlasPath.lastIndexOf("/")+1);
-        String name = fileName.split("\\.")[0];
-
-        obstacle.addComponent(new BaseInteractable(name));
-
-         */
+      case "7":
+        obstacle.addComponent(new PlantActions());
+        break;
+      case "8":
+        obstacle.addComponent(new ShrubActions());
+        break;
+      case "9":
+        obstacle.addComponent(new HorizontalDoorActions());
+      case "10":
+        obstacle.addComponent(new VerticalDoorActions());
     }
   }
 
@@ -350,6 +380,10 @@ public class ObjectFactory {
         return ChoreList.PUDDLE;
       case "4":
         return ChoreList.DISHWASHER;
+      case "5":
+        return ChoreList.PLANT;
+      case "6":
+        return ChoreList.SHRUB;
       default:
         logger.debug("Invalid choreID provided");
         return null;

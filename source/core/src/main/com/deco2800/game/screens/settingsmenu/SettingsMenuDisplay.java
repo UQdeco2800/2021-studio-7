@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
@@ -35,7 +34,7 @@ public class SettingsMenuDisplay extends UIComponent {
   private CheckBox vsyncCheck;
   private Slider uiScaleSlider;
   private SelectBox<StringDecorator<DisplayMode>> displayModeSelect;
-  private static List<TextButton> buttons = new ArrayList<TextButton>();
+  private static List<TextButton> buttons = new ArrayList<>();
 
   @Override
   public void create() {
@@ -68,20 +67,20 @@ public class SettingsMenuDisplay extends UIComponent {
 
     // Create components
     Label fpsLabel = new Label("FPS Cap:", skin);
-    fpsText = new TextField(Integer.toString(settings.fps), skin);
+    fpsText = new TextField(Integer.toString(settings.getFps()), skin);
 
     Label fullScreenLabel = new Label("Fullscreen:", skin);
     fullScreenCheck = new CheckBox("", skin);
-    fullScreenCheck.setChecked(settings.fullscreen);
+    fullScreenCheck.setChecked(settings.isFullscreen());
 
     Label vsyncLabel = new Label("VSync:", skin);
     vsyncCheck = new CheckBox("", skin);
-    vsyncCheck.setChecked(settings.vsync);
+    vsyncCheck.setChecked(settings.isVsync());
 
     Label uiScaleLabel = new Label("ui Scale (Unused):", skin);
     uiScaleSlider = new Slider(0.2f, 2f, 0.1f, false, skin);
-    uiScaleSlider.setValue(settings.uiScale);
-    Label uiScaleValue = new Label(String.format("%.2fx", settings.uiScale), skin);
+    uiScaleSlider.setValue(settings.getUiScale());
+    Label uiScaleValue = new Label(String.format("%.2fx", settings.getUiScale()), skin);
 
     Label displayModeLabel = new Label("Resolution:", skin);
     displayModeSelect = new SelectBox<>(skin);
@@ -156,14 +155,14 @@ public class SettingsMenuDisplay extends UIComponent {
   }
 
   private Table makeMenuBtns() {
-    TextButton exitBtn = new TextButton("Exit", skin);
-    exitBtn.getLabel().setColor(0, 0,0, 1f);
+    TextButton exitBtn1 = new TextButton("Exit", skin);
+    exitBtn1.getLabel().setColor(0, 0,0, 1f);
     TextButton applyBtn = new TextButton("Apply", skin);
     applyBtn.getLabel().setColor(0, 0,0, 1f);
 
-    buttons.add(exitBtn);
+    buttons.add(exitBtn1);
     buttons.add(applyBtn);
-    exitBtn.addListener(
+    exitBtn1.addListener(
             new ChangeListener() {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -182,7 +181,7 @@ public class SettingsMenuDisplay extends UIComponent {
             });
 
     Table table = new Table();
-    table.add(exitBtn).expandX().left().pad(0f, 15f, 15f, 0f);
+    table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
     table.add(applyBtn).expandX().right().pad(0f, 0f, 15f, 15f);
     return table;
   }
@@ -192,12 +191,12 @@ public class SettingsMenuDisplay extends UIComponent {
 
     Integer fpsVal = parseOrNull(fpsText.getText());
     if (fpsVal != null) {
-      settings.fps = fpsVal;
+      settings.setFps(fpsVal);
     }
-    settings.fullscreen = fullScreenCheck.isChecked();
-    settings.uiScale = uiScaleSlider.getValue();
-    settings.displayMode = new DisplaySettings(displayModeSelect.getSelected().getObject());
-    settings.vsync = vsyncCheck.isChecked();
+    settings.setFullscreen(fullScreenCheck.isChecked());
+    settings.setUiScale(uiScaleSlider.getValue());
+    settings.setDisplayMode(new DisplaySettings(displayModeSelect.getSelected().getObject()));
+    settings.setVsync(vsyncCheck.isChecked());
 
     UserSettings.set(settings, true);
   }
@@ -216,13 +215,12 @@ public class SettingsMenuDisplay extends UIComponent {
 
   public static void exitSettingsMenu(){
     TextButton current = buttons.get(0);
-    buttons.clear();
     current.toggle();
   }
 
   public static void applySettings(){
+    SettingsScreen.playButtonSound();
     TextButton current = buttons.get(1);
-    buttons.clear();
     current.toggle();
   }
 
@@ -239,6 +237,7 @@ public class SettingsMenuDisplay extends UIComponent {
   @Override
   public void dispose() {
     rootTable.clear();
+    buttons.clear();
     super.dispose();
   }
 }

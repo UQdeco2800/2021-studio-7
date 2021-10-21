@@ -1,8 +1,6 @@
 package com.deco2800.game.ai.tasks;
 
 import com.badlogic.gdx.math.Vector2;
-import com.deco2800.game.ai.components.AITaskComponent;
-import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +14,16 @@ public class SlipTask extends DefaultTask implements PriorityTask{
     private MovementTask movementTask;
     private int priority = -1;
 
-    public SlipTask (){ }
+    public SlipTask (){
+        // Placeholder method
+    }
 
     @Override
     public int getPriority() {
         return priority;
     }
 
+    @Override
     public void start() {
         super.start();
         startPos = owner.getEntity().getPosition();
@@ -31,17 +32,13 @@ public class SlipTask extends DefaultTask implements PriorityTask{
         movementTask.start();
     }
 
+    @Override
     public void update() {
         if (movementTask.getStatus() != Status.ACTIVE) {
             changePriority(-1);
         } movementTask.update();
     }
 
-    /*private void resetSlip(){
-        logger.debug("Recalibrating slip direction and status");
-        movementTask.setTarget(getRandomPosInRange());
-        movementTask.start();
-    }*/
 
     private Vector2 getRandomPosInRange() {
         Vector2 halfRange = slipRange.cpy().scl(0.5f);
@@ -53,8 +50,6 @@ public class SlipTask extends DefaultTask implements PriorityTask{
     public void changePriority(int newPriority){
         logger.info("Priority changed to {}", newPriority);
         this.priority = newPriority;
-        /*if (priority == 1){
-            resetSlip();
-        }*/
+
     }
 }

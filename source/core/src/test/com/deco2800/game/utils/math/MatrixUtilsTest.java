@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.Arrays;
 
 @ExtendWith(GameExtension.class)
-public class MatrixUtilsTest {
+class MatrixUtilsTest {
 
     @Test
     void shouldSimpleFlipHorizontally() {

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(GameExtension.class)
-public class RandomUtilsTest {
+class RandomUtilsTest {
 
     @Test
     void shouldReturnSeed() {
