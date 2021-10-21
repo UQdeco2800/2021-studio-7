@@ -97,7 +97,7 @@ public class MainGameScoreDisplay extends UIComponent {
         }, delay, period);
     }
 
-    private void makeTimer() {
+    private static void makeTimer() {
         timer = new Timer();
     }
 
