@@ -88,9 +88,8 @@ PhysicsMovementComponent extends Component implements MovementController {
   private void setToVelocity(Body body, Vector2 desiredVelocity) {
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
-    //System.out.println(velocity);
-    if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1){
-        if(twoDCharacter ==false){standingEvents();}
+    if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1 && !twoDCharacter){
+      standingEvents();
     }
     Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -253,7 +252,6 @@ PhysicsMovementComponent extends Component implements MovementController {
 
     if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1) {
       standingEventsTwoD();
-      System.out.println("Played low velocity");
     } else {
       if (lastDirection != currentDirection) {
         if (x < 0.5 && x > -0.5 && y > 0) {

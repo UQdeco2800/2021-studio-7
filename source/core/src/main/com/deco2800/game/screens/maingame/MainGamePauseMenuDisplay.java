@@ -38,8 +38,10 @@ public class MainGamePauseMenuDisplay extends UIComponent {
         isVisible = !isVisible;
         table.setVisible(isVisible);
         if (isVisible) {
+            entity.getComponent(MainGameFogScreen.class).toggleVisibility();
             entity.getEvents().trigger("pause");
         } else {
+            entity.getComponent(MainGameFogScreen.class).toggleVisibility();
             entity.getEvents().trigger("resume");
         }
     }
@@ -188,6 +190,14 @@ public class MainGamePauseMenuDisplay extends UIComponent {
         unhoverMenu(buttons.get(menuIndex));
         menuIndex = 0;
         hoverMenu(buttons.get(menuIndex));
+    }
+
+    /**
+     * Checks whether the pause screen is displaying or not.
+     * @return True if displaying, false if not.
+     */
+    public boolean isVisible() {
+        return isVisible;
     }
 
     @Override

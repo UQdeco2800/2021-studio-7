@@ -21,8 +21,8 @@ public class Home {
     public static final String DIRECTORY = "maps/";
     private final List<Floor> floors = new ArrayList<>();
     private Floor activeFloor;
-    // Defined on call for creation
     private MainGameScreen mainGameScreen;
+    // Defined on call for creation
     private boolean created = false;
 
     public Home() {
