@@ -97,7 +97,6 @@ public class ContextScreenDisplay extends UIComponent {
                 table = new Table();
                 table.setFillParent(true);
                 int colWidth = Gdx.graphics.getWidth() / 10;
-                int rowHeight = Gdx.graphics.getHeight() / 16;
                 Label enterName = new Label("PLEASE ENTER YOUR USERNAME", skin, TITLE);
                 enterName.setFontScale((colWidth*10f)/1000f);
                 enterName.addAction(Actions.alpha(0));

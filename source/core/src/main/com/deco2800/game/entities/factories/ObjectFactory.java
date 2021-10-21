@@ -72,6 +72,11 @@ public class ObjectFactory {
       return verticalDoor;
   }
 
+  public static Entity createDoor(String[] assets) {
+      Entity door = createBaseInteractable(assets).addComponent(new DoorActions());
+    return new Entity();
+  }
+
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
@@ -140,14 +145,6 @@ public class ObjectFactory {
     Entity desk = createBaseObject(assets);
     PhysicsUtils.setColliderShape(desk, 1f, 1f);
     return desk;
-  }
-
-  public static Entity createCoffeeTable(String[] assets) {
-    Entity coffeeTable = createBaseObject(assets);
-    coffeeTable.getComponent(TextureRenderComponent.class).scaleEntity();
-    //coffeeTable.setScale(1.5f,1f);
-    PhysicsUtils.setScaledCollider(coffeeTable,1f,1f);
-    return coffeeTable;
   }
 
   public static Entity createLamp(String[] assets) {
@@ -247,8 +244,8 @@ public class ObjectFactory {
   }
   public static Entity createCouchSmall(String[] assets) {
     Entity couch = createBaseObject(assets);
-    couch.setScale(0.5f, 0.5f);
-    PhysicsUtils.setScaledCollider(couch, 0.5f, 1.5f);
+    couch.setScale(1f, 1f);
+    PhysicsUtils.setScaledCollider(couch, 1f, 1f);
     return couch;
   }
 
@@ -306,7 +303,6 @@ public class ObjectFactory {
             .addComponent(new PhysicsComponent().setBodyType(selectBodyType(assets[1])))
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 1f, 1f);
-    //obstacle.scaleHeight(1f);
     if (Objects.equals(assets[0], "")) {
       return obstacle;
     }

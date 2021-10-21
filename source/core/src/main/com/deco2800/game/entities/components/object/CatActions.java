@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CatActions extends InteractionComponent {
-    private static final Logger logger = LoggerFactory.getLogger(CatActions.class);
     private static final String UPDATE_ANIMATION = "update_animation";
 
 

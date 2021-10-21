@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
     private static final String UPDATEANIMATION = "update_animation";
     private static final String STANDINGSOUTH = "standing_south";
 
@@ -268,8 +267,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-        // System.out.println("Triggering movement Events");
-        // System.out.println(walkDirection);
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;
