@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
-import com.deco2800.game.entities.components.player.PlayerStaminaBar;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.ui.components.UIComponent;
 
@@ -40,7 +39,7 @@ public class PlayerStatDisplay extends UIComponent {
     table = new Table();
     table.top().left();
     table.setFillParent(true);
-    table.padTop(10f).padLeft(10f);
+    table.pad(30f);
 
     //display level
     CharSequence levelText = String.format("Level %d", MainGameScreen.getLevel());
@@ -67,7 +66,7 @@ public class PlayerStatDisplay extends UIComponent {
     table.row();
     table.add(scoreLabel).left();
     table.row();
-    table.row();
+    table.add(new Label("", skin, largeStyle));
     table.row();
     table.add(playerStaminaBar).size(190,50).left();
     table.row();

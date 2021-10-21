@@ -12,8 +12,9 @@ import org.slf4j.LoggerFactory;
 
 public class MainGameFogScreen extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainGameFogScreen.class);
-    private Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_effect_1.png"));
-    private Image background = new Image(texture);
+    private final Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_effect_1.png"));
+    private Image background;
+    private boolean isVisible = true;
 
     public MainGameFogScreen() {
         logger.debug("Initialising main game screen timer service");
@@ -44,9 +45,20 @@ public class MainGameFogScreen extends UIComponent {
      * @see Table for positioning options
      */
     public void addActors() {
+        background = new Image(texture);
         background.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         background.setOrigin(Align.center);
         stage.addActor(background);
+    }
+
+    public void toggleVisibility() {
+        if (isVisible) {
+            background.setPosition(-2000f, 2000f);
+            isVisible = false;
+        } else {
+            background.setPosition(0f, 0f);
+            isVisible = true;
+        }
     }
 
     @Override
