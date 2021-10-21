@@ -10,14 +10,14 @@ import org.slf4j.LoggerFactory;
 
 public class WashingDishesActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(WashingDishesActions.class);
-    private static final String updateAnimation = "update_animation";
+    private static final String UPDATE_ANIMATION = "update_animation";
     private int count = 0;
     private long startTime;
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(updateAnimation, "dishwasher_notworking");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking");
     }
 
     @Override
@@ -56,19 +56,19 @@ public class WashingDishesActions extends InteractionComponent {
     private void triggerAnimationChange(int count){
         switch (count) {
             case 0:
-                entity.getEvents().trigger(updateAnimation, "dishwasher_notworking");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking");
                 break;
             case 1:
-                entity.getEvents().trigger(updateAnimation, "dishwasher_notworking2");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking2");
                 break;
             case 2:
-                entity.getEvents().trigger(updateAnimation, "dishwasher_notworking3");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking3");
                 break;
             case 3:
-                entity.getEvents().trigger(updateAnimation, "dishwasher_notworking4");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking4");
                 break;
             default:
-                entity.getEvents().trigger(updateAnimation, "dishwasher_working");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_working");
                 entity.getEvents().trigger("chore_complete", ChoreList.DISHWASHER);
                 break;
         }

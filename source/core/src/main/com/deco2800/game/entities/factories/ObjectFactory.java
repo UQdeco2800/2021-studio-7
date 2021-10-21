@@ -108,7 +108,7 @@ public class ObjectFactory {
 
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObject(assets);
-    bookcase.setScale(1f, 0.75f);
+    bookcase.setScale(1f, 1.5f);
     PhysicsUtils.setColliderShape(bookcase, 1f, 1f);
     PhysicsUtils.setColliderOffset(bookcase, 0, 0.3f);
     return bookcase;
@@ -390,6 +390,8 @@ public class ObjectFactory {
         obstacle.addComponent(new HorizontalDoorActions());
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
+      default:
+        logger.debug("Invalid interactionID provided");
     }
   }
 

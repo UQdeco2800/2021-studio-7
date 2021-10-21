@@ -26,11 +26,12 @@ public class ContextInputProcessor extends UIComponent implements InputProcessor
                         display.clearTable();
                         display.tellStory();
                     } else {
-                            display.displayWarning();
+                        display.displayWarning();
                     }
                 }
+            default:
+                return false;
         }
-        return false;
     }
 
     @Override
