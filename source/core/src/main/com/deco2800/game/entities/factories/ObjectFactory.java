@@ -388,8 +388,13 @@ public class ObjectFactory {
         break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
+        break;
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
+        break;
+      case "11":
+        obstacle.addComponent(new BookActions())
+                .addComponent(new SingleUse());
     }
   }
 
@@ -407,6 +412,8 @@ public class ObjectFactory {
         return ChoreList.PLANT;
       case "6":
         return ChoreList.SHRUB;
+      case "7":
+        return ChoreList.BOOKS;
       default:
         logger.debug("Invalid choreID provided");
         return null;
