@@ -260,7 +260,7 @@ public class ObjectFactory {
 
   public static Entity createStorageCabinet(String[] assets) {
     Entity cabinet = createBaseObject(assets);
-    cabinet.setScale(0.5f, 0.5f);
+    cabinet.setScale(1f, 1f);
     PhysicsUtils.setScaledCollider(cabinet, 0.5f, 1.5f);
     return cabinet;
   }
