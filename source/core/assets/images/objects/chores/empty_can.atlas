@@ -3,7 +3,7 @@ size: 88, 60
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-empty_can
+trash
   rotate: false
   xy: 0, 0
   size: 88, 60
