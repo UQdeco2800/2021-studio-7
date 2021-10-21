@@ -14,7 +14,7 @@
       }
     s: {
       class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
+      method: createVanity
       assets: [images/objects/furniture/sink_southeast.png, 0, 0, 0]
     }
     B: {
