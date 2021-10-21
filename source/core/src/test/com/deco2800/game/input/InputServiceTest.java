@@ -74,12 +74,14 @@ class InputServiceTest {
   }
 
   @Test
-  void shouldHandleScrolled()
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    Method method = InputComponent.class.getDeclaredMethod("scrolled", float.class, float.class);
-    Method serviceMethod =
-        InputService.class.getDeclaredMethod("scrolled", float.class, float.class);
-    shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f);
+  void shouldHandleTouchInput() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    String[] tester = {"scrolled", "longPress", "zoom"};
+    for (int i = 0; i < tester.length; i++) {
+      Method method = InputComponent.class.getDeclaredMethod(tester[i], float.class, float.class);
+      Method serviceMethod =
+              InputService.class.getDeclaredMethod(tester[i], float.class, float.class);
+      shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f);
+    }
   }
 
   @Test
@@ -123,15 +125,6 @@ class InputServiceTest {
     Method serviceMethod =
         InputService.class.getDeclaredMethod("fling", float.class, float.class, int.class);
     shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f, 7);
-  }
-
-  @Test
-  void shouldHandleLongPress()
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    Method method = InputComponent.class.getDeclaredMethod("longPress", float.class, float.class);
-    Method serviceMethod =
-        InputService.class.getDeclaredMethod("longPress", float.class, float.class);
-    shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f);
   }
 
   @Test
@@ -192,14 +185,6 @@ class InputServiceTest {
         InputService.class.getDeclaredMethod(
             "touchDown", float.class, float.class, int.class, int.class);
     shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f, 7, 8);
-  }
-
-  @Test
-  void shouldHandleZoom()
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    Method method = InputComponent.class.getDeclaredMethod("zoom", float.class, float.class);
-    Method serviceMethod = InputService.class.getDeclaredMethod("zoom", float.class, float.class);
-    shouldCallInputHandlersInPriorityOrder(method, serviceMethod, 5f, 6f);
   }
 
   /**
