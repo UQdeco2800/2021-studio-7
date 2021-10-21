@@ -29,6 +29,7 @@ class RoomTest {
         assertEquals(roomB, wrapper.roomB);
     }
 
+    /*
     @Test
     void shouldCreateHallwayInteriorFromHallway() throws NoSuchMethodException {
         Floor floor = new Floor();
@@ -43,7 +44,7 @@ class RoomTest {
         assertNotNull(room.getEntityMap().get('W'));
         assertTrue(Arrays.deepEquals(room.getTileGrid(), hallwayTileGrid));
         assertTrue(Arrays.deepEquals(room.getEntityGrid(), hallwayEntityGrid));
-    }
+    }*/
 
     /*
     @Test

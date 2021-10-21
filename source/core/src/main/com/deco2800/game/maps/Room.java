@@ -78,7 +78,13 @@ public class Room implements Json.Serializable {
             for (int y = 0; y < dimensions.y; y++) {
                 tileGrid[x][y] = '.';
                 if (x == 0 || y == dimensions.y - 1) {
-                    entityGrid[x][y] = 'W';
+                    Character floorOverride = floor.getFloorGrid()[x + offset.x][y + offset.y];
+                    if (floor.getEntityMap().get(floorOverride) != null) {
+                        entityGrid[x][y] = floorOverride;
+                        floor.getFloorGrid()[x + offset.x][y + offset.y] = getRoomKey();
+                    } else {
+                        entityGrid[x][y] = 'W';
+                    }
                 } else {
                     entityGrid[x][y] = '.';
                 }
