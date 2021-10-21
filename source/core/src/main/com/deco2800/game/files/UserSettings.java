@@ -65,9 +65,9 @@ public class UserSettings {
       return null;
     }
     for (DisplayMode displayMode : Gdx.graphics.getDisplayModes()) {
-      if (displayMode.refreshRate == desiredSettings.getRefreshRate()
-          && displayMode.height == desiredSettings.getHeight()
-          && displayMode.width == desiredSettings.getWidth()) {
+      if (displayMode.refreshRate == desiredSettings.refreshRate
+          && displayMode.height == desiredSettings.height
+          && displayMode.width == desiredSettings.width) {
         return displayMode;
       }
     }
@@ -136,35 +136,11 @@ public class UserSettings {
    * Stores chosen display settings. Can be serialised/deserialised.
    */
   public static class DisplaySettings {
-    private int width;
-    private int height;
-    private int refreshRate;
+    public int width;
+    public int height;
+    public int refreshRate;
 
     public DisplaySettings() {}
-
-    public int getWidth() {
-      return width;
-    }
-
-    public void setWidth(int width) {
-      this.width = width;
-    }
-
-    public int getHeight() {
-      return height;
-    }
-
-    public void setHeight(int heigh) {
-      this.height = height;
-    }
-
-    public int getRefreshRate() {
-      return refreshRate;
-    }
-
-    public void setRefreshRate(int refreshRate) {
-      this.refreshRate = refreshRate;
-    }
 
     public DisplaySettings(DisplayMode displayMode) {
       this.width = displayMode.width;
