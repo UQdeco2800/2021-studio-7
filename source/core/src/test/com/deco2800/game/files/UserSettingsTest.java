@@ -44,9 +44,9 @@ class UserSettingsTest {
 
     Settings settings = new Settings();
     settings.setDisplayMode(new DisplaySettings());
-    settings.getDisplayMode().height = 100;
-    settings.getDisplayMode().width = 200;
-    settings.getDisplayMode().refreshRate = 60;
+    settings.getDisplayMode().setHeight(100);
+    settings.getDisplayMode().setWidth(200);
+    settings.getDisplayMode().setRefreshRate(60);
     settings.setFullscreen(true);
     UserSettings.applySettings(settings);
 

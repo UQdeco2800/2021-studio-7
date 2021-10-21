@@ -63,13 +63,11 @@ public class ObjectFactory {
   }
 
   public static Entity createHorizontalDoor(String[] assets) {
-    Entity horizontalDoor = createBaseInteractable(assets);
-    return horizontalDoor;
+    return createBaseInteractable(assets);
   }
 
   public static Entity createVerticalDoor(String[] assets) {
-      Entity verticalDoor = createBaseInteractable(assets);
-      return verticalDoor;
+      return createBaseInteractable(assets);
   }
 
   public static Entity createDoor(String[] assets) {
@@ -331,8 +329,8 @@ public class ObjectFactory {
     return obstacle;
   }
 
-  private static BodyType selectBodyType(String ID) {
-    switch (ID) {
+  private static BodyType selectBodyType(String id) {
+    switch (id) {
       case "0":
         return BodyType.StaticBody;
       case "1":
