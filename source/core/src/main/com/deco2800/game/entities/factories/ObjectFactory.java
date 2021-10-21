@@ -298,6 +298,13 @@ public class ObjectFactory {
     List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
+  public static Entity createSmallBaseChore(String[] assets) {
+    Entity entity = createBaseInteractable(assets);
+    entity.setScale(0.5f, 0.5f);
+    ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
+    List<Chore> active = ServiceLocator.getChoreController().getChores();
+    return entity;
+  }
 
   public static Entity createBaseInteractable(String[] assets) {
     // Set interactable to have a base hitbox component
@@ -331,7 +338,9 @@ public class ObjectFactory {
       // Add all atlas regions as animations to the component
       for (TextureAtlas.AtlasRegion region : new Array.ArrayIterator<>(textureAtlas.getRegions())) {
         if (!animator.hasAnimation(region.name)) {
-          if (region.name.equals("TV_on1") || region.name.equals("TV_onh1")) {
+          System.out.println(region.name);
+          if (region.name.equals("TV_on1") || region.name.equals("TV_onh1")
+                  || region.name.equals("dust1")) {
             animator.addAnimation(region.name, 0.1f, Animation.PlayMode.LOOP);
           } else {
             animator.addAnimation(region.name, 1f);

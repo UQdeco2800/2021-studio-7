@@ -16,18 +16,34 @@ public class BookActions extends InteractionComponent {
     // Note this class requires the addition of the SingleUse component be added to obstacle entity
     private static final Logger logger = LoggerFactory.getLogger(BookActions.class);
     private static final String UPDATE_ANIMATION = "update_animation";
+    private long startTime;
+    private boolean hasInteracted = false;
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, "bookset_1");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book_blue");
     }
 
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
             logger.debug("PLAYER interacted with Book");
+            startTime = ServiceLocator.getTimeSource().getTime();
+            hasInteracted = true;
 //            target.getEvents().trigger("drink_energy_drink");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
+        }
+    }
+
+    @Override
+    public void toggleHighlight(boolean shouldHighlight) {
+    }
+
+    @Override
+    public void update(){
+        long currentTime = ServiceLocator.getTimeSource().getTime();
+        if (currentTime - startTime >= 1000L && hasInteracted){
             entity.getComponent(SingleUse.class).remove();
 //            String string = "You drank a can of Dountain Mew. Yum!";
 //            ServiceLocator.getScreen(MainGameScreen.class)
@@ -37,9 +53,6 @@ public class BookActions extends InteractionComponent {
             //add time restriction
             entity.getEvents().trigger("chore_complete", ChoreList.BOOKS);
         }
-    }
 
-    @Override
-    public void toggleHighlight(boolean shouldHighlight) {
     }
 }
