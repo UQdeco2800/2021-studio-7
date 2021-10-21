@@ -1,15 +1,12 @@
 package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.ui.components.UIComponent;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +89,8 @@ public class ContextScreenDisplay extends UIComponent {
         try {
             TimeUnit.MILLISECONDS.sleep(timeout);
         } catch (InterruptedException e) {
-            logger.error("Sleep interupted");
+            logger.error("Sleep interrupted");
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -150,7 +148,7 @@ public class ContextScreenDisplay extends UIComponent {
         int colWidth = Gdx.graphics.getWidth() / 10;
         displayText = new Label("", skin, "large");
         displayText.setSize(colWidth*8f, rowHeight*12f);
-        displayText.setPosition(colWidth, rowHeight*3);
+        displayText.setPosition(colWidth, (float) rowHeight * 3);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
         displayText.setWrap(true);
         stage.addActor(displayText);

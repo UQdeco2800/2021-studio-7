@@ -254,7 +254,7 @@ public class ObjectFactory {
 
   public static Entity createStorageCabinet(String[] assets) {
     Entity cabinet = createBaseObject(assets);
-    cabinet.setScale(0.5f, 0.5f);
+    cabinet.setScale(1f, 1f);
     PhysicsUtils.setScaledCollider(cabinet, 0.5f, 1.5f);
     return cabinet;
   }
@@ -295,7 +295,7 @@ public class ObjectFactory {
     // Set interactable to have a base hitbox component
     Entity obstacle = createBaseObject(assets)
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
-    addInteraction(assets, obstacle);
+    addInteraction(assets[2], obstacle);
     PhysicsUtils.setScaledHitbox(obstacle, 1f, 1f);
     return obstacle;
   }
@@ -349,8 +349,8 @@ public class ObjectFactory {
     }
   }
 
-  private static void addInteraction(String[] assets, Entity obstacle) {
-    switch (assets[2]) {
+  private static void addInteraction(String interactionID, Entity obstacle) {
+    switch (interactionID) {
       case "0":
         // Use for manual component adding
         break;
