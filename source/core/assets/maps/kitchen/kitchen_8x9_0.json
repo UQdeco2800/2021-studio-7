@@ -3,7 +3,7 @@
     a: {
       class: com.deco2800.game.maps.terrain.TerrainFactory
       method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png]
+      assets: [images/tiles/iso/iso_floor_tiles_quarter_white.png]
     }
   }
   entityMap: {
@@ -71,24 +71,24 @@
     }
   }
   tileGrid: [
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., .]
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a]
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W],
-    [W, c, f, ., ., ., ., .],
-    [W, c, ., ., ., ., Y, .],
+    [W, c, f, c, c, ., ., .],
+    [W, c, ., ., ., ., ., .],
     [W, S, ., ., ., ., ., .],
     [W, s, ., P, ., ., ., .],
     [W, c, ., ., ., ., ., .],
-    [W, b, ., ., ., w, ., p],
+    [W, w, ., ., ., ., ., p],
     [W, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., .]
   ]

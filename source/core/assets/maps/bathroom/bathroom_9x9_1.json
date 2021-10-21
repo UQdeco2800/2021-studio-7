@@ -13,8 +13,8 @@
       assets: [images/objects/walls/3.png, 0, 0, 0]
       }
     s: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createVanity
       assets: [images/objects/furniture/sink_southwest.png, 0, 0, 0]
     }
     B: {

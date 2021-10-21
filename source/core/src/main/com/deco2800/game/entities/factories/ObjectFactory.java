@@ -108,9 +108,24 @@ public class ObjectFactory {
 
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObject(assets);
+    bookcase.setScale(1f, 1.5f);
     PhysicsUtils.setColliderShape(bookcase, 1f, 1f);
     PhysicsUtils.setColliderOffset(bookcase, 0, 0.3f);
     return bookcase;
+  }
+
+  public static Entity createVanity(String[] assets) {
+      Entity vanity = createBaseObject(assets);
+      vanity.setScale(0.75f, 1.25f);
+      PhysicsUtils.setColliderShape(vanity, 1f, 1f);
+      return vanity;
+  }
+
+  public static Entity createGameTable(String[] assets) {
+      Entity game = createBaseObject(assets);
+      game.setScale(1.5f, 1f);
+      PhysicsUtils.setColliderShape(game, 1f, 2f);
+      return game;
   }
 
   public static Entity createBath(String[] assets) {
@@ -205,9 +220,16 @@ public class ObjectFactory {
 
   public static Entity createClothesDrying(String[] assets) {
     Entity clothes = createBaseObject(assets);
-    clothes.setScale(1.5f, 1f);
+    clothes.setScale(2f, 2f);
     PhysicsUtils.setColliderShape(clothes, 1f, 2f);
     return clothes;
+  }
+
+  public static Entity createWashingMachine(String[] assets) {
+      Entity machine = createBaseObject(assets);
+      machine.setScale(1f,1f);
+      PhysicsUtils.setColliderShape(machine, 1f, 1f);
+      return machine;
   }
 
   public static Entity createDiningTable(String[] assets) {
@@ -215,13 +237,6 @@ public class ObjectFactory {
     diningTable.setScale(0.5f, 0.5f);
     PhysicsUtils.setScaledCollider(diningTable, 0.5f, 1.5f);
     return diningTable;
-  }
-
-  public static Entity createGameTable(String[] assets) {
-    Entity gameTable = createBaseObject(assets);
-    gameTable.setScale(1f, 2f);
-    PhysicsUtils.setScaledCollider(gameTable, 1f, 1.5f);
-    return gameTable;
   }
 
   public static Entity createNintendo(String[] assets) {
@@ -246,7 +261,7 @@ public class ObjectFactory {
 
   public static Entity createStorageCabinet(String[] assets) {
     Entity cabinet = createBaseObject(assets);
-    cabinet.setScale(0.5f, 0.5f);
+    cabinet.setScale(1f, 1f);
     PhysicsUtils.setScaledCollider(cabinet, 0.5f, 1.5f);
     return cabinet;
   }
@@ -375,6 +390,8 @@ public class ObjectFactory {
         obstacle.addComponent(new HorizontalDoorActions());
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
+      default:
+        logger.debug("Invalid interactionID provided");
     }
   }
 

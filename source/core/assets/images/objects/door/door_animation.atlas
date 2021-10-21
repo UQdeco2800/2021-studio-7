@@ -1,61 +1,61 @@
 door_animation.png
-size: 900, 182
+size: 1312, 180
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 door_close_left_re
   rotate: false
-  xy: 333, 1
-  size: 93, 180
+  xy: 0, 0
+  size: 164, 180
   orig: 164, 180
   offset: 0, 0
   index: -1
 door_close_right_re
   rotate: false
-  xy: 428, 1
-  size: 93, 180
+  xy: 164, 0
+  size: 164, 180
   orig: 164, 180
-  offset: 71, 0
+  offset: 0, 0
   index: -1
 door_open_left_re
   rotate: false
-  xy: 1, 1
+  xy: 328, 0
   size: 164, 180
   orig: 164, 180
   offset: 0, 0
   index: -1
 door_open_right_re
   rotate: false
-  xy: 167, 1
+  xy: 492, 0
   size: 164, 180
   orig: 164, 180
   offset: 0, 0
   index: -1
 left_highlight
   rotate: false
-  xy: 523, 1
-  size: 93, 180
+  xy: 656, 0
+  size: 164, 180
   orig: 164, 180
   offset: 0, 0
   index: -1
 left_highlight_d
   rotate: false
-  xy: 713, 1
-  size: 92, 180
+  xy: 820, 0
+  size: 164, 180
   orig: 164, 180
   offset: 0, 0
   index: -1
 right_highlight
   rotate: false
-  xy: 618, 1
-  size: 93, 180
+  xy: 984, 0
+  size: 164, 180
   orig: 164, 180
-  offset: 71, 0
+  offset: 0, 0
   index: -1
 right_highlight_d
   rotate: false
-  xy: 807, 1
-  size: 92, 180
+  xy: 1148, 0
+  size: 164, 180
   orig: 164, 180
-  offset: 72, 0
+  offset: 0, 0
   index: -1
