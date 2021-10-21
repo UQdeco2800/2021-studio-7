@@ -30,7 +30,7 @@
     u: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createLounge
-      assets: [images/objects/furniture/sofa-back.png, 0, 0, 0
+      assets: [images/objects/furniture/sofa-back.png, 0, 0, 0]
     }
     l: {
       class: com.deco2800.game.entities.factories.ObjectFactory
@@ -61,7 +61,7 @@
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createPlant,
       assets: [images/objects/plant/plant_animation.atlas, 0, 0, 5]
-    },
+    }
     t: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
       method: createPottedPlant,
