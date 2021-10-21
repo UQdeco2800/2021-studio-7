@@ -5,11 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
-import com.deco2800.game.chores.Chore;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
+import com.deco2800.game.entities.components.interactions.GenericChore;
+import com.deco2800.game.entities.components.interactions.GenericToggleHighlight;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -22,7 +23,6 @@ import com.deco2800.game.rendering.components.TextureRenderComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -69,28 +69,14 @@ public class ObjectFactory {
 
   public static Entity createVerticalDoor(String[] assets) {
       Entity verticalDoor = createBaseInteractable(assets);
-      //Entity verticalDoor = new Entity();
       return verticalDoor;
   }
-
-  public static Entity createDoor(String[] assets) {
-//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-//            .addComponent(new DoorActions());
-    return new Entity();
-  }
-
 
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
-  public static Entity createPlant(String[] assets) {
-    Entity plant = createBaseChore(assets);
-    PhysicsUtils.setColliderShape(plant, 1f, 1f);
-    return plant;
-  }
-
 
   public static Entity createDishwasher(String[] assets) {
     Entity dishWasher = createBaseChore(assets);
@@ -98,6 +84,13 @@ public class ObjectFactory {
     return dishWasher;
   }
 
+  public static Entity createPlant(String[] assets) {
+    Entity plant = createBaseChore(assets)
+            .addComponent(new GenericToggleHighlight("plant"))
+            .addComponent(new GenericChore(ChoreList.PLANT));
+    PhysicsUtils.setColliderShape(plant, 1f, 1f);
+    return plant;
+  }
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets);
@@ -295,7 +288,6 @@ public class ObjectFactory {
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
-    List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
 
@@ -360,7 +352,8 @@ public class ObjectFactory {
   private static void addInteraction(String interactionID, Entity obstacle) {
     switch (interactionID) {
       case "0":
-        logger.error("Interaction ID for non-interaction entity called");
+        // Use for manual component adding
+        break;
       case "1":
         obstacle.addComponent(new TvActions());
         break;
@@ -379,12 +372,6 @@ public class ObjectFactory {
         break;
       case "6":
         obstacle.addComponent(new WashingDishesActions());
-        break;
-      case "7":
-        obstacle.addComponent(new PlantActions());
-        break;
-      case "8":
-        obstacle.addComponent(new ShrubActions());
         break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
