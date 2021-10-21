@@ -58,8 +58,6 @@ public class MainMenuDisplay extends UIComponent {
     }
 
     private void addActors() {
-        //resetMenuIndex();
-
         Table tableLeft = new Table();
         Table tableRight = new Table();
         tableMain = new Table();
@@ -104,7 +102,7 @@ public class MainMenuDisplay extends UIComponent {
         imageButtons.add(leftBtn);
         imageButtons.add(rightBtn);
 
-        this.menuIndicator = createMenuIndicator();
+        setMenuIndicator();
 
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -343,13 +341,9 @@ public class MainMenuDisplay extends UIComponent {
         logger.info("Menu Index is {}", menuIndex);
     }
 
-    private static Image createMenuIndicator() {
-        return new Image(ServiceLocator.getResourceService()
+    private void setMenuIndicator() {
+        this.menuIndicator = new Image(ServiceLocator.getResourceService()
                 .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
-    }
-
-    private static void resetMenuIndex() {
-        menuIndex = 0;
     }
 
     /**
