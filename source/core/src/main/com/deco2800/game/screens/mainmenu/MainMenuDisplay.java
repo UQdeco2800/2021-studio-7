@@ -49,7 +49,7 @@ public class MainMenuDisplay extends UIComponent {
     private static int menuIndex = 0;
     private static List<TextButton> buttons = new ArrayList<>();
     private static List<ImageButton> imageButtons = new ArrayList<>();
-    private static Image menuIndicator;
+    private static Image menuIndicator = createMenuIndicator();
 
     private Random r = new Random();
 
@@ -110,8 +110,6 @@ public class MainMenuDisplay extends UIComponent {
 
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
-
-        menuIndicator = createMenuIndicator();
 
         // Triggers an event when the button is pressed
         startBtn.addListener(

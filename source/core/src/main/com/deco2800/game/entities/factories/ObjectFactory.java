@@ -108,7 +108,7 @@ public class ObjectFactory {
 
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObject(assets);
-    bookcase.setScale(1f, 0.75f);
+    bookcase.setScale(1f, 1.5f);
     PhysicsUtils.setColliderShape(bookcase, 1f, 1f);
     PhysicsUtils.setColliderOffset(bookcase, 0, 0.3f);
     return bookcase;
@@ -261,7 +261,7 @@ public class ObjectFactory {
 
   public static Entity createStorageCabinet(String[] assets) {
     Entity cabinet = createBaseObject(assets);
-    cabinet.setScale(0.5f, 0.5f);
+    cabinet.setScale(1f, 1f);
     PhysicsUtils.setScaledCollider(cabinet, 0.5f, 1.5f);
     return cabinet;
   }
@@ -395,6 +395,8 @@ public class ObjectFactory {
       case "11":
         obstacle.addComponent(new BookActions())
                 .addComponent(new SingleUse());
+      default:
+        logger.debug("Invalid interactionID provided");
     }
   }
 
