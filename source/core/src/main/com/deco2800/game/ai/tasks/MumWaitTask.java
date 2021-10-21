@@ -9,7 +9,6 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
 
     private MovementTask movementTask;
     private WaitTask waitTask;
-    private Vector2 startPos;
     private int priority = 100;
     private Task currentTask;
 
@@ -35,11 +34,9 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
     }
     @Override
     public void update() {
-        if (currentTask.getStatus() != Status.ACTIVE) {
-            if (currentTask == waitTask) {
-                startMoving();
-                this.priority = -1; //Change priority to now chase.
-            }
+        if (currentTask.getStatus() != Status.ACTIVE && currentTask == waitTask) {
+            startMoving();
+            this.priority = -1; //Change priority to now chase.
         }
         currentTask.update();
     }

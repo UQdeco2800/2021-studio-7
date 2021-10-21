@@ -51,8 +51,6 @@ public class MainMenuDisplay extends UIComponent {
     private static List<ImageButton> imageButtons = new ArrayList<>();
     private static Image menuIndicator = createMenuIndicator();
 
-    private Random r = new Random();
-
     @Override
     public void create() {
         super.create();
@@ -206,6 +204,7 @@ public class MainMenuDisplay extends UIComponent {
     return Z_INDEX;
   }
 
+    @Override
     public void dispose() {
         tableMain.clear();
         super.dispose();
