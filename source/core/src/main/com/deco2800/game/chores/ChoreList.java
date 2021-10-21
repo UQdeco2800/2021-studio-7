@@ -10,7 +10,8 @@ public enum ChoreList {
     DISHWASHER,
     PLANT,
     SHRUB,
-    BOOKS;
+    BOOKS,
+    TRASH;
     // Keep adding more
 
     /**
@@ -34,6 +35,8 @@ public enum ChoreList {
                 return "Trim the shrubs";
             case BOOKS:
                 return "Pick up books";
+            case TRASH:
+                return "Pick up trash";
             default:
                 return null;
         }
@@ -60,6 +63,8 @@ public enum ChoreList {
                 return "Trim the shrubs";
             case BOOKS:
                 return "Pick up books";
+            case TRASH:
+                return "Pick up trash";
             default:
                 return null;
         }

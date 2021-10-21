@@ -26,6 +26,16 @@
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWashingMachine
       assets:[images/objects/chores/washing_machine_basket_on_top.png, 0,0,0]
+    },
+    X: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallestBaseChore,
+      assets: [images/objects/chores/empty_can.atlas, 1, 12, 8]
+    },
+    Y: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallestBaseChore,
+      assets: [images/objects/chores/paper_ball.atlas, 1, 12, 8]
     }
   }
   tileGrid: [
@@ -44,11 +54,11 @@
     [W, W, W, W, W, W, W, W, W, W],
     [W, ., ., ., L, ., w, ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
+    [W, ., X, ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., U, ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
+    [W, Y, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., .]
   ]

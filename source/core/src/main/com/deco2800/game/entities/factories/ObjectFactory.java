@@ -305,6 +305,13 @@ public class ObjectFactory {
     List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
+  public static Entity createSmallestBaseChore(String[] assets) {
+    Entity entity = createBaseInteractable(assets);
+    entity.setScale(0.25f, 0.25f);
+    ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
+    List<Chore> active = ServiceLocator.getChoreController().getChores();
+    return entity;
+  }
 
   public static Entity createBaseInteractable(String[] assets) {
     // Set interactable to have a base hitbox component
@@ -404,6 +411,11 @@ public class ObjectFactory {
       case "11":
         obstacle.addComponent(new BookActions())
                 .addComponent(new SingleUse());
+        break;
+      case "12":
+        obstacle.addComponent(new TrashActions())
+                .addComponent(new SingleUse());
+        break;
       default:
         logger.debug("Invalid interactionID provided");
     }
@@ -425,6 +437,8 @@ public class ObjectFactory {
         return ChoreList.SHRUB;
       case "7":
         return ChoreList.BOOKS;
+      case "8":
+        return ChoreList.TRASH;
       default:
         logger.debug("Invalid choreID provided");
         return null;
