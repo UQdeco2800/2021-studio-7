@@ -38,7 +38,7 @@ public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
     private static final String PLAYER_BED_ATLAS = "images/objects/bed/bed_animation.atlas";
-    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/game-table.png";
+    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/newBed.png";
 
     private OrthographicCamera camera;
     private Entity player = null;
