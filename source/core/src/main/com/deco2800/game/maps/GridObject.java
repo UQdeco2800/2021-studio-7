@@ -53,6 +53,16 @@ public class GridObject implements Json.Serializable {
         return assetsWithExtension;
     }
 
+    public List<Integer> getAssetIndexes() {
+        List<Integer> assetIndexes = new ArrayList<>();
+        for (int i = 0; i < assets.length; i++) {
+            if (assets[i].endsWith(".png") || assets[i].endsWith(".atlas")) {
+                assetIndexes.add(i);
+            }
+        }
+        return assetIndexes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
