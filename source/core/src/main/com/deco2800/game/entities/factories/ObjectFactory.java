@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.chores.Chore;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.interactions.BaseInteractable;
@@ -13,6 +14,7 @@ import com.deco2800.game.entities.components.object.BedActions;
 import com.deco2800.game.entities.components.object.DrinkActions;
 import com.deco2800.game.entities.components.object.TvActions;
 import com.deco2800.game.entities.components.object.PlaceableBoxActions;
+import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.entities.components.SingleUse;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -223,6 +225,17 @@ public class ObjectFactory {
     return stove;
   }
 
+  public static Entity createFishTank(String[] assets) {
+    Entity fishTank = createBaseObject(assets);
+    PhysicsUtils.setScaledCollider(fishTank, 1f,1f);
+    return fishTank;
+  }
+  public static Entity createClock(String[] assets) {
+    Entity clock = createBaseObject(assets);
+    PhysicsUtils.setScaledCollider(clock, 1f,1f);
+    return clock;
+  }
+
 
   /**
    * Creates the object as a chore, and registers it as a chore to the ChoreController
@@ -234,6 +247,7 @@ public class ObjectFactory {
   public static Entity createBaseChore(String[] assets) {
     Entity entity = createBaseInteractable(assets);
     ServiceLocator.getChoreController().addChore(entity, getChoreType(assets[3]));
+    List<Chore> active = ServiceLocator.getChoreController().getChores();
     return entity;
   }
 
@@ -322,6 +336,8 @@ public class ObjectFactory {
         String name = fileName.split("\\.")[0];
 
         obstacle.addComponent(new BaseInteractable(name));
+      case "6":
+        obstacle.addComponent(new WashingDishesActions());
     }
   }
 
@@ -333,6 +349,8 @@ public class ObjectFactory {
         return ChoreList.DRINK;
       case "3":
         return ChoreList.PUDDLE;
+      case "4":
+        return ChoreList.DISHWASHER;
       default:
         logger.debug("Invalid choreID provided");
         return null;

@@ -6,7 +6,8 @@ package com.deco2800.game.chores;
 public enum ChoreList {
     TV,
     DRINK,
-    PUDDLE;
+    PUDDLE,
+    DISHWASHER;
     // Keep adding more
 
     /**
@@ -23,7 +24,8 @@ public enum ChoreList {
 
             case PUDDLE:
                 return "Clean up a puddle";
-
+            case DISHWASHER:
+                return "Wash the dishes";
             default:
                 return null;
         }
@@ -44,7 +46,8 @@ public enum ChoreList {
 
             case PUDDLE:
                 return "Clean up " + amount + " puddles";
-
+            case DISHWASHER:
+                return "Wash the dishes";
             default:
                 return null;
         }

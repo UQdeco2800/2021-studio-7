@@ -1,7 +1,6 @@
 package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.entities.Entity;
@@ -13,7 +12,6 @@ import com.deco2800.game.input.InputService;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
-import com.deco2800.game.screens.context.ContextInputProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +26,9 @@ public class ContextScreen extends ScreenAdapter {
     };
 
     private final Renderer renderer;
+    private Stage stage;
+    private static int screen = 1;
+    private static boolean skip = false;
 
     public ContextScreen() {
 
@@ -43,12 +44,25 @@ public class ContextScreen extends ScreenAdapter {
         createUI();
     }
 
+    public static int getScreen() {
+        return screen;
+    }
+
+    public static void setSkip() {
+        skip = true;
+    }
+
+    public static boolean getSkip() {
+        return skip;
+    }
+
+
     @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            ContextScreenDisplay.playButton();
+        if (stage != null) {
+            stage.draw();
         }
     }
 
@@ -105,7 +119,9 @@ public class ContextScreen extends ScreenAdapter {
         ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ContextScreenActions());
+        ContextInputProcessor input = new ContextInputProcessor();
+        ui.addComponent(input);
+        Gdx.input.setInputProcessor(input);
         ServiceLocator.getEntityService().register(ui);
-        Gdx.input.setInputProcessor(new ContextInputProcessor());
     }
 }
