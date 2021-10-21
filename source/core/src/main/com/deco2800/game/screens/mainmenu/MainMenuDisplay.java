@@ -49,9 +49,7 @@ public class MainMenuDisplay extends UIComponent {
     private static int menuIndex = 0;
     private static List<TextButton> buttons = new ArrayList<>();
     private static List<ImageButton> imageButtons = new ArrayList<>();
-    private static Image menuIndicator = createMenuIndicator();
-
-    private Random r = new Random();
+    private static Image menuIndicator;
 
     @Override
     public void create() {
@@ -107,6 +105,7 @@ public class MainMenuDisplay extends UIComponent {
         imageButtons.add(leftBtn);
         imageButtons.add(rightBtn);
 
+        this.menuIndicator = createMenuIndicator();
 
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
@@ -206,6 +205,7 @@ public class MainMenuDisplay extends UIComponent {
     return Z_INDEX;
   }
 
+    @Override
     public void dispose() {
         tableMain.clear();
         super.dispose();

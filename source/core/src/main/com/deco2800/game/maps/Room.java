@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
@@ -54,9 +53,8 @@ public class Room implements Json.Serializable {
         }
     }
 
-    public void create(Floor floor) {
+    public void create() {
         if (!created) {
-            this.floor = floor;
             if (type.equals("hallway")) {
                 createHallwayInterior();
             } else if (tileMap == null) {
@@ -79,7 +77,13 @@ public class Room implements Json.Serializable {
             for (int y = 0; y < dimensions.y; y++) {
                 tileGrid[x][y] = '.';
                 if (x == 0 || y == dimensions.y - 1) {
-                    entityGrid[x][y] = 'W';
+                    Character floorOverride = floor.getFloorGrid()[x + offset.x][y + offset.y];
+                    if (floor.getEntityMap().get(floorOverride) != null) {
+                        entityGrid[x][y] = floorOverride;
+                        floor.getFloorGrid()[x + offset.x][y + offset.y] = getRoomKey();
+                    } else {
+                        entityGrid[x][y] = 'W';
+                    }
                 } else {
                     entityGrid[x][y] = '.';
                 }
@@ -97,10 +101,12 @@ public class Room implements Json.Serializable {
         Interior randomInterior;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
-            randomInterior = FileLoader.readClass(Interior.class, fileHandle.path());
             fileHandles.remove(fileHandle);
 
-            if (!dimensions.equals(randomInterior.getDimensions())) {
+            randomInterior = FileLoader.readClass(Interior.class, fileHandle.path());
+            randomInterior.setRoom(this);
+
+            if (!dimensions.equals(randomInterior.getDimensions()) || !randomInterior.calibrateInteriorToRoom()) {
                 randomInterior = null;
             }
         } while (randomInterior == null && !fileHandles.isEmpty());
@@ -113,6 +119,17 @@ public class Room implements Json.Serializable {
         entityMap = randomInterior.getEntityMap();
         tileGrid = randomInterior.getTileGrid();
         entityGrid = randomInterior.getEntityGrid();
+        relaxFloorToRoom();
+    }
+
+    private void relaxFloorToRoom() {
+        Character roomKey = getRoomKey();
+        for (int x = 0; x < dimensions.x; x++) {
+            for (int y = 0; y < dimensions.y; y++) {
+                GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
+                floor.getFloorGrid()[worldPos.x][worldPos.y] = roomKey;
+            }
+        }
     }
 
     /**
@@ -139,23 +156,15 @@ public class Room implements Json.Serializable {
      * symbol is not defined on the grid, it is assumed that no entity should be spawned there.
      * If the room's key is not present at the relative world position on the floor plan,
      * then it is assumed that the room entity is overridden by the floor plan.
-     * @param key symbol throughout the floor plan that denotes this room.
      */
-    public void spawnRoomEntities(Character key) {
+    public void spawnRoomEntities() {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                Character floorSymbol = floor.getFloorGrid()[worldPos.x][worldPos.y];
                 Character roomSymbol = entityGrid[x][y];
-                GridObject roomEntity;
-                if (!floorSymbol.equals(key)) {
-                    // Restore overridden room symbol on floor grid
-                    floor.getFloorGrid()[worldPos.x][worldPos.y] = key;
-                    // Retain overriding entity on room's entity grid
-                    entityGrid[x][y] = floorSymbol;
-                    roomEntity = floor.getEntityMap().get(floorSymbol);
-                } else {
-                    roomEntity = entityMap.get(roomSymbol);
+                GridObject roomEntity = entityMap.get(roomSymbol);
+                if (roomEntity == null && !roomSymbol.equals('.')) {
+                    roomEntity = floor.getEntityMap().get(roomSymbol);
                 }
                 if (roomEntity == null) {
                     continue;
@@ -215,6 +224,23 @@ public class Room implements Json.Serializable {
 
     public Character[][] getEntityGrid() {
         return entityGrid;
+    }
+
+    public void setFloor(Floor floor) {
+        this.floor = floor;
+    }
+
+    public Floor getFloor() {
+        return floor;
+    }
+
+    public Character getRoomKey() {
+        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(floor.getRoomMap())) {
+            if (entry.value == this) {
+                return entry.key;
+            }
+        }
+        return null;
     }
 
     /**

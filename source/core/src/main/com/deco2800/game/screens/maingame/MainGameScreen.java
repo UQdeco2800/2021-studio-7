@@ -83,7 +83,6 @@ public class MainGameScreen extends ScreenAdapter {
     } else {
       home = new Home();
     }
-    home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
 
     home.create(renderer.getCamera());
@@ -209,11 +208,10 @@ public class MainGameScreen extends ScreenAdapter {
     InputComponent inputComponent = ServiceLocator.getInputService().getInputFactory().createForTerminal();
 
     mainGameEntity.addComponent(new InputDecorator(stage, 10))
-        //.addComponent(new MainGameFogScreen())
+        .addComponent(new MainGameFogScreen())
         .addComponent(new PerformanceDisplay())
         .addComponent(new MainGameActions())
         .addComponent(new MainGamePauseMenuDisplay())
-        //.addComponent(new MainGameExitDisplay())
         .addComponent(new MainGameTimerDisplay())
         .addComponent(new MainGameTextDisplay())
         .addComponent(new ChoreUI())

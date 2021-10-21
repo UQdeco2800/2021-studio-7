@@ -5,11 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MumWaitTask extends DefaultTask implements PriorityTask {
-    private static final Logger logger = LoggerFactory.getLogger(SlipTask.class);
+    private static final Logger logger = LoggerFactory.getLogger(MumWaitTask.class);
 
     private MovementTask movementTask;
     private WaitTask waitTask;
-    private Vector2 startPos;
     private int priority = 100;
     private Task currentTask;
 
@@ -35,11 +34,9 @@ public class MumWaitTask extends DefaultTask implements PriorityTask {
     }
     @Override
     public void update() {
-        if (currentTask.getStatus() != Status.ACTIVE) {
-            if (currentTask == waitTask) {
-                startMoving();
-                this.priority = -1; //Change priority to now chase.
-            }
+        if (currentTask.getStatus() != Status.ACTIVE && currentTask == waitTask) {
+            startMoving();
+            this.priority = -1; //Change priority to now chase.
         }
         currentTask.update();
     }

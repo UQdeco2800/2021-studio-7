@@ -3,21 +3,21 @@ size: 768, 256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-dead_plant
+plant
   rotate: false
   xy: 0, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-dead_plant_highlight
+plant_highlight
   rotate: false
   xy: 256, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-pot_plant
+plant_off
   rotate: false
   xy: 512, 0
   size: 256, 256
