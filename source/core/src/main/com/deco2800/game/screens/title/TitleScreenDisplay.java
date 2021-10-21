@@ -4,20 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.endgame.EndGameDisplay;
 import com.deco2800.game.ui.components.UIComponent;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A ui component for displaying the Tittle screen.
  */
 public class TitleScreenDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
 
@@ -57,7 +52,6 @@ public class TitleScreenDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-    @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }

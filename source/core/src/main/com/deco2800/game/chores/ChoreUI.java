@@ -3,9 +3,11 @@ package com.deco2800.game.chores;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
+
 
 import java.util.List;
 
@@ -28,13 +30,18 @@ public class ChoreUI extends UIComponent {
 
         // Display Text
         displayText = new Label("", skin, "large");
-        displayText.setSize(colWidth*6f, rowHeight*6f);
-        displayText.setPosition(colWidth/12f, rowHeight*6f);
+        displayText.setSize(colWidth*4f, rowHeight*6f);
         displayText.setFontScale((colWidth*10f)/1280f); // Scale font to screen size
-        displayText.setAlignment(Align.topLeft);
+        displayText.setAlignment(Align.topRight);
         displayText.setWrap(true);
 
-        stage.addActor(displayText);
+        Table table = new Table();
+        table.top().right();
+        table.pad(30f);
+        table.setFillParent(true);
+        table.add(displayText);
+
+        stage.addActor(table);
 
         entity.getEvents().addListener("toggle_chores", this::toggleDisplay);
     }
@@ -91,7 +98,7 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chore entities completed changes
-        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
+        if (displaying && ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }
     }
@@ -99,5 +106,11 @@ public class ChoreUI extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        hide();
     }
 }

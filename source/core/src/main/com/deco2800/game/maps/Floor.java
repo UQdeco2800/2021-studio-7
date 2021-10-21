@@ -37,11 +37,14 @@ import java.util.Objects;
 public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
+    private static final String PLAYER_BED_ATLAS = "images/objects/bed/bed_animation.atlas";
+    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/game-table.png";
 
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
     private Entity mum = null;
+    private List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -161,6 +164,7 @@ public class Floor extends GameArea implements Json.Serializable {
         spawnBorders();
         spawnCat();
         spawnMum();
+        spawnBeds();
     }
 
     /**
@@ -227,17 +231,18 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns border walls into the world. These borders outline the map given by the floor grid
      */
     private void spawnBorders() {
+        String[] boarderspec = {"", "0"};
         // Spawns north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
         }
         // Spawns east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }
@@ -263,6 +268,32 @@ public class Floor extends GameArea implements Json.Serializable {
         mum = NPCFactory.createMum(mumAssets);
         spawnEntityAt(mum, new GridPoint2(24,0), true, true);
 
+    }
+
+    private void spawnBeds() {
+        GridObject playerBed;
+        GridObject normalBed;
+        try {
+            playerBed = new GridObject(ObjectFactory.class.getMethod("createPlayerBed", String[].class),
+                    new String[]{PLAYER_BED_ATLAS, "0","4", "0"});
+            normalBed = new GridObject(ObjectFactory.class.getMethod("createNormalBed", String[].class),
+                    new String[]{NORMAL_BED_TEXTURE, "0", "0", "0"});
+        } catch (NoSuchMethodException e) {
+            throw new NullPointerException("Could not retrieve either createNormalBed or createPlayerBed methods");
+        }
+
+        GridPoint2 playerBedPosition = bedPositions.get(RandomUtils.getSeed().nextInt(bedPositions.size()));
+        spawnGridEntity(playerBed, playerBedPosition);
+
+        bedPositions.remove(playerBedPosition);
+        for (GridPoint2 normalBedPosition : bedPositions) {
+            spawnGridEntity(normalBed, normalBedPosition);
+        }
+        bedPositions.add(playerBedPosition);
+    }
+
+    public void stashBedPosition(GridPoint2 worldPos) {
+        bedPositions.add(worldPos);
     }
 
     public GridObject getDefaultInteriorTile() {
@@ -332,7 +363,9 @@ public class Floor extends GameArea implements Json.Serializable {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTexture(NORMAL_BED_TEXTURE);
         resourceService.loadTextures(getAssets(".png"));
+        resourceService.loadTextureAtlas(PLAYER_BED_ATLAS);
         resourceService.loadTextureAtlases(getAssets(".atlas"));
 
         while (!resourceService.loadForMillis(20)) {

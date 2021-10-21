@@ -1,9 +1,5 @@
 package com.deco2800.game.files;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Graphics.DisplayMode;
@@ -12,6 +8,8 @@ import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.files.UserSettings.Settings;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 class UserSettingsTest {
@@ -22,15 +20,15 @@ class UserSettingsTest {
     when(Gdx.graphics.getDisplayMode()).thenReturn(displayMode);
 
     Settings settings = new Settings();
-    settings.vsync = true;
-    settings.displayMode = null;
-    settings.fullscreen = true;
-    settings.fps = 40;
+    settings.setVsync(true);
+    settings.setDisplayMode(null);
+    settings.setFullscreen(true);
+    settings.setFps(40);
     UserSettings.applySettings(settings);
 
-    verify(Gdx.graphics).setForegroundFPS(settings.fps);
+    verify(Gdx.graphics).setForegroundFPS(settings.getFps());
     verify(Gdx.graphics).setFullscreenMode(displayMode);
-    verify(Gdx.graphics).setVSync(settings.vsync);
+    verify(Gdx.graphics).setVSync(settings.isVsync());
   }
 
   @Test
@@ -45,11 +43,11 @@ class UserSettingsTest {
     when(Gdx.graphics.getDisplayModes()).thenReturn(displayModes);
 
     Settings settings = new Settings();
-    settings.displayMode = new DisplaySettings();
-    settings.displayMode.height = 100;
-    settings.displayMode.width = 200;
-    settings.displayMode.refreshRate = 60;
-    settings.fullscreen = true;
+    settings.setDisplayMode(new DisplaySettings());
+    settings.getDisplayMode().height = 100;
+    settings.getDisplayMode().width = 200;
+    settings.getDisplayMode().refreshRate = 60;
+    settings.setFullscreen(true);
     UserSettings.applySettings(settings);
 
     verify(Gdx.graphics).setFullscreenMode(correctMode);

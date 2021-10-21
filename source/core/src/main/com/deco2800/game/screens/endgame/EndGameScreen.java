@@ -2,6 +2,7 @@ package com.deco2800.game.screens.endgame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -29,6 +30,11 @@ public class EndGameScreen extends ScreenAdapter {
 
     private final Renderer renderer;
 
+    private static final String[] buttonSounds = {
+            "sounds/confirm.ogg",
+            "sounds/browse-short.ogg"
+    };
+
     public EndGameScreen(GdxGame.ScreenType result) {
         this.result = result;
         switch (this.result) {
@@ -53,6 +59,20 @@ public class EndGameScreen extends ScreenAdapter {
 
         loadAssets();
         createUI();
+
+        playButtonSound("enter");
+    }
+
+    public static void playButtonSound(String button) {
+        Sound sound;
+        if (button.equals("enter")) {
+            sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+        } else {
+            sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+        }
+
+        sound.play();
+        logger.info("{} button sound played on end game screen", button);
     }
 
     @Override
@@ -102,6 +122,7 @@ public class EndGameScreen extends ScreenAdapter {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.loadTextures(activeScreenTextures);
+        resourceService.loadSounds(buttonSounds);
         ServiceLocator.getResourceService().loadAll();
     }
 
@@ -109,6 +130,7 @@ public class EndGameScreen extends ScreenAdapter {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
         resourceService.unloadAssets(activeScreenTextures);
+        resourceService.unloadAssets(buttonSounds);
     }
 
     /**

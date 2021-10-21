@@ -1,0 +1,84 @@
+{
+  tileMap: {
+    a: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createBaseTile
+      assets: [images/tiles/iso/iso_floor_tiles_half_white.png]
+    }
+  }
+  entityMap: {
+    W: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/walls/3.png, 0, 0, 0]
+      }
+    s: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/furniture/sink_southeast.png, 0, 0, 0]
+    }
+    B: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createBath
+      assets: [images/objects/furniture/bath_tub_southeast.png, 0, 0, 0]
+    }
+    b: {
+      class:com.deco2800.game.entities.factories.ObjectFactory
+      method: createBin
+      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
+    }
+    t: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPottedPlant,
+      assets: [images/objects/furniture/pot_plant.png, 0, 0, 0]
+    },
+    T: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createTowelHanger,
+      assets: [images/objects/furniture/towel_hanger_southeast.png, 0, 0, 0]
+    },
+    S: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createShelf,
+      assets: [images/objects/furniture/shelf1_southeast.png, 0, 0, 0]
+    },
+    P: {
+      class:com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/furniture/toilet_southeast.png, 0, 0, 0]
+    }
+    p: {
+      class:com.deco2800.game.entities.factories.ObjectFactory
+      method: createPuddle //make puddle a atlas
+      assets: [images/objects/puddle/puddle.atlas, 2, 5, 0]
+    }
+  },
+  tileGrid: [
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a],
+  ],
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W],
+    [W, ., ., ., s, ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, s, ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, b, ., ., ., ., ., ., .],
+    [W, P, ., p, ., ., p, ., .],
+    [W, ., ., ., ., ., ., ., .]
+  ]
+  /*choreGrid: [
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .],
+    [., ., ., ., ., .]
+  ]*/
+}

@@ -6,7 +6,10 @@ package com.deco2800.game.chores;
 public enum ChoreList {
     TV,
     DRINK,
-    PUDDLE;
+    PUDDLE,
+    DISHWASHER,
+    PLANT,
+    SHRUB;
     // Keep adding more
 
     /**
@@ -17,13 +20,17 @@ public enum ChoreList {
         switch (this) {
             case TV:
                 return "Turn off TV";
-
             case DRINK:
                 return "Drink a can of Dountain Mew (TM)";
 
             case PUDDLE:
                 return "Clean up a puddle";
-
+            case DISHWASHER:
+                return "Wash the dishes";
+            case PLANT:
+                return "Water the plants";
+            case SHRUB:
+                return "Trim the shrubs";
             default:
                 return null;
         }
@@ -38,13 +45,16 @@ public enum ChoreList {
         switch (this) {
             case TV:
                 return "Turn off " + amount + " TVs";
-
             case DRINK:
                 return "Drink " + amount + " cans of Dountain Mew";
-
             case PUDDLE:
                 return "Clean up " + amount + " puddles";
-
+            case DISHWASHER:
+                return "Wash the dishes";
+            case PLANT:
+                return "Water the plants";
+            case SHRUB:
+                return "Trim the shrubs";
             default:
                 return null;
         }

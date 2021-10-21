@@ -1,0 +1,40 @@
+dishwashing_animation.png
+size: 700, 156
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dishwasher_notworking
+  rotate: false
+  xy: 0, 0
+  size: 140, 156
+  orig: 140, 156
+  offset: 0, 0
+  index: -1
+dishwasher_notworking2
+  rotate: false
+  xy: 140, 0
+  size: 140, 156
+  orig: 140, 156
+  offset: 0, 0
+  index: -1
+dishwasher_notworking3
+  rotate: false
+  xy: 280, 0
+  size: 140, 156
+  orig: 140, 156
+  offset: 0, 0
+  index: -1
+dishwasher_notworking4
+  rotate: false
+  xy: 420, 0
+  size: 140, 156
+  orig: 140, 156
+  offset: 0, 0
+  index: -1
+dishwasher_working
+  rotate: false
+  xy: 560, 0
+  size: 140, 156
+  orig: 140, 156
+  offset: 0, 0
+  index: -1

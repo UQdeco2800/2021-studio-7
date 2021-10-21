@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Movement controller for a physics-based entity. */
-public class PhysicsMovementComponent extends Component implements MovementController {
+public class
+PhysicsMovementComponent extends Component implements MovementController {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsMovementComponent.class);
   private static final Vector2 maxSpeed = Vector2Utils.ONE;
 
@@ -146,10 +147,6 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the mom is standing still this function triggers a standing event in the last direction.
    */
   public void standingEvents() {
-    Vector2 entityDirection = getDirection();
-    float x = entityDirection.x;
-    float y = entityDirection.y;
-
     if (lastDirection == 0) {
       entity.getEvents().trigger("update_animation", "standing_north");
 
@@ -281,10 +278,6 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the cat is standing still, this function triggers a standing event in the last direction.
    */
   public void standingEventsTwoD() {
-    Vector2 entityDirection = getDirection();
-    float x = entityDirection.x;
-    float y = entityDirection.y;
-
     if (lastDirection == 0) {//NORTH
       entity.getEvents().trigger("update_animation", "standing_north");
 

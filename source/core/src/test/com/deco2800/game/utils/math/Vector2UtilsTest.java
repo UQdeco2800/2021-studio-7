@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(GameExtension.class)
-public class Vector2UtilsTest {
+class Vector2UtilsTest {
 
     @Test
     void shouldDeserializeGridPoint2OnRead() {
         Vector2 vector2 = FileLoader
                 .readClass(Vector2Wrapper.class, "maps/testing/vector_2.json").vector2;
         assertNotNull(vector2);
-        assertEquals(vector2.x, 1);
-        assertEquals(vector2.y, 2);
+        assertEquals(1, vector2.x);
+        assertEquals(2, vector2.y);
     }
 
     static class Vector2Wrapper implements Json.Serializable {

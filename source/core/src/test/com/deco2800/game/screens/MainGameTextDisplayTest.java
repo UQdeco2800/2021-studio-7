@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(GameExtension.class)
-public class MainGameTextDisplayTest {
+class MainGameTextDisplayTest {
 
     @Test
     void create() {

@@ -8,7 +8,7 @@ import com.deco2800.game.ai.tasks.SlipTask;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.entities.components.player.PlayerStatsDisplay;
+import com.deco2800.game.entities.components.player.PlayerStatDisplay;
 import com.deco2800.game.entities.components.player.*;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.configs.PlayerConfig;
@@ -43,7 +43,7 @@ public class PlayerFactory {
   public static Entity createPlayer(String[] assets) {
     Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
-            .addComponent(new PlayerStatsDisplay())
+            .addComponent(new PlayerStatDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
             .addComponent(new ScoreComponent(2500))

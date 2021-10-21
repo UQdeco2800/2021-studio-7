@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
-public class InteractionControllerComponentTest {
+class InteractionControllerComponentTest {
 
     Entity entity;
     Entity target;
@@ -30,25 +30,25 @@ public class InteractionControllerComponentTest {
 
     @Test
     void shouldCreate() {
-        assertEquals(component.getTargetLayer(), PhysicsLayer.OBSTACLE);
+        assertEquals(PhysicsLayer.OBSTACLE, component.getTargetLayer());
         assertTrue(entity.getEvents().hasListener("toggle_interacting"));
     }
 
     @Test
     void shouldAddInteractableOnCollisionStart() {
         component.onCollisionStart(target);
-        assertEquals(component.getInteractables().size(), 1);
+        assertEquals(1, component.getInteractables().size());
         component.onCollisionStart(target);
-        assertEquals(component.getInteractables().size(), 1);
+        assertEquals(1, component.getInteractables().size());
     }
 
     @Test
     void shouldRemoveInteractableOnCollisionEnd() {
         component.onCollisionStart(target);
         component.onCollisionEnd(target);
-        assertEquals(component.getInteractables().size(), 0);
+        assertEquals(0, component.getInteractables().size());
         component.onCollisionEnd(target);
-        assertEquals(component.getInteractables().size(), 0);
+        assertEquals(0, component.getInteractables().size());
     }
 
     @Test
