@@ -43,8 +43,10 @@ public class PhysicsUtils {
      */
     public static void setColliderOffset(Entity entity, float offsetX, float offsetY) {
         ColliderComponent collider = entity.getComponent(ColliderComponent.class);
-        collider.setIsoShapeOffset(collider.getSides()[0], collider.getSides()[1],
-                      offsetX, offsetY);
+        collider.setIsoShapeOffset(
+                collider.getSides()[ColliderComponent.LEFT_SIDE],
+                collider.getSides()[ColliderComponent.RIGHT_SIDE],
+                offsetX, offsetY);
     }
 
     /**
@@ -68,8 +70,35 @@ public class PhysicsUtils {
      */
     public static void setHitboxOffset(Entity entity, float offsetX, float offsetY) {
         ColliderComponent hitbox = entity.getComponent(HitboxComponent.class);
-        hitbox.setIsoShapeOffset(hitbox.getSides()[0], hitbox.getSides()[1],
-                      offsetX, offsetY);
+        hitbox.setIsoShapeOffset(
+                hitbox.getSides()[ColliderComponent.LEFT_SIDE],
+                hitbox.getSides()[ColliderComponent.RIGHT_SIDE],
+                offsetX, offsetY);
+    }
+
+    public static void rotateCollider(Entity entity) {
+        float[] size = entity.getComponent(ColliderComponent.class).getSides();
+        float[] offset = entity.getComponent(ColliderComponent.class).getOffset();
+
+        float newLeft = size[ColliderComponent.RIGHT_SIDE];
+        float newRight = size[ColliderComponent.LEFT_SIDE];
+        float newOffX = offset[ColliderComponent.X_OFFSET] * -1;
+        float newOffY = offset[ColliderComponent.Y_OFFSET];
+
+        setColliderShape(entity, newLeft, newRight);
+        setColliderOffset(entity, newOffX, newOffY);
+    }
+
+    public static void rotateHitbox(Entity entity) {
+        float[] size = entity.getComponent(HitboxComponent.class).getSides();
+        float[] offset = entity.getComponent(HitboxComponent.class).getOffset();
+
+        float newLeft = size[ColliderComponent.RIGHT_SIDE];
+        float newRight = size[ColliderComponent.LEFT_SIDE];
+        float newOffX = offset[ColliderComponent.X_OFFSET] * -1;
+        float newOffY = offset[ColliderComponent.Y_OFFSET];
+
+        setHitboxShape(entity, newLeft, newRight);
     }
 
   private PhysicsUtils() {

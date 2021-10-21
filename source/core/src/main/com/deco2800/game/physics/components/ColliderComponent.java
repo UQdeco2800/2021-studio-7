@@ -15,6 +15,11 @@ import org.slf4j.LoggerFactory;
  * without interaction (if sensor = true)
  */
 public class ColliderComponent extends Component {
+  public static final int LEFT_SIDE = 0;
+  public static final int RIGHT_SIDE = 1;
+  public static final int X_OFFSET = 0;
+  public static final int Y_OFFSET = 1;
+
   private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
   private static final float X_SCALE = 1f;
   private static final float Y_SCALE = 0.5f;
@@ -25,6 +30,8 @@ public class ColliderComponent extends Component {
   private Vector2 scale;
   private float left;
   private float right;
+  private float offX;
+  private float offY;
 
   public ColliderComponent() {
     creationPriority = 2;
@@ -78,6 +85,9 @@ public class ColliderComponent extends Component {
             float bottomRight,
             float offsetX,
             float offsetY) {
+
+        this.offX = offsetX;
+        this.offY = offsetY;
 
         return setIsoShapeAligned(
                 bottomLeft, bottomRight,
@@ -311,6 +321,10 @@ public class ColliderComponent extends Component {
      */
     public float[] getSides() {
         return new float[]{this.left * ALIGN_SCALE, this.right * ALIGN_SCALE};
+    }
+
+    public float[] getOffset() {
+        return new float[]{this.offX, this.offY};
     }
 
     private Shape makeBoundingBox() {
