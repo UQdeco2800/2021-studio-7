@@ -55,7 +55,7 @@
     Z: {
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createPlant,
-      assets: [images/objects/plant/plant_animation.atlas, 0, 0, 5]
+      assets: [images/objects/plant/plant_animation.atlas, 0, 7, 5]
     }
 
   },
@@ -73,8 +73,8 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
     [W, B, ., ., ., ., T, ., ., ., ., .],
-    [W, B, ., ., ., ., N, ., ., Z, ., .],
-    [W, ., ., E, ., ., ., ., ., ., ., .],
+    [W, B, ., ., ., ., N, ., ., ., ., .],
+    [W, ., ., E, ., ., ., ., ., Z, ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., l, ., ., L, ., E, ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],

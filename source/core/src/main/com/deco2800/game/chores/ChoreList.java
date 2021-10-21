@@ -10,7 +10,8 @@ public enum ChoreList {
     DISHWASHER,
     PLANT,
     SHRUB,
-    BOOKS;
+    BOOKS,
+    TRASH;
     // Keep adding more
 
     /**
@@ -23,6 +24,7 @@ public enum ChoreList {
                 return "Turn off TV";
             case DRINK:
                 return "Drink a can of Dountain Mew (TM)";
+
             case PUDDLE:
                 return "Clean up a puddle";
             case DISHWASHER:
@@ -33,6 +35,8 @@ public enum ChoreList {
                 return "Trim the shrubs";
             case BOOKS:
                 return "Pick up books";
+            case TRASH:
+                return "Pick up trash";
             default:
                 return null;
         }
@@ -52,13 +56,15 @@ public enum ChoreList {
             case PUDDLE:
                 return "Clean up " + amount + " puddles";
             case DISHWASHER:
-                return "Wash " + amount + " dishes";
+                return "Wash the dishes";
             case PLANT:
-                return "Water " + amount + " plants";
+                return "Water the plants";
             case SHRUB:
-                return "Trim " + amount + " shrubs";
+                return "Trim the shrubs";
             case BOOKS:
-                return "Pick up" + amount + "books";
+                return "Pick up books";
+            case TRASH:
+                return "Pick up trash";
             default:
                 return null;
         }
