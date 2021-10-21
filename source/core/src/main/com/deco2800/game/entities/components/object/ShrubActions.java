@@ -25,7 +25,7 @@ public class ShrubActions extends InteractionComponent {
             entity.getEvents().trigger(updateAnimation, "Shrub");
             hasInteracted = true;
             // Tell the chore controller that this chore is complete
-            entity.getEvents().trigger("chore_complete", ChoreList.TV);
+            entity.getEvents().trigger("chore_complete", ChoreList.SHRUB);
         }
     }
 

@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.SingleUse;
+import com.deco2800.game.entities.components.interactions.GenericChore;
+import com.deco2800.game.entities.components.interactions.GenericToggleHighlight;
 import com.deco2800.game.entities.components.object.*;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
@@ -67,30 +69,28 @@ public class ObjectFactory {
 
   public static Entity createVerticalDoor(String[] assets) {
       Entity verticalDoor = createBaseInteractable(assets);
-      //Entity verticalDoor = new Entity();
       return verticalDoor;
   }
-
-  public static Entity createDoor(String[] assets) {
-//    Entity door = createBaseInteractable(assets, BodyType.StaticBody)
-//            .addComponent(new DoorActions());
-    return new Entity();
-  }
-
 
   public static Entity createTv(String[] assets) {
     Entity tv = createBaseChore(assets);
     PhysicsUtils.setColliderShape(tv, 1f, 1f);
     return tv;
   }
+
+  public static Entity createDishwasher(String[] assets) {
+    Entity dishWasher = createBaseChore(assets);
+    PhysicsUtils.setColliderShape(dishWasher, 1f, 1f);
+    return dishWasher;
+  }
+
   public static Entity createPlant(String[] assets) {
-    Entity plant = createBaseChore(assets);
+    Entity plant = createBaseChore(assets)
+            .addComponent(new GenericToggleHighlight("plant"))
+            .addComponent(new GenericChore(ChoreList.PLANT));
     PhysicsUtils.setColliderShape(plant, 1f, 1f);
     return plant;
   }
-
-
-
 
   public static Entity createPuddle(String[] assets){
     Entity puddle = createBaseInteractable(assets);
@@ -101,9 +101,24 @@ public class ObjectFactory {
 
   public static Entity createBookcase(String[] assets) {
     Entity bookcase = createBaseObject(assets);
+    bookcase.setScale(1f, 0.75f);
     PhysicsUtils.setColliderShape(bookcase, 1f, 1f);
     PhysicsUtils.setColliderOffset(bookcase, 0, 0.3f);
     return bookcase;
+  }
+
+  public static Entity createVanity(String[] assets) {
+      Entity vanity = createBaseObject(assets);
+      vanity.setScale(0.75f, 1.25f);
+      PhysicsUtils.setColliderShape(vanity, 1f, 1f);
+      return vanity;
+  }
+
+  public static Entity createGameTable(String[] assets) {
+      Entity game = createBaseObject(assets);
+      game.setScale(1.5f, 1f);
+      PhysicsUtils.setColliderShape(game, 1f, 2f);
+      return game;
   }
 
   public static Entity createBath(String[] assets) {
@@ -198,9 +213,16 @@ public class ObjectFactory {
 
   public static Entity createClothesDrying(String[] assets) {
     Entity clothes = createBaseObject(assets);
-    clothes.setScale(1.5f, 1f);
+    clothes.setScale(2f, 2f);
     PhysicsUtils.setColliderShape(clothes, 1f, 2f);
     return clothes;
+  }
+
+  public static Entity createWashingMachine(String[] assets) {
+      Entity machine = createBaseObject(assets);
+      machine.setScale(1f,1f);
+      PhysicsUtils.setColliderShape(machine, 1f, 1f);
+      return machine;
   }
 
   public static Entity createDiningTable(String[] assets) {
@@ -208,13 +230,6 @@ public class ObjectFactory {
     diningTable.setScale(0.5f, 0.5f);
     PhysicsUtils.setScaledCollider(diningTable, 0.5f, 1.5f);
     return diningTable;
-  }
-
-  public static Entity createGameTable(String[] assets) {
-    Entity gameTable = createBaseObject(assets);
-    gameTable.setScale(1f, 2f);
-    PhysicsUtils.setScaledCollider(gameTable, 1f, 1.5f);
-    return gameTable;
   }
 
   public static Entity createNintendo(String[] assets) {
@@ -337,7 +352,8 @@ public class ObjectFactory {
   private static void addInteraction(String[] assets, Entity obstacle) {
     switch (assets[2]) {
       case "0":
-        logger.error("Interaction ID for non-interaction entity called");
+        // Use for manual component adding
+        break;
       case "1":
         obstacle.addComponent(new TvActions());
         break;
@@ -357,16 +373,12 @@ public class ObjectFactory {
       case "6":
         obstacle.addComponent(new WashingDishesActions());
         break;
-      case "7":
-        obstacle.addComponent(new PlantActions());
-        break;
-      case "8":
-        obstacle.addComponent(new ShrubActions());
-        break;
       case "9":
         obstacle.addComponent(new HorizontalDoorActions());
+        break;
       case "10":
         obstacle.addComponent(new VerticalDoorActions());
+        break;
     }
   }
 

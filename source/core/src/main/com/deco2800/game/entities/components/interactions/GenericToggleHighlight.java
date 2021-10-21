@@ -25,6 +25,7 @@ public class GenericToggleHighlight extends InteractionComponent {
     @Override
     public void onInteraction(Entity target) {
         this.hasInteracted = true;
+        entity.getEvents().trigger("update_animation", name + "_off");
     }
 
     @Override

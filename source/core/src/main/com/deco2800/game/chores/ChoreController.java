@@ -15,7 +15,7 @@ public class ChoreController {
     private static final Logger logger = LoggerFactory.getLogger(ChoreController.class);
     List<Chore> chores;
     private int entityCount = 0;
-    private int level;
+    private final int level;
 
     /**
      * Stores and handles generation and completion of chores, scaled to the current level.
@@ -105,6 +105,14 @@ public class ChoreController {
      */
     public int getEntityCount() {
         return entityCount;
+    }
+
+    /**
+     * Returns the current level.
+     * @return The current level.
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**

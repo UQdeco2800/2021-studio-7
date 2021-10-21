@@ -16,13 +16,14 @@ import java.util.List;
  * on/ off with the 'o' key.
  */
 public class ChoreUI extends UIComponent {
-    private boolean displaying = false;
+    private boolean displaying;
     private Label displayText;
     private int entityCount;
 
     @Override
     public void create() {
         super.create();
+        displaying = ServiceLocator.getChoreController().getLevel() != 1;
 
         // Divide screen into a more manageable grid
         int rowHeight = Gdx.graphics.getHeight() / 16;

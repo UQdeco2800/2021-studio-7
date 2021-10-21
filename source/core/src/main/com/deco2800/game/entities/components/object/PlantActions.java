@@ -21,11 +21,10 @@ public class PlantActions extends InteractionComponent {
     @Override
     public void onInteraction(Entity target) {
         if (target.getComponent(PlayerActions.class) != null) {
-            logger.debug("PLAYER interacted with TV, triggering TV animation");
             entity.getEvents().trigger(updateAnimation, "pot_plant");
             hasInteracted = true;
             // Tell the chore controller that this chore is complete
-            entity.getEvents().trigger("chore_complete", ChoreList.TV);
+            entity.getEvents().trigger("chore_complete", ChoreList.PLANT);
         }
     }
 
