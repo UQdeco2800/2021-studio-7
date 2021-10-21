@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -43,7 +42,6 @@ public class Floor extends GameArea implements Json.Serializable {
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
-    private Entity mum = null;
     private List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
     private GridObject defaultInteriorTile;
@@ -74,7 +72,7 @@ public class Floor extends GameArea implements Json.Serializable {
     public void create() {
         if (!created) {
             for (Room room : new ObjectMap.Values<>(roomMap)) {
-                room.create(this);
+                room.create();
             }
             loadAssets();
             displayUI();
@@ -144,8 +142,8 @@ public class Floor extends GameArea implements Json.Serializable {
         createPlayer();
 
         // Spawn all room entities for each room interior
-        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
-            entry.value.spawnRoomEntities(entry.key);
+        for (Room room : new ObjectMap.Values<>(roomMap)) {
+            room.spawnRoomEntities();
         }
 
         // Spawn all non-room entities in floor plan
@@ -265,8 +263,7 @@ public class Floor extends GameArea implements Json.Serializable {
         String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
         ServiceLocator.getResourceService().loadAll();
-        mum = NPCFactory.createMum(mumAssets);
-        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+        spawnEntityAt(NPCFactory.createMum(mumAssets), new GridPoint2(24,0), true, true);
 
     }
 
@@ -314,6 +311,10 @@ public class Floor extends GameArea implements Json.Serializable {
 
     public ObjectMap<Character, GridObject> getEntityMap() {
         return entityMap;
+    }
+
+    public ObjectMap<Character, Room> getRoomMap() {
+        return roomMap;
     }
 
     public Character[][] getFloorGrid() {
@@ -454,9 +455,11 @@ public class Floor extends GameArea implements Json.Serializable {
             dimensions = new GridPoint2(floorGrid[0].length, floorGrid.length);
 
             floorGrid = MatrixUtils.rotateClockwise(floorGrid);
-            for (Room room : new ObjectMap.Values<>(roomMap)) {
+            for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
                 //noinspection SuspiciousNameCombination
-                room.setOffset(new GridPoint2(room.getOffset().y, dimensions.y - room.getOffset().x - 1));
+                entry.value.setOffset(new GridPoint2(
+                        entry.value.getOffset().y, dimensions.y - entry.value.getOffset().x - 1));
+                entry.value.setFloor(this);
             }
 
             FileLoader.assertJsonValueNull(iterator.next());

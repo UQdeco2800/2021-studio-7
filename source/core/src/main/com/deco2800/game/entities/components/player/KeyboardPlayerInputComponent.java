@@ -9,8 +9,6 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.

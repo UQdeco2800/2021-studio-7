@@ -21,7 +21,6 @@ public class Home {
     public static final String DIRECTORY = "maps/";
     private final List<Floor> floors = new ArrayList<>();
     private Floor activeFloor;
-    private MainGameScreen mainGameScreen;
     // Defined on call for creation
     private boolean created = false;
 
@@ -78,9 +77,5 @@ public class Home {
         } else {
             logger.error("Home does not have a floor at level {}", index);
         }
-    }
-
-    public void setMainGameScreen(MainGameScreen mainGameScreen) {
-        this.mainGameScreen = mainGameScreen;
     }
 }

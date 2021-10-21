@@ -83,7 +83,6 @@ public class MainGameScreen extends ScreenAdapter {
     } else {
       home = new Home();
     }
-    home.setMainGameScreen(this);
     ServiceLocator.registerHome(home);
 
     home.create(renderer.getCamera());
