@@ -25,7 +25,7 @@
     w: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createWashingMachine
-      assets:[images/objects/chores/washing_machine_basket_on_top.png, 0,0,0]
+      assets:[images/objects/chores/washing_machine_basket_on_ground.png, 0,0,0]
     }
     t: {
       class:com.deco2800.game.entities.factories.ObjectFactory,
@@ -58,7 +58,7 @@
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W],
     [W, ., ., ., t, ., L, w, ., .],
-    [W, t, ., ., ., ., ., ., ., .],
+    [W, t, ., ., ., ., ., ., ., t],
     [W, ., ., U, U, ., ., ., X, .],
     [W, ., ., U, ., U, ., ., ., .],
     [W, ., ., U, ., U, ., ., ., .],

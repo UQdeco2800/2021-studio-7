@@ -178,6 +178,13 @@ public class ObjectFactory {
     return side;
   }
 
+  public static Entity createNewLamp(String[] assets) {
+      Entity lamp = createBaseObject(assets);
+      lamp.setScale(1f, 1f);
+      PhysicsUtils.setScaledCollider(lamp, 0.5f, 0.5f);
+      return lamp;
+  }
+
   public static Entity createFridge(String[] assets) {
     Entity fridge = createBaseObject(assets);
     fridge.setScale(1f, 1.5f);
@@ -252,6 +259,15 @@ public class ObjectFactory {
     PhysicsUtils.setScaledCollider(couch, 0.5f, 1.5f);
     return couch;
   }
+
+  public static Entity createCouch(String[] assets) {
+    Entity lounge = createBaseObject(assets);
+    lounge.setScale(2f,1.5f);
+    PhysicsUtils.setColliderShape(lounge, 1f, 2.5f);
+    PhysicsUtils.setColliderOffset(lounge, 0.5f, 0);
+    return lounge;
+  }
+
   public static Entity createCouchSmall(String[] assets) {
     Entity couch = createBaseObject(assets);
     couch.setScale(0.5f, 0.5f);
