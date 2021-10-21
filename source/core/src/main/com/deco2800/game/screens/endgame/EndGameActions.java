@@ -8,8 +8,6 @@ import com.deco2800.game.screens.maingame.MainGameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.Provider;
-
 /**
  * This class listens to events relevant to the Main Game Screen and does something when one of the
  * events is triggered.
