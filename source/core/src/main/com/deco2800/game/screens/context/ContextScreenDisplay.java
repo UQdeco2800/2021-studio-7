@@ -27,6 +27,7 @@ public class ContextScreenDisplay extends UIComponent {
     private boolean story = false;
     private boolean printed = false;
     private boolean start = false;
+    private static final String TITLE = "title";
 
     public ContextScreenDisplay() {
         super();
@@ -56,9 +57,10 @@ public class ContextScreenDisplay extends UIComponent {
             }
             printWait(50);
             charCount += 1;
-        } if (charCount == 10 && ContextScreen.getSkip() && !printed) {
+        }
+        if (charCount == 10 && ContextScreen.getSkip() && !printed) {
             printed = true;
-            Label skip = new Label("PRESS ENTER TO SKIP", skin, "title");
+            Label skip = new Label("PRESS ENTER TO SKIP", skin, TITLE);
             skip.setFontScale(1f);
             skip.setPosition(colWidth, rowHeight);
             skip.addAction(Actions.alpha(0));
@@ -67,19 +69,14 @@ public class ContextScreenDisplay extends UIComponent {
         } else if (charCount != 0 && charCount == text.length() &&!printed) {
             printed = true;
             ContextScreen.setSkip();
-            Label cont = new Label("PRESS ENTER TO CONTINUE", skin, "title");
+            Label cont = new Label("PRESS ENTER TO CONTINUE", skin, TITLE);
             cont.setFontScale(1f);
             cont.setPosition(colWidth, rowHeight);
             cont.addAction(Actions.alpha(0));
             cont.addAction(Actions.forever(Actions.fadeIn(5f)));
             stage.addActor(cont);
-            /*Image image = new Image(ServiceLocator.getResourceService()
-                    .getAsset("images/objects/bed/bed_static.PNG", Texture.class));
-            image.setPosition(colWidth*6, rowHeight);
-            image.addAction(Actions.alpha(0));
-            image.addAction(Actions.forever(Actions.fadeIn(10f)));
-            stage.addActor(image);*/
-        } if (charCount == 4) {
+        }
+        if (charCount == 4) {
             this.start = true;
         }
     }
@@ -101,7 +98,7 @@ public class ContextScreenDisplay extends UIComponent {
                 table.setFillParent(true);
                 int colWidth = Gdx.graphics.getWidth() / 10;
                 int rowHeight = Gdx.graphics.getHeight() / 16;
-                Label enterName = new Label("PLEASE ENTER YOUR GAMER TAG", skin, "title");
+                Label enterName = new Label("PLEASE ENTER YOUR USERNAME", skin, TITLE);
                 enterName.setFontScale((colWidth*10f)/1000f);
                 enterName.addAction(Actions.alpha(0));
                 enterName.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
@@ -119,6 +116,8 @@ public class ContextScreenDisplay extends UIComponent {
                 break;
             case 2:
                 tellStory();
+                break;
+            default:
                 break;
         }
 
@@ -154,7 +153,7 @@ public class ContextScreenDisplay extends UIComponent {
         stage.addActor(displayText);
         switch (ContextScreen.getScreen()) {
             case 1:
-                this.text = "It's 12:00pm. The year is currently 1982. It's a school night. \n\n\n You've nearly " +
+                this.text = "It's 11:00pm. The year is currently 1982. It's a school night. \n\n\n You've nearly " +
                         "finished your" +
                         " new game, but your mother is awake and she knows that you are too.\n\n\n You have until she" +
                         " gets home at 2:00AM to get to bed or else she's going to catch you; and if she does?\n\n\n\n\n " +
@@ -165,6 +164,8 @@ public class ContextScreenDisplay extends UIComponent {
                 this.text = "You've escaped with your life this time, but the odds are against you tonight" +
                         ".\n\n\n You've put off the chores in favor of finishing the new Exhale of the City (TM) game. " +
                         "\n\n\n T-minus two hours until Mum gets home, complete your chores and head to bed!";
+                break;
+            default:
                 break;
         }
     }

@@ -6,6 +6,7 @@ import com.deco2800.game.entities.components.InteractionComponent;
 public class GenericToggleHighlight extends InteractionComponent {
     private final String name;
     private boolean hasInteracted = false;
+    private static final String UPDATE = "update_animation";
 
     /**
      * An interaction component that contains the basic functionality for an interactable object
@@ -19,7 +20,7 @@ public class GenericToggleHighlight extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger("update_animation", name);
+        entity.getEvents().trigger(UPDATE, name);
     }
 
     @Override
@@ -31,12 +32,12 @@ public class GenericToggleHighlight extends InteractionComponent {
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
         if (hasInteracted) {
-            entity.getEvents().trigger("update_animation", name + "_off");
+            entity.getEvents().trigger(UPDATE, name + "_off");
         } else {
             if (shouldHighlight) {
-                entity.getEvents().trigger("update_animation", name + "_highlight");
+                entity.getEvents().trigger(UPDATE, name + "_highlight");
             } else {
-                entity.getEvents().trigger("update_animation", name);
+                entity.getEvents().trigger(UPDATE, name);
             }
         }
     }

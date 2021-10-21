@@ -53,10 +53,10 @@ public class MainGameFogScreen extends UIComponent {
 
     public void toggleVisibility() {
         if (isVisible) {
-            background.remove();
+            background.setPosition(-2000f, 2000f);
             isVisible = false;
         } else {
-            addActors();
+            background.setPosition(0f, 0f);
             isVisible = true;
         }
     }

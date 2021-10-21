@@ -45,13 +45,11 @@ public class ContextScreenActions extends Component {
         FileWriter writer = null;
         try {
             writer = new FileWriter("configs/leaderboard.txt",true);
-            String username;
-            username = entity.getComponent(ContextScreenDisplay.class).getUserName() .getText();
+            String username = entity.getComponent(ContextScreenDisplay.class).getUserName() .getText();
             String s = "\n" + username + ":";
             writer.write(s);
-            writer.close();
             logger.info("Wrote username to leaderboard.");
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.debug("Could not write username to leaderboard.");
         } finally {
             if (writer != null) {
