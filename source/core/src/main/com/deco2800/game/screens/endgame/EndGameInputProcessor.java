@@ -1,13 +1,15 @@
 package com.deco2800.game.screens.endgame;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.deco2800.game.screens.context.ContextScreenDisplay;
 import com.deco2800.game.screens.mainmenu.MenuInputProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EndGameInputProcessor implements InputProcessor {
-    private final Logger logger = LoggerFactory.getLogger(MenuInputProcessor.class);
+    private final Logger logger = LoggerFactory.getLogger(EndGameInputProcessor.class);
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -18,6 +20,9 @@ public class EndGameInputProcessor implements InputProcessor {
             case Input.Keys.ENTER:
                 EndGameDisplay.buttonLogic("Enter");
                 logger.info("Enter Key Pressed");
+                break;
+            default:
+                logger.debug("Default case error in keyDown processing");
                 break;
 
         }

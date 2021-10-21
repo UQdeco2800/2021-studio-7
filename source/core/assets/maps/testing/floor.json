@@ -1,0 +1,123 @@
+{
+  defaultInteriorTile: {
+    class: com.deco2800.game.maps.terrain.TerrainFactory
+    method: createBaseTile
+    assets: [images/tiles/iso/iso_floor_1.png]
+  }
+  defaultInteriorWall: {
+    class: com.deco2800.game.entities.factories.ObjectFactory
+    method: createWall
+    assets: [images/objects/walls/1.png]
+  }
+  tileMap: {
+    _: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createBaseTile
+      assets: [images/tiles/iso/iso_wall_1_left.png]
+    }
+  }
+  entityMap: {
+    .: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/walls/wall.png]
+    }
+    -: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createDoor
+      assets: [images/objects/door/door_animationL.atlas]
+    }
+  }
+  roomMap: {
+    A: {
+      type: bedroom
+      offset: [5, 0]
+      dimensions: [6, 6]
+      interior: {
+        tileMap: {
+          a: {
+            class: com.deco2800.game.maps.terrain.TerrainFactory
+            method: createBaseTile
+            assets: [images/tiles/iso/iso_grass_1.png]
+          }
+        }
+        entityMap: {
+          W: {
+            class: com.deco2800.game.entities.factories.ObjectFactory
+            method: createWall
+            assets: [images/objects/walls/3.png]
+          }
+        }
+        tileGrid: [
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .]
+        ]
+        entityGrid: [
+          [W, W, W, W, W, W],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .]
+        ]
+      }
+    }
+    B: {
+      type: bathroom
+      offset: [12, 0]
+      dimensions: [6, 6]
+      interior: {
+        tileMap: {
+          a: {
+            class: com.deco2800.game.maps.terrain.TerrainFactory
+            method: createBaseTile
+            assets: [images/tiles/iso/iso_grass_2.png]
+          }
+        }
+        entityMap: {
+          W: {
+            class: com.deco2800.game.entities.factories.ObjectFactory
+            method: createWall
+            assets: [images/objects/walls/4.png]
+          }
+        }
+        tileGrid: [
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .],
+          [., ., ., ., ., .]
+        ]
+        entityGrid: [
+          [W, W, W, W, W, W],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .],
+          [W, ., ., ., ., .]
+        ]
+      }
+    }
+  }
+  floorGrid: [
+    [A, A, A, A, A, A, .],
+    [A, A, A, A, A, A, .],
+    [A, A, A, A, A, A, .],
+    [A, A, A, A, A, A, .],
+    [A, A, A, A, A, A, .],
+    [A, A, A, A, A, A, .],
+    [., ., ., ., ., ., .],
+    [B, B, B, B, B, B, .],
+    [B, B, B, B, B, B, .],
+    [-, B, B, B, B, B, .],
+    [B, B, B, B, B, B, .],
+    [B, B, B, B, B, B, .],
+    [B, B, B, B, B, B, .],
+    [., ., ., ., ., ., .]
+  ]
+}

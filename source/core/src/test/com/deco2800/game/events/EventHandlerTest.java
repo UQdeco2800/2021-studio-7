@@ -57,11 +57,6 @@ class EventHandlerTest {
   }
 
   @Test
-  void shouldHandleNoListeners() {
-    handler.trigger("not_real_event");
-  }
-
-  @Test
   void shouldTriggerOneArg() {
     EventListener1<String> listener = (EventListener1<String>)mock(EventListener1.class);
     handler.addListener("event", listener);

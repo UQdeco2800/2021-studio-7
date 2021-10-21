@@ -5,4 +5,5 @@ package com.deco2800.game.entities.configs;
  */
 public class NPCConfigs{
   public MumConfig mum = new MumConfig();
+  public CatConfig cat = new CatConfig();
 }

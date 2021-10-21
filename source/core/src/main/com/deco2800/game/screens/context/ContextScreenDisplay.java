@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * A ui component for displaying the Context screen.
  */
 public class ContextScreenDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(EndGameDisplay.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContextScreenDisplay.class);
     private static final float Z_INDEX = 2f;
     private Table table;
     private static TextButton button;
@@ -77,17 +77,14 @@ public class ContextScreenDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-    @Override
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
-    @Override
     public float getZIndex() {
         return Z_INDEX;
     }
 
-    @Override
     public void dispose() {
         table.clear();
         super.dispose();

@@ -119,9 +119,9 @@ public class EndGameDisplay extends UIComponent {
       mainMenu = buttons.get(0);
     }
 
-    if(buttonChoice == "Enter"){
+    if (buttonChoice.equals("Enter")) {
       nextLvl.toggle();
-    } else if (buttonChoice == "Escape") {
+    } else if (buttonChoice.equals("Escape")) {
       mainMenu.toggle();
     }
   }

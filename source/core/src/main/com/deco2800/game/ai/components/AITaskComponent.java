@@ -1,6 +1,7 @@
 package com.deco2800.game.ai.components;
 
 import com.deco2800.game.ai.tasks.PriorityTask;
+import com.deco2800.game.ai.tasks.SlipTask;
 import com.deco2800.game.ai.tasks.TaskRunner;
 import com.deco2800.game.generic.Component;
 import org.slf4j.Logger;
@@ -80,12 +81,13 @@ public class AITaskComponent extends Component implements TaskRunner {
     }
   }
 
-  public PriorityTask getPriorityTask(Class targetTask) {
-    for (int i = 0; 0 < priorityTasks.size(); i ++) {
-      if (priorityTasks.get(i).getClass().equals(targetTask)) {
-        return priorityTasks.get(i);
+  public PriorityTask getPriorityTask(Class<SlipTask> targetTask) {
+    for (PriorityTask priorityTask : priorityTasks) {
+      if (priorityTask.getClass().equals(targetTask)) {
+        return priorityTask;
       }
-    } return null;
+    }
+    return null;
   }
 
 }

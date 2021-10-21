@@ -1,10 +1,8 @@
 package com.deco2800.game.screens.mainmenu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -30,7 +28,15 @@ public class MainMenuScreen extends ScreenAdapter {
           "images/ui/title/RETROACTIVE-large.png",
           "images/characters/boy_01/boy_01_menu_preview.png",
           "images/characters/girl_00/girl_00_menu_preview.png",
-          "images/characters/boy_00/boy_00_menu_preview.png"
+          "images/characters/boy_00/boy_00_menu_preview.png",
+          "images/main_menu/bgart.png",
+          "images/main_menu/pointer-R-inactive.png",
+          "images/main_menu/pointer-L-inactive.png"
+  };
+
+  private static final String[] buttonSounds = {
+          "sounds/confirm-shorter.ogg",
+          "sounds/browse-short.ogg"
   };
 
   public MainMenuScreen() {
@@ -42,31 +48,43 @@ public class MainMenuScreen extends ScreenAdapter {
 
     renderer = RenderFactory.createRenderer();
 
-
     loadAssets();
     createUI();
+  }
+
+//  /**
+//   * Play the background Music
+//   */
+//  private void playMusic() {
+//    Music music =
+//            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
+//                    Music.class);
+//    music.setLooping(true);
+//    music.setVolume(0.01f);
+//    music.play();
+//  }
+
+  /**
+   * Play button sounds
+   * @param button button pressed
+   */
+  public static void playButtonSound(String button) {
+    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
+    sound.play();
+    logger.info(button + " button sound played");
   }
 
   @Override
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
-
-    if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-        MainMenuDisplay.moveUp();
-    }
-    if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-      MainMenuDisplay.moveDown();
-    }
-    if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-      MainMenuDisplay.pressMenu();
-    }
   }
 
   @Override
   public void resize(int width, int height) {
     renderer.resize(width, height);
     logger.trace("Resized renderer: ({} x {})", width, height);
+
   }
 
   @Override
@@ -95,6 +113,8 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
+//    resourceService.loadMusic(backgroundMusic);
+    resourceService.loadSounds(buttonSounds);
     ServiceLocator.getResourceService().loadAll();
   }
 
@@ -102,6 +122,8 @@ public class MainMenuScreen extends ScreenAdapter {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
+//    resourceService.unloadAssets(backgroundMusic);
+    resourceService.unloadAssets(buttonSounds);
   }
 
   /**
@@ -116,7 +138,7 @@ public class MainMenuScreen extends ScreenAdapter {
         .addComponent(new InputDecorator(stage, 10))
         .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
-    //Gdx.input.setInputProcessor(new MenuInputProcessor());
+    Gdx.input.setInputProcessor(new MenuInputProcessor());
   }
 
   /**

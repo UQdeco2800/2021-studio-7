@@ -14,12 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(GameExtension.class)
 class AITaskComponentTest {
   @Test
-  void shouldRunNothingWithNoTask() {
-    AITaskComponent taskComponent = new AITaskComponent();
-    taskComponent.update();
-  }
-
-  @Test
   void shouldNotRunNegativePriorityTask() {
     AITaskComponent taskComponent = new AITaskComponent();
     PriorityTask task = mock(PriorityTask.class);
