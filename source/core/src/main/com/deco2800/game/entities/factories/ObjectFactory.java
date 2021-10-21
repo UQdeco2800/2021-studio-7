@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Factory to create obstacle entities.
@@ -314,7 +315,7 @@ public class ObjectFactory {
             .addComponent(new ColliderComponent().setLayer(PhysicsLayer.OBSTACLE));
     PhysicsUtils.setScaledCollider(obstacle, 1f, 1f);
     //obstacle.scaleHeight(1f);
-    if (assets[0] == "") {
+    if (Objects.equals(assets[0], "")) {
       return obstacle;
     }
     // Set obstacle to have a base render component
