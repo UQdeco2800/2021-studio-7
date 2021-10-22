@@ -3,6 +3,7 @@ package com.deco2800.game.screens.maingame;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.context.ContextScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,18 +39,21 @@ public class MainGameActions extends Component {
   public void onMainMenu() {
     logger.debug("Swapping to main menu screen...");
     MainGameScreen.zeroLevel();
+    ContextScreen.screenZero();
     ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.MAIN_MENU);
   }
 
   public void onRestart() {
     logger.debug("Swapping to new main game screen...");
     MainGameScreen.zeroLevel();
+    ContextScreen.screenZero();
     ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   public void onSettings() {
     logger.debug("Swapping to settings screen...");
     MainGameScreen.zeroLevel();
+    ContextScreen.screenZero();
     ServiceLocator.getScreen(MainGameScreen.class).queueNewScreen(GdxGame.ScreenType.SETTINGS);
   }
 

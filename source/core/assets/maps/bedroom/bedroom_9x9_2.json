@@ -20,7 +20,7 @@
     b: {
       class: com.deco2800.game.entities.factories.ObjectFactory
       method: createBookcase
-      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
+      assets: [images/objects/furniture/bookshelf_new_southwest.png, 0, 0, 0]
     }
     d: {
       class: com.deco2800.game.entities.factories.ObjectFactory
@@ -61,6 +61,11 @@
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createGameTable,
       assets: [images/objects/furniture/game-table.png, 0, 0, 0]
+    }
+    L: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createClothesDrying,
+      assets: [images/objects/furniture/clothes-drying-rack.png, 0, 0, 0]
     },
   }
   tileGrid: [
@@ -79,9 +84,9 @@
     [W, ., C, ., ., ., ., ., .],
     [W, ., ., ., ., ., B, ., .],
     [W, ., ., ., ., ., ., ., .],
-    [W, k, ., ., ., ., ., ., .],
-    [W, b, ., ., ., ., ., ., .],
-    [W, ., ., G, ., ., ., ., .],
+    [W, ., L, ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, ., L, ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., .]
   ]

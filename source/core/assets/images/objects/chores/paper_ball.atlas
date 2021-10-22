@@ -3,7 +3,7 @@ size: 48, 42
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-paper_ball
+trash
   rotate: false
   xy: 0, 0
   size: 48, 42

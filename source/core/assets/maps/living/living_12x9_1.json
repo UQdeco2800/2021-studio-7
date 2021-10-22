@@ -24,6 +24,11 @@
     }
     L: {
       class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createCouch
+      assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
+    }
+    u: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
       method: createLounge
       assets: [images/objects/furniture/sofa-back.png, 0, 0, 0]
     }
@@ -55,8 +60,13 @@
     Z: {
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createPlant,
-      assets: [images/objects/plant/plant_animation.atlas, 0, 7, 5]
+      assets: [images/objects/plant/plant_animation.atlas, 0, 0, 5]
     }
+    t: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPottedPlant,
+      assets: [images/objects/furniture/pot_plant.png, 0, 0, 0]
+    },
 
   },
   tileGrid: [
@@ -72,11 +82,11 @@
   ]
   entityGrid: [
     [W, W, W, W, W, W, W, W, W, W, W, W],
-    [W, B, ., ., ., ., T, ., ., ., ., .],
-    [W, B, ., ., ., ., N, ., ., ., ., .],
-    [W, ., ., E, ., ., ., ., ., Z, ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., l, ., ., L, ., E, ., ., .],
+    [W, ., ., ., ., ., T, ., ., ., ., .],
+    [W, t, ., ., ., ., ., N, ., ., ., .],
+    [W, t, ., ., L, ., ., ., ., ., ., .],
+    [W, Z, ., ., ., ., ., ., ., ., ., .],
+    [W, Z, ., ., l, ., u, ., E, ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .],
     [W, ., ., ., ., ., ., ., ., ., ., .]
