@@ -29,7 +29,8 @@ Whatever you do, don't get caught or its all over! <br />
 ## Controls ##
 **Movement:** W A S D keys <br />
 **Interact:** E <br />
-**Sprint:** hold down shift bar
+**Sprint:** hold down shift bar <br />
+**Toggle chore list:** O key
 
 ## Usage ##
 gradlew clean build# deco2800-engine <br />
