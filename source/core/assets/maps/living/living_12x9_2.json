@@ -55,7 +55,7 @@
     Z: {
       class: com.deco2800.game.entities.factories.ObjectFactory,
       method: createPlant,
-      assets: [images/objects/plant/plant_animation.atlas, 0, 0, 5]
+      assets: [images/objects/plant/plant_animation.atlas, 0, 7, 5]
     },
     t: {
       class:com.deco2800.game.entities.factories.ObjectFactory,

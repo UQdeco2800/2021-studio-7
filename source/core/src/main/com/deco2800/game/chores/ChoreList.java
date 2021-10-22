@@ -30,13 +30,13 @@ public enum ChoreList {
             case DISHWASHER:
                 return "Wash the dishes";
             case PLANT:
-                return "Water the plants";
+                return "Water the plant";
             case SHRUB:
-                return "Trim the shrubs";
+                return "Trim the shrub";
             case BOOKS:
-                return "Pick up books";
+                return "Pick up the book";
             case TRASH:
-                return "Pick up trash";
+                return "Pick up a piece of trash";
             default:
                 return null;
         }
@@ -56,15 +56,15 @@ public enum ChoreList {
             case PUDDLE:
                 return "Clean up " + amount + " puddles";
             case DISHWASHER:
-                return "Wash the dishes";
+                return "Wash " + amount + " dishes";
             case PLANT:
-                return "Water the plants";
+                return "Water " + amount + " plants";
             case SHRUB:
-                return "Trim the shrubs";
+                return "Trim " + amount + " shrubs";
             case BOOKS:
-                return "Pick up books";
+                return "Pick up " + amount + " books";
             case TRASH:
-                return "Pick up trash";
+                return "Pick up " + amount + " trash";
             default:
                 return null;
         }
