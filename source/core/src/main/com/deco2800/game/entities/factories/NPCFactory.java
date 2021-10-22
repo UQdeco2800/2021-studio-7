@@ -66,7 +66,7 @@ public class NPCFactory {
   public static Entity createCat(String[] assets) {
     CatConfig config = configs.cat;
     Entity player = ServiceLocator.getHome().getActiveFloor().getPlayer();
-    Entity cat =  createBaseNPC( assets)
+    Entity cat =  createBaseNPC(assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new CatActions());
 

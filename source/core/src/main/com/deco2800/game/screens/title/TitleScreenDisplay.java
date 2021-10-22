@@ -56,10 +56,12 @@ public class TitleScreenDisplay extends UIComponent {
         // draw is handled by the stage
     }
 
+    @Override
     public float getZIndex() {
         return Z_INDEX;
     }
 
+    @Override
     public void dispose() {
         table.clear();
         super.dispose();

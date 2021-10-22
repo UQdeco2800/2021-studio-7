@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ChoreController {
     private static final Logger logger = LoggerFactory.getLogger(ChoreController.class);
-    List<Chore> chores;
+    private List<Chore> chores;
     private int entityCount = 0;
     private int level;
 
@@ -45,8 +45,7 @@ public class ChoreController {
             chore.increaseAmount();
         } else {
             // Register a new Chore
-            chore = new Chore(object);
-            chores.add(chore);
+            chores.add(new Chore(object));
         }
     }
 
@@ -73,7 +72,7 @@ public class ChoreController {
     private void scaleChores() {
         // How many chores we want to keep
         int numChores;
-        if (level < 3) {
+        if (level < 2) {
             numChores = 0;
         } else {
             numChores = 2 * level - 2; // 0, 0, 4, 6, 8...
@@ -109,11 +108,11 @@ public class ChoreController {
     }
 
     /**
-     * Check if there are any more chores to complete.
-     * @return True if all chores are complete, false otherwise.
+     * Returns the current level.
+     * @return The current level.
      */
-    public boolean checkComplete() {
-        return chores.isEmpty();
+    public int getLevel() {
+        return level;
     }
 
     private Chore getChoreOf(ChoreList object) {

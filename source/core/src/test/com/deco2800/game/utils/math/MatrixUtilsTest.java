@@ -7,66 +7,66 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.Arrays;
 
 @ExtendWith(GameExtension.class)
-public class MatrixUtilsTest {
+class MatrixUtilsTest {
 
     @Test
     void shouldSimpleFlipHorizontally() {
-        assert(Arrays.deepEquals(MatrixUtils.flipHorizontally(SimpleMatrix.base),
-                SimpleMatrix.flippedHorizontally));
+        assert Arrays.deepEquals(MatrixUtils.flipHorizontally(SimpleMatrix.base),
+                SimpleMatrix.flippedHorizontally);
     }
 
     @Test
     void shouldSimpleFlipVertically() {
-        assert(Arrays.deepEquals(MatrixUtils.flipVertically(SimpleMatrix.base),
-                SimpleMatrix.flippedVertically));
+        assert Arrays.deepEquals(MatrixUtils.flipVertically(SimpleMatrix.base),
+                SimpleMatrix.flippedVertically);
     }
 
     @Test
     void shouldSimpleTranspose() {
-        assert(Arrays.deepEquals(MatrixUtils.transpose(SimpleMatrix.base),
-                SimpleMatrix.transposed));
+        assert Arrays.deepEquals(MatrixUtils.transpose(SimpleMatrix.base),
+                SimpleMatrix.transposed);
     }
 
     @Test
     void shouldSimpleRotateClockwise() {
-        assert(Arrays.deepEquals(MatrixUtils.rotateClockwise(SimpleMatrix.base),
-                SimpleMatrix.rotatedClockwise));
+        assert Arrays.deepEquals(MatrixUtils.rotateClockwise(SimpleMatrix.base),
+                SimpleMatrix.rotatedClockwise);
     }
 
     @Test
     void shouldSimpleRotateAntiClockwise() {
-        assert(Arrays.deepEquals(MatrixUtils.rotateAntiClockwise(SimpleMatrix.base),
-                SimpleMatrix.rotatedAntiClockwise));
+        assert Arrays.deepEquals(MatrixUtils.rotateAntiClockwise(SimpleMatrix.base),
+                SimpleMatrix.rotatedAntiClockwise);
     }
 
     @Test
     void shouldNonSquareFlipHorizontally() {
-        assert(Arrays.deepEquals(MatrixUtils.flipHorizontally(NonSquareMatrix.base),
-                NonSquareMatrix.flippedHorizontally));
+        assert Arrays.deepEquals(MatrixUtils.flipHorizontally(NonSquareMatrix.base),
+                NonSquareMatrix.flippedHorizontally);
     }
 
     @Test
     void shouldNonSquareFlipVertically() {
-        assert(Arrays.deepEquals(MatrixUtils.flipVertically(NonSquareMatrix.base),
-                NonSquareMatrix.flippedVertically));
+        assert Arrays.deepEquals(MatrixUtils.flipVertically(NonSquareMatrix.base),
+                NonSquareMatrix.flippedVertically);
     }
 
     @Test
     void shouldNonSquareTranspose() {
-        assert(Arrays.deepEquals(MatrixUtils.transpose(NonSquareMatrix.base),
-                NonSquareMatrix.transposed));
+        assert Arrays.deepEquals(MatrixUtils.transpose(NonSquareMatrix.base),
+                NonSquareMatrix.transposed);
     }
 
     @Test
     void shouldNonSquareRotateClockwise() {
-        assert(Arrays.deepEquals(MatrixUtils.rotateClockwise(NonSquareMatrix.base),
-                NonSquareMatrix.rotatedClockwise));
+        assert Arrays.deepEquals(MatrixUtils.rotateClockwise(NonSquareMatrix.base),
+                NonSquareMatrix.rotatedClockwise);
     }
 
     @Test
     void shouldNonSquareRotateAntiClockwise() {
-        assert(Arrays.deepEquals(MatrixUtils.rotateAntiClockwise(NonSquareMatrix.base),
-                NonSquareMatrix.rotatedAntiClockwise));
+        assert Arrays.deepEquals(MatrixUtils.rotateAntiClockwise(NonSquareMatrix.base),
+                NonSquareMatrix.rotatedAntiClockwise);
     }
     
     static class SimpleMatrix {

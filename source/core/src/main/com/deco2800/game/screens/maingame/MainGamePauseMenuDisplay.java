@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
@@ -39,8 +38,10 @@ public class MainGamePauseMenuDisplay extends UIComponent {
         isVisible = !isVisible;
         table.setVisible(isVisible);
         if (isVisible) {
+            entity.getComponent(MainGameFogScreen.class).toggleVisibility();
             entity.getEvents().trigger("pause");
         } else {
+            entity.getComponent(MainGameFogScreen.class).toggleVisibility();
             entity.getEvents().trigger("resume");
         }
     }
@@ -167,7 +168,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
             unhoverMenu(buttons.get(menuIndex - 1));
             hoverMenu(buttons.get(menuIndex));
         }
-        logger.info("Menu Index is " + Integer.toString(menuIndex));
+        logger.info("Menu Index is {}", menuIndex);
     }
     /**
      * Moves the button highlight left
@@ -179,7 +180,7 @@ public class MainGamePauseMenuDisplay extends UIComponent {
             unhoverMenu(buttons.get(menuIndex + 1));
             hoverMenu(buttons.get(menuIndex));
         }
-        logger.info("Menu Index is " + Integer.toString(menuIndex));
+        logger.info("Menu Index is {}", menuIndex);
     }
 
     /**
@@ -189,6 +190,14 @@ public class MainGamePauseMenuDisplay extends UIComponent {
         unhoverMenu(buttons.get(menuIndex));
         menuIndex = 0;
         hoverMenu(buttons.get(menuIndex));
+    }
+
+    /**
+     * Checks whether the pause screen is displaying or not.
+     * @return True if displaying, false if not.
+     */
+    public boolean isVisible() {
+        return isVisible;
     }
 
     @Override
@@ -226,6 +235,9 @@ public class MainGamePauseMenuDisplay extends UIComponent {
                 break;
             case 3: //Main Menu Button
                 logger.info("Entered main menu from pause menu");
+                break;
+            default:
+                logger.info("Default case menu index {}", menuIndex);
                 break;
         }
     }

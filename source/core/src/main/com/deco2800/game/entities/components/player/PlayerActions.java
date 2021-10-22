@@ -5,16 +5,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.physics.components.PhysicsComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Action component for interacting with the player. Player events should be initialised in create()
  * and when triggered should call methods within this class.
  */
 public class PlayerActions extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(PlayerActions.class);
-
   private static final Vector2 MAX_SPEED = new Vector2(3f, 3f); // Metres per second
   // Components
   private PhysicsComponent physicsComponent;
@@ -37,7 +33,6 @@ public class PlayerActions extends Component {
     entity.getEvents().addListener("stop_running", this::stopRunning);
     entity.getEvents().addListener("drink_energy_drink", this::drinkEnergyDrink);
     entity.getEvents().trigger("update_animation", "standing_south");
-    logger.debug("Created player actions");
   }
 
   @Override
@@ -66,7 +61,7 @@ public class PlayerActions extends Component {
       if(energydrinkconsumed){
         MAX_SPEED.set(5f,5f);
       }else {
-        MAX_SPEED.set(4f, 4f);
+        MAX_SPEED.set(4f, 4f); //TODO adjust running speed
       }
     } else {
       if(energydrinkconsumed){
@@ -129,20 +124,15 @@ public class PlayerActions extends Component {
     running = false;
   }
 
-  /**
-   * Toggles energy drink consumed called outside of class
-   */
   public void toggleEnergyDrinkConsumed(){
     if (this.energydrinkconsumed){
       this.energydrinkconsumed = false;
     }else{
       this.energydrinkconsumed=true;
     }
-    logger.debug("Toggled energy drink bool");
   }
 
   public void turnOfEnergyDrink(){
-    logger.debug("turned off energy drink effect");
     this.energydrinkconsumed = false;
   }
 }

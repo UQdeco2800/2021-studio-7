@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -37,11 +36,13 @@ import java.util.Objects;
 public class Floor extends GameArea implements Json.Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Floor.class);
+    private static final String PLAYER_BED_ATLAS = "images/objects/bed/bed_animation.atlas";
+    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/newBed.png";
 
     private OrthographicCamera camera;
     private Entity player = null;
     private Entity cat = null;
-    private Entity mum = null;
+    private List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
     private GridObject defaultInteriorTile;
     private GridObject defaultInteriorWall;
@@ -71,7 +72,7 @@ public class Floor extends GameArea implements Json.Serializable {
     public void create() {
         if (!created) {
             for (Room room : new ObjectMap.Values<>(roomMap)) {
-                room.create(this);
+                room.create();
             }
             loadAssets();
             displayUI();
@@ -141,8 +142,8 @@ public class Floor extends GameArea implements Json.Serializable {
         createPlayer();
 
         // Spawn all room entities for each room interior
-        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
-            entry.value.spawnRoomEntities(entry.key);
+        for (Room room : new ObjectMap.Values<>(roomMap)) {
+            room.spawnRoomEntities();
         }
 
         // Spawn all non-room entities in floor plan
@@ -161,6 +162,7 @@ public class Floor extends GameArea implements Json.Serializable {
         spawnBorders();
         spawnCat();
         spawnMum();
+        spawnBeds();
     }
 
     /**
@@ -227,17 +229,18 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns border walls into the world. These borders outline the map given by the floor grid
      */
     private void spawnBorders() {
+        String[] boarderspec = {"", "0"};
         // Spawns north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
         }
         // Spawns east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
-            Entity borderWall2 = ObjectFactory.createBaseObject(new String[0], BodyDef.BodyType.StaticBody);
+            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
+            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
             spawnEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
             spawnEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
         }
@@ -246,26 +249,11 @@ public class Floor extends GameArea implements Json.Serializable {
      * Spawns the NPC Cat into map.
      */
     private void spawnCat(){
-
-        GridPoint2 spawnLocation = null;
-        // Iterate through rooms to find a valid spawn location
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            List<GridPoint2> roomSpawnLocations = room.getValidSpawnLocations();
-            if (!roomSpawnLocations.isEmpty()) {
-                spawnLocation = roomSpawnLocations.get(RandomUtils.getSeed().nextInt(roomSpawnLocations.size()));
-                break;
-            }
-        }
-        // Set default spawn location if one was not found
-        if (spawnLocation == null) {
-            spawnLocation = new GridPoint2(1, 1);
-        }
-
         String[] catAssets = new String[]{"images/characters/cat_00/cat_00.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(catAssets);
         ServiceLocator.getResourceService().loadAll();
         cat = NPCFactory.createCat(catAssets);
-        spawnEntityAt(cat, spawnLocation, true, true);
+        spawnEntityAt(cat, new GridPoint2(20,20), true, true);
     }
 
     /**
@@ -275,9 +263,34 @@ public class Floor extends GameArea implements Json.Serializable {
         String[] mumAssets = new String[]{"images/characters/mum_01/mum_01.atlas"};
         ServiceLocator.getResourceService().loadTextureAtlases(mumAssets);
         ServiceLocator.getResourceService().loadAll();
-        mum = NPCFactory.createMum(mumAssets);
-        spawnEntityAt(mum, new GridPoint2(24,0), true, true);
+        spawnEntityAt(NPCFactory.createMum(mumAssets), new GridPoint2(24,0), true, true);
 
+    }
+
+    private void spawnBeds() {
+        GridObject playerBed;
+        GridObject normalBed;
+        try {
+            playerBed = new GridObject(ObjectFactory.class.getMethod("createPlayerBed", String[].class),
+                    new String[]{PLAYER_BED_ATLAS, "0","4", "0"});
+            normalBed = new GridObject(ObjectFactory.class.getMethod("createNormalBed", String[].class),
+                    new String[]{NORMAL_BED_TEXTURE, "0", "0", "0"});
+        } catch (NoSuchMethodException e) {
+            throw new NullPointerException("Could not retrieve either createNormalBed or createPlayerBed methods");
+        }
+
+        GridPoint2 playerBedPosition = bedPositions.get(RandomUtils.getSeed().nextInt(bedPositions.size()));
+        spawnGridEntity(playerBed, playerBedPosition);
+
+        bedPositions.remove(playerBedPosition);
+        for (GridPoint2 normalBedPosition : bedPositions) {
+            spawnGridEntity(normalBed, normalBedPosition);
+        }
+        bedPositions.add(playerBedPosition);
+    }
+
+    public void stashBedPosition(GridPoint2 worldPos) {
+        bedPositions.add(worldPos);
     }
 
     public GridObject getDefaultInteriorTile() {
@@ -298,6 +311,10 @@ public class Floor extends GameArea implements Json.Serializable {
 
     public ObjectMap<Character, GridObject> getEntityMap() {
         return entityMap;
+    }
+
+    public ObjectMap<Character, Room> getRoomMap() {
+        return roomMap;
     }
 
     public Character[][] getFloorGrid() {
@@ -347,7 +364,9 @@ public class Floor extends GameArea implements Json.Serializable {
     private void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
+        resourceService.loadTexture(NORMAL_BED_TEXTURE);
         resourceService.loadTextures(getAssets(".png"));
+        resourceService.loadTextureAtlas(PLAYER_BED_ATLAS);
         resourceService.loadTextureAtlases(getAssets(".atlas"));
 
         while (!resourceService.loadForMillis(20)) {
@@ -436,9 +455,11 @@ public class Floor extends GameArea implements Json.Serializable {
             dimensions = new GridPoint2(floorGrid[0].length, floorGrid.length);
 
             floorGrid = MatrixUtils.rotateClockwise(floorGrid);
-            for (Room room : new ObjectMap.Values<>(roomMap)) {
+            for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
                 //noinspection SuspiciousNameCombination
-                room.setOffset(new GridPoint2(room.getOffset().y, dimensions.y - room.getOffset().x - 1));
+                entry.value.setOffset(new GridPoint2(
+                        entry.value.getOffset().y, dimensions.y - entry.value.getOffset().x - 1));
+                entry.value.setFloor(this);
             }
 
             FileLoader.assertJsonValueNull(iterator.next());

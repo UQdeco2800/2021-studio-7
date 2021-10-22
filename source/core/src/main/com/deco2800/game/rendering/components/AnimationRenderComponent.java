@@ -183,6 +183,4 @@ public class AnimationRenderComponent extends RenderComponent {
     batch.draw(region, pos.x, pos.y, scale.x, scale.y);
     animationPlayTime += timeSource.getDeltaTime();
   }
-
-
 }

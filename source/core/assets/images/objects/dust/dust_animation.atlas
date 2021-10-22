@@ -1,0 +1,61 @@
+dust_animation.png
+size: 896, 120
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dust1
+  rotate: false
+  xy: 0, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 112, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 224, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 336, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 448, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 560, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 672, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1
+dust1
+  rotate: false
+  xy: 784, 0
+  size: 112, 120
+  orig: 112, 120
+  offset: 0, 0
+  index: -1

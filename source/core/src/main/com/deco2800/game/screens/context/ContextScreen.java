@@ -22,11 +22,13 @@ import org.slf4j.LoggerFactory;
 public class ContextScreen extends ScreenAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreen.class);
     private static final String[] ContextTextures = {
-            "images/context_screen/context_screen.PNG",
-            "images/ui/screens/inactiveStart.png"
+            "images/objects/bed/bed_static.PNG"
     };
 
     private final Renderer renderer;
+    private Stage stage;
+    private static int screen = 1;
+    private static boolean skip = false;
 
     private static final String[] buttonSounds = {
             "sounds/confirm.ogg",
@@ -53,24 +55,53 @@ public class ContextScreen extends ScreenAdapter {
         logger.info("enter button sound played on context screen launch");
     }
 
+    public static int getScreen() {
+        return screen;
+    }
+
+    public static void incrementScreen() {
+        screen++;
+    }
+
+    public static void setSkip() {
+        skip = true;
+    }
+
+    public static boolean getSkip() {
+        return skip;
+    }
+
+    public static void screenZero() {
+        screen = 1;
+    }
+
+
+    @Override
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
+        if (stage != null) {
+            stage.draw();
+        }
     }
 
+    @Override
     public void resize(int width, int height) {
         renderer.resize(width, height);
         logger.trace("Resized renderer: ({} x {})", width, height);
     }
 
+    @Override
     public void pause() {
         logger.info("Game paused");
     }
 
+    @Override
     public void resume() {
         logger.info("Game resumed");
     }
 
+    @Override
     public void dispose() {
         logger.debug("Disposing context screen");
 
@@ -104,12 +135,14 @@ public class ContextScreen extends ScreenAdapter {
      */
     private void createUI() {
         logger.debug("Creating ui");
-        Stage stage = ServiceLocator.getRenderService().getStage();
+        stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
         ui.addComponent(new ContextScreenDisplay())
                 .addComponent(new InputDecorator(stage, 10))
                 .addComponent(new ContextScreenActions());
+        ContextInputProcessor input = new ContextInputProcessor();
+        ui.addComponent(input);
+        Gdx.input.setInputProcessor(input);
         ServiceLocator.getEntityService().register(ui);
-        Gdx.input.setInputProcessor(new ContextInputProcessor());
     }
 }

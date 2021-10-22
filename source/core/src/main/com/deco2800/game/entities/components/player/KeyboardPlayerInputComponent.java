@@ -9,15 +9,12 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
 import com.deco2800.game.screens.maingame.MainGameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Input handler for the player for keyboard and touch (mouse) input.
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final Logger logger = LoggerFactory.getLogger(KeyboardPlayerInputComponent.class);
     private static final String UPDATEANIMATION = "update_animation";
     private static final String STANDINGSOUTH = "standing_south";
 
@@ -119,7 +116,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 }
                 return true;
             default:
-                logger.debug("Default keyDown Case");
                 return false;
         }
     }
@@ -180,32 +176,32 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private void triggerWalkEvent() {
         if (walkDirection.epsilonEquals(Vector2.Zero)) {
             entity.getEvents().trigger("stop_walking");
-            if(lastDirection == 0){
-                this.setAnimation(STANDINGSOUTH);
-
-            }else if(lastDirection == 1) {
+            switch (lastDirection) {
+                case 0:
+                case 2:
+                    this.setAnimation(STANDINGSOUTH);
+                    break;
+                case 1:
                     this.setAnimation("standing_east");
-
-            }else if(lastDirection==2){
-                this.setAnimation(STANDINGSOUTH);
-
-            }else if(lastDirection == 3){
-                this.setAnimation("standing_west");
-
-            }else if(lastDirection==4){
-                this.setAnimation("standing_northeast");
-
-            }else if(lastDirection == 5 ){
-                this.setAnimation("standing_northwest");
-
-            }else if(lastDirection == 6){
-                this.setAnimation("standing_southeast");
-
-            }else if(lastDirection == 7){
-                this.setAnimation("standing_southwest");
-
-            }else{
-                this.setAnimation(STANDINGSOUTH);
+                    break;
+                case 3:
+                    this.setAnimation("standing_west");
+                    break;
+                case 4:
+                    this.setAnimation("standing_northeast");
+                    break;
+                case 5:
+                    this.setAnimation("standing_northwest");
+                    break;
+                case 6:
+                    this.setAnimation("standing_southeast");
+                    break;
+                case 7:
+                    this.setAnimation("standing_southwest");
+                    break;
+                default:
+                    this.setAnimation(STANDINGSOUTH);
+                    break;
             }
         } else {
             if (true) {
@@ -216,10 +212,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 } else if (walkDirection.epsilonEquals(1, 0)) {
                     this.setAnimation("walking_east");
 
-
                 } else if (walkDirection.epsilonEquals(0, -1)) {
                     this.setAnimation("walking_south");
-
 
                 } else if (walkDirection.epsilonEquals(-1, 0)) {
                     this.setAnimation("walking_west");
@@ -227,14 +221,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 } else if (walkDirection.epsilonEquals(1, 1)) {
                     this.setAnimation("walking_northeast");
 
-
                 } else if (walkDirection.epsilonEquals(-1, 1)) {
                     this.setAnimation("walking_northwest");
 
-
                 } else if (walkDirection.epsilonEquals(1, -1)) {
                     this.setAnimation("walking_southeast");
-
 
                 } else if (walkDirection.epsilonEquals(-1, -1)) {
                     this.setAnimation("walking_southwest");
@@ -274,7 +265,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      * For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.
      */
     public void movementEvents() {
-
         Vector2 entityDirection = walkDirection;
         float x = entityDirection.x;
         float y = entityDirection.y;
@@ -317,13 +307,13 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
     public void setAnimation(String direction) {
 
+        String animation;
         if (this.buffed) {
-            String animation = direction + "_buffed";
-            entity.getEvents().trigger(UPDATEANIMATION, animation);
+            animation = direction + "_buffed";
         } else {
-            String animation = direction + "_normal";
-            entity.getEvents().trigger(UPDATEANIMATION, animation);
+            animation = direction + "_normal";
         }
+        entity.getEvents().trigger(UPDATEANIMATION, animation);
     }
 
 

@@ -1,19 +1,12 @@
 box.png
-size: 1000, 363
+size: 380, 247
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 box
   rotate: false
   xy: 0, 0
-  size: 440, 354
-  orig: 440, 354
-  offset: 0, 0
-  index: -1
-box_highlight
-  rotate: false
-  xy: 549, 0
-  size: 549, 363
-  orig: 549, 363
+  size: 380, 247
+  orig: 380, 247
   offset: 0, 0
   index: -1

@@ -16,13 +16,14 @@ import java.util.List;
  * on/ off with the 'o' key.
  */
 public class ChoreUI extends UIComponent {
-    private boolean displaying = false;
+    private boolean displaying;
     private Label displayText;
     private int entityCount;
 
     @Override
     public void create() {
         super.create();
+        displaying = ServiceLocator.getChoreController().getLevel() != 1;
 
         // Divide screen into a more manageable grid
         int rowHeight = Gdx.graphics.getHeight() / 16;
@@ -98,7 +99,7 @@ public class ChoreUI extends UIComponent {
     @Override
     public void update() {
         // Update the display when the number of chore entities completed changes
-        if (ServiceLocator.getChoreController().getEntityCount() != entityCount) {
+        if (displaying && ServiceLocator.getChoreController().getEntityCount() != entityCount) {
             this.display();
         }
     }
@@ -106,5 +107,11 @@ public class ChoreUI extends UIComponent {
     @Override
     protected void draw(SpriteBatch batch) {
         // draw is handled by the stage
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        hide();
     }
 }

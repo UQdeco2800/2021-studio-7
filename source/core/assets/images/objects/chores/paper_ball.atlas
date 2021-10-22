@@ -1,0 +1,12 @@
+paper_ball.png
+size: 48, 42
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+trash
+  rotate: false
+  xy: 0, 0
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1

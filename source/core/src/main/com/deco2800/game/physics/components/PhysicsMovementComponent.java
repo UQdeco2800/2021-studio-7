@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Movement controller for a physics-based entity. */
-public class PhysicsMovementComponent extends Component implements MovementController {
+public class
+PhysicsMovementComponent extends Component implements MovementController {
   private static final Logger logger = LoggerFactory.getLogger(PhysicsMovementComponent.class);
   private static final Vector2 maxSpeed = Vector2Utils.ONE;
 
@@ -18,8 +19,8 @@ public class PhysicsMovementComponent extends Component implements MovementContr
   private boolean movementEnabled = true;
   private int lastDirection = 0;
   private int currentDirection = 0;
-  public boolean twoDCharacter = false;
-  private String updateAnimation = "update_animation"; //for sonar cloud
+  private boolean twoDCharacter = false;
+  private static final String UPDATE_ANIMATION = "update_animation";
 
 
   @Override
@@ -88,7 +89,7 @@ public class PhysicsMovementComponent extends Component implements MovementContr
     // impulse force = (desired velocity - current velocity) * mass
     Vector2 velocity = body.getLinearVelocity();
     if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1 && !twoDCharacter){
-        standingEvents();
+      standingEvents();
     }
     Vector2 impulse = desiredVelocity.cpy().sub(velocity).scl(body.getMass());
     body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
@@ -115,28 +116,28 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     if (lastDirection != currentDirection) {
       if (x < 0.5 && x > -0.5 && y > 0) {
-        entity.getEvents().trigger(updateAnimation, "walking_north");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_north");
         lastDirection = 0;
       } else if (x > 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_east");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_east");
         lastDirection = 1;
       } else if (x < 0.5 && x > -0.5 && y < 0) {
-        entity.getEvents().trigger(updateAnimation, "walking_south");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_south");
         lastDirection = 2;
       } else if (x < 0 && y < 0.5 && y > -0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_west");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_west");
         lastDirection = 3;
       } else if (x > 0.5 && y >0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_northeast");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_northeast");
         lastDirection = 4;
       } else if (x < -0.5 && y >0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_northwest");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_northwest");
         lastDirection = 5;
       } else if (x > 0.5 && y < -0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_southeast");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_southeast");
         lastDirection = 6;
       } else if (x < -0.5 && y < -0.5) {
-        entity.getEvents().trigger(updateAnimation, "walking_southwest");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "walking_southwest");
         lastDirection = 7;
       }
     }
@@ -146,31 +147,29 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the mom is standing still this function triggers a standing event in the last direction.
    */
   public void standingEvents() {
-    Vector2 entityDirection = getDirection();
-
     if (lastDirection == 0) {
-      entity.getEvents().trigger(updateAnimation, "standing_north");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_north");
 
     } else if (lastDirection == 1) {
-      entity.getEvents().trigger(updateAnimation, "standing_east");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_east");
 
     } else if (lastDirection == 2) {
-      entity.getEvents().trigger(updateAnimation, "standing_south");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_south");
 
     } else if (lastDirection == 3) {
-      entity.getEvents().trigger(updateAnimation, "standing_west");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_west");
 
     } else if (lastDirection ==4 ) {
-      entity.getEvents().trigger(updateAnimation, "standing_northeast");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_northeast");
 
     } else if (lastDirection == 5) {
-      entity.getEvents().trigger(updateAnimation, "standing_northwest");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_northwest");
 
     } else if (lastDirection == 6) {
-      entity.getEvents().trigger(updateAnimation, "standing_southeast");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_southeast");
 
     } else if (lastDirection == 7) {
-      entity.getEvents().trigger(updateAnimation, "standing_southwest");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_southwest");
 
     }
   }
@@ -253,20 +252,19 @@ public class PhysicsMovementComponent extends Component implements MovementContr
 
     if (velocity.x<0.1 &&  velocity.x>-0.1 && velocity.y<0.1 && velocity.y>-0.1) {
       standingEventsTwoD();
-      logger.debug("Played low velocity anumations");
     } else {
       if (lastDirection != currentDirection) {
         if (x < 0.5 && x > -0.5 && y > 0) {
-          entity.getEvents().trigger(updateAnimation, "walking_north");
+          entity.getEvents().trigger(UPDATE_ANIMATION, "walking_north");
           lastDirection = 0;
         } else if (x > 0 && y < 0.5 && y > -0.5) {
-          entity.getEvents().trigger(updateAnimation, "standing_east");
+          entity.getEvents().trigger(UPDATE_ANIMATION, "standing_east");
           lastDirection = 1;
         } else if (x < 0.5 && x > -0.5 && y < 0) {
-          entity.getEvents().trigger(updateAnimation, "walking_south");
+          entity.getEvents().trigger(UPDATE_ANIMATION, "walking_south");
           lastDirection = 2;
         } else if (x < 0 && y < 0.5 && y > -0.5) {
-          entity.getEvents().trigger(updateAnimation, "walking_west");
+          entity.getEvents().trigger(UPDATE_ANIMATION, "walking_west");
           lastDirection = 3;
         }
       }
@@ -279,20 +277,17 @@ public class PhysicsMovementComponent extends Component implements MovementContr
    * If the cat is standing still, this function triggers a standing event in the last direction.
    */
   public void standingEventsTwoD() {
-    Vector2 entityDirection = getDirection();
-
-
     if (lastDirection == 0) {//NORTH
-      entity.getEvents().trigger(updateAnimation, "standing_north");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_north");
 
     } else if (lastDirection == 1) {//EAST
-      entity.getEvents().trigger(updateAnimation, "lying_east");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "lying_east");
 
     } else if (lastDirection == 2) {//SOUTH
-      entity.getEvents().trigger(updateAnimation, "standing_south");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_south");
 
     } else if (lastDirection == 3) {//WEST
-      entity.getEvents().trigger(updateAnimation, "standing_west");
+      entity.getEvents().trigger(UPDATE_ANIMATION, "standing_west");
 
     }
   }

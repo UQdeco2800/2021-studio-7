@@ -27,8 +27,16 @@ public class GridObject implements Json.Serializable {
         this.assets = assets;
     }
 
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
     public Method getMethod() {
         return method;
+    }
+
+    public void setAssets(String[] assets) {
+        this.assets = assets;
     }
 
     public String[] getAssets() {
@@ -43,6 +51,16 @@ public class GridObject implements Json.Serializable {
             }
         }
         return assetsWithExtension;
+    }
+
+    public List<Integer> getAssetIndexes() {
+        List<Integer> assetIndexes = new ArrayList<>();
+        for (int i = 0; i < assets.length; i++) {
+            if (assets[i].endsWith(".png") || assets[i].endsWith(".atlas")) {
+                assetIndexes.add(i);
+            }
+        }
+        return assetIndexes;
     }
 
     @Override

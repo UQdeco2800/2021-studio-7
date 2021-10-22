@@ -1,0 +1,98 @@
+{
+  tileMap: {
+    a: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createBaseTile
+      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
+    }
+  }
+  entityMap: {
+    W: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/walls/3.png, 0, 0, 0]
+    }
+    B: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createBed
+      assets:[images/objects/bed/bed_animation.atlas, 0, 4, 0]
+    }
+    b: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createBookcase
+      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
+    }
+    d: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createDesk
+      assets: [images/objects/furniture/desk_southeast.png, 0, 0, 0]
+    }
+    c: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createChair
+      assets: [images/objects/furniture/chair_left.png, 0, 0, 0]
+    }
+    s: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createSideTable
+      assets: [images/objects/furniture/sidetable_southeast.png, 0, 0, 0]
+    }
+    p: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createSideTable
+      assets: [images/objects/furniture/pet-met.png, 0, 0, 0]
+    },
+    C: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createStorageCabinet,
+      assets: [images/objects/furniture/Storage_cabinet_southwest.png, 0, 0, 0]
+    }
+    h: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createPlant,
+      assets: [images/objects/dead_plant/plant_animation.png, 0, 7, 5]
+    }
+    k: {
+    class:com.deco2800.game.entities.factories.ObjectFactory,
+    method: createPottedPlant,
+    assets: [images/objects/furniture/pot_plant.png, 0, 0, 0]
+  },
+    G: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createGameTable,
+      assets: [images/objects/furniture/game-table.png, 0, 0, 0]
+    }
+    L: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createClothesDrying,
+      assets: [images/objects/furniture/clothes-drying-rack.png, 0, 0, 0]
+    }
+    m: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createClock,
+      assets: [images/objects/furniture/newClock.png, 0, 0, 0]
+    },
+  }
+  tileGrid: [
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., .]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W],
+    [W, ., C, ., L, ., ., ., .],
+    [W, b, ., ., ., ., B, ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, d, c, ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, m, ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., .]
+  ]
+}

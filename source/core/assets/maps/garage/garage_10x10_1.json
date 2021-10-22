@@ -1,0 +1,70 @@
+{
+  tileMap: {
+    a: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createBaseTile
+      assets: [images/tiles/iso/iso_cement.png, 0]
+    }
+  }
+  entityMap: {
+    W: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/walls/3.png, 0, 0, 0]
+    },
+    U: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createBaseInteractable
+      assets: [images/objects/box/box.atlas, 1, 3, 0]
+    },
+    L: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createClothesDrying,
+      assets: [images/objects/furniture/clothes-drying-rack.png, 0, 0, 0]
+    }
+    w: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWashingMachine
+      assets:[images/objects/chores/washing_machine_basket_on_ground.png, 0,0,0]
+    }
+    t: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPottedPlant,
+      assets: [images/objects/furniture/pot_plant.png, 0, 0, 0]
+    },
+    X: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallestBaseChore,
+      assets: [images/objects/chores/empty_can.atlas, 1, 12, 8]
+    },
+    Y: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createSmallestBaseChore,
+      assets: [images/objects/chores/paper_ball.atlas, 1, 12, 8]
+    }
+  },
+  tileGrid: [
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a],
+    [a, a, a, a, a, a, a, a, a, a]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W, W],
+    [W, ., ., ., t, ., L, w, ., .],
+    [W, t, ., ., ., ., ., ., ., t],
+    [W, ., ., U, U, ., ., ., X, .],
+    [W, ., ., U, ., U, ., ., ., .],
+    [W, ., ., U, ., U, ., ., ., .],
+    [W, t, ., U, ., U, ., ., Y, .],
+    [W, ., ., U, ., U, ., ., ., .],
+    [W, ., ., U, U, ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., ., .]
+  ]
+}

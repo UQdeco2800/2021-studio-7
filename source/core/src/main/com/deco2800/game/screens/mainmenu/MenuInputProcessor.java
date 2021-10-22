@@ -1,7 +1,6 @@
 package com.deco2800.game.screens.mainmenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import org.slf4j.Logger;

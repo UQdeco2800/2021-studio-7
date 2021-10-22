@@ -1,0 +1,94 @@
+{
+  tileMap: {
+    a: {
+      class: com.deco2800.game.maps.terrain.TerrainFactory
+      method: createBaseTile
+      assets: [images/tiles/iso/iso_wall_1_left.png]
+    }
+  }
+  entityMap: {
+    W: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createWall
+      assets: [images/objects/walls/3.png, 0, 0, 0]
+    }
+    T: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createTv
+      assets: [images/objects/tv/TV_animation.atlas, 0, 1, 1]
+    }
+    B: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createBookcase
+      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
+    }
+    L: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createCouch
+      assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
+    }
+    u: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createLounge
+      assets: [images/objects/furniture/sofa-back.png, 0, 0, 0]
+    }
+    l: {
+      class: com.deco2800.game.entities.factories.ObjectFactory
+      method: createLamp
+      assets: [images/objects/furniture/sofaside-lamp.png, 0, 0, 0]
+    }
+    E: {
+      class:com.deco2800.game.entities.factories.ObjectFactory
+      method: createBaseChore
+      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
+    },
+    N: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createNintendo,
+      assets: [images/objects/furniture/Nintendo_southeast.png, 0, 0, 0]
+    },
+    C: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createCouchLarge,
+      assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
+    },
+    c: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createCouchSmall,
+      assets: [images/objects/furniture/sofa-left.png, 0, 0, 0]
+    },
+    Z: {
+      class: com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPlant,
+      assets: [images/objects/plant/plant_animation.atlas, 0, 0, 5]
+    }
+    t: {
+      class:com.deco2800.game.entities.factories.ObjectFactory,
+      method: createPottedPlant,
+      assets: [images/objects/furniture/pot_plant.png, 0, 0, 0]
+    },
+
+  },
+  tileGrid: [
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .],
+    [., ., ., ., ., ., ., ., ., ., ., .]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W, W, W, W],
+    [W, ., ., ., ., ., T, ., ., ., ., .],
+    [W, t, ., ., ., ., ., N, ., ., ., .],
+    [W, t, ., ., L, ., ., ., ., ., ., .],
+    [W, Z, ., ., ., ., ., ., ., ., ., .],
+    [W, Z, ., ., l, ., u, ., E, ., ., .],
+    [W, ., ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., ., ., ., .],
+    [W, ., ., ., ., ., ., ., ., ., ., .]
+  ]
+}

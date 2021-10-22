@@ -4,10 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -16,13 +17,9 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileWriter;
-import java.lang.Math;
-import java.util.Random;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
@@ -33,7 +30,7 @@ import static com.badlogic.gdx.Gdx.graphics;
 public class MainMenuDisplay extends UIComponent {
     private static final Logger logger = LoggerFactory.getLogger(MainMenuDisplay.class);
     private static final float Z_INDEX = 2f;
-    private static TextField txtUsername;
+    private static final String BROWSE = "browse";
     private Table tableMain;
     private String[] playablecharcters = {
             "images/characters/boy_01/boy_01_menu_preview.png",
@@ -53,16 +50,15 @@ public class MainMenuDisplay extends UIComponent {
     private static List<ImageButton> imageButtons = new ArrayList<>();
     private static Image menuIndicator;
 
-    private Random r = new Random();
 
     @Override
     public void create() {
         super.create();
         addActors();
-        updateMenuFrame();
     }
 
     private void addActors() {
+        //resetMenuIndex();
 
         Table tableLeft = new Table();
         Table tableRight = new Table();
@@ -108,23 +104,10 @@ public class MainMenuDisplay extends UIComponent {
         imageButtons.add(leftBtn);
         imageButtons.add(rightBtn);
 
-
-        /** USERNAME
-        this.txtUsername = new TextField("", skin);
-        txtUsername.setMessageText("Username:");
-         */
+        this.menuIndicator = createMenuIndicator();
 
         Image character = new Image(ServiceLocator.getResourceService()
                 .getAsset(playablecharcters[characterIndex], Texture.class));
-
-        createMenuIndicator();
-
-        Image rightBtnGrey = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/main_menu/pointer-R-inactive.png", Texture.class));
-
-        Image leftBtnGrey = new Image(ServiceLocator.getResourceService()
-                .getAsset("images/main_menu/pointer-L-inactive.png", Texture.class));
-
 
         // Triggers an event when the button is pressed
         startBtn.addListener(
@@ -132,7 +115,6 @@ public class MainMenuDisplay extends UIComponent {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Start button clicked");
-                        writeUsername();
                         entity.getEvents().trigger("start");
                     }
                 });
@@ -208,20 +190,19 @@ public class MainMenuDisplay extends UIComponent {
         tableMain.add(tableRight).expandY().fillY().fill();
         stage.addActor(tableMain);
 
-        menuIndicator.setTouchable(Touchable.disabled);
         stage.addActor(menuIndicator);
+        menuIndicator.setPosition(-100,-100);
     }
 
     @Override
-
     public void draw(SpriteBatch batch) {
         // draw is handled by the stage
     }
 
     @Override
     public float getZIndex() {
-        return Z_INDEX;
-    }
+    return Z_INDEX;
+  }
 
     @Override
     public void dispose() {
@@ -253,8 +234,15 @@ public class MainMenuDisplay extends UIComponent {
      */
     public void changeCharacterLeft(){
         if (notFarLeft()){
-            MainMenuScreen.playButtonSound("browse");
+            MainMenuScreen.playButtonSound(BROWSE);
             characterIndex--;
+            buttons.clear();
+            imageButtons.clear();
+            dispose();
+            create();
+        } else {
+            characterIndex = 2;
+            MainMenuScreen.playButtonSound(BROWSE);
             buttons.clear();
             imageButtons.clear();
             dispose();
@@ -275,8 +263,15 @@ public class MainMenuDisplay extends UIComponent {
      */
     public void changeCharacterRight(){
         if (notFarRight()){
-            MainMenuScreen.playButtonSound("browse");
+            MainMenuScreen.playButtonSound(BROWSE);
             characterIndex++;
+            buttons.clear();
+            imageButtons.clear();
+            dispose();
+            create();
+        } else {
+            characterIndex = 0;
+            MainMenuScreen.playButtonSound(BROWSE);
             buttons.clear();
             imageButtons.clear();
             dispose();
@@ -296,30 +291,6 @@ public class MainMenuDisplay extends UIComponent {
         }
     }
 
-    public void writeUsername(){
-        try (FileWriter writer = new FileWriter("configs/leaderboard.txt",true)) {
-            String username;
-            if (txtUsername.getText().length()<2){
-                username = "DirtyDefault"+ getRandomNum();
-            }else{
-                username = txtUsername.getText();
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("\n");
-            sb.append(username);
-            sb.append(":");
-            String s = sb.toString();
-            writer.write(s);
-            logger.info("Wrote username to leaderboard.");
-        } catch (Exception e){
-            logger.debug("Could not write username to leaderboard.");
-        }
-    }
-
-    public int getRandomNum(){
-        return r.nextInt(100000);
-    }
 
     /**
      * Moves the menuFrame up
@@ -328,6 +299,7 @@ public class MainMenuDisplay extends UIComponent {
         if (notAtTop()) {
             menuIndex--;
             updateMenuFrame();
+            MainMenuScreen.playButtonSound(BROWSE);
         }
     }
 
@@ -366,13 +338,18 @@ public class MainMenuDisplay extends UIComponent {
         if (notAtBottom()) {
             menuIndex++;
             updateMenuFrame();
+            MainMenuScreen.playButtonSound(BROWSE);
         }
         logger.info("Menu Index is {}", menuIndex);
     }
 
-    private static void createMenuIndicator() {
-        menuIndicator = new Image(ServiceLocator.getResourceService()
+    private static Image createMenuIndicator() {
+        return new Image(ServiceLocator.getResourceService()
                 .getAsset("images/ui/elements/menuFrame-LONG.png", Texture.class));
+    }
+
+    private static void resetMenuIndex() {
+        menuIndex = 0;
     }
 
     /**
@@ -388,8 +365,6 @@ public class MainMenuDisplay extends UIComponent {
      * Also plays the 'b e e p'
      */
     public static void updateMenuFrame() {
-        MainMenuScreen.playButtonSound("browse");
-
         TextButton startBtn = buttons.get(0);
         TextButton leadBtn = buttons.get(1);
         TextButton setBtn = buttons.get(2);
