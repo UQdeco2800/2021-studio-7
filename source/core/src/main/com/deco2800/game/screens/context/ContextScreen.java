@@ -51,7 +51,7 @@ public class ContextScreen extends ScreenAdapter {
 
     public void playButtonSound() {
         Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
-        sound.play();
+        sound.play(0.05f);
         logger.info("enter button sound played on context screen launch");
     }
 

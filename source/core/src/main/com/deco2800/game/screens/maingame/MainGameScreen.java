@@ -180,7 +180,7 @@ public class MainGameScreen extends ScreenAdapter {
             ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
                     Music.class);
     music.setLooping(true);
-    music.setVolume(0.3f);
+    music.setVolume(0.05f);
     music.play();
   }
 
@@ -195,7 +195,7 @@ public class MainGameScreen extends ScreenAdapter {
       logger.info("scrolling button sound played on main game screen launch");
     }
 
-    sound.play();
+    sound.play(0.05f);
   }
 
   /**

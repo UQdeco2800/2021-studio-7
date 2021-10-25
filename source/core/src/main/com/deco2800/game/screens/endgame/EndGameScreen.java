@@ -71,7 +71,7 @@ public class EndGameScreen extends ScreenAdapter {
             sound = ServiceLocator.getResourceService().getAsset(buttonSounds[1], Sound.class);
         }
 
-        sound.play();
+        sound.play(0.05f);
         logger.info("{} button sound played on end game screen", button);
     }
 

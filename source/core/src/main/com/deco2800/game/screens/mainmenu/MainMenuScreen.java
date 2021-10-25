@@ -62,7 +62,7 @@ public class MainMenuScreen extends ScreenAdapter {
             ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
                     Music.class);
     music.setLooping(true);
-    music.setVolume(0.2f);
+    music.setVolume(0.05f);
     music.play();
   }
 
@@ -72,7 +72,7 @@ public class MainMenuScreen extends ScreenAdapter {
    */
   public static void playButtonSound(String button) {
     Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
-    sound.play();
+    sound.play(0.05f);
     logger.info("{} button sound played", button);
   }
 
