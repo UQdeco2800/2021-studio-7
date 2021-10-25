@@ -18,6 +18,9 @@ import com.deco2800.game.utils.StringDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
  * DECO2800Game/settings.json under your home directory (This is C:/users/[username] on Windows).
@@ -236,6 +239,15 @@ public class SettingsDisplay extends KeyboardMenuDisplay {
   @Override
   public void update() {
     stage.act(ServiceLocator.getTimeSource().getDeltaTime());
+  }
+
+  public static List<String> getAssets() {
+    return new ArrayList<>();
+  }
+
+  public static List<String> getAssets(String extension) {
+    // Ignore extension
+    return new ArrayList<>();
   }
 
   @Override

@@ -1,11 +1,13 @@
 package com.deco2800.game.screens.context;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.deco2800.game.screens.KeyboardMenuDisplay;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +17,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * A ui component for displaying the Context screen.
  */
-public class ContextScreenDisplay extends UIComponent {
+public class ContextScreenDisplay extends KeyboardMenuDisplay {
     private static final Logger logger = LoggerFactory.getLogger(ContextScreenDisplay.class);
-    private static final float Z_INDEX = 2f;
     private TextField txtUserName;
     private Label displayText;
     private String text = "";
@@ -37,6 +38,45 @@ public class ContextScreenDisplay extends UIComponent {
     public void create() {
         super.create();
         addActors();
+    }
+
+    @Override
+    protected void addActors() {
+        switch(ContextScreen.getScreen()) {
+            case 1:
+                table = new Table();
+                table.setFillParent(true);
+                int colWidth = Gdx.graphics.getWidth() / 10;
+                Label enterName = new Label("PLEASE ENTER YOUR USERNAME", skin, TITLE);
+                enterName.setFontScale((colWidth*10f)/1000f);
+                enterName.addAction(Actions.alpha(0));
+                enterName.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
+
+                this.txtUserName = new TextField("", skin);
+                this.txtUserName.setScale(5f);
+
+                table.add(enterName).padTop(50f);
+                table.row();
+                table.add(txtUserName).padTop(50f);
+                stage.addActor(table);
+                stage.setKeyboardFocus(txtUserName);
+                stage.addActor(table);
+                Gdx.input.setInputProcessor(stage);
+                break;
+            case 2:
+                tellStory();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onMenuKeyPressed(int keyCode) {
+        switch (keyCode) {
+            case Keys.ENTER:
+
+        }
     }
 
     @Override
@@ -89,37 +129,6 @@ public class ContextScreenDisplay extends UIComponent {
             logger.error("Sleep interrupted");
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void addActors() {
-        switch(ContextScreen.getScreen()) {
-            case 1:
-                table = new Table();
-                table.setFillParent(true);
-                int colWidth = Gdx.graphics.getWidth() / 10;
-                Label enterName = new Label("PLEASE ENTER YOUR USERNAME", skin, TITLE);
-                enterName.setFontScale((colWidth*10f)/1000f);
-                enterName.addAction(Actions.alpha(0));
-                enterName.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
-
-                this.txtUserName = new TextField("", skin);
-                this.txtUserName.setScale(5f);
-
-                table.add(enterName).padTop(50f);
-                table.row();
-                table.add(txtUserName).padTop(50f);
-                stage.addActor(table);
-                stage.setKeyboardFocus(txtUserName);
-                stage.addActor(table);
-                Gdx.input.setInputProcessor(stage);
-                break;
-            case 2:
-                tellStory();
-                break;
-            default:
-                break;
-        }
-
     }
 
     public TextField getUserName() {
@@ -175,15 +184,6 @@ public class ContextScreenDisplay extends UIComponent {
 
     public boolean getPrintStatus() {
         return this.start;
-    }
-
-    public void draw(SpriteBatch batch) {
-        // draw is handled by the stage
-    }
-
-    @Override
-    public float getZIndex() {
-        return Z_INDEX;
     }
 
     @Override

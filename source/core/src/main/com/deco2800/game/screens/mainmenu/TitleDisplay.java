@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.KeyboardMenuDisplay;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A ui component for displaying the Tittle screen.
  */
@@ -15,8 +18,6 @@ public class TitleDisplay extends KeyboardMenuDisplay {
     private static final String[] TEXTURES = {
             "images/ui/title/RETROACTIVE-large.png",
             "images/ui/screens/inactiveStart.png"
-    };
-    private static final String[] ATLASES = {
     };
 
     private Table table;
@@ -60,12 +61,16 @@ public class TitleDisplay extends KeyboardMenuDisplay {
         entity.getEvents().trigger("title_screen_interacted");
     }
 
-    public static String[] getTextures() {
-        return TEXTURES;
+    public static List<String> getAssets() {
+        return getAssets(".png");
     }
 
-    public static String[] getAtlases() {
-        return ATLASES;
+    public static List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
+        if (extension.equals(".png")) {
+            assetsWithExtension.addAll(List.of(TEXTURES));
+        }
+        return assetsWithExtension;
     }
 
     @Override

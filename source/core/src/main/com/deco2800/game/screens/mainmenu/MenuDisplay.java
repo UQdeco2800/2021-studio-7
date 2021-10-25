@@ -236,16 +236,18 @@ public class MenuDisplay extends KeyboardMenuDisplay {
         }
     }
 
-    public static String[] getTextures() {
-        List<String> textures = new ArrayList<>();
-        textures.addAll(List.of(UI_TEXTURES));
-        textures.addAll(List.of(ARROW_TEXTURES));
-        textures.addAll(List.of(CHARACTER_TEXTURES));
-        return textures.toArray(new String[0]);
+    public static List<String> getAssets() {
+        return getAssets(".png");
     }
 
-    public static String[] getAtlases() {
-        return CHARACTER_ATLASES;
+    public static List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
+        if (extension.equals(".png")) {
+            assetsWithExtension.addAll(List.of(UI_TEXTURES));
+            assetsWithExtension.addAll(List.of(ARROW_TEXTURES));
+            assetsWithExtension.addAll(List.of(CHARACTER_TEXTURES));
+        }
+        return assetsWithExtension;
     }
 
     @Override

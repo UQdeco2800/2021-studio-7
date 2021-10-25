@@ -1,16 +1,16 @@
-package com.deco2800.game.screens.leaderboard;
+package com.deco2800.game.screens.mainmenu;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.deco2800.game.GdxGame;
-import com.deco2800.game.GdxGame.ScreenType;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.ui.components.UIComponent;
+import com.deco2800.game.screens.KeyboardMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 import java.util.TreeMap;
 import java.io.*;
 import java.util.*;
@@ -20,19 +20,13 @@ import java.io.IOException;
 /**
  * Leader board screen display.
  */
-public class LeaderboardDisplay extends UIComponent {
+public class LeaderboardDisplay extends KeyboardMenuDisplay {
     private static final Logger logger = LoggerFactory.getLogger(LeaderboardDisplay.class);
-    private final GdxGame game;
-    private Table rootTable;
-    private String configFile = "configs/leaderboard.txt";
-    private static TextButton button;
+    private static final String LEADERBOARD_FILE = "configs/leaderboard.txt";
+    private static final String TITLE_TEXTURE = "images/ui/title/leaderboard.png";
+    private Table table;
+    private HorizontalGroup menuButtons;
     private Map<String, Integer> sortedLeaderboard;
-
-    public LeaderboardDisplay(GdxGame game) {
-        super();
-        this.game = game;
-        logger.info("Trying to build leader board...");
-    }
 
     @Override
     public void create() {
@@ -43,29 +37,34 @@ public class LeaderboardDisplay extends UIComponent {
         addActors();
     }
 
-    private void addActors() {
-        rootTable = new Table();
-        rootTable.setFillParent(true);
-        Image title = new Image(
-                ServiceLocator.getResourceService()
-                        .getAsset("images/ui/title/leaderboard.png", Texture.class));
-        Table leaderboardtable = makeLeaderBoardTable();
-        Table menuBtns = makeMenuBtns();
-        rootTable.add(title).expandX().top().padTop(20f);
-        rootTable.row().padTop(30f);
-        logger.info("Trying to create leader board...");
-        rootTable.add(leaderboardtable).expandX().expandY();
-        rootTable.row();
-        rootTable.add(menuBtns).fillX();
-        stage.addActor(rootTable);
-
+    @Override
+    protected void addActors() {
+        table = new Table();
+        table.setFillParent(true);
+        Image title = new Image(ServiceLocator.getResourceService().getAsset(TITLE_TEXTURE, Texture.class));
+        table.add(title).expandX().top().padTop(20f);
+        table.row().padTop(30f);
+        table.add(createLeaderboard()).expandX().expandY();
+        table.row();
+        table.add(createMenuButtons()).fillX();
+        stage.addActor(table);
     }
 
+    @Override
+    public void onMenuKeyPressed(int keyCode) {
+        switch (keyCode) {
+            case Keys.ENTER:
+            case Keys.ESCAPE:
+                ((TextButton) menuButtons.getChild(0)).toggle();
+                break;
+            default:
+        }
+    }
 
-    private Table makeLeaderBoardTable() {
-        Table leaderTable = new Table();
-        logger.info("Trying to get leader board...");
-        logger.info("Got leader board.");
+    private VerticalGroup createLeaderboard() {
+        VerticalGroup leaderboard = new VerticalGroup();
+        leaderboard.space(15f);
+
         Set <Map.Entry<String,Integer>> set = sortedLeaderboard.entrySet();
         Iterator <Map.Entry<String,Integer>> i = set.iterator();
         String insert;
@@ -73,38 +72,30 @@ public class LeaderboardDisplay extends UIComponent {
         while (i.hasNext()) {
             t++;
             if (t == 11){break;}
-            leaderTable.row();
             Map.Entry<String,Integer> mp = i.next();
             String score = String.valueOf(mp.getValue());
             insert = mp.getKey() + ":" + score;
             Label label = new Label(insert, skin);
-            leaderTable.add(label).padTop(15f);
+            leaderboard.addActor(label);
         }
-        return leaderTable;
+        return leaderboard;
     }
 
-    private Table makeMenuBtns() {
-        TextButton exitBtn1 = new TextButton("Exit", skin);
-        setButtonState(exitBtn1);
-        exitBtn1.addListener(
+    private HorizontalGroup createMenuButtons() {
+        TextButton exitBtn = new TextButton("Exit", skin);
+        exitBtn.addListener(
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent changeEvent, Actor actor) {
                         logger.debug("Exit button clicked");
-                        exitMenu();
+                        entity.getEvents().trigger("main_menu");
                     }
                 });
 
-        Table table = new Table();
+        menuButtons = new HorizontalGroup();
 
-        table.add(exitBtn1).expandX().left().pad(0f, 15f, 15f, 0f);
-        return table;
-    }
-
-
-    @Override
-    protected void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+        menuButtons.addActor(exitBtn);
+        return menuButtons;
     }
 
     @Override
@@ -112,29 +103,29 @@ public class LeaderboardDisplay extends UIComponent {
         stage.act(ServiceLocator.getTimeSource().getDeltaTime());
     }
 
+    public static List<String> getAssets() {
+        return getAssets(".png");
+    }
+
+    public static List<String> getAssets(String extension) {
+        List<String> assetsWithExtension = new ArrayList<>();
+        if (extension.equals(".png")) {
+            assetsWithExtension.add(TITLE_TEXTURE);
+        }
+        return assetsWithExtension;
+    }
+
     @Override
     public void dispose() {
-        rootTable.clear();
+        table.clear();
         super.dispose();
-    }
-
-    public static void setButtonState(TextButton buttonState) {
-        button = buttonState;
-    }
-
-    private void exitMenu() {
-        game.setScreen(ScreenType.MAIN_MENU);
-    }
-
-    public static void exitLB() {
-        button.toggle();
     }
 
     private void sortLeaderBoard() {
         TreeMap<String, Integer> leaderboard = (TreeMap<String, Integer>) getLeaderBoard();
         sortedLeaderboard = valueSort(leaderboard);
 
-        try (FileWriter clearer = new FileWriter(configFile); FileWriter writer = new FileWriter(configFile, true)) {
+        try (FileWriter clearer = new FileWriter(LEADERBOARD_FILE); FileWriter writer = new FileWriter(LEADERBOARD_FILE, true)) {
             clearer.write("");
             Set<Map.Entry<String, Integer>> set = sortedLeaderboard.entrySet();
 
@@ -178,7 +169,7 @@ public class LeaderboardDisplay extends UIComponent {
 
         TreeMap<String, Integer> leaderboard = new TreeMap<>();
         String currentLine;
-        File input = new File(configFile);
+        File input = new File(LEADERBOARD_FILE);
 
         try (BufferedReader br = new BufferedReader(new FileReader(input))) {
             while ((currentLine = br.readLine()) != null) {
@@ -204,5 +195,4 @@ public class LeaderboardDisplay extends UIComponent {
         }
         return leaderboard;
     }
-
 }

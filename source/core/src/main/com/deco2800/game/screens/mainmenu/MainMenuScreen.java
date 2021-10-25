@@ -10,14 +10,16 @@ import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveScreen;
-import com.deco2800.game.screens.leaderboard.LeaderboardDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
 
 /**
  * The game screen containing the main menu.
@@ -25,23 +27,8 @@ import org.slf4j.LoggerFactory;
 public class MainMenuScreen extends RetroactiveScreen {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final Renderer renderer;
-  private static final String[] mainMenuTextures = {
-          "images/ui/elements/menuFrame-LONG.png",
-          "images/ui/title/RETROACTIVE-large.png",
-          "images/characters/boy_01/boy_01_menu_preview.png",
-          "images/characters/girl_00/girl_00_menu_preview.png",
-          "images/characters/boy_00/boy_00_menu_preview.png",
-          "images/main_menu/bgart.png",
-          "images/main_menu/pointer-R-inactive.png",
-          "images/main_menu/pointer-L-inactive.png"
-  };
-  //add background music into the game
-  private static final String[] backgroundMusic = {"sounds/backgroundMusic-EP" +
-          ".mp3"};
-
-  private static final String[] buttonSounds = {
-          "sounds/browse-short.ogg"
-  };
+  private static final String backgroundMusic = "sounds/backgroundMusic-EP.mp3";
+  private static final String buttonSounds = "sounds/browse-short.ogg";
 
   public MainMenuScreen(GdxGame game) {
     super(game);
@@ -62,9 +49,7 @@ public class MainMenuScreen extends RetroactiveScreen {
    * Play the background Music
    */
   private void playMusic() {
-    Music music =
-            ServiceLocator.getResourceService().getAsset(backgroundMusic[0],
-                    Music.class);
+    Music music = ServiceLocator.getResourceService().getAsset(backgroundMusic, Music.class);
     music.setLooping(true);
     music.setVolume(0.2f);
     music.play();
@@ -75,7 +60,7 @@ public class MainMenuScreen extends RetroactiveScreen {
    * @param button button pressed
    */
   public static void playButtonSound(String button) {
-    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds[0], Sound.class);
+    Sound sound = ServiceLocator.getResourceService().getAsset(buttonSounds, Sound.class);
     sound.play();
     logger.info("{} button sound played", button);
   }
@@ -84,7 +69,6 @@ public class MainMenuScreen extends RetroactiveScreen {
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
-    MenuDisplay.updateMenuFrame();
   }
 
   @Override
@@ -119,26 +103,30 @@ public class MainMenuScreen extends RetroactiveScreen {
   @Override
   protected void loadAssets() {
     logger.debug("Loading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.loadTextures(mainMenuTextures);
-    resourceService.loadMusic(backgroundMusic);
-    resourceService.loadSounds(buttonSounds);
+
+    HashSet<String> displayAssets = new HashSet<>();
+    displayAssets.addAll(TitleDisplay.getAssets());
+    displayAssets.addAll(MenuDisplay.getAssets());
+    displayAssets.addAll(LeaderboardDisplay.getAssets());
+    displayAssets.addAll(SettingsDisplay.getAssets());
+
+    ServiceLocator.getResourceService().loadTextures(displayAssets.toArray(new String[0]));
     ServiceLocator.getResourceService().loadAll();
   }
 
   @Override
   protected void unloadAssets() {
     logger.debug("Unloading assets");
-    ResourceService resourceService = ServiceLocator.getResourceService();
-    resourceService.unloadAssets(mainMenuTextures);
-    resourceService.unloadAssets(backgroundMusic);
-    resourceService.unloadAssets(buttonSounds);
+
+    HashSet<String> displayAssets = new HashSet<>();
+    displayAssets.addAll(TitleDisplay.getAssets());
+    displayAssets.addAll(MenuDisplay.getAssets());
+    displayAssets.addAll(LeaderboardDisplay.getAssets());
+    displayAssets.addAll(SettingsDisplay.getAssets());
+
+    ServiceLocator.getResourceService().unloadAssets(displayAssets.toArray(new String[0]));
   }
 
-  /**
-   * Creates the main menu's ui including components for rendering ui elements to the screen and
-   * capturing and handling ui input.
-   */
   @Override
   protected void createUI() {
     logger.debug("Creating ui");
@@ -150,11 +138,9 @@ public class MainMenuScreen extends RetroactiveScreen {
             .addComponent(new MenuDisplay())
             .addComponent(new LeaderboardDisplay())
             .addComponent(new SettingsDisplay())
-            .addComponent(new MainMenuActions());
+            .addComponent(new MainMenuActions(this));
+
     ServiceLocator.getEntityService().register(ui);
-    Gdx.input.setInputProcessor(new MenuInputProcessor());
+    Gdx.input.setInputProcessor(new KeyboardMenuInputComponent());
   }
-  
 }
-
-
