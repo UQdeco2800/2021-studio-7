@@ -80,7 +80,7 @@ public class LeaderBoardScreen extends ScreenAdapter {
         logger.debug("Creating ui");
         Stage stage = ServiceLocator.getRenderService().getStage();
         Entity ui = new Entity();
-        ui.addComponent(new LeaderBoardDisplay(game))
+        ui.addComponent(new LeaderboardDisplay(game))
                 .addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
         Gdx.input.setInputProcessor(new LeadBdInputProcessor());

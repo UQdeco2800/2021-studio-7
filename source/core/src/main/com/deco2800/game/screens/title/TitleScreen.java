@@ -1,8 +1,8 @@
 package com.deco2800.game.screens.title;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -13,26 +13,25 @@ import com.deco2800.game.input.components.InputComponent;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+import com.deco2800.game.screens.RetroactiveScreen;
+import com.deco2800.game.screens.mainmenu.TitleDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The game screen containing the title.
  */
-public class TitleScreen extends ScreenAdapter {
+public class TitleScreen extends RetroactiveScreen {
     private static final Logger logger = LoggerFactory.getLogger(TitleScreen.class);
 
     private final Renderer renderer;
-    private static final String[] TitleTextures = {
-            "images/ui/screens/inactiveStart.png",
-            "images/ui/title/RETROACTIVE-large.png"
-    };
+
     //add background music into the game
     private static final String[] backgroundMusic = {"sounds/backgroundMusic" +
             "-EP.mp3"};
 
-    public TitleScreen() {
-
+    public TitleScreen(GdxGame game) {
+        super(game);
         logger.debug("Initialising title screen services");
         ServiceLocator.registerInputService(new InputService());
         ServiceLocator.registerResourceService(new ResourceService());
@@ -51,6 +50,9 @@ public class TitleScreen extends ScreenAdapter {
     public void render(float delta) {
         ServiceLocator.getEntityService().update();
         renderer.render();
+        if (nextScreen != null) {
+            game.setScreen(nextScreen);
+        }
     }
 
     @Override
@@ -94,18 +96,20 @@ public class TitleScreen extends ScreenAdapter {
         music.play();
     }
 
-    private void loadAssets() {
+    @Override
+    protected void loadAssets() {
         logger.debug("Loading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadTextures(TitleTextures);
+        resourceService.loadTextures(TitleDisplay.getAssets());
         resourceService.loadMusic(backgroundMusic);
         ServiceLocator.getResourceService().loadAll();
     }
 
-    private void unloadAssets() {
+    @Override
+    protected void unloadAssets() {
         logger.debug("Unloading assets");
         ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.unloadAssets(TitleTextures);
+        resourceService.unloadAssets(TitleDisplay.getAssets());
         resourceService.unloadAssets(backgroundMusic);
     }
 
@@ -113,17 +117,15 @@ public class TitleScreen extends ScreenAdapter {
      * Creates the title ui including components for rendering ui elements to the screen and
      * capturing and handling ui input.
      */
-    private void createUI() {
+    @Override
+    protected void createUI() {
         logger.debug("Creating ui");
-        InputComponent inputComponent =
-                ServiceLocator.getInputService().getInputFactory().createForTitle();
-
+        InputComponent menuInputComponent = ServiceLocator.getInputService().getInputFactory().createForMenu();
         Stage stage = ServiceLocator.getRenderService().getStage();
-        Entity ui = new Entity();
-        ui.addComponent(new TitleScreenDisplay())
-                .addComponent(new InputDecorator(stage, 10))
-                .addComponent(inputComponent)
-                .addComponent(new TitleScreenActions());
+
+        Entity ui = new Entity()
+                .addComponent(menuInputComponent)
+                .addComponent(new InputDecorator(stage, 10));
         ServiceLocator.getEntityService().register(ui);
     }
 }

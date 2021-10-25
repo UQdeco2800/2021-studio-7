@@ -1,7 +1,7 @@
 package com.deco2800.game.screens.endgame;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.leaderboard.LeaderBoardDisplay;
+import com.deco2800.game.screens.leaderboard.LeaderboardDisplay;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +16,7 @@ class LeaderBoardDisplayTest {
 
     @Test
     void createTest() {
-        LeaderBoardDisplay test1 = mock(LeaderBoardDisplay.class);
+        LeaderboardDisplay test1 = mock(LeaderboardDisplay.class);
         doNothing().when(test1).create();
         test1.create();
         verify(test1, times(1)).create();
@@ -24,7 +24,7 @@ class LeaderBoardDisplayTest {
 
     @Test
     void updateTest() {
-        LeaderBoardDisplay test2 = mock(LeaderBoardDisplay.class);
+        LeaderboardDisplay test2 = mock(LeaderboardDisplay.class);
         doNothing().when(test2).update();
         test2.update();
         test2.update();
@@ -33,7 +33,7 @@ class LeaderBoardDisplayTest {
 
     @Test
     void disposeTest() {
-        LeaderBoardDisplay test3 = mock(LeaderBoardDisplay.class);
+        LeaderboardDisplay test3 = mock(LeaderboardDisplay.class);
         doNothing().when(test3).dispose();
         test3.dispose();
         test3.dispose();
@@ -43,7 +43,7 @@ class LeaderBoardDisplayTest {
 
     @Test
     void valueSortTest() {
-        LeaderBoardDisplay test = new LeaderBoardDisplay(game);
+        LeaderboardDisplay test = new LeaderboardDisplay(game);
         TreeMap<Integer, Integer> map =new TreeMap<>();
         map.put(2,3);
         assertEquals(null,test.valueSort(map).get(2));

@@ -1,24 +1,25 @@
-package com.deco2800.game.screens.title;
+package com.deco2800.game.screens.mainmenu;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.ui.components.UIComponent;
+import com.deco2800.game.screens.KeyboardMenuDisplay;
 
 /**
  * A ui component for displaying the Tittle screen.
  */
-public class TitleScreenDisplay extends UIComponent {
-    private static final float Z_INDEX = 2f;
-    private Table table;
+public class TitleDisplay extends KeyboardMenuDisplay {
+    private static final String[] TEXTURES = {
+            "images/ui/title/RETROACTIVE-large.png",
+            "images/ui/screens/inactiveStart.png"
+    };
+    private static final String[] ATLASES = {
+    };
 
-    public TitleScreenDisplay() {
-        super();
-    }
+    private Table table;
 
     @Override
     public void create() {
@@ -26,7 +27,8 @@ public class TitleScreenDisplay extends UIComponent {
         addActors();
     }
 
-    private void addActors() {
+    @Override
+    protected void addActors() {
         table = new Table();
         table.setFillParent(true);
 
@@ -34,15 +36,11 @@ public class TitleScreenDisplay extends UIComponent {
         startText.addAction(Actions.alpha(0));
         startText.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
 
-        Image title =
-                new Image(
-                        ServiceLocator.getResourceService()
-                                .getAsset("images/ui/title/RETROACTIVE-large.png", Texture.class));
+        Image title = new Image(ServiceLocator.getResourceService()
+                .getAsset(TEXTURES[0], Texture.class));
 
-        Image bed =
-                new Image(
-                        ServiceLocator.getResourceService()
-                                .getAsset("images/ui/screens/inactiveStart.png", Texture.class));
+        Image bed = new Image(ServiceLocator.getResourceService()
+                .getAsset(TEXTURES[1], Texture.class));
 
         table.add(title);
         table.row();
@@ -52,13 +50,22 @@ public class TitleScreenDisplay extends UIComponent {
         stage.addActor(table);
     }
 
-    public void draw(SpriteBatch batch) {
-        // draw is handled by the stage
+    @Override
+    public void onMenuKeyPressed(int keyCode) {
+        entity.getEvents().trigger("title_screen_interacted");
     }
 
     @Override
-    public float getZIndex() {
-        return Z_INDEX;
+    public void onNonMenuKeyPressed(int keyCode) {
+        entity.getEvents().trigger("title_screen_interacted");
+    }
+
+    public static String[] getTextures() {
+        return TEXTURES;
+    }
+
+    public static String[] getAtlases() {
+        return ATLASES;
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
+import com.deco2800.game.screens.RetroactiveScreen;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Details on libGDX screens: https://happycoding.io/tutorials/libgdx/game-screens
  */
-public class MainGameScreen extends ScreenAdapter {
+public class MainGameScreen extends RetroactiveScreen {
   private static final Logger logger = LoggerFactory.getLogger(MainGameScreen.class);
   private static final String[] mainGameTextures = {};
   private static final String TEST_FLOOR_PLAN = "maps/testing/demo.json";
@@ -51,11 +52,11 @@ public class MainGameScreen extends ScreenAdapter {
   private final Entity mainGameEntity = new Entity();
   private Entity player;
   private boolean gamePaused = false;
-  private GdxGame.ScreenType queuedScreen = null;
   private static int level = 1;
   private static final String ENTER = "enter";
 
-  public MainGameScreen() {
+  public MainGameScreen(GdxGame game) {
+    super(game);
     logger.debug("Initialising main game screen services");
     ServiceLocator.registerTimeSource(new GameTime());
 
@@ -96,10 +97,6 @@ public class MainGameScreen extends ScreenAdapter {
     playButtonSound(ENTER);
   }
 
-  public void queueNewScreen(GdxGame.ScreenType screenType) {
-    queuedScreen = screenType;
-  }
-
   public static int getLevel() {
     return level;
   }
@@ -113,11 +110,11 @@ public class MainGameScreen extends ScreenAdapter {
       physicsEngine.update();
       ServiceLocator.getEntityService().update();
     }
-    if (queuedScreen == null) {
+    if (nextScreen == null) {
       renderer.getCamera().getEntity().setPosition(player.getPosition());
       renderer.render();
     } else {
-      ServiceLocator.getGame().setScreen(queuedScreen);
+      game.setScreen(nextScreen);
     }
   }
 
@@ -155,7 +152,8 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.clear();
   }
 
-  private void loadAssets() {
+  @Override
+  protected void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainGameTextures);
@@ -164,7 +162,8 @@ public class MainGameScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().loadAll();
   }
 
-  private void unloadAssets() {
+  @Override
+  protected void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainGameTextures);
@@ -202,7 +201,7 @@ public class MainGameScreen extends ScreenAdapter {
    * Creates the main game's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.
    */
-  private void createUI() {
+  protected void createUI() {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
     InputComponent inputComponent = ServiceLocator.getInputService().getInputFactory().createForTerminal();

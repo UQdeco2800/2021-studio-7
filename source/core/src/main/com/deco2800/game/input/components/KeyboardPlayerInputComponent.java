@@ -1,4 +1,4 @@
-package com.deco2800.game.entities.components.player;
+package com.deco2800.game.input.components;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;

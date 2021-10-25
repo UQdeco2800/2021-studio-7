@@ -1,6 +1,7 @@
 package com.deco2800.game.entities.components.player;
 
 import com.badlogic.gdx.Input;
+import com.deco2800.game.input.components.KeyboardPlayerInputComponent;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;

@@ -13,7 +13,7 @@ public class LeadBdInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         if((Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) ||
                 (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) ){
-            LeaderBoardDisplay.exitLB();
+            LeaderboardDisplay.exitLB();
             logger.info("Enter Key Pressed");
         }
         return false;

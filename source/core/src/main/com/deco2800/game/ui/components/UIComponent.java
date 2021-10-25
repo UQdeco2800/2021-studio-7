@@ -12,9 +12,18 @@ import com.deco2800.game.generic.ServiceLocator;
  */
 public abstract class UIComponent extends RenderComponent implements Renderable {
   private static final int UI_LAYER = 2;
+  private final float Z_INDEX;
   protected static final Skin skin =
       new Skin(Gdx.files.internal("flat-earth/skin/flat-earth-ui.json"));
   protected Stage stage;
+
+  public UIComponent() {
+    this(1f);
+  }
+
+  public UIComponent(float zIndex) {
+    this.Z_INDEX = zIndex;
+  }
 
   @Override
   public void create() {
@@ -29,6 +38,6 @@ public abstract class UIComponent extends RenderComponent implements Renderable 
 
   @Override
   public float getZIndex() {
-    return 1f;
+    return Z_INDEX;
   }
 }

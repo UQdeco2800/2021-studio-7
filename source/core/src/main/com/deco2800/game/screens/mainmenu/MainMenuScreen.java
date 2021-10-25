@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
@@ -13,13 +14,15 @@ import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.RetroactiveScreen;
+import com.deco2800.game.screens.leaderboard.LeaderboardDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * The game screen containing the main menu.
  */
-public class MainMenuScreen extends ScreenAdapter {
+public class MainMenuScreen extends RetroactiveScreen {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuScreen.class);
   private final Renderer renderer;
   private static final String[] mainMenuTextures = {
@@ -40,7 +43,8 @@ public class MainMenuScreen extends ScreenAdapter {
           "sounds/browse-short.ogg"
   };
 
-  public MainMenuScreen() {
+  public MainMenuScreen(GdxGame game) {
+    super(game);
     logger.debug("Initialising main menu screen services");
     ServiceLocator.registerInputService(new InputService());
     ServiceLocator.registerResourceService(new ResourceService());
@@ -80,7 +84,7 @@ public class MainMenuScreen extends ScreenAdapter {
   public void render(float delta) {
     ServiceLocator.getEntityService().update();
     renderer.render();
-    MainMenuDisplay.updateMenuFrame();
+    MenuDisplay.updateMenuFrame();
   }
 
   @Override
@@ -112,7 +116,8 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.clear();
   }
 
-  private void loadAssets() {
+  @Override
+  protected void loadAssets() {
     logger.debug("Loading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.loadTextures(mainMenuTextures);
@@ -121,7 +126,8 @@ public class MainMenuScreen extends ScreenAdapter {
     ServiceLocator.getResourceService().loadAll();
   }
 
-  private void unloadAssets() {
+  @Override
+  protected void unloadAssets() {
     logger.debug("Unloading assets");
     ResourceService resourceService = ServiceLocator.getResourceService();
     resourceService.unloadAssets(mainMenuTextures);
@@ -133,13 +139,18 @@ public class MainMenuScreen extends ScreenAdapter {
    * Creates the main menu's ui including components for rendering ui elements to the screen and
    * capturing and handling ui input.
    */
-  private void createUI() {
+  @Override
+  protected void createUI() {
     logger.debug("Creating ui");
     Stage stage = ServiceLocator.getRenderService().getStage();
-    Entity ui = new Entity();
-    ui.addComponent(new MainMenuDisplay())
-        .addComponent(new InputDecorator(stage, 10))
-        .addComponent(new MainMenuActions());
+
+    Entity ui = new Entity()
+            .addComponent(new InputDecorator(stage, 10))
+            .addComponent(new TitleDisplay())
+            .addComponent(new MenuDisplay())
+            .addComponent(new LeaderboardDisplay())
+            .addComponent(new SettingsDisplay())
+            .addComponent(new MainMenuActions());
     ServiceLocator.getEntityService().register(ui);
     Gdx.input.setInputProcessor(new MenuInputProcessor());
   }

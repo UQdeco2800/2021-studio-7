@@ -2,7 +2,7 @@ package com.deco2800.game.screens.endgame;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.leaderboard.LeaderBoardDisplay;
+import com.deco2800.game.screens.leaderboard.LeaderboardDisplay;
 import com.deco2800.game.screens.leaderboard.LeaderBoardScreen;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +35,7 @@ class LeaderBoardScreenTest {
 
     @Test
     void disposeTest() {
-        LeaderBoardDisplay test3 = mock(LeaderBoardDisplay.class);
+        LeaderboardDisplay test3 = mock(LeaderboardDisplay.class);
         doNothing().when(test3).dispose();
         test3.dispose();
         test3.dispose();

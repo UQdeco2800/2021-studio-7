@@ -17,20 +17,18 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
-
 /**
  * Leader board screen display.
  */
-public class LeaderBoardDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(LeaderBoardDisplay.class);
+public class LeaderboardDisplay extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(LeaderboardDisplay.class);
     private final GdxGame game;
     private Table rootTable;
     private String configFile = "configs/leaderboard.txt";
     private static TextButton button;
     private Map<String, Integer> sortedLeaderboard;
 
-    public LeaderBoardDisplay(GdxGame game) {
+    public LeaderboardDisplay(GdxGame game) {
         super();
         this.game = game;
         logger.info("Trying to build leader board...");

@@ -13,30 +13,30 @@ public class MenuInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         if((Gdx.input.isKeyJustPressed(Keys.UP)) ||
                 (Gdx.input.isKeyJustPressed(Keys.W))){
-            MainMenuDisplay.moveUp();
+            MenuDisplay.moveUp();
             logger.info("Up/W Key Pressed");
         }
 
         if((Gdx.input.isKeyJustPressed(Keys.DOWN)) ||
                 (Gdx.input.isKeyJustPressed(Keys.S))){
-            MainMenuDisplay.moveDown();
+            MenuDisplay.moveDown();
             logger.info("Down/S Key Pressed");
         }
 
         if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-            MainMenuDisplay.pressMenu();
+            MenuDisplay.pressMenu();
             logger.info("Enter Key Pressed");
         }
 
         if((Gdx.input.isKeyJustPressed(Keys.LEFT)) ||
                 (Gdx.input.isKeyJustPressed(Keys.A))){
-            MainMenuDisplay.toggleLeftBtn();
+            MenuDisplay.toggleLeftBtn();
             logger.info("Left/A Key Pressed");
         }
 
         if((Gdx.input.isKeyJustPressed(Keys.RIGHT)) ||
                 (Gdx.input.isKeyJustPressed(Keys.D))){
-            MainMenuDisplay.toggleRightBtn();
+            MenuDisplay.toggleRightBtn();
             logger.info("Right/D Key Pressed");
         }
         return false;

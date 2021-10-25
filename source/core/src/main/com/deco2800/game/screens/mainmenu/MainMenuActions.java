@@ -3,6 +3,7 @@ package com.deco2800.game.screens.mainmenu;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.KeyboardMenuDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,14 +14,39 @@ import org.slf4j.LoggerFactory;
 public class MainMenuActions extends Component {
   private static final Logger logger = LoggerFactory.getLogger(MainMenuActions.class);
   private GdxGame game;
+  private KeyboardMenuDisplay activeDisplay;
+  private TitleDisplay titleDisplay;
+  private MenuDisplay menuDisplay;
+  private SettingsDisplay settingsDisplay;
 
   @Override
   public void create() {
+    titleDisplay = entity.getComponent(TitleDisplay.class);
+    menuDisplay = entity.getComponent(MenuDisplay.class);
+    settingsDisplay = entity.getComponent(SettingsDisplay.class);
+
+    activeDisplay = titleDisplay;
+    menuDisplay.setEnabled(false);
+    settingsDisplay.setEnabled(false);
+
+    entity.getEvents().addListener("menu", this::onMenuDisplay);
+    entity.getEvents().addListener("settings", this::onSettingsDisplay);
     entity.getEvents().addListener("start", this::onStart);
     entity.getEvents().addListener("leaderboard", this::onLeaderboard);
     entity.getEvents().addListener("exit", this::onExit);
-    entity.getEvents().addListener("settings", this::onSettings);
-    entity.getEvents().addListener("change_character", this::onChangeCharacter);
+  }
+
+  private void onMenuDisplay() {
+    activeDisplay.setEnabled(false);
+    menuDisplay.setEnabled(true);
+    activeDisplay = menuDisplay;
+
+  }
+
+  private void onSettingsDisplay() {
+    activeDisplay.setEnabled(false);
+    settingsDisplay.setEnabled(true);
+    activeDisplay = settingsDisplay;
   }
 
   /**
@@ -46,18 +72,5 @@ public class MainMenuActions extends Component {
   private void onExit() {
     logger.info("Exit game");
     ServiceLocator.getGame().exit();
-  }
-
-  /**
-   * Swaps to the Settings screen.
-   */
-  private void onSettings() {
-    logger.info("Launching settings screen");
-    ServiceLocator.getGame().setScreen(GdxGame.ScreenType.SETTINGS);
-  }
-
-
-  private void onChangeCharacter(){
-    logger.info("Changing character");
   }
 }
