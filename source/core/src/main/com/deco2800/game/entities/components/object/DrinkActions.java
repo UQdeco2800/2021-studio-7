@@ -8,7 +8,7 @@ import com.deco2800.game.input.components.KeyboardPlayerInputComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class DrinkActions extends InteractionComponent {
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             String string = "You drank a can of Dountain Mew. Yum!";
-            ServiceLocator.getScreen(MainGameScreen.class)
+            ServiceLocator.getScreen(GameScreen.class)
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();

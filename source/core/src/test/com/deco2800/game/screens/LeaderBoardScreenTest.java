@@ -1,14 +1,8 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens.end;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.mainmenu.LeaderboardDisplay;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import static org.junit.jupiter.api.Assertions.*;
-
-import static org.mockito.Mockito.*;
 
 @ExtendWith(GameExtension.class)
 class LeaderBoardScreenTest {

@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.maingame;
+package com.deco2800.game.screens.game.widgets;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Displays a timer in 24-hour time. Acts like an alarm; it will end the game once the desired time is reached.
  */
-public class MainGameTimerDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameTimerDisplay.class);
+public class TimerWidget extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(TimerWidget.class);
     private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
     private static final int TIMER_START = 2300;
     private static final int TIMER_END = 200;

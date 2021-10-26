@@ -1,10 +1,8 @@
-package com.deco2800.game.screens.maingame;
+package com.deco2800.game.screens.game;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class MainGameTextDisplayTest {
+class PromptWidgetTest {
 
     @Test
     void create() {

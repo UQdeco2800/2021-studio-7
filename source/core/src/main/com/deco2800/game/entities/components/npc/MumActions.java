@@ -4,7 +4,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class MumActions extends InteractionComponent {
 
     private void triggerPlayerCaught() {
         logger.debug("MUM started collision with PLAYER, triggering player caught");
-        ServiceLocator.getScreen(MainGameScreen.class)
+        ServiceLocator.getScreen(GameScreen.class)
                 .getMainGameEntity().getEvents().trigger("player_caught");
     }
 }

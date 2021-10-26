@@ -1,6 +1,6 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens.end;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.maingame.MainGameScoreDisplay;
+import com.deco2800.game.screens.game.widgets.ScoreWidget;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,11 +8,11 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(GameExtension.class)
-class MainGameScoreDisplayTest {
+class ScoreWidgetTest {
 
     @Test
     void createTest() {
-        MainGameScoreDisplay test1 = mock(MainGameScoreDisplay.class);
+        ScoreWidget test1 = mock(ScoreWidget.class);
         doNothing().when(test1).create();
         test1.create();
         verify(test1, times(1)).create();
@@ -20,7 +20,7 @@ class MainGameScoreDisplayTest {
 
     @Test
     void addActorsTest() {
-        MainGameScoreDisplay test2 = mock(MainGameScoreDisplay.class);
+        ScoreWidget test2 = mock(ScoreWidget.class);
         doNothing().when(test2).addActors();
         test2.addActors();
         test2.addActors();
@@ -29,7 +29,7 @@ class MainGameScoreDisplayTest {
 
     @Test
     void updatePlayerHealthUITest() {
-        MainGameScoreDisplay test3 = mock(MainGameScoreDisplay.class);
+        ScoreWidget test3 = mock(ScoreWidget.class);
         doNothing().when(test3).updatePlayerHealthUI();;
         test3.updatePlayerHealthUI();
         test3.updatePlayerHealthUI();
@@ -39,25 +39,25 @@ class MainGameScoreDisplayTest {
 
     @Test
     void getScoreBiggerThan0Test() {
-        MainGameScoreDisplay test4 = new MainGameScoreDisplay(0,2);
+        ScoreWidget test4 = new ScoreWidget(0,2);
         assertEquals(1,test4.getscore());
     }
 
     @Test
     void getScoreEqual0Test() {
-        MainGameScoreDisplay test4 = new MainGameScoreDisplay(0,1);
+        ScoreWidget test4 = new ScoreWidget(0,1);
         assertEquals(0,test4.getscore());
     }
 
     @Test
     void getScoreSmallerThan0Test() {
-        MainGameScoreDisplay test4 = new MainGameScoreDisplay(0,0);
+        ScoreWidget test4 = new ScoreWidget(0,0);
         assertEquals(-1,test4.getscore());
     }
 
     @Test
     void disposeTest() {
-        MainGameScoreDisplay test5 = mock(MainGameScoreDisplay.class);
+        ScoreWidget test5 = mock(ScoreWidget.class);
         doNothing().when(test5).dispose();
         test5.dispose();
         test5.dispose();
@@ -67,7 +67,7 @@ class MainGameScoreDisplayTest {
 
     @Test
     void countDownTest() {
-        MainGameScoreDisplay test6 = mock(MainGameScoreDisplay.class);
+        ScoreWidget test6 = mock(ScoreWidget.class);
         doNothing().when(test6).countDown();
         test6.countDown();
         test6.countDown();

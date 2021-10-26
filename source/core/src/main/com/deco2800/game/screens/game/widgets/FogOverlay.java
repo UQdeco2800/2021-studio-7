@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.maingame;
+package com.deco2800.game.screens.game.widgets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,13 +10,13 @@ import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainGameFogScreen extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameFogScreen.class);
+public class FogOverlay extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(FogOverlay.class);
     private final Texture texture = new Texture(Gdx.files.internal("images/ui/screens/fog_effect_1.png"));
     private Image background;
     private boolean isVisible = true;
 
-    public MainGameFogScreen() {
+    public FogOverlay() {
         logger.debug("Initialising main game screen timer service");
     }
 

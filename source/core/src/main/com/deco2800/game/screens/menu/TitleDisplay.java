@@ -1,0 +1,51 @@
+package com.deco2800.game.screens.menu;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.RetroactiveDisplay;
+
+import java.util.List;
+
+/**
+ * UI component for displaying the Tittle screen.
+ */
+public class TitleDisplay extends RetroactiveDisplay {
+    private static final String[] TEXTURES = {
+        "images/ui/title/RETROACTIVE-large.png",
+        "images/ui/screens/inactiveStart.png"
+    };
+
+    public TitleDisplay() {
+        textures.addAll(List.of(TEXTURES));
+    }
+
+    @Override
+    protected void addActors() {
+        table = new Table();
+        table.setFillParent(true);
+
+        VerticalGroup container = new VerticalGroup();
+        container.space(50f);
+
+        Image title = new Image(ServiceLocator.getResourceService().getAsset(TEXTURES[0], Texture.class));
+        container.addActor(title);
+
+        Label startText = new Label("PRESS ANY KEY TO START", skin, "title");
+        startText.addAction(Actions.alpha(0));
+        startText.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
+        container.addActor(startText);
+
+        Image bed = new Image(ServiceLocator.getResourceService().getAsset(TEXTURES[1], Texture.class));
+        container.addActor(bed);
+
+        table.add(container);
+    }
+
+    @Override
+    protected void keyDown(int keyCode) {
+        entity.getEvents().trigger("play_sound", "browse");
+        entity.getEvents().trigger("exit_title");
+    }
+}

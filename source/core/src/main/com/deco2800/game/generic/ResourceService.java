@@ -164,6 +164,10 @@ public class ResourceService implements Disposable {
     loadAssets(soundNames, Sound.class);
   }
 
+  public void loadSound(String soundName) {
+    loadAsset(soundName, Sound.class);
+  }
+
   /**
    * Loads a list of music assets into the asset manager.
    *
@@ -173,14 +177,22 @@ public class ResourceService implements Disposable {
     loadAssets(musicNames, Music.class);
   }
 
+  public void loadMusic(String musicName) {
+    loadAsset(musicName, Music.class);
+  }
+
   public void unloadAssets(String[] assetNames) {
     for (String assetName : assetNames) {
-      logger.debug("Unloading {}", assetName);
-      try {
-        assetManager.unload(assetName);
-      } catch (Exception e) {
-        logger.error("Could not unload {}", assetName);
-      }
+      unloadAsset(assetName);
+    }
+  }
+
+  public void unloadAsset(String assetName) {
+    logger.debug("Unloading {}", assetName);
+    try {
+      assetManager.unload(assetName);
+    } catch (Exception e) {
+      logger.error("Could not unload {}", assetName);
     }
   }
 

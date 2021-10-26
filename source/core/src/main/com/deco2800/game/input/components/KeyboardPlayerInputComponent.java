@@ -4,10 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.generic.ServiceLocator;
-
-import com.deco2800.game.input.components.InputComponent;
-import com.deco2800.game.screens.maingame.MainGamePauseMenuDisplay;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -15,14 +12,13 @@ import com.deco2800.game.utils.math.Vector2Utils;
  * This input handler only uses keyboard input.
  */
 public class KeyboardPlayerInputComponent extends InputComponent {
-    private static final String UPDATEANIMATION = "update_animation";
-    private static final String STANDINGSOUTH = "standing_south";
+    private static final String UPDATE_ANIMATION = "update_animation";
+    private static final String STANDING_SOUTH = "standing_south";
 
     private final Vector2 walkDirection = Vector2.Zero.cpy();
     private boolean running = false;
     private int lastDirection = 0; // Used to track animations
     private int currentDirection = 0;
-    private boolean isPaused = false;
     private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
@@ -44,13 +40,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.A:
-                if (isPaused) {
-                    MainGamePauseMenuDisplay.moveLeft();
-                } else {
-                    walkDirection.add(Vector2Utils.LEFT);
-                    triggerWalkEvent();
-                    movementEvents();
-                }
+                walkDirection.add(Vector2Utils.LEFT);
+                triggerWalkEvent();
+                movementEvents();
                 return true;
             case Keys.S:
                 walkDirection.add(Vector2Utils.DOWN);
@@ -58,13 +50,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 movementEvents();
                 return true;
             case Keys.D:
-                if (isPaused) {
-                    MainGamePauseMenuDisplay.moveRight();
-                } else {
-                    walkDirection.add(Vector2Utils.RIGHT);
-                    triggerWalkEvent();
-                    movementEvents();
-                }
+                walkDirection.add(Vector2Utils.RIGHT);
+                triggerWalkEvent();
+                movementEvents();
                 return true;
             case Keys.R:
                 walkDirection.add(Vector2Utils.NORTHEAST);
@@ -95,25 +83,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", true);
                 return true;
             case Keys.O:
-                ServiceLocator.getScreen(MainGameScreen.class)
-                        .getMainGameEntity().getEvents().trigger("toggle_chores");
-                return true;
-            case Keys.LEFT:
-                if (isPaused) {
-                    MainGamePauseMenuDisplay.moveLeft();
-                }
-                return true;
-            case Keys.RIGHT:
-                if (isPaused) {
-                    MainGamePauseMenuDisplay.moveRight();
-                }
-                return true;
-            case Keys.ENTER:
-                if (isPaused) {
-                    ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                            .getMainGameEntity().getEvents().trigger("pressed_enter_in_pause");
-                    isPaused = false;
-                }
+                ServiceLocator.getScreen(GameScreen.class)
+                    .getMainGameEntity().getEvents().trigger("toggle_chores");
                 return true;
             default:
                 return false;
@@ -153,19 +124,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", false);
                 return true;
             case Keys.F:
-                entity.getEvents().trigger(UPDATEANIMATION, "interacting_south_normal");
+                entity.getEvents().trigger(UPDATE_ANIMATION, "interacting_south_normal");
                 return true;
             case Keys.SHIFT_LEFT:
                 disableRun();
                 triggerRunEvent();
                 movementEvents();
-                return true;
-            case Keys.P:
-            case Keys.ESCAPE:
-                ServiceLocator.getScreen(MainGameScreen.class)
-                        .getMainGameEntity().getEvents().trigger("toggle_pause_visibility");
-                isPaused = !isPaused;
-                MainGamePauseMenuDisplay.resetHover();
                 return true;
             default:
                 return false;
@@ -179,7 +143,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             switch (lastDirection) {
                 case 0:
                 case 2:
-                    this.setAnimation(STANDINGSOUTH);
+                    this.setAnimation(STANDING_SOUTH);
                     break;
                 case 1:
                     this.setAnimation("standing_east");
@@ -200,7 +164,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                     this.setAnimation("standing_southwest");
                     break;
                 default:
-                    this.setAnimation(STANDINGSOUTH);
+                    this.setAnimation(STANDING_SOUTH);
                     break;
             }
         } else {
@@ -235,7 +199,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     }
 
     private void triggerRunEvent() {
-        if(running) {
+        if (running) {
             entity.getEvents().trigger("run");
         } else {
             entity.getEvents().trigger("stop_running");
@@ -244,17 +208,17 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
 
     @Override
-    public void enableRun(){
+    public void enableRun() {
         running = true;
     }
 
     @Override
-    public void disableRun(){
+    public void disableRun() {
         running = false;
     }
 
     @Override
-    public boolean running(){
+    public boolean running() {
         return running;
     }
 
@@ -282,9 +246,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             } else if (x < 0 && y < 0.5 && y > -0.5) {
                 lastDirection = 3;
 
-            } else if (x > 0.5 && y >0.5) {
+            } else if (x > 0.5 && y > 0.5) {
                 lastDirection = 4;
-            } else if (x < -0.5 && y >0.5) {
+            } else if (x < -0.5 && y > 0.5) {
                 lastDirection = 5;
 
             } else if (x > 0.5 && y < -0.5) {
@@ -297,11 +261,12 @@ public class KeyboardPlayerInputComponent extends InputComponent {
 
         }
     }
-    public void setBuffed(){
+
+    public void setBuffed() {
         this.buffed = true;
     }
 
-    public void setBuffedOff(){
+    public void setBuffedOff() {
         this.buffed = false;
     }
 
@@ -313,9 +278,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
         } else {
             animation = direction + "_normal";
         }
-        entity.getEvents().trigger(UPDATEANIMATION, animation);
+        entity.getEvents().trigger(UPDATE_ANIMATION, animation);
     }
-
 
 
     public void setWalkDirection(Vector2 direction) {

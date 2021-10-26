@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.maingame;
+package com.deco2800.game.screens.game.widgets;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,7 +11,7 @@ import java.util.TimerTask;
 /**
  * A ui component for displaying player score.
  */
-public class MainGameScoreDisplay extends UIComponent {
+public class ScoreWidget extends UIComponent {
     Table table;
     private Label scoreLabel;
     private static Timer timer;
@@ -19,7 +19,7 @@ public class MainGameScoreDisplay extends UIComponent {
     private int score;
     private int timeSinceStart;
 
-    public MainGameScoreDisplay(int initialTime, int initialscore) {
+    public ScoreWidget(int initialTime, int initialscore) {
         this.timeLeft = initialTime;
         this.score = initialscore;
         timeSinceStart = 0;

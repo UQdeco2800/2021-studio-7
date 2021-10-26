@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.ui.components.UIComponent;
 
 
@@ -42,7 +42,7 @@ public class PlayerStatDisplay extends UIComponent {
     table.pad(30f);
 
     //display level
-    CharSequence levelText = String.format("Level %d", MainGameScreen.getLevel());
+    CharSequence levelText = String.format("Level %d", ServiceLocator.getGame().getLevel());
     String largeStyle = "large";
     Label levelLabel = new Label(levelText, skin, largeStyle);
 

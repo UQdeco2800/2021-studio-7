@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.mainmenu;
+package com.deco2800.game.screens.menu;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -6,11 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.KeyboardMenuDisplay;
+import com.deco2800.game.screens.RetroactiveDisplay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.TreeMap;
 import java.io.*;
 import java.util.*;
@@ -20,45 +19,33 @@ import java.io.IOException;
 /**
  * Leader board screen display.
  */
-public class LeaderboardDisplay extends KeyboardMenuDisplay {
+public class LeaderboardDisplay extends RetroactiveDisplay {
     private static final Logger logger = LoggerFactory.getLogger(LeaderboardDisplay.class);
     private static final String LEADERBOARD_FILE = "configs/leaderboard.txt";
     private static final String TITLE_TEXTURE = "images/ui/title/leaderboard.png";
-    private Table table;
     private HorizontalGroup menuButtons;
     private Map<String, Integer> sortedLeaderboard;
 
-    @Override
-    public void create() {
-        super.create();
-        logger.info("Trying to sort leader board...");
+    public LeaderboardDisplay() {
+        super();
+        textures.add(TITLE_TEXTURE);
         sortLeaderBoard();
-        logger.info("Sorted leaderboard.");
-        addActors();
     }
 
     @Override
     protected void addActors() {
         table = new Table();
         table.setFillParent(true);
-        Image title = new Image(ServiceLocator.getResourceService().getAsset(TITLE_TEXTURE, Texture.class));
-        table.add(title).expandX().top().padTop(20f);
-        table.row().padTop(30f);
-        table.add(createLeaderboard()).expandX().expandY();
-        table.row();
-        table.add(createMenuButtons()).fillX();
-        stage.addActor(table);
-    }
 
-    @Override
-    public void onMenuKeyPressed(int keyCode) {
-        switch (keyCode) {
-            case Keys.ENTER:
-            case Keys.ESCAPE:
-                ((TextButton) menuButtons.getChild(0)).toggle();
-                break;
-            default:
-        }
+        Image title = new Image(ServiceLocator.getResourceService().getAsset(TITLE_TEXTURE, Texture.class));
+
+        VerticalGroup container = new VerticalGroup();
+        container.space(25f);
+        container.addActor(title);
+        container.addActor(createLeaderboard());
+        container.addActor(createMenuButtons());
+
+        table.add(container);
     }
 
     private VerticalGroup createLeaderboard() {
@@ -69,9 +56,8 @@ public class LeaderboardDisplay extends KeyboardMenuDisplay {
         Iterator <Map.Entry<String,Integer>> i = set.iterator();
         String insert;
         int t = 0;
-        while (i.hasNext()) {
+        while (i.hasNext() && t < 11) {
             t++;
-            if (t == 11){break;}
             Map.Entry<String,Integer> mp = i.next();
             String score = String.valueOf(mp.getValue());
             insert = mp.getKey() + ":" + score;
@@ -84,13 +70,13 @@ public class LeaderboardDisplay extends KeyboardMenuDisplay {
     private HorizontalGroup createMenuButtons() {
         TextButton exitBtn = new TextButton("Exit", skin);
         exitBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Exit button clicked");
-                        entity.getEvents().trigger("main_menu");
-                    }
-                });
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                    logger.debug("Exit button clicked");
+                    entity.getEvents().trigger("exit_leaderboard");
+                }
+            });
 
         menuButtons = new HorizontalGroup();
 
@@ -99,26 +85,19 @@ public class LeaderboardDisplay extends KeyboardMenuDisplay {
     }
 
     @Override
-    public void update() {
-        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
-    }
-
-    public static List<String> getAssets() {
-        return getAssets(".png");
-    }
-
-    public static List<String> getAssets(String extension) {
-        List<String> assetsWithExtension = new ArrayList<>();
-        if (extension.equals(".png")) {
-            assetsWithExtension.add(TITLE_TEXTURE);
+    protected void keyDown(int keyCode) {
+        switch (keyCode) {
+            case Keys.ENTER:
+            case Keys.ESCAPE:
+                ((TextButton) menuButtons.getChild(0)).toggle();
+                break;
+            default:
         }
-        return assetsWithExtension;
     }
 
     @Override
-    public void dispose() {
-        table.clear();
-        super.dispose();
+    public void update() {
+        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
     }
 
     private void sortLeaderBoard() {
@@ -163,7 +142,7 @@ public class LeaderboardDisplay extends KeyboardMenuDisplay {
     }
 
     /**
-     * Reads the leaderbaord text file and returns the result in a treeMap as it is.
+     * Reads the leaderboard text file and returns the result in a treeMap as it is.
      */
     public Map<String, Integer> getLeaderBoard() {
 

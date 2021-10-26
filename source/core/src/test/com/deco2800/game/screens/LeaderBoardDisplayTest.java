@@ -1,7 +1,7 @@
-package com.deco2800.game.screens.endgame;
+package com.deco2800.game.screens;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.mainmenu.LeaderboardDisplay;
+import com.deco2800.game.screens.menu.LeaderboardDisplay;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +43,7 @@ class LeaderBoardDisplayTest {
 
     @Test
     void valueSortTest() {
-        LeaderboardDisplay test = new LeaderboardDisplay(game);
+        LeaderboardDisplay test = new LeaderboardDisplay();
         TreeMap<Integer, Integer> map =new TreeMap<>();
         map.put(2,3);
         assertEquals(null,test.valueSort(map).get(2));

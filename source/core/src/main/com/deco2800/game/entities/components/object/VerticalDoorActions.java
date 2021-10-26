@@ -5,7 +5,7 @@ import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public class VerticalDoorActions extends InteractionComponent {
         if (!isOpened) {
             String msg = "You opened a door!";
             logger.debug("PLAYER interacted with VERTICAL_DOOR, triggering door animation");
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
+            ((GameScreen) ServiceLocator.getGame().getScreen())
                     .getMainGameEntity().getEvents().trigger("create_textbox", msg);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;

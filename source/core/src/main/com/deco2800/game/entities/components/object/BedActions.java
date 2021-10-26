@@ -4,7 +4,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +38,7 @@ public class BedActions extends InteractionComponent {
 
     private void triggerBedInteracted() {
         logger.debug("PLAYER interacted with BED, triggering bed interacted");
-        ServiceLocator.getScreen(MainGameScreen.class)
+        ServiceLocator.getScreen(GameScreen.class)
                 .getMainGameEntity().getEvents().trigger("bed_interacted");
     }
 }

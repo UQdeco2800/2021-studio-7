@@ -4,7 +4,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class DoorActions extends InteractionComponent {
         String string = "You opened a door! That's pretty cool.";
         if (target.getComponent(PlayerActions.class) != null) {
             logger.debug("PLAYER interacted with DOOR, triggering door animation");
-            ServiceLocator.getScreen(MainGameScreen.class)
+            ServiceLocator.getScreen(GameScreen.class)
                     .getMainGameEntity().getEvents().trigger("create_textbox", string);
             entity.getEvents().trigger(UPDATE_ANIMATION, "Door_open_left");
         }

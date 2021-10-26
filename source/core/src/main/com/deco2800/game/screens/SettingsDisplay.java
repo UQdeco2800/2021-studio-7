@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.mainmenu;
+package com.deco2800.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
@@ -13,22 +13,13 @@ import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.KeyboardMenuDisplay;
 import com.deco2800.game.utils.StringDecorator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Settings menu display and logic. If you bork the settings, they can be changed manually in
  * DECO2800Game/settings.json under your home directory (This is C:/users/[username] on Windows).
  */
-public class SettingsDisplay extends KeyboardMenuDisplay {
-  private static final Logger logger = LoggerFactory.getLogger(SettingsDisplay.class);
-
-  private Table rootTable;
+public class SettingsDisplay extends RetroactiveDisplay {
   private TextField fpsText;
   private CheckBox fullScreenCheck;
   private CheckBox vsyncCheck;
@@ -38,61 +29,24 @@ public class SettingsDisplay extends KeyboardMenuDisplay {
   private int settingsButtonIndex = 0;
 
   @Override
-  public void create() {
-    super.create();
-    addActors();
-  }
-
-  @Override
   protected void addActors() {
     Label title = new Label("Settings", skin, "title");
-    Table settingsTable = makeSettingsTable();
+    Table settingsTable = createSettingsTable();
     settingsButtons = createSettingsButtons();
 
-    rootTable = new Table();
-    rootTable.setFillParent(true);
+    table = new Table();
+    table.setFillParent(true);
 
-    rootTable.add(title).expandX().top().padTop(20f);
+    table.add(title).expandX().top().padTop(20f);
 
-    rootTable.row().padTop(30f);
-    rootTable.add(settingsTable).expandX().expandY();
+    table.row().padTop(30f);
+    table.add(settingsTable).expandX().expandY();
 
-    rootTable.row();
-    rootTable.add(settingsButtons).fillX();
-
-    stage.addActor(rootTable);
+    table.row();
+    table.add(settingsButtons).fillX();
   }
 
-  @Override
-  public void onMenuKeyPressed(int keyCode) {
-    InputEvent hover = new InputEvent();
-    hover.setType(InputEvent.Type.enter);
-    hover.setPointer(-1);
-
-    switch (keyCode) {
-      case Keys.A:
-        //SettingsScreen.playButtonSound();
-        settingsButtonIndex = 0;
-        settingsButtons.getChild(settingsButtonIndex).fire(hover);
-        break;
-      case Keys.D:
-        //SettingsScreen.playButtonSound();
-        settingsButtonIndex = 1;
-        settingsButtons.getChild(settingsButtonIndex).fire(hover);
-        break;
-      case Keys.ENTER:
-        //SettingsScreen.playButtonSound();
-        ((TextButton) settingsButtons.getChild(settingsButtonIndex)).toggle();
-        break;
-      case Keys.ESCAPE:
-        //SettingsScreen.playButtonSound();
-        ((TextButton) settingsButtons.getChild(0)).toggle();
-        break;
-      default:
-    }
-  }
-
-  private Table makeSettingsTable() {
+  private Table createSettingsTable() {
     // Get current values
     UserSettings.Settings settings = UserSettings.get();
 
@@ -165,7 +119,7 @@ public class SettingsDisplay extends KeyboardMenuDisplay {
               @Override
               public void changed(ChangeEvent changeEvent, Actor actor) {
                 logger.debug("Exit button clicked");
-                entity.getEvents().trigger("main_menu");
+                entity.getEvents().trigger("exit_settings");
               }
             });
     settingsContainer.addActor(exitBtn);
@@ -213,6 +167,33 @@ public class SettingsDisplay extends KeyboardMenuDisplay {
     return displayMode.width + "x" + displayMode.height + ", " + displayMode.refreshRate + "hz";
   }
 
+  @Override
+  protected void keyDown(int keyCode) {
+    InputEvent hover = new InputEvent();
+    hover.setType(InputEvent.Type.enter);
+    hover.setPointer(-1);
+
+    switch (keyCode) {
+      case Keys.A:
+        entity.getEvents().trigger("play_sound", "browse");
+        settingsButtonIndex = 0;
+        settingsButtons.getChild(settingsButtonIndex).fire(hover);
+        break;
+      case Keys.D:
+        entity.getEvents().trigger("play_sound", "browse");
+        settingsButtonIndex = 1;
+        settingsButtons.getChild(settingsButtonIndex).fire(hover);
+        break;
+      case Keys.ENTER:
+        ((TextButton) settingsButtons.getChild(settingsButtonIndex)).toggle();
+        break;
+      case Keys.ESCAPE:
+        ((TextButton) settingsButtons.getChild(0)).toggle();
+        break;
+      default:
+    }
+  }
+
   private void applyChanges() {
     UserSettings.Settings settings = UserSettings.get();
 
@@ -239,20 +220,5 @@ public class SettingsDisplay extends KeyboardMenuDisplay {
   @Override
   public void update() {
     stage.act(ServiceLocator.getTimeSource().getDeltaTime());
-  }
-
-  public static List<String> getAssets() {
-    return new ArrayList<>();
-  }
-
-  public static List<String> getAssets(String extension) {
-    // Ignore extension
-    return new ArrayList<>();
-  }
-
-  @Override
-  public void dispose() {
-    rootTable.clear();
-    super.dispose();
   }
 }

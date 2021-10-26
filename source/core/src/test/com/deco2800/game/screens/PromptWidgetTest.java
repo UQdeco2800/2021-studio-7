@@ -1,7 +1,7 @@
 package com.deco2800.game.screens;
 
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.maingame.MainGameTextDisplay;
+import com.deco2800.game.screens.game.widgets.PromptWidget;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -9,11 +9,11 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(GameExtension.class)
-class MainGameTextDisplayTest {
+class PromptWidgetTest {
 
     @Test
     void create() {
-        MainGameTextDisplay textDisplay = mock(MainGameTextDisplay.class);
+        PromptWidget textDisplay = mock(PromptWidget.class);
         doNothing().when(textDisplay).create();
         textDisplay.create();
         verify(textDisplay, times(1)).create();
@@ -21,14 +21,14 @@ class MainGameTextDisplayTest {
 
     @Test
     void display() {
-        MainGameTextDisplay textDisplay = mock(MainGameTextDisplay.class);
+        PromptWidget textDisplay = mock(PromptWidget.class);
         textDisplay.display("Test");
         verify(textDisplay, times(1)).display("Test");
     }
 
     @Test
     void update() {
-        MainGameTextDisplay textDisplay = mock(MainGameTextDisplay.class);
+        PromptWidget textDisplay = mock(PromptWidget.class);
         textDisplay.update();
         textDisplay.update();
         textDisplay.update();
@@ -37,7 +37,7 @@ class MainGameTextDisplayTest {
 
     @Test
     void dispose() {
-        MainGameTextDisplay textDisplay = mock(MainGameTextDisplay.class);
+        PromptWidget textDisplay = mock(PromptWidget.class);
         textDisplay.dispose();
         textDisplay.dispose();
         verify(textDisplay, times(2)).dispose();

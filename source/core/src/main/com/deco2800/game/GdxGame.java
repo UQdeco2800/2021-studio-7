@@ -5,10 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.context.ContextScreen;
-import com.deco2800.game.screens.endgame.EndGameScreen;
-import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.deco2800.game.screens.mainmenu.MainMenuScreen;
+import com.deco2800.game.screens.end.EndScreen;
+import com.deco2800.game.screens.game.GameScreen;
+import com.deco2800.game.screens.menu.MenuScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +20,8 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private String username;
+  private int level = 1;
 
   @Override
   public void create() {
@@ -41,6 +42,18 @@ public class GdxGame extends Game {
     logger.debug("Loading game settings");
     UserSettings.Settings settings = UserSettings.get();
     UserSettings.applySettings(settings);
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
+  }
+
+  public int getLevel() {
+    return level;
   }
 
   /**
@@ -70,24 +83,22 @@ public class GdxGame extends Game {
   public Screen newScreen(ScreenType screenType) {
     switch (screenType) {
       case MAIN_MENU:
-        return new MainMenuScreen(this);
+        return new MenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen(this);
-      case CONTEXT:
-        return new ContextScreen(this);
+        return new GameScreen(this);
       case WIN_DEFAULT:
-        return new EndGameScreen(ScreenType.WIN_DEFAULT);
+        return new EndScreen(this, ScreenType.WIN_DEFAULT);
       case LOSS_TIMED:
-        return new EndGameScreen(ScreenType.LOSS_TIMED);
+        return new EndScreen(this, ScreenType.LOSS_TIMED);
       case LOSS_CAUGHT:
-        return new EndGameScreen(ScreenType.LOSS_CAUGHT);
+        return new EndScreen(this, ScreenType.LOSS_CAUGHT);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, MAIN_GAME, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT
+    MAIN_MENU, MAIN_GAME, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT
   }
 
   /**

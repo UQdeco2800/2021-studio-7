@@ -1,4 +1,4 @@
-package com.deco2800.game.screens.maingame;
+package com.deco2800.game.screens.game.widgets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
  * By default, will not display anything, but can call MainGameTextDisplay.display to display a
  * box with text (and optional image). Can then call remove to remove it.
  */
-public class MainGameTextDisplay extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(MainGameTextDisplay.class);
+public class PromptWidget extends UIComponent {
+    private static final Logger logger = LoggerFactory.getLogger(PromptWidget.class);
 
     private Table table;
     private Texture texture;
