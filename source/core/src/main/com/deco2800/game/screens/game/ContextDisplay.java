@@ -14,7 +14,6 @@ import com.deco2800.game.screens.RetroactiveDisplay;
  * UI component for displaying the Context screen.
  */
 public class ContextDisplay extends RetroactiveDisplay {
-    private static final String LABEL_TYPE = "title";
     private static final String[] CONTEXT_MESSAGES = {
         "It's 11:00pm. The year is currently 1982. It's a school night.\n\n\n" +
             " You've nearly finished your new game, but your mother is awake and she knows that you are too.\n\n\n" +
@@ -58,7 +57,7 @@ public class ContextDisplay extends RetroactiveDisplay {
         usernameContainer.space(50f);
 
         int colWidth = Gdx.graphics.getWidth() / 10;
-        prompt = new Label(PROMPT_MESSAGES[0], skin, LABEL_TYPE);
+        prompt = new Label(PROMPT_MESSAGES[0], skin, "title");
         prompt.setFontScale((colWidth * 10f) / 1000f);
         prompt.addAction(Actions.alpha(0));
         prompt.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
@@ -89,7 +88,7 @@ public class ContextDisplay extends RetroactiveDisplay {
         context.setWrap(true);
         contextContainer.addActor(context);
 
-        prompt = new Label("", skin, LABEL_TYPE);
+        prompt = new Label("", skin, "title");
         prompt.setFontScale(1f);
         prompt.setPosition(colWidth, rowHeight);
         contextContainer.addActor(prompt);
@@ -129,6 +128,7 @@ public class ContextDisplay extends RetroactiveDisplay {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (phase != ContextPhase.USERNAME && index < CONTEXT_MESSAGES[phase.ordinal() - 1].length() &&
             currentTime - lastTime >= NORMAL_TICK_RATE) {
+            lastTime = currentTime;
             updateContext();
             updatePrompt();
         }
@@ -166,6 +166,18 @@ public class ContextDisplay extends RetroactiveDisplay {
             phase = ContextPhase.STORY_TWO;
         }
         addActors();
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("   Loading context display assets");
+        super.loadAssets();
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("   Unloading context display assets");
+        super.unloadAssets();
     }
 
     private enum ContextPhase {

@@ -11,10 +11,9 @@ import com.deco2800.game.maps.terrain.TerrainFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(GameExtension.class)
 class RoomTest {
@@ -24,7 +23,7 @@ class RoomTest {
         Room roomA = createBaseRoom("bedroom");
         Room roomB = createStyledRoom("living");
         RoomWrapper wrapper = FileLoader
-                .readClass(RoomWrapper.class, "maps/testing/room.json");
+            .readClass(RoomWrapper.class, "maps/testing/room.json");
         assertEquals(roomA, wrapper.roomA);
         assertEquals(roomB, wrapper.roomB);
     }
@@ -60,25 +59,17 @@ class RoomTest {
     }*/
 
     @Test
-    void shouldGetValidSpawnLocationsFromLiving() {
+    void shouldGetValidCreateLocationsFromLiving() {
         Room room = createStyledRoom("living");
-        List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
-        assertEquals(26, validSpawnLocations.size());
+        List<GridPoint2> validCreateLocations = room.getValidCreateLocations();
+        assertEquals(26, validCreateLocations.size());
     }
 
     @Test
-    void shouldGetNoValidSpawnLocationsFromOther() {
+    void shouldGetNoValidCreateLocationsFromOther() {
         Room room = createStyledRoom("bedroom");
-        List<GridPoint2> validSpawnLocations = room.getValidSpawnLocations();
-        assertEquals(0, validSpawnLocations.size());
-    }
-
-    @Test
-    void shouldGetAssetsWithExtension() {
-        Room room = createStyledRoom("bedroom");
-        List<String> assetsWithExtension = room.getAssets(".png");
-        assertArrayEquals(new String[]{"images/tiles/iso/iso_wall_1_left.png", "images/objects" +
-                "/walls/3.png"}, assetsWithExtension.toArray());
+        List<GridPoint2> validCreateLocations = room.getValidCreateLocations();
+        assertEquals(0, validCreateLocations.size());
     }
 
     Room createBaseRoom(String type) {
@@ -87,7 +78,7 @@ class RoomTest {
 
     Room createStyledRoom(String type) {
         return new Room(type, offset, styledDimensions,
-                new Interior(styledTileMap, styledEntityMap, styledTileGrid, styledEntityGrid, styledDimensions));
+            new Interior(styledTileMap, styledEntityMap, styledTileGrid, styledEntityGrid, styledDimensions));
     }
 
     static class RoomWrapper implements Json.Serializable {
@@ -112,64 +103,65 @@ class RoomTest {
     static final GridPoint2 baseDimensions = new GridPoint2(9, 9);
     static final GridPoint2 styledDimensions = new GridPoint2(10, 4);
     static final Character[][] hallwayTileGrid = {
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', '.'}
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', '.'}
     };
     static final Character[][] hallwayEntityGrid = {
-            {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
-            {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
+        {'.', '.', '.', '.', '.', '.', '.', '.', 'W'},
     };
     static final Character[][] styledTileGrid = {
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'},
-            {'.', '.', '.', '.'}
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'},
+        {'.', '.', '.', '.'}
     };
     static final Character[][] styledEntityGrid = {
-            {'W', 'W', 'W', 'W'},
-            {'.', 'B', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'},
-            {'.', '.', '.', 'W'}
+        {'W', 'W', 'W', 'W'},
+        {'.', 'B', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'},
+        {'.', '.', '.', 'W'}
     };
     static final ObjectMap<Character, GridObject> styledTileMap = new ObjectMap<>();
     static final ObjectMap<Character, GridObject> styledEntityMap = new ObjectMap<>();
+
     static {
         try {
             styledTileMap.put('a', new GridObject(
-                    TerrainFactory.class.getMethod("createBaseTile", String[].class),
-                    new String[]{"images/tiles/iso/iso_wall_1_left.png"}));
+                TerrainFactory.class.getMethod("createBaseTile", String[].class),
+                new String[]{"images/tiles/iso/iso_wall_1_left.png"}));
             styledEntityMap.put('W', new GridObject(
-                    ObjectFactory.class.getMethod("createWall", String[].class),
-                    new String[]{"images/objects/walls/3.png"}));
+                ObjectFactory.class.getMethod("createWall", String[].class),
+                new String[]{"images/objects/walls/3.png"}));
             styledEntityMap.put('B', new GridObject(
-                    ObjectFactory.class.getMethod("createBed", String[].class),
-                    new String[]{"images/objects/bed/bed_animation.atlas"}));
+                ObjectFactory.class.getMethod("createBed", String[].class),
+                new String[]{"images/objects/bed/bed_animation.atlas"}));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,7 @@ import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.EntityService;
 import com.deco2800.game.entities.factories.RenderFactory;
 import com.deco2800.game.generic.GameTime;
+import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
@@ -15,7 +16,7 @@ import com.deco2800.game.rendering.Renderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class RetroactiveScreen extends ScreenAdapter {
+public abstract class RetroactiveScreen extends ScreenAdapter implements Loadable {
     protected static final Logger logger = LoggerFactory.getLogger(RetroactiveScreen.class);
     protected final GdxGame game;
     protected Renderer renderer;
@@ -37,6 +38,14 @@ public abstract class RetroactiveScreen extends ScreenAdapter {
         renderer = RenderFactory.createRenderer();
     }
 
+    public boolean isGamePaused() {
+        return gamePaused;
+    }
+
+    public void queueNextScreen(GdxGame.ScreenType screenType) {
+        nextScreen = screenType;
+    }
+
     @Override
     public void pause() {
         logger.info("Game paused");
@@ -49,13 +58,19 @@ public abstract class RetroactiveScreen extends ScreenAdapter {
         gamePaused = false;
     }
 
-    public void queueNextScreen(GdxGame.ScreenType screenType) {
-        nextScreen = screenType;
+    protected abstract void initialiseUI();
+
+    @Override
+    public void loadAssets() {
     }
 
-    protected abstract void loadAssets();
+    @Override
+    public void unloadAssets() {
+    }
 
-    protected abstract void unloadAssets();
-
-    protected abstract void createUI();
+    @Override
+    public void dispose() {
+        super.dispose();
+        unloadAssets();
+    }
 }

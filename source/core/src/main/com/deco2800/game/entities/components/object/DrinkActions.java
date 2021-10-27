@@ -30,8 +30,7 @@ public class DrinkActions extends InteractionComponent {
             target.getEvents().trigger("drink_energy_drink");
             entity.getComponent(SingleUse.class).remove();
             String string = "You drank a can of Dountain Mew. Yum!";
-            ServiceLocator.getScreen(GameScreen.class)
-                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
+            ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("create_textbox", string);
             target.getComponent(KeyboardPlayerInputComponent.class).setBuffed();
             target.getComponent(PlayerActions.class).toggleEnergyDrinkConsumed();
             //add time restriction

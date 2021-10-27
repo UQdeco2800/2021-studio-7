@@ -1,64 +1,38 @@
-package com.deco2800.game.screens.game.widgets;
+package com.deco2800.game.screens.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.ui.components.UIComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.deco2800.game.screens.RetroactiveWidget;
 
 /**
  * Displays a timer in 24-hour time. Acts like an alarm; it will end the game once the desired time is reached.
  */
-public class TimerWidget extends UIComponent {
-    private static final Logger logger = LoggerFactory.getLogger(TimerWidget.class);
+public class TimerWidget extends RetroactiveWidget {
     private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
     private static final int TIMER_START = 2300;
     private static final int TIMER_END = 200;
     private static final long TIMER_TICK_RATE = 750L;
     private long lastTime = 0L;
-    private Table table;
     private Label timerLabel;
-    private TimerStatus timerStatus;
-    private int timerTime;
+    private TimerStatus timerStatus = TimerStatus.NORMAL;
+    private int timerTime = TIMER_START;
 
     @Override
-    public void create() {
-        super.create();
-        timerTime = TIMER_START;
-        timerStatus = TimerStatus.NORMAL;
-        addActors();
-    }
-
-    public void addActors() {
+    protected void addActors() {
         table = new Table();
-        table.setFillParent(true);
-        table.top().padTop(30f);
+        table.top().padTop(30f).setFillParent(true);
 
-        ServiceLocator.getResourceService().loadTexture(TIMER_BACKGROUND);
-        ServiceLocator.getResourceService().loadAll();
-        Image timerBackground =
-                new Image(
-                        ServiceLocator.getResourceService()
-                                .getAsset(TIMER_BACKGROUND, Texture.class));
+        Image background = new Image(ServiceLocator.getResourceService().getAsset(TIMER_BACKGROUND, Texture.class));
 
         timerLabel = new Label(getCurrentTime(), skin, "title");
         timerLabel.setAlignment(Align.center);
 
-        table.stack(timerBackground, timerLabel);
-
-        stage.addActor(table);
-    }
-
-    @Override
-    public void draw(SpriteBatch batch)  {
-        // draw is handled by the stage
+        table.stack(background, timerLabel);
     }
 
     public CharSequence getCurrentTime() {
@@ -73,6 +47,17 @@ public class TimerWidget extends UIComponent {
         return timerTime % 100;
     }
 
+    @Override
+    public void update() {
+        long currentTime = ServiceLocator.getTimeSource().getTime();
+        if (currentTime - lastTime >= TIMER_TICK_RATE) {
+            lastTime = currentTime;
+            tick();
+            updateLabel();
+            checkTimerEnd();
+        }
+    }
+
     public void tick() {
         if (getMinutes() < 59) {
             timerTime += 1;
@@ -84,22 +69,16 @@ public class TimerWidget extends UIComponent {
         }
     }
 
-    /**
-     * Updates the timer label to the new time.
-     *
-     * If the timer is within an hour of the final time,
-     * then the label will change colour and blink until the alarm goes off.
-     */
     public void updateLabel() {
         timerLabel.setText(getCurrentTime());
 
         int timeUntilEnd = TIMER_END - timerTime;
         if (timerStatus == TimerStatus.NORMAL && timeUntilEnd > 0 && timeUntilEnd <= 100) {
-            timerLabel.setColor(255, 0,0, 1f);
+            timerLabel.setColor(255, 0, 0, 1f);
             timerLabel.addAction(Actions.alpha(0));
             timerLabel.addAction(Actions.forever(Actions.sequence(
-                    Actions.fadeIn(1f),
-                    Actions.fadeOut(1f))));
+                Actions.fadeIn(1f),
+                Actions.fadeOut(1f))));
             timerStatus = TimerStatus.FLASHING;
         }
     }
@@ -110,25 +89,22 @@ public class TimerWidget extends UIComponent {
             entity.getEvents().trigger("timer_ended");
         }
     }
-    
+
     @Override
-    public void dispose() {
-        table.clear();
-        super.dispose();
+    public void loadAssets() {
+        logger.debug("    Loading timer widget assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAsset(TIMER_BACKGROUND, Texture.class);
     }
 
     @Override
-    public void update() {
-        long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (currentTime - lastTime >= TIMER_TICK_RATE) {
-            lastTime = currentTime;
-            tick();
-            updateLabel();
-            checkTimerEnd();
-        }
+    public void unloadAssets() {
+        logger.debug("    Unloading timer widget assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAsset(TIMER_BACKGROUND);
     }
-    
-    enum TimerStatus {
+
+    private enum TimerStatus {
         NORMAL, FLASHING
     }
 }

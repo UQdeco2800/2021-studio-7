@@ -78,6 +78,7 @@ public class ServiceLocator {
   public static void registerHome(Home source) {
     logger.debug("Registering Home {}", source);
     home = source;
+    home.create();
   }
 
   public static void registerEntityService(EntityService service) {

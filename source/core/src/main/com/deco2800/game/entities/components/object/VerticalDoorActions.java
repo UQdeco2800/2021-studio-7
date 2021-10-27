@@ -27,8 +27,7 @@ public class VerticalDoorActions extends InteractionComponent {
         if (!isOpened) {
             String msg = "You opened a door!";
             logger.debug("PLAYER interacted with VERTICAL_DOOR, triggering door animation");
-            ((GameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("create_textbox", msg);
+            ((GameScreen) ServiceLocator.getGame().getScreen()).getGameUI().getEvents().trigger("create_textbox", msg);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
             entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_left_re");

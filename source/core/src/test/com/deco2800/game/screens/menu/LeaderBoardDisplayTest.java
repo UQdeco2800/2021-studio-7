@@ -1,4 +1,4 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.menu;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.extensions.GameExtension;
 import com.deco2800.game.screens.menu.LeaderboardDisplay;

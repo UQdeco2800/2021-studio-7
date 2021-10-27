@@ -10,7 +10,6 @@ import com.deco2800.game.screens.SettingsDisplay;
  * events is triggered.
  */
 public class GameActions extends RetroactiveActions {
-  private static final String BACKGROUND_MUSIC = "sounds/backgroundMusic-MG.mp3";
   private final GameScreen screen;
   private ContextDisplay contextDisplay;
   private PauseDisplay pauseDisplay;
@@ -18,7 +17,6 @@ public class GameActions extends RetroactiveActions {
 
   public GameActions(GameScreen screen) {
     this.screen = screen;
-    backgroundMusic = BACKGROUND_MUSIC;
   }
 
   @Override
@@ -99,5 +97,17 @@ public class GameActions extends RetroactiveActions {
   public void onTimerEnded() {
     logger.debug("Queueing timer ended lose screen transition");
     screen.queueNextScreen(GdxGame.ScreenType.LOSS_TIMED);
+  }
+
+  @Override
+  public void loadAssets() {
+    logger.debug("    Loading game actions assets");
+    super.loadAssets();
+  }
+
+  @Override
+  public void unloadAssets() {
+    logger.debug("    Unloading game actions assets");
+    super.unloadAssets();
   }
 }

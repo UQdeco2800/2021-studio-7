@@ -6,10 +6,12 @@ import com.badlogic.gdx.utils.IntMap;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ComponentType;
 import com.deco2800.game.events.EventHandler;
+import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -26,10 +28,13 @@ import java.util.Comparator;
  * ServiceLocator.getEntityService().register(player);
  * </pre>
  */
-public class Entity {
+public class Entity implements Loadable {
   private static final Logger logger = LoggerFactory.getLogger(Entity.class);
   private static int nextId = 0;
   private static final String EVT_NAME_POS = "setPosition";
+
+  private static final Comparator<Component> comparator =
+      Collections.reverseOrder(Comparator.comparingInt(Component::getCreationPriority));
 
   private final int id;
   private final IntMap<Component> components;
@@ -203,6 +208,7 @@ public class Entity {
 
   /** Dispose of the entity. This will dispose of all components on this entity. */
   public void dispose() {
+    unloadAssets();
     for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.dispose();
     }
@@ -221,7 +227,7 @@ public class Entity {
       return;
     }
     createdComponents = (new IntMap.Values<>(components)).toArray();
-    createdComponents.sort(Comparator.comparingInt(Component::getCreationPriority));
+    createdComponents.sort(comparator);
     for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.create();
     }
@@ -251,6 +257,24 @@ public class Entity {
     }
     for (Component component : new Array.ArrayIterator<>(createdComponents)) {
       component.triggerUpdate();
+    }
+  }
+
+  @Override
+  public void loadAssets() {
+    for (Component component : new IntMap.Values<>(components)) {
+      if (component instanceof Loadable) {
+        ((Loadable) component).loadAssets();
+      }
+    }
+  }
+
+  @Override
+  public void unloadAssets() {
+    for (Component component : new IntMap.Values<>(components)) {
+      if (component instanceof Loadable) {
+        ((Loadable) component).unloadAssets();
+      }
     }
   }
 

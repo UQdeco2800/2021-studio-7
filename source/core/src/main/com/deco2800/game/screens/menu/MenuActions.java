@@ -10,7 +10,6 @@ import com.deco2800.game.screens.SettingsDisplay;
  * events is triggered.
  */
 public class MenuActions extends RetroactiveActions {
-  private static final String BACKGROUND_MUSIC = "sounds/backgroundMusic-EP.mp3";
   private final MenuScreen screen;
   private TitleDisplay titleDisplay;
   private MenuDisplay menuDisplay;
@@ -19,7 +18,6 @@ public class MenuActions extends RetroactiveActions {
 
   public MenuActions(MenuScreen screen) {
     this.screen = screen;
-    backgroundMusic = BACKGROUND_MUSIC;
   }
 
   @Override
@@ -82,5 +80,17 @@ public class MenuActions extends RetroactiveActions {
     playSound("confirm");
     logger.debug("Exiting game");
     ServiceLocator.getGame().exit();
+  }
+
+  @Override
+  public void loadAssets() {
+    logger.debug("    Loading menu actions assets");
+    super.loadAssets();
+  }
+
+  @Override
+  public void unloadAssets() {
+    logger.debug("    Unloading menu actions assets");
+    super.unloadAssets();
   }
 }

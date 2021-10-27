@@ -4,21 +4,16 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
-import java.util.List;
 
 public class MenuDisplay extends RetroactiveDisplay {
-    private static final Logger logger = LoggerFactory.getLogger(MenuDisplay.class);
     private static final String[] UI_TEXTURES = {
         "images/main_menu/bgart.png",
         "images/ui/title/RETROACTIVE-large.png",
@@ -45,12 +40,6 @@ public class MenuDisplay extends RetroactiveDisplay {
     private HorizontalGroup characterContainer;
     private int menuButtonIndex = 0;
     private int characterIndex = 0;
-
-    public MenuDisplay() {
-        textures.addAll(List.of(UI_TEXTURES));
-        textures.addAll(List.of(ARROW_TEXTURES));
-        textures.addAll(List.of(CHARACTER_TEXTURES));
-    }
 
     @Override
     protected void addActors() {
@@ -231,6 +220,24 @@ public class MenuDisplay extends RetroactiveDisplay {
         } catch (Exception e) {
             logger.debug("Could not load the atlas after character change was made.");
         }
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("   Loading menu display assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAssets(UI_TEXTURES, Texture.class);
+        ServiceLocator.getResourceService().loadAssets(ARROW_TEXTURES, Texture.class);
+        ServiceLocator.getResourceService().loadAssets(CHARACTER_TEXTURES, Texture.class);
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("   Unloading menu display assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAssets(UI_TEXTURES);
+        ServiceLocator.getResourceService().unloadAssets(ARROW_TEXTURES);
+        ServiceLocator.getResourceService().unloadAssets(CHARACTER_TEXTURES);
     }
 }
 

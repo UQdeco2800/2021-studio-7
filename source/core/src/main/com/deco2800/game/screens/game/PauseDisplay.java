@@ -17,11 +17,6 @@ public class PauseDisplay extends RetroactiveDisplay {
     private HorizontalGroup settingsButtonsContainer;
     private int settingsButtonIndex = 0;
 
-    public PauseDisplay() {
-        super();
-        textures.add(PAUSE_BACKGROUND);
-    }
-
     @Override
     protected void addActors() {
         table = new Table();
@@ -114,5 +109,19 @@ public class PauseDisplay extends RetroactiveDisplay {
     public void show() {
         super.show();
         settingsButtonIndex = changeSelectedButton(settingsButtonsContainer, settingsButtonIndex, -999);
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("    Loading pause display assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAsset(PAUSE_BACKGROUND, Texture.class);
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("    Unloading pause display assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAsset(PAUSE_BACKGROUND);
     }
 }

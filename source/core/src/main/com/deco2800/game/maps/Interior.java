@@ -79,7 +79,7 @@ public class Interior implements Json.Serializable {
         int numRotations = 0;
         do {
             if (!checkHorizontalDoorCollisions(horizontalDoors, nonWallEntityGrid) ||
-                    !checkVerticalDoorCollisions(verticalDoors, nonWallEntityGrid)) {
+                !checkVerticalDoorCollisions(verticalDoors, nonWallEntityGrid)) {
                 nonWallTileGrid = MatrixUtils.rotateClockwise(nonWallTileGrid);
                 nonWallEntityGrid = MatrixUtils.rotateClockwise(nonWallEntityGrid);
                 numRotations++;
@@ -183,30 +183,6 @@ public class Interior implements Json.Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Interior interior = (Interior) o;
-        return Objects.equals(tileMap, interior.tileMap) &&
-                Objects.equals(entityMap, interior.entityMap) &&
-                Arrays.deepEquals(tileGrid, interior.tileGrid) &&
-                Arrays.deepEquals(entityGrid, interior.entityGrid) &&
-                Objects.equals(dimensions, interior.dimensions);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(tileMap, entityMap, dimensions);
-        result = 31 * result + Arrays.deepHashCode(tileGrid);
-        result = 31 * result + Arrays.deepHashCode(entityGrid);
-        return result;
-    }
-
-    @Override
     public void write(Json json) {
         json.writeObjectStart();
         json.writeValue("tileMap", tileMap);
@@ -244,5 +220,29 @@ public class Interior implements Json.Serializable {
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Interior interior = (Interior) o;
+        return Objects.equals(tileMap, interior.tileMap) &&
+            Objects.equals(entityMap, interior.entityMap) &&
+            Arrays.deepEquals(tileGrid, interior.tileGrid) &&
+            Arrays.deepEquals(entityGrid, interior.entityGrid) &&
+            Objects.equals(dimensions, interior.dimensions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(tileMap, entityMap, dimensions);
+        result = 31 * result + Arrays.deepHashCode(tileGrid);
+        result = 31 * result + Arrays.deepHashCode(entityGrid);
+        return result;
     }
 }

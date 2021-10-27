@@ -1,6 +1,7 @@
 package com.deco2800.game.screens.end;
 
 import com.deco2800.game.GdxGame;
+import com.deco2800.game.entities.Entity;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveScreen;
@@ -22,7 +23,7 @@ public class EndScreen extends RetroactiveScreen {
             this.result = 2;
         }
 
-        createUI();
+        initialiseUI();
         loadAssets();
         ServiceLocator.getEntityService().register(ui);
     }
@@ -33,21 +34,18 @@ public class EndScreen extends RetroactiveScreen {
         renderer.render();
     }
 
-    public int getResult() {
-        return result;
-    }
-
     @Override
-    protected void createUI() {
-        logger.debug("Creating ui");
+    protected void initialiseUI() {
+        logger.debug("Initialising end screen ui");
 
-        ui.addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
+        ui = new Entity()
+            .addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
             .addComponent(new EndDisplay())
             .addComponent(new EndActions(this));
     }
 
     @Override
-    protected void loadAssets() {
+    public void loadAssets() {
         logger.debug("Loading assets");
 
         ui.getComponent(EndDisplay.class).loadAssets();
@@ -57,7 +55,7 @@ public class EndScreen extends RetroactiveScreen {
     }
 
     @Override
-    protected void unloadAssets() {
+    public void unloadAssets() {
         logger.debug("Unloading assets");
 
         ui.getComponent(EndDisplay.class).unloadAssets();
@@ -68,12 +66,15 @@ public class EndScreen extends RetroactiveScreen {
     public void dispose() {
         logger.debug("Disposing end game screen");
 
-        renderer.dispose();
         unloadAssets();
+        renderer.dispose();
         ServiceLocator.getEntityService().dispose();
         ServiceLocator.getRenderService().dispose();
         ServiceLocator.getResourceService().dispose();
-
         ServiceLocator.clear();
+    }
+
+    public int getResult() {
+        return result;
     }
 }

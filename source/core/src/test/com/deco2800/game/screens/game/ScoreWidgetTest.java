@@ -1,6 +1,6 @@
-package com.deco2800.game.screens.end;
+package com.deco2800.game.screens.game;
 import com.deco2800.game.extensions.GameExtension;
-import com.deco2800.game.screens.game.widgets.ScoreWidget;
+import com.deco2800.game.screens.game.ScoreWidget;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.*;

@@ -7,35 +7,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.TreeMap;
 import java.io.*;
 import java.util.*;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Leader board screen display.
  */
 public class LeaderboardDisplay extends RetroactiveDisplay {
-    private static final Logger logger = LoggerFactory.getLogger(LeaderboardDisplay.class);
     private static final String LEADERBOARD_FILE = "configs/leaderboard.txt";
     private static final String TITLE_TEXTURE = "images/ui/title/leaderboard.png";
     private HorizontalGroup menuButtons;
     private Map<String, Integer> sortedLeaderboard;
 
-    public LeaderboardDisplay() {
-        super();
-        textures.add(TITLE_TEXTURE);
-        sortLeaderBoard();
-    }
-
     @Override
     protected void addActors() {
         table = new Table();
         table.setFillParent(true);
+
+        sortLeaderBoard();
 
         Image title = new Image(ServiceLocator.getResourceService().getAsset(TITLE_TEXTURE, Texture.class));
 
@@ -52,13 +42,13 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
         VerticalGroup leaderboard = new VerticalGroup();
         leaderboard.space(15f);
 
-        Set <Map.Entry<String,Integer>> set = sortedLeaderboard.entrySet();
-        Iterator <Map.Entry<String,Integer>> i = set.iterator();
+        Set<Map.Entry<String, Integer>> set = sortedLeaderboard.entrySet();
+        Iterator<Map.Entry<String, Integer>> i = set.iterator();
         String insert;
         int t = 0;
         while (i.hasNext() && t < 11) {
             t++;
-            Map.Entry<String,Integer> mp = i.next();
+            Map.Entry<String, Integer> mp = i.next();
             String score = String.valueOf(mp.getValue());
             insert = mp.getKey() + ":" + score;
             Label label = new Label(insert, skin);
@@ -114,7 +104,7 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
             }
         } catch (IOException e) {
             logger.error("IOException when reading leaderboard or attempting to close clearer for" +
-                    " configs/leaderboard.txt or attempting to close writer for configs/leaderboard.txt");
+                " configs/leaderboard.txt or attempting to close writer for configs/leaderboard.txt");
         }
     }
 
@@ -127,7 +117,7 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
         // two keys
         Comparator<K> valueComparator = (k1, k2) -> {
             int comp = map.get(k2).compareTo(
-                    map.get(k1));
+                map.get(k1));
             if (comp == 0)
                 return 1;
             else
@@ -135,7 +125,7 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
         };
 
         // SortedMap created using the comparator
-        Map<K,V> sorted = new TreeMap<>(valueComparator);
+        Map<K, V> sorted = new TreeMap<>(valueComparator);
         sorted.putAll(map);
 
         return sorted;
@@ -173,5 +163,19 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
             logger.error("IOException in reading configs/leaderboard.txt");
         }
         return leaderboard;
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("   Loading leaderboard display assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAsset(TITLE_TEXTURE, Texture.class);
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("   Unloading leaderboard display assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAsset(TITLE_TEXTURE);
     }
 }

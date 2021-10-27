@@ -221,4 +221,16 @@ public class SettingsDisplay extends RetroactiveDisplay {
   public void update() {
     stage.act(ServiceLocator.getTimeSource().getDeltaTime());
   }
+
+  @Override
+  public void loadAssets() {
+    logger.debug("   Loading settings display assets");
+    super.loadAssets();
+  }
+
+  @Override
+  public void unloadAssets() {
+    logger.debug("    Unloading settings display assets");
+    super.unloadAssets();
+  }
 }

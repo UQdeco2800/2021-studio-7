@@ -1,19 +1,21 @@
 package com.deco2800.game.screens.game;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.player.CameraComponent;
+import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.components.InputDecorator;
+import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.components.PerformanceDisplay;
 import com.deco2800.game.physics.PhysicsEngine;
 import com.deco2800.game.screens.RetroactiveScreen;
 import com.deco2800.game.screens.SettingsDisplay;
-import com.deco2800.game.screens.game.widgets.FogOverlay;
-import com.deco2800.game.screens.game.widgets.PromptWidget;
-import com.deco2800.game.screens.game.widgets.TimerWidget;
+import com.deco2800.game.ui.terminal.KeyboardTerminalInputComponent;
 import com.deco2800.game.ui.terminal.Terminal;
 import com.deco2800.game.ui.terminal.TerminalDisplay;
 
@@ -26,7 +28,7 @@ public class GameScreen extends RetroactiveScreen {
     private static final String TEST_FLOOR_PLAN = "maps/testing/demo.json";
     private static final boolean TESTING = false;
     private final PhysicsEngine physicsEngine;
-    private final Home home;
+    private Home home;
     private Entity player;
 
     public GameScreen(GdxGame game) {
@@ -35,22 +37,16 @@ public class GameScreen extends RetroactiveScreen {
         ServiceLocator.registerChoreController(new ChoreController(game.getLevel()));
         physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-
-        createUI();
-        loadAssets();
-        ServiceLocator.getEntityService().register(ui);
-
-        if (TESTING) {
-            home = new Home(TEST_FLOOR_PLAN);
-        } else {
-            home = new Home();
-        }
-        ServiceLocator.registerHome(home);
-
-        home.create(renderer.getCamera());
-
-        player = home.getActiveFloor().getPlayer();
         game.setLevel(game.getLevel() + 1);
+
+        initialiseHome();
+        initialisePlayer();
+        initialiseUI();
+
+        loadAssets();
+
+        ServiceLocator.getEntityService().register(ui);
+        ServiceLocator.registerHome(home);
     }
 
     @Override
@@ -67,45 +63,38 @@ public class GameScreen extends RetroactiveScreen {
         }
     }
 
-    @Override
-    protected void loadAssets() {
-        logger.debug("Loading assets");
+    protected void initialiseHome() {
+        logger.debug("Initialising game screen home");
+        home = new Home(this);
+        if (TESTING) {
+            home.initialise(TEST_FLOOR_PLAN);
+        } else {
+            home.initialise();
+        }
+    }
 
-        ui.getComponent(ContextDisplay.class).loadAssets();
-        ui.getComponent(PauseDisplay.class).loadAssets();
-        ui.getComponent(SettingsDisplay.class).loadAssets();
-        ui.getComponent(GameActions.class).loadAssets();
-
+    protected void initialisePlayer() {
+        String playerAtlas = PlayerFactory.getAtlas();
+        ServiceLocator.getResourceService().loadAsset(playerAtlas, TextureAtlas.class);
         ServiceLocator.getResourceService().loadAll();
+        player = PlayerFactory.createPlayer(new String[]{playerAtlas});
     }
 
     @Override
-    protected void unloadAssets() {
-        logger.debug("Unloading assets");
+    protected void initialiseUI() {
+        logger.debug("Initialising game screen ui");
 
-        ui.getComponent(ContextDisplay.class).unloadAssets();
-        ui.getComponent(PauseDisplay.class).unloadAssets();
-        ui.getComponent(SettingsDisplay.class).unloadAssets();
-        ui.getComponent(GameActions.class).unloadAssets();
-    }
-
-    /**
-     * Creates the main game's ui including components for rendering ui elements to the screen and
-     * capturing and handling ui input.
-     */
-    @Override
-    protected void createUI() {
-        logger.debug("Creating ui");
-
-        ui.addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
-            .addComponent(ServiceLocator.getInputService().getInputFactory().createForTerminal())
-            .addComponent(new FogOverlay())
-            .addComponent(new PerformanceDisplay())
+        ui = new Entity()
+            .addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
+            .addComponent(new KeyboardTerminalInputComponent())
+            .addComponent(new KeyboardMenuInputComponent())
+            .addComponent(new FogWidget())
             .addComponent(new TimerWidget())
             .addComponent(new PromptWidget())
             .addComponent(new ChoreUI())
             .addComponent(new Terminal())
             .addComponent(new TerminalDisplay())
+            .addComponent(new PerformanceDisplay())
             .addComponent(new ContextDisplay())
             .addComponent(new PauseDisplay())
             .addComponent(new SettingsDisplay())
@@ -113,8 +102,26 @@ public class GameScreen extends RetroactiveScreen {
     }
 
     @Override
+    public void loadAssets() {
+        logger.debug("Loading game screen assets");
+
+        ui.loadAssets();
+        home.loadAssets();
+
+        ServiceLocator.getResourceService().loadAll();
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("Unloading game screen assets");
+
+        ui.unloadAssets();
+        home.unloadAssets();
+    }
+
+    @Override
     public void dispose() {
-        logger.debug("Disposing main game screen");
+        logger.debug("Disposing game screen");
 
         player.getEvents().trigger("write_score");
         unloadAssets();
@@ -125,15 +132,15 @@ public class GameScreen extends RetroactiveScreen {
         ServiceLocator.clear();
     }
 
-    public Entity getMainGameEntity() {
+    public Entity getGameUI() {
         return ui;
+    }
+
+    public CameraComponent getCameraComponent() {
+        return renderer.getCamera();
     }
 
     public Entity getPlayer() {
         return player;
-    }
-
-    public void setPlayer(Entity player) {
-        this.player = player;
     }
 }

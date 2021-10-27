@@ -26,7 +26,6 @@ public class MumActions extends InteractionComponent {
 
     private void triggerPlayerCaught() {
         logger.debug("MUM started collision with PLAYER, triggering player caught");
-        ServiceLocator.getScreen(GameScreen.class)
-                .getMainGameEntity().getEvents().trigger("player_caught");
+        ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("player_caught");
     }
 }

@@ -1,9 +1,9 @@
 package com.deco2800.game.maps;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.files.FileLoader;
+import com.deco2800.game.generic.Loadable;
+import com.deco2800.game.screens.game.GameScreen;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,41 +15,39 @@ import java.util.List;
  * Container for multiple game areas (floors).
  * Contains functionality for randomising floor plans.
  */
-public class Home {
+public class Home implements Loadable {
     private static final Logger logger = LoggerFactory.getLogger(Home.class);
     public static final String DIRECTORY = "maps/";
     private final List<Floor> floors = new ArrayList<>();
     private Floor activeFloor;
-    // Defined on call for creation
-    private boolean created = false;
+    private final GameScreen screen;
 
-    public Home() {
+    public Home(GameScreen screen) {
+        this.screen = screen;
     }
 
-    public Home(String filename) {
-        Floor newFloor = FileLoader.readClass(Floor.class, filename);
-        floors.add(newFloor);
+    public void initialise() {
+        initialise(null);
     }
 
-    public void create(CameraComponent cameraComponent) {
-        if (!created) {
-            if (floors.isEmpty()) {
-                Floor newFloor = createRandomFloor();
-                floors.add(newFloor);
-            }
-            activeFloor = floors.get(0);
-            activeFloor.setCamera((OrthographicCamera) cameraComponent.getCamera());
-            activeFloor.create();
+    public void initialise(String filename) {
+        Floor floor;
+        if (filename != null) {
+            floor = FileLoader.readClass(Floor.class, filename);
+        } else {
+            floor = initialiseRandomFloor();
         }
-        created = true;
+        floor.setHome(this);
+        floors.add(floor);
     }
 
     /**
      * Queries for a list of JSON files in a pre-defined directory. Selects one at random
      * and initialises the floor plan.
+     *
      * @return A valid Floor extracted from a JSON file.
      */
-    private Floor createRandomFloor() {
+    private Floor initialiseRandomFloor() {
         List<FileHandle> fileHandles = FileLoader.getJsonFiles(DIRECTORY.concat("_floor_plans"));
 
         Floor randomFloor;
@@ -62,19 +60,37 @@ public class Home {
         if (randomFloor == null) {
             throw new NullPointerException("A valid floor plan json file could not be loaded");
         }
+        randomFloor.initialise();
 
         return randomFloor;
+    }
+
+    public void create() {
+        activeFloor = floors.get(0);
+        activeFloor.create();
     }
 
     public Floor getActiveFloor() {
         return activeFloor;
     }
 
-    public void setActiveFloor(Integer index) {
-        if (index < floors.size()) {
-            activeFloor = floors.get(index);
-        } else {
-            logger.error("Home does not have a floor at level {}", index);
+    public GameScreen getScreen() {
+        return screen;
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("    Loading home assets");
+        for (Floor floor : floors) {
+            floor.loadAssets();
+        }
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("    Unloading home assets");
+        for (Floor floor : floors) {
+            floor.unloadAssets();
         }
     }
 }

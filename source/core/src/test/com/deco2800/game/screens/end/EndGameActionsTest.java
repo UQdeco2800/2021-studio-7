@@ -1,4 +1,4 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.end;
 
 import com.deco2800.game.extensions.GameExtension;
 import org.junit.jupiter.api.extension.ExtendWith;

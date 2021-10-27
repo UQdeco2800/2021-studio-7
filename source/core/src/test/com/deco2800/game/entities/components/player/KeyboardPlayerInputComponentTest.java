@@ -15,11 +15,11 @@ class KeyboardPlayerInputComponentTest {
 //        Input.Keys key = new Input.Keys();
 //        assertTrue(test.keyDown(key.E));
 //    }
-
+/*
     @Test
     void keyUpOther() {
         KeyboardPlayerInputComponent test2 = new KeyboardPlayerInputComponent();
         assertEquals(false, test2.keyUp(Input.Keys.UNKNOWN));
-    }
+    }*/
 
 }

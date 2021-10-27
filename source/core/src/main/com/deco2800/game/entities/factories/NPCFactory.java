@@ -26,6 +26,7 @@ import com.deco2800.game.physics.components.PhysicsComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
 import com.deco2800.game.rendering.components.AnimationRenderComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.game.GameScreen;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -50,7 +51,7 @@ public class NPCFactory {
    */
   public static Entity createMum(String[] assets) {
     MumConfig config = configs.mum;
-    Entity target = ServiceLocator.getHome().getActiveFloor().getPlayer();
+    Entity target = ServiceLocator.getHome().getScreen().getPlayer();
 
     Entity mum = createBaseNPC(assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
@@ -65,7 +66,7 @@ public class NPCFactory {
 
   public static Entity createCat(String[] assets) {
     CatConfig config = configs.cat;
-    Entity player = ServiceLocator.getHome().getActiveFloor().getPlayer();
+    Entity player = ServiceLocator.getHome().getScreen().getPlayer();
     Entity cat =  createBaseNPC(assets)
             .addComponent(new CombatStatsComponent(config.health, config.baseAttack, config.stamina))
             .addComponent(new CatActions());

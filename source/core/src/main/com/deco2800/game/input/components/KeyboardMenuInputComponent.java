@@ -3,7 +3,7 @@ package com.deco2800.game.input.components;
 public class KeyboardMenuInputComponent extends InputComponent {
 
     public KeyboardMenuInputComponent() {
-        super(5);
+        super(15);
     }
 
     @Override

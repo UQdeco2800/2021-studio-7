@@ -22,7 +22,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
-        super(5);
+        super(25);
     }
 
     /**
@@ -33,6 +33,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyDown(int keycode) {
+        if (ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
+            return false;
+        }
         switch (keycode) {
             case Keys.W:
                 walkDirection.add(Vector2Utils.UP);
@@ -83,8 +86,11 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 entity.getEvents().trigger("toggle_interacting", true);
                 return true;
             case Keys.O:
-                ServiceLocator.getScreen(GameScreen.class)
-                    .getMainGameEntity().getEvents().trigger("toggle_chores");
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("toggle_chores");
+                return true;
+            case Keys.P:
+            case Keys.ESCAPE:
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("enter_pause");
                 return true;
             default:
                 return false;
@@ -99,6 +105,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyUp(int keycode) {
+        if (ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
+            return false;
+        }
         switch (keycode) {
             case Keys.W:
                 setWalkDirection(Vector2Utils.UP);

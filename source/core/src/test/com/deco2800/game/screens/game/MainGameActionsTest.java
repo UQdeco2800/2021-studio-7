@@ -1,4 +1,4 @@
-package com.deco2800.game.screens;
+package com.deco2800.game.screens.game;
 
 /*
 @ExtendWith(GameExtension.class)

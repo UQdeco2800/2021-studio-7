@@ -23,13 +23,6 @@ class GridObjectTest {
         assertEquals(gridObject1, gridObject2);
     }
 
-    @Test
-    void shouldGetAssetsWithExtension() {
-        GridObject gridObject = createBaseGridObject();
-        assertArrayEquals(new String[]{"test.png"}, gridObject.getAssets(".png").toArray());
-        assertArrayEquals(new String[]{"test.atlas", "test1.atlas"}, gridObject.getAssets(".atlas").toArray());
-    }
-
     GridObject createBaseGridObject() {
         return new GridObject(method, assets);
     }

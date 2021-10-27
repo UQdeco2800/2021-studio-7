@@ -2,11 +2,12 @@ package com.deco2800.game.screens.menu;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
-
-import java.util.List;
 
 /**
  * UI component for displaying the Tittle screen.
@@ -16,10 +17,6 @@ public class TitleDisplay extends RetroactiveDisplay {
         "images/ui/title/RETROACTIVE-large.png",
         "images/ui/screens/inactiveStart.png"
     };
-
-    public TitleDisplay() {
-        textures.addAll(List.of(TEXTURES));
-    }
 
     @Override
     protected void addActors() {
@@ -47,5 +44,19 @@ public class TitleDisplay extends RetroactiveDisplay {
     protected void keyDown(int keyCode) {
         entity.getEvents().trigger("play_sound", "browse");
         entity.getEvents().trigger("exit_title");
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("   Loading title display assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAssets(TEXTURES, Texture.class);
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("   Unloading title display assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAssets(TEXTURES);
     }
 }

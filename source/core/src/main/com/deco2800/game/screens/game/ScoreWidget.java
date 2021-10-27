@@ -1,17 +1,16 @@
-package com.deco2800.game.screens.game.widgets;
+package com.deco2800.game.screens.game;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.deco2800.game.ui.components.UIComponent;
+import com.deco2800.game.screens.RetroactiveWidget;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * A ui component for displaying player score.
+ * UI component for displaying player score.
  */
-public class ScoreWidget extends UIComponent {
+public class ScoreWidget extends RetroactiveWidget {
     Table table;
     private Label scoreLabel;
     private static Timer timer;
@@ -19,42 +18,26 @@ public class ScoreWidget extends UIComponent {
     private int score;
     private int timeSinceStart;
 
-    public ScoreWidget(int initialTime, int initialscore) {
+    public ScoreWidget(int initialTime, int initialScore) {
+        super();
         this.timeLeft = initialTime;
-        this.score = initialscore;
+        this.score = initialScore;
         timeSinceStart = 0;
     }
 
-    /**
-     * Creates reusable ui styles and adds actors to the stage.
-     */
     @Override
-    public void create() {
-        super.create();
-        addActors();
-    }
-
-    /**
-     * Creates actors and positions them on the stage using a table.
-     * @see Table for positioning options
-     */
-    public void addActors() {
+    protected void addActors() {
         table = new Table();
         table.bottom().left().padBottom(60f).padLeft(5f);
         table.setFillParent(true);
 
         scoreLabel = new Label(
-                String.format("Score: %d", score),
-                skin, "large");
+            String.format("Score: %d", score),
+            skin, "large");
 
         table.add(scoreLabel);
         stage.addActor(table);
 
-    }
-
-    @Override
-    public void draw(SpriteBatch batch)  {
-        // draw is handled by the stage
     }
 
     /**
@@ -66,10 +49,9 @@ public class ScoreWidget extends UIComponent {
     }
 
     /**
-     *
      * @return score as an int
      */
-    public int getscore(){
+    public int getscore() {
         this.score -= 1;
         return this.score;
     }
@@ -106,4 +88,15 @@ public class ScoreWidget extends UIComponent {
         this.timeSinceStart++;
     }
 
+    @Override
+    public void loadAssets() {
+        logger.debug("    Loading score widget assets");
+        super.loadAssets();
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("    Unloading score widget assets");
+        super.unloadAssets();
+    }
 }

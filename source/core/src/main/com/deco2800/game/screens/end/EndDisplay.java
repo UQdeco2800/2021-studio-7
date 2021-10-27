@@ -25,11 +25,6 @@ public class EndDisplay extends RetroactiveDisplay {
     private VerticalGroup endButtonsContainer;
     private int endButtonsIndex = 0;
 
-    public EndDisplay() {
-        super();
-        textures.addAll(List.of(BACKGROUNDS));
-    }
-
     @Override
     protected void addActors() {
         table = new Table();
@@ -99,5 +94,19 @@ public class EndDisplay extends RetroactiveDisplay {
     public void show() {
         super.show();
         endButtonsIndex = changeSelectedButton(endButtonsContainer, endButtonsIndex, -999);
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("    Loading end display assets");
+        super.loadAssets();
+        ServiceLocator.getResourceService().loadAssets(BACKGROUNDS, Texture.class);
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("    Unloading end display assets");
+        super.unloadAssets();
+        ServiceLocator.getResourceService().unloadAssets(BACKGROUNDS);
     }
 }

@@ -35,4 +35,16 @@ public class EndActions extends RetroactiveActions {
     ServiceLocator.getGame().setLevel(1);
     screen.queueNextScreen(GdxGame.ScreenType.MAIN_MENU);
   }
+
+  @Override
+  public void loadAssets() {
+    logger.debug("    Loading end actions assets");
+    super.loadAssets();
+  }
+
+  @Override
+  public void unloadAssets() {
+    logger.debug("    Unloading end actions assets");
+    super.unloadAssets();
+  }
 }
