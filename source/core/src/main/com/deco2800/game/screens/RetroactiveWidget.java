@@ -1,6 +1,7 @@
 package com.deco2800.game.screens;
 
 import com.deco2800.game.generic.Loadable;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,7 @@ public abstract class RetroactiveWidget extends UIComponent implements Loadable 
 
     public RetroactiveWidget() {
         super();
-        Z_INDEX = 5f;
+        renderPriority = RenderPriority.WIDGET.ordinal();
     }
 
     @Override

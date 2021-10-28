@@ -30,7 +30,7 @@ public abstract class RenderComponent extends Component implements Renderable, D
 
   @Override
   public int compareTo(Renderable o) {
-    return Float.compare(getZIndex(), o.getZIndex());
+    return Float.compare(getRenderPriority(), o.getRenderPriority());
   }
 
   @Override
@@ -39,7 +39,7 @@ public abstract class RenderComponent extends Component implements Renderable, D
   }
 
   @Override
-  public float getZIndex() {
+  public float getRenderPriority() {
     // The smaller the Y value, the higher the Z index, so that closer entities are drawn in front
     return -entity.getPosition().y;
   }

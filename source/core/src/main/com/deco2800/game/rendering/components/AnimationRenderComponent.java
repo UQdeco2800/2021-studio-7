@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.deco2800.game.generic.ComponentPriority;
 import com.deco2800.game.generic.GameTime;
 import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class AnimationRenderComponent extends RenderComponent {
    * @param atlas libGDX-supported texture atlas containing desired animations
    */
   public AnimationRenderComponent(TextureAtlas atlas) {
-    creationPriority = 0;
+    createPriority = ComponentPriority.ANIMATION.ordinal();
     this.atlas = atlas;
     this.animations = new HashMap<>(4);
     timeSource = ServiceLocator.getTimeSource();

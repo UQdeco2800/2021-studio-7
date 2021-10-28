@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveWidget;
 
 public class FogWidget extends RetroactiveWidget {
@@ -11,7 +12,7 @@ public class FogWidget extends RetroactiveWidget {
 
     public FogWidget() {
         super();
-        Z_INDEX = 0f;
+        renderPriority = RenderPriority.BACK.ordinal();
     }
 
     @Override

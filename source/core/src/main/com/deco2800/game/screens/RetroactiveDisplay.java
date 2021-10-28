@@ -3,6 +3,7 @@ package com.deco2800.game.screens;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.deco2800.game.generic.Loadable;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.ui.components.UIComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
 
     public RetroactiveDisplay() {
         super();
-        Z_INDEX = 10f;
+        renderPriority = RenderPriority.DISPLAY.ordinal();
     }
 
     @Override

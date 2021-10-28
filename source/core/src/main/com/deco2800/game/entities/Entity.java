@@ -31,10 +31,7 @@ import java.util.Comparator;
 public class Entity implements Loadable {
   private static final Logger logger = LoggerFactory.getLogger(Entity.class);
   private static int nextId = 0;
-  private static final String EVT_NAME_POS = "setPosition";
-
-  private static final Comparator<Component> comparator =
-      Collections.reverseOrder(Comparator.comparingInt(Component::getCreationPriority));
+  private static final Comparator<Component> comparator = Comparator.comparingDouble(Component::getCreationPriority);
 
   private final int id;
   private final IntMap<Component> components;
@@ -79,8 +76,7 @@ public class Entity implements Loadable {
    * @param position new position.
    */
   public void setPosition(Vector2 position) {
-    this.position = position.cpy();
-    getEvents().trigger(EVT_NAME_POS, position.cpy());
+    setPosition(position, true);
   }
 
   /**
@@ -90,9 +86,7 @@ public class Entity implements Loadable {
    * @param y new y position
    */
   public void setPosition(float x, float y) {
-    this.position.x = x;
-    this.position.y = y;
-    getEvents().trigger(EVT_NAME_POS, position.cpy());
+    setPosition(new Vector2(x, y), true);
   }
 
   /**
@@ -104,7 +98,7 @@ public class Entity implements Loadable {
   public void setPosition(Vector2 position, boolean notify) {
     this.position = position;
     if (notify) {
-      getEvents().trigger(EVT_NAME_POS, position);
+      getEvents().trigger("setPosition", position);
     }
   }
 

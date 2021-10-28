@@ -10,12 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveDisplay;
 
 public class PauseDisplay extends RetroactiveDisplay {
     private static final String PAUSE_BACKGROUND = "images/ui/screens/paused_screen.png";
     private HorizontalGroup settingsButtonsContainer;
     private int settingsButtonIndex = 0;
+
+    public PauseDisplay() {
+        super();
+        renderPriority = RenderPriority.WIDGET.ordinal() - 0.05f;
+    }
 
     @Override
     protected void addActors() {

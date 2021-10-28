@@ -13,10 +13,6 @@ import com.deco2800.game.screens.RetroactiveWidget;
 public class PerformanceDisplay extends RetroactiveWidget {
     private Label profileLabel;
 
-    public PerformanceDisplay() {
-        Z_INDEX = 5f;
-    }
-
     @Override
     protected void addActors() {
         table = new Table();

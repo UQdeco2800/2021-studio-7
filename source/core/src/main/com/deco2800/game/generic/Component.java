@@ -13,10 +13,10 @@ public class Component {
   private static final Logger logger = LoggerFactory.getLogger(Component.class);
   protected Entity entity;
   protected boolean enabled = true;
-  protected int creationPriority = 999;
+  protected float createPriority = ComponentPriority.BACK.ordinal();
 
-  public int getCreationPriority() {
-    return creationPriority;
+  public float getCreationPriority() {
+    return createPriority;
   }
 
   /**

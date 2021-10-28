@@ -2,10 +2,7 @@ package com.deco2800.game.screens;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.deco2800.game.generic.Component;
-import com.deco2800.game.generic.Loadable;
-import com.deco2800.game.generic.ResourceService;
-import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.generic.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +21,7 @@ public abstract class RetroactiveActions extends Component implements Loadable {
     };
 
     public RetroactiveActions() {
-        creationPriority = 50;
+        createPriority = ComponentPriority.ACTION.ordinal();
     }
 
     @Override

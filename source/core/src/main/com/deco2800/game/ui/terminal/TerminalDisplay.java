@@ -3,6 +3,7 @@ package com.deco2800.game.ui.terminal;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.ui.components.UIComponent;
 
 /**
@@ -14,7 +15,7 @@ public class TerminalDisplay extends UIComponent {
     private Label label;
 
     public TerminalDisplay() {
-        Z_INDEX = 10f;
+        renderPriority = RenderPriority.FRONT.ordinal();
     }
 
     @Override
