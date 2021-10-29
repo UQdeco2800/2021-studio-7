@@ -27,7 +27,6 @@ public class SettingsDisplay extends RetroactiveDisplay {
     @Override
     public void create() {
         super.create();
-        table.setDebug(true);
 
         Label title = new Label("Settings", skin, "title");
         Table settingsTable = createSettingsTable();
