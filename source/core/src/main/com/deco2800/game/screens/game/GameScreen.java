@@ -58,8 +58,8 @@ public class GameScreen extends RetroactiveScreen {
         }
         if (!gamePaused) {
             physicsEngine.update();
+            ServiceLocator.getEntityService().update();
         }
-        ServiceLocator.getEntityService().update();
         renderer.getCamera().getEntity().setPosition(player.getPosition());
         renderer.render();
     }

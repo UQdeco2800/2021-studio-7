@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -122,9 +123,14 @@ public class ContextDisplay extends RetroactiveDisplay {
                     } else {
                         warning.setVisible(true);
                     }
-                    break;
                 } else {
-                    entity.getEvents().trigger("exit_context");
+                    if (index == CONTEXT_MESSAGES[phase.ordinal() - 1].length()) {
+                        entity.getEvents().trigger("exit_context");
+                    } else {
+                        index = CONTEXT_MESSAGES[phase.ordinal() - 1].length();
+                        context.setText(CONTEXT_MESSAGES[phase.ordinal() - 1]);
+                        updatePrompt();
+                    }
                 }
                 break;
             case Keys.ESCAPE:
@@ -139,7 +145,7 @@ public class ContextDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    public void update() {
+    protected void draw(SpriteBatch batch) {
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (phase != ContextPhase.USERNAME && index < CONTEXT_MESSAGES[phase.ordinal() - 1].length() &&
             currentTime - lastTime >= NORMAL_TICK_RATE) {
@@ -163,12 +169,14 @@ public class ContextDisplay extends RetroactiveDisplay {
     private void updatePrompt() {
         if (index == 10) {
             prompt.setText(PROMPT_MESSAGES[1]);
-            prompt.addAction(Actions.forever(Actions.fadeIn(10f)));
+            prompt.clearActions();
+            prompt.addAction(Actions.alpha(0));
+            prompt.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(2f))));
         } else if (index == CONTEXT_MESSAGES[phase.ordinal() - 1].length()) {
             prompt.setText(PROMPT_MESSAGES[2]);
-
+            prompt.clearActions();
             prompt.addAction(Actions.alpha(0));
-            prompt.addAction(Actions.forever(Actions.fadeIn(5f)));
+            prompt.addAction(Actions.forever(Actions.sequence(Actions.fadeIn(1f), Actions.fadeOut(1f))));
         }
     }
 

@@ -69,6 +69,7 @@ public class MenuActions extends RetroactiveActions {
 
   private void onQueueMainGame() {
     logger.debug("Queueing main game screen transition");
+    ServiceLocator.getGame().setLevel(0);
     screen.queueNextScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
