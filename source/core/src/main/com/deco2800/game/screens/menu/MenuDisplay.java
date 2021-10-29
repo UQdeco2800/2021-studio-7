@@ -56,7 +56,7 @@ public class MenuDisplay extends RetroactiveDisplay {
         table.add(title).colspan(2).pad(stage.getWidth() * 0.05f).row();
 
         table.add(createButtons())
-            .bottom().padTop(stage.getHeight() * 0.0375f).growY()
+            .bottom().padBottom(stage.getHeight() * 0.19f).growY()
             .left().padLeft(stage.getHeight() * 0.15f).width(stage.getWidth() * 0.20f);
         table.add(createCharacterContainer()).grow()
             .bottom().padTop(stage.getHeight() * 0.125f)
@@ -64,13 +64,11 @@ public class MenuDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected Group createButtons() {
-        buttonContainer = new VerticalGroup();
+    protected Table createButtons() {
+        buttonTable = new Table();
         traverseBackwards = new int[]{Keys.UP, Keys.W};
         traverseForwards = new int[]{Keys.DOWN, Keys.S};
         enter = new int[]{Keys.ENTER};
-
-        ((VerticalGroup) buttonContainer).space(stage.getHeight() * 0.075f).grow();
 
         TextButton startBtn = new TextButton("Start", skin);
         startBtn.addListener(
@@ -82,7 +80,7 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("queue_main_game");
                 }
             });
-        buttonContainer.addActor(startBtn);
+        buttonTable.add(startBtn).growX().padBottom(stage.getHeight() * 0.075f).row();
 
         TextButton leaderboardBtn = new TextButton("Leaderboard", skin);
         leaderboardBtn.addListener(
@@ -93,7 +91,7 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_leaderboard");
                 }
             });
-        buttonContainer.addActor(leaderboardBtn);
+        buttonTable.add(leaderboardBtn).growX().padBottom(stage.getHeight() * 0.075f).row();
 
         TextButton settingsBtn = new TextButton("Settings", skin);
         settingsBtn.addListener(
@@ -104,7 +102,7 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_settings");
                 }
             });
-        buttonContainer.addActor(settingsBtn);
+        buttonTable.add(settingsBtn).growX().padBottom(stage.getHeight() * 0.075f).row();
 
         TextButton exitBtn = new TextButton("Exit", skin);
         exitBtn.addListener(
@@ -115,11 +113,11 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit");
                 }
             });
-        buttonContainer.addActor(exitBtn);
+        buttonTable.add(exitBtn).growX().row();
 
         triggerHighlight();
 
-        return buttonContainer;
+        return buttonTable;
     }
 
     private Table createCharacterContainer() {
@@ -136,7 +134,7 @@ public class MenuDisplay extends RetroactiveDisplay {
         }
         character.startAnimation(characterIndex);
         character.setScaling(Scaling.fit);
-        characterContainer.add(character).grow().padLeft(5f).padRight(5f);
+        characterContainer.add(character).grow().bottom().padLeft(5f).padRight(5f);
 
         Image rightArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[1], Texture.class));
         rightArrow.setScaling(Scaling.fit);

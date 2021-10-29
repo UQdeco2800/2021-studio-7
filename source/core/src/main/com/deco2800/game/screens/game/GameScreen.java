@@ -33,11 +33,11 @@ public class GameScreen extends RetroactiveScreen {
 
     public GameScreen(GdxGame game) {
         super(game);
+        game.setLevel(game.getLevel() + 1);
 
         ServiceLocator.registerChoreController(new ChoreController(game.getLevel()));
         physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-        //game.setLevel(game.getLevel() + 1);
 
         initialiseHome();
         initialisePlayer();

@@ -1,9 +1,9 @@
 package com.deco2800.game.screens;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.rendering.components.RenderPriority;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 public abstract class RetroactiveDisplay extends UIComponent implements Loadable {
     protected static final Logger logger = LoggerFactory.getLogger(RetroactiveDisplay.class);
     protected KeyboardMenuInputComponent inputComponent;
-    protected Group buttonContainer;
+    protected Table buttonTable;
     protected Button button;
     protected int buttonIndex = 0;
     protected int[] traverseBackwards = new int[0];
@@ -38,7 +38,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         hide();
     }
 
-    protected abstract Group createButtons();
+    protected abstract Table createButtons();
 
     private void onPreKeyDown(int keyCode) {
         if (table.isVisible()) {
@@ -82,13 +82,13 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         }
 
         if ((direction < 0 && buttonIndex == 0) ||
-            (direction > 0 && buttonIndex == buttonContainer.getChildren().size - 1)) {
+            (direction > 0 && buttonIndex == buttonTable.getChildren().size - 1)) {
             direction = 0;
         }
 
         if (direction != 0) {
             triggerUnhighlight();
-            buttonIndex = (buttonIndex + direction) % buttonContainer.getChildren().size;
+            buttonIndex = (buttonIndex + direction) % buttonTable.getChildren().size;
             triggerHighlight();
         }
     }
@@ -98,7 +98,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         highlight.setType(InputEvent.Type.enter);
         highlight.setPointer(-1);
 
-        buttonContainer.getChild(buttonIndex).fire(highlight);
+        buttonTable.getChild(buttonIndex).fire(highlight);
     }
 
     protected void triggerUnhighlight() {
@@ -106,7 +106,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         unhighlight.setType(InputEvent.Type.exit);
         unhighlight.setPointer(-1);
 
-        buttonContainer.getChild(buttonIndex).fire(unhighlight);
+        buttonTable.getChild(buttonIndex).fire(unhighlight);
     }
 
     protected void triggerTouchDown() {
@@ -115,7 +115,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         touchDown.setButton(0);
         touchDown.setRelatedActor(button);
 
-        button = (Button) buttonContainer.getChild(buttonIndex);
+        button = (Button) buttonTable.getChild(buttonIndex);
         button.fire(touchDown);
     }
 
@@ -129,7 +129,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
             button.fire(touchUp);
             button = null;
         } else {
-            buttonContainer.getChild(buttonIndex).fire(touchUp);
+            buttonTable.getChild(buttonIndex).fire(touchUp);
         }
     }
 

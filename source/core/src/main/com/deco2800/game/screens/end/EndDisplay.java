@@ -3,13 +3,9 @@ package com.deco2800.game.screens.end;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
@@ -37,25 +33,25 @@ public class EndDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected Group createButtons() {
-        buttonContainer = new VerticalGroup();
+    protected Table createButtons() {
+        buttonTable = new Table();
         traverseBackwards = new int[]{Keys.UP, Keys.W};
         traverseForwards = new int[]{Keys.DOWN, Keys.S};
         enter = new int[]{Keys.ENTER};
 
-        ((VerticalGroup) buttonContainer).fill().bottom().right().space(10f);
+        buttonTable.bottom().right();
 
         if (entity.getComponent(EndActions.class).getScreen().getResult() == 0) {
             TextButton nextLevelBtn = new TextButton("Next level", skin);
             nextLevelBtn.addListener(
-            new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent changeEvent, Actor actor) {
-                    logger.debug("Next level button clicked");
-                    entity.getEvents().trigger("queue_main_game");
-                }
-            });
-            buttonContainer.addActor(nextLevelBtn);
+                new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent changeEvent, Actor actor) {
+                        logger.debug("Next level button clicked");
+                        entity.getEvents().trigger("queue_main_game");
+                    }
+                });
+            buttonTable.add(nextLevelBtn).growX().padBottom(10f).row();
         }
 
         TextButton mainMenuBtn = new TextButton("Back to main menu", skin);
@@ -67,11 +63,11 @@ public class EndDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("queue_main_menu");
                 }
             });
-        buttonContainer.addActor(mainMenuBtn);
+        buttonTable.add(mainMenuBtn).growX();
 
         triggerHighlight();
 
-        return buttonContainer;
+        return buttonTable;
     }
 
     @Override

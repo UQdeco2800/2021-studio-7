@@ -53,10 +53,10 @@ public class PromptWidget extends RetroactiveWidget {
     }
 
     public void display(String text) {
-        this.text = text;
         if (enabled) {
             hide();
         }
+        this.text = text;
         entity.getEvents().trigger("play_sound", "confirm");
         show();
     }

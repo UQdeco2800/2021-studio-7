@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -56,7 +57,9 @@ public class ContextDisplay extends RetroactiveDisplay {
         TextureRegionDrawable background = new TextureRegionDrawable(new TextureRegion(new Texture(backgroundMap)));
         table.setBackground(background);
 
-        if (phase == ContextPhase.USERNAME) {
+        phase = ContextPhase.values()[Math.min(2, ServiceLocator.getGame().getLevel())];
+        if (phase == ContextPhase.STORY_ONE) {
+            phase = ContextPhase.USERNAME;
             table.add(createUsernameContainer());
             stage.setKeyboardFocus(username);
         } else {
@@ -65,7 +68,7 @@ public class ContextDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected Group createButtons() {
+    protected Table createButtons() {
         return null;
     }
 
@@ -96,14 +99,14 @@ public class ContextDisplay extends RetroactiveDisplay {
         context.setAlignment(Align.topLeft);
         context.setWrap(true);
         table.add(context).grow()
-            .size(table.getWidth() * 0.75f, table.getHeight() * 0.50f)
-            .pad(table.getHeight() * 0.20f, table.getWidth() * 0.10f,
-                table.getHeight() * 0.20f, table.getWidth() * 0.10f);
+            .size(stage.getWidth() * 0.75f, stage.getHeight() * 0.50f)
+            .pad(stage.getHeight() * 0.20f, stage.getWidth() * 0.10f,
+                stage.getHeight() * 0.20f, stage.getWidth() * 0.10f);
 
         prompt = new Label("", skin, "title");
 
         table.row();
-        table.add(prompt).padBottom(table.getHeight() * 0.10f);
+        table.add(prompt).padBottom(stage.getHeight() * 0.10f);
     }
 
     @Override
@@ -170,7 +173,7 @@ public class ContextDisplay extends RetroactiveDisplay {
     }
 
     private void updatePhase() {
-        table.clear();
+        table.clearChildren();
         currentText = "";
         if (ServiceLocator.getGame().getLevel() == 1) {
             phase = ContextPhase.STORY_ONE;

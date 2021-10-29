@@ -21,7 +21,7 @@ import static com.badlogic.gdx.Gdx.app;
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
   private String username;
-  private int level = 1;
+  private int level = 0;
 
   @Override
   public void create() {

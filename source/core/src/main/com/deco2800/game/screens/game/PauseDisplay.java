@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.rendering.components.RenderPriority;
@@ -30,17 +27,15 @@ public class PauseDisplay extends RetroactiveDisplay {
         Image background = new Image(ServiceLocator.getResourceService().getAsset(PAUSE_BACKGROUND, Texture.class));
         table.setBackground(background.getDrawable());
 
-        table.add(createButtons());
+        table.add(createButtons()).width(stage.getWidth() * 0.65f);
     }
 
     @Override
-    protected Group createButtons() {
-        buttonContainer = new HorizontalGroup();
+    protected Table createButtons() {
+        buttonTable = new Table();
         traverseBackwards = new int[]{Keys.LEFT, Keys.A};
         traverseForwards = new int[]{Keys.RIGHT, Keys.D};
         enter = new int[]{Keys.ENTER};
-
-        ((HorizontalGroup) buttonContainer).space(10f);
 
         TextButton resumeBtn = new TextButton("Resume", skin);
         resumeBtn.addListener(
@@ -51,7 +46,7 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit_pause");
                 }
             });
-        buttonContainer.addActor(resumeBtn);
+        buttonTable.add(resumeBtn).growX();
 
         TextButton restartBtn = new TextButton("Restart", skin);
         restartBtn.addListener(
@@ -62,7 +57,7 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("queue_main_game");
                 }
             });
-        buttonContainer.addActor(restartBtn);
+        buttonTable.add(restartBtn).padLeft(10f).growX();
 
         TextButton settingsBtn = new TextButton("Settings", skin);
         settingsBtn.addListener(
@@ -73,7 +68,7 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_settings");
                 }
             });
-        buttonContainer.addActor(settingsBtn);
+        buttonTable.add(settingsBtn).padLeft(10f).growX();
 
         TextButton mainMenuBtn = new TextButton("Main Menu", skin);
         mainMenuBtn.addListener(
@@ -84,11 +79,11 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("queue_main_menu");
                 }
             });
-        buttonContainer.addActor(mainMenuBtn);
+        buttonTable.add(mainMenuBtn).padLeft(10f).growX();
 
         triggerHighlight();
 
-        return buttonContainer;
+        return buttonTable;
     }
 
     @Override

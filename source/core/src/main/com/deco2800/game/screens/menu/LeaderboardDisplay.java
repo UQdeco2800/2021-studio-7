@@ -57,8 +57,8 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected Group createButtons() {
-        buttonContainer = new HorizontalGroup();
+    protected Table createButtons() {
+        buttonTable = new Table();
         traverseBackwards = new int[]{};
         traverseForwards = new int[]{};
         enter = new int[]{Keys.ENTER, Keys.ESCAPE};
@@ -72,11 +72,11 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit_leaderboard");
                 }
             });
-        buttonContainer.addActor(exitBtn);
+        buttonTable.add(exitBtn);
 
         triggerHighlight();
 
-        return buttonContainer;
+        return buttonTable;
     }
 
     private void sortLeaderBoard() {

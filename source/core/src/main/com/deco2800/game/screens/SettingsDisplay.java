@@ -6,14 +6,11 @@ import com.badlogic.gdx.Graphics.Monitor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.files.UserSettings.DisplaySettings;
-import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.utils.StringDecorator;
 
 /**
@@ -30,6 +27,7 @@ public class SettingsDisplay extends RetroactiveDisplay {
     @Override
     public void create() {
         super.create();
+        table.setDebug(true);
 
         Label title = new Label("Settings", skin, "title");
         Table settingsTable = createSettingsTable();
@@ -40,7 +38,7 @@ public class SettingsDisplay extends RetroactiveDisplay {
         table.add(settingsTable).expandX().expandY();
 
         table.row();
-        table.add(createButtons()).fillX();
+        table.add(createButtons()).width(stage.getWidth() * 0.35f).padBottom(20f);
     }
 
     private Table createSettingsTable() {
@@ -108,8 +106,8 @@ public class SettingsDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected Group createButtons() {
-        buttonContainer = new HorizontalGroup();
+    protected Table createButtons() {
+        buttonTable = new Table();
         traverseBackwards = new int[]{Keys.LEFT, Keys.A};
         traverseForwards = new int[]{Keys.RIGHT, Keys.D};
         enter = new int[]{Keys.ENTER};
@@ -123,7 +121,7 @@ public class SettingsDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit_settings");
                 }
             });
-        buttonContainer.addActor(exitBtn);
+        buttonTable.add(exitBtn).left().padRight(20f).growX();
 
         TextButton applyBtn = new TextButton("Apply", skin);
         applyBtn.addListener(
@@ -134,11 +132,11 @@ public class SettingsDisplay extends RetroactiveDisplay {
                     applyChanges();
                 }
             });
-        buttonContainer.addActor(applyBtn);
+        buttonTable.add(applyBtn).right().growX();
 
         triggerHighlight();
 
-        return buttonContainer;
+        return buttonTable;
     }
 
     private StringDecorator<DisplayMode> getActiveMode(Array<StringDecorator<DisplayMode>> modes) {
