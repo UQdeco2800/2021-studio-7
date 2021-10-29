@@ -51,7 +51,7 @@ public abstract class RetroactiveActions extends Component implements Loadable {
 
         if (music != null) {
             music.setLooping(true);
-            music.setVolume(0.05f);
+            music.setVolume(0.01f);
             music.play();
         }
     }

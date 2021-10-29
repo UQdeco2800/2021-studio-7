@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
 
@@ -20,21 +21,22 @@ import com.deco2800.game.screens.RetroactiveDisplay;
  */
 public class ContextDisplay extends RetroactiveDisplay {
     private static final String[] CONTEXT_MESSAGES = {
-        "It's 11:00pm. The year is currently 1982. It's a school night.\n\n\n" +
-            " You've nearly finished your new game, but your mother is awake and she knows that you are too.\n\n\n" +
-            " You have until she gets home at 2:00AM to get to bed or else she's going to catch you; and if she does?\n\n\n\n\n" +
-            " Well, it may as well be the end of the world. . .\n\n\n\n" +
-            " Movement: WASD\n\n Interact: E\n\n Sprint: shift",
+        "It's 11:00pm. The year is currently 1982. It's a school night.\n\n" +
+            "You've nearly finished your new game, but your mother is awake and she knows that you are too.\n\n" +
+            "You have until she gets home at 2:00AM to get to bed or else she's going to catch you; and if she does?\n\n\n" +
+            "Well, it may as well be the end of the world...\n\n" +
+            "    \n" +
+            "Movement: WASD\n\nInteract: E\n\nSprint: shift",
         "You've escaped with your life this time, but the odds are against you tonight.\n\n\n" +
-            " You've put off the chores in favor of finishing the new Exhale of the City (TM) game.\n\n\n" +
-            " T-minus two hours until Mum gets home, complete your chores and head to bed!"
+            "You've put off the chores in favor of finishing the new Exhale of the City (TM) game.\n\n\n" +
+            "T-minus two hours until Mum gets home, complete your chores and head to bed!"
     };
     private static final String[] PROMPT_MESSAGES = {
         "PLEASE ENTER YOUR USERNAME",
         "PRESS ENTER TO SKIP",
         "PRESS ENTER TO CONTINUE"
     };
-    private static final long NORMAL_TICK_RATE = 500L;
+    private static final long NORMAL_TICK_RATE = 40L;
     private long lastTime = 0L;
     private ContextPhase phase = ContextPhase.USERNAME;
     private TextField username;
@@ -58,7 +60,7 @@ public class ContextDisplay extends RetroactiveDisplay {
             table.add(createUsernameContainer());
             stage.setKeyboardFocus(username);
         } else {
-            table.add(createContextContainer());
+            createContextContainer();
         }
     }
 
@@ -89,26 +91,19 @@ public class ContextDisplay extends RetroactiveDisplay {
         return usernameContainer;
     }
 
-    private VerticalGroup createContextContainer() {
-        VerticalGroup contextContainer = new VerticalGroup();
-        contextContainer.space(50f);
-
-        int rowHeight = Gdx.graphics.getHeight() / 16;
-        int colWidth = Gdx.graphics.getWidth() / 10;
-
+    private void createContextContainer() {
         context = new Label("", skin, "large");
-        context.setSize(colWidth * 8f, rowHeight * 12f);
-        context.setPosition(colWidth, (float) rowHeight * 3);
-        context.setFontScale((colWidth * 10f) / 1280f); // Scale font to screen size
+        context.setAlignment(Align.topLeft);
         context.setWrap(true);
-        contextContainer.addActor(context);
+        table.add(context).grow()
+            .size(table.getWidth() * 0.75f, table.getHeight() * 0.50f)
+            .pad(table.getHeight() * 0.20f, table.getWidth() * 0.10f,
+                table.getHeight() * 0.20f, table.getWidth() * 0.10f);
 
         prompt = new Label("", skin, "title");
-        prompt.setFontScale(1f);
-        prompt.setPosition(colWidth, rowHeight);
-        contextContainer.addActor(prompt);
 
-        return contextContainer;
+        table.row();
+        table.add(prompt).padBottom(table.getHeight() * 0.10f);
     }
 
     @Override
@@ -142,7 +137,6 @@ public class ContextDisplay extends RetroactiveDisplay {
 
     @Override
     public void update() {
-        super.update();
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (phase != ContextPhase.USERNAME && index < CONTEXT_MESSAGES[phase.ordinal() - 1].length() &&
             currentTime - lastTime >= NORMAL_TICK_RATE) {
@@ -183,7 +177,7 @@ public class ContextDisplay extends RetroactiveDisplay {
         } else {
             phase = ContextPhase.STORY_TWO;
         }
-        table.add(createContextContainer());
+        createContextContainer();
     }
 
     @Override

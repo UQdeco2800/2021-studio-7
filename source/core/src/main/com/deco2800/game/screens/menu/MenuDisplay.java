@@ -2,17 +2,27 @@ package com.deco2800.game.screens.menu;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
 
 import java.io.FileWriter;
-import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuDisplay extends RetroactiveDisplay {
     private static final String[] UI_TEXTURES = {
@@ -26,17 +36,13 @@ public class MenuDisplay extends RetroactiveDisplay {
         "images/main_menu/pointer-L-inactive.png",
         "images/main_menu/pointer-R-inactive.png"
     };
-    private static final String[] CHARACTER_TEXTURES = {
-        "images/characters/boy_01/boy_01_menu_preview.png",
-        "images/characters/girl_00/girl_00_menu_preview.png",
-        "images/characters/boy_00/boy_00_menu_preview.png"
-    };
     private static final String[] CHARACTER_ATLASES = {
         "images/characters/boy_01/boy_01.atlas",
         "images/characters/girl_00/girl_00.atlas",
         "images/characters/boy_00/boy_00.atlas"
     };
-    private HorizontalGroup characterContainer;
+    private static final String ANIMATION_NAME = "standing_south_normal";
+    private Table characterContainer;
     private int characterIndex = 0;
 
     @Override
@@ -47,13 +53,14 @@ public class MenuDisplay extends RetroactiveDisplay {
         table.setBackground(background.getDrawable());
 
         Image title = new Image(ServiceLocator.getResourceService().getAsset(UI_TEXTURES[1], Texture.class));
-        table.add(title).center().colspan(2).padTop(50f);
+        table.add(title).colspan(2).pad(stage.getWidth() * 0.05f).row();
 
-        characterContainer = createCharacterContainer();
-
-        table.row();
-        table.add(createButtons()).expandY().fillY().fillX();
-        table.add(characterContainer).expandY().fillY().fill();
+        table.add(createButtons())
+            .bottom().padTop(stage.getHeight() * 0.0375f).growY()
+            .left().padLeft(stage.getHeight() * 0.15f).width(stage.getWidth() * 0.20f);
+        table.add(createCharacterContainer()).grow()
+            .bottom().padTop(stage.getHeight() * 0.125f)
+            .right().padRight(stage.getWidth() * 0.10f).width(stage.getWidth() * 0.30f);
     }
 
     @Override
@@ -63,7 +70,7 @@ public class MenuDisplay extends RetroactiveDisplay {
         traverseForwards = new int[]{Keys.DOWN, Keys.S};
         enter = new int[]{Keys.ENTER};
 
-        ((VerticalGroup) buttonContainer).space(50f);
+        ((VerticalGroup) buttonContainer).space(stage.getHeight() * 0.075f).grow();
 
         TextButton startBtn = new TextButton("Start", skin);
         startBtn.addListener(
@@ -115,20 +122,27 @@ public class MenuDisplay extends RetroactiveDisplay {
         return buttonContainer;
     }
 
-    private HorizontalGroup createCharacterContainer() {
-        HorizontalGroup container = new HorizontalGroup();
-        container.space(5f);
+    private Table createCharacterContainer() {
+        characterContainer = new Table();
 
         Image leftArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[2], Texture.class));
-        container.addActor(leftArrow);
+        leftArrow.setScaling(Scaling.fit);
+        characterContainer.add(leftArrow).width(stage.getWidth() * 0.03f).grow();
 
-        Image character = new Image(ServiceLocator.getResourceService().getAsset(CHARACTER_TEXTURES[0], Texture.class));
-        container.addActor(character);
+        CharacterActor character = new CharacterActor();
+        for (String atlas : CHARACTER_ATLASES) {
+            character.addAnimation(
+                ANIMATION_NAME, ServiceLocator.getResourceService().getAsset(atlas, TextureAtlas.class));
+        }
+        character.startAnimation(characterIndex);
+        character.setScaling(Scaling.fit);
+        characterContainer.add(character).grow().padLeft(5f).padRight(5f);
 
         Image rightArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[1], Texture.class));
-        container.addActor(rightArrow);
+        rightArrow.setScaling(Scaling.fit);
+        characterContainer.add(rightArrow).width(stage.getWidth() * 0.03f).grow();
 
-        return container;
+        return characterContainer;
     }
 
     @Override
@@ -159,10 +173,8 @@ public class MenuDisplay extends RetroactiveDisplay {
         }
 
         if (direction != 0) {
-            ResourceService service = ServiceLocator.getResourceService();
             characterIndex = (characterIndex + direction) % characterContainer.getChildren().size;
-            ((Image) characterContainer.getChild(1)).setDrawable(
-                new Image(service.getAsset(CHARACTER_TEXTURES[characterIndex], Texture.class)).getDrawable());
+            ((CharacterActor) characterContainer.getChild(1)).startAnimation(characterIndex);
 
             int leftIndex;
             int rightIndex;
@@ -178,6 +190,7 @@ public class MenuDisplay extends RetroactiveDisplay {
                 rightIndex = 1;
             }
 
+            ResourceService service = ServiceLocator.getResourceService();
             ((Image) characterContainer.getChild(0)).setDrawable(
                 new Image(service.getAsset(ARROW_TEXTURES[leftIndex], Texture.class)).getDrawable());
             ((Image) characterContainer.getChild(2)).setDrawable(
@@ -203,7 +216,7 @@ public class MenuDisplay extends RetroactiveDisplay {
         super.loadAssets();
         ServiceLocator.getResourceService().loadAssets(UI_TEXTURES, Texture.class);
         ServiceLocator.getResourceService().loadAssets(ARROW_TEXTURES, Texture.class);
-        ServiceLocator.getResourceService().loadAssets(CHARACTER_TEXTURES, Texture.class);
+        ServiceLocator.getResourceService().loadAssets(CHARACTER_ATLASES, TextureAtlas.class);
     }
 
     @Override
@@ -212,7 +225,37 @@ public class MenuDisplay extends RetroactiveDisplay {
         super.unloadAssets();
         ServiceLocator.getResourceService().unloadAssets(UI_TEXTURES);
         ServiceLocator.getResourceService().unloadAssets(ARROW_TEXTURES);
-        ServiceLocator.getResourceService().unloadAssets(CHARACTER_TEXTURES);
+        ServiceLocator.getResourceService().unloadAssets(CHARACTER_ATLASES);
+    }
+
+    private static class CharacterActor extends Image {
+
+        List<Animation<TextureRegion>> animations = new ArrayList<>();
+        Animation<TextureRegion> currentAnimation;
+        float time = 0f;
+
+        public void addAnimation(String name, TextureAtlas atlas) {
+            Array<TextureAtlas.AtlasRegion> regions = atlas.findRegions(name);
+            if (regions.size == 0) {
+                return;
+            }
+            animations.add(new Animation<>(0.1f, regions, Animation.PlayMode.LOOP));
+        }
+
+        public void startAnimation(int index) {
+            currentAnimation = animations.get(index);
+            time = 0f;
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            if (currentAnimation == null) {
+                return;
+            }
+            setDrawable(new TextureRegionDrawable(currentAnimation.getKeyFrame(time)));
+            time += ServiceLocator.getTimeSource().getDeltaTime();
+            super.draw(batch, parentAlpha);
+        }
     }
 }
 

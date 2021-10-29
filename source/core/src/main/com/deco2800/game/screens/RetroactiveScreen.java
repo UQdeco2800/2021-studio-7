@@ -54,9 +54,7 @@ public abstract class RetroactiveScreen extends ScreenAdapter implements Loadabl
         if (nextScreen != null) {
             game.setScreen(nextScreen);
         }
-        if (!gamePaused) {
-            ServiceLocator.getEntityService().update();
-        }
+        ServiceLocator.getEntityService().update();
         renderer.render();
     }
 

@@ -1,10 +1,9 @@
 package com.deco2800.game.screens;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.rendering.components.RenderPriority;
@@ -13,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.function.IntPredicate;
-import java.util.function.Predicate;
 
 public abstract class RetroactiveDisplay extends UIComponent implements Loadable {
     protected static final Logger logger = LoggerFactory.getLogger(RetroactiveDisplay.class);
@@ -37,7 +34,7 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
         inputComponent = entity.getComponent(KeyboardMenuInputComponent.class);
         entity.getEvents().addListener("key_down", this::onPreKeyDown);
         entity.getEvents().addListener("key_up", this::onPreKeyUp);
-        //table.setTouchable(Touchable.disabled);
+        table.setTouchable(Touchable.disabled);
         hide();
     }
 

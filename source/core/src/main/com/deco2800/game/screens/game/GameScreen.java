@@ -37,7 +37,7 @@ public class GameScreen extends RetroactiveScreen {
         ServiceLocator.registerChoreController(new ChoreController(game.getLevel()));
         physicsEngine = ServiceLocator.getPhysicsService().getPhysics();
         renderer.getDebug().renderPhysicsWorld(physicsEngine.getWorld());
-        game.setLevel(game.getLevel() + 1);
+        //game.setLevel(game.getLevel() + 1);
 
         initialiseHome();
         initialisePlayer();
@@ -58,8 +58,8 @@ public class GameScreen extends RetroactiveScreen {
         }
         if (!gamePaused) {
             physicsEngine.update();
-            ServiceLocator.getEntityService().update();
         }
+        ServiceLocator.getEntityService().update();
         renderer.getCamera().getEntity().setPosition(player.getPosition());
         renderer.render();
     }

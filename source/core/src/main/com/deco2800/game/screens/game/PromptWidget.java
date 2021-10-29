@@ -43,6 +43,7 @@ public class PromptWidget extends RetroactiveWidget {
         table.setBackground(background.getDrawable());
 
         prompt = new Label("", skin, "large");
+        prompt.setFontScale(stage.getWidth() * 0.001f);
         prompt.setAlignment(Align.topLeft);
         prompt.setWrap(true);
         table.add(prompt).top().left().grow()
@@ -56,6 +57,7 @@ public class PromptWidget extends RetroactiveWidget {
         if (enabled) {
             hide();
         }
+        entity.getEvents().trigger("play_sound", "confirm");
         show();
     }
 
