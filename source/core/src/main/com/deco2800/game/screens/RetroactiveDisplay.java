@@ -56,9 +56,15 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
     }
 
     protected void keyDown(int keycode) {
+        if (button != null) {
+            return;
+        }
+
         if (Arrays.stream(traverseBackwards).anyMatch(i -> i == keycode)) {
+            entity.getEvents().trigger("play_sound", "browse");
             traverseButtons(-1);
         } else if (Arrays.stream(traverseForwards).anyMatch(i -> i == keycode)) {
+            entity.getEvents().trigger("play_sound", "browse");
             traverseButtons(1);
         } else if (Arrays.stream(enter).anyMatch(i -> i == keycode)) {
             entity.getEvents().trigger("play_sound", "confirm");
@@ -77,8 +83,6 @@ public abstract class RetroactiveDisplay extends UIComponent implements Loadable
             triggerUnhighlight();
             button = null;
         }
-
-        entity.getEvents().trigger("play_sound", "browse");
 
         if ((direction < 0 && buttonIndex == 0) ||
             (direction > 0 && buttonIndex == buttonContainer.getChildren().size - 1)) {

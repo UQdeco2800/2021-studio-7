@@ -45,7 +45,7 @@ public class TitleDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected void keyDown(int keyCode) {
+    protected void keyUp(int keyCode) {
         entity.getEvents().trigger("play_sound", "browse");
         entity.getEvents().trigger("exit_title");
     }

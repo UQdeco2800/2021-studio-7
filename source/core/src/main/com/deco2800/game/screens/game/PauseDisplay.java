@@ -31,8 +31,6 @@ public class PauseDisplay extends RetroactiveDisplay {
         table.setBackground(background.getDrawable());
 
         table.add(createButtons());
-
-        triggerHighlight();
     }
 
     @Override
@@ -88,6 +86,8 @@ public class PauseDisplay extends RetroactiveDisplay {
             });
         buttonContainer.addActor(mainMenuBtn);
 
+        triggerHighlight();
+
         return buttonContainer;
     }
 
@@ -95,6 +95,7 @@ public class PauseDisplay extends RetroactiveDisplay {
     protected void keyUp(int keycode) {
         super.keyUp(keycode);
         if (keycode == Keys.P || keycode == Keys.ESCAPE) {
+            entity.getEvents().trigger("play_sound", "confirm");
             entity.getEvents().trigger("exit_pause");
         }
     }

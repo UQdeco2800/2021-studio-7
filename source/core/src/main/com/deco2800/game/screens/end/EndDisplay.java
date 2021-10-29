@@ -30,7 +30,7 @@ public class EndDisplay extends RetroactiveDisplay {
         table.bottom().right().padBottom(10f).padRight(10f);
 
         Image background = new Image(ServiceLocator.getResourceService()
-            .getAsset(BACKGROUNDS[ServiceLocator.getScreen(EndScreen.class).getResult()], Texture.class));
+            .getAsset(BACKGROUNDS[entity.getComponent(EndActions.class).getScreen().getResult()], Texture.class));
         table.setBackground(background.getDrawable());
 
         table.add(createButtons());
@@ -45,14 +45,14 @@ public class EndDisplay extends RetroactiveDisplay {
 
         ((VerticalGroup) buttonContainer).fill().bottom().right().space(10f);
 
-        if (ServiceLocator.getScreen(EndScreen.class).getResult() == 0) {
+        if (entity.getComponent(EndActions.class).getScreen().getResult() == 0) {
             TextButton nextLevelBtn = new TextButton("Next level", skin);
             nextLevelBtn.addListener(
             new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     logger.debug("Next level button clicked");
-                    entity.getEvents().trigger("next_level");
+                    entity.getEvents().trigger("queue_main_game");
                 }
             });
             buttonContainer.addActor(nextLevelBtn);
@@ -64,7 +64,7 @@ public class EndDisplay extends RetroactiveDisplay {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     logger.debug("Exit button clicked");
-                    entity.getEvents().trigger("exit");
+                    entity.getEvents().trigger("queue_main_menu");
                 }
             });
         buttonContainer.addActor(mainMenuBtn);
@@ -78,7 +78,8 @@ public class EndDisplay extends RetroactiveDisplay {
     protected void keyUp(int keycode) {
         super.keyUp(keycode);
         if (keycode == Keys.ESCAPE) {
-            entity.getEvents().trigger("queue_main_game");
+            entity.getEvents().trigger("play_sound", "confirm");
+            entity.getEvents().trigger("queue_main_menu");
         }
     }
 

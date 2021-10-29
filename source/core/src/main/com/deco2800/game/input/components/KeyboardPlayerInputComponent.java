@@ -138,6 +138,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.P:
             case Keys.ESCAPE:
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("play_sound", "confirm");
                 ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("enter_pause");
                 return true;
             default:

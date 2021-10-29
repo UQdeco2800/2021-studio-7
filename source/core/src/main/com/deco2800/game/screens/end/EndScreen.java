@@ -4,6 +4,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.input.components.InputDecorator;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.screens.RetroactiveScreen;
 
 /**
@@ -26,12 +27,14 @@ public class EndScreen extends RetroactiveScreen {
         initialiseUI();
         loadAssets();
         ServiceLocator.getEntityService().register(ui);
-    }
 
-    @Override
-    public void render(float delta) {
-        ServiceLocator.getEntityService().update();
-        renderer.render();
+        if (this.result == 0) {
+            ui.getEvents().trigger("play_music", "win");
+        } else if (this.result == 1) {
+            ui.getEvents().trigger("play_music", "caught");
+        } else {
+            ui.getEvents().trigger("play_music", "timeout");
+        }
     }
 
     @Override
@@ -40,6 +43,7 @@ public class EndScreen extends RetroactiveScreen {
 
         ui = new Entity()
             .addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
+            .addComponent(new KeyboardMenuInputComponent())
             .addComponent(new EndDisplay())
             .addComponent(new EndActions(this));
     }

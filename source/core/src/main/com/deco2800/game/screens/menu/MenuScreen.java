@@ -18,15 +18,7 @@ public class MenuScreen extends RetroactiveScreen {
 
         initialiseUI();
         loadAssets();
-    }
-
-    @Override
-    public void render(float delta) {
-        ServiceLocator.getEntityService().update();
-        renderer.render();
-        if (nextScreen != null) {
-            game.setScreen(nextScreen);
-        }
+        ui.getEvents().trigger("play_music", "menu");
     }
 
     @Override

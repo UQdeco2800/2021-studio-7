@@ -47,20 +47,21 @@ public class GameScreen extends RetroactiveScreen {
 
         ServiceLocator.getEntityService().register(ui);
         ServiceLocator.registerHome(home);
+
+        ui.getEvents().trigger("play_music", "game");
     }
 
     @Override
     public void render(float delta) {
+        if (nextScreen != null) {
+            game.setScreen(nextScreen);
+        }
         if (!gamePaused) {
             physicsEngine.update();
             ServiceLocator.getEntityService().update();
         }
-        if (nextScreen == null) {
-            renderer.getCamera().getEntity().setPosition(player.getPosition());
-            renderer.render();
-        } else {
-            game.setScreen(nextScreen);
-        }
+        renderer.getCamera().getEntity().setPosition(player.getPosition());
+        renderer.render();
     }
 
     protected void initialiseHome() {

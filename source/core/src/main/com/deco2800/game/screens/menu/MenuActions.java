@@ -43,7 +43,6 @@ public class MenuActions extends RetroactiveActions {
   }
 
   private void onExitTitleDisplay() {
-    playSound("confirm");
     titleDisplay.hide();
     menuDisplay.show();
   }

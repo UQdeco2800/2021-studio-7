@@ -2,11 +2,16 @@ package com.deco2800.game.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
 
@@ -42,6 +47,12 @@ public class ContextDisplay extends RetroactiveDisplay {
     @Override
     public void create() {
         super.create();
+
+        Pixmap backgroundMap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        backgroundMap.setColor(Color.BLACK);
+        backgroundMap.fill();
+        TextureRegionDrawable background = new TextureRegionDrawable(new TextureRegion(new Texture(backgroundMap)));
+        table.setBackground(background);
 
         if (phase == ContextPhase.USERNAME) {
             table.add(createUsernameContainer());
@@ -104,6 +115,7 @@ public class ContextDisplay extends RetroactiveDisplay {
     protected void keyDown(int keyCode) {
         switch (keyCode) {
             case Keys.ENTER:
+                entity.getEvents().trigger("play_sound", "confirm");
                 if (phase == ContextPhase.USERNAME) {
                     String usernameString = username.getText();
                     if (!usernameString.isBlank()) {
@@ -118,6 +130,7 @@ public class ContextDisplay extends RetroactiveDisplay {
                 }
                 break;
             case Keys.ESCAPE:
+                entity.getEvents().trigger("play_sound", "confirm");
                 entity.getEvents().trigger("queue_main_menu");
                 break;
             default:

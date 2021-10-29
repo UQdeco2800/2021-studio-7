@@ -10,104 +10,104 @@ import com.deco2800.game.screens.SettingsDisplay;
  * events is triggered.
  */
 public class GameActions extends RetroactiveActions {
-  private final GameScreen screen;
-  private ContextDisplay contextDisplay;
-  private PauseDisplay pauseDisplay;
-  private SettingsDisplay settingsDisplay;
+    private final GameScreen screen;
+    private ContextDisplay contextDisplay;
+    private PauseDisplay pauseDisplay;
+    private SettingsDisplay settingsDisplay;
 
-  public GameActions(GameScreen screen) {
-    this.screen = screen;
-  }
+    public GameActions(GameScreen screen) {
+        this.screen = screen;
+    }
 
-  @Override
-  public void create() {
-    contextDisplay = entity.getComponent(ContextDisplay.class);
-    pauseDisplay = entity.getComponent(PauseDisplay.class);
-    settingsDisplay = entity.getComponent(SettingsDisplay.class);
-    
-    contextDisplay.show();
-    entity.getEvents().addListener("exit_context", this::onExitContextDisplay);
+    @Override
+    public void create() {
+        super.create();
+        contextDisplay = entity.getComponent(ContextDisplay.class);
+        pauseDisplay = entity.getComponent(PauseDisplay.class);
+        settingsDisplay = entity.getComponent(SettingsDisplay.class);
 
-    entity.getEvents().addListener("enter_pause", this::onEnterPauseDisplay);
-    entity.getEvents().addListener("exit_pause", this::onExitPauseDisplay);
+        onEnterContextDisplay();
+        entity.getEvents().addListener("exit_context", this::onExitContextDisplay);
 
-    entity.getEvents().addListener("enter_settings", this::onEnterSettingsDisplay);
-    entity.getEvents().addListener("exit_settings", this::onExitSettingsDisplay);
+        entity.getEvents().addListener("enter_pause", this::onEnterPauseDisplay);
+        entity.getEvents().addListener("exit_pause", this::onExitPauseDisplay);
 
-    entity.getEvents().addListener("queue_main_game", this::onQueueMainGame);
-    entity.getEvents().addListener("queue_main_menu", this::onQueueMainMenu);
-    entity.getEvents().addListener("bed_interacted", this::onBedInteracted);
-    entity.getEvents().addListener("player_caught", this::onPlayerCaught);
-    entity.getEvents().addListener("timer_ended", this::onTimerEnded);
-  }
+        entity.getEvents().addListener("enter_settings", this::onEnterSettingsDisplay);
+        entity.getEvents().addListener("exit_settings", this::onExitSettingsDisplay);
 
-  protected void onExitContextDisplay() {
-    playSound("confirm");
-    contextDisplay.hide();
-  }
+        entity.getEvents().addListener("queue_main_game", this::onQueueMainGame);
+        entity.getEvents().addListener("queue_main_menu", this::onQueueMainMenu);
+        entity.getEvents().addListener("bed_interacted", this::onBedInteracted);
+        entity.getEvents().addListener("player_caught", this::onPlayerCaught);
+        entity.getEvents().addListener("timer_ended", this::onTimerEnded);
+    }
 
-  protected void onEnterPauseDisplay() {
-    playSound("confirm");
-    screen.pause();
-    pauseDisplay.show();
-  }
+    protected void onEnterContextDisplay() {
+        screen.pause();
+        contextDisplay.show();
+    }
 
-  protected void onExitPauseDisplay() {
-    playSound("confirm");
-    pauseDisplay.hide();
-    screen.resume();
-  }
+    protected void onExitContextDisplay() {
+        screen.resume();
+        contextDisplay.hide();
+    }
 
-  protected void onEnterSettingsDisplay() {
-    playSound("confirm");
-    pauseDisplay.hide();
-    settingsDisplay.show();
-  }
+    protected void onEnterPauseDisplay() {
+        screen.pause();
+        pauseDisplay.show();
+    }
 
-  protected void onExitSettingsDisplay() {
-    playSound("confirm");
-    settingsDisplay.hide();
-    pauseDisplay.show();
-  }
+    protected void onExitPauseDisplay() {
+        pauseDisplay.hide();
+        screen.resume();
+    }
 
-  protected void onQueueMainGame() {
-    playSound("confirm");
-    logger.debug("Queueing main game screen transition");
-    ServiceLocator.getGame().setLevel(1);
-    screen.queueNextScreen(GdxGame.ScreenType.MAIN_GAME);
-  }
+    protected void onEnterSettingsDisplay() {
+        pauseDisplay.hide();
+        settingsDisplay.show();
+    }
 
-  public void onQueueMainMenu() {
-    playSound("confirm");
-    logger.debug("Queueing main menu screen transition");
-    ServiceLocator.getGame().setLevel(1);
-    screen.queueNextScreen(GdxGame.ScreenType.MAIN_MENU);
-  }
+    protected void onExitSettingsDisplay() {
+        settingsDisplay.hide();
+        pauseDisplay.show();
+    }
 
-  public void onBedInteracted() {
-    logger.debug("Queueing win screen transition");
-    screen.queueNextScreen(GdxGame.ScreenType.WIN_DEFAULT);
-  }
+    protected void onQueueMainGame() {
+        logger.debug("Queueing main game screen transition");
+        ServiceLocator.getGame().setLevel(1);
+        screen.queueNextScreen(GdxGame.ScreenType.MAIN_GAME);
+    }
 
-  public void onPlayerCaught() {
-    logger.debug("Queuing player caught lose screen transition");
-    screen.queueNextScreen(GdxGame.ScreenType.LOSS_CAUGHT);
-  }
+    public void onQueueMainMenu() {
+        logger.debug("Queueing main menu screen transition");
+        ServiceLocator.getGame().setLevel(1);
+        screen.queueNextScreen(GdxGame.ScreenType.MAIN_MENU);
+    }
 
-  public void onTimerEnded() {
-    logger.debug("Queueing timer ended lose screen transition");
-    screen.queueNextScreen(GdxGame.ScreenType.LOSS_TIMED);
-  }
+    public void onBedInteracted() {
+        logger.debug("Queueing win screen transition");
+        screen.queueNextScreen(GdxGame.ScreenType.WIN_DEFAULT);
+    }
 
-  @Override
-  public void loadAssets() {
-    logger.debug("    Loading game actions assets");
-    super.loadAssets();
-  }
+    public void onPlayerCaught() {
+        logger.debug("Queuing player caught lose screen transition");
+        screen.queueNextScreen(GdxGame.ScreenType.LOSS_CAUGHT);
+    }
 
-  @Override
-  public void unloadAssets() {
-    logger.debug("    Unloading game actions assets");
-    super.unloadAssets();
-  }
+    public void onTimerEnded() {
+        logger.debug("Queueing timer ended lose screen transition");
+        screen.queueNextScreen(GdxGame.ScreenType.LOSS_TIMED);
+    }
+
+    @Override
+    public void loadAssets() {
+        logger.debug("    Loading game actions assets");
+        super.loadAssets();
+    }
+
+    @Override
+    public void unloadAssets() {
+        logger.debug("    Unloading game actions assets");
+        super.unloadAssets();
+    }
 }

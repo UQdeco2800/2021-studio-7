@@ -145,6 +145,7 @@ public class MenuDisplay extends RetroactiveDisplay {
     protected void keyUp(int keycode) {
         super.keyUp(keycode);
         if (keycode == Keys.ESCAPE) {
+            entity.getEvents().trigger("play_sound", "confirm");
             entity.getEvents().trigger("exit");
         }
     }

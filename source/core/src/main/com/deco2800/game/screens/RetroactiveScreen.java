@@ -50,6 +50,17 @@ public abstract class RetroactiveScreen extends ScreenAdapter implements Loadabl
     }
 
     @Override
+    public void render(float delta) {
+        if (nextScreen != null) {
+            game.setScreen(nextScreen);
+        }
+        if (!gamePaused) {
+            ServiceLocator.getEntityService().update();
+        }
+        renderer.render();
+    }
+
+    @Override
     public void pause() {
         logger.info("Game paused");
         gamePaused = true;
