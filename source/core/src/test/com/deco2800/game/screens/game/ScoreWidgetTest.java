@@ -19,15 +19,6 @@ class ScoreWidgetTest {
     }
 
     @Test
-    void addActorsTest() {
-        ScoreWidget test2 = mock(ScoreWidget.class);
-        doNothing().when(test2).addActors();
-        test2.addActors();
-        test2.addActors();
-        verify(test2,times(2)).addActors();
-    }
-
-    @Test
     void updatePlayerHealthUITest() {
         ScoreWidget test3 = mock(ScoreWidget.class);
         doNothing().when(test3).updatePlayerHealthUI();;

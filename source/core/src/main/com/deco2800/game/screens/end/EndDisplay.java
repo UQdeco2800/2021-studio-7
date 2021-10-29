@@ -3,15 +3,16 @@ package com.deco2800.game.screens.end;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
-
-import java.util.List;
 
 /**
  * Displays a button to exit the Main Game screen to the Main Menu screen.
@@ -22,37 +23,39 @@ public class EndDisplay extends RetroactiveDisplay {
         "images/ui/screens/lose_screen.png",
         "images/ui/screens/time_out.png"
     };
-    private VerticalGroup endButtonsContainer;
-    private int endButtonsIndex = 0;
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.bottom().right().padBottom(10f).padRight(10f).setFillParent(true);
+    public void create() {
+        super.create();
+        table.bottom().right().padBottom(10f).padRight(10f);
 
         Image background = new Image(ServiceLocator.getResourceService()
             .getAsset(BACKGROUNDS[ServiceLocator.getScreen(EndScreen.class).getResult()], Texture.class));
         table.setBackground(background.getDrawable());
 
-        endButtonsContainer = createEndButtonsContainer();
-        table.add(endButtonsContainer);
+        table.add(createButtons());
     }
 
-    private VerticalGroup createEndButtonsContainer() {
-        VerticalGroup container = new VerticalGroup();
-        container.fill().bottom().right().space(10f);
+    @Override
+    protected Group createButtons() {
+        buttonContainer = new VerticalGroup();
+        traverseBackwards = new int[]{Keys.UP, Keys.W};
+        traverseForwards = new int[]{Keys.DOWN, Keys.S};
+        enter = new int[]{Keys.ENTER};
+
+        ((VerticalGroup) buttonContainer).fill().bottom().right().space(10f);
 
         if (ServiceLocator.getScreen(EndScreen.class).getResult() == 0) {
             TextButton nextLevelBtn = new TextButton("Next level", skin);
             nextLevelBtn.addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ChangeEvent changeEvent, Actor actor) {
-                        logger.debug("Next level button clicked");
-                        entity.getEvents().trigger("next_level");
-                    }
-                });
-            container.addActor(nextLevelBtn);
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+                    logger.debug("Next level button clicked");
+                    entity.getEvents().trigger("next_level");
+                }
+            });
+            buttonContainer.addActor(nextLevelBtn);
         }
 
         TextButton mainMenuBtn = new TextButton("Back to main menu", skin);
@@ -64,36 +67,19 @@ public class EndDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit");
                 }
             });
-        container.addActor(mainMenuBtn);
+        buttonContainer.addActor(mainMenuBtn);
 
-        return container;
+        triggerHighlight();
+
+        return buttonContainer;
     }
 
     @Override
-    protected void keyDown(int keycode) {
-        switch (keycode) {
-            case Keys.UP:
-            case Keys.W:
-                endButtonsIndex = changeSelectedButton(endButtonsContainer, endButtonsIndex, -1);
-                break;
-            case Keys.DOWN:
-            case Keys.S:
-                endButtonsIndex = changeSelectedButton(endButtonsContainer, endButtonsIndex, 1);
-                break;
-            case Keys.ENTER:
-                ((TextButton) endButtonsContainer.getChild(endButtonsIndex)).toggle();
-                break;
-            case Keys.ESCAPE:
-                entity.getEvents().trigger("main_game");
-                break;
-            default:
+    protected void keyUp(int keycode) {
+        super.keyUp(keycode);
+        if (keycode == Keys.ESCAPE) {
+            entity.getEvents().trigger("queue_main_game");
         }
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        endButtonsIndex = changeSelectedButton(endButtonsContainer, endButtonsIndex, -999);
     }
 
     @Override

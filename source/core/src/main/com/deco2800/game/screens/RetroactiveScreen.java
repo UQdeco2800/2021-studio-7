@@ -1,5 +1,7 @@
 package com.deco2800.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.entities.Entity;
@@ -10,6 +12,7 @@ import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.input.InputService;
+import com.deco2800.game.input.components.KeyboardMenuInputComponent;
 import com.deco2800.game.physics.PhysicsService;
 import com.deco2800.game.rendering.RenderService;
 import com.deco2800.game.rendering.Renderer;

@@ -3,10 +3,11 @@ package com.deco2800.game.screens.game;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
@@ -15,8 +16,6 @@ import com.deco2800.game.screens.RetroactiveDisplay;
 
 public class PauseDisplay extends RetroactiveDisplay {
     private static final String PAUSE_BACKGROUND = "images/ui/screens/paused_screen.png";
-    private HorizontalGroup settingsButtonsContainer;
-    private int settingsButtonIndex = 0;
 
     public PauseDisplay() {
         super();
@@ -24,21 +23,26 @@ public class PauseDisplay extends RetroactiveDisplay {
     }
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.bottom().padBottom(20f).setFillParent(true);
-        table.setTouchable(Touchable.disabled);
+    public void create() {
+        super.create();
+        table.bottom().padBottom(20f).setTouchable(Touchable.disabled);
 
         Image background = new Image(ServiceLocator.getResourceService().getAsset(PAUSE_BACKGROUND, Texture.class));
         table.setBackground(background.getDrawable());
 
-        settingsButtonsContainer = createSettingsButtonsContainer();
-        table.add(settingsButtonsContainer);
+        table.add(createButtons());
+
+        triggerHighlight();
     }
 
-    private HorizontalGroup createSettingsButtonsContainer() {
-        HorizontalGroup container = new HorizontalGroup();
-        container.space(10f);
+    @Override
+    protected Group createButtons() {
+        buttonContainer = new HorizontalGroup();
+        traverseBackwards = new int[]{Keys.LEFT, Keys.A};
+        traverseForwards = new int[]{Keys.RIGHT, Keys.D};
+        enter = new int[]{Keys.ENTER};
+
+        ((HorizontalGroup) buttonContainer).space(10f);
 
         TextButton resumeBtn = new TextButton("Resume", skin);
         resumeBtn.addListener(
@@ -49,7 +53,7 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit_pause");
                 }
             });
-        container.addActor(resumeBtn);
+        buttonContainer.addActor(resumeBtn);
 
         TextButton restartBtn = new TextButton("Restart", skin);
         restartBtn.addListener(
@@ -57,10 +61,10 @@ public class PauseDisplay extends RetroactiveDisplay {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     logger.debug("Restart button clicked");
-                    entity.getEvents().trigger("main_game");
+                    entity.getEvents().trigger("queue_main_game");
                 }
             });
-        container.addActor(restartBtn);
+        buttonContainer.addActor(restartBtn);
 
         TextButton settingsBtn = new TextButton("Settings", skin);
         settingsBtn.addListener(
@@ -71,7 +75,7 @@ public class PauseDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_settings");
                 }
             });
-        container.addActor(settingsBtn);
+        buttonContainer.addActor(settingsBtn);
 
         TextButton mainMenuBtn = new TextButton("Main Menu", skin);
         mainMenuBtn.addListener(
@@ -79,42 +83,20 @@ public class PauseDisplay extends RetroactiveDisplay {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     logger.debug("Main menu button clicked");
-                    entity.getEvents().trigger("main_menu");
+                    entity.getEvents().trigger("queue_main_menu");
                 }
             });
-        container.addActor(mainMenuBtn);
+        buttonContainer.addActor(mainMenuBtn);
 
-        return container;
+        return buttonContainer;
     }
 
     @Override
-    protected void keyDown(int keyCode) {
-        switch (keyCode) {
-            case Keys.LEFT:
-            case Keys.A:
-                entity.getEvents().trigger("play_sound", "browse");
-                settingsButtonIndex = changeSelectedButton(settingsButtonsContainer, settingsButtonIndex, -1);
-                break;
-            case Keys.RIGHT:
-            case Keys.D:
-                entity.getEvents().trigger("play_sound", "browse");
-                settingsButtonIndex = changeSelectedButton(settingsButtonsContainer, settingsButtonIndex, 1);
-                break;
-            case Keys.ENTER:
-                ((TextButton) settingsButtonsContainer.getChild(settingsButtonIndex)).toggle();
-                break;
-            case Keys.P:
-            case Keys.ESCAPE:
-                entity.getEvents().trigger("exit_pause");
-                break;
-            default:
+    protected void keyUp(int keycode) {
+        super.keyUp(keycode);
+        if (keycode == Keys.P || keycode == Keys.ESCAPE) {
+            entity.getEvents().trigger("exit_pause");
         }
-    }
-
-    @Override
-    public void show() {
-        super.show();
-        settingsButtonIndex = changeSelectedButton(settingsButtonsContainer, settingsButtonIndex, -999);
     }
 
     @Override

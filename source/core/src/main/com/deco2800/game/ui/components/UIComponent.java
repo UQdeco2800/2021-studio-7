@@ -22,24 +22,24 @@ public abstract class UIComponent extends RenderComponent {
     protected static final int UI_LAYER = 2;
     protected float renderPriority = RenderPriority.BACK.ordinal();
     protected Stage stage;
-    protected Table table;
+    protected Table table = new Table();
 
     @Override
     public void create() {
         super.create();
-        stage = ServiceLocator.getRenderService().getStage();
-        addActors();
+        table.setFillParent(true);
         table.setUserObject(new RenderService.TableUserData(renderPriority));
+        stage = ServiceLocator.getRenderService().getStage();
         stage.addActor(table);
     }
 
-    protected abstract void addActors();
-
     public void hide() {
+        enabled = false;
         table.setVisible(false);
     }
 
     public void show() {
+        enabled = true;
         table.setVisible(true);
     }
 

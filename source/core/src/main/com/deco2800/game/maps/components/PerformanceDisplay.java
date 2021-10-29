@@ -3,7 +3,6 @@ package com.deco2800.game.maps.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveWidget;
 
@@ -14,8 +13,8 @@ public class PerformanceDisplay extends RetroactiveWidget {
     private Label profileLabel;
 
     @Override
-    protected void addActors() {
-        table = new Table();
+    public void create() {
+        super.create();
         profileLabel = new Label(getStats(), skin, "small");
         table.add(profileLabel);
     }

@@ -23,9 +23,9 @@ public class TimerWidget extends RetroactiveWidget {
     private int timerTime = TIMER_START;
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.top().padTop(30f).setFillParent(true);
+    public void create() {
+        super.create();
+        table.top().padTop(30f);
 
         Image background = new Image(ServiceLocator.getResourceService().getAsset(TIMER_BACKGROUND, Texture.class));
 

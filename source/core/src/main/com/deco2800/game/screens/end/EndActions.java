@@ -21,8 +21,8 @@ public class EndActions extends RetroactiveActions {
 
     endDisplay.show();
 
-    entity.getEvents().addListener("main_game", this::onQueueMainGame);
-    entity.getEvents().addListener("main_menu", this::onQueueMainMenu);
+    entity.getEvents().addListener("queue_main_game", this::onQueueMainGame);
+    entity.getEvents().addListener("queue_main_menu", this::onQueueMainMenu);
   }
 
   protected void onQueueMainGame() {

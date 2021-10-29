@@ -22,6 +22,8 @@ public class MenuActions extends RetroactiveActions {
 
   @Override
   public void create() {
+    super.create();
+
     titleDisplay = entity.getComponent(TitleDisplay.class);
     menuDisplay = entity.getComponent(MenuDisplay.class);
     leaderboardDisplay = entity.getComponent(LeaderboardDisplay.class);
@@ -36,7 +38,7 @@ public class MenuActions extends RetroactiveActions {
     entity.getEvents().addListener("enter_settings", this::onEnterSettingsDisplay);
     entity.getEvents().addListener("exit_settings", this::onExitSettingsDisplay);
 
-    entity.getEvents().addListener("main_game", this::onQueueMainGame);
+    entity.getEvents().addListener("queue_main_game", this::onQueueMainGame);
     entity.getEvents().addListener("exit", this::onExit);
   }
 
@@ -47,37 +49,31 @@ public class MenuActions extends RetroactiveActions {
   }
 
   private void onEnterLeaderboardDisplay() {
-    playSound("confirm");
     menuDisplay.hide();
     leaderboardDisplay.show();
   }
 
   private void onExitLeaderboardDisplay() {
-    playSound("confirm");
     leaderboardDisplay.hide();
     menuDisplay.show();
   }
 
   private void onEnterSettingsDisplay() {
-    playSound("confirm");
     menuDisplay.hide();
     settingsDisplay.show();
   }
 
   private void onExitSettingsDisplay() {
-    playSound("confirm");
     settingsDisplay.hide();
     menuDisplay.show();
   }
 
   private void onQueueMainGame() {
-    playSound("confirm");
     logger.debug("Queueing main game screen transition");
     screen.queueNextScreen(GdxGame.ScreenType.MAIN_GAME);
   }
 
   private void onExit() {
-    playSound("confirm");
     logger.debug("Exiting game");
     ServiceLocator.getGame().exit();
   }

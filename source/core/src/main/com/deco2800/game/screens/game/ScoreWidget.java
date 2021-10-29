@@ -26,18 +26,12 @@ public class ScoreWidget extends RetroactiveWidget {
     }
 
     @Override
-    protected void addActors() {
-        table = new Table();
+    public void create() {
+        super.create();
         table.bottom().left().padBottom(60f).padLeft(5f);
-        table.setFillParent(true);
 
-        scoreLabel = new Label(
-            String.format("Score: %d", score),
-            skin, "large");
-
+        scoreLabel = new Label(String.format("Score: %d", score), skin, "large");
         table.add(scoreLabel);
-        stage.addActor(table);
-
     }
 
     /**

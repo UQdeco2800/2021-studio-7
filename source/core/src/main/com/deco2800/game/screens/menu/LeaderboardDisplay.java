@@ -3,6 +3,7 @@ package com.deco2800.game.screens.menu;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.deco2800.game.generic.ServiceLocator;
@@ -17,13 +18,11 @@ import java.util.*;
 public class LeaderboardDisplay extends RetroactiveDisplay {
     private static final String LEADERBOARD_FILE = "configs/leaderboard.txt";
     private static final String TITLE_TEXTURE = "images/ui/title/leaderboard.png";
-    private HorizontalGroup menuButtons;
     private Map<String, Integer> sortedLeaderboard;
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+    public void create() {
+        super.create();
 
         sortLeaderBoard();
 
@@ -33,7 +32,7 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
         container.space(25f);
         container.addActor(title);
         container.addActor(createLeaderboard());
-        container.addActor(createMenuButtons());
+        container.addActor(createButtons());
 
         table.add(container);
     }
@@ -57,7 +56,13 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
         return leaderboard;
     }
 
-    private HorizontalGroup createMenuButtons() {
+    @Override
+    protected Group createButtons() {
+        buttonContainer = new HorizontalGroup();
+        traverseBackwards = new int[]{};
+        traverseForwards = new int[]{};
+        enter = new int[]{Keys.ENTER, Keys.ESCAPE};
+
         TextButton exitBtn = new TextButton("Exit", skin);
         exitBtn.addListener(
             new ChangeListener() {
@@ -67,27 +72,11 @@ public class LeaderboardDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit_leaderboard");
                 }
             });
+        buttonContainer.addActor(exitBtn);
 
-        menuButtons = new HorizontalGroup();
+        triggerHighlight();
 
-        menuButtons.addActor(exitBtn);
-        return menuButtons;
-    }
-
-    @Override
-    protected void keyDown(int keyCode) {
-        switch (keyCode) {
-            case Keys.ENTER:
-            case Keys.ESCAPE:
-                ((TextButton) menuButtons.getChild(0)).toggle();
-                break;
-            default:
-        }
-    }
-
-    @Override
-    public void update() {
-        stage.act(ServiceLocator.getTimeSource().getDeltaTime());
+        return buttonContainer;
     }
 
     private void sortLeaderBoard() {

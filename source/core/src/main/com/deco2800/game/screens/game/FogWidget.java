@@ -2,7 +2,6 @@ package com.deco2800.game.screens.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveWidget;
@@ -16,9 +15,9 @@ public class FogWidget extends RetroactiveWidget {
     }
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+    public void create() {
+        super.create();
+
         Image background = new Image(ServiceLocator.getResourceService().getAsset(FOG_TEXTURE, Texture.class));
         table.setBackground(background.getDrawable());
     }

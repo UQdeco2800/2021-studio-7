@@ -2,9 +2,9 @@ package com.deco2800.game.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.deco2800.game.generic.ServiceLocator;
@@ -40,16 +40,20 @@ public class ContextDisplay extends RetroactiveDisplay {
     private int index = 0;
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+    public void create() {
+        super.create();
 
         if (phase == ContextPhase.USERNAME) {
-            table.addActor(createUsernameContainer());
+            table.add(createUsernameContainer());
             stage.setKeyboardFocus(username);
         } else {
-            table.addActor(createContextContainer());
+            table.add(createContextContainer());
         }
+    }
+
+    @Override
+    protected Group createButtons() {
+        return null;
     }
 
     private VerticalGroup createUsernameContainer() {
@@ -114,7 +118,7 @@ public class ContextDisplay extends RetroactiveDisplay {
                 }
                 break;
             case Keys.ESCAPE:
-                entity.getEvents().trigger("main_menu");
+                entity.getEvents().trigger("queue_main_menu");
                 break;
             default:
                 if (phase == ContextPhase.USERNAME) {
@@ -125,6 +129,7 @@ public class ContextDisplay extends RetroactiveDisplay {
 
     @Override
     public void update() {
+        super.update();
         long currentTime = ServiceLocator.getTimeSource().getTime();
         if (phase != ContextPhase.USERNAME && index < CONTEXT_MESSAGES[phase.ordinal() - 1].length() &&
             currentTime - lastTime >= NORMAL_TICK_RATE) {
@@ -165,7 +170,7 @@ public class ContextDisplay extends RetroactiveDisplay {
         } else {
             phase = ContextPhase.STORY_TWO;
         }
-        addActors();
+        table.add(createContextContainer());
     }
 
     @Override

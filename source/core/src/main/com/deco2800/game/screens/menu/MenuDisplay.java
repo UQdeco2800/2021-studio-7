@@ -3,15 +3,16 @@ package com.deco2800.game.screens.menu;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveDisplay;
 
 import java.io.FileWriter;
+import java.security.Key;
 
 public class MenuDisplay extends RetroactiveDisplay {
     private static final String[] UI_TEXTURES = {
@@ -35,52 +36,48 @@ public class MenuDisplay extends RetroactiveDisplay {
         "images/characters/girl_00/girl_00.atlas",
         "images/characters/boy_00/boy_00.atlas"
     };
-    private Image menuSelectorImage;
-    private VerticalGroup menuButtonsContainer;
     private HorizontalGroup characterContainer;
-    private int menuButtonIndex = 0;
     private int characterIndex = 0;
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.setFillParent(true);
+    public void create() {
+        super.create();
 
         Image background = new Image(ServiceLocator.getResourceService().getAsset(UI_TEXTURES[0], Texture.class));
         table.setBackground(background.getDrawable());
 
         Image title = new Image(ServiceLocator.getResourceService().getAsset(UI_TEXTURES[1], Texture.class));
-        title.setAlign(Align.center);
+        table.add(title).center().colspan(2).padTop(50f);
 
-        menuSelectorImage = new Image(ServiceLocator.getResourceService().getAsset(UI_TEXTURES[2], Texture.class));
-        menuButtonsContainer = createMenuButtonContainer();
         characterContainer = createCharacterContainer();
 
-        table.add(title).colspan(2).padTop(50f);
         table.row();
-        table.add(menuButtonsContainer).expandY().fillY().fillX();
+        table.add(createButtons()).expandY().fillY().fillX();
         table.add(characterContainer).expandY().fillY().fill();
     }
 
-    private VerticalGroup createMenuButtonContainer() {
-        VerticalGroup container = new VerticalGroup();
-        container.space(50f);
+    @Override
+    protected Group createButtons() {
+        buttonContainer = new VerticalGroup();
+        traverseBackwards = new int[]{Keys.UP, Keys.W};
+        traverseForwards = new int[]{Keys.DOWN, Keys.S};
+        enter = new int[]{Keys.ENTER};
+
+        ((VerticalGroup) buttonContainer).space(50f);
 
         TextButton startBtn = new TextButton("Start", skin);
-        startBtn.setBackground(menuSelectorImage.getDrawable());
         startBtn.addListener(
             new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
                     logger.debug("Start button clicked");
                     writeAtlas();
-                    entity.getEvents().trigger("main_game");
+                    entity.getEvents().trigger("queue_main_game");
                 }
             });
-        container.addActor(startBtn);
+        buttonContainer.addActor(startBtn);
 
         TextButton leaderboardBtn = new TextButton("Leaderboard", skin);
-        leaderboardBtn.setBackground(menuSelectorImage.getDrawable());
         leaderboardBtn.addListener(
             new ChangeListener() {
                 @Override
@@ -89,10 +86,9 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_leaderboard");
                 }
             });
-        container.addActor(leaderboardBtn);
+        buttonContainer.addActor(leaderboardBtn);
 
         TextButton settingsBtn = new TextButton("Settings", skin);
-        settingsBtn.setBackground(menuSelectorImage.getDrawable());
         settingsBtn.addListener(
             new ChangeListener() {
                 @Override
@@ -101,10 +97,9 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("enter_settings");
                 }
             });
-        container.addActor(settingsBtn);
+        buttonContainer.addActor(settingsBtn);
 
         TextButton exitBtn = new TextButton("Exit", skin);
-        leaderboardBtn.setBackground(menuSelectorImage.getDrawable());
         exitBtn.addListener(
             new ChangeListener() {
                 @Override
@@ -113,72 +108,50 @@ public class MenuDisplay extends RetroactiveDisplay {
                     entity.getEvents().trigger("exit");
                 }
             });
-        container.addActor(exitBtn);
+        buttonContainer.addActor(exitBtn);
 
-        return container;
+        triggerHighlight();
+
+        return buttonContainer;
     }
 
     private HorizontalGroup createCharacterContainer() {
         HorizontalGroup container = new HorizontalGroup();
         container.space(5f);
 
-        Image leftArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[0], Texture.class));
+        Image leftArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[2], Texture.class));
         container.addActor(leftArrow);
 
         Image character = new Image(ServiceLocator.getResourceService().getAsset(CHARACTER_TEXTURES[0], Texture.class));
         container.addActor(character);
 
-        Image rightArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[3], Texture.class));
+        Image rightArrow = new Image(ServiceLocator.getResourceService().getAsset(ARROW_TEXTURES[1], Texture.class));
         container.addActor(rightArrow);
 
         return container;
     }
 
     @Override
-    protected void keyDown(int keyCode) {
-        switch (keyCode) {
-            case Keys.UP:
-            case Keys.W:
-                entity.getEvents().trigger("play_sound", "browse");
-                changeMenuButton(-1);
-                break;
-            case Keys.LEFT:
-            case Keys.A:
-                entity.getEvents().trigger("play_sound", "browse");
-                changeCharacter(-1);
-                break;
-            case Keys.DOWN:
-            case Keys.S:
-                entity.getEvents().trigger("play_sound", "browse");
-                changeMenuButton(1);
-                break;
-            case Keys.RIGHT:
-            case Keys.D:
-                entity.getEvents().trigger("play_sound", "browse");
-                changeCharacter(1);
-                break;
-            case Keys.ENTER:
-                ((TextButton) menuButtonsContainer.getChild(menuButtonIndex)).toggle();
-            case Keys.ESCAPE:
-                entity.getEvents().trigger("exit");
-            default:
+    protected void keyDown(int keycode) {
+        super.keyDown(keycode);
+        if (keycode == Keys.LEFT || keycode == Keys.A) {
+            traverseCharacter(-1);
+        } else if (keycode == Keys.RIGHT || keycode == Keys.D) {
+            traverseCharacter(1);
         }
     }
 
-    private void changeMenuButton(int direction) {
-        if ((direction < 0 && menuButtonIndex == 0) ||
-            (direction > 0 && menuButtonIndex == menuButtonsContainer.getChildren().size - 1)) {
-            direction = 0;
-        }
-
-        if (direction != 0) {
-            ((TextButton) menuButtonsContainer.getChild(menuButtonIndex)).setBackground((Drawable) null);
-            menuButtonIndex = (menuButtonIndex + direction) % menuButtonsContainer.getChildren().size;
-            ((TextButton) menuButtonsContainer.getChild(menuButtonIndex)).setBackground(menuSelectorImage.getDrawable());
+    @Override
+    protected void keyUp(int keycode) {
+        super.keyUp(keycode);
+        if (keycode == Keys.ESCAPE) {
+            entity.getEvents().trigger("exit");
         }
     }
 
-    private void changeCharacter(int direction) {
+    private void traverseCharacter(int direction) {
+        entity.getEvents().trigger("play_sound", "browse");
+
         if (direction < 0 && characterIndex == 0 ||
             direction > 0 && characterIndex == characterContainer.getChildren().size - 1) {
             direction = 0;
@@ -190,24 +163,25 @@ public class MenuDisplay extends RetroactiveDisplay {
             ((Image) characterContainer.getChild(1)).setDrawable(
                 new Image(service.getAsset(CHARACTER_TEXTURES[characterIndex], Texture.class)).getDrawable());
 
-            if (characterIndex == 0) {
-                ((Image) characterContainer.getChild(0)).setDrawable(
-                    new Image(service.getAsset(ARROW_TEXTURES[0], Texture.class)).getDrawable());
-                ((Image) characterContainer.getChild(2)).setDrawable(
-                    new Image(service.getAsset(ARROW_TEXTURES[1], Texture.class)).getDrawable());
-            } else if (characterIndex == characterContainer.getChildren().size - 1) {
-                ((Image) characterContainer.getChild(0)).setDrawable(
-                    new Image(service.getAsset(ARROW_TEXTURES[2], Texture.class)).getDrawable());
-                ((Image) characterContainer.getChild(2)).setDrawable(
-                    new Image(service.getAsset(ARROW_TEXTURES[3], Texture.class)).getDrawable());
-            }
-        }
-    }
+            int leftIndex;
+            int rightIndex;
 
-    @Override
-    public void show() {
-        super.show();
-        changeMenuButton(-999);
+            if (characterIndex == 0) {
+                leftIndex = 2;
+                rightIndex = 1;
+            } else if (characterIndex == characterContainer.getChildren().size - 1) {
+                leftIndex = 0;
+                rightIndex = 3;
+            } else {
+                leftIndex = 0;
+                rightIndex = 1;
+            }
+
+            ((Image) characterContainer.getChild(0)).setDrawable(
+                new Image(service.getAsset(ARROW_TEXTURES[leftIndex], Texture.class)).getDrawable());
+            ((Image) characterContainer.getChild(2)).setDrawable(
+                new Image(service.getAsset(ARROW_TEXTURES[rightIndex], Texture.class)).getDrawable());
+        }
     }
 
     /**

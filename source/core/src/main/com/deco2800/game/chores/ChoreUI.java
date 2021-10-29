@@ -2,7 +2,6 @@ package com.deco2800.game.chores;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.RetroactiveWidget;
@@ -23,12 +22,7 @@ public class ChoreUI extends RetroactiveWidget {
         super.create();
         entity.getEvents().addListener("toggle_chores", this::toggleDisplay);
         displaying = ServiceLocator.getChoreController().getLevel() != 1;
-    }
-
-    @Override
-    protected void addActors() {
-        table = new Table();
-        table.top().right().pad(30f).setFillParent(true);
+        table.top().right().pad(30f);
 
         int rowHeight = Gdx.graphics.getHeight() / 16;
         int colWidth = Gdx.graphics.getWidth() / 10;

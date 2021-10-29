@@ -2,7 +2,6 @@ package com.deco2800.game.ui.terminal;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.ui.components.UIComponent;
 
@@ -22,11 +21,7 @@ public class TerminalDisplay extends UIComponent {
     public void create() {
         super.create();
         terminal = entity.getComponent(Terminal.class);
-    }
 
-    @Override
-    protected void addActors() {
-        table = new Table();
         String message = "";
         label = new Label("> " + message, skin);
         label.setPosition(5f, 0);

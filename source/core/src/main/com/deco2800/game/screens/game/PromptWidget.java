@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveWidget;
 
 /**
@@ -23,33 +25,30 @@ public class PromptWidget extends RetroactiveWidget {
     private String currentText = "";
     private int index = 0;
 
-    @Override
-    public void create() {
-        super.create();
-        entity.getEvents().addListener("create_textbox", this::display);
-        hide();
+    public PromptWidget() {
+        super();
+        renderPriority = RenderPriority.WIDGET.ordinal() - 0.10f;
     }
 
     @Override
-    protected void addActors() {
-        table = new Table();
-        table.center().bottom();
+    public void create() {
+        super.create();
+        table.setSize(stage.getWidth() * 0.90f, stage.getHeight() * 0.25f);
+        table.setPosition(stage.getWidth() * 0.05f, stage.getHeight() * 0.05f);
+        table.setFillParent(false);
 
-        int rowHeight = Gdx.graphics.getHeight() / 16;
-        int colWidth = Gdx.graphics.getWidth() / 10;
+        entity.getEvents().addListener("create_textbox", this:: display);
 
-        //table.setSize(Gdx.graphics.getWidth(), rowHeight * 4f);
         Image background = new Image(ServiceLocator.getResourceService().getAsset(PROMPT_TEXTURE, Texture.class));
-        //background.setScaleX((colWidth * 8) / background.getWidth());
-        //background.setOrigin(Align.center);
         table.setBackground(background.getDrawable());
 
         prompt = new Label("", skin, "large");
-        prompt.setSize(colWidth * 6f, rowHeight * 3f);
-        //prompt.setPosition(colWidth * 2f, rowHeight / 2f);
-        prompt.setFontScale((colWidth * 10f) / 1280f); // Scale font to screen size
+        prompt.setAlignment(Align.topLeft);
         prompt.setWrap(true);
-        table.add(prompt);
+        table.add(prompt).top().left().grow()
+            .pad(table.getHeight() * 0.24f, table.getWidth() * 0.08f, table.getHeight() * 0.24f, table.getWidth() * 0.08f);
+
+        hide();
     }
 
     public void display(String text) {
@@ -78,7 +77,6 @@ public class PromptWidget extends RetroactiveWidget {
     @Override
     public void hide() {
         super.hide();
-        enabled = false;
         prompt.setText("");
         text = "";
         currentText = "";
@@ -88,7 +86,6 @@ public class PromptWidget extends RetroactiveWidget {
     @Override
     public void show() {
         super.show();
-        enabled = true;
         startTime = ServiceLocator.getTimeSource().getTime();
     }
 

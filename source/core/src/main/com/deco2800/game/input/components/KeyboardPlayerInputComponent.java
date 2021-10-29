@@ -22,7 +22,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
     private boolean buffed = false;
 
     public KeyboardPlayerInputComponent() {
-        super(25);
+        super(5);
     }
 
     /**
@@ -88,10 +88,6 @@ public class KeyboardPlayerInputComponent extends InputComponent {
             case Keys.O:
                 ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("toggle_chores");
                 return true;
-            case Keys.P:
-            case Keys.ESCAPE:
-                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("enter_pause");
-                return true;
             default:
                 return false;
         }
@@ -139,6 +135,10 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 disableRun();
                 triggerRunEvent();
                 movementEvents();
+                return true;
+            case Keys.P:
+            case Keys.ESCAPE:
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("enter_pause");
                 return true;
             default:
                 return false;

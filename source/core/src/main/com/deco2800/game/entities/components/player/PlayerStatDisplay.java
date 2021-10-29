@@ -1,7 +1,6 @@
 package com.deco2800.game.entities.components.player;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.generic.ServiceLocator;
@@ -20,12 +19,7 @@ public class PlayerStatDisplay extends RetroactiveWidget {
         super.create();
         entity.getEvents().addListener("update_stamina", this::updatePlayerStaminaUI);
         entity.getEvents().addListener("update_score", this::updatePlayerScoreUI);
-    }
-
-    @Override
-    protected void addActors() {
-        table = new Table();
-        table.top().left().pad(30f).setFillParent(true);
+        table.top().left().pad(30f);
 
         //display level
         CharSequence levelText = String.format("Level %d", ServiceLocator.getGame().getLevel());
