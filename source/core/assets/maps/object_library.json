@@ -31,17 +31,23 @@
       scale: [1.5, 1.5]
       collider: [2, 1, 0, 0]
     }
+    object_bed_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
+      assets: [images/objects/furniture/newBed.png]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+    }
     object_bench_top_0: {
       assets: [images/objects/furniture/new_kitchen_table.png]
-      collider: [0.5, 1.5]
+      collider: [0.5, 1.5, 0, 0]
     }
     object_bench_top_1: {
       assets: [images/objects/furniture/new_kitchen_sink.png]
-      collider: [0.5, 1.5]
+      collider: [0.5, 1.5, 0, 0]
     }
     object_bench_top_2: {
       assets: [images/objects/furniture/new_kitchen_stove.png]
-      collider: [0.5, 1.5]
+      collider: [0.5, 1.5, 0, 0]
     }
     object_bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
@@ -84,6 +90,8 @@
       assets: [images/objects/furniture/game-table.png]
       scale: [1.5, 1]
       collider: [1, 2, 0, 0]
+    }
+    object_invisible_0: {
     }
     object_lamp_0: {
       assets: [images/objects/furniture/sofaside-lamp.png]
@@ -131,7 +139,7 @@
     object_sofa_large_0: {
       assets: [images/objects/furniture/sofa-large.png]
       scale: [2, 1]
-      collider: [2.5, 1, 0.5, 0]
+      collider: [1, 2.5, 0.5, 0]
     }
     object_sofa_large_1: {
       assets: [images/objects/furniture/sofa-back.png]
@@ -176,11 +184,11 @@
       scale: [0.5, 0.5]
       collider: [0.5, 1.5, 0, 0]
     }
-    object_wall_1: {
-      assets: [images/objects/walls/wall.png]
-    }
     object_wall_0: {
       assets: [images/objects/walls/3.png]
+    }
+    object_wall_1: {
+      assets: [images/objects/walls/wall.png]
     }
     object_washing_machine_0: {
       assets: [images/objects/chores/washing_machine_basket_on_top.png]
@@ -191,6 +199,7 @@
     // CASCADES DOWN TO OBJECT
     method: com.deco2800.game.entities.factories.ObjectFactory.createInteractive
     interactive_bed_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
       assets: [images/objects/bed/bed_animation.atlas, 0, 4, 0]
       scale: [1.5, 1]
       collider: [1, 2, 0, 0]
@@ -277,6 +286,32 @@
       physics: DYNAMIC
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
+    }
+  }
+  npc: {
+    npc_mum_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMum
+      assets: [images/characters/mum_01/mum_01.atlas]
+      scale: [0.9, 0.9]
+      physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [1.1, 1.1, 0, 0]
+      misc: [
+        com.deco2800.game.entities.components.npc.MumActions,
+        com.deco2800.game.physics.components.PhysicsMovementComponent
+      ]
+    }
+    npc_cat_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createCat
+      assets: [images/characters/cat_00/cat_00.atlas]
+      scale: [0.8, 0.8]
+      physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [1.1, 1.1, 0, 0]
+      misc: [
+        com.deco2800.game.entities.components.object.CatActions,
+        com.deco2800.game.physics.components.PhysicsMovementComponent
+      ]
     }
   }
 }

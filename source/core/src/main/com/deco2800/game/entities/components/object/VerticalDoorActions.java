@@ -11,8 +11,9 @@ import org.slf4j.LoggerFactory;
 
 public class VerticalDoorActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(VerticalDoorActions.class);
-    private boolean isOpened = false;
+    private static final String PROMPT_MESSAGE = "You opened a door!";
     private static String UPDATE_ANIMATION = "update_animation";
+    private boolean isOpened = false;
 
     @Override
     public void create() {
@@ -25,9 +26,8 @@ public class VerticalDoorActions extends InteractionComponent {
         if (target.getComponent(PlayerActions.class) == null)
             return;
         if (!isOpened) {
-            String msg = "You opened a door!";
             logger.debug("PLAYER interacted with VERTICAL_DOOR, triggering door animation");
-            ((GameScreen) ServiceLocator.getGame().getScreen()).getGameUI().getEvents().trigger("create_textbox", msg);
+            ((GameScreen) ServiceLocator.getGame().getScreen()).getGameUI().getEvents().trigger("create_textbox", PROMPT_MESSAGE);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
             entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_left_re");
@@ -40,7 +40,7 @@ public class VerticalDoorActions extends InteractionComponent {
         if (shouldHighlight && !isOpened) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
             entity.getEvents().trigger(UPDATE_ANIMATION, "left_highlight"); //Door_left_highlighted
-        } else if (!isOpened){
+        } else if (!isOpened) {
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
             entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_left_re"); //door_close_left
         }

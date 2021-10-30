@@ -21,17 +21,18 @@ import java.util.Objects;
 public class Interior implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Interior.class);
     // Defined from deserialization or constructor injection
-    private ObjectMap<Character, GridObject> tileMap;
-    private ObjectMap<Character, GridObject> entityMap;
+    private ObjectMap<Character, ObjectData> tileMap;
+    private ObjectMap<Character, ObjectData> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
     private GridPoint2 dimensions;
+    private int numRotations;
     private Room room;
 
     public Interior() {
     }
 
-    public Interior(ObjectMap<Character, GridObject> tileMap, ObjectMap<Character, GridObject> entityMap,
+    public Interior(ObjectMap<Character, ObjectData> tileMap, ObjectMap<Character, ObjectData> entityMap,
                     Character[][] tileGrid, Character[][] entityGrid, GridPoint2 dimensions) {
         this.tileMap = tileMap;
         this.entityMap = entityMap;
@@ -42,13 +43,8 @@ public class Interior implements Json.Serializable {
 
     public boolean calibrateInteriorToRoom() {
         injectFloorEntityOverrides();
-        int numRotations = calibrateInteriorToFloor();
-        if (numRotations < 4) {
-            calibrateGridObjectsToInterior(numRotations);
-            return true;
-        } else {
-            return false;
-        }
+        calibrateInteriorToFloor();
+        return numRotations < 4;
     }
 
     private void injectFloorEntityOverrides() {
@@ -56,7 +52,7 @@ public class Interior implements Json.Serializable {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + room.getOffset().x, y + room.getOffset().y);
                 Character floorSymbol = room.getFloor().getFloorGrid()[worldPos.x][worldPos.y];
-                if (!floorSymbol.equals(room.getRoomKey())) {
+                if (!floorSymbol.equals(room.getKey())) {
                     // Retain overriding entity on room's entity grid
                     entityGrid[x][y] = floorSymbol;
                 }
@@ -64,7 +60,7 @@ public class Interior implements Json.Serializable {
         }
     }
 
-    private int calibrateInteriorToFloor() {
+    private void calibrateInteriorToFloor() {
         Character[][] nonWallTileGrid = new Character[dimensions.x - 1][dimensions.y - 1];
         Character[][] nonWallEntityGrid = new Character[dimensions.x - 1][dimensions.y - 1];
         for (int x = 1; x < dimensions.x; x++) {
@@ -101,25 +97,17 @@ public class Interior implements Json.Serializable {
                 }
             }
         }
-        return numRotations;
-    }
 
-    private void calibrateGridObjectsToInterior(int numRotations) {
-        for (GridObject gridEntity : new ObjectMap.Values<>(entityMap)) {
-            List<Integer> assetIndexes = gridEntity.getAssetIndexes();
-            Integer selectedIndex = assetIndexes.get(numRotations % assetIndexes.size());
-            String temp = gridEntity.getAssets()[0];
-            gridEntity.getAssets()[0] = gridEntity.getAssets()[selectedIndex];
-            gridEntity.getAssets()[selectedIndex] = temp;
-        }
+        this.numRotations = numRotations;
     }
 
     public List<GridPoint2> getHorizontalDoors() {
         List<GridPoint2> horizontalDoors = new ArrayList<>();
         for (int y = 0; y < dimensions.y; y++) {
             if (!entityMap.containsKey(entityGrid[0][y])) {
-                GridObject floorObject = room.getFloor().getEntityMap().get(entityGrid[0][y]);
-                if (floorObject != null && floorObject.getMethod().getName().contains("Door")) {
+                String floorObjectName = Home.getObjectName(
+                    room.getFloor().getEntityMap().get(entityGrid[0][y]));
+                if (floorObjectName != null && floorObjectName.contains("door")) {
                     horizontalDoors.add(new GridPoint2(0, y));
                 }
             }
@@ -131,8 +119,9 @@ public class Interior implements Json.Serializable {
         List<GridPoint2> verticalDoors = new ArrayList<>();
         for (int x = 0; x < dimensions.x; x++) {
             if (!entityMap.containsKey(entityGrid[x][dimensions.y - 1])) {
-                GridObject floorObject = room.getFloor().getEntityMap().get(entityGrid[x][dimensions.y - 1]);
-                if (floorObject != null && floorObject.getMethod().getName().contains("Door")) {
+                String floorObjectName = Home.getObjectName(
+                    room.getFloor().getEntityMap().get(entityGrid[x][dimensions.y - 1]));
+                if (floorObjectName != null && floorObjectName.contains("door")) {
                     verticalDoors.add(new GridPoint2(x, dimensions.y - 1));
                 }
             }
@@ -158,11 +147,11 @@ public class Interior implements Json.Serializable {
         return true;
     }
 
-    public ObjectMap<Character, GridObject> getTileMap() {
+    public ObjectMap<Character, ObjectData> getTileMap() {
         return tileMap;
     }
 
-    public ObjectMap<Character, GridObject> getEntityMap() {
+    public ObjectMap<Character, ObjectData> getEntityMap() {
         return entityMap;
     }
 
@@ -178,18 +167,17 @@ public class Interior implements Json.Serializable {
         return dimensions;
     }
 
+    public int getNumRotations() {
+        return numRotations;
+    }
+
     public void setRoom(Room room) {
         this.room = room;
     }
 
     @Override
     public void write(Json json) {
-        json.writeObjectStart();
-        json.writeValue("tileMap", tileMap);
-        json.writeValue("entityMap", entityMap);
-        json.writeValue("tileGrid", tileGrid);
-        json.writeValue("entityGrid", entityGrid);
-        json.writeObjectEnd();
+        // No purpose yet
     }
 
     @Override
@@ -197,11 +185,11 @@ public class Interior implements Json.Serializable {
         try {
             JsonValue iterator = jsonData.child();
             tileMap = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap("tileMap", tileMap, GridObject.class, json, iterator);
+            FileLoader.readCharacterObjectNameMap("tileMap", tileMap, iterator);
 
             iterator = iterator.next();
             entityMap = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap("entityMap", entityMap, GridObject.class, json, iterator);
+            FileLoader.readCharacterObjectNameMap("entityMap", entityMap, iterator);
 
             iterator = iterator.next();
             tileGrid = new Character[iterator.size][iterator.child().size];

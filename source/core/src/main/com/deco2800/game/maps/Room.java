@@ -7,8 +7,6 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.generic.Loadable;
-import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +21,20 @@ import java.util.function.Predicate;
  * Holds raw data for room object generation.
  * Contains functionality for randomising room interiors.
  */
-public class Room implements Json.Serializable, Loadable {
+public class Room implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Room.class);
     // Defined from deserialization or constructor injection
     private String type;
-    private GridPoint2 offset;
     private GridPoint2 dimensions;
-    // Defined from deserialization (when interior is defined) or constructor injection
-    private ObjectMap<Character, GridObject> tileMap;
-    private ObjectMap<Character, GridObject> entityMap;
+    private GridPoint2 offset;
+    // Defined from deserialization, constructor injection or initialisation
+    private ObjectMap<Character, ObjectData> tileMap;
+    private ObjectMap<Character, ObjectData> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
-    // Defined from deserialization injection
+    // Defined from initialisation
     private Floor floor;
+    private int numRotations;
 
     public Room() {
     }
@@ -70,9 +69,10 @@ public class Room implements Json.Serializable, Loadable {
     private void initialiseHallwayInterior() {
         tileMap = new ObjectMap<>();
         entityMap = new ObjectMap<>();
-        entityMap.put('W', floor.getDefaultInteriorWall());
+        entityMap.put('W', floor.getDefaultWall());
         tileGrid = new Character[dimensions.x][dimensions.y];
         entityGrid = new Character[dimensions.x][dimensions.y];
+        numRotations = 0;
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 tileGrid[x][y] = '.';
@@ -80,7 +80,7 @@ public class Room implements Json.Serializable, Loadable {
                     Character floorOverride = floor.getFloorGrid()[x + offset.x][y + offset.y];
                     if (floor.getEntityMap().get(floorOverride) != null) {
                         entityGrid[x][y] = floorOverride;
-                        floor.getFloorGrid()[x + offset.x][y + offset.y] = getRoomKey();
+                        floor.getFloorGrid()[x + offset.x][y + offset.y] = getKey();
                     } else {
                         entityGrid[x][y] = 'W';
                     }
@@ -101,7 +101,6 @@ public class Room implements Json.Serializable, Loadable {
         Interior randomInterior;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
-            fileHandles.remove(fileHandle);
 
             randomInterior = FileLoader.readClass(Interior.class, fileHandle.path());
             randomInterior.setRoom(this);
@@ -109,6 +108,8 @@ public class Room implements Json.Serializable, Loadable {
             if (!dimensions.equals(randomInterior.getDimensions()) || !randomInterior.calibrateInteriorToRoom()) {
                 randomInterior = null;
             }
+
+            fileHandles.remove(fileHandle);
         } while (randomInterior == null && !fileHandles.isEmpty());
 
         if (randomInterior == null) {
@@ -119,11 +120,12 @@ public class Room implements Json.Serializable, Loadable {
         entityMap = randomInterior.getEntityMap();
         tileGrid = randomInterior.getTileGrid();
         entityGrid = randomInterior.getEntityGrid();
+        numRotations = randomInterior.getNumRotations();
         relaxFloorToRoom();
     }
 
     private void relaxFloorToRoom() {
-        Character roomKey = getRoomKey();
+        Character roomKey = getKey();
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
@@ -143,11 +145,11 @@ public class Room implements Json.Serializable, Loadable {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                GridObject roomTile = tileMap.get(tileGrid[x][y]);
+                ObjectData roomTile = tileMap.get(tileGrid[x][y]);
                 if (roomTile == null) {
-                    roomTile = floor.getDefaultInteriorTile();
+                    roomTile = floor.getDefaultTile();
                 }
-                floor.createGridTile(roomTile, worldPos, layer);
+                floor.createGridTile(roomTile, numRotations, worldPos, layer);
             }
         }
     }
@@ -163,18 +165,14 @@ public class Room implements Json.Serializable, Loadable {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
                 Character roomSymbol = entityGrid[x][y];
-                GridObject roomEntity = entityMap.get(roomSymbol);
+                ObjectData roomEntity = entityMap.get(roomSymbol);
                 if (roomEntity == null && !roomSymbol.equals('.')) {
                     roomEntity = floor.getEntityMap().get(roomSymbol);
                 }
                 if (roomEntity == null) {
                     continue;
                 }
-                if (roomEntity.getMethod().getName().equals("createBed")) {
-                    floor.stashBedPosition(worldPos);
-                } else {
-                    floor.createGridEntity(roomEntity, worldPos);
-                }
+                floor.createGridEntity(roomEntity, numRotations, worldPos);
             }
         }
     }
@@ -199,23 +197,32 @@ public class Room implements Json.Serializable, Loadable {
         return validCreateLocations;
     }
 
-    public GridPoint2 getOffset() {
-        return offset;
+    public Character getKey() {
+        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(floor.getRoomMap())) {
+            if (entry.value == this) {
+                return entry.key;
+            }
+        }
+        return null;
     }
 
-    public void setOffset(GridPoint2 offset) {
-        this.offset = offset;
+    public String getType() {
+        return type;
     }
 
     public GridPoint2 getDimensions() {
         return dimensions;
     }
 
-    public ObjectMap<Character, GridObject> getTileMap() {
+    public GridPoint2 getOffset() {
+        return offset;
+    }
+
+    public ObjectMap<Character, ObjectData> getTileMap() {
         return tileMap;
     }
 
-    public ObjectMap<Character, GridObject> getEntityMap() {
+    public ObjectMap<Character, ObjectData> getEntityMap() {
         return entityMap;
     }
 
@@ -227,83 +234,32 @@ public class Room implements Json.Serializable, Loadable {
         return entityGrid;
     }
 
-    public void setFloor(Floor floor) {
-        this.floor = floor;
-    }
-
     public Floor getFloor() {
         return floor;
     }
 
-    public Character getRoomKey() {
-        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(floor.getRoomMap())) {
-            if (entry.value == this) {
-                return entry.key;
-            }
-        }
-        return null;
+    public void setOffset(GridPoint2 offset) {
+        this.offset = offset;
     }
 
-    @Override
-    public void loadAssets() {
-        logger.debug("            Loading {} assets", type);
-        for (GridObject tile : new ObjectMap.Values<>(tileMap)) {
-            tile.loadAssets();
-        }
-        for (GridObject entity : new ObjectMap.Values<>(entityMap)) {
-            entity.loadAssets();
-        }
-    }
-
-    @Override
-    public void unloadAssets() {
-        logger.debug("            Unloading {} assets", type);
-        for (GridObject tile : new ObjectMap.Values<>(tileMap)) {
-            tile.unloadAssets();
-        }
-        for (GridObject entity : new ObjectMap.Values<>(entityMap)) {
-            entity.unloadAssets();
-        }
+    public void setFloor(Floor floor) {
+        this.floor = floor;
     }
 
     @Override
     public void write(Json json) {
-        json.writeObjectStart();
-        json.writeValue("type", type);
-        json.writeValue("offset", offset);
-        json.writeValue("dimensions", dimensions);
-        json.writeObjectEnd();
+        // No purpose yet
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
         try {
-            JsonValue iterator = jsonData.child();
-            FileLoader.assertJsonValueName(iterator, "type");
-            type = iterator.asString();
-            Room.assertValidType(type);
+            String[] args = jsonData.asStringArray();
+            type = args[0];
+            dimensions = new GridPoint2(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            offset = new GridPoint2(Integer.parseInt(args[3]), Integer.parseInt(args[4]));
 
-            iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "offset");
-            offset = GridPoint2Utils.read(iterator);
-
-            iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "dimensions");
-            dimensions = GridPoint2Utils.read(iterator);
-
-            iterator = iterator.next();
-            if (iterator != null) {
-                FileLoader.assertJsonValueName(iterator, "interior");
-                Interior interior = new Interior();
-                interior.read(json, iterator);
-                tileMap = interior.getTileMap();
-                entityMap = interior.getEntityMap();
-                tileGrid = interior.getTileGrid();
-                entityGrid = interior.getEntityGrid();
-                iterator = iterator.next();
-            }
-
-            FileLoader.assertJsonValueNull(iterator);
+            assertValidType(type);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

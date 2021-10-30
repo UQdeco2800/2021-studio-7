@@ -4,9 +4,10 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.terrain.TerrainComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.List;
  *
  * <p>Support for enabling/disabling game areas could be added by making this a Component instead.
  */
-public abstract class RetroactiveArea implements Disposable, Loadable {
+public abstract class RetroactiveArea implements Disposable {
+    protected static final Logger logger = LoggerFactory.getLogger(RetroactiveArea.class);
     protected TerrainComponent terrain;
     protected List<Entity> areaEntities;
 
@@ -49,6 +51,10 @@ public abstract class RetroactiveArea implements Disposable, Loadable {
      * @param centerY true to center entity Y on the tile, false to align the bottom left corner
      */
     public void createEntityAt(Entity entity, GridPoint2 tilePos, boolean centerX, boolean centerY) {
+        if (entity == null) {
+            return;
+        }
+
         Vector2 worldPos = terrain.tileToWorldPosition(tilePos);
         float tileSize = terrain.getTileSize();
 
@@ -65,14 +71,6 @@ public abstract class RetroactiveArea implements Disposable, Loadable {
 
     public abstract void createUI();
 
-    @Override
-    public void loadAssets() {
-    }
-
-    @Override
-    public void unloadAssets() {
-    }
-
     /**
      * Dispose of all internal entities in the area
      */
@@ -80,6 +78,5 @@ public abstract class RetroactiveArea implements Disposable, Loadable {
         for (Entity entity : areaEntities) {
             entity.dispose();
         }
-        unloadAssets();
     }
 }

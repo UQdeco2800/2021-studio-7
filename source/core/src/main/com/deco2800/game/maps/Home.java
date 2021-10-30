@@ -26,7 +26,6 @@ public class Home implements Loadable {
     private static final String LIBRARY_FILENAME = DIRECTORY.concat("object_library.json");
     private static ObjectMap<String, ObjectCategory> objectLibrary;
     private final List<Floor> floors = new ArrayList<>();
-    private Floor activeFloor;
     private final GameScreen screen;
 
     public Home(GameScreen screen) {
@@ -47,7 +46,6 @@ public class Home implements Loadable {
         } else {
             floor = initialiseRandomFloor();
         }
-        floor.setHome(this);
         floors.add(floor);
     }
 
@@ -63,56 +61,75 @@ public class Home implements Loadable {
         Floor randomFloor;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
-            fileHandles.remove(fileHandle);
+
             randomFloor = FileLoader.readClass(Floor.class, fileHandle.path());
+
+            fileHandles.remove(fileHandle);
         } while (randomFloor == null && !fileHandles.isEmpty());
 
         if (randomFloor == null) {
             throw new NullPointerException("A valid floor plan json file could not be loaded");
         }
+        randomFloor.setHome(this);
         randomFloor.initialise();
 
         return randomFloor;
     }
 
     public void create() {
-        activeFloor = floors.get(0);
-        activeFloor.create();
-    }
-
-    public Floor getActiveFloor() {
-        return activeFloor;
+        floors.get(0).create();
     }
 
     public GameScreen getScreen() {
         return screen;
     }
 
-    public Method getMethod(String name) {
-        int delim = name.indexOf('_');
-        String categoryName = name.substring(0, delim);
-        return objectLibrary.get(categoryName).method;
+    public static String getObjectName(ObjectData data) {
+        for (ObjectCategory category : new ObjectMap.Values<>(objectLibrary)) {
+            String objectName = category.list.findKey(data,false);
+            if (objectName != null) {
+                return objectName;
+            }
+        }
+        return null;
     }
 
-    public GridObject getObject(String name) {
-        int delim = name.indexOf('_');
-        String categoryName = name.substring(0, delim);
+    public static Method getMethod(String name) {
+        if (name != null) {
+            ObjectCategory category = objectLibrary.get(name.substring(0, name.indexOf('_')));
+            if (category != null) {
+                return category.method;
+            }
+        }
+        return null;
+    }
+
+    public static ObjectData getObject(String name) {
+        String categoryName = name.substring(0, name.indexOf('_'));
         return objectLibrary.get(categoryName).list.get(name);
+    }
+
+    public Floor getFloor() {
+        return floors.get(0);
     }
 
     @Override
     public void loadAssets() {
         logger.debug("    Loading home assets");
-        for (Floor floor : floors) {
-            floor.loadAssets();
+        for (ObjectCategory category : new ObjectMap.Values<>(objectLibrary)) {
+            for (ObjectData data : new ObjectMap.Values<>(category.list)) {
+                data.loadAssets();
+            }
         }
     }
 
     @Override
     public void unloadAssets() {
         logger.debug("    Unloading home assets");
-        for (Floor floor : floors) {
-            floor.unloadAssets();
+        for (ObjectCategory category : new ObjectMap.Values<>(objectLibrary)) {
+            for (ObjectData data : new ObjectMap.Values<>(category.list)) {
+                data.unloadAssets();
+            }
         }
     }
 
@@ -131,10 +148,9 @@ public class Home implements Loadable {
                 library = new ObjectMap<>();
 
                 while (iterator != null) {
-                    JsonValue subIterator = iterator.child();
                     ObjectCategory category = new ObjectCategory();
                     category.read(json, iterator);
-                    library.put(subIterator.name(), category);
+                    library.put(iterator.name(), category);
                     iterator = iterator.next();
                 }
             } catch (Exception e) {
@@ -145,7 +161,7 @@ public class Home implements Loadable {
 
     public static class ObjectCategory implements Json.Serializable {
         private Method method;
-        private ObjectMap<String, GridObject> list;
+        private ObjectMap<String, ObjectData> list;
 
         @Override
         public void write(Json json) {
@@ -157,15 +173,19 @@ public class Home implements Loadable {
             try {
                 JsonValue iterator = jsonData.child();
 
-                FileLoader.assertJsonValueName(iterator, "method");
-                int delim = iterator.asString().lastIndexOf('.');
-                String className = iterator.asString().substring(delim);
-                String methodName = iterator.asString().substring(0, delim);
-                method = Class.forName(className).getMethod(methodName, GridObject.class, GridPoint2.class);
+                if (iterator.name().equals("method")) {
+                    int delim = iterator.asString().lastIndexOf('.');
+                    String className = iterator.asString().substring(0, delim);
+                    String methodName = iterator.asString().substring(delim + 1);
+                    method = Class.forName(className).getMethod(methodName, ObjectData.class, int.class, GridPoint2.class);
+                    iterator = iterator.next();
+                } else {
+                    method = null;
+                }
 
                 list = new ObjectMap<>();
                 while (iterator != null) {
-                    GridObject object = new GridObject();
+                    ObjectData object = new ObjectData();
                     object.read(json, iterator);
                     list.put(iterator.name(), object);
                     iterator = iterator.next();

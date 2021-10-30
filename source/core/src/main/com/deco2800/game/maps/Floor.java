@@ -2,7 +2,6 @@ package com.deco2800.game.maps;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -13,17 +12,12 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.entities.Entity;
-import com.deco2800.game.entities.factories.NPCFactory;
-import com.deco2800.game.entities.factories.ObjectFactory;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.terrain.TerrainComponent;
 import com.deco2800.game.maps.terrain.TerrainTile;
 import com.deco2800.game.utils.math.MatrixUtils;
 import com.deco2800.game.utils.math.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,29 +29,26 @@ import java.util.Objects;
  * Holds raw data for room allocation and non-room object generation.
  */
 public class Floor extends RetroactiveArea implements Json.Serializable {
-    private static final Logger logger = LoggerFactory.getLogger(Floor.class);
-    private static final String PLAYER_BED_ATLAS = "images/objects/bed/bed_animation.atlas";
-    private static final String NORMAL_BED_TEXTURE = "images/objects/furniture/newBed.png";
-    private Home home;
-    private Entity cat = null;
-    private final List<GridPoint2> bedPositions = new ArrayList<>();
     // Defined on deserialization
-    private GridObject defaultInteriorTile;
-    private GridObject defaultInteriorWall;
-    private ObjectMap<Character, GridObject> tileMap;
-    private ObjectMap<Character, GridObject> entityMap;
+    private ObjectData defaultTile;
+    private ObjectData defaultWall;
+    private ObjectMap<Character, ObjectData> tileMap;
+    private ObjectMap<Character, ObjectData> entityMap;
     private ObjectMap<Character, Room> roomMap;
     private Character[][] floorGrid;
     private GridPoint2 dimensions;
+    // Defined on initialisation
+    private Home home;
+    private final List<GridPoint2> bedPositions = new ArrayList<>();
 
     public Floor() {
     }
 
-    public Floor(GridObject defaultInteriorTile, GridObject defaultInteriorWall,
-                 ObjectMap<Character, GridObject> tileMap, ObjectMap<Character, GridObject> entityMap,
+    public Floor(ObjectData defaultTile, ObjectData defaultWall,
+                 ObjectMap<Character, ObjectData> tileMap, ObjectMap<Character, ObjectData> entityMap,
                  ObjectMap<Character, Room> roomMap, Character[][] floorGrid, GridPoint2 dimensions) {
-        this.defaultInteriorTile = defaultInteriorTile;
-        this.defaultInteriorWall = defaultInteriorWall;
+        this.defaultTile = defaultTile;
+        this.defaultWall = defaultWall;
         this.tileMap = tileMap;
         this.entityMap = entityMap;
         this.roomMap = roomMap;
@@ -83,7 +74,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      */
     private void createAllTiles() {
         TextureRegion textureRegion = new TextureRegion(
-            ServiceLocator.getResourceService().getAsset(defaultInteriorTile.getAssets()[0], Texture.class));
+            ServiceLocator.getResourceService().getAsset(defaultTile.getAssets()[0], Texture.class));
 
         TiledMapTileLayer layer = new TiledMapTileLayer(
             dimensions.x, dimensions.y,
@@ -98,14 +89,14 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         for (int x = 0; x < floorGrid.length; x++) {
             for (int y = 0; y < floorGrid[x].length; y++) {
                 Character symbol = floorGrid[x][y];
-                GridObject floorTile = tileMap.get(symbol);
+                ObjectData floorTile = tileMap.get(symbol);
                 if (floorTile != null) {
-                    createGridTile(floorTile, new GridPoint2(x, y), layer);
+                    createGridTile(floorTile, 0, new GridPoint2(x, y), layer);
                     continue;
                 }
-                GridObject floorEntity = entityMap.get(symbol);
+                ObjectData floorEntity = entityMap.get(symbol);
                 if (floorEntity != null && layer.getCell(x, y) == null) {
-                    createGridTile(defaultInteriorTile, new GridPoint2(x, y), layer);
+                    createGridTile(defaultTile, 0, new GridPoint2(x, y), layer);
                 }
             }
         }
@@ -133,9 +124,9 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         for (int x = 0; x < floorGrid.length; x++) {
             for (int y = 0; y < floorGrid[x].length; y++) {
                 Character symbol = floorGrid[x][y];
-                GridObject entity = entityMap.get(symbol);
+                ObjectData entity = entityMap.get(symbol);
                 if (entity != null) {
-                    createGridEntity(entity, new GridPoint2(x, y));
+                    createGridEntity(entity, 0, new GridPoint2(x, y));
                 }
             }
         }
@@ -151,39 +142,39 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     /**
      * Invokes the method related to the tile.
      *
-     * @param tileObject instance containing the method and parameters
-     * @param position   world-related position
-     * @param layer      container for tile cells
+     * @param tileData instance containing the method and parameters
+     * @param worldPos world-related position
+     * @param layer    container for tile cells
      */
-    public void createGridTile(GridObject tileObject, GridPoint2 position, TiledMapTileLayer layer) {
-        if (tileObject == null) {
-            tileObject = defaultInteriorTile;
+    public void createGridTile(ObjectData tileData, int numRotations, GridPoint2 worldPos, TiledMapTileLayer layer) {
+        if (tileData == null) {
+            tileData = defaultTile;
         }
         try {
-            TerrainTile tile = (TerrainTile) tileObject.getMethod().invoke(null, (Object) tileObject.getAssets());
+            TerrainTile tile = (TerrainTile) tileData.getMethod().invoke(null, tileData, numRotations, worldPos);
             TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
             cell.setTile(tile);
-            layer.setCell(position.x, position.y, cell);
+            layer.setCell(worldPos.x, worldPos.y, cell);
         } catch (Exception e) {
-            logger.error("Error invoking method {}", tileObject.getMethod().getName());
+            logger.error("Error invoking method {}", tileData.getMethod().getName());
         }
     }
 
     /**
      * Invokes the method related to the entity.
      *
-     * @param entityObject instance containing the method and parameters
-     * @param position     world-related position
+     * @param entityData instance containing the method and parameters
+     * @param worldPos   world-related position
      */
-    public void createGridEntity(GridObject entityObject, GridPoint2 position) {
-        if (entityObject == null) {
+    public void createGridEntity(ObjectData entityData, int numRotations, GridPoint2 worldPos) {
+        if (entityData == null) {
             return;
         }
         try {
-            Entity entity = (Entity) entityObject.getMethod().invoke(null, (Object) entityObject.getAssets());
-            createEntityAt(entity, position, true, true);
+            Entity entity = (Entity) entityData.getMethod().invoke(null, entityData, numRotations, worldPos);
+            createEntityAt(entity, worldPos, true, true);
         } catch (Exception e) {
-            logger.error("Error invoking method {}", entityObject.getMethod().getName());
+            logger.error("Error invoking {} creation", Home.getObjectName(entityData));
         }
     }
 
@@ -206,7 +197,6 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             createLocation = new GridPoint2(1, 1);
         }
 
-
         createEntityAt(home.getScreen().getPlayer(), createLocation, true, true);
         home.getScreen().getPlayer().getEvents().trigger("update_animation", "standing_south_normal");
     }
@@ -215,88 +205,52 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      * Creates border walls into the world. These borders outline the map given by the floor grid
      */
     private void createBorders() {
-        String[] boarderspec = {"", "0"};
+        ObjectData invisibleData = Home.getObject("object_invisible_0");
         // Creates north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
-            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
-            createEntityAt(borderWall1, new GridPoint2(x, -1), true, true);
-            createEntityAt(borderWall2, new GridPoint2(x, floorGrid[0].length), true, true);
+            createGridEntity(invisibleData, 0, new GridPoint2(x, -1));
+            createGridEntity(invisibleData, 0, new GridPoint2(x, floorGrid[0].length));
         }
         // Creates east and west borders, bottom to top
         for (int y = 0; y < floorGrid[0].length; y++) {
-            Entity borderWall1 = ObjectFactory.createBaseObject(boarderspec);
-            Entity borderWall2 = ObjectFactory.createBaseObject(boarderspec);
-            createEntityAt(borderWall1, new GridPoint2(-1, y), true, true);
-            createEntityAt(borderWall2, new GridPoint2(floorGrid.length, y), true, true);
+            createGridEntity(invisibleData, 0, new GridPoint2(-1, y));
+            createGridEntity(invisibleData, 0, new GridPoint2(floorGrid.length, y));
         }
     }
 
-    /**
-     * Creates the NPC Cat into map.
-     */
     private void createCat() {
-        String catAtlas = "images/characters/cat_00/cat_00.atlas";
-        ServiceLocator.getResourceService().loadAsset(catAtlas, TextureAtlas.class);
-        ServiceLocator.getResourceService().loadAll();
-        createEntityAt(NPCFactory.createCat(new String[]{catAtlas}),
-            new GridPoint2(20, 20), true, true);
+        createGridEntity(Home.getObject("npc_cat_0"), 0, new GridPoint2(20, 20));
     }
 
-    /**
-     * Creates the mum into the game
-     */
     private void createMum() {
-        String mumAtlas = "images/characters/mum_01/mum_01.atlas";
-        ServiceLocator.getResourceService().loadAsset(mumAtlas, TextureAtlas.class);
-        ServiceLocator.getResourceService().loadAll();
-        createEntityAt(NPCFactory.createMum(new String[]{mumAtlas}),
-            new GridPoint2(24, 0), true, true);
+        createGridEntity(Home.getObject("npc_mum_0"), 0, new GridPoint2(24, 0));
     }
 
     private void createBeds() {
-        GridObject playerBed;
-        GridObject normalBed;
-        try {
-            playerBed = new GridObject(ObjectFactory.class.getMethod("createPlayerBed", String[].class),
-                new String[]{PLAYER_BED_ATLAS, "0", "4", "0"});
-            normalBed = new GridObject(ObjectFactory.class.getMethod("createNormalBed", String[].class),
-                new String[]{NORMAL_BED_TEXTURE, "0", "0", "0"});
-        } catch (NoSuchMethodException e) {
-            throw new NullPointerException("Could not retrieve either createNormalBed or createPlayerBed methods");
-        }
+        ObjectData playerBed = Home.getObject("interactive_bed_0");
+        ObjectData normalBed = Home.getObject("object_bed_0");
+        playerBed.setNullMethod();
+        normalBed.setNullMethod();
 
         GridPoint2 playerBedPosition = bedPositions.get(RandomUtils.getSeed().nextInt(bedPositions.size()));
-        createGridEntity(playerBed, playerBedPosition);
+        createGridEntity(playerBed, 0, playerBedPosition);
 
         bedPositions.remove(playerBedPosition);
         for (GridPoint2 normalBedPosition : bedPositions) {
-            createGridEntity(normalBed, normalBedPosition);
+            createGridEntity(normalBed, 0, normalBedPosition);
         }
         bedPositions.add(playerBedPosition);
     }
 
-    public void stashBedPosition(GridPoint2 worldPos) {
-        bedPositions.add(worldPos);
+    public ObjectData getDefaultTile() {
+        return defaultTile;
     }
 
-    public GridObject getDefaultInteriorTile() {
-        return defaultInteriorTile;
+    public ObjectData getDefaultWall() {
+        return defaultWall;
     }
 
-    public void setDefaultInteriorTile(GridObject defaultInteriorTile) {
-        this.defaultInteriorTile = defaultInteriorTile;
-    }
-
-    public GridObject getDefaultInteriorWall() {
-        return defaultInteriorWall;
-    }
-
-    public void setDefaultInteriorWall(GridObject defaultInteriorWall) {
-        this.defaultInteriorWall = defaultInteriorWall;
-    }
-
-    public ObjectMap<Character, GridObject> getEntityMap() {
+    public ObjectMap<Character, ObjectData> getEntityMap() {
         return entityMap;
     }
 
@@ -308,12 +262,20 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         return floorGrid;
     }
 
-    public Entity getCat() {
-        return cat;
-    }
-
     public void setHome(Home home) {
         this.home = home;
+    }
+
+    public void setDefaultTile(ObjectData defaultTile) {
+        this.defaultTile = defaultTile;
+    }
+
+    public void setDefaultWall(ObjectData defaultWall) {
+        this.defaultWall = defaultWall;
+    }
+
+    public void stashBedPosition(GridPoint2 worldPos) {
+        bedPositions.add(worldPos);
     }
 
     @Override
@@ -322,83 +284,45 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     }
 
     @Override
-    public void loadAssets() {
-        logger.debug("        Loading floor assets");
-
-        ResourceService resourceService = ServiceLocator.getResourceService();
-        resourceService.loadAsset(NORMAL_BED_TEXTURE, Texture.class);
-        resourceService.loadAsset(PLAYER_BED_ATLAS, TextureAtlas.class);
-        defaultInteriorTile.loadAssets();
-        defaultInteriorWall.loadAssets();
-        for (GridObject tile : new ObjectMap.Values<>(tileMap)) {
-            tile.loadAssets();
-        }
-        for (GridObject entity : new ObjectMap.Values<>(entityMap)) {
-            entity.loadAssets();
-        }
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            room.loadAssets();
-        }
-
-        while (!resourceService.loadForMillis(20)) {
-            // This could be upgraded to a loading screen
-            logger.info("Loading... {}%", resourceService.getProgress());
-        }
-    }
-
-    @Override
-    public void unloadAssets() {
-        logger.debug("        Unloading floor assets");
-
-        ServiceLocator.getResourceService().unloadAsset(NORMAL_BED_TEXTURE);
-        ServiceLocator.getResourceService().unloadAsset(PLAYER_BED_ATLAS);
-        defaultInteriorTile.unloadAssets();
-        defaultInteriorWall.unloadAssets();
-        for (GridObject tile : new ObjectMap.Values<>(tileMap)) {
-            tile.unloadAssets();
-        }
-        for (GridObject entity : new ObjectMap.Values<>(entityMap)) {
-            entity.unloadAssets();
-        }
-        for (Room room : new ObjectMap.Values<>(roomMap)) {
-            room.unloadAssets();
-        }
-    }
-
-    @Override
     public void write(Json json) {
-        json.writeObjectStart();
-        json.writeValue("tileMap", tileMap);
-        json.writeValue("entityMap", entityMap);
-        json.writeValue("roomMap", roomMap);
-        json.writeValue("floorGrid", floorGrid);
-        json.writeObjectEnd();
+        // No purpose yet
     }
 
     @Override
     public void read(Json json, JsonValue jsonData) {
         try {
             JsonValue iterator = jsonData.child();
-            FileLoader.assertJsonValueName(iterator, "defaultInteriorTile");
-            defaultInteriorTile = new GridObject();
-            defaultInteriorTile.read(json, iterator);
+            FileLoader.assertJsonValueName(iterator, "defaultTile");
+            defaultTile = Home.getObject(iterator.asString());
+            if (defaultTile == null) {
+                throw new IllegalArgumentException("Default tile does not exist");
+            }
 
             iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "defaultInteriorWall");
-            defaultInteriorWall = new GridObject();
-            defaultInteriorWall.read(json, iterator);
+            FileLoader.assertJsonValueName(iterator, "defaultWall");
+            defaultWall = Home.getObject(iterator.asString());
+            if (defaultTile == null) {
+                throw new IllegalArgumentException("Default wall does not exist");
+            }
 
             iterator = iterator.next();
             tileMap = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap("tileMap", tileMap, GridObject.class, json, iterator);
+            FileLoader.readCharacterObjectNameMap("tileMap", tileMap, iterator);
 
             iterator = iterator.next();
             entityMap = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap("entityMap", entityMap, GridObject.class, json, iterator);
+            FileLoader.readCharacterObjectNameMap("entityMap", entityMap, iterator);
 
             iterator = iterator.next();
             roomMap = new ObjectMap<>();
-            FileLoader.readCharacterObjectMap("roomMap", roomMap, Room.class, json, iterator);
+            FileLoader.assertJsonValueName(iterator, "roomMap");
+            JsonValue subIterator = iterator.child();
+            while (subIterator != null) {
+                Room room = new Room();
+                room.read(json, subIterator);
+                roomMap.put(subIterator.name().charAt(0), room);
+                subIterator = subIterator.next();
+            }
 
             iterator = iterator.next();
             floorGrid = new Character[iterator.size][iterator.child().size];
@@ -407,11 +331,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             dimensions = new GridPoint2(floorGrid[0].length, floorGrid.length);
 
             floorGrid = MatrixUtils.rotateClockwise(floorGrid);
-            for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(roomMap)) {
+            for (Room room : new ObjectMap.Values<>(roomMap)) {
                 //noinspection SuspiciousNameCombination
-                entry.value.setOffset(new GridPoint2(
-                    entry.value.getOffset().y, dimensions.y - entry.value.getOffset().x - 1));
-                entry.value.setFloor(this);
+                room.setOffset(new GridPoint2(room.getOffset().y, dimensions.y - room.getOffset().x - 1));
+                room.setFloor(this);
             }
 
             FileLoader.assertJsonValueNull(iterator.next());
@@ -429,8 +352,8 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             return false;
         }
         Floor floor = (Floor) o;
-        return Objects.equals(defaultInteriorTile, floor.defaultInteriorTile) &&
-            Objects.equals(defaultInteriorWall, floor.defaultInteriorWall) &&
+        return Objects.equals(defaultTile, floor.defaultTile) &&
+            Objects.equals(defaultWall, floor.defaultWall) &&
             Objects.equals(tileMap, floor.tileMap) &&
             Objects.equals(entityMap, floor.entityMap) &&
             Objects.equals(roomMap, floor.roomMap) &&
@@ -440,7 +363,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(defaultInteriorTile, defaultInteriorWall, tileMap, entityMap, roomMap, dimensions);
+        int result = Objects.hash(defaultTile, defaultWall, tileMap, entityMap, roomMap, dimensions);
         result = 31 * result + Arrays.deepHashCode(floorGrid);
         return result;
     }

@@ -2,82 +2,31 @@
   defaultTile: tile_wood_0
   defaultWall: object_wall_0
   tileMap: {
-    _: tile_grass_0             // Grass
+    _: tile_grass_0               // Grass
   }
   entityMap: {
-    .: object_wall_1             // Exterior wall
-    -: interactive_door_wood_0_h// Horizontally-facing door. In isometric view, this is northwest to southeast
-    |: interactive_door_wood_0_v// Vertically-facing door. In isometric view, this is northeast to southwest
-//  *: nothing                  // Nothing. Good for opening up rooms where no walls are desired
+    .: object_wall_1              // Exterior wall
+    -: interactive_door_wood_0_h  // Horizontal door. In isometric view, this is northwest to southeast
+    |: interactive_door_wood_0_v  // Vertical door. In isometric view, this is northeast to southwest
+//  *: nothing                    // Nothing. Used for opening up rooms where no walls are desired
   }
-roomMap: {
-    A: {
-      type: bathroom
-      offset: [13, 19]
-      dimensions: [9, 8]
-    }
-    B: {
-      type: bedroom
-      offset: [19, 7]
-      dimensions: [9, 9]
-    }
-    C: {
-      type: dining
-      offset: [19, 16]
-      dimensions: [12, 6]
-    }
-    D: {
-      type: bedroom
-      offset: [19, 28]
-      dimensions: [9, 9]
-    }
-    E: {
-      type: bedroom
-      offset: [28, 3]
-      dimensions: [9, 9]
-    }
-    F: {
-      type: kitchen
-      offset: [28, 28]
-      dimensions: [8, 9]
-    }
-    G: {
-      type: living
-      offset: [28, 16]
-      dimensions: [12, 9]
-    }
-    H: {
-      type: laundry
-      offset: [28, 34]
-      dimensions: [5, 5]
-    }
-    I: {
-      type: bedroom
-      offset: [37, 7]
-      dimensions: [9, 9]
-    }
-    J: {
-      type: bathroom
-      offset: [36, 16]
-      dimensions: [9, 8]
-    }
-    K: {
-      type: front_foyer
-      offset: [33, 25]
-      dimensions: [5, 5]
-    }
-    L: {
-      type: garage
-      offset: [38, 30]
-      dimensions: [10, 10]
-    }
-    M: {
-      type: hallway
-      offset: [28, 12]
-      dimensions: [4, 9]
-    }
-}
-floorGrid: [
+  roomMap: {
+    //    Type     Dimensions   Offset
+    A: [bathroom,     9, 8,     13, 19]
+    B: [bedroom,      9, 9,     19, 7 ]
+    C: [dining,       12, 6,    19, 16]
+    D: [bedroom,      9, 9,     19, 28]
+    E: [bedroom,      9, 9,     28, 3 ]
+    F: [kitchen,      8, 9,     28, 28]
+    G: [living,       12, 9,    28, 16]
+    H: [laundry,      5, 5,     28, 34]
+    I: [bedroom,      9, 9,     37, 7 ]
+    J: [bathroom,     9, 8,     36, 16]
+    K: [front_foyer,  5, 5,     33, 25]
+    L: [garage,       10, 10,   38, 30]
+    M: [hallway,      4, 9,     28, 12]
+  }
+  floorGrid: [
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
@@ -121,5 +70,5 @@ floorGrid: [
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _]
-]
+  ]
 }
