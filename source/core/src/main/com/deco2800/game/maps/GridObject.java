@@ -1,11 +1,15 @@
 package com.deco2800.game.maps;
 
+import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
 import com.deco2800.game.generic.Loadable;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.utils.math.Vector2Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +28,12 @@ public class GridObject implements Json.Serializable, Loadable {
     // Defined from deserialization or constructor injection
     private Method method;
     private String[] assets;
+    private Vector2 renderScale;
+    private Vector2 colliderScale;
+    private Vector2 colliderOffset;
+    private Vector2 hitboxScale;
+    private Vector2 hitboxOffset;
+    private Class<?>[] uniqueComponents;
 
     public GridObject() {
     }
@@ -89,16 +99,43 @@ public class GridObject implements Json.Serializable, Loadable {
     public void read(Json json, JsonValue jsonData) {
         JsonValue iterator = jsonData.child();
         try {
-            FileLoader.assertJsonValueName(iterator, "class");
-            Class<?> clazz = Class.forName(iterator.asString());
-
-            iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "method");
-            method = clazz.getMethod(iterator.asString(), String[].class);
+            int delim = iterator.asString().lastIndexOf('.');
+            String className = iterator.asString().substring(delim);
+            String methodName = iterator.asString().substring(0, delim);
+            method = Class.forName(className).getMethod(methodName, GridObject.class, GridPoint2.class);
 
             iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "assets");
             assets = iterator.asStringArray();
+
+            iterator = iterator.next();
+            if (iterator != null) {
+                FileLoader.assertJsonValueName(iterator, "scale");
+                renderScale = Vector2Utils.read(iterator);
+            } else {
+                return;
+            }
+
+            iterator = iterator.next();
+            if (iterator != null) {
+                FileLoader.assertJsonValueName(iterator, "collider");
+                float[] colliderArgs = iterator.asFloatArray();
+                colliderScale = new Vector2(colliderArgs[0], colliderArgs[1]);
+                colliderOffset = new Vector2(colliderArgs[2], colliderArgs[3]);
+            } else {
+                return;
+            }
+
+            iterator = iterator.next();
+            if (iterator != null) {
+                FileLoader.assertJsonValueName(iterator, "hitbox");
+                float[] hitboxArgs = iterator.asFloatArray();
+                hitboxScale = new Vector2(hitboxArgs[0], hitboxArgs[1]);
+                hitboxOffset = new Vector2(hitboxArgs[2], hitboxArgs[3]);
+            } else {
+                return;
+            }
 
             FileLoader.assertJsonValueNull(iterator.next());
         } catch (Exception e) {

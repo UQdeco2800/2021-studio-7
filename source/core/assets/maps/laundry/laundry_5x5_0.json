@@ -1,17 +1,8 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
-    }
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    }
+    W: object_wall_0
   }
   tileGrid: [
     [., ., ., ., .],

@@ -1,49 +1,14 @@
 {
-  defaultInteriorTile: {
-    // Used for tile region specification and null texture declarations on grid
-    class: com.deco2800.game.maps.terrain.TerrainFactory
-    method: createBaseTile
-    assets: [images/tiles/iso/iso_floor_1.png]
-  }
-  defaultInteriorWall: {
-    // Used for wall generation in hallways
-    class: com.deco2800.game.entities.factories.ObjectFactory
-    method: createWall
-    assets: [images/objects/walls/3.png, 0, 0, 0]
-  }
+  defaultTile: tile_wood_0
+  defaultWall: object_wall_0
   tileMap: {
-    // Grass tile. Can specify multiple textures and their chance to spawn
-    _: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/grass.png, 0, 0, 0]
-    }
+    _: tile_grass_0             // Grass
   }
   entityMap: {
-    // Exterior wall. Can specify multiple textures and their chance to spawn
-    .: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/wall.png, 0, 0, 0]
-    }
-    // Creates a horizontally-facing door. In isometric view, this is northwest to southeast
-    -: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createHorizontalDoor
-      assets: [images/objects/door/door_animation.atlas, 0, 9, 0]
-    }
-    // Creates a vertically-facing door. In isometric view, this is northeast to southwest
-    |: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createVerticalDoor
-      assets: [images/objects/door/door_animation.atlas, 0, 10, 0]
-    }
-    /* No entity. This overrides any entities relative to the interior's position
-    *: {
-      class: null
-      method: null
-      assets: []
-    } */
+    .: object_wall_1             // Exterior wall
+    -: interactive_door_wood_0_h// Horizontally-facing door. In isometric view, this is northwest to southeast
+    |: interactive_door_wood_0_v// Vertically-facing door. In isometric view, this is northeast to southwest
+//  *: nothing                  // Nothing. Good for opening up rooms where no walls are desired
   }
 roomMap: {
     A: {

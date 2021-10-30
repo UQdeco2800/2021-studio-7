@@ -1,68 +1,19 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
-    }
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    },
-    D: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createDiningTable,
-      assets: [images/objects/furniture/dinningtable1.png, 0, 0, 0]
-    },
-    G: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createGameTable,
-      assets: [images/objects/furniture/game-table.png, 0, 0, 0]
-    },
-    F: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createFishTank,
-      assets: [images/objects/furniture/newGoldfishBowl.png, 0, 0, 0]
-    },
-    C: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createClock,
-      assets: [images/objects/furniture/newClock.png, 0, 0, 0]
-    },
-    B: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createSmallBaseChore,
-      assets: [images/objects/chores/dropped_book_blue.atlas, 1, 11, 7]
-    },
-    R: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createSmallBaseChore,
-      assets: [images/objects/chores/dropped_book_red.atlas, 1, 11, 7]
-    },
-    M: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createSmallBaseChore,
-      assets: [images/objects/chores/dropped_books.atlas, 1, 11, 7]
-    }
-    X: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createCouchSmall
-      assets: ["images/objects/furniture/sofa-left.png", 0, 0, 0]
-    }
-    Y: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createCouchSmall
-      assets: ["images/objects/furniture/sofa-right.png", 0, 0, 0]
-    }
-    J: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createNewLamp
-      assets: ["images/objects/furniture/newLamp.png", 0, 0, 0]
-    }
-  },
+    W: object_wall_0
+    D: object_dining_table_0
+    G: object_game_table_0
+    F: object_fish_tank_0
+    C: object_clock_0
+    B: chore_book_0
+    R: chore_book_1
+    M: chore_book_2
+    X: object_sofa_small_0
+    Y: object_sofa_small_1
+    J: object_table_lamp_0
+  }
   tileGrid: [
     [., ., ., ., ., ., ., ., ., ., ., .],
     [., ., ., ., ., ., ., ., ., ., ., .],
