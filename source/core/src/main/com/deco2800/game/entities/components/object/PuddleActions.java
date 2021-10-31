@@ -8,13 +8,13 @@ import com.deco2800.game.entities.components.player.PlayerActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BananaPeelActions extends InteractionComponent {
+public class PuddleActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(BananaPeelActions.class);
 
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger("update_animation", "banana_peel");
+        entity.getEvents().trigger("update_animation", "puddle");
     }
 
     @Override
@@ -33,16 +33,16 @@ public class BananaPeelActions extends InteractionComponent {
 
     private void toggleSlipPlayer(Entity target, boolean shouldSlip) {
         if (shouldSlip) {
-            logger.debug("PEEL started collision with PLAYER, executing task and removing object");
+            logger.debug("PUDDLE started collision with PLAYER, executing task and removing object");
             try {
                 SlipTask slipTask = (SlipTask)
-                        target.getComponent(AITaskComponent.class).getPriorityTask(SlipTask.class);
+                    target.getComponent(AITaskComponent.class).getPriorityTask(SlipTask.class);
                 slipTask.changePriority(1);
             } catch (NullPointerException e) {
                 logger.error("SlipTask does not exist in player AIComponent");
             }
         } else {
-            logger.debug("PEEL ended collision with PLAYER");
+            logger.debug("PUDDLE ended collision with PLAYER");
         }
     }
 }

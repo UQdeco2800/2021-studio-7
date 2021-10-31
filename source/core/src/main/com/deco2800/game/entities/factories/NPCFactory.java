@@ -11,6 +11,7 @@ import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.ObjectData;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
+import com.deco2800.game.physics.components.PhysicsMovementComponent;
 
 /**
  * Factory to create non-playable character (NPC) entities with predefined components.
@@ -38,7 +39,7 @@ public class NPCFactory {
             .addComponent(new AITaskComponent()
                 .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
                 .addTask(new ChaseTask(ServiceLocator.getHome().getScreen().getPlayer(), 10, 0.5f, 1f)));
-        //cat.getComponent(PhysicsMovementComponent.class).setTwoDCharacter();
+        cat.getComponent(PhysicsMovementComponent.class).setTwoDCharacter();
         return cat;
     }
 

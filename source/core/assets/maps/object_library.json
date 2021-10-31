@@ -200,13 +200,13 @@
     method: com.deco2800.game.entities.factories.ObjectFactory.createInteractive
     interactive_bed_0: {
       method: com.deco2800.game.entities.factories.ObjectFactory.createBed
-      assets: [images/objects/bed/bed_animation.atlas, 0, 4, 0]
+      assets: [images/objects/bed/bed_animation.atlas]
       scale: [1.5, 1]
       collider: [1, 2, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BedActions]
     }
     interactive_box_0: {
-      assets: [images/objects/box/box.atlas, 0, 3, 0]
+      assets: [images/objects/box/box.atlas]
       misc: [com.deco2800.game.entities.components.object.PlaceableBoxActions]
     }
     interactive_door_wood_0_h: {
@@ -267,7 +267,7 @@
       assets: [images/objects/puddle/puddle.atlas]
       scale: [1, 0.5]
       physics: KINEMATIC
-      misc: [com.deco2800.game.entities.components.object.BananaPeelActions]
+      misc: [com.deco2800.game.entities.components.object.PuddleActions]
       chore: PUDDLE
     }
     chore_tv_0: {
