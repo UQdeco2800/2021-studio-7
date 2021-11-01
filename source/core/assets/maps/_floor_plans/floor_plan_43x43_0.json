@@ -1,14 +1,14 @@
 {
-  defaultTile: tile_wood_0
-  defaultWall: object_wall_0
+  defaultTile: [tile_wood_0, 0]
+  defaultWall: [object_wall_0, 0]
   tileMap: {
-    _: tile_grass_0               // Grass
+    _: [tile_grass_0, 0]               // Grass
   }
   entityMap: {
-    .: object_wall_1              // Exterior wall
-    -: interactive_door_wood_0_h  // Horizontal door. In isometric view, this is northwest to southeast
-    |: interactive_door_wood_0_v  // Vertical door. In isometric view, this is northeast to southwest
-//  *: nothing                    // Nothing. Used for opening up rooms where no walls are desired
+    .: [object_wall_1, 0]              // Exterior wall
+    -: [interactive_door_wood_0_h, 0]  // Horizontal door. In isometric view, this is northwest to southeast
+    |: [interactive_door_wood_0_v, 0]  // Vertical door. In isometric view, this is northeast to southwest
+//  *: [nothing, 0]                    // Nothing. Used for opening up rooms where no walls are desired
   }
   roomMap: {
     //    Type     Dimensions   Offset

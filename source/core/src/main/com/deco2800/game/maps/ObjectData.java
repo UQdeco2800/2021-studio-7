@@ -124,7 +124,7 @@ public class ObjectData implements Json.Serializable, Loadable {
                 int delim = classMethodName.lastIndexOf('.');
                 String className = classMethodName.substring(0, delim);
                 String methodName = classMethodName.substring(delim + 1);
-                method = Class.forName(className).getMethod(methodName, ObjectData.class, int.class, GridPoint2.class);
+                method = Class.forName(className).getMethod(methodName, ObjectDescription.class, GridPoint2.class);
                 iterator = iterator.next();
             } else {
                 method = null;

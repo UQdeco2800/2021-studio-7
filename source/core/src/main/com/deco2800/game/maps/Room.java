@@ -28,32 +28,12 @@ public class Room implements Json.Serializable {
     private GridPoint2 dimensions;
     private GridPoint2 offset;
     // Defined from deserialization, constructor injection or initialisation
-    private ObjectMap<Character, ObjectData> tileMap;
-    private ObjectMap<Character, ObjectData> entityMap;
+    private ObjectMap<Character, ObjectDescription> tileMap;
+    private ObjectMap<Character, ObjectDescription> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
     // Defined from initialisation
     private Floor floor;
-    private int numRotations;
-
-    public Room() {
-    }
-
-    public Room(String type, GridPoint2 offset, GridPoint2 dimensions) {
-        this(type, offset, dimensions, null);
-    }
-
-    public Room(String type, GridPoint2 offset, GridPoint2 dimensions, Interior interior) {
-        this.type = type;
-        this.offset = offset;
-        this.dimensions = dimensions;
-        if (interior != null) {
-            this.tileMap = interior.getTileMap();
-            this.entityMap = interior.getEntityMap();
-            this.tileGrid = interior.getTileGrid();
-            this.entityGrid = interior.getEntityGrid();
-        }
-    }
 
     public void initialise() {
         if (type.equals("hallway")) {
@@ -72,7 +52,6 @@ public class Room implements Json.Serializable {
         entityMap.put('W', floor.getDefaultWall());
         tileGrid = new Character[dimensions.x][dimensions.y];
         entityGrid = new Character[dimensions.x][dimensions.y];
-        numRotations = 0;
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 tileGrid[x][y] = '.';
@@ -120,7 +99,6 @@ public class Room implements Json.Serializable {
         entityMap = randomInterior.getEntityMap();
         tileGrid = randomInterior.getTileGrid();
         entityGrid = randomInterior.getEntityGrid();
-        numRotations = randomInterior.getNumRotations();
         relaxFloorToRoom();
     }
 
@@ -145,11 +123,11 @@ public class Room implements Json.Serializable {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                ObjectData roomTile = tileMap.get(tileGrid[x][y]);
-                if (roomTile == null) {
-                    roomTile = floor.getDefaultTile();
+                ObjectDescription tileDesc = tileMap.get(tileGrid[x][y]);
+                if (tileDesc == null) {
+                    tileDesc = floor.getDefaultTile();
                 }
-                floor.createGridTile(roomTile, numRotations, worldPos, layer);
+                floor.createGridTile(tileDesc, worldPos, layer);
             }
         }
     }
@@ -165,14 +143,14 @@ public class Room implements Json.Serializable {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
                 Character roomSymbol = entityGrid[x][y];
-                ObjectData roomEntity = entityMap.get(roomSymbol);
-                if (roomEntity == null && !roomSymbol.equals('.')) {
-                    roomEntity = floor.getEntityMap().get(roomSymbol);
+                ObjectDescription entityDesc = entityMap.get(roomSymbol);
+                if (entityDesc == null && !roomSymbol.equals('.')) {
+                    entityDesc = floor.getEntityMap().get(roomSymbol);
                 }
-                if (roomEntity == null) {
+                if (entityDesc == null) {
                     continue;
                 }
-                floor.createGridEntity(roomEntity, numRotations, worldPos);
+                floor.createGridEntity(entityDesc, worldPos);
             }
         }
     }
@@ -218,11 +196,11 @@ public class Room implements Json.Serializable {
         return offset;
     }
 
-    public ObjectMap<Character, ObjectData> getTileMap() {
+    public ObjectMap<Character, ObjectDescription> getTileMap() {
         return tileMap;
     }
 
-    public ObjectMap<Character, ObjectData> getEntityMap() {
+    public ObjectMap<Character, ObjectDescription> getEntityMap() {
         return entityMap;
     }
 

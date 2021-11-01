@@ -21,29 +21,25 @@ import java.util.Objects;
 public class Interior implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Interior.class);
     // Defined from deserialization or constructor injection
-    private ObjectMap<Character, ObjectData> tileMap;
-    private ObjectMap<Character, ObjectData> entityMap;
+    private ObjectMap<Character, ObjectDescription> tileMap;
+    private ObjectMap<Character, ObjectDescription> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
     private GridPoint2 dimensions;
     private int numRotations;
     private Room room;
 
-    public Interior() {
-    }
-
-    public Interior(ObjectMap<Character, ObjectData> tileMap, ObjectMap<Character, ObjectData> entityMap,
-                    Character[][] tileGrid, Character[][] entityGrid, GridPoint2 dimensions) {
-        this.tileMap = tileMap;
-        this.entityMap = entityMap;
-        this.tileGrid = tileGrid;
-        this.entityGrid = entityGrid;
-        this.dimensions = dimensions;
-    }
-
     public boolean calibrateInteriorToRoom() {
         injectFloorEntityOverrides();
         calibrateInteriorToFloor();
+        if (numRotations < 4) {
+            for (ObjectDescription description : new ObjectMap.Values<>(tileMap)) {
+                description.setNumRotations(numRotations);
+            }
+            for (ObjectDescription description : new ObjectMap.Values<>(entityMap)) {
+                description.setNumRotations(numRotations);
+            }
+        }
         return numRotations < 4;
     }
 
@@ -105,11 +101,15 @@ public class Interior implements Json.Serializable {
         List<GridPoint2> horizontalDoors = new ArrayList<>();
         for (int y = 0; y < dimensions.y; y++) {
             if (!entityMap.containsKey(entityGrid[0][y])) {
-                String floorObjectName = Home.getObjectName(
-                    room.getFloor().getEntityMap().get(entityGrid[0][y]));
-                if (floorObjectName != null && floorObjectName.contains("door")) {
-                    horizontalDoors.add(new GridPoint2(0, y));
+                ObjectDescription objectDesc = room.getFloor().getEntityMap().get(entityGrid[0][y]);
+                if (objectDesc == null) {
+                    continue;
                 }
+                String objectName = Home.getObjectName(objectDesc.getData());
+                if (objectName == null || !objectName.contains("door")) {
+                    continue;
+                }
+                horizontalDoors.add(new GridPoint2(0, y));
             }
         }
         return horizontalDoors;
@@ -119,11 +119,15 @@ public class Interior implements Json.Serializable {
         List<GridPoint2> verticalDoors = new ArrayList<>();
         for (int x = 0; x < dimensions.x; x++) {
             if (!entityMap.containsKey(entityGrid[x][dimensions.y - 1])) {
-                String floorObjectName = Home.getObjectName(
-                    room.getFloor().getEntityMap().get(entityGrid[x][dimensions.y - 1]));
-                if (floorObjectName != null && floorObjectName.contains("door")) {
-                    verticalDoors.add(new GridPoint2(x, dimensions.y - 1));
+                ObjectDescription objectDesc = room.getFloor().getEntityMap().get(entityGrid[x][dimensions.y - 1]);
+                if (objectDesc == null) {
+                    continue;
                 }
+                String objectName = Home.getObjectName(objectDesc.getData());
+                if (objectName == null || !objectName.contains("door")) {
+                    continue;
+                }
+                verticalDoors.add(new GridPoint2(x, dimensions.y - 1));
             }
         }
         return verticalDoors;
@@ -147,11 +151,11 @@ public class Interior implements Json.Serializable {
         return true;
     }
 
-    public ObjectMap<Character, ObjectData> getTileMap() {
+    public ObjectMap<Character, ObjectDescription> getTileMap() {
         return tileMap;
     }
 
-    public ObjectMap<Character, ObjectData> getEntityMap() {
+    public ObjectMap<Character, ObjectDescription> getEntityMap() {
         return entityMap;
     }
 
@@ -165,10 +169,6 @@ public class Interior implements Json.Serializable {
 
     public GridPoint2 getDimensions() {
         return dimensions;
-    }
-
-    public int getNumRotations() {
-        return numRotations;
     }
 
     public void setRoom(Room room) {

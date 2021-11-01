@@ -12,16 +12,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(GameExtension.class)
+/*@ExtendWith(GameExtension.class)
 class FloorTest {
 
-    /*@Test
+    @Test
     void shouldReadFloor() {
         Floor floor1 = createBaseFloor();
         Floor floor2 = FileLoader
                 .readClass(Floor.class, "maps/testing/floor.json");
         assertEquals(floor1, floor2);
-    }*/
+    }
 
     Floor createBaseFloor() {
         return new Floor(defaultTile, defaultWall,
@@ -112,4 +112,4 @@ class FloorTest {
             e.printStackTrace();
         }
     }
-}
+}*/

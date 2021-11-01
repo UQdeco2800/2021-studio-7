@@ -6,12 +6,15 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.maps.Home;
+import com.deco2800.game.maps.Interior;
 import com.deco2800.game.maps.ObjectData;
+import com.deco2800.game.maps.ObjectDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -119,17 +122,31 @@ public class FileLoader {
     }
 
     public static void readCharacterObjectNameMap(String name,
-                                                  ObjectMap<Character, ObjectData> map,
+                                                  ObjectMap<Character, ObjectDescription> map,
                                                   JsonValue jsonData) {
         assertJsonValueName(jsonData, name);
         JsonValue subIterator = jsonData.child();
         while (subIterator != null) {
             Character key = subIterator.name().charAt(0);
-            ObjectData value = Home.getObject(subIterator.asString());
-            if (value == null) {
-                throw new IllegalArgumentException("Value in tile map does not exist");
+
+            String[] values = subIterator.asStringArray();
+            if (values == null || values.length < 1) {
+                throw new IllegalArgumentException("Key " + key + " does not map to a string array");
             }
-            map.put(key, value);
+
+            ObjectData data = Home.getObject(values[0]);
+            if (data == null) {
+                throw new IllegalArgumentException("Value " + values[0] + " does not exist in object library");
+            }
+
+            int numRotations = 0;
+            if (values.length <= 2) {
+                numRotations = Integer.parseInt(values[1]);
+            } else {
+                throw new IllegalArgumentException("Array " + Arrays.toString(values) + " should be of length 2");
+            }
+
+            map.put(key, new ObjectDescription(data, numRotations));
             subIterator = subIterator.next();
         }
     }

@@ -2,18 +2,18 @@
   tileMap: {
   }
   entityMap: {
-    W: object_wall_0
-    B: interactive_bed_0
-    b: object_bookshelf_0
-    d: object_desk_0
-    c: object_chair_0
-    s: object_side_table_0
-    p: object_pet_bed_0
-    C: object_storage_cabinet_1
-    h: chore_plant_0
-    k: object_plant_0
-    G: object_game_table_0
-    L: object_clothes_drying_rack_0
+    W: [object_wall_0, 0]
+    B: [interactive_bed_0, 0]
+    b: [object_bookshelf_0, 0]
+    d: [object_desk_0, 0]
+    c: [object_chair_0, 0]
+    s: [object_side_table_0, 0]
+    p: [object_pet_bed_0, 0]
+    C: [object_storage_cabinet_0, 1]
+    h: [chore_plant_0, 0]
+    k: [object_plant_0, 0]
+    G: [object_game_table_0, 0]
+    L: [object_clothes_drying_rack_0, 0]
   }
   tileGrid: [
     [., ., ., ., ., ., ., ., .],

@@ -9,6 +9,7 @@ import com.deco2800.game.ai.tasks.WanderTask;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.ObjectData;
+import com.deco2800.game.maps.ObjectDescription;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 import com.deco2800.game.physics.components.PhysicsMovementComponent;
@@ -26,16 +27,18 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 @SuppressWarnings("unused")
 public class NPCFactory {
 
-    public static Entity createMum(ObjectData data, int numRotations, GridPoint2 worldPos) {
-        Entity mum = createNPC(data, numRotations, worldPos)
+    public static Entity createMum(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
+        Entity mum = createNPC(desc, worldPos)
             .addComponent(new AITaskComponent()
                 .addTask(new MumWaitTask())
                 .addTask(new ChaseTask(ServiceLocator.getHome().getScreen().getPlayer(), 10, 5f, 8f)));
         return mum;
     }
 
-    public static Entity createCat(ObjectData data, int numRotations, GridPoint2 worldPos) {
-        Entity cat = ObjectFactory.createInteractive(data, numRotations, worldPos)
+    public static Entity createCat(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
+        Entity cat = ObjectFactory.createInteractive(desc, worldPos)
             .addComponent(new AITaskComponent()
                 .addTask(new WanderTask(new Vector2(2f, 2f), 2f))
                 .addTask(new ChaseTask(ServiceLocator.getHome().getScreen().getPlayer(), 10, 0.5f, 1f)));
@@ -43,8 +46,9 @@ public class NPCFactory {
         return cat;
     }
 
-    public static Entity createNPC(ObjectData data, int numRotations, GridPoint2 worldPos) {
-        Entity npc = ObjectFactory.createInteractive(data, numRotations, worldPos);
+    public static Entity createNPC(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
+        Entity npc = ObjectFactory.createInteractive(desc, worldPos);
         npc.getComponent(HitboxComponent.class).setLayer(PhysicsLayer.NPC);
         return npc;
     }

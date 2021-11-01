@@ -1,18 +1,18 @@
 {
   tileMap: {
-    a: tile_white_1
+    a: [tile_white_1, 0]
   }
   entityMap: {
-    W: object_wall_0
-    f: object_fridge_0
-    c: object_bench_top_0
-    s: object_bench_top_1
-    S: object_bench_top_2
-    b: object_bin_0
-    p: chore_puddle_0
-    P: chore_banana_peel_0
-    E: chore_energy_drink_0
-    w: chore_dishwasher_0
+    W: [object_wall_0, 0]
+    f: [object_fridge_0, 0]
+    c: [object_bench_top_0, 0]
+    s: [object_bench_top_1, 0]
+    S: [object_bench_top_2, 0]
+    b: [object_bin_0, 0]
+    p: [chore_puddle_0, 0]
+    P: [chore_banana_peel_0, 0]
+    E: [chore_energy_drink_0, 0]
+    w: [chore_dishwasher_0, 0]
   }
   tileGrid: [
     [a, a, a, a, a, a, a, a],

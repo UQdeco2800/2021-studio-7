@@ -11,6 +11,7 @@ import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.ObjectData;
+import com.deco2800.game.maps.ObjectDescription;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.PhysicsUtils;
 import com.deco2800.game.physics.components.ColliderComponent;
@@ -32,13 +33,14 @@ import java.util.Arrays;
 public class ObjectFactory {
     private static final Logger logger = LoggerFactory.getLogger(ObjectFactory.class);
 
-    public static Entity createBed(ObjectData data, int numRotations, GridPoint2 worldPos) {
+    public static Entity createBed(ObjectDescription desc, GridPoint2 worldPos) {
         ServiceLocator.getHome().getFloor().stashBedPosition(worldPos);
         return null;
     }
 
-    public static Entity createChore(ObjectData data, int numRotations, GridPoint2 worldPos) {
-        Entity chore = createInteractive(data, numRotations, worldPos);
+    public static Entity createChore(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
+        Entity chore = createInteractive(desc, worldPos);
         ChoreList type = data.getChoreType();
         if (type != null) {
             ServiceLocator.getChoreController().addChore(chore, data.getChoreType());
@@ -48,9 +50,10 @@ public class ObjectFactory {
         return chore;
     }
 
-    public static Entity createInteractive(ObjectData data, int numRotations, GridPoint2 worldPos) {
+    public static Entity createInteractive(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
         // Set interactable to have a base hitbox component
-        Entity interactive = createObject(data, numRotations, worldPos)
+        Entity interactive = createObject(desc, worldPos)
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.OBSTACLE));
         PhysicsUtils.setHitboxShape(interactive, data.getHitboxScale().x, data.getHitboxScale().y);
         PhysicsUtils.setHitboxOffset(interactive, data.getHitboxOffset().x, data.getHitboxOffset().y);
@@ -66,13 +69,14 @@ public class ObjectFactory {
         return interactive;
     }
 
-    public static Entity createObject(ObjectData data, int numRotations, GridPoint2 worldPos) {
+    public static Entity createObject(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
         Entity object = new Entity();
         object.setScale(data.getRenderScale());
 
         // Set obstacle to have a base render component
         ResourceService resourceService = ServiceLocator.getResourceService();
-        String asset = data.getAssets()[numRotations % data.getAssets().length];
+        String asset = data.getAssets()[desc.getNumRotations() % data.getAssets().length];
         if (asset.endsWith(".png")) {
             // Asset is a texture, add a TextureRenderComponent
             Texture texture = resourceService.getAsset(asset, Texture.class);

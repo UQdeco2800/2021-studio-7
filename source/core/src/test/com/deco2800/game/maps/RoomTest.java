@@ -14,11 +14,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
 @ExtendWith(GameExtension.class)
 class RoomTest {
 
-    /*@Test
+    @Test
     void shouldReadRoom() {
         Room roomA = createBaseRoom("bedroom");
         Room roomB = createStyledRoom("living");
@@ -26,9 +26,8 @@ class RoomTest {
             .readClass(RoomWrapper.class, "maps/testing/room.json");
         assertEquals(roomA, wrapper.roomA);
         assertEquals(roomB, wrapper.roomB);
-    }*/
+    }
 
-    /*
     @Test
     void shouldCreateHallwayInteriorFromHallway() throws NoSuchMethodException {
         Floor floor = new Floor();
@@ -43,9 +42,8 @@ class RoomTest {
         assertNotNull(room.getEntityMap().get('W'));
         assertTrue(Arrays.deepEquals(room.getTileGrid(), hallwayTileGrid));
         assertTrue(Arrays.deepEquals(room.getEntityGrid(), hallwayEntityGrid));
-    }*/
+    }
 
-    /*
     @Test
     void shouldCreateRandomInteriorFromOther() {
         Floor floor = new Floor();
@@ -56,21 +54,21 @@ class RoomTest {
         assertNotNull(room.getEntityMap());
         assertNotNull(room.getTileGrid());
         assertNotNull(room.getEntityGrid());
-    }*/
+    }
 
-    /*@Test
+    @Test
     void shouldGetValidCreateLocationsFromLiving() {
         Room room = createStyledRoom("living");
         List<GridPoint2> validCreateLocations = room.getValidCreateLocations();
         assertEquals(26, validCreateLocations.size());
-    }*/
+    }
 
-    /*@Test
+    @Test
     void shouldGetNoValidCreateLocationsFromOther() {
         Room room = createStyledRoom("bedroom");
         List<GridPoint2> validCreateLocations = room.getValidCreateLocations();
         assertEquals(0, validCreateLocations.size());
-    }*/
+    }
 
     Room createBaseRoom(String type) {
         return new Room(type, offset, baseDimensions);
@@ -166,4 +164,4 @@ class RoomTest {
             e.printStackTrace();
         }
     }
-}
+}*/

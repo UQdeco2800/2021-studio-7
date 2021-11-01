@@ -10,18 +10,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/*
 @ExtendWith(GameExtension.class)
 class InteriorTest {
 
-    /*@Test
+    @Test
     void shouldReadInterior() {
         Interior interior1 = createBaseInterior();
         Interior interior2 = FileLoader
                 .readClass(Interior.class, "maps/testing/interior.json");
 
         assertEquals(interior1, interior2);
-    }*/
+    }
 
     Interior createBaseInterior() {
         return new Interior(tileMap, entityMap, tileGrid, entityGrid, dimensions);
@@ -61,4 +61,4 @@ class InteriorTest {
             e.printStackTrace();
         }
     }
-}
+}*/

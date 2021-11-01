@@ -85,10 +85,10 @@ public class Home implements Loadable {
     }
 
     public static String getObjectName(ObjectData data) {
-        for (ObjectCategory category : new ObjectMap.Values<>(objectLibrary)) {
-            String objectName = category.list.findKey(data,false);
+        for (ObjectMap.Entry<String, ObjectCategory> entry : new ObjectMap.Entries<>(objectLibrary)) {
+            String objectName = entry.value.list.findKey(data,false);
             if (objectName != null) {
-                return objectName;
+                return String.format("%s_%s", entry.key, objectName);
             }
         }
         return null;
@@ -105,8 +105,14 @@ public class Home implements Loadable {
     }
 
     public static ObjectData getObject(String name) {
-        String categoryName = name.substring(0, name.indexOf('_'));
-        return objectLibrary.get(categoryName).list.get(name);
+        int category_delim = name.indexOf('_');
+        String categoryName = name.substring(0, category_delim);
+        ObjectCategory category = objectLibrary.get(categoryName);
+        if (category != null) {
+            String objectName = name.substring(category_delim + 1);
+            return category.list.get(objectName);
+        }
+        return null;
     }
 
     public Floor getFloor() {
@@ -177,7 +183,7 @@ public class Home implements Loadable {
                     int delim = iterator.asString().lastIndexOf('.');
                     String className = iterator.asString().substring(0, delim);
                     String methodName = iterator.asString().substring(delim + 1);
-                    method = Class.forName(className).getMethod(methodName, ObjectData.class, int.class, GridPoint2.class);
+                    method = Class.forName(className).getMethod(methodName, ObjectDescription.class, GridPoint2.class);
                     iterator = iterator.next();
                 } else {
                     method = null;

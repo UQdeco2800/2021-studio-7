@@ -138,7 +138,9 @@ public class ResourceService implements Disposable {
                 assetManager.unload(filepath);
             }
         } catch (Exception e) {
-            logger.error("Could not unload {}", filepath);
+            if (!filepath.equals("")) {
+                logger.error("Could not unload {}", filepath);
+            }
         }
     }
 

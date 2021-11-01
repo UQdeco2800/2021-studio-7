@@ -5,11 +5,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.maps.ObjectData;
+import com.deco2800.game.maps.ObjectDescription;
 
 @SuppressWarnings("unused")
 public class TerrainFactory {
 
-    public static TerrainTile createTile(ObjectData data, int numRotations, GridPoint2 worldPos) {
+    public static TerrainTile createTile(ObjectDescription desc, GridPoint2 worldPos) {
+        ObjectData data = desc.getData();
         return new TerrainTile(
             new TextureRegion(ServiceLocator.getResourceService().getAsset(data.getAssets()[0], Texture.class)));
     }

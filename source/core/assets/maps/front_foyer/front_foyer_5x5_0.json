@@ -2,8 +2,8 @@
   tileMap: {
   }
   entityMap: {
-    W: object_wall_0
-    P: chore_plant_0
+    W: [object_wall_0, 0]
+    P: [chore_plant_0, 0]
   }
   tileGrid: [
     [., ., ., ., .],
