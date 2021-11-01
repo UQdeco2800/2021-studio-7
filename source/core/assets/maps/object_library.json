@@ -183,6 +183,7 @@
     }
     box_0: {
       assets: [images/objects/box/box.atlas]
+      physics: DYNAMIC
       misc: [com.deco2800.game.entities.components.object.PlaceableBoxActions]
     }
     door_wood_0_h: {
