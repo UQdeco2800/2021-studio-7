@@ -26,129 +26,147 @@ public class Interior implements Json.Serializable {
     private Character[][] tileGrid;
     private Character[][] entityGrid;
     private GridPoint2 dimensions;
-    private int numRotations;
+    // Defined on initialisation
     private Room room;
+    private ObjectMap<Character, ObjectDescription> overrideMap;
+    private Character[][] overrideGrid;
+    private int numRotations;
 
-    public boolean calibrateInteriorToRoom() {
-        injectFloorEntityOverrides();
-        calibrateInteriorToFloor();
-        if (numRotations < 4) {
-            for (ObjectDescription description : new ObjectMap.Values<>(tileMap)) {
-                description.setNumRotations(numRotations);
+    public boolean calibrateDimensions(GridPoint2 roomDimensions) {
+        if (!dimensions.equals(roomDimensions)) {
+            if (dimensions.x != roomDimensions.y || dimensions.y != roomDimensions.x) {
+                return false;
             }
-            for (ObjectDescription description : new ObjectMap.Values<>(entityMap)) {
-                description.setNumRotations(numRotations);
-            }
+            tileGrid = MatrixUtils.rotateClockwise(tileGrid);
+            entityGrid = MatrixUtils.rotateClockwise(entityGrid);
+            dimensions = roomDimensions;
+            setNumRotationsDescriptions(1);
         }
-        return numRotations < 4;
+        return true;
     }
 
-    private void injectFloorEntityOverrides() {
+    public boolean calibrateInterior() {
+        extractOverridingObjects();
+        calibrateInteriorToFloor();
+        if (numRotations < 4) {
+            setNumRotationsDescriptions(numRotations);
+            injectOverridingObjects();
+            return true;
+        }
+        return false;
+    }
+
+    private void extractOverridingObjects() {
+        overrideMap = new ObjectMap<>();
+        overrideGrid = new Character[dimensions.x][dimensions.y];
+
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + room.getOffset().x, y + room.getOffset().y);
-                Character floorSymbol = room.getFloor().getFloorGrid()[worldPos.x][worldPos.y];
-                if (!floorSymbol.equals(room.getKey())) {
-                    // Retain overriding entity on room's entity grid
-                    entityGrid[x][y] = floorSymbol;
+                Character key = room.getFloor().getFloorGrid()[worldPos.x][worldPos.y];
+                if (!key.equals(room.getKey())) {
+                    ObjectDescription desc = room.getFloor().getTileMap().get(key);
+                    if (desc == null) {
+                        desc = room.getFloor().getEntityMap().get(key);
+                    }
+                    overrideMap.put(key, desc);
+                    overrideGrid[x][y] = key;
+                } else {
+                    overrideGrid[x][y] = null;
                 }
             }
         }
     }
 
     private void calibrateInteriorToFloor() {
-        Character[][] nonWallTileGrid = new Character[dimensions.x - 1][dimensions.y - 1];
-        Character[][] nonWallEntityGrid = new Character[dimensions.x - 1][dimensions.y - 1];
-        for (int x = 1; x < dimensions.x; x++) {
-            for (int y = 0; y < dimensions.y - 1; y++) {
-                nonWallTileGrid[x - 1][y] = tileGrid[x][y];
-                nonWallEntityGrid[x - 1][y] = entityGrid[x][y];
-            }
-        }
+        List<Integer> horizontalDoors = getHorizontalDoorPositions();
+        List<Integer> verticalDoors = getVerticalDoorPositions();
 
-        List<GridPoint2> horizontalDoors = getHorizontalDoors();
-        List<GridPoint2> verticalDoors = getVerticalDoors();
-        int numRotations = 0;
         do {
-            if (!checkHorizontalDoorCollisions(horizontalDoors, nonWallEntityGrid) ||
-                !checkVerticalDoorCollisions(verticalDoors, nonWallEntityGrid)) {
-                nonWallTileGrid = MatrixUtils.rotateClockwise(nonWallTileGrid);
-                nonWallEntityGrid = MatrixUtils.rotateClockwise(nonWallEntityGrid);
+            if (areHorizontallyBlocked(horizontalDoors) || areVerticallyBlocked(verticalDoors)) {
+                tileGrid = MatrixUtils.rotateClockwise(tileGrid);
+                entityGrid = MatrixUtils.rotateClockwise(entityGrid);
                 numRotations++;
+
                 if (dimensions.x != dimensions.y) {
-                    nonWallTileGrid = MatrixUtils.rotateClockwise(nonWallTileGrid);
-                    nonWallEntityGrid = MatrixUtils.rotateClockwise(nonWallEntityGrid);
+                    tileGrid = MatrixUtils.rotateClockwise(tileGrid);
+                    entityGrid = MatrixUtils.rotateClockwise(entityGrid);
                     numRotations++;
                 }
-            } else {
-                break;
+                continue;
             }
+            break;
         } while (numRotations < 4);
+    }
 
-        if (numRotations < 4) {
-            for (int x = 1; x < dimensions.x; x++) {
-                for (int y = 0; y < dimensions.y - 1; y++) {
-                    tileGrid[x][y] = nonWallTileGrid[x - 1][y];
-                    entityGrid[x][y] = nonWallEntityGrid[x - 1][y];
+    private void setNumRotationsDescriptions(int numRotations) {
+        for (ObjectDescription description : new ObjectMap.Values<>(tileMap)) {
+            description.setNumRotations(numRotations);
+        }
+        for (ObjectDescription description : new ObjectMap.Values<>(entityMap)) {
+            description.setNumRotations(numRotations);
+        }
+    }
+
+    private void injectOverridingObjects() {
+        for (int x = 0; x < dimensions.x; x++) {
+            for (int y = 0; y < dimensions.y; y++) {
+                Character key = overrideGrid[x][y];
+                if (key != null) {
+                    if (room.getFloor().getTileMap().containsKey(key)) {
+                        tileGrid[x][y + 1] = key;
+                    } else {
+                        entityGrid[x][y + 1] = key;
+                    }
                 }
             }
         }
-
-        this.numRotations = numRotations;
     }
 
-    public List<GridPoint2> getHorizontalDoors() {
-        List<GridPoint2> horizontalDoors = new ArrayList<>();
+    public List<Integer> getHorizontalDoorPositions() {
+        List<Integer> horizontalDoors = new ArrayList<>();
         for (int y = 0; y < dimensions.y; y++) {
-            if (!entityMap.containsKey(entityGrid[0][y])) {
-                ObjectDescription objectDesc = room.getFloor().getEntityMap().get(entityGrid[0][y]);
-                if (objectDesc == null) {
-                    continue;
+            Character key = overrideGrid[0][y];
+            if (key != null && overrideMap.get(key) != null) {
+                String objectName = Home.getObjectName(room.getFloor().getEntityMap().get(key).getData());
+                if (objectName != null && objectName.contains("door")) {
+                    horizontalDoors.add(y);
                 }
-                String objectName = Home.getObjectName(objectDesc.getData());
-                if (objectName == null || !objectName.contains("door")) {
-                    continue;
-                }
-                horizontalDoors.add(new GridPoint2(0, y));
             }
         }
         return horizontalDoors;
     }
 
-    public List<GridPoint2> getVerticalDoors() {
-        List<GridPoint2> verticalDoors = new ArrayList<>();
+    public List<Integer> getVerticalDoorPositions() {
+        List<Integer> verticalDoors = new ArrayList<>();
         for (int x = 0; x < dimensions.x; x++) {
-            if (!entityMap.containsKey(entityGrid[x][dimensions.y - 1])) {
-                ObjectDescription objectDesc = room.getFloor().getEntityMap().get(entityGrid[x][dimensions.y - 1]);
-                if (objectDesc == null) {
-                    continue;
+            Character key = overrideGrid[x][dimensions.y - 1];
+            if (key != null && overrideMap.get(key) != null) {
+                String objectName = Home.getObjectName(room.getFloor().getEntityMap().get(key).getData());
+                if (objectName != null && objectName.contains("door")) {
+                    verticalDoors.add(x);
                 }
-                String objectName = Home.getObjectName(objectDesc.getData());
-                if (objectName == null || !objectName.contains("door")) {
-                    continue;
-                }
-                verticalDoors.add(new GridPoint2(x, dimensions.y - 1));
             }
         }
         return verticalDoors;
     }
 
-    public boolean checkHorizontalDoorCollisions(List<GridPoint2> horizontalDoors, Character[][] entityGrid) {
-        for (GridPoint2 doorPosition : horizontalDoors) {
-            if (entityMap.containsKey(entityGrid[0][doorPosition.y])) {
-                return false;
+    public boolean areHorizontallyBlocked(List<Integer> horizontalDoors) {
+        for (Integer doorPosition : horizontalDoors) {
+            if (entityMap.containsKey(entityGrid[1][doorPosition + 1])) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
-    public boolean checkVerticalDoorCollisions(List<GridPoint2> verticalDoors, Character[][] entityGrid) {
-        for (GridPoint2 doorPosition : verticalDoors) {
-            if (entityMap.containsKey(entityGrid[doorPosition.x - 1][entityGrid[0].length - 1])) {
-                return false;
+    public boolean areVerticallyBlocked(List<Integer> verticalDoors) {
+        for (Integer doorPosition : verticalDoors) {
+            if (entityMap.containsKey(entityGrid[doorPosition][dimensions.y - 1])) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public ObjectMap<Character, ObjectDescription> getTileMap() {
@@ -199,7 +217,7 @@ public class Interior implements Json.Serializable {
             entityGrid = new Character[iterator.size][iterator.child().size];
             FileLoader.readCharacterGrid("entityGrid", entityGrid, iterator);
 
-            dimensions = new GridPoint2(tileGrid[0].length, tileGrid.length);
+            dimensions = new GridPoint2(tileGrid[0].length - 1, tileGrid.length - 1);
 
             tileGrid = MatrixUtils.rotateClockwise(tileGrid);
             entityGrid = MatrixUtils.rotateClockwise(entityGrid);

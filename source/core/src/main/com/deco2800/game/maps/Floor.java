@@ -238,6 +238,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         return defaultWall;
     }
 
+    public ObjectMap<Character, ObjectDescription> getTileMap() {
+        return tileMap;
+    }
+
     public ObjectMap<Character, ObjectDescription> getEntityMap() {
         return entityMap;
     }

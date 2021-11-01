@@ -11,27 +11,29 @@
     Y: [chore_trash_1, 0]
   }
   tileGrid: [
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., L, ., w, ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., X, ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., U, ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, Y, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., L, ., w, ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., X, ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., U, ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, Y, ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W, W]
   ]
 }

@@ -15,25 +15,27 @@
     w: [chore_dishwasher_0, 0]
   }
   tileGrid: [
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W],
-    [W, c, f, ., c, c, ., .],
-    [W, c, ., ., ., ., ., .],
-    [W, S, ., ., ., ., ., .],
-    [W, s, ., P, ., ., ., .],
-    [W, c, ., ., ., ., ., .],
-    [W, w, ., ., ., ., ., p],
-    [W, ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W]
+    [W, c, f, ., c, c, ., ., W]
+    [W, c, ., ., ., ., ., ., W]
+    [W, S, ., ., ., ., ., ., W]
+    [W, s, ., P, ., ., ., ., W]
+    [W, c, ., ., ., ., ., ., W]
+    [W, w, ., ., ., ., ., p, W]
+    [W, ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W]
   ]
 }

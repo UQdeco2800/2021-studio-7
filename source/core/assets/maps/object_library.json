@@ -47,7 +47,6 @@
     }
     bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 0.5, 0, 0]
     }
     bookshelf_0: {
@@ -72,7 +71,6 @@
     }
     dining_table_0: {
       assets: [images/objects/furniture/dinningtable1.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 1.5, 0, 0]
     }
     fridge_0: {
@@ -96,28 +94,24 @@
     }
     nintendo_0: {
       assets: [images/objects/furniture/Nintendo_southeast.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 1.5, 0, 0]
     }
     pet_bed_0: {
       assets: [images/objects/furniture/pet-met.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 0.5, 0, 0]
     }
     plant_0: {
       assets: [images/objects/furniture/pot_plant.png]
-      scale: [0.5, 0.5]
+      scale: [1, 1]
       collider: [0.5, 0.5, 0, 0]
     }
     shelf_0: {
       assets: [images/objects/furniture/shelf1_southeast.png,
         images/objects/furniture/shelf1_southwest.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 0.5, 0, 0]
     }
     side_table_0: {
       assets: [images/objects/furniture/sidetable_southeast.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 0.5, 0, 0]
     }
     sink_0: {
@@ -138,7 +132,6 @@
     sofa_small_0: {
       assets: ["images/objects/furniture/sofa-left.png"
         "images/objects/furniture/sofa-right.png"]
-      scale: [0.5, 0.5]
       collider: [0.5, 1.5, 0, 0]
     }
     storage_cabinet_0: {
@@ -157,7 +150,6 @@
     towel_0: {
       assets: [images/objects/furniture/towel_hanger_southeast.png,
         images/objects/furniture/towel_hanger_southwest.png]
-      scale: [0.5, 0.5]
       collider: [0.5, 1.5, 0, 0]
     }
     wall_0: {
@@ -235,7 +227,7 @@
     }
     plant_0: {
       assets: [images/objects/plant/plant_animation.atlas]
-      scale: [0.5, 0.5]
+      scale: [1, 1]
       collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.PlantActions]
       chore: PLANT
