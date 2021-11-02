@@ -3,6 +3,7 @@ package com.deco2800.game.physics.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ComponentPriority;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.PhysicsComponent.AlignX;
 import com.deco2800.game.physics.components.PhysicsComponent.AlignY;
@@ -40,7 +41,6 @@ public class ColliderComponent extends Component {
     private float posY;
 
     public ColliderComponent() {
-        creationPriority = 2;
         fixtureDef = new FixtureDef();
     }
 

@@ -57,5 +57,5 @@ public abstract class InputFactory {
    */
   public abstract InputComponent createForTerminal();
 
-  public abstract InputComponent createForTitle();
+  public abstract InputComponent createForMenu();
 }

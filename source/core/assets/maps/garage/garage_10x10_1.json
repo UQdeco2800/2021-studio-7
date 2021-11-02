@@ -1,0 +1,40 @@
+{
+  tileMap: {
+    a: [tile_cement_0, 0]
+  }
+  entityMap: {
+    W: [object_wall_0, 0]
+    U: [interactive_box_0, 0]
+    L: [object_clothes_drying_rack_0, 0]
+    w: [object_washing_machine_0, 0]
+    t: [object_plant_0, 0]
+    X: [chore_trash_0, 0]
+    Y: [chore_trash_1, 0]
+  }
+  tileGrid: [
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., t, ., L, w, ., ., W]
+    [W, t, ., ., ., ., ., ., ., t, W]
+    [W, ., ., U, U, ., ., ., X, ., W]
+    [W, ., ., U, ., U, ., ., ., ., W]
+    [W, ., ., U, ., U, ., ., ., ., W]
+    [W, t, ., U, ., U, ., ., Y, ., W]
+    [W, ., ., U, ., U, ., ., ., ., W]
+    [W, ., ., U, U, ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W, W]
+  ]
+}

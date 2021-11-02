@@ -12,7 +12,7 @@ public class BananaPeelActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(BananaPeelActions.class);
 
     @Override
-    public void create(){
+    public void create() {
         super.create();
         entity.getEvents().trigger("update_animation", "banana_peel");
     }

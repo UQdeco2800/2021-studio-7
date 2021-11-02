@@ -1,0 +1,12 @@
+empty_can.png
+size: 88, 60
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+trash
+  rotate: false
+  xy: 0, 0
+  size: 88, 60
+  orig: 88, 60
+  offset: 0, 0
+  index: -1

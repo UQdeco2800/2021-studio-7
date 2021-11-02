@@ -16,7 +16,7 @@ public class KeyboardTerminalInputComponent extends InputComponent {
   private Terminal terminal;
 
   public KeyboardTerminalInputComponent() {
-    super(10);
+    super(0);
   }
 
   public KeyboardTerminalInputComponent(Terminal terminal) {

@@ -1,52 +1,35 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
-    }
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    },
-    D: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createDiningTable,
-      assets: [images/objects/furniture/dinningtable1.png, 0, 0, 0]
-    },
-    G: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createGameTable,
-      assets: [images/objects/furniture/game-table.png, 0, 0, 0]
-    },
-    F: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createFishTank,
-      assets: [images/objects/furniture/newGoldfishBowl.png, 0, 0, 0]
-    },
-    C: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createClock,
-      assets: [images/objects/furniture/newClock.png, 0, 0, 0]
-    }
+    W: [object_wall_0, 0]
+    D: [object_dining_table_0, 0]
+    G: [object_game_table_0, 0]
+    F: [object_fish_tank_0, 0]
+    C: [object_clock_0, 0]
+    B: [chore_book_0, 0]
+    R: [chore_book_1, 0]
+    M: [chore_book_2, 0]
+    X: [object_sofa_small_0, 0]
+    Y: [object_sofa_small_0, 1]
+    J: [object_table_lamp_0, 0]
   }
   tileGrid: [
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W, W, W, W, W],
-    [W, F, ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., G, ., .],
-    [W, ., C, ., ., ., D, ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., ., ., ., ., Y, ., ., ., W]
+    [W, F, ., ., G, ., ., X, J, ., ., ., W]
+    [W, ., C, ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., B, ., ., ., ., ., W]
+    [W, ., ., M, ., ., ., ., R, ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W, W, W, W]
   ]
 }

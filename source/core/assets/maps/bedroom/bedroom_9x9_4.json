@@ -1,0 +1,43 @@
+{
+  tileMap: {
+  }
+  entityMap: {
+    W: [object_wall_0, 0]
+    B: [interactive_bed_0, 0]
+    b: [object_bookshelf_0, 0]
+    d: [object_desk_0, 0]
+    c: [object_chair_0, 0]
+    s: [object_side_table_0, 0]
+    p: [object_pet_bed_0, 0]
+    l: [object_lamp_0, 0]
+    h: [chore_plant_0, 0]
+    k: [object_plant_0, 0]
+    G: [object_game_table_0, 0]
+    L: [object_clothes_drying_rack_0, 0]
+    m: [object_clock_0, 0]
+  }
+  tileGrid: [
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., L, ., ., l, ., ., W]
+    [W, b, ., ., ., B, ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, d, c, ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, m, ., ., ., G, ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W]
+  ]
+}

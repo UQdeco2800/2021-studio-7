@@ -1,0 +1,12 @@
+dropped_books.png
+size: 168, 92
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dropped_book
+  rotate: false
+  xy: 0, 0
+  size: 168, 92
+  orig: 168, 92
+  offset: 0, 0
+  index: -1

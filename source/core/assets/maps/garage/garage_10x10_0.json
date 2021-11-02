@@ -1,50 +1,39 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
-    }
+    a: [tile_cement_0, 0]
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    },
-    U: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createBaseInteractable
-      assets: [images/objects/box/box.atlas, 0, 3, 0]
-    },
-    L: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createClothesDrying,
-      assets: [images/objects/furniture/clothes-drying-rack.png, 0, 0, 0]
-    }
+    W: [object_wall_0, 0]
+    U: [interactive_box_0, 0]
+    L: [object_clothes_drying_rack_0, 0]
+    w: [object_washing_machine_0, 0]
+    X: [chore_trash_0, 0]
+    Y: [chore_trash_1, 0]
   }
   tileGrid: [
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., .]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a, a]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., L, ., U, ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., L, ., w, ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., X, ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., U, ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, Y, ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W, W]
   ]
 }

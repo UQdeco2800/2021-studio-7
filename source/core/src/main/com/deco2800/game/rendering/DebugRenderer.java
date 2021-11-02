@@ -168,12 +168,51 @@ public class DebugRenderer {
    * allocating/deallocating new instances every render.
    */
   static class DrawRequest {
-    public DrawRequestType drawRequestType;
-    public Vector2 pos;
-    public Color color;
-    public float lineWidth;
+    private DrawRequestType drawRequestType;
+    private Vector2 pos;
+    private Color color;
+    private float lineWidth;
+    private Vector2 end;
 
-    public Vector2 end;
+    public DrawRequestType getDrawRequestType() {
+      return drawRequestType;
+    }
+
+    public Vector2 getPos() {
+      return pos;
+    }
+
+    public Color getColor() {
+      return color;
+    }
+
+    public float getLineWidth() {
+      return lineWidth;
+    }
+
+    public Vector2 getEnd() {
+      return end;
+    }
+
+    public void setColor(Color color) {
+      this.color = color;
+    }
+
+    public void setDrawRequestType(DrawRequestType drawRequestType) {
+      this.drawRequestType = drawRequestType;
+    }
+
+    public void setLineWidth(float lineWidth) {
+      this.lineWidth = lineWidth;
+    }
+
+    public void setEnd(Vector2 end) {
+      this.end = end;
+    }
+
+    public void setPos(Vector2 pos) {
+      this.pos = pos;
+    }
   }
 
   enum DrawRequestType {

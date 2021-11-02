@@ -1,95 +1,40 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png]
-    }
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    }
-    T: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createTv
-      assets: [images/objects/tv/TV_animation.atlas, 0, 1, 1]
-    }
-    B: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createBookcase
-      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
-    }
-    L: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createLounge
-      assets: [images/objects/furniture/sofa-back.png, 0, 0, 0]
-    }
-    l: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createLamp
-      assets: [images/objects/furniture/sofaside-lamp.png, 0, 0, 0]
-    }
-    E: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createBaseChore
-      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
-    },
-    N: {
-      class:com.deco2800.game.entities.factories.ObjectFactory,
-      method: createNintendo,
-      assets: [images/objects/furniture/Nintendo_southeast.png, 0, 0, 0]
-    },
-    C: {
-      class:com.deco2800.game.entities.factories.ObjectFactory,
-      method: createCouchLarge,
-      assets: [images/objects/furniture/sofa-large.png, 0, 0, 0]
-    },
-    c: {
-      class:com.deco2800.game.entities.factories.ObjectFactory,
-      method: createCouchSmall,
-      assets: [images/objects/furniture/sofa-small.png, 0, 0, 0]
-    },
-    Z: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createPlant,
-      assets: [images/objects/shrub/shrub_animation.atlas, 0, 8, 6]
-    }
-
-  },
+    W: [object_wall_0, 0]
+    T: [chore_tv_0, 0]
+    B: [object_bookshelf_0, 0]
+    L: [object_sofa_large_1, 0]
+    l: [object_lamp_0, 0]
+    E: [chore_energy_drink_0, 0]
+    N: [object_nintendo_0, 0]
+    C: [object_sofa_large_0, 0]
+    c: [object_sofa_small_0, 0]
+    Z: [chore_plant_0, 0]
+  }
   tileGrid: [
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., ., ., ., .]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W, W, W, W, W],
-    [W, B, ., ., ., ., T, ., ., ., ., .],
-    [W, B, ., ., ., ., N, ., ., Z, ., .],
-    [W, ., ., E, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., l, ., ., L, ., E, ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W, W, W, W, W]
+    [W, B, ., ., ., ., T, ., ., ., ., ., W]
+    [W, B, ., ., ., ., N, ., ., ., ., ., W]
+    [W, ., ., E, ., ., ., ., ., Z, ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., l, ., ., L, ., E, ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W, W, W, W]
   ]
-  /*choreGrid: [
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., ., ., ., .]
-  ]*/
 }

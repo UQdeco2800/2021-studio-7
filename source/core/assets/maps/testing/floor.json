@@ -1,10 +1,10 @@
 {
-  defaultInteriorTile: {
+  defaultTile: {
     class: com.deco2800.game.maps.terrain.TerrainFactory
     method: createBaseTile
     assets: [images/tiles/iso/iso_floor_1.png]
   }
-  defaultInteriorWall: {
+  defaultWall: {
     class: com.deco2800.game.entities.factories.ObjectFactory
     method: createWall
     assets: [images/objects/walls/1.png]

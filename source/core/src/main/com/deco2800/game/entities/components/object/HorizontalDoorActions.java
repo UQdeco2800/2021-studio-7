@@ -5,18 +5,20 @@ import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.components.ColliderComponent;
-import com.deco2800.game.screens.maingame.MainGameScreen;
+import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HorizontalDoorActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(HorizontalDoorActions.class);
+    private static final String PROMPT_MESSAGE = "You opened a door!";
+    private static String UPDATE_ANIMATION = "update_animation";
     private boolean isOpened = false;
-    private static String UPDATEANIMATION = "update_animation";
+    
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATEANIMATION, "door_close_right_re");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re");
     }
 
     @Override
@@ -26,13 +28,11 @@ public class HorizontalDoorActions extends InteractionComponent {
 
         // opening a door
         if (!isOpened ) {
-            String string = "You opened a horizontal door";
-            logger.debug("PLAYER interacted with DOOR, triggering door animation");
-            ((MainGameScreen) ServiceLocator.getGame().getScreen())
-                    .getMainGameEntity().getEvents().trigger("create_textbox", string);
+            logger.debug("PLAYER interacted with HORIZONTAL_DOOR, triggering door animation");
+            ((GameScreen) ServiceLocator.getGame().getScreen()).getGameUI().getEvents().trigger("create_textbox", PROMPT_MESSAGE);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
-            entity.getEvents().trigger(UPDATEANIMATION, "door_open_right_re");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_right_re");
         }
 
     }
@@ -41,10 +41,10 @@ public class HorizontalDoorActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight && !isOpened) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
-            entity.getEvents().trigger(UPDATEANIMATION, "right_highlight"); //Door_left_highlighted
+            entity.getEvents().trigger(UPDATE_ANIMATION, "right_highlight"); //Door_left_highlighted
         } else if (!isOpened){
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            entity.getEvents().trigger(UPDATEANIMATION, "door_close_right_re"); //door_close_left
+            entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re"); //door_close_left
         }
     }
 }

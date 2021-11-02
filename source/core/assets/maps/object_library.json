@@ -1,0 +1,286 @@
+{
+  tile: {
+    // RIGID: SCALE = [1,1]
+    method: com.deco2800.game.maps.terrain.TerrainFactory.createTile
+    cement_0: {
+      assets: [images/tiles/iso/iso_cement.png]
+    }
+    grass_0: {
+      assets: [images/tiles/iso/grass.png]
+    }
+    white_0: {
+      assets: [images/tiles/iso/iso_floor_tiles_half_white.png]
+    }
+    white_1: {
+      assets: [images/tiles/iso/iso_floor_tiles_quarter_white.png]
+    }
+    wood_0: {
+      assets: [images/tiles/iso/iso_floor_1.png]
+    }
+  }
+  object: {
+    // DEFAULT: SCALE = [1,1], PHYSICS = STATIC, COLLIDER = [1,1,0,0]
+    method: com.deco2800.game.entities.factories.ObjectFactory.createObject
+    bath_0: {
+      assets: [images/objects/furniture/bath_tub_southeast.png,
+        images/objects/furniture/bath_tub_southwest.png]
+      scale: [1.5, 1.5]
+      collider: [2, 1, 0, 0]
+    }
+    bed_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
+      assets: [images/objects/furniture/newBed.png]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+    }
+    bench_top_0: {
+      assets: [images/objects/furniture/new_kitchen_table.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    bench_top_1: {
+      assets: [images/objects/furniture/new_kitchen_sink.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    bench_top_2: {
+      assets: [images/objects/furniture/new_kitchen_stove.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    bin_0: {
+      assets: [images/objects/furniture/bath_bin.png]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    bookshelf_0: {
+      assets: [images/objects/furniture/bookshelf_new_southeast.png]
+      scale: [1, 1.5]
+      collider: [1, 1, 0, 0.3]
+    }
+    chair_0: {
+      assets: [images/objects/furniture/chair_left.png]
+      collider: [0.5, 0.5, 0, 0.5]
+    }
+    clock_0: {
+      assets: [images/objects/furniture/newClock.png]
+    }
+    clothes_drying_rack_0: {
+      assets: [images/objects/furniture/clothes-drying-rack.png]
+      scale: [2, 2]
+      collider: [1, 2, 0, 0]
+    }
+    desk_0: {
+      assets: [images/objects/furniture/desk_southeast.png]
+    }
+    dining_table_0: {
+      assets: [images/objects/furniture/dinningtable1.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    fridge_0: {
+      assets: [images/objects/furniture/fridge_southwest.png]
+      scale: [1, 1.5]
+    }
+    fish_tank_0: {
+      assets: [images/objects/furniture/newGoldfishBowl.png]
+    }
+    game_table_0: {
+      assets: [images/objects/furniture/game-table.png]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+    }
+    invisible_0: {
+    }
+    lamp_0: {
+      assets: [images/objects/furniture/sofaside-lamp.png]
+      scale: [0.5, 1]
+      collider: [0.5, 0.5, 1, 1]
+    }
+    nintendo_0: {
+      assets: [images/objects/furniture/Nintendo_southeast.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    pet_bed_0: {
+      assets: [images/objects/furniture/pet-met.png]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    plant_0: {
+      assets: [images/objects/furniture/pot_plant.png]
+      scale: [1, 1]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    shelf_0: {
+      assets: [images/objects/furniture/shelf1_southeast.png,
+        images/objects/furniture/shelf1_southwest.png]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    side_table_0: {
+      assets: [images/objects/furniture/sidetable_southeast.png]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    sink_0: {
+      assets: [images/objects/furniture/sink_southeast.png,
+        images/objects/furniture/sink_southwest.png]
+      scale: [0.75, 1.25, 0, 0]
+    }
+    sofa_large_0: {
+      assets: [images/objects/furniture/sofa-large.png]
+      scale: [2, 1]
+      collider: [1, 2.5, 0.5, 0]
+    }
+    sofa_large_1: {
+      assets: [images/objects/furniture/sofa-back.png]
+      scale: [2, 1]
+      collider: [2.5, 1, 0.5, 0]
+    }
+    sofa_small_0: {
+      assets: ["images/objects/furniture/sofa-left.png"
+        "images/objects/furniture/sofa-right.png"]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    storage_cabinet_0: {
+      assets: [images/objects/furniture/Storage_cabinet_southeast.png,
+        images/objects/furniture/Storage_cabinet_southwest.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    table_lamp_0: {
+      assets: ["images/objects/furniture/newLamp.png"]
+      collider: [0.5, 0.5, 0, 0]
+    }
+    toilet_0: {
+      assets: [images/objects/furniture/toilet_southeast.png,
+        images/objects/furniture/toilet_southwest.png]
+    }
+    towel_0: {
+      assets: [images/objects/furniture/towel_hanger_southeast.png,
+        images/objects/furniture/towel_hanger_southwest.png]
+      collider: [0.5, 1.5, 0, 0]
+    }
+    wall_0: {
+      assets: [images/objects/walls/3.png]
+    }
+    wall_1: {
+      assets: [images/objects/walls/wall.png]
+    }
+    washing_machine_0: {
+      assets: [images/objects/chores/washing_machine_basket_on_top.png]
+    }
+  }
+  interactive: {
+    // DEFAULT: HITBOX = [1,1,0,0]
+    // CASCADES DOWN TO OBJECT
+    method: com.deco2800.game.entities.factories.ObjectFactory.createInteractive
+    bed_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
+      assets: [images/objects/bed/bed_animation.atlas]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+      misc: [com.deco2800.game.entities.components.object.BedActions]
+    }
+    box_0: {
+      assets: [images/objects/box/box.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.PlaceableBoxActions]
+    }
+    door_wood_0_h: {
+      assets: [images/objects/door/door_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.HorizontalDoorActions]
+    }
+    door_wood_0_v: {
+      assets: [images/objects/door/door_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.VerticalDoorActions]
+    }
+  }
+  chore: {
+    // CASCADES DOWN TO INTERACTIVE
+    method: com.deco2800.game.entities.factories.ObjectFactory.createChore
+    banana_peel_0: {
+      assets: [images/objects/banana_peel/banana.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.BananaPeelActions]
+      chore: TRASH
+    }
+    book_0: {
+      assets: [images/objects/chores/dropped_book_blue.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.BookActions]
+      chore: BOOKS
+    }
+    book_1: {
+      assets: [images/objects/chores/dropped_book_red.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.BookActions]
+      chore: BOOKS
+    }
+    book_2: {
+      assets: [images/objects/chores/dropped_books.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.BookActions]
+      chore: BOOKS
+    }
+    dishwasher_0: {
+      assets: [images/objects/dish_washer/dishwashing_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.WashingDishesActions]
+      chore: DISHWASHER
+    }
+    energy_drink_0: {
+      assets: [images/objects/energy_drink/energy.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.DrinkActions]
+      chore: DRINK
+    }
+    plant_0: {
+      assets: [images/objects/plant/plant_animation.atlas]
+      scale: [1, 1]
+      collider: [0.5, 0.5, 0, 0]
+      misc: [com.deco2800.game.entities.components.object.PlantActions]
+      chore: PLANT
+    }
+    puddle_0: {
+      assets: [images/objects/puddle/puddle.atlas]
+      scale: [1, 0.5]
+      physics: KINEMATIC
+      misc: [com.deco2800.game.entities.components.object.PuddleActions]
+      chore: PUDDLE
+    }
+    tv_0: {
+      assets: [images/objects/tv/TV_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.TvActions]
+      chore: TV
+    }
+    trash_0: {
+      assets: [images/objects/chores/empty_can.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.TrashActions]
+      chore: TRASH
+    }
+    trash_1: {
+      assets: [images/objects/chores/paper_ball.atlas]
+      physics: DYNAMIC
+      misc: [com.deco2800.game.entities.components.object.TrashActions]
+      chore: TRASH
+    }
+  }
+  npc: {
+    mum_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMum
+      assets: [images/characters/mum_01/mum_01.atlas]
+      scale: [0.9, 0.9]
+      physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [1.1, 1.1, 0, 0]
+      misc: [
+        com.deco2800.game.entities.components.npc.MumActions,
+        com.deco2800.game.physics.components.PhysicsMovementComponent
+      ]
+    }
+    cat_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createCat
+      assets: [images/characters/cat_00/cat_00.atlas]
+      scale: [0.8, 0.8]
+      physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [1.1, 1.1, 0, 0]
+      misc: [
+        com.deco2800.game.entities.components.object.CatActions,
+        com.deco2800.game.physics.components.PhysicsMovementComponent
+      ]
+    }
+  }
+}
