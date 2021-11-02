@@ -41,6 +41,7 @@ public class ColliderComponent extends Component {
     private float posY;
 
     public ColliderComponent() {
+        createPriority = ComponentPriority.COLLIDER.ordinal();
         fixtureDef = new FixtureDef();
     }
 
