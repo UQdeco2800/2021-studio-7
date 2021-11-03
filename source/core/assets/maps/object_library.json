@@ -35,15 +35,15 @@
     }
     bench_top_0: {
       assets: [images/objects/furniture/new_kitchen_table.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_1: {
       assets: [images/objects/furniture/new_kitchen_sink.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_2: {
       assets: [images/objects/furniture/new_kitchen_stove.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
@@ -158,8 +158,46 @@
     }
     washing_machine_0: {
       assets: [images/objects/chores/washing_machine_basket_on_top.png]
+    },
+    flowers_0: {
+      assets: [images/objects/backyard/flowers.png]
+    },
+    green_tree_0: {
+      assets: [images/objects/backyard/green_tree.png]
+      scale: [2, 2]
+    },
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+      scale: [1, 1]
+    },
+    jungle_0: {
+      assets: [images/objects/backyard/jungle.png]
+      scale: [1, 1]
+    },
+    red_tree_0: {
+      assets: [images/objects/backyard/red_tree.png]
+      scale: [2, 2]
+    },
+    shovel_0: {
+      assets: [images/objects/backyard/shovel.png]
+      scale: [2, 2]
+    },
+    small_tree_0: {
+      assets: [images/objects/backyard/small_tree.png]
+    },
+    snail_0: {
+      assets: [images/objects/backyard/snail.png]
+      scale: [1.5, 1.5]
+    },
+    stakes_0: {
+      assets: [images/objects/backyard/stakes.png]
+    },
+    stump_0: {
+      assets: [images/objects/backyard/stump.png]
+      scale: [2, 2]
+      collider: [1, 1, 0, 0]
     }
-  }
+  },
   interactive: {
     // DEFAULT: HITBOX = [1,1,0,0]
     // CASCADES DOWN TO OBJECT
@@ -197,18 +235,21 @@
     book_0: {
       assets: [images/objects/chores/dropped_book_blue.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_1: {
       assets: [images/objects/chores/dropped_book_red.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_2: {
       assets: [images/objects/chores/dropped_books.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
@@ -245,14 +286,21 @@
     trash_0: {
       assets: [images/objects/chores/empty_can.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
     }
     trash_1: {
       assets: [images/objects/chores/paper_ball.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
+    }
+    shrub_0: {
+      assets: [images/objects/shrub/shrub_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.ShrubActions]
+      chore: SHRUB
     }
   }
   npc: {

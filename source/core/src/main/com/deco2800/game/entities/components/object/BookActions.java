@@ -33,6 +33,13 @@ public class BookActions extends InteractionComponent {
 
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
+        if (shouldHighlight) {
+            logger.debug("BOOK started collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book_highlight");
+        } else {
+            logger.debug("BOOK ended collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book");
+        }
     }
 
     @Override
