@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 public class HorizontalDoorActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(HorizontalDoorActions.class);
-    private static final String PROMPT_MESSAGE = "You opened a door!";
     private static String UPDATE_ANIMATION = "update_animation";
     private boolean isOpened = false;
     
@@ -29,7 +28,6 @@ public class HorizontalDoorActions extends InteractionComponent {
         // opening a door
         if (!isOpened ) {
             logger.debug("PLAYER interacted with HORIZONTAL_DOOR, triggering door animation");
-            ((GameScreen) ServiceLocator.getGame().getScreen()).getGameUI().getEvents().trigger("create_textbox", PROMPT_MESSAGE);
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
             entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_right_re");

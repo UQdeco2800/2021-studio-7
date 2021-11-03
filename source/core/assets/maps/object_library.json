@@ -166,15 +166,18 @@
     },
     green_tree_0: {
       assets: [images/objects/backyard/green_tree.png]
+      scale: [1.8, 1.8]
     },
     groundhog_0: {
       assets: [images/objects/backyard/groundhog.png]
+      scale: [1, 1,]
     },
     jungle_0: {
       assets: [images/objects/backyard/jungle.png]
     },
     red_tree_0: {
       assets: [images/objects/backyard/red_tree.png]
+      scale: [1.8, 1.8]
     },
     shovel_0: {
       assets: [images/objects/backyard/shovel.png]
