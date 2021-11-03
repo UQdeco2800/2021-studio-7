@@ -7,9 +7,11 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Array;
 import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.object.DoorActions;
 import com.deco2800.game.generic.Component;
 import com.deco2800.game.generic.ResourceService;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.maps.Home;
 import com.deco2800.game.maps.ObjectData;
 import com.deco2800.game.maps.ObjectDescription;
 import com.deco2800.game.physics.PhysicsLayer;
@@ -36,6 +38,23 @@ public class ObjectFactory {
     public static Entity createBed(ObjectDescription desc, GridPoint2 worldPos) {
         ServiceLocator.getHome().getFloor().stashBedPosition(worldPos);
         return null;
+    }
+
+    public static Entity createDoor(ObjectDescription desc, GridPoint2 worldPos) {
+        Entity door = createInteractive(desc, worldPos);
+        String doorName = Home.getObjectName(desc.getData());
+        if (doorName != null && doorName.endsWith("v")) {
+            door.getComponent(DoorActions.class).setAnimations(
+                    new String[]{"door_close_left_re", "left_highlight", "door_close_left_re"}
+            );
+        }
+        else if (doorName != null && doorName.endsWith("h")) {
+            door.getComponent(DoorActions.class).setAnimations(
+                    new String[]{"door_close_right_re", "right_highlight", "door_close_right_re"}
+            );
+        }
+
+        return door;
     }
 
     public static Entity createChore(ObjectDescription desc, GridPoint2 worldPos) {
