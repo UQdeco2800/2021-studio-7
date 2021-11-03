@@ -89,7 +89,7 @@ public class GameScreen extends RetroactiveScreen {
             .addComponent(new InputDecorator(ServiceLocator.getRenderService().getStage(), 10))
             .addComponent(new KeyboardTerminalInputComponent())
             .addComponent(new KeyboardMenuInputComponent())
-            //.addComponent(new FogWidget())
+            .addComponent(new FogWidget())
             .addComponent(new TimerWidget())
             .addComponent(new PromptWidget())
             .addComponent(new ChoreUI())

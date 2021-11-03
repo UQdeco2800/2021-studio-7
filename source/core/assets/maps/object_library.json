@@ -197,6 +197,7 @@
     stump_0: {
       assets: [images/objects/backyard/stump.png]
       scale: [2, 2]
+      collider: [0.5, 0.5, 0, 0]
     }
   },
   interactive: {
@@ -292,6 +293,11 @@
       physics: DYNAMIC
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
+    }
+    shrub_0: {
+      assets: [images/objects/shrub/shrub_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.ShrubActions]
+      chore: SHRUB
     }
   }
   npc: {
