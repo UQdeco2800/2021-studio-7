@@ -33,6 +33,13 @@ public class TrashActions extends InteractionComponent {
 
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
+        if (shouldHighlight) {
+            logger.debug("TRASH started collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "trash_highlight");
+        } else {
+            logger.debug("TRASH ended collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "trash");
+        }
     }
 
     @Override
