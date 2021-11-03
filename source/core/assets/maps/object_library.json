@@ -35,15 +35,15 @@
     }
     bench_top_0: {
       assets: [images/objects/furniture/new_kitchen_table.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_1: {
       assets: [images/objects/furniture/new_kitchen_sink.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_2: {
       assets: [images/objects/furniture/new_kitchen_stove.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
