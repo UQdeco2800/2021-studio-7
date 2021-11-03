@@ -170,7 +170,7 @@
     },
     groundhog_0: {
       assets: [images/objects/backyard/groundhog.png]
-      scale: [1, 1,]
+      scale: [0.7, 0.7]
     },
     jungle_0: {
       assets: [images/objects/backyard/jungle.png]
