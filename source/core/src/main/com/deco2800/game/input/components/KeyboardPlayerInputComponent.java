@@ -57,26 +57,8 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 triggerWalkEvent();
                 movementEvents();
                 return true;
-            case Keys.R:
-                walkDirection.add(Vector2Utils.NORTHEAST);
-                triggerWalkEvent();
-                movementEvents();
-                return true;
-            case Keys.Q:
-                walkDirection.add(Vector2Utils.NORTHWEST);
-                triggerWalkEvent();
-                movementEvents();
-                return true;
-            case Keys.Z:
-                walkDirection.add(Vector2Utils.SOUTHWEST);
-                triggerWalkEvent();
-                movementEvents();
-                return true;
-            case Keys.C:
-                walkDirection.add(Vector2Utils.SOUTHEAST);
-                triggerWalkEvent();
-                movementEvents();
-                return true;
+            case Keys.SHIFT_RIGHT:
+                // Cascade
             case Keys.SHIFT_LEFT:
                 enableRun();
                 movementEvents();
