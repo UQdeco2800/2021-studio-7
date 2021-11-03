@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveWidget;
 
 import java.util.List;
@@ -16,6 +17,11 @@ public class ChoreUI extends RetroactiveWidget {
     private boolean displaying;
     private Label displayText;
     private int entityCount;
+
+    public ChoreUI() {
+        super();
+        renderPriority = RenderPriority.WIDGET.ordinal() - 0.06f;
+    }
 
     @Override
     public void create() {
