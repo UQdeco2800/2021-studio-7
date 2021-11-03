@@ -3,7 +3,6 @@ package com.deco2800.game.entities.components.object;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
-import com.deco2800.game.events.EventHandler;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.physics.components.ColliderComponent;
 import com.deco2800.game.screens.game.GameScreen;
@@ -16,9 +15,9 @@ public abstract class DoorActions extends InteractionComponent {
     private static final String UPDATE_ANIMATION = "update_animation";
 
     // Door animation states
-    protected String CLOSED_STATE = null;
-    protected String CLOSED_HL_STATE = null;
-    protected String OPEN_STATE = null;
+    protected String closedState = null;
+    protected String closedHlState = null;
+    protected String openState = null;
 
     private static boolean hasOpenedDoor = false;
 
@@ -27,7 +26,7 @@ public abstract class DoorActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_STATE);
+        entity.getEvents().trigger(UPDATE_ANIMATION, closedState);
     }
 
     @Override
@@ -47,7 +46,7 @@ public abstract class DoorActions extends InteractionComponent {
             // Open the door
             entity.getComponent(ColliderComponent.class).setSensor(true);
             this.isOpened = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, OPEN_STATE);
+            entity.getEvents().trigger(UPDATE_ANIMATION, openState);
         }
     }
 
@@ -55,10 +54,10 @@ public abstract class DoorActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight && !isOpened) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_HL_STATE);
+            entity.getEvents().trigger(UPDATE_ANIMATION, closedHlState);
         }  else if (!isOpened) {
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_STATE);
+            entity.getEvents().trigger(UPDATE_ANIMATION, closedState);
         }
     }
 }
