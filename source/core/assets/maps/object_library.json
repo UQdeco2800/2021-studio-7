@@ -160,8 +160,46 @@
     }
     washing_machine_0: {
       assets: [images/objects/chores/washing_machine_basket_on_top.png]
+    },
+    flowers_0: {
+      assets: [images/objects/backyard/flowers.png]
+    },
+    green_tree_0: {
+      assets: [images/objects/backyard/green_tree.png]
+      scale: [2, 2]
+    },
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+      scale: [1, 1]
+    },
+    jungle_0: {
+      assets: [images/objects/backyard/jungle.png]
+      scale: [1, 1]
+    },
+    red_tree_0: {
+      assets: [images/objects/backyard/red_tree.png]
+      scale: [2, 2]
+    },
+    shovel_0: {
+      assets: [images/objects/backyard/shovel.png]
+      scale: [2, 2]
+    },
+    small_tree_0: {
+      assets: [images/objects/backyard/small_tree.png]
+    },
+    snail_0: {
+      assets: [images/objects/backyard/snail.png]
+      scale: [1.5, 1.5]
+    },
+    stakes_0: {
+      assets: [images/objects/backyard/stakes.png]
+    },
+    stump_0: {
+      assets: [images/objects/backyard/stump.png]
+      scale: [2, 2]
+      collider: [1, 1, 0, 0]
     }
-  }
+  },
   interactive: {
     // DEFAULT: HITBOX = [1,1,0,0]
     // CASCADES DOWN TO OBJECT
@@ -260,6 +298,11 @@
       collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
+    }
+    shrub_0: {
+      assets: [images/objects/shrub/shrub_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.ShrubActions]
+      chore: SHRUB
     }
   }
   npc: {
