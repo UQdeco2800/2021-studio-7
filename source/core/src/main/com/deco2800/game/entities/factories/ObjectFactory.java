@@ -107,6 +107,11 @@ public class ObjectFactory {
         PhysicsUtils.setColliderShape(object, data.getColliderScale().x, data.getColliderScale().y);
         PhysicsUtils.setColliderOffset(object, data.getColliderOffset().x, data.getColliderOffset().y);
 
+        // Rotate the physics for the required orientation
+        if (desc.getNumRotations() % 2 == 1) {
+            PhysicsUtils.rotateCollider(object);
+        }
+
         return object;
     }
 
