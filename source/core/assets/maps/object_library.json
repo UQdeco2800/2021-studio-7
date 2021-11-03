@@ -35,15 +35,15 @@
     }
     bench_top_0: {
       assets: [images/objects/furniture/new_kitchen_table.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_1: {
       assets: [images/objects/furniture/new_kitchen_sink.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_2: {
       assets: [images/objects/furniture/new_kitchen_stove.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
@@ -237,18 +237,21 @@
     book_0: {
       assets: [images/objects/chores/dropped_book_blue.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_1: {
       assets: [images/objects/chores/dropped_book_red.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_2: {
       assets: [images/objects/chores/dropped_books.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
@@ -285,12 +288,14 @@
     trash_0: {
       assets: [images/objects/chores/empty_can.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
     }
     trash_1: {
       assets: [images/objects/chores/paper_ball.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
     }
