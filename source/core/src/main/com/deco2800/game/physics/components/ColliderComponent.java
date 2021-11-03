@@ -16,102 +16,87 @@ import org.slf4j.LoggerFactory;
  * without interaction (if sensor = true)
  */
 public class ColliderComponent extends Component {
-  private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
-  private static final float X_SCALE = 1f;
-  private static final float Y_SCALE = 0.5f;
-  private static final int ALIGN_SCALE = 2;
+    // Constants
+    public static final int LEFT_SIDE = 0;
+    public static final int RIGHT_SIDE = 1;
+    public static final int X_OFFSET = 0;
+    public static final int Y_OFFSET = 1;
+    public static final int ALIGN_SCALE = 2;
 
-  private final FixtureDef fixtureDef;
-  private Fixture fixture;
-  private Vector2 scale;
-  private float left;
-  private float right;
+    private static final float X_SCALE = 1f;
+    private static final float Y_SCALE = 0.5f;
+    private static final int NO_OFFSET = 0;
 
-  public ColliderComponent() {
-    createPriority = ComponentPriority.COLLIDER.ordinal();
-    fixtureDef = new FixtureDef();
-  }
+    // Privates
+    private static final Logger logger = LoggerFactory.getLogger(ColliderComponent.class);
 
-  @Override
-  public void create() {
-    if (fixtureDef.shape == null) {
-      logger.trace("{} Setting default bounding box", this);
-      fixtureDef.shape = makeBoundingBox();
+    private final FixtureDef fixtureDef;
+    private Fixture fixture;
+
+    private float left;
+    private float right;
+    private float offX;
+    private float offY;
+    private float posX;
+    private float posY;
+
+    public ColliderComponent() {
+        createPriority = ComponentPriority.COLLIDER.ordinal();
+        fixtureDef = new FixtureDef();
     }
 
-    Body physBody = entity.getComponent(PhysicsComponent.class).getBody();
-    fixture = physBody.createFixture(fixtureDef);
-  }
+    @Override
+    public void create() {
+        if (fixtureDef.shape == null) {
+            logger.trace("{} Setting default bounding box", this);
+            fixtureDef.shape = makeBoundingBox();
+        }
 
-  /**
-   * Set physics to be an isometric shape of a given length and width. Is
-   * centred to the middle bottom point of the entity by default. There is also
-   * no offset to this physics component.
-   *
-   * @param bottomLeft number of tiles along the bottom left side of the shape.
-   * @param bottomRight number of tiles along the bottom right side of the shape.
-   * @return self
-   */
-    public ColliderComponent setIsoShape(float bottomLeft, float bottomRight) {
-        return setIsoShapeAligned(
-              bottomLeft,
-              bottomRight,
-              AlignX.CENTER,
-              AlignY.BOTTOM,
-              0,
-              0
-        );
+        Body physBody = entity.getComponent(PhysicsComponent.class).getBody();
+        fixture = physBody.createFixture(fixtureDef);
     }
 
     /**
-     * Set physics to be an isometric shape of a given length and width. Is
-     * centred to the provided offset, with reference to the bottom middle point
-     * of the entity.
-     *
-     * @param bottomLeft number of tiles along the bottom left side of the shape.
-     * @param bottomRight number of tiles along the bottom right side of the shape.
-     * @param offsetX pixel offset in the x direction
-     * @param offsetY pixel offset in the y direction
-     * @return self
+     * @return Size of the collider component, in tile units, broken down by side length.
+     *          The side length is a scalar multiple of the stored value.
      */
-    public ColliderComponent setIsoShapeOffset(
-            float bottomLeft,
-            float bottomRight,
-            float offsetX,
-            float offsetY) {
-
-        return setIsoShapeAligned(
-                bottomLeft, bottomRight,
-                AlignX.CENTER, AlignY.BOTTOM,
-                offsetX, offsetY
-        );
+    public float[] getSides() {
+        return new float[]{this.left, this.right};
     }
 
     /**
-     * Set physics to be an isometric shape of a given length and width. Is
-     * centred to the given alignment point, with an added offset.
-     *
-     * @param bottomLeft number of tiles along the bottom left side of the shape.
-     * @param bottomRight number of tiles along the bottom right side of the shape.
-     * @param alignX AlignX value that specifies alignment in x direction.
-     * @param alignY AlignY value that specifies alignment in y direction.
-     * @param offsetX pixel offset in the x direction.
-     * @param offsetY pixel offset in the y direction.
-     * @return self
+     * @return Offset position of the collider component.
      */
-    private ColliderComponent setIsoShapeAligned(
-          float bottomLeft,
-          float bottomRight,
-          AlignX alignX,
-          AlignY alignY,
-          float offsetX,
-          float offsetY
+    public float[] getOffset() {
+        return new float[]{this.offX, this.offY};
+    }
+
+    /**
+     * @return Offset position of the collider component.
+     */
+    public float[] getPosition() {
+        return new float[]{this.posX, this.posY};
+    }
+
+    /**
+     * Calculate the x and y position of the collider alignment.
+     *
+     * @param left Number of side units on bottom left.
+     * @param right Number of side units on bottom right.
+     * @param alignX The X coordinate alignment value.
+     * @param alignY The Y coordinate alignment value.
+     *
+     * @return The position of the alignment.
+     */
+    private Vector2 getAlignmentPosition(
+            float left, float right,
+            AlignX alignX, AlignY alignY
     ) {
         // Divide values by the alignment scaling factor for middle aligning
-        bottomLeft /= ALIGN_SCALE;
-        bottomRight /= ALIGN_SCALE;
+        left /= ALIGN_SCALE;
+        right /= ALIGN_SCALE;
 
-        float mid = Math.abs(bottomLeft / 2 - bottomRight / 2);
+        float mid = Math.abs(left / 2 - right / 2);
 
         Vector2 position = new Vector2();
         switch (alignX) {
@@ -122,9 +107,9 @@ public class ColliderComponent extends Component {
                 position.x = entity.getCenterPosition().x;
                 break;
             case RIGHT:
-                position.x = entity.getScale().x - bottomRight;
+                position.x = entity.getScale().x - right;
                 break;
-            }
+        }
 
         switch (alignY) {
             case BOTTOM:
@@ -138,10 +123,38 @@ public class ColliderComponent extends Component {
                 break;
         }
 
-        position.x += offsetX;
-        position.y += offsetY;
+        return position;
+    }
 
-        return changeIsoShape(bottomLeft, bottomRight, position);
+    /**
+     * Create an iso shape for the collider component.
+     *
+     * @param left Number of side units on bottom left.
+     * @param right Number of side units on bottom right.
+     * @param alignX The X coordinate alignment value.
+     * @param alignY The Y coordinate alignment value.
+     * @param offX X position offset
+     * @param offY Y position offset
+     *
+     * @return The created collider component
+     */
+    private ColliderComponent createIsoShape(
+            float left, float right,
+            AlignX alignX, AlignY alignY,
+            float offX, float offY
+    ) {
+        Vector2 position = getAlignmentPosition(left, right, alignX, alignY);
+        position.x += offX;
+        position.y += offY;
+
+        this.left = left;
+        this.right = right;
+        this.offX = offX;
+        this.offY = offY;
+        this.posX = position.x;
+        this.posY = position.y;
+
+        return changeIsoShape(left, right, position);
     }
 
     /**
@@ -153,14 +166,13 @@ public class ColliderComponent extends Component {
      * @return self
      */
     private ColliderComponent changeIsoShape (
-          float left,
-          float right,
-          Vector2 position
-    ) {
-        PolygonShape bound = new PolygonShape();
+            float left, float right,
+            Vector2 position)
+    {
+        left /= ALIGN_SCALE;
+        right /= ALIGN_SCALE;
 
-        this.left = left;
-        this.right = right;
+        PolygonShape bound = new PolygonShape();
 
         // Each point is offset by the given alignment
         Vector2 south = isoVector2(position.x, position.y);
@@ -189,139 +201,153 @@ public class ColliderComponent extends Component {
         return new Vector2(x * X_SCALE, y * Y_SCALE);
     }
 
-
-  /**
-   * Set friction. This affects the object when touching other objects, but does not affect friction
-   * with the ground.
-   *
-   * @param friction friction, default = 0
-   * @return self
-   */
-  public ColliderComponent setFriction(float friction) {
-    if (fixture == null) {
-      fixtureDef.friction = friction;
-    } else {
-      fixture.setFriction(friction);
+    // set with left right
+    // set with left right offx offy
+    // set with all
+    public ColliderComponent setIsoShape(float left, float right) {
+        return createIsoShape(left, right,
+                AlignX.CENTER, AlignY.BOTTOM,
+                NO_OFFSET, NO_OFFSET
+        );
     }
-    return this;
-  }
 
-  /**
-   * Set whether this physics component is a sensor. Sensors don't collide with other objects but
-   * still trigger collision events. See: https://www.iforce2d.net/b2dtut/sensors
-   *
-   * @param isSensor true if sensor, false if not. default = false.
-   * @return self
-   */
-  public ColliderComponent setSensor(boolean isSensor) {
-    if (fixture == null) {
-      fixtureDef.isSensor = isSensor;
-    } else {
-      fixture.setSensor(isSensor);
+    public ColliderComponent setIsoShape(float left, float right,
+                                         float offX, float offY)
+    {
+        return createIsoShape(left, right,
+                AlignX.CENTER, AlignY.BOTTOM,
+                offX, offY
+        );
     }
-    return this;
-  }
 
-  /**
-   * Set density
-   *
-   * @param density Density and size of the physics component determine the object's mass. default =
-   *     0
-   * @return self
-   */
-  public ColliderComponent setDensity(float density) {
-    if (fixture == null) {
-      fixtureDef.density = density;
-    } else {
-      fixture.setDensity(density);
+    public ColliderComponent setIsoShape(float left, float right,
+                                         AlignX alignX, AlignY alignY,
+                                         float offX, float offY)
+    {
+        return createIsoShape(left, right,
+                alignX, alignY,
+                offX, offY
+        );
     }
-    return this;
-  }
 
-  /**
-   * Set restitution
-   *
-   * @param restitution restitution is the 'bounciness' of an object, default = 0
-   * @return self
-   */
-  public ColliderComponent setRestitution(float restitution) {
-    if (fixture == null) {
-      fixtureDef.restitution = restitution;
-    } else {
-      fixture.setRestitution(restitution);
-    }
-    return this;
-  }
-
-  /**
-   * Set shape
-   *
-   * @param shape shape, default = bounding box the same size as the entity
-   * @return self
-   */
-  public ColliderComponent setShape(Shape shape) {
-    if (fixture == null) {
-      fixtureDef.shape = shape;
-    } else {
-      logger.error("{} Cannot set Collider shape after create(), ignoring.", this);
-    }
-    return this;
-  }
-
-  /** @return Physics fixture of this collider. Null before created() */
-  public Fixture getFixture() {
-    return fixture;
-  }
-
-  /**
-   * Set the collider layer, used in collision logic
-   * @param layerMask Bitmask of {@link PhysicsLayer} this collider belongs to
-   * @return self
-   */
-  public ColliderComponent setLayer(short layerMask) {
-    if (fixture == null) {
-      fixtureDef.filter.categoryBits = layerMask;
-    } else {
-      Filter filter = fixture.getFilterData();
-      filter.categoryBits = layerMask;
-      fixture.setFilterData(filter);
-    }
-    return this;
-  }
-
-  /**
-   * @return The {@link PhysicsLayer} this collider belongs to
-   */
-  public short getLayer() {
-    if (fixture == null) {
-      return fixtureDef.filter.categoryBits;
-    }
-    return fixture.getFilterData().categoryBits;
-  }
-
-  /**
-   * @return Size of collider component
-   */
-  public Vector2 getScale() {
-    return scale;
-  }
 
     /**
-     * @return Size of the collider component, in tile units, broken down by side length.
-     *          The side length is a scalar multiple of the stored value.
+     * Set friction. This affects the object when touching other objects, but does not affect friction
+     * with the ground.
+     *
+     * @param friction friction, default = 0
+     * @return self
      */
-    public float[] getSides() {
-        return new float[]{this.left * ALIGN_SCALE, this.right * ALIGN_SCALE};
+    public ColliderComponent setFriction(float friction) {
+        if (fixture == null) {
+            fixtureDef.friction = friction;
+        } else {
+            fixture.setFriction(friction);
+        }
+        return this;
+    }
+
+    /**
+     * Set whether this physics component is a sensor. Sensors don't collide with other objects but
+     * still trigger collision events. See: https://www.iforce2d.net/b2dtut/sensors
+     *
+     * @param isSensor true if sensor, false if not. default = false.
+     * @return self
+     */
+    public ColliderComponent setSensor(boolean isSensor) {
+        if (fixture == null) {
+            fixtureDef.isSensor = isSensor;
+        } else {
+            fixture.setSensor(isSensor);
+        }
+        return this;
+    }
+
+    /**
+     * Set density
+     *
+     * @param density Density and size of the physics component determine the object's mass. default =
+     *     0
+     * @return self
+     */
+    public ColliderComponent setDensity(float density) {
+        if (fixture == null) {
+            fixtureDef.density = density;
+        } else {
+            fixture.setDensity(density);
+        }
+        return this;
+    }
+
+    /**
+     * Set restitution
+     *
+     * @param restitution restitution is the 'bounciness' of an object, default = 0
+     * @return self
+     */
+    public ColliderComponent setRestitution(float restitution) {
+        if (fixture == null) {
+            fixtureDef.restitution = restitution;
+        } else {
+            fixture.setRestitution(restitution);
+        }
+        return this;
+    }
+
+    /**
+     * Set shape
+     *
+     * @param shape shape, default = bounding box the same size as the entity
+     * @return self
+     */
+    public ColliderComponent setShape(Shape shape) {
+        if (fixture == null) {
+            fixtureDef.shape = shape;
+        } else {
+            logger.error("{} Cannot set Collider shape after create(), ignoring.", this);
+        }
+        return this;
+    }
+
+    /** @return Physics fixture of this collider. Null before created() */
+    public Fixture getFixture() {
+        return fixture;
+    }
+
+    /**
+     * Set the collider layer, used in collision logic
+     * @param layerMask Bitmask of {@link PhysicsLayer} this collider belongs to
+     * @return self
+     */
+    public ColliderComponent setLayer(short layerMask) {
+        if (fixture == null) {
+            fixtureDef.filter.categoryBits = layerMask;
+        } else {
+            Filter filter = fixture.getFilterData();
+            filter.categoryBits = layerMask;
+            fixture.setFilterData(filter);
+        }
+        return this;
+    }
+
+    /**
+     * @return The {@link PhysicsLayer} this collider belongs to
+     */
+    public short getLayer() {
+        if (fixture == null) {
+            return fixtureDef.filter.categoryBits;
+        }
+        return fixture.getFilterData().categoryBits;
     }
 
     private Shape makeBoundingBox() {
         PolygonShape bbox = new PolygonShape();
         Vector2 center = entity.getScale().scl(0.5f);
 
-        /*
-        height would normally be tan(30 deg) * size.y for iso, but we estimate
-        it with a 1:2 ratio. Therefore, height is half of the y size.
-        */
+		/*
+		   height would normally be tan(30 deg) * size.y for iso, but we estimate
+		   it with a 1:2 ratio. Therefore, height is half of the y size.
+		   */
         float height = 0.5f * center.y;
 
         Vector2 west = new Vector2(0 - (center.x / 2), (height / 2));
