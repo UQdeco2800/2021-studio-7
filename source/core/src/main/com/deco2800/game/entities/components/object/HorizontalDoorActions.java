@@ -9,40 +9,21 @@ import com.deco2800.game.screens.game.GameScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HorizontalDoorActions extends InteractionComponent {
-    private static final Logger logger = LoggerFactory.getLogger(HorizontalDoorActions.class);
-    private static String UPDATE_ANIMATION = "update_animation";
-    private boolean isOpened = false;
-    
+public class HorizontalDoorActions extends DoorActions {
+
     @Override
     public void create() {
+        // Door animation states
+        super.CLOSED_STATE = "door_close_right_re";
+        super.CLOSED_HL_STATE = "right_highlight";
+        super.OPEN_STATE = "door_open_right_re";
+
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re");
     }
 
     @Override
     public void onInteraction(Entity target) {
-        if (target.getComponent(PlayerActions.class) == null)
-            return;
-
-        // opening a door
-        if (!isOpened ) {
-            logger.debug("PLAYER interacted with HORIZONTAL_DOOR, triggering door animation");
-            entity.getComponent(ColliderComponent.class).setSensor(true);
-            this.isOpened = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, "door_open_right_re");
-        }
-
-    }
-
-    @Override
-    public void toggleHighlight(boolean shouldHighlight) {
-        if (shouldHighlight && !isOpened) {
-            logger.debug("DOOR started collision with PLAYER, highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, "right_highlight"); //Door_left_highlighted
-        } else if (!isOpened){
-            logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, "door_close_right_re"); //door_close_left
-        }
+        super.onInteraction(target);
+        super.logger.debug("PLAYER interacted with HORIZONTAL_DOOR, triggering door animation");
     }
 }

@@ -40,23 +40,6 @@ public class ObjectFactory {
         return null;
     }
 
-    public static Entity createDoor(ObjectDescription desc, GridPoint2 worldPos) {
-        Entity door = createInteractive(desc, worldPos);
-        String doorName = Home.getObjectName(desc.getData());
-        if (doorName != null && doorName.endsWith("v")) {
-            door.getComponent(DoorActions.class).setAnimations(
-                    new String[]{"door_close_left_re", "left_highlight", "door_close_left_re"}
-            );
-        }
-        else if (doorName != null && doorName.endsWith("h")) {
-            door.getComponent(DoorActions.class).setAnimations(
-                    new String[]{"door_close_right_re", "right_highlight", "door_close_right_re"}
-            );
-        }
-
-        return door;
-    }
-
     public static Entity createChore(ObjectDescription desc, GridPoint2 worldPos) {
         ObjectData data = desc.getData();
         Entity chore = createInteractive(desc, worldPos);

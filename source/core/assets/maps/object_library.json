@@ -179,14 +179,12 @@
       misc: [com.deco2800.game.entities.components.object.PlaceableBoxActions]
     }
     door_wood_0_h: {
-      method: com.deco2800.game.entities.factories.ObjectFactory.createDoor
       assets: [images/objects/door/door_animation.atlas]
-      misc: [com.deco2800.game.entities.components.object.DoorActions]
-    },
+      misc: [com.deco2800.game.entities.components.object.HorizontalDoorActions]
+    }
     door_wood_0_v: {
-      method: com.deco2800.game.entities.factories.ObjectFactory.createDoor
       assets: [images/objects/door/door_animation.atlas]
-      misc: [com.deco2800.game.entities.components.object.DoorActions]
+      misc: [com.deco2800.game.entities.components.object.VerticalDoorActions]
     }
   }
   chore: {
