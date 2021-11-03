@@ -160,7 +160,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             Entity entity = (Entity) entityDesc.getData().getMethod().invoke(null, entityDesc, worldPos);
             createEntityAt(entity, worldPos, true, true);
         } catch (Exception e) {
-            logger.error("Error invoking {} creation", Home.getObjectName(entityDesc.getData()));
+            String objectName = Home.getObjectName(entityDesc.getData());
+            if (objectName != null && !objectName.contains("invisible") && !objectName.contains("bed")) {
+                logger.error("Error invoking {} creation", objectName);
+            }
         }
     }
 
