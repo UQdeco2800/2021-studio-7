@@ -197,7 +197,7 @@
     stump_0: {
       assets: [images/objects/backyard/stump.png]
       scale: [2, 2]
-      collider: [0.5, 0.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
   },
   interactive: {
