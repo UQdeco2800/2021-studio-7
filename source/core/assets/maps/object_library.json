@@ -166,33 +166,37 @@
     },
     green_tree_0: {
       assets: [images/objects/backyard/green_tree.png]
-      scale: [1.8, 1.8]
+      scale: [2, 2]
     },
     groundhog_0: {
       assets: [images/objects/backyard/groundhog.png]
-      scale: [0.7, 0.7]
+      scale: [1, 1]
     },
     jungle_0: {
       assets: [images/objects/backyard/jungle.png]
+      scale: [1, 1]
     },
     red_tree_0: {
       assets: [images/objects/backyard/red_tree.png]
-      scale: [1.8, 1.8]
+      scale: [2, 2]
     },
     shovel_0: {
       assets: [images/objects/backyard/shovel.png]
+      scale: [2, 2]
     },
     small_tree_0: {
       assets: [images/objects/backyard/small_tree.png]
     },
     snail_0: {
       assets: [images/objects/backyard/snail.png]
+      scale: [1.5, 1.5]
     },
     stakes_0: {
       assets: [images/objects/backyard/stakes.png]
     },
     stump_0: {
       assets: [images/objects/backyard/stump.png]
+      scale: [2, 2]
     }
   },
   interactive: {
