@@ -29,7 +29,7 @@ public abstract class DoorActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_STATE);
+        entity.getEvents().trigger(UPDATE_ANIMATION, animations[CLOSED_STATE]);
     }
 
     @Override
@@ -56,10 +56,10 @@ public abstract class DoorActions extends InteractionComponent {
     public void toggleHighlight(boolean shouldHighlight) {
         if (shouldHighlight && !isOpened) {
             logger.debug("DOOR started collision with PLAYER, highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_HL_STATE);
+            entity.getEvents().trigger(UPDATE_ANIMATION, animations[CLOSED_HL_STATE]);
         }  else if (!isOpened) {
             logger.debug("DOOR ended collision with PLAYER, un-highlighting door");
-            entity.getEvents().trigger(UPDATE_ANIMATION, CLOSED_STATE);
+            entity.getEvents().trigger(UPDATE_ANIMATION, animations[CLOSED_STATE]);
         }
     }
 
