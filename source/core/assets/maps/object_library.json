@@ -160,8 +160,38 @@
     }
     washing_machine_0: {
       assets: [images/objects/chores/washing_machine_basket_on_top.png]
+    },
+    flowers_0: {
+      assets: [images/objects/backyard/flowers.png]
+    },
+    green_tree_0: {
+      assets: [images/objects/backyard/green_tree.png]
+    },
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+    },
+    jungle_0: {
+      assets: [images/objects/backyard/jungle.png]
+    },
+    red_tree_0: {
+      assets: [images/objects/backyard/red_tree.png]
+    },
+    shovel_0: {
+      assets: [images/objects/backyard/shovel.png]
+    },
+    small_tree_0: {
+      assets: [images/objects/backyard/small_tree.png]
+    },
+    snail_0: {
+      assets: [images/objects/backyard/snail.png]
+    },
+    stakes_0: {
+      assets: [images/objects/backyard/stakes.png]
+    },
+    stump_0: {
+      assets: [images/objects/backyard/stump.png]
     }
-  }
+  },
   interactive: {
     // DEFAULT: HITBOX = [1,1,0,0]
     // CASCADES DOWN TO OBJECT
