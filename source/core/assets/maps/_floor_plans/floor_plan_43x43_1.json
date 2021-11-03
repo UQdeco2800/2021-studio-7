@@ -9,6 +9,7 @@
     .: [object_wall_1, 0]              // Exterior wall
     -: [interactive_door_wood_0_h, 0]  // Horizontal door. In isometric view, this is northwest to southeast
     |: [interactive_door_wood_0_v, 0]  // Vertical door. In isometric view, this is northeast to southwest
+    m: [misc_mum_spawn_0, 0]           // Where the mum spawns for the timer ending cinematic
 //  *: [nothing, 0]                    // Nothing. Used for opening up rooms where no walls are desired
   }
   roomMap: {
@@ -38,7 +39,7 @@
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, F, F, F, F, F, F, F, F, F, F, F, F, ., _, _, _, _, _, _, _, _, _, _],
     [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, F, F, F, F, F, F, F, F, F, F, F, F, ., _, _, _, _, _, _, _, _, _, _],
-    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, F, F, F, F, F, F, F, F, F, F, F, F, ., _, _, _, _, _, _, _, _, _, _],
+    [_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, F, F, F, F, F, F, F, F, F, F, F, F, ., _, m, _, _, _, _, _, _, _, _],
     [_, _, A, A, A, A, A, A, A, A, A, D, D, D, D, D, D, D, D, D, F, F, F, F, F, F, F, F, F, F, F, F, G, G, -, G, G, ., _, _, _, _, _],
     [_, _, A, A, A, A, A, A, A, A, A, D, D, D, D, D, D, D, D, D, F, F, F, F, F, F, F, F, F, F, F, F, G, G, G, G, G, ., _, _, _, _, _],
     [_, _, A, A, A, A, A, A, A, A, A, D, D, D, D, D, D, D, D, D, F, F, F, F, F, F, F, F, F, F, F, F, G, G, G, G, G, ., _, _, _, _, _],

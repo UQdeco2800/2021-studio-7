@@ -85,8 +85,6 @@
       scale: [1.5, 1]
       collider: [1, 2, 0, 0]
     }
-    invisible_0: {
-    }
     lamp_0: {
       assets: [images/objects/furniture/sofaside-lamp.png]
       scale: [0.5, 1]
@@ -261,7 +259,6 @@
     mum_0: {
       method: com.deco2800.game.entities.factories.NPCFactory.createMum
       assets: [images/characters/mum_01/mum_01.atlas]
-      scale: [0.9, 0.9]
       physics: DYNAMIC
       collider: [0.5, 0.5, 0, 0]
       hitbox: [1.1, 1.1, 0, 0]
@@ -273,7 +270,6 @@
     cat_0: {
       method: com.deco2800.game.entities.factories.NPCFactory.createCat
       assets: [images/characters/cat_00/cat_00.atlas]
-      scale: [0.8, 0.8]
       physics: DYNAMIC
       collider: [0.5, 0.5, 0, 0]
       hitbox: [1.1, 1.1, 0, 0]
@@ -281,6 +277,13 @@
         com.deco2800.game.entities.components.object.CatActions,
         com.deco2800.game.physics.components.PhysicsMovementComponent
       ]
+    }
+  }
+  misc: {
+    invisible_0: {
+    }
+    mum_spawn_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMumSpawn
     }
   }
 }

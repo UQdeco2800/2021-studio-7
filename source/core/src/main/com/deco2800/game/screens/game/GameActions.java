@@ -95,7 +95,7 @@ public class GameActions extends RetroactiveActions {
 
     public void onTimerEnded() {
         logger.debug("Queueing timer ended lose screen transition");
-        screen.queueNextScreen(GdxGame.ScreenType.LOSS_TIMED);
+        ServiceLocator.getHome().getFloor().createMum();
     }
 
     @Override

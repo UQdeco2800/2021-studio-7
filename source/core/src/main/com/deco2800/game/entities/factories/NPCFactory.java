@@ -27,13 +27,13 @@ import com.deco2800.game.physics.components.PhysicsMovementComponent;
 @SuppressWarnings("unused")
 public class NPCFactory {
 
+    public static Entity createMumSpawn(ObjectDescription desc, GridPoint2 worldPos) {
+        ServiceLocator.getHome().getFloor().stashMumPosition(worldPos);
+        return null;
+    }
+
     public static Entity createMum(ObjectDescription desc, GridPoint2 worldPos) {
-        ObjectData data = desc.getData();
-        Entity mum = createNPC(desc, worldPos)
-            .addComponent(new AITaskComponent()
-                .addTask(new MumWaitTask())
-                .addTask(new ChaseTask(ServiceLocator.getHome().getScreen().getPlayer(), 10, 5f, 8f)));
-        return mum;
+        return createNPC(desc, worldPos);
     }
 
     public static Entity createCat(ObjectDescription desc, GridPoint2 worldPos) {

@@ -40,6 +40,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     private GridPoint2 dimensions;
     // Defined on initialisation
     private Home home;
+    private GridPoint2 mumPosition;
     private final List<GridPoint2> bedPositions = new ArrayList<>();
 
     public void initialise() {
@@ -121,7 +122,6 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         createPlayer();
         createBorders();
         createCat();
-        createMum();
         createBeds();
     }
 
@@ -191,7 +191,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      * Creates border walls into the world. These borders outline the map given by the floor grid
      */
     private void createBorders() {
-        ObjectDescription invisibleDesc = new ObjectDescription(Home.getObject("object_invisible_0"), 0);
+        ObjectDescription invisibleDesc = new ObjectDescription(Home.getObject("misc_invisible_0"), 0);
         // Creates north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
             createGridEntity(invisibleDesc, new GridPoint2(x, -1));
@@ -208,8 +208,11 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         createGridEntity(new ObjectDescription(Home.getObject("npc_cat_0"), 0), new GridPoint2(20, 20));
     }
 
-    private void createMum() {
-        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), new GridPoint2(24, 0));
+    public void createMum() {
+        if (mumPosition == null) {
+            mumPosition = new GridPoint2(0, 0);
+        }
+        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), mumPosition);
     }
 
     private void createBeds() {
@@ -257,6 +260,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
 
     public void stashBedPosition(GridPoint2 worldPos) {
         bedPositions.add(worldPos);
+    }
+
+    public void stashMumPosition(GridPoint2 worldPos) {
+        mumPosition = worldPos;
     }
 
     @Override
