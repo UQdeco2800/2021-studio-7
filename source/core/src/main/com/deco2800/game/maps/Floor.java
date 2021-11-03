@@ -30,7 +30,8 @@ import java.util.Objects;
  */
 public class Floor extends RetroactiveArea implements Json.Serializable {
     // Defined on deserialization
-    private ObjectDescription defaultTile;
+    private ObjectDescription defaultInteriorTile;
+    private ObjectDescription defaultExteriorTile;
     private ObjectDescription defaultWall;
     private ObjectMap<Character, ObjectDescription> tileMap;
     private ObjectMap<Character, ObjectDescription> entityMap;
@@ -59,7 +60,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      */
     private void createAllTiles() {
         TextureRegion textureRegion = new TextureRegion(
-            ServiceLocator.getResourceService().getAsset(defaultTile.getData().getAssets()[0], Texture.class));
+            ServiceLocator.getResourceService().getAsset(defaultInteriorTile.getData().getAssets()[0], Texture.class));
 
         TiledMapTileLayer layer = new TiledMapTileLayer(
             dimensions.x, dimensions.y,
@@ -81,7 +82,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
                 }
                 ObjectDescription entityDesc = entityMap.get(symbol);
                 if (entityDesc != null && layer.getCell(x, y) == null) {
-                    createGridTile(defaultTile, new GridPoint2(x, y), layer);
+                    createGridTile(defaultExteriorTile, new GridPoint2(x, y), layer);
                 }
             }
         }
@@ -133,7 +134,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      */
     public void createGridTile(ObjectDescription tileDesc, GridPoint2 worldPos, TiledMapTileLayer layer) {
         if (tileDesc == null) {
-            tileDesc = defaultTile;
+            tileDesc = defaultInteriorTile;
         }
         try {
             TerrainTile tile = (TerrainTile) tileDesc.getData().getMethod().invoke(null, tileDesc, worldPos);
@@ -230,10 +231,6 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         bedPositions.add(playerBedPosition);
     }
 
-    public ObjectDescription getDefaultTile() {
-        return defaultTile;
-    }
-
     public ObjectDescription getDefaultWall() {
         return defaultWall;
     }
@@ -276,9 +273,14 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     public void read(Json json, JsonValue jsonData) {
         try {
             JsonValue iterator = jsonData.child();
-            FileLoader.assertJsonValueName(iterator, "defaultTile");
+            FileLoader.assertJsonValueName(iterator, "defaultInteriorTile");
             String[] desc = iterator.asStringArray();
-            defaultTile = new ObjectDescription(Home.getObject(desc[0]), Integer.parseInt(desc[1]));
+            defaultInteriorTile = new ObjectDescription(Home.getObject(desc[0]), Integer.parseInt(desc[1]));
+
+            iterator = iterator.next();
+            FileLoader.assertJsonValueName(iterator, "defaultExteriorTile");
+            desc = iterator.asStringArray();
+            defaultExteriorTile = new ObjectDescription(Home.getObject(desc[0]), Integer.parseInt(desc[1]));
 
             iterator = iterator.next();
             FileLoader.assertJsonValueName(iterator, "defaultWall");
@@ -332,7 +334,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             return false;
         }
         Floor floor = (Floor) o;
-        return Objects.equals(defaultTile, floor.defaultTile) &&
+        return Objects.equals(defaultInteriorTile, floor.defaultInteriorTile) &&
             Objects.equals(defaultWall, floor.defaultWall) &&
             Objects.equals(tileMap, floor.tileMap) &&
             Objects.equals(entityMap, floor.entityMap) &&
@@ -343,7 +345,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(defaultTile, defaultWall, tileMap, entityMap, roomMap, dimensions);
+        int result = Objects.hash(defaultInteriorTile, defaultWall, tileMap, entityMap, roomMap, dimensions);
         result = 31 * result + Arrays.deepHashCode(floorGrid);
         return result;
     }

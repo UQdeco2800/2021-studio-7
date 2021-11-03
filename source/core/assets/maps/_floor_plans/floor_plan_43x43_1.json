@@ -1,5 +1,6 @@
 {
-  defaultTile: [tile_wood_0, 0]
+  defaultInteriorTile: [tile_wood_0, 0]
+  defaultExteriorTile: [tile_grass_0, 0]
   defaultWall: [object_wall_0, 0]
   tileMap: {
     _: [tile_grass_0, 0]               // Grass
