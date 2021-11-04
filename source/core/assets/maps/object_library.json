@@ -185,10 +185,6 @@
     small_tree_0: {
       assets: [images/objects/backyard/small_tree.png]
     },
-    snail_0: {
-      assets: [images/objects/backyard/snail.png]
-      scale: [1.5, 1.5]
-    },
     stakes_0: {
       assets: [images/objects/backyard/stakes.png]
     },
@@ -228,6 +224,20 @@
     door_wood_0_v: {
       assets: [images/objects/door/door_animation.atlas]
       misc: [com.deco2800.game.entities.components.object.VerticalDoorActions]
+    }
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+      scale: [1.5, 1.5]
+      collider: [1, 1, 0, 0.5]
+      hitbox: [1, 1, 0, 0.5]
+      misc: [com.deco2800.game.entities.components.object.AdviceActions]
+    }
+    snail_0: {
+      assets: [images/objects/backyard/snail.png]
+      scale: [1.5, 1.5]
+      collider: [1, 1, 0, 0.5]
+      hitbox: [1, 1, 0, 0.5]
+      misc: [com.deco2800.game.entities.components.object.AdviceActions]
     }
   }
   chore: {
