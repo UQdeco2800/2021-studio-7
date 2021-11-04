@@ -27,12 +27,13 @@ public class CameraComponent extends Component {
   public void create() {
     super.create();
     target = entity;
-    camera.position.set(entity.getPosition(), HEIGHT);
+    camera.position.set(entity.getPosition(), 0f);
+    ((OrthographicCamera) camera).zoom += HEIGHT;
   }
 
   @Override
   public void update() {
-    Vector3 targetPos = new Vector3(target.getPosition(), HEIGHT);
+    Vector3 targetPos = new Vector3(target.getPosition(), 0f);
     Vector3 cameraPos = camera.position;
     if (!lastPosition.epsilonEquals(target.getPosition())) {
       final float speed = 0.1f, ispeed = 1.0f - speed;
