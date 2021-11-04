@@ -16,7 +16,7 @@ public class TimerWidget extends RetroactiveWidget {
     private static final String TIMER_BACKGROUND = "images/ui/elements/Textbox_256.png";
     private static final int TIMER_START = 2300;
     private static final int TIMER_END = 200;
-    private static final long TIMER_TICK_RATE = 500L;
+    private static final long TIMER_TICK_RATE = 2000L;
     private long lastTime = 0L;
     private Label timerLabel;
     private TimerStatus timerStatus = TimerStatus.NORMAL;
@@ -45,6 +45,10 @@ public class TimerWidget extends RetroactiveWidget {
 
     public int getMinutes() {
         return timerTime % 100;
+    }
+
+    public void setTimerTime(int timerTime) {
+        this.timerTime = timerTime;
     }
 
     @Override

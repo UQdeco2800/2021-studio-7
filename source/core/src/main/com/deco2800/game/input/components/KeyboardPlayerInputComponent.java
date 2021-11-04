@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.generic.ServiceLocator;
 import com.deco2800.game.screens.game.GameScreen;
+import com.deco2800.game.screens.game.TimerWidget;
 import com.deco2800.game.utils.math.Vector2Utils;
 
 /**
@@ -69,6 +70,9 @@ public class KeyboardPlayerInputComponent extends InputComponent {
                 return true;
             case Keys.O:
                 ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("toggle_chores");
+                return true;
+            case Keys.MINUS:
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getComponent(TimerWidget.class).setTimerTime(155);
                 return true;
             default:
                 return false;
