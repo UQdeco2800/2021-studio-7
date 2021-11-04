@@ -41,12 +41,15 @@ public class PlayerFactory {
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
   public static Entity createPlayer(String[] assets) {
+    ScoreComponent score = new ScoreComponent(0);
+    ServiceLocator.registerScoreComponent(score);
+
     Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new PlayerStatDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new ScoreComponent(2500))
+            .addComponent(score)
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new AITaskComponent().addTask(new SlipTask()));
 

@@ -5,6 +5,7 @@ import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.chores.ChoreUI;
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.entities.components.player.CameraComponent;
 import com.deco2800.game.entities.factories.PlayerFactory;
 import com.deco2800.game.generic.ServiceLocator;
