@@ -35,15 +35,15 @@
     }
     bench_top_0: {
       assets: [images/objects/furniture/new_kitchen_table.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_1: {
       assets: [images/objects/furniture/new_kitchen_sink.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bench_top_2: {
       assets: [images/objects/furniture/new_kitchen_stove.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [1, 1, 0, 0]
     }
     bin_0: {
       assets: [images/objects/furniture/bath_bin.png]
@@ -64,7 +64,7 @@
     clothes_drying_rack_0: {
       assets: [images/objects/furniture/clothes-drying-rack.png]
       scale: [2, 2]
-      collider: [1, 2, 0, 0]
+      collider: [2, 1, 0, 0]
     }
     desk_0: {
       assets: [images/objects/furniture/desk_southeast.png]
@@ -83,18 +83,16 @@
     game_table_0: {
       assets: [images/objects/furniture/game-table.png]
       scale: [1.5, 1]
-      collider: [1, 2, 0, 0]
-    }
-    invisible_0: {
+      collider: [1, 1.5, 0, 0]
     }
     lamp_0: {
       assets: [images/objects/furniture/sofaside-lamp.png]
-      scale: [0.5, 1]
-      collider: [0.5, 0.5, 1, 1]
+      scale: [1, 1]
+      collider: [0.5, 0.5, 0, 0]
     }
     nintendo_0: {
       assets: [images/objects/furniture/Nintendo_southeast.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [0.5, 0.5, 0, 0]
     }
     pet_bed_0: {
       assets: [images/objects/furniture/pet-met.png]
@@ -122,12 +120,12 @@
     sofa_large_0: {
       assets: [images/objects/furniture/sofa-large.png]
       scale: [2, 1]
-      collider: [1, 2.5, 0.5, 0]
+      collider: [1, 2.5, -0.5, 0]
     }
     sofa_large_1: {
       assets: [images/objects/furniture/sofa-back.png]
       scale: [2, 1]
-      collider: [2.5, 1, 0.5, 0]
+      collider: [2.5, 1, 0.35, 0]
     }
     sofa_small_0: {
       assets: ["images/objects/furniture/sofa-left.png"
@@ -160,8 +158,42 @@
     }
     washing_machine_0: {
       assets: [images/objects/chores/washing_machine_basket_on_top.png]
+    },
+    flowers_0: {
+      assets: [images/objects/backyard/flowers.png]
+    },
+    green_tree_0: {
+      assets: [images/objects/backyard/green_tree.png]
+      scale: [2, 2]
+    },
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+      scale: [1, 1]
+    },
+    jungle_0: {
+      assets: [images/objects/backyard/jungle.png]
+      scale: [1, 1]
+    },
+    red_tree_0: {
+      assets: [images/objects/backyard/red_tree.png]
+      scale: [2, 2]
+    },
+    shovel_0: {
+      assets: [images/objects/backyard/shovel.png]
+      scale: [2, 2]
+    },
+    small_tree_0: {
+      assets: [images/objects/backyard/small_tree.png]
+    },
+    stakes_0: {
+      assets: [images/objects/backyard/stakes.png]
+    },
+    stump_0: {
+      assets: [images/objects/backyard/stump.png]
+      scale: [2, 2]
+      collider: [1, 1, 0, 0]
     }
-  }
+  },
   interactive: {
     // DEFAULT: HITBOX = [1,1,0,0]
     // CASCADES DOWN TO OBJECT
@@ -172,6 +204,13 @@
       scale: [1.5, 1]
       collider: [1, 2, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BedActions]
+    }
+    bed_1: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
+      assets: [images/objects/foreign_bed/foreign_bed.atlas]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+      misc: [com.deco2800.game.entities.components.object.ForeignBedActions]
     }
     box_0: {
       assets: [images/objects/box/box.atlas]
@@ -186,6 +225,20 @@
       assets: [images/objects/door/door_animation.atlas]
       misc: [com.deco2800.game.entities.components.object.VerticalDoorActions]
     }
+    groundhog_0: {
+      assets: [images/objects/backyard/groundhog.png]
+      scale: [1.5, 1.5]
+      collider: [1, 1, 0, 0.5]
+      hitbox: [1, 1, 0, 0.5]
+      misc: [com.deco2800.game.entities.components.object.AdviceActions]
+    }
+    snail_0: {
+      assets: [images/objects/backyard/snail.png]
+      scale: [1.5, 1.5]
+      collider: [1, 1, 0, 0.5]
+      hitbox: [1, 1, 0, 0.5]
+      misc: [com.deco2800.game.entities.components.object.AdviceActions]
+    }
   }
   chore: {
     // CASCADES DOWN TO INTERACTIVE
@@ -199,18 +252,23 @@
     book_0: {
       assets: [images/objects/chores/dropped_book_blue.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_1: {
       assets: [images/objects/chores/dropped_book_red.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
+      hitbox: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
     book_2: {
       assets: [images/objects/chores/dropped_books.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
@@ -247,23 +305,29 @@
     trash_0: {
       assets: [images/objects/chores/empty_can.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
     }
     trash_1: {
       assets: [images/objects/chores/paper_ball.atlas]
       physics: DYNAMIC
+      collider: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.TrashActions]
       chore: TRASH
+    }
+    shrub_0: {
+      assets: [images/objects/shrub/shrub_animation.atlas]
+      misc: [com.deco2800.game.entities.components.object.ShrubActions]
+      chore: SHRUB
     }
   }
   npc: {
     mum_0: {
       method: com.deco2800.game.entities.factories.NPCFactory.createMum
       assets: [images/characters/mum_01/mum_01.atlas]
-      scale: [0.9, 0.9]
       physics: DYNAMIC
-      collider: [0.5, 0.5, 0, 0]
+      collider: [0.5, 0.5, 0, 0.2]
       hitbox: [1.1, 1.1, 0, 0]
       misc: [
         com.deco2800.game.entities.components.npc.MumActions,
@@ -273,7 +337,6 @@
     cat_0: {
       method: com.deco2800.game.entities.factories.NPCFactory.createCat
       assets: [images/characters/cat_00/cat_00.atlas]
-      scale: [0.8, 0.8]
       physics: DYNAMIC
       collider: [0.5, 0.5, 0, 0]
       hitbox: [1.1, 1.1, 0, 0]
@@ -281,6 +344,17 @@
         com.deco2800.game.entities.components.object.CatActions,
         com.deco2800.game.physics.components.PhysicsMovementComponent
       ]
+    }
+  }
+  misc: {
+    invisible_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createObject
+    }
+    mum_spawn_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMumSpawn
+    }
+    mum_target_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMumTarget
     }
   }
 }

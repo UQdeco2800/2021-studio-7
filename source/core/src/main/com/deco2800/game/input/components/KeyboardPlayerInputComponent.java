@@ -33,7 +33,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyDown(int keycode) {
-        if (ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
+        if (!enabled || ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
             return false;
         }
         switch (keycode) {
@@ -83,7 +83,7 @@ public class KeyboardPlayerInputComponent extends InputComponent {
      */
     @Override
     public boolean keyUp(int keycode) {
-        if (ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
+        if (!enabled || ServiceLocator.getScreen(GameScreen.class).isGamePaused()) {
             return false;
         }
         switch (keycode) {

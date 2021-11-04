@@ -27,12 +27,19 @@ public class TrashActions extends InteractionComponent {
             logger.debug("PLAYER interacted with Trash");
             startTime = ServiceLocator.getTimeSource().getTime();
             hasInteracted = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
+            //entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
         }
     }
 
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
+        if (shouldHighlight) {
+            logger.debug("TRASH started collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "trash_highlight");
+        } else {
+            logger.debug("TRASH ended collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "trash");
+        }
     }
 
     @Override

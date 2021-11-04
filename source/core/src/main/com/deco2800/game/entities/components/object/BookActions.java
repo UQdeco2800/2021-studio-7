@@ -27,12 +27,19 @@ public class BookActions extends InteractionComponent {
             logger.debug("PLAYER interacted with Book");
             startTime = ServiceLocator.getTimeSource().getTime();
             hasInteracted = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
+            //entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
         }
     }
 
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
+        if (shouldHighlight) {
+            logger.debug("BOOK started collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book_highlight");
+        } else {
+            logger.debug("BOOK ended collision with PLAYER");
+            entity.getEvents().trigger(UPDATE_ANIMATION, "dropped_book");
+        }
     }
 
     @Override

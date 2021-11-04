@@ -40,6 +40,8 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     private GridPoint2 dimensions;
     // Defined on initialisation
     private Home home;
+    private GridPoint2 mumSpawnPos;
+    private GridPoint2 mumTargetPos;
     private final List<GridPoint2> bedPositions = new ArrayList<>();
 
     public void initialise() {
@@ -121,7 +123,6 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         createPlayer();
         createBorders();
         createCat();
-        createMum();
         createBeds();
     }
 
@@ -160,7 +161,11 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             Entity entity = (Entity) entityDesc.getData().getMethod().invoke(null, entityDesc, worldPos);
             createEntityAt(entity, worldPos, true, true);
         } catch (Exception e) {
-            logger.error("Error invoking {} creation", Home.getObjectName(entityDesc.getData()));
+            String objectName = Home.getObjectName(entityDesc.getData());
+            if (objectName != null && !objectName.contains("invisible")
+                && !objectName.contains("bed") && !objectName.contains("misc")) {
+                logger.error("Error invoking {} creation", objectName);
+            }
         }
     }
 
@@ -191,7 +196,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
      * Creates border walls into the world. These borders outline the map given by the floor grid
      */
     private void createBorders() {
-        ObjectDescription invisibleDesc = new ObjectDescription(Home.getObject("object_invisible_0"), 0);
+        ObjectDescription invisibleDesc = new ObjectDescription(Home.getObject("misc_invisible_0"), 0);
         // Creates north and south borders, left to right
         for (int x = -1; x < floorGrid.length + 1; x++) {
             createGridEntity(invisibleDesc, new GridPoint2(x, -1));
@@ -208,13 +213,16 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         createGridEntity(new ObjectDescription(Home.getObject("npc_cat_0"), 0), new GridPoint2(20, 20));
     }
 
-    private void createMum() {
-        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), new GridPoint2(24, 0));
+    public void createMum() {
+        if (mumSpawnPos == null) {
+            mumSpawnPos = new GridPoint2(0, 0);
+        }
+        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), mumSpawnPos);
     }
 
     private void createBeds() {
         ObjectData playerBed = Home.getObject("interactive_bed_0");
-        ObjectData normalBed = Home.getObject("object_bed_0");
+        ObjectData normalBed = Home.getObject("interactive_bed_1");
         if (playerBed == null || normalBed == null) {
             throw new NullPointerException("Player or normal bed objects couldn't be retrieved");
         }
@@ -251,12 +259,24 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         return floorGrid;
     }
 
+    public GridPoint2 getMumTargetPos() {
+        return mumTargetPos;
+    }
+
     public void setHome(Home home) {
         this.home = home;
     }
 
     public void stashBedPosition(GridPoint2 worldPos) {
         bedPositions.add(worldPos);
+    }
+
+    public void stashMumSpawnPosition(GridPoint2 worldPos) {
+        mumSpawnPos = worldPos;
+    }
+
+    public void stashMumTargetPosition(GridPoint2 worldPos) {
+        mumTargetPos = worldPos;
     }
 
     @Override

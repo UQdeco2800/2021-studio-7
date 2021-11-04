@@ -72,6 +72,9 @@ public class ChoreUI extends RetroactiveWidget {
             for (Chore chore : chores) {
                 choreText.append(chore.getDescription()).append("\n");
             }
+        } else if (ServiceLocator.getGame().getLevel() == 1) {
+            choreText.append("No chores tonight, get to bed!");
+
         } else {
             choreText.append("Chores complete, get to bed!");
         }

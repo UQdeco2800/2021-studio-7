@@ -123,4 +123,8 @@ public class ChoreController {
         }
         return null;
     }
+
+    public boolean choresComplete() {
+        return chores.isEmpty();
+    }
 }

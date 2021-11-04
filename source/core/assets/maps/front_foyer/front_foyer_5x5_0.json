@@ -3,7 +3,6 @@
   }
   entityMap: {
     W: [object_wall_0, 0]
-    P: [chore_plant_0, 0]
   }
   tileGrid: [
     [., ., ., ., ., .]
@@ -16,7 +15,7 @@
   entityGrid: [
     [W, W, W, W, W, W]
     [W, ., ., ., ., W]
-    [W, ., P, ., ., W]
+    [W, ., ., ., ., W]
     [W, ., ., ., ., W]
     [W, ., ., ., ., W]
     [W, W, W, W, W, W]

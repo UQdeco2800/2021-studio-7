@@ -6,6 +6,7 @@ import com.badlogic.gdx.Graphics.Monitor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -27,6 +28,7 @@ public class SettingsDisplay extends RetroactiveDisplay {
     @Override
     public void create() {
         super.create();
+        table.setTouchable(Touchable.enabled);
 
         Label title = new Label("Settings", skin, "title");
         Table settingsTable = createSettingsTable();

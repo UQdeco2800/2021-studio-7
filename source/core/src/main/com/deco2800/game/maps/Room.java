@@ -289,7 +289,7 @@ public class Room implements Json.Serializable {
     }
 
     private static final String[] validRoomTypes = {
-        "bathroom", "bedroom", "dining", "front_foyer", "garage", "hallway", "kitchen", "laundry", "living"
+        "bathroom", "bedroom", "dining", "front_foyer", "garage", "hallway", "kitchen", "laundry", "living", "garden"
     };
 
     private static final String[] validCreateRooms = {
