@@ -27,6 +27,7 @@ public class MumActions extends InteractionComponent {
     private Vector2 dest;
     private long startWaitTime;
     private long startActionTime;
+    private String PROMPT_MESSAGE= "What are you still doing awake!? When I get my hands on you...!";
 
     @Override
     public void create() {
@@ -35,6 +36,7 @@ public class MumActions extends InteractionComponent {
         movementComponent = entity.getComponent(PhysicsMovementComponent.class);
         entity.getEvents().trigger("update_animation", "standing_south");
         bringCameraToMum();
+
     }
 
     @Override
@@ -46,6 +48,8 @@ public class MumActions extends InteractionComponent {
         } else if (phase.equals(MumCinematicPhase.WALK)) {
             if (Math.abs(dest.dst(entity.getPosition())) < 0.2) {
                 waitInHome();
+                String text = ServiceLocator.getGame().getUsername();
+                ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("create_textbox", text + PROMPT_MESSAGE);
             }
         } else if (phase.equals(MumCinematicPhase.WAIT)) {
             if (ServiceLocator.getTimeSource().getTime() - startWaitTime >= WAIT_TIME_LENGTH) {
