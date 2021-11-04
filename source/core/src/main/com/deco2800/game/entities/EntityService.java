@@ -53,7 +53,7 @@ public class EntityService {
   }
 
   public void scheduleEntityForRemoval(Entity entity) {
-    logger.info("Scheduling entity {} for removal", entity);
+    logger.debug("Scheduling entity {} for removal", entity);
     entitiesScheduledForRemoval.add(entity);
   }
 

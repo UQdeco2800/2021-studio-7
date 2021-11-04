@@ -27,7 +27,7 @@ public class BookActions extends InteractionComponent {
             logger.debug("PLAYER interacted with Book");
             startTime = ServiceLocator.getTimeSource().getTime();
             hasInteracted = true;
-            entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
+            //entity.getEvents().trigger(UPDATE_ANIMATION, "dust1");
         }
     }
 

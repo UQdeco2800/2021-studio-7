@@ -77,6 +77,7 @@ public class MumActions extends InteractionComponent {
         GridPoint2 targetPos = ServiceLocator.getHome().getFloor().getMumTargetPos();
         dest = ServiceLocator.getHome().getFloor().getTerrain().tileToWorldPosition(targetPos);
         movementComponent.setTarget(dest);
+        movementComponent.setMaxSpeed(new Vector2(3f, 3f));
         movementComponent.setMoving(true);
     }
 
