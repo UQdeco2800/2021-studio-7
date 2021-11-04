@@ -9,12 +9,12 @@
     .: [object_wall_1, 0]              // Exterior wall
     -: [interactive_door_wood_0_h, 0]  // Horizontal door. In isometric view, this is northwest to southeast
     |: [interactive_door_wood_0_v, 0]  // Vertical door. In isometric view, this is northeast to southwest
+    $: [interactive_snail_0, 0]
     m: [misc_mum_spawn_0, 0]           // Where the mum spawns for the timer ending cinematic
     n: [misc_mum_target_0, 0]
     !: [object_flowers_0, 0]
     @: [object_red_tree_0, 0]
     #: [object_groundhog_0, 0]
-    $: [object_snail_0, 0]
     %: [object_shovel_0, 0]
     ^: [object_small_tree_0, 0]
     &: [object_stump_0, 0]

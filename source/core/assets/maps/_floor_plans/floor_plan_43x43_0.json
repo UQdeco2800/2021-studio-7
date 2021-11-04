@@ -13,10 +13,9 @@
     n: [misc_mum_target_0, 0]
     !: [object_flowers_0, 0]
     @: [object_small_tree_0, 0]
-    #: [object_groundhog_0, 0]
+    #: [interactive_groundhog_0, 0]
     $: [object_green_tree_0, 0]
     %: [object_stump_0, 0]
-    ^: [object_snail_0, 0]
 //  *: [nothing, 0]                    // Nothing. Used for opening up rooms where no walls are desired
   },
   roomMap: {
