@@ -64,7 +64,7 @@
     clothes_drying_rack_0: {
       assets: [images/objects/furniture/clothes-drying-rack.png]
       scale: [2, 2]
-      collider: [1, 2, 0, 0]
+      collider: [2, 1, 0, 0]
     }
     desk_0: {
       assets: [images/objects/furniture/desk_southeast.png]
@@ -83,18 +83,18 @@
     game_table_0: {
       assets: [images/objects/furniture/game-table.png]
       scale: [1.5, 1]
-      collider: [1, 2, 0, 0]
+      collider: [1, 1.5, 0, 0]
     }
     invisible_0: {
     }
     lamp_0: {
       assets: [images/objects/furniture/sofaside-lamp.png]
-      scale: [0.5, 1]
-      collider: [0.5, 0.5, 1, 1]
+      scale: [1, 1]
+      collider: [0.5, 0.5, 0, 0]
     }
     nintendo_0: {
       assets: [images/objects/furniture/Nintendo_southeast.png]
-      collider: [0.5, 1.5, 0, 0]
+      collider: [0.5, 0.5, 0, 0]
     }
     pet_bed_0: {
       assets: [images/objects/furniture/pet-met.png]
@@ -122,12 +122,12 @@
     sofa_large_0: {
       assets: [images/objects/furniture/sofa-large.png]
       scale: [2, 1]
-      collider: [1, 2.5, 0.5, 0]
+      collider: [1, 2.5, -0.5, 0]
     }
     sofa_large_1: {
       assets: [images/objects/furniture/sofa-back.png]
       scale: [2, 1]
-      collider: [2.5, 1, 0.5, 0]
+      collider: [2.5, 1, 0.35, 0]
     }
     sofa_small_0: {
       assets: ["images/objects/furniture/sofa-left.png"
@@ -238,6 +238,7 @@
       assets: [images/objects/chores/dropped_book_blue.atlas]
       physics: DYNAMIC
       collider: [0.5, 0.5, 0, 0]
+      hitbox: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }
@@ -245,6 +246,7 @@
       assets: [images/objects/chores/dropped_book_red.atlas]
       physics: DYNAMIC
       collider: [0.5, 0.5, 0, 0]
+      hitbox: [0.5, 0.5, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BookActions]
       chore: BOOKS
     }

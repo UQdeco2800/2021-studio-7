@@ -1,26 +1,26 @@
 plant_animation.png
-size: 768, 256
+size: 576, 192
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 plant
   rotate: false
   xy: 0, 0
-  size: 256, 256
-  orig: 256, 256
+  size: 192, 192
+  orig: 192, 192
   offset: 0, 0
   index: -1
 plant_highlight
   rotate: false
-  xy: 256, 0
-  size: 256, 256
-  orig: 256, 256
+  xy: 192, 0
+  size: 192, 192
+  orig: 192, 192
   offset: 0, 0
   index: -1
 plant_off
   rotate: false
-  xy: 512, 0
-  size: 256, 256
-  orig: 256, 256
+  xy: 384, 0
+  size: 192, 192
+  orig: 192, 192
   offset: 0, 0
   index: -1
