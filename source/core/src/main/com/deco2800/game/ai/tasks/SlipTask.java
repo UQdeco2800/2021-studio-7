@@ -9,7 +9,7 @@ public class SlipTask extends DefaultTask implements PriorityTask{
 
     private static final Logger logger = LoggerFactory.getLogger(SlipTask.class);
 
-    private Vector2 slipRange = new Vector2(3,3);
+    private Vector2 slipRange = new Vector2(2,2);
     private Vector2 startPos;
     private MovementTask movementTask;
     private int priority = -1;
