@@ -40,7 +40,8 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     private GridPoint2 dimensions;
     // Defined on initialisation
     private Home home;
-    private GridPoint2 mumPosition;
+    private GridPoint2 mumSpawnPos;
+    private GridPoint2 mumTargetPos;
     private final List<GridPoint2> bedPositions = new ArrayList<>();
 
     public void initialise() {
@@ -161,7 +162,8 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
             createEntityAt(entity, worldPos, true, true);
         } catch (Exception e) {
             String objectName = Home.getObjectName(entityDesc.getData());
-            if (objectName != null && !objectName.contains("invisible") && !objectName.contains("bed")) {
+            if (objectName != null && !objectName.contains("invisible")
+                && !objectName.contains("bed") && !objectName.contains("misc")) {
                 logger.error("Error invoking {} creation", objectName);
             }
         }
@@ -212,10 +214,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
     }
 
     public void createMum() {
-        if (mumPosition == null) {
-            mumPosition = new GridPoint2(0, 0);
+        if (mumSpawnPos == null) {
+            mumSpawnPos = new GridPoint2(0, 0);
         }
-        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), mumPosition);
+        createGridEntity(new ObjectDescription(Home.getObject("npc_mum_0"), 0), mumSpawnPos);
     }
 
     private void createBeds() {
@@ -257,6 +259,10 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         return floorGrid;
     }
 
+    public GridPoint2 getMumTargetPos() {
+        return mumTargetPos;
+    }
+
     public void setHome(Home home) {
         this.home = home;
     }
@@ -265,8 +271,12 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
         bedPositions.add(worldPos);
     }
 
-    public void stashMumPosition(GridPoint2 worldPos) {
-        mumPosition = worldPos;
+    public void stashMumSpawnPosition(GridPoint2 worldPos) {
+        mumSpawnPos = worldPos;
+    }
+
+    public void stashMumTargetPosition(GridPoint2 worldPos) {
+        mumTargetPos = worldPos;
     }
 
     @Override

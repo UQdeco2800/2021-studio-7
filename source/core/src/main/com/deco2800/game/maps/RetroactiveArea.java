@@ -71,6 +71,10 @@ public abstract class RetroactiveArea implements Disposable {
 
     public abstract void createUI();
 
+    public TerrainComponent getTerrain() {
+        return terrain;
+    }
+
     /**
      * Dispose of all internal entities in the area
      */

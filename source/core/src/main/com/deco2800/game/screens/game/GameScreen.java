@@ -144,4 +144,8 @@ public class GameScreen extends RetroactiveScreen {
     public Entity getPlayer() {
         return player;
     }
+
+    public Home getHome() {
+        return home;
+    }
 }

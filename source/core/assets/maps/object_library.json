@@ -308,7 +308,7 @@
       method: com.deco2800.game.entities.factories.NPCFactory.createMum
       assets: [images/characters/mum_01/mum_01.atlas]
       physics: DYNAMIC
-      collider: [0.5, 0.5, 0, 0]
+      collider: [0.5, 0.5, 0, 0.2]
       hitbox: [1.1, 1.1, 0, 0]
       misc: [
         com.deco2800.game.entities.components.npc.MumActions,
@@ -329,9 +329,13 @@
   }
   misc: {
     invisible_0: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createObject
     }
     mum_spawn_0: {
       method: com.deco2800.game.entities.factories.NPCFactory.createMumSpawn
+    }
+    mum_target_0: {
+      method: com.deco2800.game.entities.factories.NPCFactory.createMumTarget
     }
   }
 }

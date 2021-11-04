@@ -26,6 +26,8 @@ public abstract class DoorActions extends InteractionComponent {
     @Override
     public void create() {
         super.create();
+        entity.getEvents().addListener("mum_cinematic_close", this::onMumCinematicClose);
+        entity.getEvents().addListener("mum_cinematic_open", this::onMumCinematicOpen);
         entity.getEvents().trigger(UPDATE_ANIMATION, closedState);
     }
 
@@ -48,6 +50,18 @@ public abstract class DoorActions extends InteractionComponent {
             this.isOpened = true;
             entity.getEvents().trigger(UPDATE_ANIMATION, openState);
         }
+    }
+
+    public void onMumCinematicClose() {
+        entity.getComponent(ColliderComponent.class).setSensor(false);
+        this.isOpened = false;
+        entity.getEvents().trigger(UPDATE_ANIMATION, openState);
+    }
+
+    public void onMumCinematicOpen() {
+        entity.getComponent(ColliderComponent.class).setSensor(true);
+        this.isOpened = true;
+        entity.getEvents().trigger(UPDATE_ANIMATION, openState);
     }
 
     @Override

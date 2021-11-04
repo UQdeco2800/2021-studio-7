@@ -1,5 +1,6 @@
 package com.deco2800.game.entities.components.npc;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
@@ -18,60 +19,48 @@ import org.slf4j.LoggerFactory;
 
 public class MumActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(MumActions.class);
+    private static final long WAIT_TIME_LENGTH = 2000L;
+    private static final long ACTION_TIME_LENGTH = 3000L;
     private MumCinematicPhase phase;
-    private Entity closestDoor;
     private CameraComponent camera;
+    private PhysicsMovementComponent movementComponent;
     private Vector2 dest;
+    private long startWaitTime;
+    private long startActionTime;
 
     @Override
     public void create() {
         super.create();
+        targetLayer = PhysicsLayer.OBSTACLE;
+        movementComponent = entity.getComponent(PhysicsMovementComponent.class);
         entity.getEvents().trigger("update_animation", "standing_south");
-        findClosestDoor();
         bringCameraToMum();
     }
 
-    private void triggerPlayerCaught() {
-        logger.debug("MUM started collision with PLAYER, triggering player caught");
-        ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("player_caught");
-    }
-
-    private void findClosestDoor() {
-        phase = MumCinematicPhase.INIT;
-
-        // Derive coordinates from entity
-        Vector2 pos = entity.getPosition();
-
-        // Solve for direction vectors
-        Vector2[] direction = new Vector2[4];
-        direction[0] = new Vector2(pos.x, pos.y + 5);   // North
-        direction[1] = new Vector2(pos.x + 5, pos.y);   // South
-        direction[2] = new Vector2(pos.x, pos.y - 5);   // East
-        direction[3] = new Vector2(pos.x - 5, pos.y);   // West
-
-        // Find the closest door from the center of the mum
-        RaycastHit closest = null;
-        RaycastHit[] hits = new RaycastHit[4];
-        for (int i = 0; i < 4; i++) {
-            hits[i] = new RaycastHit();
-            if (ServiceLocator.getPhysicsService().getPhysics()
-                .raycast(pos, direction[i], PhysicsLayer.OBSTACLE, hits[i]) &&
-                (closest == null || hits[i].normal.dst(pos) < closest.normal.dst(pos))) {
-                Entity hitEntity = (Entity) hits[i].fixture.getBody().getUserData();
-                if (hitEntity.getComponent(VerticalDoorActions.class) != null ||
-                    hitEntity.getComponent(HorizontalDoorActions.class) != null) {
-                    closest = hits[i];
-                    closestDoor = hitEntity;
-                }
+    @Override
+    public void update() {
+        if (phase.equals(MumCinematicPhase.FOCUSING)) {
+            if (Math.abs(camera.getLastPosition().dst(entity.getPosition())) < 0.2) {
+                walkThroughDoor();
+            }
+        } else if (phase.equals(MumCinematicPhase.WALK)) {
+            if (Math.abs(dest.dst(entity.getPosition())) < 0.2) {
+                waitInHome();
+            }
+        } else if (phase.equals(MumCinematicPhase.WAIT)) {
+            if (ServiceLocator.getTimeSource().getTime() - startWaitTime >= WAIT_TIME_LENGTH) {
+                doMumAction();
+            }
+        } else if (phase.equals(MumCinematicPhase.ACTION)) {
+            if (ServiceLocator.getTimeSource().getTime() - startActionTime >= ACTION_TIME_LENGTH) {
+                catchPlayer();
             }
         }
+    }
 
-        // Interact with the closest hit
-        if (closestDoor != null) {
-            closestDoor.getEvents().trigger("interaction", entity);
-        } else {
-            throw new NullPointerException("Mum has no door to interact with");
-        }
+    @Override
+    public void onCollisionStart(Entity target) {
+        target.getEvents().trigger("mum_cinematic_open");
     }
 
     private void bringCameraToMum() {
@@ -82,48 +71,32 @@ public class MumActions extends InteractionComponent {
 
     }
 
-    @Override
-    public void update() {
-        if (phase.equals(MumCinematicPhase.FOCUSING)) {
-            if (camera.getLastPosition().epsilonEquals(entity.getPosition())) {
-                walkThroughDoor();
-            }
-        } else if (phase.equals(MumCinematicPhase.WALK)) {
-            if (entity.getPosition().epsilonEquals(dest)) {
-                waitInHome();
-            }
-        } else if (phase.equals(MumCinematicPhase.ACTION)) {
-            doMumAction();
-        }
-    }
-
     private void walkThroughDoor() {
         phase = MumCinematicPhase.WALK;
 
-        dest = entity.getPosition().sub(closestDoor.getPosition());
-        if (Math.abs(dest.x) > 0.5f) {
-            dest.x *= 2;
-        } else if (Math.abs(dest.y) > 0.5f) {
-            dest.y *= 2;
-        }
-        entity.getComponent(PhysicsMovementComponent.class).setTarget(dest);
-        entity.getComponent(PhysicsMovementComponent.class).setMoving(true);
+        GridPoint2 targetPos = ServiceLocator.getHome().getFloor().getMumTargetPos();
+        dest = ServiceLocator.getHome().getFloor().getTerrain().tileToWorldPosition(targetPos);
+        movementComponent.setTarget(dest);
+        movementComponent.setMoving(true);
     }
 
     private void waitInHome() {
         phase = MumCinematicPhase.WAIT;
 
-        try {
-            Thread.sleep(500L);
-        } catch (Exception e) {
-            logger.error("Couldn't force thread to sleep for 0.5 seconds");
-        }
-
-        phase = MumCinematicPhase.ACTION;
+        movementComponent.setMoving(false);
+        startWaitTime = ServiceLocator.getTimeSource().getTime();
     }
 
     private void doMumAction() {
-        logger.info("DOING MUM ACTION!!");
+        phase = MumCinematicPhase.ACTION;
+
+        startActionTime = ServiceLocator.getTimeSource().getTime();
+
+        logger.info("DO MUM ACTION!!");
+    }
+
+    private void catchPlayer() {
+        ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("player_caught");
     }
 
     private enum MumCinematicPhase {

@@ -2,6 +2,7 @@ package com.deco2800.game.screens.game;
 
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.input.components.KeyboardPlayerInputComponent;
 import com.deco2800.game.screens.RetroactiveActions;
 import com.deco2800.game.screens.SettingsDisplay;
 
@@ -95,7 +96,8 @@ public class GameActions extends RetroactiveActions {
 
     public void onTimerEnded() {
         logger.debug("Queueing timer ended lose screen transition");
-        ServiceLocator.getHome().getFloor().createMum();
+        screen.getPlayer().getComponent(KeyboardPlayerInputComponent.class).setEnabled(false);
+        screen.getHome().getFloor().createMum();
     }
 
     @Override
