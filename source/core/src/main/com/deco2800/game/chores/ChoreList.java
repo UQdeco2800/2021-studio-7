@@ -69,4 +69,14 @@ public enum ChoreList {
                 return null;
         }
     }
+
+    /*public String getComplete() {
+        switch(this) {
+            case TV:
+                return "Turning the TV off was hard... but now theres no evidence";
+            case DRINK:
+                return "Ah... now the temptation of energy drink is finally vanquished";
+            case DISHWASHER:
+        }
+    }*/
 }

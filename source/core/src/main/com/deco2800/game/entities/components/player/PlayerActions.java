@@ -50,7 +50,6 @@ public class PlayerActions extends Component {
           this.energydrinkticks = 0;
         }
       }
-      entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
     updateStamina();
