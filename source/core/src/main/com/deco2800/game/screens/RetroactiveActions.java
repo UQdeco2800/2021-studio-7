@@ -11,6 +11,7 @@ public abstract class RetroactiveActions extends Component implements Loadable {
     private static final String[] BACKGROUND_MUSICS = {
         "sounds/backgroundMusic-EP.mp3",
         "sounds/backgroundMusic-MG.mp3",
+        "sounds/backgroundMusic-MG-FAST.mp3",
         "sounds/8bit_game_win_sounds.mp3",
         "sounds/lose-caught.mp3",
         "sounds/time_up.mp3"
@@ -39,19 +40,21 @@ public abstract class RetroactiveActions extends Component implements Loadable {
             music = service.getAsset(BACKGROUND_MUSICS[0], Music.class);
         } else if (name.equals("game")) {
             music = service.getAsset(BACKGROUND_MUSICS[1], Music.class);
-        } else if (name.equals("win")) {
+        } else if (name.equals("warning")) {
             music = service.getAsset(BACKGROUND_MUSICS[2], Music.class);
-        } else if (name.equals("caught")) {
+        } else if (name.equals("win")) {
             music = service.getAsset(BACKGROUND_MUSICS[3], Music.class);
-        } else if (name.equals("timeout")) {
+        } else if (name.equals("caught")) {
             music = service.getAsset(BACKGROUND_MUSICS[4], Music.class);
+        } else if (name.equals("timeout")) {
+            music = service.getAsset(BACKGROUND_MUSICS[5], Music.class);
         } else if (ServiceLocator.getResourceService().containsAsset(name, Music.class)) {
             music = service.getAsset(name, Music.class);
         }
 
         if (music != null) {
             music.setLooping(true);
-            music.setVolume(0.01f);
+            music.setVolume(0.05f);
             music.play();
         }
     }

@@ -80,6 +80,7 @@ public class TimerWidget extends RetroactiveWidget {
                 Actions.fadeIn(1f),
                 Actions.fadeOut(1f))));
             timerStatus = TimerStatus.FLASHING;
+            entity.getEvents().trigger("play_music", "warning");
         }
     }
 
