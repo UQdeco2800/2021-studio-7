@@ -1,0 +1,12 @@
+foreign_bed.png
+size: 312, 243
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fbed
+  rotate: false
+  xy: 0, 0
+  size: 312, 243
+  orig: 312, 243
+  offset: 0, 0
+  index: -1
