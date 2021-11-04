@@ -2,9 +2,11 @@ package com.deco2800.game.entities.components.object;
 
 import com.deco2800.game.ai.components.AITaskComponent;
 import com.deco2800.game.ai.tasks.SlipTask;
+import com.deco2800.game.chores.ChoreList;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.entities.components.InteractionComponent;
 import com.deco2800.game.entities.components.player.PlayerActions;
+import com.deco2800.game.generic.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,5 +46,11 @@ public class BananaPeelActions extends InteractionComponent {
         } else {
             logger.debug("PEEL ended collision with PLAYER");
         }
+    }
+
+    @Override
+    public void onInteraction(Entity target) {
+        ServiceLocator.getEntityService().scheduleEntityForRemoval(entity);
+        entity.getEvents().trigger("chore_complete", ChoreList.TRASH);
     }
 }

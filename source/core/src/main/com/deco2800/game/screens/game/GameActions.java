@@ -43,8 +43,12 @@ public class GameActions extends RetroactiveActions {
     }
 
     protected void onEnterContextDisplay() {
-        screen.pause();
-        contextDisplay.show();
+        if (ServiceLocator.getGame().getLevel() < 3) {
+            screen.pause();
+            contextDisplay.show();
+        } else {
+            onExitContextDisplay();
+        }
     }
 
     protected void onExitContextDisplay() {
