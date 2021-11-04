@@ -1,6 +1,9 @@
 package com.deco2800.game.chores;
 
 import com.deco2800.game.entities.Entity;
+import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.screens.game.GameScreen;
+import com.deco2800.game.screens.game.TimerWidget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +58,8 @@ public class ChoreController {
      */
     private void markCompleted(ChoreList object) {
         Chore chore = getChoreOf(object);
+        int choreScore = ServiceLocator.getScreen(GameScreen.class).getGameUI().getComponent(TimerWidget.class).getMinutes() * 10;
+        ServiceLocator.getScoreComponent().changeScore(choreScore);
         if (chore != null) {
             // Reduce the count of the remaining chore entities
             chore.decreaseAmount();

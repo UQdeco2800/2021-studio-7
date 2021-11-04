@@ -48,6 +48,15 @@ public class GdxGame extends Game {
     this.username = username;
   }
 
+  public String getUsername() {
+    if (this.username.isEmpty()) {
+      String placeholder = "";
+      return placeholder;
+    } else {
+      return this.username + "! ";
+    }
+  }
+
   public void setLevel(int level) {
     this.level = level;
   }
