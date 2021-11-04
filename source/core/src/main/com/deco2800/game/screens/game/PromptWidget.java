@@ -16,11 +16,12 @@ import com.deco2800.game.screens.RetroactiveWidget;
  */
 public class PromptWidget extends RetroactiveWidget {
     private static final String PROMPT_TEXTURE = "images/ui/elements/Textbox_1024.png";
-    private static final long PROMPT_DURATION = 3000L;
+    private static final long PROMPT_DURATION = 1000L;
     private static final long NORMAL_TICK_RATE = 10L;
     private long lastTime = 0L;
     private Label prompt;
     private long startTime;
+    private long endTime;
     private String text;
     private String currentText = "";
     private int index = 0;
@@ -69,10 +70,14 @@ public class PromptWidget extends RetroactiveWidget {
             currentText += text.charAt(index);
             prompt.setText(currentText);
             index += 1;
+            if (index == text.length()) {
+                endTime = currentTime;
+            }
         }
 
-        if (currentTime - startTime >= PROMPT_DURATION) {
+        if (endTime != 0L && currentTime - endTime >= PROMPT_DURATION) {
             hide();
+            endTime = 0L;
         }
     }
 

@@ -20,14 +20,15 @@ import org.slf4j.LoggerFactory;
 public class MumActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(MumActions.class);
     private static final long WAIT_TIME_LENGTH = 2000L;
-    private static final long ACTION_TIME_LENGTH = 3000L;
+    private static final long ACTION_TIME_LENGTH = 2500L;
     private MumCinematicPhase phase;
     private CameraComponent camera;
     private PhysicsMovementComponent movementComponent;
     private Vector2 dest;
     private long startWaitTime;
     private long startActionTime;
-    private String PROMPT_MESSAGE= "What are you still doing awake!? When I get my hands on you...!";
+    private String PROMPT_MESSAGE= "What are you still doing awake!? When I get my hands on you...!" +
+            "                                                                                      ";
 
     @Override
     public void create() {
