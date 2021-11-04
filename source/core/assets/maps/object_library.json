@@ -275,7 +275,7 @@
     }
     puddle_0: {
       assets: [images/objects/puddle/puddle.atlas]
-      scale: [1, 0.5]
+      scale: [2, 1]
       physics: KINEMATIC
       misc: [com.deco2800.game.entities.components.object.PuddleActions]
       chore: PUDDLE
