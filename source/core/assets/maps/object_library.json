@@ -211,6 +211,13 @@
       collider: [1, 2, 0, 0]
       misc: [com.deco2800.game.entities.components.object.BedActions]
     }
+    bed_1: {
+      method: com.deco2800.game.entities.factories.ObjectFactory.createBed
+      assets: [images/objects/foreign_bed/foreign_bed.atlas]
+      scale: [1.5, 1]
+      collider: [1, 2, 0, 0]
+      misc: [com.deco2800.game.entities.components.object.ForeignBedActions]
+    }
     box_0: {
       assets: [images/objects/box/box.atlas]
       physics: DYNAMIC
