@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.generic.ServiceLocator;
+import com.deco2800.game.rendering.components.RenderPriority;
 import com.deco2800.game.screens.RetroactiveWidget;
 
 /**
@@ -13,6 +14,11 @@ public class PlayerStatDisplay extends RetroactiveWidget {
     private Label staminaLabel;
     private PlayerStaminaBar playerStaminaBar;
     private Label scoreLabel;
+
+    public PlayerStatDisplay() {
+        super();
+        renderPriority = RenderPriority.WIDGET.ordinal() - 0.07f;
+    }
 
     @Override
     public void create() {
