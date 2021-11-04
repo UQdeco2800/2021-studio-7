@@ -222,7 +222,7 @@ public class Floor extends RetroactiveArea implements Json.Serializable {
 
     private void createBeds() {
         ObjectData playerBed = Home.getObject("interactive_bed_0");
-        ObjectData normalBed = Home.getObject("object_bed_0");
+        ObjectData normalBed = Home.getObject("interactive_bed_1");
         if (playerBed == null || normalBed == null) {
             throw new NullPointerException("Player or normal bed objects couldn't be retrieved");
         }
