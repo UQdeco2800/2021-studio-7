@@ -44,7 +44,7 @@ public class Vector2Utils {
   }
 
   public static Vector2 read(JsonValue jsonData) {
-    int[] points = jsonData.asIntArray();
+    float[] points = jsonData.asFloatArray();
     return new Vector2(points[0], points[1]);
   }
 

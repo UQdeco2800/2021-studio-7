@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class BedActions extends InteractionComponent {
     private static final Logger logger = LoggerFactory.getLogger(BedActions.class);
     private static final String UPDATE_ANIMATION = "update_animation";
+    private static final String PROMPT_MESSAGE = "I can't go to bed yet! There are still chores to be done!";
 
     @Override
     public void create() {
@@ -38,6 +39,10 @@ public class BedActions extends InteractionComponent {
 
     private void triggerBedInteracted() {
         logger.debug("PLAYER interacted with BED, triggering bed interacted");
-        ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("bed_interacted");
+        if (ServiceLocator.getChoreController().choresComplete()) {
+            ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("bed_interacted");
+        } else {
+            ServiceLocator.getScreen(GameScreen.class).getGameUI().getEvents().trigger("create_textbox", PROMPT_MESSAGE);
+        }
     }
 }
