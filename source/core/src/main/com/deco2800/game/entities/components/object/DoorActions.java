@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class DoorActions extends InteractionComponent {
     protected static final Logger logger = LoggerFactory.getLogger(DoorActions.class);
-    private static final String PROMPT_MESSAGE = "You opened a door! That's pretty cool.";
+    private static final String PROMPT_MESSAGE = "You can open doors. That's pretty cool.";
     private static final String UPDATE_ANIMATION = "update_animation";
 
     // Door animation states
