@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9};
+<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -121,6 +121,20 @@ extends java.lang.Object</pre>
 <tbody>
 <tr class="altColor" id="i0">
 <td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateCollider(com.deco2800.game.entities.Entity)">rotateCollider</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></th>
+<td class="colLast">
+<div class="block">Rotate a collider.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotateHitbox(com.deco2800.game.entities.Entity)">rotateHitbox</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</code></th>
+<td class="colLast">
+<div class="block">Rotate a hitbox.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setColliderOffset(com.deco2800.game.entities.Entity,float,float)">setColliderOffset</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;offsetX,
 float&nbsp;offsetY)</code></th>
@@ -128,7 +142,7 @@ float&nbsp;offsetY)</code></th>
 <div class="block">Set the offset for an entity's collider component.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setColliderShape(com.deco2800.game.entities.Entity,float,float)">setColliderShape</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;leftSides,
@@ -137,7 +151,7 @@ float&nbsp;rightSides)</code></th>
 <div class="block">Set the shape of an entity's collider component.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHitboxOffset(com.deco2800.game.entities.Entity,float,float)">setHitboxOffset</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;offsetX,
@@ -146,7 +160,7 @@ float&nbsp;offsetY)</code></th>
 <div class="block">Set the offset for an entity's hitbox component.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHitboxShape(com.deco2800.game.entities.Entity,float,float)">setHitboxShape</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;leftSides,
@@ -155,14 +169,14 @@ float&nbsp;rightSides)</code></th>
 <div class="block">Set the shape of an entity's hitbox component.</div>
 </td>
 </tr>
-<tr class="altColor" id="i4">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setScaledCollider(com.deco2800.game.entities.Entity,float,float)">setScaledCollider</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;scaleX,
 float&nbsp;scaleY)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="rowColor" id="i7">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setScaledHitbox(com.deco2800.game.entities.Entity,float,float)">setScaledHitbox</a></span>&#8203;(<a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;scaleX,
@@ -224,21 +238,6 @@ float&nbsp;rightSides)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setColliderOffset(com.deco2800.game.entities.Entity,float,float)">setColliderOffset</a></h3>
-<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setColliderOffset</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
-float&nbsp;offsetX,
-float&nbsp;offsetY)</span></div>
-<div class="block">Set the offset for an entity's collider component.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>entity</code> - the entity to change the collider of.</dd>
-<dd><code>offsetX</code> - pixel offset in the x direction.</dd>
-<dd><code>offsetY</code> - pixel offset in the y direction.</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
 <h3><a id="setHitboxShape(com.deco2800.game.entities.Entity,float,float)">setHitboxShape</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setHitboxShape</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;leftSides,
@@ -254,6 +253,21 @@ float&nbsp;rightSides)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="setColliderOffset(com.deco2800.game.entities.Entity,float,float)">setColliderOffset</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setColliderOffset</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
+float&nbsp;offsetX,
+float&nbsp;offsetY)</span></div>
+<div class="block">Set the offset for an entity's collider component.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>entity</code> - the entity to change the collider of.</dd>
+<dd><code>offsetX</code> - pixel offset in the x direction.</dd>
+<dd><code>offsetY</code> - pixel offset in the y direction.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="setHitboxOffset(com.deco2800.game.entities.Entity,float,float)">setHitboxOffset</a></h3>
 <div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setHitboxOffset</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity,
 float&nbsp;offsetX,
@@ -264,6 +278,28 @@ float&nbsp;offsetY)</span></div>
 <dd><code>entity</code> - the entity to change the hitbox of.</dd>
 <dd><code>offsetX</code> - pixel offset in the x direction.</dd>
 <dd><code>offsetY</code> - pixel offset in the y direction.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="rotateCollider(com.deco2800.game.entities.Entity)">rotateCollider</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">rotateCollider</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Rotate a collider. More akin to mirroring across the vertical axis.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>entity</code> - Entity to set the component shape for</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="rotateHitbox(com.deco2800.game.entities.Entity)">rotateHitbox</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">rotateHitbox</span>&#8203;(<span class="arguments"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;entity)</span></div>
+<div class="block">Rotate a hitbox. More akin to mirroring across the vertical axis.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>entity</code> - Entity to set the component shape for</dd>
 </dl>
 </section>
 </li>

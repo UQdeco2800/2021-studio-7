@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -105,12 +105,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="../../chores/ChoreUI.html" title="class in com.deco2800.game.chores">ChoreUI</a></code>, <code><a href="../../screens/context/ContextInputProcessor.html" title="class in com.deco2800.game.screens.context">ContextInputProcessor</a></code>, <code><a href="../../screens/context/ContextScreenDisplay.html" title="class in com.deco2800.game.screens.context">ContextScreenDisplay</a></code>, <code><a href="../../screens/endgame/EndGameDisplay.html" title="class in com.deco2800.game.screens.endgame">EndGameDisplay</a></code>, <code><a href="../../maps/components/GameAreaDisplay.html" title="class in com.deco2800.game.maps.components">GameAreaDisplay</a></code>, <code><a href="../../screens/leaderboard/LeaderBoardDisplay.html" title="class in com.deco2800.game.screens.leaderboard">LeaderBoardDisplay</a></code>, <code><a href="../../screens/maingame/MainGameExitDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameExitDisplay</a></code>, <code><a href="../../screens/maingame/MainGameFogScreen.html" title="class in com.deco2800.game.screens.maingame">MainGameFogScreen</a></code>, <code><a href="../../screens/maingame/MainGamePauseMenuDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGamePauseMenuDisplay</a></code>, <code><a href="../../screens/maingame/MainGameScoreDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameScoreDisplay</a></code>, <code><a href="../../screens/maingame/MainGameTextDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameTextDisplay</a></code>, <code><a href="../../screens/maingame/MainGameTimerDisplay.html" title="class in com.deco2800.game.screens.maingame">MainGameTimerDisplay</a></code>, <code><a href="../../screens/mainmenu/MainMenuDisplay.html" title="class in com.deco2800.game.screens.mainmenu">MainMenuDisplay</a></code>, <code><a href="../../maps/components/PerformanceDisplay.html" title="class in com.deco2800.game.maps.components">PerformanceDisplay</a></code>, <code><a href="../../entities/components/player/PlayerStatDisplay.html" title="class in com.deco2800.game.entities.components.player">PlayerStatDisplay</a></code>, <code><a href="../../screens/settingsmenu/SettingsMenuDisplay.html" title="class in com.deco2800.game.screens.settingsmenu">SettingsMenuDisplay</a></code>, <code><a href="../terminal/TerminalDisplay.html" title="class in com.deco2800.game.ui.terminal">TerminalDisplay</a></code>, <code><a href="../../screens/title/TitleScreenDisplay.html" title="class in com.deco2800.game.screens.title">TitleScreenDisplay</a></code></dd>
+<dd><code><a href="../../screens/RetroactiveDisplay.html" title="class in com.deco2800.game.screens">RetroactiveDisplay</a></code>, <code><a href="../../screens/RetroactiveWidget.html" title="class in com.deco2800.game.screens">RetroactiveWidget</a></code>, <code><a href="../terminal/TerminalDisplay.html" title="class in com.deco2800.game.ui.terminal">TerminalDisplay</a></code></dd>
 </dl>
 <hr>
 <pre>public abstract class <span class="typeNameLabel">UIComponent</span>
-extends <a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a>
-implements <a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></pre>
+extends <a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></pre>
 <div class="block">A generic component for rendering onto the ui.</div>
 </section>
 <section class="summary">
@@ -133,6 +132,16 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 </thead>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><code>protected static org.slf4j.Logger</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#logger">logger</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected float</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#renderPriority">renderPriority</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>protected static <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Skin.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Skin</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#skin">skin</a></span></code></th>
 <td class="colLast">&nbsp;</td>
@@ -142,6 +151,16 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stage">stage</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#table">table</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected static int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#UI_LAYER">UI_LAYER</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -149,7 +168,7 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 <h3>Fields inherited from class&nbsp;com.deco2800.game.generic.<a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.generic.Component">
 <!--   -->
-</a><code><a href="../../generic/Component.html#creationPriority">creationPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
+</a><code><a href="../../generic/Component.html#createPriority">createPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -203,18 +222,42 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 </td>
 </tr>
 <tr class="rowColor" id="i1">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Called when the component is disposed.</div>
+</td>
+</tr>
+<tr class="altColor" id="i2">
+<td class="colFirst"><code>protected void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</code></th>
+<td class="colLast">
+<div class="block">Draw the renderable.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLayer()">getLayer</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Layer to be rendered in.</div>
 </td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>float</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getZIndex()">getZIndex</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRenderPriority()">getRenderPriority</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Z index controls rendering order within a layer.</div>
 </td>
+</tr>
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hide()">hide</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#show()">show</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -224,7 +267,7 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 <h3>Methods inherited from class&nbsp;com.deco2800.game.rendering.components.<a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.rendering.components.RenderComponent">
 <!--   -->
-</a><code><a href="../../rendering/components/RenderComponent.html#compareTo(com.deco2800.game.rendering.Renderable)">compareTo</a>, <a href="../../rendering/components/RenderComponent.html#dispose()">dispose</a>, <a href="../../rendering/components/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a>, <a href="../../rendering/components/RenderComponent.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
+</a><code><a href="../../rendering/components/RenderComponent.html#compareTo(com.deco2800.game.rendering.Renderable)">compareTo</a>, <a href="../../rendering/components/RenderComponent.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;com.deco2800.game.generic.<a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.generic.Component">
@@ -235,16 +278,6 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 <a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a><code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait</code></div>
-<div class="inheritedList">
-<h3>Methods inherited from interface&nbsp;java.lang.Comparable</h3>
-<a id="methods.inherited.from.class.java.lang.Comparable">
-<!--   -->
-</a><code>compareTo</code></div>
-<div class="inheritedList">
-<h3>Methods inherited from interface&nbsp;com.deco2800.game.rendering.<a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></h3>
-<a id="methods.inherited.from.class.com.deco2800.game.rendering.Renderable">
-<!--   -->
-</a><code><a href="../../rendering/Renderable.html#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)">render</a></code></div>
 </section>
 </li>
 </ul>
@@ -260,14 +293,42 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
+<h3><a id="logger">logger</a></h3>
+<div class="memberSignature"><span class="modifiers">protected static final</span>&nbsp;<span class="returnType">org.slf4j.Logger</span>&nbsp;<span class="memberName">logger</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="skin">skin</a></h3>
 <div class="memberSignature"><span class="modifiers">protected static final</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Skin.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Skin</a></span>&nbsp;<span class="memberName">skin</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="UI_LAYER">UI_LAYER</a></h3>
+<div class="memberSignature"><span class="modifiers">protected static final</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">UI_LAYER</span></div>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="../../../../../constant-values.html#com.deco2800.game.ui.components.UIComponent.UI_LAYER">Constant Field Values</a></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="renderPriority">renderPriority</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">renderPriority</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="stage">stage</a></h3>
 <div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/Stage.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d" class="externalLink">Stage</a></span>&nbsp;<span class="memberName">stage</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="table">table</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/scenes/scene2d/ui/Table.html?is-external=true" title="class or interface in com.badlogic.gdx.scenes.scene2d.ui" class="externalLink">Table</a></span>&nbsp;<span class="memberName">table</span></div>
 </section>
 </li>
 </ul>
@@ -311,6 +372,46 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 </li>
 <li class="blockList">
 <section class="detail">
+<h3><a id="hide()">hide</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">hide</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="show()">show</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">show</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></h3>
+<div class="memberSignature"><span class="modifiers">protected</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">draw</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics.g2d" class="externalLink">SpriteBatch</a>&nbsp;batch)</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../rendering/components/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">RenderComponent</a></code></span></div>
+<div class="block">Draw the renderable. Should be called only by the renderer, not manually.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../rendering/components/RenderComponent.html#draw(com.badlogic.gdx.graphics.g2d.SpriteBatch)">draw</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>batch</code> - Batch to render to.</dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="dispose()">dispose</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../generic/Component.html#dispose()">Component</a></code></span></div>
+<div class="block">Called when the component is disposed. Dispose of any internal resources here.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx.utils" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../rendering/components/RenderComponent.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="getLayer()">getLayer</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">getLayer</span>()</div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../rendering/Renderable.html#getLayer()">Renderable</a></code></span></div>
@@ -327,15 +428,15 @@ implements <a href="../../rendering/Renderable.html" title="interface in com.dec
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getZIndex()">getZIndex</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getZIndex</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../rendering/Renderable.html#getZIndex()">Renderable</a></code></span></div>
+<h3><a id="getRenderPriority()">getRenderPriority</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getRenderPriority</span>()</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../rendering/Renderable.html#getRenderPriority()">Renderable</a></code></span></div>
 <div class="block">Z index controls rendering order within a layer. Higher Z index is drawn on top.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../rendering/Renderable.html#getZIndex()">getZIndex</a></code>&nbsp;in interface&nbsp;<code><a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></code></dd>
+<dd><code><a href="../../rendering/Renderable.html#getRenderPriority()">getRenderPriority</a></code>&nbsp;in interface&nbsp;<code><a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../rendering/components/RenderComponent.html#getZIndex()">getZIndex</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
+<dd><code><a href="../../rendering/components/RenderComponent.html#getRenderPriority()">getRenderPriority</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Z index</dd>
 </dl>

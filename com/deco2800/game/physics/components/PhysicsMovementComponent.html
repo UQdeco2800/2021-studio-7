@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -119,7 +119,7 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <h3>Fields inherited from class&nbsp;com.deco2800.game.generic.<a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.generic.Component">
 <!--   -->
-</a><code><a href="../../generic/Component.html#creationPriority">creationPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
+</a><code><a href="../../generic/Component.html#createPriority">createPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -212,40 +212,45 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMaxSpeed(com.badlogic.gdx.math.Vector2)">setMaxSpeed</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;maxSpeed)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMoving(boolean)">setMoving</a></span>&#8203;(boolean&nbsp;movementEnabled)</code></th>
 <td class="colLast">
 <div class="block">Enable/disable movement for the controller.</div>
 </td>
 </tr>
-<tr class="altColor" id="i8">
+<tr class="rowColor" id="i9">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTarget(com.badlogic.gdx.math.Vector2)">setTarget</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;target)</code></th>
 <td class="colLast">
 <div class="block">Set a target to move towards.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i9">
+<tr class="altColor" id="i10">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTwoDCharacter()">setTwoDCharacter</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Sets this component to belong to a character with animations only in 4 directions.</div>
 </td>
 </tr>
-<tr class="altColor" id="i10">
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#standingEvents()">standingEvents</a></span>()</code></th>
 <td class="colLast">
 <div class="block">If the mom is standing still this function triggers a standing event in the last direction.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i11">
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#standingEventsTwoD()">standingEventsTwoD</a></span>()</code></th>
 <td class="colLast">
 <div class="block">If the cat is standing still, this function triggers a standing event in the last direction.</div>
 </td>
 </tr>
-<tr class="altColor" id="i12">
+<tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -319,6 +324,12 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="../../generic/Component.html#update()">update</a></code>&nbsp;in class&nbsp;<code><a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></code></dd>
 </dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setMaxSpeed(com.badlogic.gdx.math.Vector2)">setMaxSpeed</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setMaxSpeed</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a>&nbsp;maxSpeed)</span></div>
 </section>
 </li>
 <li class="blockList">
@@ -414,8 +425,8 @@ implements <a href="../../ai/movement/MovementController.html" title="interface 
 <h3><a id="movementEventsTwoD()">movementEventsTwoD</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">movementEventsTwoD</span>()</div>
 <div class="block">Function used to update the entities animations based upon the direction of movement.
-   Character will display the animation that is within 45 degrees of the nearest compass direction.
-   For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
+ Character will display the animation that is within 45 degrees of the nearest compass direction.
+ For example, if the entites vector is (-0.1,-0.9) than it will display a down walking animation.</div>
 </section>
 </li>
 <li class="blockList">

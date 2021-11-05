@@ -121,7 +121,7 @@ extends <a href="../../rendering/components/RenderComponent.html" title="class i
 <h3>Fields inherited from class&nbsp;com.deco2800.game.generic.<a href="../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.generic.Component">
 <!--   -->
-</a><code><a href="../../generic/Component.html#creationPriority">creationPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
+</a><code><a href="../../generic/Component.html#createPriority">createPriority</a>, <a href="../../generic/Component.html#enabled">enabled</a>, <a href="../../generic/Component.html#entity">entity</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -203,15 +203,15 @@ float&nbsp;tileSize)</code></th>
 </tr>
 <tr class="rowColor" id="i5">
 <td class="colFirst"><code>float</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTileSize()">getTileSize</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i6">
-<td class="colFirst"><code>float</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getZIndex()">getZIndex</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRenderPriority()">getRenderPriority</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Z index controls rendering order within a layer.</div>
 </td>
+</tr>
+<tr class="altColor" id="i6">
+<td class="colFirst"><code>float</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTileSize()">getTileSize</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i7">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
@@ -336,15 +336,15 @@ int&nbsp;y)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getZIndex()">getZIndex</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getZIndex</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../rendering/Renderable.html#getZIndex()">Renderable</a></code></span></div>
+<h3><a id="getRenderPriority()">getRenderPriority</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">float</span>&nbsp;<span class="memberName">getRenderPriority</span>()</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../rendering/Renderable.html#getRenderPriority()">Renderable</a></code></span></div>
 <div class="block">Z index controls rendering order within a layer. Higher Z index is drawn on top.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../rendering/Renderable.html#getZIndex()">getZIndex</a></code>&nbsp;in interface&nbsp;<code><a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></code></dd>
+<dd><code><a href="../../rendering/Renderable.html#getRenderPriority()">getRenderPriority</a></code>&nbsp;in interface&nbsp;<code><a href="../../rendering/Renderable.html" title="interface in com.deco2800.game.rendering">Renderable</a></code></dd>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../rendering/components/RenderComponent.html#getZIndex()">getZIndex</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
+<dd><code><a href="../../rendering/components/RenderComponent.html#getRenderPriority()">getRenderPriority</a></code>&nbsp;in class&nbsp;<code><a href="../../rendering/components/RenderComponent.html" title="class in com.deco2800.game.rendering.components">RenderComponent</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Z index</dd>
 </dl>

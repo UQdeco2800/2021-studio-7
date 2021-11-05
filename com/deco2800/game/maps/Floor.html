@@ -92,7 +92,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </div>
 <div class="contentContainer">
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance"><a href="GameArea.html" title="class in com.deco2800.game.maps">com.deco2800.game.maps.GameArea</a>
+<div class="inheritance"><a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">com.deco2800.game.maps.RetroactiveArea</a>
 <div class="inheritance">com.deco2800.game.maps.Floor</div>
 </div>
 </div>
@@ -103,7 +103,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Floor</span>
-extends <a href="GameArea.html" title="class in com.deco2800.game.maps">GameArea</a>
+extends <a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">RetroactiveArea</a>
 implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.Serializable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Json.Serializable</a></pre>
 <div class="block">Game area representation of a single floor in a home.
  Holds raw data for room allocation and non-room object generation.</div>
@@ -117,10 +117,10 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </a>
 <h2>Field Summary</h2>
 <div class="inheritedList">
-<h3>Fields inherited from class&nbsp;com.deco2800.game.maps.<a href="GameArea.html" title="class in com.deco2800.game.maps">GameArea</a></h3>
-<a id="fields.inherited.from.class.com.deco2800.game.maps.GameArea">
+<h3>Fields inherited from class&nbsp;com.deco2800.game.maps.<a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">RetroactiveArea</a></h3>
+<a id="fields.inherited.from.class.com.deco2800.game.maps.RetroactiveArea">
 <!--   -->
-</a><code><a href="GameArea.html#areaEntities">areaEntities</a>, <a href="GameArea.html#terrain">terrain</a></code></div>
+</a><code><a href="RetroactiveArea.html#areaEntities">areaEntities</a>, <a href="RetroactiveArea.html#logger">logger</a>, <a href="RetroactiveArea.html#terrain">terrain</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -141,16 +141,6 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 <tbody>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Floor</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(com.deco2800.game.maps.GridObject,com.deco2800.game.maps.GridObject,com.badlogic.gdx.utils.ObjectMap,com.badlogic.gdx.utils.ObjectMap,com.badlogic.gdx.utils.ObjectMap,java.lang.Character%5B%5D%5B%5D,com.badlogic.gdx.math.GridPoint2)">Floor</a></span>&#8203;(<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorTile,
-<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorWall,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;&nbsp;tileMap,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;&nbsp;entityMap,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="Room.html" title="class in com.deco2800.game.maps">Room</a>&gt;&nbsp;roomMap,
-java.lang.Character[][]&nbsp;floorGrid,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;dimensions)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -185,38 +175,43 @@ java.lang.Character[][]&nbsp;floorGrid,
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dispose()">dispose</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createGridEntity(com.deco2800.game.maps.ObjectDescription,com.badlogic.gdx.math.GridPoint2)">createGridEntity</a></span>&#8203;(<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&nbsp;entityDesc,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</code></th>
 <td class="colLast">
-<div class="block">Dispose of all internal entities in the area</div>
+<div class="block">Invokes the method related to the entity.</div>
 </td>
 </tr>
 <tr class="altColor" id="i2">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createGridTile(com.deco2800.game.maps.ObjectDescription,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.maps.tiled.TiledMapTileLayer)">createGridTile</a></span>&#8203;(<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&nbsp;tileDesc,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/maps/tiled/TiledMapTileLayer.html?is-external=true" title="class or interface in com.badlogic.gdx.maps.tiled" class="externalLink">TiledMapTileLayer</a>&nbsp;layer)</code></th>
+<td class="colLast">
+<div class="block">Invokes the method related to the tile.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i3">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createMum()">createMum</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i4">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createUI()">createUI</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i3">
-<td class="colFirst"><code>java.lang.String[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAssets(java.lang.String)">getAssets</a></span>&#8203;(java.lang.String&nbsp;extension)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i4">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCat()">getCat</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i5">
-<td class="colFirst"><code><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDefaultInteriorTile()">getDefaultInteriorTile</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
 <tr class="altColor" id="i6">
-<td class="colFirst"><code><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDefaultInteriorWall()">getDefaultInteriorWall</a></span>()</code></th>
+<td class="colFirst"><code><a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDefaultWall()">getDefaultWall</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i7">
-<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;</code></td>
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEntityMap()">getEntityMap</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -226,8 +221,8 @@ java.lang.Character[][]&nbsp;floorGrid,
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i9">
-<td class="colFirst"><code><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPlayer()">getPlayer</a></span>()</code></th>
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMumTargetPos()">getMumTargetPos</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i10">
@@ -236,51 +231,44 @@ java.lang.Character[][]&nbsp;floorGrid,
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i11">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTileMap()">getTileMap</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i12">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i12">
+<tr class="rowColor" id="i13">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initialise()">initialise</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i14">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#read(com.badlogic.gdx.utils.Json,com.badlogic.gdx.utils.JsonValue)">read</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Json</a>&nbsp;json,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/JsonValue.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">JsonValue</a>&nbsp;jsonData)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i13">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCamera(com.badlogic.gdx.graphics.OrthographicCamera)">setCamera</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/OrthographicCamera.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics" class="externalLink">OrthographicCamera</a>&nbsp;camera)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i14">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDefaultInteriorTile(com.deco2800.game.maps.GridObject)">setDefaultInteriorTile</a></span>&#8203;(<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorTile)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
 <tr class="rowColor" id="i15">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDefaultInteriorWall(com.deco2800.game.maps.GridObject)">setDefaultInteriorWall</a></span>&#8203;(<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorWall)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setHome(com.deco2800.game.maps.Home)">setHome</a></span>&#8203;(<a href="Home.html" title="class in com.deco2800.game.maps">Home</a>&nbsp;home)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i16">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnGridEntity(com.deco2800.game.maps.GridObject,com.badlogic.gdx.math.GridPoint2)">spawnGridEntity</a></span>&#8203;(<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;entityObject,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;position)</code></th>
-<td class="colLast">
-<div class="block">Invokes the method related to the entity.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stashBedPosition(com.badlogic.gdx.math.GridPoint2)">stashBedPosition</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i17">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#spawnGridTile(com.deco2800.game.maps.GridObject,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.maps.tiled.TiledMapTileLayer)">spawnGridTile</a></span>&#8203;(<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;tileObject,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;position,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/maps/tiled/TiledMapTileLayer.html?is-external=true" title="class or interface in com.badlogic.gdx.maps.tiled" class="externalLink">TiledMapTileLayer</a>&nbsp;layer)</code></th>
-<td class="colLast">
-<div class="block">Invokes the method related to the tile.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stashMumSpawnPosition(com.badlogic.gdx.math.GridPoint2)">stashMumSpawnPosition</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor" id="i18">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stashBedPosition(com.badlogic.gdx.math.GridPoint2)">stashBedPosition</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stashMumTargetPosition(com.badlogic.gdx.math.GridPoint2)">stashMumTargetPosition</a></span>&#8203;(<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i19">
@@ -293,10 +281,10 @@ java.lang.Character[][]&nbsp;floorGrid,
 </div>
 </div>
 <div class="inheritedList">
-<h3>Methods inherited from class&nbsp;com.deco2800.game.maps.<a href="GameArea.html" title="class in com.deco2800.game.maps">GameArea</a></h3>
-<a id="methods.inherited.from.class.com.deco2800.game.maps.GameArea">
+<h3>Methods inherited from class&nbsp;com.deco2800.game.maps.<a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">RetroactiveArea</a></h3>
+<a id="methods.inherited.from.class.com.deco2800.game.maps.RetroactiveArea">
 <!--   -->
-</a><code><a href="GameArea.html#spawnEntity(com.deco2800.game.entities.Entity)">spawnEntity</a>, <a href="GameArea.html#spawnEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">spawnEntityAt</a></code></div>
+</a><code><a href="RetroactiveArea.html#createEntity(com.deco2800.game.entities.Entity)">createEntity</a>, <a href="RetroactiveArea.html#createEntityAt(com.deco2800.game.entities.Entity,com.badlogic.gdx.math.GridPoint2,boolean,boolean)">createEntityAt</a>, <a href="RetroactiveArea.html#dispose()">dispose</a>, <a href="RetroactiveArea.html#getTerrain()">getTerrain</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -321,18 +309,6 @@ java.lang.Character[][]&nbsp;floorGrid,
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Floor</span>()</div>
 </section>
 </li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="&lt;init&gt;(com.deco2800.game.maps.GridObject,com.deco2800.game.maps.GridObject,com.badlogic.gdx.utils.ObjectMap,com.badlogic.gdx.utils.ObjectMap,com.badlogic.gdx.utils.ObjectMap,java.lang.Character[][],com.badlogic.gdx.math.GridPoint2)">Floor</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="memberName">Floor</span>&#8203;(<span class="arguments"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorTile,
-<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorWall,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;&nbsp;tileMap,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;&nbsp;entityMap,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="Room.html" title="class in com.deco2800.game.maps">Room</a>&gt;&nbsp;roomMap,
-java.lang.Character[][]&nbsp;floorGrid,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;dimensions)</span></div>
-</section>
-</li>
 </ul>
 </section>
 </li>
@@ -345,78 +321,72 @@ java.lang.Character[][]&nbsp;floorGrid,
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
+<h3><a id="initialise()">initialise</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">initialise</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="create()">create</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="GameArea.html#create()">GameArea</a></code></span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="RetroactiveArea.html#create()">RetroactiveArea</a></code></span></div>
 <div class="block">Create the game area in the world.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="GameArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.maps">GameArea</a></code></dd>
+<dd><code><a href="RetroactiveArea.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">RetroactiveArea</a></code></dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnGridTile(com.deco2800.game.maps.GridObject,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.maps.tiled.TiledMapTileLayer)">spawnGridTile</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnGridTile</span>&#8203;(<span class="arguments"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;tileObject,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;position,
+<h3><a id="createGridTile(com.deco2800.game.maps.ObjectDescription,com.badlogic.gdx.math.GridPoint2,com.badlogic.gdx.maps.tiled.TiledMapTileLayer)">createGridTile</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createGridTile</span>&#8203;(<span class="arguments"><a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&nbsp;tileDesc,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos,
 <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/maps/tiled/TiledMapTileLayer.html?is-external=true" title="class or interface in com.badlogic.gdx.maps.tiled" class="externalLink">TiledMapTileLayer</a>&nbsp;layer)</span></div>
 <div class="block">Invokes the method related to the tile.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>tileObject</code> - instance containing the method and parameters</dd>
-<dd><code>position</code> - world-related position</dd>
+<dd><code>tileDesc</code> - instance containing the method, entity parameters and number of rotations</dd>
+<dd><code>worldPos</code> - world-related position</dd>
 <dd><code>layer</code> - container for tile cells</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="spawnGridEntity(com.deco2800.game.maps.GridObject,com.badlogic.gdx.math.GridPoint2)">spawnGridEntity</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">spawnGridEntity</span>&#8203;(<span class="arguments"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;entityObject,
-<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;position)</span></div>
+<h3><a id="createGridEntity(com.deco2800.game.maps.ObjectDescription,com.badlogic.gdx.math.GridPoint2)">createGridEntity</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createGridEntity</span>&#8203;(<span class="arguments"><a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&nbsp;entityDesc,
+<a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</span></div>
 <div class="block">Invokes the method related to the entity.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>entityObject</code> - instance containing the method and parameters</dd>
-<dd><code>position</code> - world-related position</dd>
+<dd><code>entityDesc</code> - instance containing the method, entity parameters and number of rotations</dd>
+<dd><code>worldPos</code> - world-related position</dd>
 </dl>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="stashBedPosition(com.badlogic.gdx.math.GridPoint2)">stashBedPosition</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stashBedPosition</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</span></div>
+<h3><a id="createMum()">createMum</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createMum</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getDefaultInteriorTile()">getDefaultInteriorTile</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a></span>&nbsp;<span class="memberName">getDefaultInteriorTile</span>()</div>
+<h3><a id="getDefaultWall()">getDefaultWall</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a></span>&nbsp;<span class="memberName">getDefaultWall</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setDefaultInteriorTile(com.deco2800.game.maps.GridObject)">setDefaultInteriorTile</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setDefaultInteriorTile</span>&#8203;(<span class="arguments"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorTile)</span></div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="getDefaultInteriorWall()">getDefaultInteriorWall</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a></span>&nbsp;<span class="memberName">getDefaultInteriorWall</span>()</div>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="setDefaultInteriorWall(com.deco2800.game.maps.GridObject)">setDefaultInteriorWall</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setDefaultInteriorWall</span>&#8203;(<span class="arguments"><a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&nbsp;defaultInteriorWall)</span></div>
+<h3><a id="getTileMap()">getTileMap</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&gt;</span>&nbsp;<span class="memberName">getTileMap</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getEntityMap()">getEntityMap</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="GridObject.html" title="class in com.deco2800.game.maps">GridObject</a>&gt;</span>&nbsp;<span class="memberName">getEntityMap</span>()</div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/ObjectMap.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">ObjectMap</a>&lt;java.lang.Character,&#8203;<a href="ObjectDescription.html" title="class in com.deco2800.game.maps">ObjectDescription</a>&gt;</span>&nbsp;<span class="memberName">getEntityMap</span>()</div>
 </section>
 </li>
 <li class="blockList">
@@ -433,65 +403,41 @@ java.lang.Character[][]&nbsp;floorGrid,
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getPlayer()">getPlayer</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getPlayer</span>()</div>
+<h3><a id="getMumTargetPos()">getMumTargetPos</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a></span>&nbsp;<span class="memberName">getMumTargetPos</span>()</div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getCat()">getCat</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="../entities/Entity.html" title="class in com.deco2800.game.entities">Entity</a></span>&nbsp;<span class="memberName">getCat</span>()</div>
+<h3><a id="setHome(com.deco2800.game.maps.Home)">setHome</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setHome</span>&#8203;(<span class="arguments"><a href="Home.html" title="class in com.deco2800.game.maps">Home</a>&nbsp;home)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="setCamera(com.badlogic.gdx.graphics.OrthographicCamera)">setCamera</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setCamera</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/OrthographicCamera.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics" class="externalLink">OrthographicCamera</a>&nbsp;camera)</span></div>
+<h3><a id="stashBedPosition(com.badlogic.gdx.math.GridPoint2)">stashBedPosition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stashBedPosition</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="getAssets(java.lang.String)">getAssets</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">java.lang.String[]</span>&nbsp;<span class="memberName">getAssets</span>&#8203;(<span class="arguments">java.lang.String&nbsp;extension)</span></div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>extension</code> - specific extension for all assets returned</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>asset filenames from the floor plan to the individual objects</dd>
-</dl>
+<h3><a id="stashMumSpawnPosition(com.badlogic.gdx.math.GridPoint2)">stashMumSpawnPosition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stashMumSpawnPosition</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="dispose()">dispose</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">dispose</span>()</div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="GameArea.html#dispose()">GameArea</a></code></span></div>
-<div class="block">Dispose of all internal entities in the area</div>
+<h3><a id="stashMumTargetPosition(com.badlogic.gdx.math.GridPoint2)">stashMumTargetPosition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">stashMumTargetPosition</span>&#8203;(<span class="arguments"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/GridPoint2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">GridPoint2</a>&nbsp;worldPos)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="createUI()">createUI</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">createUI</span>()</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true#dispose()" title="class or interface in com.badlogic.gdx.utils" class="externalLink">dispose</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Disposable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Disposable</a></code></dd>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="GameArea.html#dispose()">dispose</a></code>&nbsp;in class&nbsp;<code><a href="GameArea.html" title="class in com.deco2800.game.maps">GameArea</a></code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="equals(java.lang.Object)">equals</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">equals</span>&#8203;(<span class="arguments">java.lang.Object&nbsp;o)</span></div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="hashCode()">hashCode</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">hashCode</span>()</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dd><code><a href="RetroactiveArea.html#createUI()">createUI</a></code>&nbsp;in class&nbsp;<code><a href="RetroactiveArea.html" title="class in com.deco2800.game.maps">RetroactiveArea</a></code></dd>
 </dl>
 </section>
 </li>
@@ -513,6 +459,26 @@ java.lang.Character[][]&nbsp;floorGrid,
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.Serializable.html?is-external=true#read(com.badlogic.gdx.utils.Json,com.badlogic.gdx.utils.JsonValue)" title="class or interface in com.badlogic.gdx.utils" class="externalLink">read</a></code>&nbsp;in interface&nbsp;<code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/utils/Json.Serializable.html?is-external=true" title="class or interface in com.badlogic.gdx.utils" class="externalLink">Json.Serializable</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="equals(java.lang.Object)">equals</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">equals</span>&#8203;(<span class="arguments">java.lang.Object&nbsp;o)</span></div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="hashCode()">hashCode</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">int</span>&nbsp;<span class="memberName">hashCode</span>()</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </section>
 </li>

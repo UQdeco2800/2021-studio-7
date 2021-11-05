@@ -19,8 +19,8 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -144,7 +144,7 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </a>
 <h2>Method Summary</h2>
 <div class="memberSummary">
-<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
+<div role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="tableTab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="tableTab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="memberSummary_tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="tableTab" onclick="show(8);">Concrete Methods</button></div>
 <div id="memberSummary_tabpanel" role="tabpanel">
 <table aria-labelledby="t0">
 <thead>
@@ -164,7 +164,7 @@ implements <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/b
 </tr>
 <tr class="rowColor" id="i1">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#containsAsset(java.lang.String,java.lang.Class)">containsAsset</a></span>&#8203;(java.lang.String&nbsp;resourceName,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#containsAsset(java.lang.String,java.lang.Class)">containsAsset</a></span>&#8203;(java.lang.String&nbsp;filepath,
 java.lang.Class&lt;T&gt;&nbsp;type)</code></th>
 <td class="colLast">
 <div class="block">Check if an asset has been loaded already</div>
@@ -177,74 +177,68 @@ java.lang.Class&lt;T&gt;&nbsp;type)</code></th>
 </tr>
 <tr class="rowColor" id="i3">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAsset(java.lang.String,java.lang.Class)">getAsset</a></span>&#8203;(java.lang.String&nbsp;filename,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAsset(java.lang.String,java.lang.Class)">getAsset</a></span>&#8203;(java.lang.String&nbsp;filepath,
 java.lang.Class&lt;T&gt;&nbsp;type)</code></th>
 <td class="colLast">
 <div class="block">Load an asset from a file</div>
 </td>
 </tr>
 <tr class="altColor" id="i4">
+<td class="colFirst"><code>static java.lang.Class&lt;?&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDefaultClass(java.lang.String)">getDefaultClass</a></span>&#8203;(java.lang.String&nbsp;filepath)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i5">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProgress()">getProgress</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns the loading completion progress as a percentage.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i5">
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadAll()">loadAll</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Blocking call to load all assets.</div>
 </td>
 </tr>
-<tr class="altColor" id="i6">
+<tr class="rowColor" id="i7">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadAsset(java.lang.String)">loadAsset</a></span>&#8203;(java.lang.String&nbsp;filepath)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i8">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadAsset(java.lang.String,java.lang.Class)">loadAsset</a></span>&#8203;(java.lang.String&nbsp;filepath,
+java.lang.Class&lt;?&gt;&nbsp;type)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i9">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadAssets(java.lang.String%5B%5D)">loadAssets</a></span>&#8203;(java.lang.String[]&nbsp;filePaths)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i10">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadAssets(java.lang.String%5B%5D,java.lang.Class)">loadAssets</a></span>&#8203;(java.lang.String[]&nbsp;filePaths,
+java.lang.Class&lt;?&gt;&nbsp;type)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i11">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadForMillis(int)">loadForMillis</a></span>&#8203;(int&nbsp;duration)</code></th>
 <td class="colLast">
 <div class="block">Loads assets for the specified duration in milliseconds.</div>
 </td>
 </tr>
-<tr class="rowColor" id="i7">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadMusic(java.lang.String%5B%5D)">loadMusic</a></span>&#8203;(java.lang.String[]&nbsp;musicNames)</code></th>
-<td class="colLast">
-<div class="block">Loads a list of music assets into the asset manager.</div>
-</td>
-</tr>
-<tr class="altColor" id="i8">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadSounds(java.lang.String%5B%5D)">loadSounds</a></span>&#8203;(java.lang.String[]&nbsp;soundNames)</code></th>
-<td class="colLast">
-<div class="block">Loads a list of sounds into the asset manager.</div>
-</td>
-</tr>
-<tr class="rowColor" id="i9">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadTexture(java.lang.String)">loadTexture</a></span>&#8203;(java.lang.String&nbsp;textureName)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor" id="i10">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadTextureAtlas(java.lang.String)">loadTextureAtlas</a></span>&#8203;(java.lang.String&nbsp;textureAtlasName)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor" id="i11">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadTextureAtlases(java.lang.String%5B%5D)">loadTextureAtlases</a></span>&#8203;(java.lang.String[]&nbsp;textureAtlasNames)</code></th>
-<td class="colLast">
-<div class="block">Loads a list of texture atlas assets into the asset manager.</div>
-</td>
-</tr>
 <tr class="altColor" id="i12">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#loadTextures(java.lang.String%5B%5D)">loadTextures</a></span>&#8203;(java.lang.String[]&nbsp;textureNames)</code></th>
-<td class="colLast">
-<div class="block">Loads a list of texture assets into the asset manager.</div>
-</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unloadAsset(java.lang.String)">unloadAsset</a></span>&#8203;(java.lang.String&nbsp;filepath)</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor" id="i13">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unloadAssets(java.lang.String%5B%5D)">unloadAssets</a></span>&#8203;(java.lang.String[]&nbsp;assetNames)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unloadAssets(java.lang.String%5B%5D)">unloadAssets</a></span>&#8203;(java.lang.String[]&nbsp;filePaths)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
@@ -294,14 +288,14 @@ java.lang.Class&lt;T&gt;&nbsp;type)</code></th>
 <li class="blockList">
 <section class="detail">
 <h3><a id="getAsset(java.lang.String,java.lang.Class)">getAsset</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="typeParameters">&lt;T&gt;</span>&nbsp;<span class="returnType">T</span>&nbsp;<span class="memberName">getAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filename,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="typeParameters">&lt;T&gt;</span>&nbsp;<span class="returnType">T</span>&nbsp;<span class="memberName">getAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath,
 java.lang.Class&lt;T&gt;&nbsp;type)</span></div>
 <div class="block">Load an asset from a file</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>T</code> - Type of class to load into</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>filename</code> - Asset path</dd>
+<dd><code>filepath</code> - Asset path</dd>
 <dd><code>type</code> - Class to load into</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Instance of class loaded from path</dd>
@@ -313,14 +307,14 @@ java.lang.Class&lt;T&gt;&nbsp;type)</span></div>
 <li class="blockList">
 <section class="detail">
 <h3><a id="containsAsset(java.lang.String,java.lang.Class)">containsAsset</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="typeParameters">&lt;T&gt;</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">containsAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;resourceName,
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="typeParameters">&lt;T&gt;</span>&nbsp;<span class="returnType">boolean</span>&nbsp;<span class="memberName">containsAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath,
 java.lang.Class&lt;T&gt;&nbsp;type)</span></div>
 <div class="block">Check if an asset has been loaded already</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>T</code> - Type of the asset</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>resourceName</code> - path of the asset</dd>
+<dd><code>filepath</code> - path of the asset</dd>
 <dd><code>type</code> - Class type of the asset</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if asset has been loaded, false otherwise</dd>
@@ -379,64 +373,46 @@ java.lang.Class&lt;T&gt;&nbsp;type)</span></div>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="loadTexture(java.lang.String)">loadTexture</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadTexture</span>&#8203;(<span class="arguments">java.lang.String&nbsp;textureName)</span></div>
+<h3><a id="loadAsset(java.lang.String)">loadAsset</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="loadTextures(java.lang.String[])">loadTextures</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadTextures</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;textureNames)</span></div>
-<div class="block">Loads a list of texture assets into the asset manager.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>textureNames</code> - texture filenames</dd>
-</dl>
+<h3><a id="loadAsset(java.lang.String,java.lang.Class)">loadAsset</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath,
+java.lang.Class&lt;?&gt;&nbsp;type)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="loadTextureAtlas(java.lang.String)">loadTextureAtlas</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadTextureAtlas</span>&#8203;(<span class="arguments">java.lang.String&nbsp;textureAtlasName)</span></div>
+<h3><a id="loadAssets(java.lang.String[])">loadAssets</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadAssets</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;filePaths)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="loadTextureAtlases(java.lang.String[])">loadTextureAtlases</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadTextureAtlases</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;textureAtlasNames)</span></div>
-<div class="block">Loads a list of texture atlas assets into the asset manager.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>textureAtlasNames</code> - texture atlas filenames</dd>
-</dl>
+<h3><a id="loadAssets(java.lang.String[],java.lang.Class)">loadAssets</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadAssets</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;filePaths,
+java.lang.Class&lt;?&gt;&nbsp;type)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
-<h3><a id="loadSounds(java.lang.String[])">loadSounds</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadSounds</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;soundNames)</span></div>
-<div class="block">Loads a list of sounds into the asset manager.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>soundNames</code> - sound filenames</dd>
-</dl>
-</section>
-</li>
-<li class="blockList">
-<section class="detail">
-<h3><a id="loadMusic(java.lang.String[])">loadMusic</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">loadMusic</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;musicNames)</span></div>
-<div class="block">Loads a list of music assets into the asset manager.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>musicNames</code> - music filenames</dd>
-</dl>
+<h3><a id="unloadAsset(java.lang.String)">unloadAsset</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unloadAsset</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath)</span></div>
 </section>
 </li>
 <li class="blockList">
 <section class="detail">
 <h3><a id="unloadAssets(java.lang.String[])">unloadAssets</a></h3>
-<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unloadAssets</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;assetNames)</span></div>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">unloadAssets</span>&#8203;(<span class="arguments">java.lang.String[]&nbsp;filePaths)</span></div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getDefaultClass(java.lang.String)">getDefaultClass</a></h3>
+<div class="memberSignature"><span class="modifiers">public static</span>&nbsp;<span class="returnType">java.lang.Class&lt;?&gt;</span>&nbsp;<span class="memberName">getDefaultClass</span>&#8203;(<span class="arguments">java.lang.String&nbsp;filepath)</span></div>
 </section>
 </li>
 <li class="blockList">

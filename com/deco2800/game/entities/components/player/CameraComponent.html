@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.js"></script>
 </head>
 <body class="class-declaration">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -113,7 +113,7 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 <h3>Fields inherited from class&nbsp;com.deco2800.game.generic.<a href="../../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="fields.inherited.from.class.com.deco2800.game.generic.Component">
 <!--   -->
-</a><code><a href="../../../generic/Component.html#creationPriority">creationPriority</a>, <a href="../../../generic/Component.html#enabled">enabled</a>, <a href="../../../generic/Component.html#entity">entity</a></code></div>
+</a><code><a href="../../../generic/Component.html#createPriority">createPriority</a>, <a href="../../../generic/Component.html#enabled">enabled</a>, <a href="../../../generic/Component.html#entity">entity</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -164,23 +164,40 @@ extends <a href="../../../generic/Component.html" title="class in com.deco2800.g
 </thead>
 <tbody>
 <tr class="altColor" id="i0">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Called when the entity is created and registered.</div>
+</td>
+</tr>
+<tr class="rowColor" id="i1">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/Camera.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics" class="externalLink">Camera</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCamera()">getCamera</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i1">
+<tr class="altColor" id="i2">
+<td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getLastPosition()">getLastPosition</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor" id="i3">
 <td class="colFirst"><code><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Matrix4.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Matrix4</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getProjectionMatrix()">getProjectionMatrix</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor" id="i2">
+<tr class="altColor" id="i4">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resize(int,int,float)">resize</a></span>&#8203;(int&nbsp;screenWidth,
 int&nbsp;screenHeight,
 float&nbsp;gameWidth)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor" id="i3">
+<tr class="rowColor" id="i5">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTarget(com.deco2800.game.entities.Entity)">setTarget</a></span>&#8203;(<a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor" id="i6">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#update()">update</a></span>()</code></th>
 <td class="colLast">
@@ -195,7 +212,7 @@ float&nbsp;gameWidth)</code></th>
 <h3>Methods inherited from class&nbsp;com.deco2800.game.generic.<a href="../../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></h3>
 <a id="methods.inherited.from.class.com.deco2800.game.generic.Component">
 <!--   -->
-</a><code><a href="../../../generic/Component.html#create()">create</a>, <a href="../../../generic/Component.html#dispose()">dispose</a>, <a href="../../../generic/Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../../../generic/Component.html#getCreationPriority()">getCreationPriority</a>, <a href="../../../generic/Component.html#getEntity()">getEntity</a>, <a href="../../../generic/Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../../../generic/Component.html#setEntity(com.deco2800.game.entities.Entity)">setEntity</a>, <a href="../../../generic/Component.html#toString()">toString</a>, <a href="../../../generic/Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../../../generic/Component.html#triggerUpdate()">triggerUpdate</a></code></div>
+</a><code><a href="../../../generic/Component.html#dispose()">dispose</a>, <a href="../../../generic/Component.html#earlyUpdate()">earlyUpdate</a>, <a href="../../../generic/Component.html#getCreationPriority()">getCreationPriority</a>, <a href="../../../generic/Component.html#getEntity()">getEntity</a>, <a href="../../../generic/Component.html#setEnabled(boolean)">setEnabled</a>, <a href="../../../generic/Component.html#setEntity(com.deco2800.game.entities.Entity)">setEntity</a>, <a href="../../../generic/Component.html#toString()">toString</a>, <a href="../../../generic/Component.html#triggerEarlyUpdate()">triggerEarlyUpdate</a>, <a href="../../../generic/Component.html#triggerUpdate()">triggerUpdate</a></code></div>
 <div class="inheritedList">
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <a id="methods.inherited.from.class.java.lang.Object">
@@ -238,6 +255,19 @@ float&nbsp;gameWidth)</code></th>
 <ul class="blockList">
 <li class="blockList">
 <section class="detail">
+<h3><a id="create()">create</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">create</span>()</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../generic/Component.html#create()">Component</a></code></span></div>
+<div class="block">Called when the entity is created and registered. Initial logic such as calls to GetComponent
+ should be made here, not in the constructor which is called before an entity is finished.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="../../../generic/Component.html#create()">create</a></code>&nbsp;in class&nbsp;<code><a href="../../../generic/Component.html" title="class in com.deco2800.game.generic">Component</a></code></dd>
+</dl>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
 <h3><a id="update()">update</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">update</span>()</div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../generic/Component.html#update()">Component</a></code></span></div>
@@ -259,6 +289,18 @@ float&nbsp;gameWidth)</code></th>
 <section class="detail">
 <h3><a id="getCamera()">getCamera</a></h3>
 <div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/Camera.html?is-external=true" title="class or interface in com.badlogic.gdx.graphics" class="externalLink">Camera</a></span>&nbsp;<span class="memberName">getCamera</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="getLastPosition()">getLastPosition</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType"><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Vector2.html?is-external=true" title="class or interface in com.badlogic.gdx.math" class="externalLink">Vector2</a></span>&nbsp;<span class="memberName">getLastPosition</span>()</div>
+</section>
+</li>
+<li class="blockList">
+<section class="detail">
+<h3><a id="setTarget(com.deco2800.game.entities.Entity)">setTarget</a></h3>
+<div class="memberSignature"><span class="modifiers">public</span>&nbsp;<span class="returnType">void</span>&nbsp;<span class="memberName">setTarget</span>&#8203;(<span class="arguments"><a href="../../Entity.html" title="class in com.deco2800.game.entities">Entity</a>&nbsp;target)</span></div>
 </section>
 </li>
 <li class="blockList">
