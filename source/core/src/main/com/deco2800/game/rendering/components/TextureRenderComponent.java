@@ -3,6 +3,7 @@ package com.deco2800.game.rendering.components;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.deco2800.game.generic.ComponentPriority;
 import com.deco2800.game.generic.ServiceLocator;
 
 /** Render a static texture. */
@@ -19,7 +20,7 @@ public class TextureRenderComponent extends RenderComponent {
 
   /** @param texture Static texture to render. Will be scaled to the entity's scale. */
   public TextureRenderComponent(Texture texture) {
-    creationPriority = 0;
+    createPriority = ComponentPriority.TEXTURE.ordinal();
     this.texture = texture;
   }
 

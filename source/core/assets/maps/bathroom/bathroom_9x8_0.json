@@ -1,0 +1,38 @@
+{
+  tileMap: {
+    a: [tile_white_0, 0]
+  }
+  entityMap: {
+    W: [object_wall_0, 0]
+    s: [object_sink_0, 0]
+    B: [object_bath_0, 0]
+    b: [object_bin_0, 0]
+    t: [object_plant_0, 0]
+    T: [object_towel_0, 0]
+    S: [object_shelf_0, 0]
+    P: [object_toilet_0, 0]
+    p: [chore_puddle_0, 0]
+  }
+  tileGrid: [
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a, a]
+  ]
+  entityGrid: [
+    [W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., B, ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, s, ., ., ., p, ., ., ., W]
+    [W, P, ., ., ., ., ., ., ., W]
+    [W, b, ., ., ., ., ., ., ., W]
+    [W, ., ., p, ., ., p, ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W]
+  ]
+}

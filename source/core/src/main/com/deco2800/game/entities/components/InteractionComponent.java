@@ -4,6 +4,7 @@ package com.deco2800.game.entities.components;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.deco2800.game.entities.Entity;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.generic.ComponentPriority;
 import com.deco2800.game.physics.PhysicsLayer;
 import com.deco2800.game.physics.components.HitboxComponent;
 
@@ -17,6 +18,10 @@ public class InteractionComponent extends Component implements Interactable {
 
     protected short targetLayer;
     protected HitboxComponent hitbox;
+
+    public InteractionComponent() {
+        createPriority = ComponentPriority.ACTION.ordinal();
+    }
 
     @Override
     public void create() {

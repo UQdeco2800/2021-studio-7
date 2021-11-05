@@ -4,6 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.deco2800.game.GdxGame;
 import com.deco2800.game.chores.ChoreController;
 import com.deco2800.game.entities.EntityService;
+import com.deco2800.game.entities.components.ScoreComponent;
 import com.deco2800.game.input.InputService;
 import com.deco2800.game.maps.Home;
 import com.deco2800.game.physics.PhysicsService;
@@ -29,6 +30,7 @@ public class ServiceLocator {
   private static InputService inputService;
   private static ResourceService resourceService;
   private static ChoreController choreController;
+  private static ScoreComponent scoreComponent;
 
   public static GdxGame getGame() {
     return game;
@@ -41,6 +43,8 @@ public class ServiceLocator {
   public static Home getHome() {
     return home;
   }
+
+  public static ScoreComponent getScoreComponent() {return scoreComponent;}
 
   public static EntityService getEntityService() {
     return entityService;
@@ -78,6 +82,7 @@ public class ServiceLocator {
   public static void registerHome(Home source) {
     logger.debug("Registering Home {}", source);
     home = source;
+    home.create();
   }
 
   public static void registerEntityService(EntityService service) {
@@ -113,6 +118,11 @@ public class ServiceLocator {
   public static void registerChoreController(ChoreController source) {
     logger.debug("Registering chore controller {}", source);
     choreController = source;
+  }
+
+  public static void registerScoreComponent(ScoreComponent source) {
+    logger.debug("Register score component {}", source);
+    scoreComponent = source;
   }
 
   public static void clear() {

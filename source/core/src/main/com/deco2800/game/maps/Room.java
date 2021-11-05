@@ -7,12 +7,14 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.deco2800.game.files.FileLoader;
-import com.deco2800.game.utils.math.GridPoint2Utils;
 import com.deco2800.game.utils.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -23,92 +25,83 @@ public class Room implements Json.Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Room.class);
     // Defined from deserialization or constructor injection
     private String type;
-    private GridPoint2 offset;
     private GridPoint2 dimensions;
-    // Defined from deserialization (when interior is defined) or constructor injection
-    private ObjectMap<Character, GridObject> tileMap;
-    private ObjectMap<Character, GridObject> entityMap;
+    private GridPoint2 offset;
+    // Defined from deserialization, constructor injection or initialisation
+    private ObjectMap<Character, ObjectDescription> tileMap;
+    private ObjectMap<Character, ObjectDescription> entityMap;
     private Character[][] tileGrid;
     private Character[][] entityGrid;
-    // Defined from constructor injection
+    // Defined from initialisation
     private Floor floor;
-    private boolean created = false;
+    private Character key;
 
-    public Room() {
-    }
-
-    public Room(String type, GridPoint2 offset, GridPoint2 dimensions) {
-        this(type, offset, dimensions, null);
-    }
-
-    public Room(String type, GridPoint2 offset, GridPoint2 dimensions, Interior interior) {
-        this.type = type;
-        this.offset = offset;
-        this.dimensions = dimensions;
-        if (interior != null) {
-            this.tileMap = interior.getTileMap();
-            this.entityMap = interior.getEntityMap();
-            this.tileGrid = interior.getTileGrid();
-            this.entityGrid = interior.getEntityGrid();
-        }
-    }
-
-    public void create() {
-        if (!created) {
-            if (type.equals("hallway")) {
-                createHallwayInterior();
-            } else if (tileMap == null) {
-                createRandomInterior();
+    public void initialise() {
+        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(floor.getRoomMap())) {
+            if (entry.value == this) {
+                key = entry.key;
+                break;
             }
         }
-        created = true;
+
+        if (type.equals("hallway")) {
+            initialiseHallwayInterior();
+        } else if (tileMap == null) {
+            initialiseRandomInterior();
+        }
     }
 
     /**
      * Creates a basic room interior with the default floor tile texture.
      */
-    private void createHallwayInterior() {
+    private void initialiseHallwayInterior() {
         tileMap = new ObjectMap<>();
         entityMap = new ObjectMap<>();
-        entityMap.put('W', floor.getDefaultInteriorWall());
-        tileGrid = new Character[dimensions.x][dimensions.y];
-        entityGrid = new Character[dimensions.x][dimensions.y];
+        entityMap.put('W', floor.getDefaultWall());
+        tileGrid = new Character[dimensions.x + 1][dimensions.y + 1];
+        entityGrid = new Character[dimensions.x + 1][dimensions.y + 1];
+        Character roomKey = getKey();
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
-                tileGrid[x][y] = '.';
-                if (x == 0 || y == dimensions.y - 1) {
-                    Character floorOverride = floor.getFloorGrid()[x + offset.x][y + offset.y];
-                    if (floor.getEntityMap().get(floorOverride) != null) {
-                        entityGrid[x][y] = floorOverride;
-                        floor.getFloorGrid()[x + offset.x][y + offset.y] = getRoomKey();
+                Character floorKey = floor.getFloorGrid()[x + offset.x][y + offset.y];
+                if (floorKey.equals(roomKey)) {
+                    tileGrid[x][y + 1] = '.';
+                } else {
+                    tileGrid[x][y + 1] = floorKey;
+                }
+                if (floorKey.equals(roomKey)) {
+                    if (x == 0 || y == dimensions.y - 1) {
+                        entityGrid[x][y + 1] = 'W';
                     } else {
-                        entityGrid[x][y] = 'W';
+                        entityGrid[x][y + 1] = '.';
                     }
                 } else {
-                    entityGrid[x][y] = '.';
+                    entityGrid[x][y + 1] = floorKey;
                 }
             }
         }
+        relaxFloorToRoom();
     }
 
     /**
      * Queries for a list of JSON files in a pre-defined directory. Selects one at random
      * and initialises the room interior plan.
      */
-    private void createRandomInterior() {
+    private void initialiseRandomInterior() {
         List<FileHandle> fileHandles = FileLoader.getJsonFiles(Home.DIRECTORY.concat(type));
 
         Interior randomInterior;
         do {
             FileHandle fileHandle = fileHandles.get(RandomUtils.getSeed().nextInt(fileHandles.size()));
-            fileHandles.remove(fileHandle);
 
             randomInterior = FileLoader.readClass(Interior.class, fileHandle.path());
             randomInterior.setRoom(this);
 
-            if (!dimensions.equals(randomInterior.getDimensions()) || !randomInterior.calibrateInteriorToRoom()) {
+            if (!randomInterior.calibrateDimensions(dimensions) || !randomInterior.calibrateInterior()) {
                 randomInterior = null;
             }
+
+            fileHandles.remove(fileHandle);
         } while (randomInterior == null && !fileHandles.isEmpty());
 
         if (randomInterior == null) {
@@ -123,98 +116,100 @@ public class Room implements Json.Serializable {
     }
 
     private void relaxFloorToRoom() {
-        Character roomKey = getRoomKey();
+        Character roomKey = getKey();
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                floor.getFloorGrid()[worldPos.x][worldPos.y] = roomKey;
+                Character floorKey = floor.getFloorGrid()[worldPos.x][worldPos.y];
+                if (!floor.getRoomMap().containsKey(floorKey)) {
+                    floor.getFloorGrid()[worldPos.x][worldPos.y] = roomKey;
+                }
             }
         }
     }
 
     /**
-     * Spawns all tiles related to this room by invoking their creation method. If a tile
+     * Creates all tiles related to this room by invoking their creation method. If a tile
      * symbol is not defined on the grid, it is assumed that the default floor tile texture
      * is to be used.
+     *
      * @param layer tile grid with this room's additions
      */
-    public void spawnRoomTiles(TiledMapTileLayer layer) {
+    public void createRoomTiles(TiledMapTileLayer layer) {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                GridObject roomTile = tileMap.get(tileGrid[x][y]);
-                if (roomTile == null) {
-                    roomTile = floor.getDefaultInteriorTile();
+                if (floor.getFloorGrid()[worldPos.x][worldPos.y].equals(getKey())) {
+                    Character key = tileGrid[x][y + 1];
+                    ObjectDescription tileDesc = tileMap.get(key);
+                    if (tileDesc == null) {
+                        tileDesc = floor.getTileMap().get(key);
+                    }
+                    floor.createGridTile(tileDesc, worldPos, layer);
                 }
-                floor.spawnGridTile(roomTile, worldPos, layer);
             }
         }
     }
 
     /**
-     * Spawns all entities related to this room by invoking their creation method. If an entity
-     * symbol is not defined on the grid, it is assumed that no entity should be spawned there.
+     * Creates all entities related to this room by invoking their creation method. If an entity
+     * symbol is not defined on the grid, it is assumed that no entity should be created there.
      * If the room's key is not present at the relative world position on the floor plan,
      * then it is assumed that the room entity is overridden by the floor plan.
      */
-    public void spawnRoomEntities() {
+    public void createRoomEntities() {
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 GridPoint2 worldPos = new GridPoint2(x + offset.x, y + offset.y);
-                Character roomSymbol = entityGrid[x][y];
-                GridObject roomEntity = entityMap.get(roomSymbol);
-                if (roomEntity == null && !roomSymbol.equals('.')) {
-                    roomEntity = floor.getEntityMap().get(roomSymbol);
-                }
-                if (roomEntity == null) {
-                    continue;
-                }
-                if (roomEntity.getMethod().getName().equals("createBed")) {
-                    floor.stashBedPosition(worldPos);
-                } else {
-                    floor.spawnGridEntity(roomEntity, worldPos);
+                if (floor.getFloorGrid()[worldPos.x][worldPos.y].equals(getKey())) {
+                    Character key = entityGrid[x][y + 1];
+                    ObjectDescription entityDesc = entityMap.get(key);
+                    if (entityDesc == null && !key.equals('.')) {
+                        entityDesc = floor.getEntityMap().get(key);
+                    }
+                    floor.createGridEntity(entityDesc, worldPos);
                 }
             }
         }
     }
 
     /**
-     * @return list of all valid spawn locations for dynamic entities (e.g. players). These entities are
-     * typically not defined in the prefabrication files. Null if room type is not a valid spawning
+     * @return list of all valid create locations for dynamic entities (e.g. players). These entities are
+     * typically not defined in the prefabrication files. Null if room type is not a valid creating
      * room type.
      */
-    public List<GridPoint2> getValidSpawnLocations() {
-        if (Arrays.stream(validSpawnRooms).noneMatch(Predicate.isEqual(type))) {
+    public List<GridPoint2> getValidCreateLocations() {
+        if (Arrays.stream(validCreateRooms).noneMatch(Predicate.isEqual(type))) {
             return new ArrayList<>();
         }
-        List<GridPoint2> validSpawnLocations = new ArrayList<>();
-        for (int x = 0; x < entityGrid.length; x++) {
-            for (int y = 0; y < entityGrid[x].length; y++) {
-                if (!entityMap.containsKey(entityGrid[x][y])) {
-                    validSpawnLocations.add(new GridPoint2(x + offset.x, y + offset.y));
+        List<GridPoint2> validCreateLocations = new ArrayList<>();
+        for (int x = 0; x < dimensions.x; x++) {
+            for (int y = 0; y < dimensions.y; y++) {
+                if (!entityMap.containsKey(entityGrid[x][y + 1])) {
+                    validCreateLocations.add(new GridPoint2(x + offset.x, y + offset.y));
                 }
             }
         }
-        return validSpawnLocations;
+        return validCreateLocations;
     }
 
-    public GridPoint2 getOffset() {
-        return offset;
-    }
-
-    public void setOffset(GridPoint2 offset) {
-        this.offset = offset;
+    public String getType() {
+        return type;
     }
 
     public GridPoint2 getDimensions() {
         return dimensions;
     }
 
-    public ObjectMap<Character, GridObject> getTileMap() {
+    public GridPoint2 getOffset() {
+        return offset;
+    }
+
+    public ObjectMap<Character, ObjectDescription> getTileMap() {
         return tileMap;
     }
 
-    public ObjectMap<Character, GridObject> getEntityMap() {
+    public ObjectMap<Character, ObjectDescription> getEntityMap() {
         return entityMap;
     }
 
@@ -226,39 +221,39 @@ public class Room implements Json.Serializable {
         return entityGrid;
     }
 
-    public void setFloor(Floor floor) {
-        this.floor = floor;
-    }
-
     public Floor getFloor() {
         return floor;
     }
 
-    public Character getRoomKey() {
-        for (ObjectMap.Entry<Character, Room> entry : new ObjectMap.Entries<>(floor.getRoomMap())) {
-            if (entry.value == this) {
-                return entry.key;
-            }
-        }
-        return null;
+    public Character getKey() {
+        return key;
     }
 
-    /**
-     * @param extension specific extension for all assets returned
-     * @return asset filenames from the room to the individual objects
-     */
-    public List<String> getAssets(String extension) {
-        List<String> assetsWithExtension = new ArrayList<>(getAssets(tileMap, extension));
-        assetsWithExtension.addAll(getAssets(entityMap, extension));
-        return assetsWithExtension;
+    public void setOffset(GridPoint2 offset) {
+        this.offset = offset;
     }
 
-    private List<String> getAssets(ObjectMap<Character, GridObject> map, String extension) {
-        List<String> assetsWithExtension = new ArrayList<>();
-        for (GridObject gridObject : new ObjectMap.Values<>(map)) {
-            assetsWithExtension.addAll(gridObject.getAssets(extension));
+    public void setFloor(Floor floor) {
+        this.floor = floor;
+    }
+
+    @Override
+    public void write(Json json) {
+        // No purpose yet
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        try {
+            String[] args = jsonData.asStringArray();
+            type = args[0];
+            dimensions = new GridPoint2(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            offset = new GridPoint2(Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+
+            assertValidType(type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
-        return assetsWithExtension;
     }
 
     @Override
@@ -271,63 +266,20 @@ public class Room implements Json.Serializable {
         }
         Room room = (Room) o;
         return Objects.equals(type, room.type) &&
-                Objects.equals(offset, room.offset) &&
-                Objects.equals(dimensions, room.dimensions) &&
-                Objects.equals(tileMap, room.tileMap) &&
-                Objects.equals(entityMap, room.entityMap) &&
-                Arrays.deepEquals(tileGrid, room.tileGrid) &&
-                Arrays.deepEquals(entityGrid, room.entityGrid);
+            Objects.equals(offset, room.offset) &&
+            Objects.equals(dimensions, room.dimensions) &&
+            Objects.equals(tileMap, room.tileMap) &&
+            Objects.equals(entityMap, room.entityMap) &&
+            Arrays.deepEquals(tileGrid, room.tileGrid) &&
+            Arrays.deepEquals(entityGrid, room.entityGrid);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(type, offset, dimensions, tileMap, entityMap, floor, created);
+        int result = Objects.hash(type, offset, dimensions, tileMap, entityMap, floor);
         result = 31 * result + Arrays.deepHashCode(tileGrid);
         result = 31 * result + Arrays.deepHashCode(entityGrid);
         return result;
-    }
-
-    @Override
-    public void write(Json json) {
-        json.writeObjectStart();
-        json.writeValue("type", type);
-        json.writeValue("offset", offset);
-        json.writeValue("dimensions", dimensions);
-        json.writeObjectEnd();
-    }
-
-    @Override
-    public void read(Json json, JsonValue jsonData) {
-        try {
-            JsonValue iterator = jsonData.child();
-            FileLoader.assertJsonValueName(iterator, "type");
-            type = iterator.asString();
-            Room.assertValidType(type);
-
-            iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "offset");
-            offset = GridPoint2Utils.read(iterator);
-
-            iterator = iterator.next();
-            FileLoader.assertJsonValueName(iterator, "dimensions");
-            dimensions = GridPoint2Utils.read(iterator);
-
-            iterator = iterator.next();
-            if (iterator != null) {
-                FileLoader.assertJsonValueName(iterator, "interior");
-                Interior interior = new Interior();
-                interior.read(json, iterator);
-                tileMap = interior.getTileMap();
-                entityMap = interior.getEntityMap();
-                tileGrid = interior.getTileGrid();
-                entityGrid = interior.getEntityGrid();
-                iterator = iterator.next();
-            }
-
-            FileLoader.assertJsonValueNull(iterator);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
     }
 
     private static void assertValidType(String type) {
@@ -337,10 +289,10 @@ public class Room implements Json.Serializable {
     }
 
     private static final String[] validRoomTypes = {
-            "bathroom", "bedroom", "dining", "front_foyer", "garage", "hallway", "kitchen", "laundry", "living"
+        "bathroom", "bedroom", "dining", "front_foyer", "garage", "hallway", "kitchen", "laundry", "living", "garden"
     };
 
-    private static final String[] validSpawnRooms = {
-            "living"
+    private static final String[] validCreateRooms = {
+        "living"
     };
 }

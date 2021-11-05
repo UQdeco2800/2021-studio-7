@@ -1,73 +1,38 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png, 0]
-    }
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    }
-    B: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createBed
-      assets:[images/objects/bed/bed_animation.atlas, 0, 4, 0]
-    }
-    b: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createBookcase
-      assets: [images/objects/furniture/bookshelf_new_southeast.png, 0, 0, 0]
-    }
-    d: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createDesk
-      assets: [images/objects/furniture/desk_southeast.png, 0, 0, 0]
-    }
-    c: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createChair
-      assets: [images/objects/furniture/chair_left.png, 0, 0, 0]
-    }
-    s: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createSideTable
-      assets: [images/objects/furniture/sidetable_southeast.png, 0, 0, 0]
-    }
-    p: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createSideTable
-      assets: [images/objects/furniture/pet-met.png, 0, 0, 0]
-    },
-    C: {
-      class: com.deco2800.game.entities.factories.ObjectFactory,
-      method: createStorageCabinet,
-      assets: [images/objects/furniture/Storage_cabinet_southeast.png, 0, 0, 0]
-    }
+    W: [object_wall_0, 0]
+    B: [interactive_bed_0, 0]
+    b: [object_bookshelf_0, 0]
+    d: [object_desk_0, 0]
+    c: [object_chair_0, 0]
+    s: [object_side_table_0, 0]
+    p: [object_pet_bed_0, 0]
+    C: [object_storage_cabinet_0, 0]
   }
   tileGrid: [
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .],
-    [., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
+    [., ., ., ., ., ., ., ., ., .]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W, W],
-    [W, ., ., ., ., ., ., ., .],
-    [W, C, ., s, B, ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .],
-    [W, d, c, ., ., ., ., ., .],
-    [W, b, ., ., ., ., ., ., .],
-    [W, b, ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W, W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, C, ., s, B, ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, d, c, ., ., ., ., ., ., W]
+    [W, b, ., ., ., ., ., ., ., W]
+    [W, b, ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W, W]
   ]
 }

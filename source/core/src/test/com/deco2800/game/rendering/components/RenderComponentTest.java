@@ -58,9 +58,9 @@ class RenderComponentTest {
 
     entity1.setPosition(0f, 1f);
     entity2.setPosition(0f, 2f);
-    assertTrue(component1.getZIndex() > component2.getZIndex());
+    assertTrue(component1.getRenderPriority() > component2.getRenderPriority());
 
     entity2.setPosition(5f, -3f);
-    assertTrue(component1.getZIndex() < component2.getZIndex());
+    assertTrue(component1.getRenderPriority() < component2.getRenderPriority());
   }
 }

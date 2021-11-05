@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.deco2800.game.entities.components.CombatStatsComponent;
 import com.deco2800.game.generic.Component;
+import com.deco2800.game.input.components.KeyboardPlayerInputComponent;
 import com.deco2800.game.physics.components.PhysicsComponent;
 
 /**
@@ -49,7 +50,6 @@ public class PlayerActions extends Component {
           this.energydrinkticks = 0;
         }
       }
-      entity.getEvents().trigger("change_score", -1);
     }
     // update the stamina value of player
     updateStamina();

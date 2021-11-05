@@ -1,106 +1,41 @@
 {
   tileMap: {
-    a: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_floor_tiles_quarter_white.png]
-    }
+    a: [tile_white_1, 0]
   }
   entityMap: {
-    W: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/3.png, 0, 0, 0]
-    }
-    f: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createFridge
-      assets: [images/objects/furniture/fridge_southwest.png, 0, 0, 0]
-    }
-    c: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_table.png, 0, 0, 0]
-
-    }
-    C: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_table.png, 0, 0, 0]
-
-    }
-    s: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_sink.png, 0, 0, 0]
-    }
-    S: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createCabinet
-      assets: [images/objects/furniture/new_kitchen_stove.png, 0, 0, 0]
-    }
-    b: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createBin
-      assets: [images/objects/furniture/bath_bin.png, 0, 0, 0]
-    }
-    p: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createPuddle //make puddle a atlas
-      assets: [images/objects/puddle/puddle.atlas, 2, 5, 3]
-    }
-    P: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createBaseInteractable
-      assets: [images/objects/banana_peel/banana.atlas, 1, 5, 3]
-    }
-    E: {
-      class:com.deco2800.game.entities.factories.ObjectFactory
-      method: createBaseChore
-      assets: [images/objects/energy_drink/energy.atlas, 1, 2, 2]
-    },
-    Y: {
-      class:com.deco2800.game.entities.factories.ObjectFactory,
-      method: createStove,
-      assets: [images/objects/furniture/stove_southeast.png, 0, 0, 0]
-    },
-    w: {
-      class:com.deco2800.game.entities.factories.ObjectFactory,
-      method: createDishwasher,
-      assets: [images/objects/dish_washer/dishwashing_animation.atlas, 0, 6, 4]
-    }
+    W: [object_wall_0, 0]
+    f: [object_fridge_0, 0]
+    c: [object_bench_top_0, 0]
+    s: [object_bench_top_1, 0]
+    S: [object_bench_top_2, 0]
+    b: [object_bin_0, 0]
+    p: [chore_puddle_0, 0]
+    P: [chore_banana_peel_0, 0]
+    E: [chore_energy_drink_0, 0]
+    w: [chore_dishwasher_0, 0]
   }
   tileGrid: [
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a],
-    [a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
+    [a, a, a, a, a, a, a, a, a]
   ]
   entityGrid: [
-    [W, W, W, W, W, W, W, W],
-    [W, c, f, ., c, c, ., .],
-    [W, c, ., ., ., ., ., .],
-    [W, S, ., ., ., ., ., .],
-    [W, s, ., P, ., ., ., .],
-    [W, c, ., ., ., ., ., .],
-    [W, w, ., ., ., ., ., p],
-    [W, ., ., ., ., ., ., .],
-    [W, ., ., ., ., ., ., .]
+    [W, W, W, W, W, W, W, W, W]
+    [W, c, f, ., c, c, ., ., W]
+    [W, c, ., ., ., ., ., ., W]
+    [W, S, ., ., ., ., ., ., W]
+    [W, s, ., P, ., ., ., ., W]
+    [W, c, ., ., ., ., ., ., W]
+    [W, w, ., ., ., ., ., p, W]
+    [W, ., ., ., ., ., ., ., W]
+    [W, ., ., ., ., ., ., ., W]
+    [W, W, W, W, W, W, W, W, W]
   ]
-  /*choreGrid: [
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .],
-    [., ., ., ., ., .]
-  ]*/
 }

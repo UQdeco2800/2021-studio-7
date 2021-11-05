@@ -41,12 +41,15 @@ public class PlayerFactory {
       FileLoader.readClass(PlayerConfig.class, "configs/player.json");
 
   public static Entity createPlayer(String[] assets) {
+    ScoreComponent score = new ScoreComponent(0);
+    ServiceLocator.registerScoreComponent(score);
+
     Entity player = createBasePlayer(assets)
             .addComponent(new CombatStatsComponent(stats.health, stats.baseAttack, stats.stamina))
             .addComponent(new PlayerStatDisplay())
             .addComponent(new InteractionControllerComponent())
             .addComponent(new PlayerActions())
-            .addComponent(new ScoreComponent(2500))
+            .addComponent(score)
             .addComponent(new PhysicsMovementComponent())
             .addComponent(new AITaskComponent().addTask(new SlipTask()));
 
@@ -61,7 +64,7 @@ public class PlayerFactory {
             .addComponent(new ColliderComponent().setDensity(1.5f))
             .addComponent(new HitboxComponent().setLayer(PhysicsLayer.PLAYER));
     PhysicsUtils.setScaledCollider(player, 0.5f, 0.5f);
-    PhysicsUtils.setColliderShape(player, 0.5f, 0.5f);
+    PhysicsUtils.setColliderShape(player, 0.55f, 0.55f);
     PhysicsUtils.setScaledHitbox(player, 1f, 1f);
 
     // Set player to have a base input component

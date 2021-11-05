@@ -14,10 +14,21 @@ public class WashingDishesActions extends InteractionComponent {
     private int count = 0;
     private long startTime;
 
+    private static final int NOT_WORK_0 = 0;
+    private static final int NOT_WORK_1 = 1;
+    private static final int NOT_WORK_2 = 2;
+    private static final int NOT_WORK_3 = 3;
+    private static final int WORKING = 4;
+    private static final int HIGHLIGHT_OFFSET = 5;
+    private static final int HIGHLIGHT_0 = 5;
+    private static final int HIGHLIGHT_1 = 6;
+    private static final int HIGHLIGHT_2 = 7;
+    private static final int HIGHLIGHT_3 = 8;
+
     @Override
     public void create() {
         super.create();
-        entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking");
+        entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking0");
     }
 
     @Override
@@ -29,43 +40,59 @@ public class WashingDishesActions extends InteractionComponent {
 
     @Override
     public void toggleHighlight(boolean shouldHighlight) {
+        // Only toggle highlight on unactivated dishes
+        //if (count != 0) return;
+
         if (shouldHighlight) {
             logger.debug("DISHWASHER started collision with PLAYER");
+            triggerAnimationChange(count + HIGHLIGHT_OFFSET);
         } else {
             logger.debug("DISHWASHER ended collision with PLAYER");
+            triggerAnimationChange(count);
         }
-        triggerAnimationChange(count);
     }
 
     private void triggerDishWasherInteracted() {
         logger.debug("PLAYER interacted with DISHWASHER, triggering dishwasher interacted");
-        if (count == 0) {
+        if (count == NOT_WORK_0) {
             count++;
-            triggerAnimationChange(count);
             startTime = ServiceLocator.getTimeSource().getTime();
         }
         long currentTime = ServiceLocator.getTimeSource().getTime();
-        if (currentTime - startTime >= 500L){
+        if (currentTime - startTime >= 500L && count < WORKING){
             count++;
-            triggerAnimationChange(count);
+            //triggerAnimationChange(count);
             startTime = ServiceLocator.getTimeSource().getTime();
         }
+        triggerAnimationChange(count + HIGHLIGHT_OFFSET);
     }
 
 
     private void triggerAnimationChange(int count){
         switch (count) {
-            case 0:
-                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking");
+            case NOT_WORK_0:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking0");
                 break;
-            case 1:
+            case NOT_WORK_1:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking1");
+                break;
+            case NOT_WORK_2:
                 entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking2");
                 break;
-            case 2:
+            case NOT_WORK_3:
                 entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking3");
                 break;
-            case 3:
-                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking4");
+            case HIGHLIGHT_0:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking0_highlight");
+                break;
+            case HIGHLIGHT_1:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking1_highlight");
+                break;
+            case HIGHLIGHT_2:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking2_highlight");
+                break;
+            case HIGHLIGHT_3:
+                entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_notworking3_highlight");
                 break;
             default:
                 entity.getEvents().trigger(UPDATE_ANIMATION, "dishwasher_working");

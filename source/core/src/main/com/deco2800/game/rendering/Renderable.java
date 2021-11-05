@@ -16,7 +16,7 @@ public interface Renderable extends Comparable<Renderable> {
    * Z index controls rendering order within a layer. Higher Z index is drawn on top.
    * @return Z index
    */
-  float getZIndex();
+  float getRenderPriority();
 
   /**
    * Layer to be rendered in. Higher layers will be rendered on top of lower layers.

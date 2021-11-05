@@ -63,7 +63,7 @@ public class TerrainComponent extends RenderComponent {
   }
 
   @Override
-  public float getZIndex() {
+  public float getRenderPriority() {
     return 0f;
   }
 

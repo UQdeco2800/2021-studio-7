@@ -5,13 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.deco2800.game.files.UserSettings;
 import com.deco2800.game.generic.ServiceLocator;
-import com.deco2800.game.screens.context.ContextScreen;
-import com.deco2800.game.screens.endgame.EndGameScreen;
-import com.deco2800.game.screens.maingame.MainGameScreen;
-import com.deco2800.game.screens.mainmenu.MainMenuScreen;
-import com.deco2800.game.screens.settingsmenu.SettingsScreen;
-import com.deco2800.game.screens.leaderboard.LeaderBoardScreen;
-import com.deco2800.game.screens.title.TitleScreen;
+import com.deco2800.game.screens.end.EndScreen;
+import com.deco2800.game.screens.game.GameScreen;
+import com.deco2800.game.screens.menu.MenuScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +20,8 @@ import static com.badlogic.gdx.Gdx.app;
  */
 public class GdxGame extends Game {
   private static final Logger logger = LoggerFactory.getLogger(GdxGame.class);
+  private String username;
+  private int level = 0;
 
   @Override
   public void create() {
@@ -33,7 +31,7 @@ public class GdxGame extends Game {
     // Sets background to black
     Gdx.gl.glClearColor(0/255f, 0/255f, 0/255f, 1);
 
-    setScreen(ScreenType.TITLE_SCREEN);
+    setScreen(ScreenType.MAIN_MENU);
     ServiceLocator.registerGame(this);
   }
 
@@ -44,6 +42,27 @@ public class GdxGame extends Game {
     logger.debug("Loading game settings");
     UserSettings.Settings settings = UserSettings.get();
     UserSettings.applySettings(settings);
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getUsername() {
+    if (this.username.isEmpty()) {
+      String placeholder = "";
+      return placeholder;
+    } else {
+      return this.username + "! ";
+    }
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
+  }
+
+  public int getLevel() {
+    return level;
   }
 
   /**
@@ -72,31 +91,23 @@ public class GdxGame extends Game {
    */
   public Screen newScreen(ScreenType screenType) {
     switch (screenType) {
-      case TITLE_SCREEN:
-        return new TitleScreen();
       case MAIN_MENU:
-        return new MainMenuScreen();
+        return new MenuScreen(this);
       case MAIN_GAME:
-        return new MainGameScreen();
-      case SETTINGS:
-        return new SettingsScreen();
-      case CONTEXT:
-        return new ContextScreen();
-      case LEADERBOARD:
-        return new LeaderBoardScreen(this);
+        return new GameScreen(this);
       case WIN_DEFAULT:
-        return new EndGameScreen(ScreenType.WIN_DEFAULT);
+        return new EndScreen(this, ScreenType.WIN_DEFAULT);
       case LOSS_TIMED:
-        return new EndGameScreen(ScreenType.LOSS_TIMED);
+        return new EndScreen(this, ScreenType.LOSS_TIMED);
       case LOSS_CAUGHT:
-        return new EndGameScreen(ScreenType.LOSS_CAUGHT);
+        return new EndScreen(this, ScreenType.LOSS_CAUGHT);
       default:
         return null;
     }
   }
 
   public enum ScreenType {
-    MAIN_MENU, PAUSE_MENU, MAIN_GAME, SETTINGS, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT, CONTEXT, TITLE_SCREEN, LEADERBOARD
+    MAIN_MENU, MAIN_GAME, WIN_DEFAULT, LOSS_TIMED, LOSS_CAUGHT
   }
 
   /**

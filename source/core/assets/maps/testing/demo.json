@@ -1,49 +1,14 @@
 {
-  defaultInteriorTile: {
-    // Used for tile region specification and null texture declarations on grid
-    class: com.deco2800.game.maps.terrain.TerrainFactory
-    method: createBaseTile
-    assets: [images/tiles/iso/iso_floor_1.png]
-  }
-  defaultInteriorWall: {
-    // Used for wall generation in hallways
-    class: com.deco2800.game.entities.factories.ObjectFactory
-    method: createWall
-    assets: [images/objects/walls/3.png]
-  }
+  defaultTile: [tile_wood_0, 0]
+  defaultWall: [object_wall_0, 0]
   tileMap: {
-    // Grass tile. Can specify multiple textures and their chance to spawn
-    _: {
-      class: com.deco2800.game.maps.terrain.TerrainFactory
-      method: createBaseTile
-      assets: [images/tiles/iso/iso_wall_1_left.png]
-    }
+    _: [tile_grass_0, 0]
   }
   entityMap: {
-    // Exterior wall. Can specify multiple textures and their chance to spawn
-    .: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createWall
-      assets: [images/objects/walls/wall.png]
-    }
-    // Creates a horizontally-facing door. In isometric view, this is northwest to southeast
-    -: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createDoor
-      assets: [images/objects/door/door_animationL.atlas]
-    }
-    // Creates a vertically-facing door. In isometric view, this is northeast to southwest
-    |: {
-      class: com.deco2800.game.entities.factories.ObjectFactory
-      method: createDoor
-      assets: [images/objects/door/door_animationL.atlas]
-    }
-    /* No entity. This overrides any entities relative to the interior's position
-    *: {
-      class: null
-      method: null
-      assets: []
-    } */
+    .: [object_wall_1, 0]
+    -: [interactive_door_wood_0_h, 0]
+    |: [interactive_door_wood_0_v, 0]
+//  *: nothing
   }
   roomMap: {
     A: {
@@ -52,43 +17,14 @@
       dimensions: [10, 15]
       interior: {
         tileMap: {
-          a: {
-            class: com.deco2800.game.maps.terrain.TerrainFactory
-            method: createBaseTile
-            assets: [images/tiles/iso/iso_wall_1_left.png]
-          }
         }
         entityMap: {
-          W: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createWall
-            assets: [images/objects/walls/3.png]
-          }
-          B: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createBed
-            assets: [images/objects/bed/bed_animation.atlas]
-          }
-          D: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createDoor
-            assets: [images/objects/door/door_animationL.atlas]
-          }
-          T: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createTv
-            assets: [images/objects/tv/TV_animation.atlas]
-          }
-          b: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createBananaPeel
-            assets: [images/objects/banana_peel/puddle.atlas]
-          }
-          U: {
-            class: com.deco2800.game.entities.factories.ObjectFactory
-            method: createPlaceableBox
-            assets: [images/objects/box/box.atlas]
-          }
+          W: [object_wall_0, 0]
+          B: [interactive_bed_0, 0]
+          D: [interactive_door_wood_0_h, 0]
+          T: [chore_tv_0, 0]
+          b: [chore_banana_peel_0, 0]
+          U: [interactive_box_0, 0]
         }
         tileGrid: [
           [., ., ., ., ., ., ., ., ., .],
